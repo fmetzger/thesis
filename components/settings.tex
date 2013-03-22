@@ -1,0 +1,100 @@
+%!TEX root = ../dissertation.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% settings
+
+% graphics and floats {{{
+
+\definecolor{Maroon}{cmyk}{0, 0.87, 0.68, 0.32}
+\definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
+\definecolor{Black}{cmyk}{0, 0, 0, 0}
+
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{mindmap}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+\graphicspath{{figures/}}
+
+\captionsetup{format=hang,font=small}
+
+\setlength{\extrarowheight}{3pt} % increase table row height
+\newcommand{\tableheadline}[1]{\spacedlowsmallcaps{#1}}
+
+% }}}
+
+% text {{{
+
+\setlist[description]{labelindent=\parindent}
+\hfuzz=1.36pt
+
+% }}}
+
+% bibliography {{{
+
+\bibliography{bibliography/literature}
+% use integers instead of a,b,c,... for same key cites
+\DeclareFieldFormat{extraalpha}{\##1}
+
+\defbibheading{bibliography}[\bibname]{
+  \manualmark
+  \markboth{\spacedlowsmallcaps{#1}}{\spacedlowsmallcaps{#1}}
+  \phantomsection
+  \addtocontents{toc}{\protect\vspace{\beforebibskip}}
+  \addcontentsline{toc}{chapter}{\tocEntry{#1}}
+  \chapter*{#1}
+}
+
+\defbibheading{resources}[\bibname]{
+  \manualmark
+  \markboth{\spacedlowsmallcaps{#1}}{\spacedlowsmallcaps{#1}}
+   \chapter{#1}
+}
+
+\defbibheading{subbibliography}[\bibname]{
+  \automark[chapter]{chapter}
+  \section{#1}
+}
+
+\renewcommand*{\finalnamedelim}{\addspace\bibstring{and}\space}
+
+% }}}
+
+% pdf {{{
+
+%\pdfcompresslevel=9
+%\pdfadjustspacing=1
+\makeatletter
+  \hypersetup{
+      colorlinks=true,
+      linktocpage=true,
+      breaklinks=true,
+      bookmarksnumbered,
+      bookmarksopen=true,
+      bookmarksopenlevel=1,
+      pdfhighlight=/O,
+      urlcolor=webbrown,
+      linkcolor=RoyalBlue,
+      citecolor=webgreen,
+      pdftitle={\@title},
+      pdfauthor={\@author}}
+      %pdfsubject={\doctype}
+\makeatother
+% }}}
+
+% toc {{{
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\setlength{\cftbeforechapskip}{0.3em}
+\setlength{\cftbeforesecskip}{0.1em}
+
+% }}}
+
+% classicthesis {{{
+
+%\newcommand{\myVersion}{}
+\renewcommand{\bflabel}[1]{{#1}\hfill} % fix the list of acronyms
+
+% }}}

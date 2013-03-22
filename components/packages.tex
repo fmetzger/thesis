@@ -1,0 +1,74 @@
+%!TEX root = ../dissertation.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% packages
+
+
+% general {{{
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[american]{babel}
+\usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
+\usepackage{scrhack} % fix komascript floattolist issues
+\usepackage[defernumbers=true,style=alphabetic,firstinits=true,backend=biber]{biblatex} % 
+\usepackage{csquotes} % ?
+\usepackage{fullpage} % ?
+\usepackage{listings} % ?
+
+
+
+\usepackage[scale=3]{ccicons} % creative commons icons
+
+
+% }}}
+
+% graphics and floats
+
+\usepackage[pdftex]{graphicx}
+\usepackage{caption} % ?
+\usepackage{multicol} % ?
+\usepackage{multirow} % ?
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{tabularx} % ?
+\usepackage{tikz}
+\usepackage{marginnote} % ?
+\usepackage{enumitem} % ?
+\usepackage{array} % ?
+\usepackage{styles/tangocolors}
+
+% }}}
+
+% layout
+
+\usepackage[pdftex,hyperfootnotes=false,pdfpagelabels]{hyperref}
+
+\PassOptionsToPackage{eulerchapternumbers,
+                      listings,
+                      pdfspacing,
+                      beramono,
+                      eulermath,
+                      parts,
+                      dottedtoc,
+                      floatperchapter,
+                      subfig,
+                     }{classicthesis}
+\usepackage{classicthesis} % https://code.google.com/p/classicthesis/
+
+% }}}
+
+% convenience
+
+%\usepackage[printonlyused,smaller]{acronym}
+\usepackage[smaller,nohyperlinks,printonlyused]{acronym}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{fixltx2e} % ?
+\usepackage{mparhack} % ?
+\usepackage{ragged2e} % ?
+\usepackage{textcomp} % provides extra symbols, e.g. arrows like \textrightarrow, various currencies (\texteuro,...), things like \textcelsius and many other
+\usepackage{units}
+\usepackage{url}
+\usepackage{xspace} % ?
+\usepackage{algorithmic}
+\usepackage{algorithm}
+
+% }}}
