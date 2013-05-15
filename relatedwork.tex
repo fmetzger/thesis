@@ -1,0 +1,118 @@
+%!TEX root = dissertation.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Related Work}
+\label{chap:relatedwork}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{FITCE 2011 YT Streaming Related Work}
+
+There are several publications discussing YouTube's architecture. Gill et al. made in \cite{gill2007youtube} a long-term observation of YouTube traffic originating from an university network. Their analysis shows detailed characteristics of the served videos, among others file sizes, durations, and bitrates, and reveals a daily number of video requests. Adhikari et al. \cite{adhikari2010youtube} collected data from points of presence of one ISP to explore the service's traffic distribution and load balancing techniques.
+
+However, these were still based on the old architecture prior to being acquired by Google. The new infrastructure differs largely from the old, e.g. load balancing and content distribution now exclusively uses Google’s network. Mori et al. in \cite{mori2010characterizing} describe distinctive attributes of video traffic flows originating from YouTube's new and current setup while Torres et al. \cite{torres2011dissecting} focus on observations of the CDN's server selection process using multi-network passive measurements.
+
+
+Whereas these focused on the architectural setup they do not investigate the client's role and the resulting quality of the video streaming process in this. 
+Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measmmmquality} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model. In another approach taken by the authors of \cite{staehle2010yomo, staehle2011aquarema} network degradations are predicted by monitoring live YouTube traffic of one host and used to conduct traffic shaping in a wireless mesh network.
+
+
+Finally, the authors of \cite{ma2011mobile} as well as \cite{5677508} describe in detail the numerous manifestations of adaptive HTTP streaming. Akhshabi et al. \cite{akhshabi2011experimental} take a look at real world implementations of these and do comparative measurements.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{PV2012 Streaming Related Work}
+
+
+The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. We focus on TCP and especially HTTP streaming to which \cite{watching-video1} and \cite{mobile-video} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery.
+
+
+The authors of \cite{wang2003model} propose an analytical model for TCP-based video streaming, differentiating between live (``constrained'') and pre-recorded videos. In our approach, analytical tractability is not an issue as we perform actual measurements and decoding, so we are not limited to constant-bit rate video streams, constant packet sizes, or single playback strategies.
+
+The importance of packet loss for an H.264 SD video stream is studied in \cite{pv2010loss}. Packet loss on the link is also investigated in our comparison of playback behaviors, but in our first evaluations we analyze TCP as the transport protocol for the stream, so from the perspective of the application, packets are not lost, but delayed.
+
+
+In \cite{pv2010qoe}, the authors present a quality-assessment model for video streaming services, with the quality features derived from the actual video. The model does not include the network behavior, but focuses on the codec performance instead. 
+
+A metric termed ``application comfort'' is calculated from YouTube videos in \cite{yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{CONEXT2012 Related Work}
+
+%The first and foremost literature in any control plane protocol investigations are the specifications itself.
+%3gpp GSM/UMTS/LTE specs on GPRS (also applicable for UMTS data transport) \cite{3gpp23060} and GTP \cite{3gpp29060}
+
+
+Recently, stories about signaling storms and overloaded control planes in mobile networks reached popular news media \cite{it2011birdandroid, lt2012docostorm}. These stories blame a specific combination mobile device type, operating system and application to cause excessive amounts of signaling in the network. The Android version of the popular casual game ``Angry Birds'' is a free download, and  uses regularly refreshed advertisements to achieve some form of financial compensation for the authors. Now imagine a large amount of devices setting up and tearing down data connections only to retrieve new ads and therefore causing tens of control plane messages on each retrieval, which could strain the signaling-heavy structure of current networks. 
+
+The dynamics behind such events are worth investigating, and some work has already been done by several publications. While these touch parts of the areas tackled in this paper to some degree, we think that the combination of the focus on core signaling, PDP Context durations, and investigating the influence of devices on these are genuine contributions of our work.
+
+When control plane aspects of mobile networks are considered, the investigation usually focusses on the radio interface and \ac{RRC} signaling, but pays little attention to aspects in the core network. A paper on cross-layer interaction in mobile cellular networks falls into this category \cite{qian2011profiling}, discussing interaction, e.g., between the application layer and the \ac{RRC} (such as seen in the ``Angry Birds'' case) and its consequences for device energy consumption and radio channel allocation efficiency. The authors argue that there is much room for improvement in this area, and propose some enhancements.
+
+In \cite{lee2007detection}, mobile network traces are used to simulate a malicious signaling storm by transmitting low-volume user plane traffic with inter-departure times slightly larger than the transition timers in the \ac{RRC} state machines. This constantly causes signaling to occur. The authors propose tools to detect this, and discuss possible scales of this type of denial-of-service attack.
+
+Recent publications concerning device differentiation in mobile networks usually either focus on the user traffic dynamics \cite{shafiq2011characterizing}, or on mobility and the temporal and spatial variations of user traffic resource usage  \cite{paul2011understanding}.
+
+In 2006, Svoboda et al. \cite{svoboda2006composition} conducted a core network measurement study of various user traffic related patterns, and also provided an initial insight into \ac{PDP} context activity and durations. Finally, a recent publication \cite{he2012panoramic} provides an investigation probably closest to our approach, however again aimed at \ac{RRC} signaling on the Iu-PS link and not at \ac{GTP} signaling at the Gn path (both of which somewhat intertwined however). The authors classify their evaluations based on device model and vendor and on the application type, and find that different devices have strongly different \ac{RRC} characteristics, which could possibly also have an impact on \ac{GTP} signaling.
+
+
+%A Panoramic View of 3G Data/Control-Plane Traffic: Mobile Device Perspective He \cite{he2012panoramic}
+
+%In \cite{shafiq2011characterizing} Shafiq et al. focus solely on the user traffic dynamics of devices in mobile networks, but one can already observe that classification by device type is an interesting option for mobile networks. Another large scale user traffic dynamic study was conducted in \cite{paul2011understanding} but also solely focuses on user plane aspects of resource usage.
+
+%Characterizing and Modeling Internet Traffic Dynamics of Cellular Devices Shafiq \cite{shafiq2011characterizing} 
+%Understanding Traffic Dynamics in Cellular Data Networks Paul \cite{paul2011understanding}
+%Profiling resource usage for mobile applications: a cross-layer approach Qian \cite{qian2011profiling}
+% Not really needed: An Untold Story of Middleboxes in Cellular Networks Wang \cite{wang2011untold}
+% Auch unnötig: Cellular data network infrastructure characterization and implication on mobile content placement Xu\cite{Xu:2011:CDN:2007116.2007149}
+% 		Regarding investigations of network infrastructure we again see an user network layer centric approach in \cite{Xu:2011:CDN:2007116.2007149}
+% Not accepted! Analyzing 3G Control-Plane Signaling Overhead from a Data-Plane Perspective Qian \cite{qian2012radiosigoh}
+% nur in die darwin section: Traffic monitoring and analysis in 3G networks: lessons learned from the METAWIN project \cite{ricciato2006traffic}
+%Composition of GPRS, UMTS traffic: snapshots from a live network Svoboda \cite{svoboda2006composition}
+%On the detection of signaling DoS attacks on 3G wireless networks Lee \cite{lee2007detection}
+%A Comparison Between One-way Delays in Operating HSPA and LTE Networks \cite{laner2012delaycomparison}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{IMC2013 Related Work}
+
+Existing research can roughly be divided into two areas. First are attempts to infer control plane behavior through application layer active measurement at the mobile device or through synthetic traces or traces from other radio networks (e.g. 802.11).
+Second, investigations of user traffic characteristics by means of real 3G core network traces.
+This paper does not strictly fall in either of these two categories but instead aims to provide insights into the control plane from the perspective of the core network. It is also an extension to our Research Report\cite{metzger2012research} aiming to provide more in-depth statistical analyses to the control plane.  
+However, both areas are still highly relevant at related to our work. Therefore we present a selection of publications from these fields and detail the interesting aspects for this work.
+
+%%%%%%%%%%%%
+%%% part 1 active measurements at the handset, RRC signaling
+\subsection{Device Active Measurement Investigations}
+
+Recently, stories about signaling storms and overloaded control planes in mobile networks reached popular news media \cite{it2011birdandroid, lt2012docostorm}. These stories blame a specific combination of mobile device type, operating system and application to cause excessive amounts of signaling in the radio network. The Android version of the popular casual game ``Angry Birds'' is a free download, and uses regularly refreshed advertisements displaying after every game stage. Now imagine a large amount of devices setting up and tearing down data connections only to retrieve new ads and therefore causing tens of control plane messages on each retrieval, which could strain the signaling-heavy structure of current networks. 
+
+The dynamics behind such events are already under investigation by several publications, focusing on the impact at the radio interface and on \ac{RRC} signaling but paying little attention to potential aspects in the core network. A paper on cross-layer interaction in mobile cellular networks falls into this category \cite{qian2011profiling}, discussing interaction, e.g., between the application layer and the \ac{RRC} (such as seen in the ``Angry Birds'' case) and its consequences for device energy consumption and radio channel allocation efficiency. The authors argue that there is much room for improvement in this area, and propose some enhancements.
+
+In \cite{lee2007detection}, mobile network traces are used to simulate a malicious signaling storm by transmitting low-volume user plane traffic with inter-departure times slightly larger than the transition timers in the \ac{RRC} state machines. This constantly causes signaling to occur. The authors propose tools to detect this, and discuss a possible scale of this type of denial-of-service attack.
+ 
+Wang et al.\cite{wang2011untold} developed NetPiculet to probe mobile networks for middle boxes that alter traffic and affect performance, e.g. NAT, firewalls, or non-transparent proxies. Such nodes were present in a large portion of the investigated networks, increasing device power usage and download durations while providing themselves a surface for certain attacks.
+
+Looking at the transition of \ac{RRC} states, which is briefly explained in Sec. \ref{sec:gtp-IMC}, we find in \cite{5360763} some simple albeit effective application layer methods at the mobile device to investigate these transitions. This is further enhanced by research from Schwartz et al.\cite{schwartz2013angrybirds} using this technique to analyze the radio signaling load and thus power efficiency from different applications including the aforementioned
+
+
+%%%%%%%%%%%%
+%%% part 2 core traces + mostly application layer analyses
+\subsection{Research Based On Core Traces}
+
+As stated, all of these approaches cannot take the core network into account, as they do not have access to the necessary measurement infrastructure. The following research papers all have some kind of core network dataset. Most of them do not directly tackle signaling, however.
+
+The authors of \cite{shafiq2011characterizing} and \cite{paul2011understanding} both take the approach of looking at high-level user traffic characteristics in a mobile network, focusing on temporal and spatial variations of user traffic volume and peeking at the influence of different devices on this metric. Additional user flow and session traffic metrics are being looked at in \cite{Zhang:2012:UCC:2377677.2377764} with the conclusion that, in comparison to wired traffic, much more shorter flows are occurring. If this shorter-but-more theme is also evident in signaling traffic, this could translate into an increased signaling load.
+
+In 2006, Svoboda et al. \cite{svoboda2006composition} conducted a core network measurement study of various user traffic related patterns, and also provided an initial insight into \ac{PDP} context activity and durations. Another recent publication at \cite{he2012panoramic} provides an investigation aimed at \ac{RRC} signaling on the \ac{RNC} to \ac{SGSN} link but not at \ac{GTP} signaling at the \ac{SGSN} to \ac{GGSN} path which we deem more important for our core network load characteristics research. The authors classify their evaluations based on device model and vendor and on the application type, and find that different devices have strongly different \ac{RRC} characteristics, which could possibly also have an impact on \ac{GTP} signaling. Here the \ac{RRC} evaluation was done in a direct manner using explicit logs from the \ac{RNC}. A 2010 publication\cite{Qian:2010:CRR:1879141.1879159} however uses the indirect \ac{RRC} inferring method described earlier on a core network TCP trace data set and finds that the involved \ac{RRC} state machine is largely inefficient in terms of signaling overhead and energy consumption for typical traffic patterns seen in the data.
+
+The authors of \cite{4675847} give us some thoughts on the influence of core network elements on one-way delays in mobile networks, also providing us with initial clues on the expected load impact of these elements for our own investigation. A final paper \cite{Ricciato2010551} presents some \ac{DoS} attack scenarios on these networks from a theoretical view. As a \ac{DoS} either needs to find a weak (performance-wise) link in an architecture or a good source for an amplification attack -- small information causes a large amount of information to be computed or transmitted -- this is also very helpful information in evaluating core network load and finding bottlenecks.
+
+All of these touch to some degree parts of the areas tackled in this paper, but we think that the combination of the focus on core signaling, a statistical evaluation of PDP Contexts with an investigation of sources influencing these, and a simple load model are genuine contributions of our work.
+
+
+

@@ -7,12 +7,23 @@ The Internet began its life in the 1960s after the invention of packet switching
 Today, services based on the World Wide Web dominate the Internet's landscape. Especially noteworthy is the dominance of video streaming services in the traffic mixes of today and in future predictions (cf. Figures fig:netvine and fig:cisco). This development was supported through the availability of cheap and small digital camcorders and especially the now sufficient access bandwidth to support high quality video streams.
 A similar development for cellular networks is now ongoing. Through the advent of affordable high performance smartphones and access technologies like UMTS and LTE many are now using their phones as the primary device for interacting with the Internet, including video streaming services such as YouTube, Netflix, or Hulu.
 
-\begin{figure}[htbp]
-%\centerline{\subfloat[Netvine, North American peak traffic (Source: \cite{sandvine_spring2011}).]{\label{fig:netvine}\includegraphics[width=3in]{netvine.png}}
-%\hfil
-%\subfloat[Cisco, global consumer Internet traffic prediction (Source: \cite{cisco2011VNI}).]{\label{fig:cisco}\includegraphics[width=3in]{ciscoVNI.jpg}}}
-\caption{Traffic measurements and predictions.}
-\label{fig:traffic}
+\begin{figure}
+	\centering
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/expose/netvine.png}
+                \caption{Netvine, North American peak traffic (Source: \cite{sandvine_spring2011}).}
+                \label{fig:netvine}
+        \end{subfigure}%
+        ~
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/expose/ciscoVNI.jpg}
+                \caption{Cisco, global consumer Internet traffic prediction (Source: \cite{cisco2011VNI}).}
+                \label{fig:cisco}
+        \end{subfigure}
+	\caption{Traffic measurements and predictions.}
+	\label{fig:traffic}
 \end{figure}
 
 
@@ -234,7 +245,7 @@ The tackled protocols, systems, and mechanisms are described in Section X. Secti
 \section{Internet Services}
 
 
-Most of today's services base itself on the Web and HTTP as "transport protocol". It is even proposed to use
+Most of today's services base itself on the Web and HTTP as ``transport protocol''. It is even proposed to use
 a slightly modified version of HTTP as the basic end-to-end protocol for a future iteration of the Internet\cite{Popa:2010:HNW:1868447.1868453} as it already fulfils many of the demands proposed for the future of the Internet.
 
 
@@ -358,10 +369,9 @@ Video streaming touches many aspects of computer communication network research.
 \subsection{Technical Solution Spaces}
 
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-
-%\includegraphics[width=0.4\textwidth]{hv-topics-new.pdf}
+\includegraphics[width=0.4\textwidth]{images/expose/hv-topics-new.pdf}
 \caption{Technical solution spaces to the problem layers.}
 \label{fig:hv-topics}
 \end{figure}
@@ -379,7 +389,7 @@ Finally, one could employ methods of self-organization to try to reach improveme
 
 \begin{figure}[htbp]
 \centering
-%\includegraphics[width=1.0\textwidth]{apparatus-new.pdf}
+\includegraphics[width=1.0\textwidth]{images/expose/apparatus-new.pdf}
 \caption{Methodical solution spaces and apparatus comparison.}
 \label{fig:appcomp}
 \end{figure}
@@ -444,7 +454,7 @@ During the test, four specific models were formulated. These are:
 
 \item \textit{Firefox HTML5}. The algorithm is depicted in Alg. \ref{alg:firefox}, its variables in Table \ref{tab:buffvars}. It does not differentiate between intermittent and initial conditions. The approach is in concept similar to the theoretical initial playback delay but results in very large required maximum buffer space due to conservatively chosen buffering times.
 
-\begin{algorithm}[htbp]
+\begin{algorithm}
 \centering
 \caption{Firefox playback (re-)start decision algorithm.}
 \label{alg:firefox}
@@ -457,7 +467,7 @@ During the test, four specific models were formulated. These are:
 \end{algorithmic}
 \end{algorithm}
 
-\begin{table}[htbp]
+\begin{table}
 \centering
 \begin{tabular}{|c|c|} \hline
 Variable & Explanation \\ \hline\hline
@@ -472,27 +482,45 @@ $b_T$    & Amount of time spent in non-playing buffering state. \\ \hline
 \end{table}
 
 \item \textit{YouTube Flash Player}. $b_{b,initial}=2s$, $b_{b,intermittent}=5s$. Assumes sufficient network conditions in the beginning requiring only a short initial playback delay. If the assumption does not hold and stalling does occur, it will buffer longer to keep the occurrence frequency down.
-
 \end{enumerate}
 
-\begin{figure}[htbp] % use 1.75in each for single-column
 
-\centering
+\begin{figure}
+% used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
+	\centering
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/expose/bufferlevel-stall-new.pdf}
+                \caption{Simple playback stalling method, 33s total stalling.}
+                \label{fig:expose-bufferlevel-stall}
+        \end{subfigure}%
+        ~
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/expose/bufferlevel-startdelay-new.pdf}
+                \caption{Initial playback delay, 33s total stalling.}
+                \label{fig:expose-bufferlevel-startdelay}
+        \end{subfigure}
 
-%\subfloat[Simple playback stalling method, 33s total stalling.]{\label{fig:bufferlevel-stall}\includegraphics[width=3in]{bufferlevel-stall-new}}
-\hfil
-%\subfloat[Initial playback delay, 33s total stalling.]{\label{fig:bufferlevel-startdelay}\includegraphics[width=3in]{bufferlevel-startdelay-new}}\\
-
-
-%\subfloat[YouTube Flash Player method, 34s total stalling.]{\label{fig:bufferlevel-flash}\includegraphics[width=3in]{bufferlevel-flash-new}}
-\hfil
-%\subfloat[Firefox HTML5 method, 44s total stalling.]{\label{fig:bufferlevel-firefox}\includegraphics[width=3in]{bufferlevel-firefox-new}}
-
-\caption{Modelled buffer fill level graphs and resulting total stalling times.}
-\label{fig:bufferlevel}
+        \begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/expose/bufferlevel-flash-new.pdf}
+                \caption{YouTube Flash Player method, 34s total stalling.}
+                \label{fig:expose-bufferlevel-flash}
+        \end{subfigure}%
+        ~
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/expose/bufferlevel-firefox-new.pdf}
+                \caption{Firefox HTML5 method, 44s total stalling.}
+                \label{fig:expose-bufferlevel-firefox}
+        \end{subfigure}
+	\caption{Modelled buffer fill level graphs and resulting total stalling times.}
+	\label{fig:expose-bufferlevel}
 \end{figure}
 
-These models were compared with regards to the stalling frequency and duration in a test scenario. The resulting graphs are depicted in Figure \ref{fig:bufferlevel}. Further research is now required to gather measurement data from several videos and QoS conditions to be able to make conclusions on the viability of the models.
+
+These models were compared with regards to the stalling frequency and duration in a test scenario. The resulting graphs are depicted in Figure \ref{fig:expose-bufferlevel}. Further research is now required to gather measurement data from several videos and QoS conditions to be able to make conclusions on the viability of the models.
 
 
 

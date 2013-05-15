@@ -8,9 +8,9 @@
 \section{Streaming Control Flow Nomenclature}
 
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-%\includegraphics[width=0.5\textwidth]{nif.pdf}
+\includegraphics[width=0.5\textwidth]{images/expose/nif.pdf}
 \caption{Theoretical information exchange paths between streaming partners.}
 \label{fig:nif}
 \end{figure}
@@ -82,10 +82,9 @@ The capabilities and shortcomings of these novel mechanisms are not yet fully re
 
 \item \textit{Application layer flow control}. HTTP file downloading is a very simple process. The server has very little influence on this and just forwards requested stored data into a TCP socket. This is not an optimal behavior for video streaming as it does not allow for any throttling or rate management. The buffer space in mobile or embedded devices can be very limited, it would be useful to limit the amount of received data while still ensuring sufficiently available future playback data in the buffer. Services have begun to implement application layer flow control mechanisms for their video streaming application, e.g. YouTube \cite{alcock2011application}. Figure \ref{fig:streamingtransfermodes} shows a comparison of several possible rate management modes. The first sequence diagram shows the unaltered transfer mode observable in regular HTTP file transmissions. The second and third diagrams show possible ways of implementing application layer flow control with either evenly spread out transmissions or sending in blocks. The last diagram displays a mode using multiple requests for one video which can be facilitated for rate adaptations discussed in the next item.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
-
-%\includegraphics[width=0.9\textwidth]{streaming-transfer-modes.pdf}
+\includegraphics[width=0.9\textwidth]{images/expose/streaming-transfer-modes.pdf}
 \caption{Comparison of several possible streaming transfer modes (Source: \cite{ma2011mobile}).}
 \label{fig:streamingtransfermodes}
 \end{figure}
@@ -127,7 +126,7 @@ The proportion of total Internet traffic shifted hugely towards video transfers 
 
 This paper investigates how Web-based media delivery works in general, and how meaningful measurement of its streaming quality can be achieved with future network developments and degraded network parameters in mind.
 
-As YouTube is one of the largest world-wide operating Web streaming contenders it is the focus of our attention in this paper. After giving a brief overview of the tackled research areas in Section \ref{sec:relatedwork} we make initial insights into YouTube's network architecture in Section \ref{sec:videodeliveryarchitecture} and cover the basics of HTTP streaming in Section \ref{sec:featureshttpstreaming}. we move on to describe the underlying models used in the streaming process and the metrics we intend to use in the observations in Section \ref{sec:metricsmodel}. Finally, Section \ref{sec:measurements} covers the video streaming measurements, and Sections \ref{sec:outlook} and \ref{sec:conclusion} give and outlook and conclude the paper.
+As YouTube is one of the largest world-wide operating Web streaming contenders it is the focus of our attention in this paper. After giving a brief overview of the tackled research areas in Section \ref{chap:relatedwork} we make initial insights into YouTube's network architecture in Section \ref{sec:videodeliveryarchitecture} and cover the basics of HTTP streaming in Section \ref{sec:featureshttpstreaming}. we move on to describe the underlying models used in the streaming process and the metrics we intend to use in the observations in Section \ref{sec:metricsmodel}. Finally, Section \ref{sec:measurements} covers the video streaming measurements, and Sections \ref{sec:outlook} and \ref{sec:conclusion} give and outlook and conclude the paper.
 
 
 %how to measure the video streaming quality and possible buffering models of watching of videos from their network infrastructure, which we also describe. Furthermore, we look at 
@@ -139,23 +138,6 @@ As YouTube is one of the largest world-wide operating Web streaming contenders i
 
 % TODO: evtl mit dem vorherigen absatz kombinieren
 %The paper is structured as follows. In Section \ref{sec:relatedwork} we give a brief overview of the tackled research areas. After making an initial insight into YouTube's network architecture in Section \ref{sec:videodeliveryarchitecture} and covering the basics of HTTP streaming in Section \ref{sec:featureshttpstreaming} we move on to describe the underlying models used in the streaming process and the metrics we intend to use in the observations in Section \ref{sec:metricsmodel}. Finally, Section covers the video streaming measurements and Sections \ref{sec:outlook} and \ref{sec:conclusion} conclude the paper and give and outlook.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Related Work}
-\label{sec:relatedwork}
-
-There are several publications discussing YouTube's architecture. Gill et al. made in \cite{gill2007youtube} a long-term observation of YouTube traffic originating from an university network. Their analysis shows detailed characteristics of the served videos, among others file sizes, durations, and bitrates, and reveals a daily number of video requests. Adhikari et al. \cite{adhikari2010youtube} collected data from points of presence of one ISP to explore the service's traffic distribution and load balancing techniques.
-
-However, these were still based on the old architecture prior to being acquired by Google. The new infrastructure differs largely from the old, e.g. load balancing and content distribution now exclusively uses Google’s network. Mori et al. in \cite{mori2010characterizing} describe distinctive attributes of video traffic flows originating from YouTube's new and current setup while Torres et al. \cite{torres2011dissecting} focus on observations of the CDN's server selection process using multi-network passive measurements.
-
-
-Whereas these focused on the architectural setup they do not investigate the client's role and the resulting quality of the video streaming process in this. 
-Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measmmmquality} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model. In another approach taken by the authors of \cite{staehle2010yomo, staehle2011aquarema} network degradations are predicted by monitoring live YouTube traffic of one host and used to conduct traffic shaping in a wireless mesh network.
-
-
-Finally, the authors of \cite{ma2011mobile} as well as \cite{5677508} describe in detail the numerous manifestations of adaptive HTTP streaming. Akhshabi et al. \cite{akhshabi2011experimental} take a look at real world implementations of these and do comparative measurements.
 
 
 
@@ -331,7 +313,6 @@ We experienced this hinted throttling for all non-HD (i.e. lower than 720p resol
 
 
 
-
 \begin{figure}
 % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
 	\centering
@@ -461,22 +442,10 @@ The method presented in this paper rather aims to evaluate performance by captur
 % Multiple incarnations of media streaming, but similar and (most of all!) comparable concepts and mechanisms => no need to assess single, specific protocols, networks, codecs, etc., but measure and describe generic, universal, common behavioral patterns => model, compare performance based on behavioral, structural commonalities. Choose for example a (range of) timescale(s) to find sets of mechanisms you need to look at. First use case to show how our system works: Progressive HTTP streaming. Will show adaptability to adaptive streaming and different protocols.
 
 
-The remainder of this paper is structured as follows. Section \ref{sec:relatedwork} reviews related work. Section \ref{sec:analysis} discusses issues arising from different (and multiple) parts of the network stack. In Section \ref{sec:appbehavior}, we take a closer look at the buffering and playback behavior on both the theoretical and practical side of things. Our testbed approach is described in Section \ref{sec:testbed} and evaluated in Section \ref{sec:evaluations}, where we conduct an exemplary measurement and modeling campaign on the popular YouTube platform. Section \ref{sec:conclusion-PV} wraps up the paper.
-
-\section{Related Work}
-\label{sec:relatedwork-PV}
-
-The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. We focus on TCP and especially HTTP streaming to which \cite{watching-video1} and \cite{mobile-video} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery.
+The remainder of this paper is structured as follows. Section \ref{chap:relatedwork} reviews related work. Section \ref{sec:analysis} discusses issues arising from different (and multiple) parts of the network stack. In Section \ref{sec:appbehavior}, we take a closer look at the buffering and playback behavior on both the theoretical and practical side of things. Our testbed approach is described in Section \ref{sec:testbed} and evaluated in Section \ref{sec:evaluations}, where we conduct an exemplary measurement and modeling campaign on the popular YouTube platform. Section \ref{sec:conclusion-PV} wraps up the paper.
 
 
-The authors of \cite{wang2003model} propose an analytical model for TCP-based video streaming, differentiating between live (``constrained'') and pre-recorded videos. In our approach, analytical tractability is not an issue as we perform actual measurements and decoding, so we are not limited to constant-bit rate video streams, constant packet sizes, or single playback strategies.
 
-The importance of packet loss for an H.264 SD video stream is studied in \cite{pv2010loss}. Packet loss on the link is also investigated in our comparison of playback behaviors, but in our first evaluations we analyze TCP as the transport protocol for the stream, so from the perspective of the application, packets are not lost, but delayed.
-
-
-In \cite{pv2010qoe}, the authors present a quality-assessment model for video streaming services, with the quality features derived from the actual video. The model does not include the network behavior, but focuses on the codec performance instead. 
-
-A metric termed ``application comfort'' is calculated from YouTube videos in \cite{yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
