@@ -1,3 +1,4 @@
+%!TEX root = dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Streaming in Mobile Networks}
 
@@ -29,7 +30,7 @@ The protocols used for the radio transmissions behave very differently when comp
 Furthermore, traffic could be avoided during cell handover occurrences. This would require cross-layer cooperation and an awareness of the application when an handover is supposed to occur. The application then could schedule its traffic accordingly. Traffic falling into a handover is subject to especially high latency and loss because the mobile network acts as a mobility anchor which needs to internally reroute incoming traffic to the mobile device's new position. HTTP traffic is especially suited to this scheduling behavior because of its statelessness and consistence of small objects that can be requested and transferred independently.
 
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 
 %\subfloat[LTE tunneling concepts.]{\label{fig:ltetunneling}\includegraphics[width=0.4\textwidth]{ltetunneling.pdf}}
@@ -49,4 +50,15 @@ Furthermore, traffic could be avoided during cell handover occurrences. This wou
 \section{System Analysis}
 \subsection{Mobile Streaming Simulation/Emulation Hybrid Test Platform}
 
+Use introduced streaming evaluation approaches in a mobile network environment
 
+But do not want to use real network, as conditions are hard to manage and reproduce. Additionally, LTE still hard to come by.
+
+Therefore, use an emulated network provided by the ns-3 network simulator. But transmit real traffic through it, i.e. use it as an emulator and bridges. \ref{fig:lte-testbed}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/lte-testbed.pdf}
+\caption{LTE Streaming Evaluation Setup and Action Plan}
+\label{fig:lte-testbed}
+\end{figure}

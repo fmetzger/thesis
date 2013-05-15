@@ -217,28 +217,28 @@ Therefore adaptive forms of HTTP streaming were developed. The techniques comple
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/bufferlevel-stall-new.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/bufferlevel-stall-new.pdf}
                 \caption{Playback stalling method, 33s total stalling.}
                 \label{fig:bufferlevel-stall}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/bufferlevel-startdelay-new.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/bufferlevel-startdelay-new.pdf}
                 \caption{Delayed playback method, 33s total stalling.}
                 \label{fig:bufferlevel-startdelay}
         \end{subfigure}
 
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/bufferlevel-flash-new.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/bufferlevel-flash-new.pdf}
                 \caption{YouTube Flash Player method, 34s total stalling.}
                 \label{fig:bufferlevel-flash}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/bufferlevel-firefox-new.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/bufferlevel-firefox-new.pdf}
                 \caption{Firefox 4 method, 44s total stalling.}
                 \label{fig:bufferlevel-firefox}
         \end{subfigure}
@@ -337,14 +337,14 @@ We experienced this hinted throttling for all non-HD (i.e. lower than 720p resol
 	\centering
     	\begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/blocktransfer-mod.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/blocktransfer-mod.pdf}
                 \caption{Overall graph.}
                 \label{fig:blocktransfer-overall}
         \end{subfigure}%
         ~
     	\begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/blocktransferdetail.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/blocktransferdetail.pdf}
                 \caption{Detail plot of the rate-limited block-sending phase.}
                 \label{fig:blocktransfer-detail}
         \end{subfigure}
@@ -395,14 +395,14 @@ Figure \ref{fig:lossseries} shows the series of loss experiments. While the 6\% 
 	\centering
     	\begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/delay.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/delay.pdf}
                 \caption{Latency Graph.}
                 \label{fig:delayseries}
         \end{subfigure}%
         ~
     	\begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/loss.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/loss.pdf}
                 \caption{Loss Graph.}
                 \label{fig:lossseries}
         \end{subfigure}
@@ -493,7 +493,7 @@ Figure \ref{fig:timescales} overviews the approximate time scales on which activ
 
 
 \begin{figure}
-\includegraphics[width=\textwidth]{images/timescales.pdf}
+\includegraphics[width=\textwidth]{images/streaming/timescales.pdf}
 \caption{Relevant time scales in the layers of the stack}
 \label{fig:timescales}
 \end{figure}
@@ -701,7 +701,7 @@ Conceptually, it replicates the actual steps a user would perform to consume a m
  
  
 \begin{figure}
-\includegraphics[width=\columnwidth]{images/measurement-model.pdf}
+\includegraphics[width=\columnwidth]{images/streaming/measurement-model.pdf}
 \caption{Testbed Schematic.}
 \label{fig:testbed}
 \end{figure}
@@ -752,14 +752,14 @@ High latency can also trigger TCP timeouts and retransmissions, and in turn decr
 	\centering
     	\begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/eval-latency-stallingtime.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/eval-latency-stallingtime.pdf}
                 \caption{Total stalling time.}
                 \label{fig:eval-latency-stallingtime}
         \end{subfigure}%
         ~
     	\begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/eval-latency-frequency.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/eval-latency-frequency.pdf}
                 \caption{Number of stalls.}
                 \label{fig:eval-latency-numstalls}
         \end{subfigure}
@@ -777,14 +777,14 @@ As a result, when planning a network for streaming applications, the maximum los
 	\centering
     	\begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/eval-loss4mb-stallingtime.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/eval-loss4mb-stallingtime.pdf}
                 \caption{Total stalling time.}
                 \label{fig:eval-loss-stallingtime}
         \end{subfigure}%
         ~
     	\begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/eval-loss4mb-frequency.pdf}
+                \includegraphics[width=\textwidth]{images/streaming/eval-loss4mb-frequency.pdf}
                 \caption{Number of stalls.}
                 \label{fig:eval-loss-numstalls}
         \end{subfigure}

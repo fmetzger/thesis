@@ -11,6 +11,8 @@ But
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architecture of GSM derived mobile networks}
 
+\input{3gppdesc.tex}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -120,7 +122,7 @@ Before diving into specifics of \ac{GTP} messaging, we give a short overview on 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{images/umts-network.pdf}
+\includegraphics[width=0.7\textwidth]{images/CONEXT2012/umts-network.pdf}
 \caption{Typical simplified setup of the packet switched domain in an \acs{UMTS} network including a METAWIN monitoring probe.}
 \label{fig:umtsnetwork-CONEXT}
 \end{figure}
@@ -134,7 +136,7 @@ One role of the \ac{SGSN} is as the mobility anchor for mobile devices, and it i
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\columnwidth]{images/signalling-stack.pdf}
+\includegraphics[width=0.6\columnwidth]{images/CONEXT2012/signalling-stack.pdf}
 \caption{Typical signaling protocol stack at the Gn interface between \ac{SGSN} and \ac{GGSN}.}
 \label{fig:signallingstack-CONEXT}
 \end{figure}
@@ -170,7 +172,7 @@ Taking this maximum value we arrive at a naive estimate of the maximum overhead 
 \subsubsection{Create Context Messages}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\columnwidth]{images/pdp-context-activation.pdf}
+\includegraphics[width=0.8\columnwidth]{images/CONEXT2012/pdp-context-activation.pdf}
 \caption{PDP Context Activation Procedure in a UMTS network.}
 \label{fig:pdpcontextactivation}
 \end{figure}
@@ -222,7 +224,7 @@ As indicated before, most nodes in a cellular mobile network keep all sorts of s
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\columnwidth]{images/mm-state-model.pdf}
+	\includegraphics[width=0.7\columnwidth]{images/CONEXT2012/mm-state-model.pdf}
 	\caption{SGSN Mobility Management State Model.}
 	\label{fig:mmstatemodel}
 \end{figure}
@@ -231,7 +233,7 @@ First, consider the Mobility Management state machine depicted in Figure \ref{fi
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.6\columnwidth]{images/rrc-state-model.pdf}
+	\includegraphics[width=0.6\columnwidth]{images/CONEXT2012/rrc-state-model.pdf}
 	\caption{Radio Resource Control State Model.}
 	\label{fig:rrcstatemodel-CONEXT}
 \end{figure}
@@ -506,7 +508,7 @@ Our measure of choice are the PDP Context Durations as they carry lots of meanin
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{images/tunnel-dur-class-cdf-mod.pdf}
+	\includegraphics[width=\columnwidth]{images/CONEXT2012/tunnel-dur-class-cdf-mod.pdf}
 	\caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
 	\label{fig:cdf-duration-device-class-CONEXT}
 \end{figure}
@@ -522,7 +524,7 @@ The median differs between device types, being much longer for 3G dongles than f
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{images/tunnel-dur-os-cdf-mod.pdf}
+	\includegraphics[width=\columnwidth]{images/CONEXT2012/tunnel-dur-os-cdf-mod.pdf}
 	\caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
 	\label{fig:cdf-duration-os-CONEXT}
 \end{figure}
@@ -557,28 +559,28 @@ A last artifact of note are the larger number of iOS devices with very short tun
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/qq-total-vs-android.pdf}
+                \includegraphics[width=\textwidth]{images/CONEXT2012/qq-total-vs-android.pdf}
                 \caption{Android duration distribution over the total duration distribution.}
                 \label{fig:qq-total-vs-android}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.50\textwidth}
                         \centering
-                \includegraphics[width=\textwidth]{images/qq-total-vs-ios.pdf}
+                \includegraphics[width=\textwidth]{images/CONEXT2012/qq-total-vs-ios.pdf}
                 \caption{iOS duration distribution over the total duration distribution.}
                 \label{fig:qq-total-vs-ios}
         \end{subfigure}
 
         \begin{subfigure}[b]{0.50\textwidth}
                         \centering
-                \includegraphics[width=\textwidth]{images/qq-total-vs-dongle.pdf}
+                \includegraphics[width=\textwidth]{images/CONEXT2012/qq-total-vs-dongle.pdf}
                 \caption{3G Dongle duration distribution over the total duration distribution.}
                 \label{fig:qq-total-vs-dongle}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.50\textwidth}
                         \centering
-                \includegraphics[width=\textwidth]{images/qq-total-vs-smartphone.pdf}
+                \includegraphics[width=\textwidth]{images/CONEXT2012/qq-total-vs-smartphone.pdf}
                 \caption{Smartphone duration distribution over the total duration distribution.}
                 \label{fig:qq-total-vs-smartphones}
         \end{subfigure}
@@ -607,7 +609,7 @@ Combining all types of smartphones together and comparing them to the other majo
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{images/stacked-durations-2-fixed.pdf}
+\includegraphics[width=0.75\textwidth]{images/CONEXT2012/stacked-durations-2-fixed.pdf}
 \caption{Stacked logscale bin plot of the number of tunnels with duration in this bin; classified by Android, iOS and 3G dongles.}
 \label{fig:stacked-durations}
 \end{figure}
@@ -735,7 +737,7 @@ We also look forward to searching for multiple active tunnels per device. As dis
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{IMC2013 Core Signaling Load Followup INLET}
+\section{IMC2013 Core Signaling Load Followup INSERT}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
