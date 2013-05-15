@@ -65,6 +65,7 @@ There are also other proprietary and standardized streaming systems which better
 \subsection{Proprietary}
 \subsection{,,Simple'' HTML Streaming}
 \subsection{Adaptive HTML Streaming Techniques}
+\subsection{\ac{DASH}}
 
 
 
@@ -203,21 +204,62 @@ Therefore adaptive forms of HTTP streaming were developed. The techniques comple
 \section{Metrics and Model}
 \label{sec:metricsmodel}
 
+\begin{figure}[t!]
+%\vskip -2.5cm
+        \centering
+        % \begin{subfigure}[b]{0.50\textwidth}
+        %         \centering
+        %         \includegraphics[width=\textwidth]{figures/R-IAT-ecdf-2h-log.png}
+        %         \caption{All incoming tunnel requests.}
+        %         \label{fig:IAT-ecdf-2h-all}
+        % \end{subfigure}%
+        %~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/bufferlevel-stall-new.pdf}
+                \caption{Playback stalling method, 33s total stalling.}
+                \label{fig:bufferlevel-stall}
+        \end{subfigure}%
+        ~
+        \begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/bufferlevel-startdelay-new.pdf}
+                \caption{Delayed playback method, 33s total stalling.}
+                \label{fig:bufferlevel-startdelay}
+        \end{subfigure}
 
-
-\begin{figure*}[!t] % use 1.75in each for single-column
-
-\noindent\makebox[\textwidth]{\subfloat[Playback stalling method, 33s total stalling.]{\label{fig:bufferlevel-stall}\includegraphics[width=3in]{images/bufferlevel-stall-new.pdf}}
-\hfil
-\subfloat[Delayed playback method, 33s total stalling.]{\label{fig:bufferlevel-startdelay}\includegraphics[width=3in]{images/bufferlevel-startdelay-new.pdf}}}
-
-\noindent\makebox[\textwidth]{\subfloat[YouTube Flash Player method, 34s total stalling.]{\label{fig:bufferlevel-flash}\includegraphics[width=3in]{images/bufferlevel-flash-new.pdf}}
-\hfil
-\subfloat[Firefox 4 method, 44s total stalling.]{\label{fig:bufferlevel-firefox}\includegraphics[width=3in]{images/bufferlevel-firefox-new.pdf}}}
-
+        \begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/bufferlevel-flash-new.pdf}
+                \caption{YouTube Flash Player method, 34s total stalling.}
+                \label{fig:bufferlevel-flash}
+        \end{subfigure}%
+        ~
+        \begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/bufferlevel-firefox-new.pdf}
+                \caption{Firefox 4 method, 44s total stalling.}
+                \label{fig:bufferlevel-firefox}
+        \end{subfigure}
 \caption{Modelled buffer fill level graphs and resulting total stalling times.}
 \label{fig:bufferlevel-PV}
-\end{figure*}
+\end{figure}
+
+
+% \begin{figure*}[!t] % use 1.75in each for single-column
+
+% \noindent\makebox[\textwidth]{\subfloat[Playback stalling method, 33s total stalling.]{\label{fig:bufferlevel-stall}\includegraphics[width=3in]{images/bufferlevel-stall-new.pdf}}
+% \hfil
+% \subfloat[Delayed playback method, 33s total stalling.]{\label{fig:bufferlevel-startdelay}\includegraphics[width=3in]{images/bufferlevel-startdelay-new.pdf}}}
+
+% \noindent\makebox[\textwidth]{\subfloat[YouTube Flash Player method, 34s total stalling.]{\label{fig:bufferlevel-flash}\includegraphics[width=3in]{images/bufferlevel-flash-new.pdf}}
+% \hfil
+% \subfloat[Firefox 4 method, 44s total stalling.]{\label{fig:bufferlevel-firefox}\includegraphics[width=3in]{images/bufferlevel-firefox-new.pdf}}}
+
+% \caption{Modelled buffer fill level graphs and resulting total stalling times.}
+% \label{fig:bufferlevel-PV}
+% \end{figure*}
 
 % used yt-delay/hPUGNCIozp0_delay_2500 1, spyder, color #aa5500
 % data
@@ -290,27 +332,34 @@ We experienced this hinted throttling for all non-HD (i.e. lower than 720p resol
 
 
 
-\begin{figure*}[!t] % use 1.75in each for single-column
+\begin{figure}
 % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
-\noindent\makebox[\textwidth]{\subfloat[Overall graph.]{\label{fig:blocktransfer-overall}\includegraphics[width=3in]{images/blocktransfer-mod.pdf}}
-\hfil 
-\subfloat[Detail plot of the rate-limited block-sending phase.]{\label{fig:blocktransfer-detail}\includegraphics[width=3in]{images/blocktransferdetail.pdf}}}
+	\centering
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/blocktransfer-mod.pdf}
+                \caption{Overall graph.}
+                \label{fig:blocktransfer-overall}
+        \end{subfigure}%
+        ~
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/blocktransferdetail.pdf}
+                \caption{Detail plot of the rate-limited block-sending phase.}
+                \label{fig:blocktransfer-detail}
+        \end{subfigure}
 \caption{Measurement results for the download and playback of a video.}
 \label{fig:blocktransfer}
-\end{figure*}
+\end{figure}
 
 
 
-\begin{table}[!t]
+\begin{table}
 % increase table row spacing, adjust to taste
 \renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
 \caption{Transmission Related Parameters from YouTube's Video URL Setup}
 \label{tbl:yturl}
 \centering
-% Some packages, such as MDW tools, offer better commands for making tables
-% than the plain LaTeX2e tabular which is used here.
 \begin{tabular}{|p{4.7cm}||p{3.3cm}|}\hline
 URL Part & Description \\ \hline \hline
 \texttt{v$\alpha$.lscache$\beta$.c.youtube.com} &  Cache server involved in the delivery.\\ \hline
@@ -340,17 +389,26 @@ Figure \ref{fig:lossseries} shows the series of loss experiments. While the 6\% 
 % TODO: Mobile video delivery with HTTP \cite{ma2011mobile}
 % reasoning for "HTTP pacing" and segmented delivery
 
-\begin{figure*}[!t]
-\noindent\makebox[\textwidth]{
+\begin{figure}
 % yt-delay-allBW.ods, graphik aus LibreOffice Calc, OLE in LibreOffice Draw, font sizes min 11pt, Page Margins passen (18,2 x 10,3), als PDF exportiert.
 % new method: extra libreoffice calc page, scaled to fit on one page, pdf export, cut with acrobat
-\subfloat[Latency Graph.]{\label{fig:delayseries}\includegraphics[height=1.85in]{images/delay.pdf}}
-\hfil
-\subfloat[Loss Graph.]{\label{fig:lossseries}\includegraphics[height=1.85in]{images/loss.pdf}}}
+	\centering
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/delay.pdf}
+                \caption{Latency Graph.}
+                \label{fig:delayseries}
+        \end{subfigure}%
+        ~
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/loss.pdf}
+                \caption{Loss Graph.}
+                \label{fig:lossseries}
+        \end{subfigure}
 \caption{Total buffering time and exponential trend for degraded network parameter scenarios.}
 \label{fig:seriesgraphs}
-\end{figure*}
-
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -434,11 +492,11 @@ Figure \ref{fig:timescales} overviews the approximate time scales on which activ
 % As such, the aim of this deliverable is to provide a methodology that identifies influencing factors on the user experience, and quantifies the relative impact of these factors.
 
 
-\begin{figure*}[!t] % use 1.75in each for single-column
+\begin{figure}
 \includegraphics[width=\textwidth]{images/timescales.pdf}
 \caption{Relevant time scales in the layers of the stack}
 \label{fig:timescales}
-\end{figure*}
+\end{figure}
 
 
 
@@ -582,8 +640,7 @@ it sports very few stalling events due to conservatively chosen (i.e., long) buf
 
 
 
-\begin{figure}[!t]
-%\begin{center}
+\begin{figure}
 \centering
 \begin{algorithmic}
 \IF {$s_{MA} > v_{MA}$} 
@@ -592,12 +649,11 @@ it sports very few stalling events due to conservatively chosen (i.e., long) buf
   \STATE $c \gets ( b_b=30s \lor b_T=30s )$
 \ENDIF 
 \end{algorithmic}
-%\end{center}
 \caption{Firefox playback (re-)start decision algorithm.}
 \label{alg:firefox-PV}
 \end{figure}
 
-\begin{table}[!t]
+\begin{table}
 
 \caption{Variables involved in buffering decisions.}
 \label{tbl:buffvars}
@@ -644,7 +700,7 @@ Figure \ref{fig:testbed} depicts the evaluation testbed. % To enable rapid compa
 Conceptually, it replicates the actual steps a user would perform to consume a media stream on a playback device. Through appropriate configuration different scenarios can be modeled, e.g. network conditions, behavior and specifics of the user device.
  
  
-\begin{figure}[!t] % use 1.75in each for single-column
+\begin{figure}
 \includegraphics[width=\columnwidth]{images/measurement-model.pdf}
 \caption{Testbed Schematic.}
 \label{fig:testbed}
@@ -691,26 +747,51 @@ All models will generally work very similar in good network conditions. If suffi
 
 High latency can also trigger TCP timeouts and retransmissions, and in turn decrease the congestion window, further impacting the goodput. The latency measurements are depicted in Figure \ref{fig:eval-latency}. The stalling time increases with the additional latency. The Initial Start Delay model provides the best possible result in terms of pure stalling time. On the other hand, Figure \ref{fig:eval-latency-numstalls} shows the Stalling model provides always the worst result for the number of stalls. Any other model will lie beyond that line. The Flash and HTML5 models both run in just a few buffering events which however tend to increase in length with rising latency. Attributed to the simple and optimistic assumption of the Flash model, stalling time is usually lower than with HTML5, at the cost of slightly more buffering events.
  
-\begin{figure*}[!t] % use 1.75in each for single-column
-\noindent\makebox[\textwidth]{\subfloat[Total stalling time]{\label{fig:eval-latency-stallingtime}\includegraphics[width=\columnwidth]{images/eval-latency-stallingtime.pdf}}
-\hfil
-\subfloat[Number of stalls]{\label{fig:eval-latency-numstalls}\includegraphics[width=\columnwidth]{images/eval-latency-frequency.pdf}}}
-\caption{Playback model observations on additional latency}
-\label{fig:eval-latency}
-\end{figure*}
+
+\begin{figure}
+	\centering
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/eval-latency-stallingtime.pdf}
+                \caption{Total stalling time.}
+                \label{fig:eval-latency-stallingtime}
+        \end{subfigure}%
+        ~
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/eval-latency-frequency.pdf}
+                \caption{Number of stalls.}
+                \label{fig:eval-latency-numstalls}
+        \end{subfigure}
+	\caption{Playback model observations on additional latency.}
+	\label{fig:eval-latency}
+\end{figure}
+
 
 TCP goodput is even more severely affected by packet loss. A lost packet results in a duplicate acknowledgement, retransmissions, and a decrease of the congestion window. The problem gets worse if also the ACKs are lost and the connection stalls on missing old segments without which the playback cannot proceed. Figure \ref{fig:eval-loss} shows some exemplary measurements for a loss scenario. While additional packet losses of up to four percent seem to have no noticeable impact on streaming quality, the total stalling time suffers a large increase for any model as seen in Fig. \ref{fig:eval-loss-stallingtime} rendering any streaming attempts practically unusable. Figure \ref{fig:eval-loss-numstalls} shows the extremity of the Stalling model compared to other models reaching a number orders of magnitude larger than any other model.
 As a result, when planning a network for streaming applications, the maximum loss should be kept below the noticed mark to achieve reasonable streaming quality. 
- 
-\begin{figure*}[!t] % use 1.75in each for single-column
-% used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
-\noindent\makebox[\textwidth]{\subfloat[Total stalling time]{\label{fig:eval-loss-stallingtime}\includegraphics[width=\columnwidth]{images/eval-loss4mb-stallingtime.pdf}}
-\hfil
-\subfloat[Number of stalls]{\label{fig:eval-loss-numstalls}\includegraphics[width=\columnwidth]{images/eval-loss4mb-frequency.pdf}}}
-\caption{Playback model observations on additional packet loss.}
-\label{fig:eval-loss}
-\end{figure*}
 
+
+\begin{figure}
+% used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
+	\centering
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/eval-loss4mb-stallingtime.pdf}
+                \caption{Total stalling time.}
+                \label{fig:eval-loss-stallingtime}
+        \end{subfigure}%
+        ~
+    	\begin{subfigure}[b]{0.50\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/eval-loss4mb-frequency.pdf}
+                \caption{Number of stalls.}
+                \label{fig:eval-loss-numstalls}
+        \end{subfigure}
+	\caption{Playback model observations on additional packet loss.}
+	\label{fig:eval-loss}
+\end{figure}
+ 
 Through these to exemplary experiments, we tried to show that network QoS parameters have a direct measurable impact on the application layer, namely on HTTP streaming quality. While the models scale rather well with latency, any HTTP streaming is almost impossible with high packet loss values.
 Comparing the presented playback models, we conclude that every model represents a trade-off between several parameters, e.g. as measured here, the number and length of stalls. With the knowledge gained from the experiments, playback models could be tailor-made to best suit certain conditions and user requirements. 
 

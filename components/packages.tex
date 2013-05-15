@@ -2,9 +2,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % packages
 
-
-% general {{{
-
+% general
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[american]{babel}
@@ -14,21 +12,15 @@
 \usepackage{csquotes} % ?
 \usepackage{fullpage} % ?
 \usepackage{listings} % ?
-
-
-
 \usepackage[scale=3]{ccicons} % creative commons icons
 
 
-% }}}
-
 % graphics and floats
-
 \usepackage[pdftex]{graphicx}
-\usepackage{caption} % ?
-\usepackage{multicol} % ?
-\usepackage{multirow} % ?
-\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{caption} % figure caption control
+\usepackage{subcaption} % sub figure replacement
+%\usepackage{multicol} % ?
+\usepackage{multirow} % tables spanning multiple rows
 \usepackage{tabularx} % ?
 \usepackage{tikz}
 \usepackage{marginnote} % ?
@@ -36,12 +28,9 @@
 \usepackage{array} % ?
 \usepackage{styles/tangocolors}
 
-% }}}
 
 % layout
-
 \usepackage[pdftex,hyperfootnotes=false,pdfpagelabels]{hyperref}
-
 \PassOptionsToPackage{eulerchapternumbers,
                       listings,
                       pdfspacing,
@@ -50,17 +39,13 @@
                       parts,
                       dottedtoc,
                       floatperchapter,
-                      subfig,
                      }{classicthesis}
 \usepackage{classicthesis} % https://code.google.com/p/classicthesis/
 
-% }}}
 
 % convenience
-
-%\usepackage[printonlyused,smaller]{acronym}
 \usepackage[smaller,nohyperlinks,printonlyused]{acronym}
-\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools} % instead of amsmath, amssymb, amsthm
 \usepackage{fixltx2e} % ?
 \usepackage{mparhack} % ?
 \usepackage{ragged2e} % ?
@@ -70,5 +55,3 @@
 \usepackage{xspace} % ?
 \usepackage{algorithmic}
 \usepackage{algorithm}
-
-% }}}

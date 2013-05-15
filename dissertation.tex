@@ -1,49 +1,33 @@
-%% class and language
-%\documentclass[11pt,a4paper,listof=totoc,bibliography=totoc,bibliography=openstyle,titlepage]{scrreprt}
-
 \documentclass[openright,titlepage,numbers=noenddot,headinclude,footinclude=true,cleardoublepage=empty,abstractoff,BCOR=5mm,paper=a4,fontsize=11pt,]{scrreprt}
-
 
 %% document theme and structure inspired from http://git.dgsiegel.net/master-thesis.git/
 \input{components/info}
 \input{components/packages}
 \input{components/settings}
 
-
-
-
 %% doc
 \begin{document}
 
-
-
 \input{components/cover.tex}
-
 \pagenumbering{roman}
-
 \input{components/license.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TOC
 \newpage
-
 \tableofcontents
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% lists
 \chapter*{Acronyms}
 \input{components/acronyms}
-
 \listoffigures
-
 \listoftables
 
 \cleardoublepage
 \pagenumbering{arabic}
-
 \include{components/quote}
 
-\newtheorem*{mydef}{Def}
+\newtheorem{mydef}{Definition}
 
 
 \chapter*{Acknowledgments}
