@@ -105,10 +105,10 @@ Before diving into specifics of \ac{GTP} messaging, we give a short overview on 
 
 
 \begin{figure}
-\centering
-\includegraphics[width=0.7\textwidth]{images/CONEXT2012/umts-network.pdf}
-\caption{Typical simplified setup of the packet switched domain in an \acs{UMTS} network including a METAWIN monitoring probe.}
-\label{fig:umtsnetwork-CONEXT}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/CONEXT2012/umts-network.pdf}
+	\caption{Typical simplified setup of the packet switched domain in an \acs{UMTS} network including a METAWIN monitoring probe.}
+	\label{fig:umtsnetwork-CONEXT}
 \end{figure}
 
 
@@ -119,10 +119,10 @@ One role of the \ac{SGSN} is as the mobility anchor for mobile devices, and it i
 
 
 \begin{figure}
-\centering
-\includegraphics[width=0.6\columnwidth]{images/CONEXT2012/signalling-stack.pdf}
-\caption{Typical signaling protocol stack at the Gn interface between \ac{SGSN} and \ac{GGSN}.}
-\label{fig:signallingstack-CONEXT}
+	\centering
+	\includegraphics[width=0.6\columnwidth]{images/CONEXT2012/signalling-stack.pdf}
+	\caption{Typical signaling protocol stack at the Gn interface between \ac{SGSN} and \ac{GGSN}.}
+	\label{fig:signallingstack-CONEXT}
 \end{figure}
 
 
@@ -155,10 +155,10 @@ Taking this maximum value we arrive at a naive estimate of the maximum overhead 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Create Context Messages}
 \begin{figure}
-\centering
-\includegraphics[width=0.8\columnwidth]{images/CONEXT2012/pdp-context-activation.pdf}
-\caption{PDP Context Activation Procedure in a UMTS network.}
-\label{fig:pdpcontextactivation}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{images/CONEXT2012/pdp-context-activation.pdf}
+	\caption{PDP Context Activation Procedure in a UMTS network.}
+	\label{fig:pdpcontextactivation}
 \end{figure}
 
 Figure \ref{fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp23060}. Some additional \ac{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \ac{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
@@ -294,7 +294,6 @@ As discussed, most of the actions in the network as well as in the mobile device
 
 % Berechnungsgrundlage für die IEs
 %\begin{table*}
-%\centering
 %\caption{Information Elements in a Create PDP Context Request (as peer TS 29.060, Section 7.3.1)}
 %\label{tab:createrequestelements}
 %\begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{4cm}|p{2cm}|p{2cm}|} \hline
@@ -384,9 +383,9 @@ EPS first introduced in 3GPP Release 8, completed in March 2009. Consisting of E
 
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/eps_ps-overview.pdf}
- \caption{Beispielnetz}\label{fig:netzwerk2}
+	\centering
+ 	\includegraphics[width=1.0\textwidth]{images/3gpp/eps_ps-overview.pdf}
+ 	\caption{Beispielnetz}\label{fig:netzwerk2}
 \end{figure}
 
 List of interfaces in the 3G/LTE PS network
@@ -423,40 +422,40 @@ List of interfaces in the 3G/LTE PS network
 \section{Control Plane Protocol Stacks}
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/eNB-MME-layers.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-enbmme}
+	\centering
+ 	\includegraphics[width=1.0\textwidth]{images/3gpp/eNB-MME-layers.pdf}
+ 	\caption{Beispielnetz}\label{fig:3gpp-enbmme}
 \end{figure}
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/SGSN-MME-layers.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-sgsnmme}
+	 \centering
+	 \includegraphics[width=1.0\textwidth]{images/3gpp/SGSN-MME-layers.pdf}
+	 \caption{Beispielnetz}\label{fig:3gpp-sgsnmme}
 \end{figure}
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/S-GW-P-GW-layers.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-sgwpgw}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/3gpp/S-GW-P-GW-layers.pdf}
+	\caption{Beispielnetz}\label{fig:3gpp-sgwpgw}
 \end{figure}
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/MME-S-GW-layers.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-mmesgw}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/3gpp/MME-S-GW-layers.pdf}
+	\caption{Beispielnetz}\label{fig:3gpp-mmesgw}
 \end{figure}
 
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/3g-userplane.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-umtsuserplane}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/3gpp/3g-userplane.pdf}
+	\caption{Beispielnetz}\label{fig:3gpp-umtsuserplane}
 \end{figure}
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/LTE-userplane.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-lteuserplane}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/3gpp/LTE-userplane.pdf}
+	\caption{Beispielnetz}\label{fig:3gpp-lteuserplane}
 \end{figure}
 
 
@@ -472,16 +471,16 @@ where as my knowledge is concern one UE can support maximum 11 bearers, 3 defaul
 Does I will get in any spec for this. As the default bearer are of  NON-GBR type and and there are 5-9 are of NON-GBR QCI so I think a ue can have maximum 5 default bearer If two default bearer can not use same QCI.
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/bearers.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-bearers}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/3gpp/bearers.pdf}
+	\caption{Beispielnetz}\label{fig:3gpp-bearers}
 \end{figure}
 
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/ECM-states.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-ecmstates}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/3gpp/ECM-states.pdf}
+	\caption{Beispielnetz}\label{fig:3gpp-ecmstates}
 \end{figure}
 
 \begin{itemize}
@@ -512,9 +511,9 @@ Allocation and Retention Policy (ARP): priority level preemption capability, pre
 EMM Service request procedure
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/UE-service-request.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-ueservicereq}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/3gpp/UE-service-request.pdf}
+	\caption{Beispielnetz}\label{fig:3gpp-ueservicereq}
 \end{figure}
 
 Annotations:
@@ -527,9 +526,9 @@ Annotations:
 per PLMN node, cf. 3GPP TS 23.401 clause 5.7.
 
 \begin{figure}[htbp]
- \centering
- \includegraphics[width=1.0\textwidth]{images/3gpp/UE-requested-PDN-connectivity.pdf}
- \caption{Beispielnetz}\label{fig:3gpp-uepdnreq}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/3gpp/UE-requested-PDN-connectivity.pdf}
+	\caption{Beispielnetz}\label{fig:3gpp-uepdnreq}
 \end{figure}
 
 
@@ -712,7 +711,8 @@ MSISDN limited to 15 digits. Max total size 12 bytes.
 
 
 \paragraph{Indication}
-\centering
+
+\begin{center}
 \begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 \multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
 \cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
@@ -723,12 +723,14 @@ MSISDN limited to 15 digits. Max total size 12 bytes.
 \cline{2-9} 6 & Spare & UIMSI & CFSI & CRSI & P & PT & SI & MSV \\ 
 \cline{2-9} 7 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\ 
 \cline{2-9}
-\end{tabular} 
+\end{tabular}
+\end{center}
 
 Size is 7 bytes.
 
 \paragraph{PCO}
-\centering
+
+\begin{center}
 \begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 \multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
 \cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
@@ -737,14 +739,15 @@ Size is 7 bytes.
 \cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
 \cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Protocol Configuration Options} \\
 \cline{2-9}
-\end{tabular} 
+\end{tabular}
+\end{center}
 
 Minimum length 4+3-3, maximum length 4+253-3; average?
 
 
 \paragraph{PAA}
-\centering
 
+\begin{center}
 \begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 \multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
 \cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
@@ -755,12 +758,13 @@ Minimum length 4+3-3, maximum length 4+253-3; average?
 \cline{2-9} 6 to (n+4) & \multicolumn{8}{c|}{PDN Adress and Prefix} \\
 \cline{2-9}
 \end{tabular} 
+\end{center}
 
 Either 9 (IPv4), 22 (IPv6), or 26 (IPv4v6).
 
 
 \paragraph{RAT Type}
-\centering
+\begin{center}
 \begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 \multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
 \cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
@@ -771,12 +775,13 @@ Either 9 (IPv4), 22 (IPv6), or 26 (IPv4v6).
 \cline{2-9} 6 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
 \cline{2-9}
 \end{tabular} 
+\end{center}
 
 Maximum length 5 to ?.
 
 \paragraph{Serving Network}
 
-\centering
+\begin{center}
 \begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 \multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
 \cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
@@ -788,14 +793,15 @@ Maximum length 5 to ?.
 \cline{2-9} 7 & \multicolumn{4}{c|}{MNC digit 2} & \multicolumn{4}{c|}{MNC digit 1} \\ 
 \cline{2-9} 8 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
 \cline{2-9}
-\end{tabular} 
+\end{tabular}
+\end{center} 
 
 Maximum length 7 to ?.
 
 
 \paragraph{User Location Information}
 
-\centering
+\begin{center}
 \begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 \multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
 \cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
@@ -811,6 +817,6 @@ Maximum length 7 to ?.
 \cline{2-9} 8 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
 \cline{2-9}
 \end{tabular} 
-
+\end{center}
 
 \subsection{GTP-U}
