@@ -3,6 +3,29 @@
 \chapter{Streaming in Mobile Networks}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lower Layer Mobility Hinting Proposals NEW NEW}
+
+i.e. Mobility without network support
+
+Why? Handovers mean very long application interruption, and redirecting tcp flows to the current base station isn't cheap either (also, induces _very_ long latency)
+
+\begin{itemize}
+\item Tell Transport/Application the expected time till handover / time of uninterrupted service
+\item Tell Transport/App expected connection parameters (latency, BW, ...)
+\item Application selects DASH stream appropriate to parameters
+\item Application reorders HTTP GETs so that large GETs are not interrupted
+\item Application stops transfers when handover is about to occur
+\item Layer 1/2 gives a list of possible handovers to Application
+\item Application selects (better: suggests) handover which fits best and reorders accordingly
+\end{itemize}
+
+Advantages/Disadvantages?
+
+Violation of Layering/encapsulation? No, only APIs get extended 
+
+TOBECONTINUED
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Streaming Mobile Adaptation}
