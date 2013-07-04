@@ -8,7 +8,7 @@
 
 i.e. Mobility without network support
 
-Why? Handovers mean very long application interruption, and redirecting tcp flows to the current base station isn't cheap either (also, induces _very_ long latency)
+Why? Handovers mean very long application interruption, and redirecting tcp flows to the current base station isn't cheap either (also, induces \textbf{very} long latency)
 
 \begin{itemize}
 \item Tell Transport/Application the expected time till handover / time of uninterrupted service
@@ -25,6 +25,18 @@ Advantages/Disadvantages?
 Violation of Layering/encapsulation? No, only APIs get extended 
 
 TOBECONTINUED
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Current protocol stack improvements and streaming relationship}
+
+\begin{itemize}
+\item SPDY / HTTP/2.0 (multiplexing -> segmented streaming)
+\item TCP changes (Fast Open, IW10, ...; any relationship to streaming? maybe faster)
+\item Alternate Transport Protocols (DCCP, LEDBAT/$\mu$tp, QUIC, SCTP, DTLS)
+\end{itemize}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
