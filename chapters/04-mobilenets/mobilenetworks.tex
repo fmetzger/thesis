@@ -1,4 +1,4 @@
-%!TEX root = dissertation.tex
+%!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Mobile Core Network Investigation}
 
@@ -80,7 +80,7 @@ The rest of the paper is structured as follows. Section \ref{chap:relatedwork} d
 
 For our analysis, we use the \ac{METAWIN} monitoring system developed in a previous research project
 and deployed in the network of an Austrian mobile operator.  More in-depth information about \ac{METAWIN} is available in \cite{ricciato_2011}.
-The location of the measurement probe within the core network is highlighted in Figure~\ref{fig:umtsnetwork}. 
+The location of the measurement probe within the core network is highlighted in Figure~\ref{c4:fig:umtsnetwork}. 
 
 As said before, the \ac{GGSN} acts as the IP-layer gateway for the user traffic. It is in charge of setting up,
 maintaining, and tearing down a logical connection to each active \ac{MS}. This logical connection, the \ac{PDP} context,
@@ -176,22 +176,22 @@ After having available the device names for most \acp{TAC}, we were able to add 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\acs{TAC} Statistics and Evaluation Validity}
 
-\begin{table}
-\centering
-\caption{Relative \acs{TAC} Statistics.}
-\label{tab:tacstats-CONEXT}
-\begin{tabular}{|p{4cm}|p{3cm}|} \hline
-& \textbf{Portion of devices with entry in TAC DB}\\ \hline
-\# of Flows & 99.72\% \\ \hline
-Ratio of Traffic & 99.97\%\\ \hline
-\# of Tunnels & 87.57\% \\ \hline
-\# of GTP Signaling Msgs & 90.95\% \\ \hline
-\# of Distinct \acp{MS-ID} & 80.93\%\\ \hline
-\end{tabular}
+\begin{table}[htbp]
+	\centering
+	\caption{Relative \acs{TAC} Statistics.}
+	\label{c4:tbl:tacstats}
+	\begin{tabu}{|X[3,l]|X[2,c]|} \hline
+	& \textbf{Portion of devices with entry in TAC DB}\\ \hline
+	\# of Flows & 99.72\% \\ \hline
+	Ratio of Traffic & 99.97\%\\ \hline
+	\# of Tunnels & 87.57\% \\ \hline
+	\# of GTP Signaling Msgs & 90.95\% \\ \hline
+	\# of Distinct \acp{MS-ID} & 80.93\%\\ \hline
+	\end{tabu}
 \end{table}
 
 
-It is important to know whether our \ac{TAC} mappings provide sufficient useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{tab:tacstats-CONEXT} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all  distinct devices active could be identified. Looking at the total number of \ac{GTP} signaling messages, we see that we can determine the device name of over 90 percent.
+It is important to know whether our \ac{TAC} mappings provide sufficient useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all  distinct devices active could be identified. Looking at the total number of \ac{GTP} signaling messages, we see that we can determine the device name of over 90 percent.
 The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
 
 
@@ -218,30 +218,30 @@ Our measure of choice are the PDP Context Durations as they carry lots of meanin
 
 \subsubsection{Tunnel Durations by Category}
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\columnwidth]{images/CONEXT2012/tunnel-dur-class-cdf-mod.pdf}
+	\includegraphics[width=\textwidth]{images/tunnel-dur-class-cdf-mod.pdf}
 	\caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
-	\label{fig:cdf-duration-device-class-CONEXT}
+	\label{c4:fig:cdf-duration-device-class-CONEXT}
 \end{figure}
 
-Figure~\ref{fig:cdf-duration-device-class-CONEXT} shows the empirical cumulative distribution functions for the PDP Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and 3G dongles. It can be observed that tunnel durations range between  seconds and more than one week\footnote{Although our dataset is one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
+Figure~\ref{c4:fig:cdf-duration-device-class-CONEXT} shows the empirical cumulative distribution functions for the PDP Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and 3G dongles. It can be observed that tunnel durations range between  seconds and more than one week\footnote{Although our dataset is one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
 
-The median differs between device types, being much longer for 3G dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also for the dongles, we observe less extremely long tunnels with durations above several hours. Again, we could hypothetically relate this to a usual laptop working environment, where the device is used for a few hours but then shut down. With this, the PDP Context is deleted as well. Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that  smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, RSS feeds, or email notifications. We also observe two distinct steps, one at 6.8 seconds for dongles, and one at 30 minutes in the overall and smartphone distributions. While we do not have a plausible explanation for the former, the latter could be explained by a value chosen for the RRC state machine transition to the IDLE state (cf. Figure \ref{fig:rrcstatemodel}).
+The median differs between device types, being much longer for 3G dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also for the dongles, we observe less extremely long tunnels with durations above several hours. Again, we could hypothetically relate this to a usual laptop working environment, where the device is used for a few hours but then shut down. With this, the PDP Context is deleted as well. Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that  smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, RSS feeds, or email notifications. We also observe two distinct steps, one at 6.8 seconds for dongles, and one at 30 minutes in the overall and smartphone distributions. While we do not have a plausible explanation for the former, the latter could be explained by a value chosen for the RRC state machine transition to the IDLE state (cf. Figure \ref{c4:fig:rrcstatemodel}).
 
 
 %%
 % Influence of the Device Operating System
 %%
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\columnwidth]{images/CONEXT2012/tunnel-dur-os-cdf-mod.pdf}
+	\includegraphics[width=\textwidth]{images/tunnel-dur-os-cdf-mod.pdf}
 	\caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
-	\label{fig:cdf-duration-os-CONEXT}
+	\label{c4:fig:cdf-duration-os-CONEXT}
 \end{figure}
 
-Taking an even closer look at the smartphone device fraction, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{fig:cdf-duration-os-CONEXT}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{fig:cdf-duration-device-class-CONEXT}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
+Taking an even closer look at the smartphone device fraction, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{c4:fig:cdf-duration-os-CONEXT}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{c4:fig:cdf-duration-device-class-CONEXT}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
 
 Again, a number of steps are visible in the distributions. %Steps at multiples of 10 seconds indicate that timer-induced transitions happen. 
 Those steps that are only visible in one operating system type point to a source involving the phone rather the network. This especially includes the 30 seconds, 300 seconds, and 600 seconds steps (i.e. accumulations of incidents) for Android, and the 600 seconds step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other factors, e.g. the device's firmware version and user traffic dynamics need also be observed. We leave this point for future work..
@@ -256,10 +256,8 @@ A last artifact of note are the larger number of iOS devices with very short tun
 \subsubsection{Impact of Categories on Total Signaling}
 %%
 
-%\vskip -10cm
 
-\begin{figure}
-%\vskip -2.5cm
+\begin{figure}[htbp]
         \centering
         % \begin{subfigure}[b]{0.50\textwidth}
         %         \centering
@@ -270,34 +268,34 @@ A last artifact of note are the larger number of iOS devices with very short tun
         %~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/CONEXT2012/qq-total-vs-android.pdf}
-                \caption{Android duration distribution over the total duration distribution.}
-                \label{fig:qq-total-vs-android}
+            \centering
+            \includegraphics[width=\textwidth]{images/qq-total-vs-android.pdf}
+            \caption{Android duration over the total duration.}
+            \label{c4:fig:qq-total-vs-android}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.50\textwidth}
-                        \centering
-                \includegraphics[width=\textwidth]{images/CONEXT2012/qq-total-vs-ios.pdf}
-                \caption{iOS duration distribution over the total duration distribution.}
-                \label{fig:qq-total-vs-ios}
+            \centering
+            \includegraphics[width=\textwidth]{images/qq-total-vs-ios.pdf}
+            \caption{iOS duration over the total duration.}
+            \label{c4:fig:qq-total-vs-ios}
         \end{subfigure}
 
         \begin{subfigure}[b]{0.50\textwidth}
-                        \centering
-                \includegraphics[width=\textwidth]{images/CONEXT2012/qq-total-vs-dongle.pdf}
-                \caption{3G Dongle duration distribution over the total duration distribution.}
-                \label{fig:qq-total-vs-dongle}
+            \centering
+            \includegraphics[width=\textwidth]{images/qq-total-vs-dongle.pdf}
+            \caption{3G Dongle duratio over the total duration.}
+            \label{c4:fig:qq-total-vs-dongle}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.50\textwidth}
-                        \centering
-                \includegraphics[width=\textwidth]{images/CONEXT2012/qq-total-vs-smartphone.pdf}
-                \caption{Smartphone duration distribution over the total duration distribution.}
-                \label{fig:qq-total-vs-smartphones}
+            \centering
+            \includegraphics[width=\textwidth]{images/qq-total-vs-smartphone.pdf}
+            \caption{Smartphone duration over the total duration.}
+            \label{c4:fig:qq-total-vs-smartphones}
         \end{subfigure}
  \caption{Q-Q Plots of the tunnel duration distributions per operating system, with encircled deciles.}
-\label{fig:qq-plots}
+\label{c4:fig:qq-plots}
 \end{figure}
 
 % \begin{figure}
@@ -314,19 +312,19 @@ A last artifact of note are the larger number of iOS devices with very short tun
 % \end{figure}
 
 
-In an attempt to show which of the presented categories have an impact on the total duration (if at all), we present Q-Q plots of the various categorized durations against the total duration in Figure~\ref{fig:qq-plots}. In theory, if both durations follow the same distribution, one expects a straight line through the origin at an angle of 45$^o$. A steeper incline indicates less densely spaced values in the distribution at the y axis. Looking at igures~\ref{fig:qq-total-vs-android} and \ref{fig:qq-total-vs-ios} which compare different operating systems, both similar and dispersing parts can be observed. While tunnel durations on Android  are more similarly distributed for the shorter and longer durations, iOS device tunnel durations are most similar to the overall tunnel duration distribution in the middle range of values.
+In an attempt to show which of the presented categories have an impact on the total duration (if at all), we present Q-Q plots of the various categorized durations against the total duration in Figure~\ref{c4:fig:qq-plots}. In theory, if both durations follow the same distribution, one expects a straight line through the origin at an angle of 45$^o$. A steeper incline indicates less densely spaced values in the distribution at the y axis. Looking at igures~\ref{c4:fig:qq-total-vs-android} and \ref{c4:fig:qq-total-vs-ios} which compare different operating systems, both similar and dispersing parts can be observed. While tunnel durations on Android  are more similarly distributed for the shorter and longer durations, iOS device tunnel durations are most similar to the overall tunnel duration distribution in the middle range of values.
 
-Combining all types of smartphones together and comparing them to the other major player in any mobile network, the 3G dongles, we observe in Figure \ref{fig:qq-total-vs-smartphones} that both the total and the smartphone durations are almost equally distributed (except for minor variations). On the other hand, 3G dongles follow a very different distribution, see Figure \ref{fig:qq-total-vs-dongle}. Their effect on tunnel management signaling seems to be negligible despite the  large amount of traffic they are causing. Therefore, we conclude that planning and dimensioning of the control plane needs to keep smartphone behaviors more closely in mind than that of other device types.
+Combining all types of smartphones together and comparing them to the other major player in any mobile network, the 3G dongles, we observe in Figure \ref{c4:fig:qq-total-vs-smartphones} that both the total and the smartphone durations are almost equally distributed (except for minor variations). On the other hand, 3G dongles follow a very different distribution, see Figure \ref{c4:fig:qq-total-vs-dongle}. Their effect on tunnel management signaling seems to be negligible despite the  large amount of traffic they are causing. Therefore, we conclude that planning and dimensioning of the control plane needs to keep smartphone behaviors more closely in mind than that of other device types.
 
 
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{images/CONEXT2012/stacked-durations-2-fixed.pdf}
-\caption{Stacked logscale bin plot of the number of tunnels with duration in this bin; classified by Android, iOS and 3G dongles.}
-\label{fig:stacked-durations}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/stacked-durations-2-fixed.pdf}
+	\caption{Stacked logscale bin plot of the number of tunnels with duration in this bin; classified by Android, iOS and 3G dongles.}
+	\label{c4:fig:stacked-durations}
 \end{figure}
 
-Figure~\ref{fig:stacked-durations} shows another interesting influence the operating system has on signaling in the mobile core network. This plot shows the relative number of tunnels with a duration in one of 1000 logarithmically scaled bins, stacked by OS category on top of each other. As with the separate distributions, we discover that the durations are not evenly distributed, but rather follow sharp spikes. The largest spike across all categories is the one at a duration of 30 minutes, making up about 1.8\% of all tunnels in the network. Since this spike happens across all device types, we think this makes a rather strong case for being network-induced, and an indication for the aforementioned possible IDLE state transition. On the other hand, the bulk in the short-to-medium ranges of tunnel duration is rather not governed by the two major smartphone operation systems but by other devices in the network, which do not show major spikes in other bins. We can also recognize a long-tail behavior in the distribution of tunnel durations.
+Figure~\ref{c4:fig:stacked-durations} shows another interesting influence the operating system has on signaling in the mobile core network. This plot shows the relative number of tunnels with a duration in one of 1000 logarithmically scaled bins, stacked by OS category on top of each other. As with the separate distributions, we discover that the durations are not evenly distributed, but rather follow sharp spikes. The largest spike across all categories is the one at a duration of 30 minutes, making up about 1.8\% of all tunnels in the network. Since this spike happens across all device types, we think this makes a rather strong case for being network-induced, and an indication for the aforementioned possible IDLE state transition. On the other hand, the bulk in the short-to-medium ranges of tunnel duration is rather not governed by the two major smartphone operation systems but by other devices in the network, which do not show major spikes in other bins. We can also recognize a long-tail behavior in the distribution of tunnel durations.
 
 %iOS: over 20\% of tunnels shorter than two seconds. 
 
@@ -479,7 +477,7 @@ The rest of the paper is structured as follows. Section \ref{chap:relatedwork} d
 
 For our analysis, we use the \ac{METAWIN} monitoring system developed in a previous research project and deployed in the network of an Austrian mobile operator.  More in-depth information about \ac{METAWIN} is available in \cite{ricciato_2011}.
 
- The location of the measurement probe at the Gn interface within the core network, marked in Figure~\ref{fig:umtsnetwork}, gives access to both wide-area mobility signaling (not analyzed in this paper) and signaling related to user-plane IP traffic (which we want to scrutinize). The \ac{METAWIN} monitoring system extracts and correlates information from the lower layers of the \ac{3GPP} protocol stack, and specifically the \ac{GTP} protocol on the Gn interface \cite{etsi_3gpp_2008}. This includes the \acf{RAT} identifier as well as the terminal types of the mobile clients. The latter is determinable by the \acf{TAC} part of the \acf{IMEI} (cf.~\cite{3gpp23003}) and will be discussed later in detail.
+ The location of the measurement probe at the Gn interface within the core network, marked in Figure~\ref{c4:fig:umtsnetwork}, gives access to both wide-area mobility signaling (not analyzed in this paper) and signaling related to user-plane IP traffic (which we want to scrutinize). The \ac{METAWIN} monitoring system extracts and correlates information from the lower layers of the \ac{3GPP} protocol stack, and specifically the \ac{GTP} protocol on the Gn interface \cite{etsi_3gpp_2008}. This includes the \acf{RAT} identifier as well as the terminal types of the mobile clients. The latter is determinable by the \acf{TAC} part of the \acf{IMEI} (cf.~\cite{3gpp23003}) and will be discussed later in detail.
 
 To meet privacy requirements, the \ac{METAWIN} system anonymizes captured data on the fly at multiple layers: the application-level payload is removed and all user identifiers (e.g. \ac{IMSI}) are hashed with a one-way function before recording. That is, single \acp{MS} in our dataset may be differentiated by means of an anonymized \ac{MS-ID}, but not traced back to the actual customer. The packet capturing hardware deployed within the \ac{METAWIN} monitoring system is synchronized using \ac{GPS}. Accordingly, the packet timestamps have an accuracy of $\pm100$ ns or better~\cite[p.97-98]{donnelly_high_2002}.
 

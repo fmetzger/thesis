@@ -1,4 +1,4 @@
-%!TEX root = dissertation.tex
+%!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Collection of all relevant mobile radio specifications and descriptions
@@ -19,22 +19,22 @@ This section serves as a short introduction on cellular data network basics and 
 
 The packet switched domain of an \ac{UMTS} network is an evolution of \ac{GPRS} and thus closely related to it. First defined by the \ac{3GPP} in Release 99, it focuses its improvements over \ac{GSM} mostly on the radio aspects, while keeping the core network \ac{GPRS} architecture intact at large. \ac{3GPP} \ac{TS} 23.060 \cite{3gpp23060} defines the basic aspects involving \ac{GPRS} protocols and its system architecture. \ac{TS} 29.060 \cite{3gpp29060} describes the specifics of \ac{GTP} flowing across the Gn and Gp interfaces which forms the foundation for our work.
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\textwidth]{images/IMC2013/umts-network.pdf}
+	\includegraphics[width=1.0\textwidth]{images/umts-network.pdf}
 	\caption{Simplified setup of the packet switched domain in an \acs{UMTS} network including a METAWIN monitoring probe.}
-	\label{fig:umtsnetwork}
+	\label{c4:fig:umtsnetwork}
 \end{figure}
 
-As shown in Figure \ref{fig:umtsnetwork}, user traffic originating at any \ac{MS} connected to the radio network flows through a Node B (also called base station), which provides radio connectivity. Multiple Node B are aggregated into a \ac{RNC}. The base stations and \acp{RNC} form the \ac{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \ac{SGSN} and the \ac{GGSN}.
+As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \ac{MS} connected to the radio network flows through a Node B (also called base station), which provides radio connectivity. Multiple Node B are aggregated into a \ac{RNC}. The base stations and \acp{RNC} form the \ac{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \ac{SGSN} and the \ac{GGSN}.
 
-One role of the \ac{SGSN} is to serve as mobility anchor for mobile devices. It is also the endpoint for \ac{RRC}-based signaling and the \ac{RAB}, the radio counterpart to the core network user traffic tunnel. The \ac{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \ac{GTP} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure \ref{fig:signallingstack}. \ac{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels in the core.
+One role of the \ac{SGSN} is to serve as mobility anchor for mobile devices. It is also the endpoint for \ac{RRC}-based signaling and the \ac{RAB}, the radio counterpart to the core network user traffic tunnel. The \ac{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \ac{GTP} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \ac{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels in the core.
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.6\columnwidth]{images/IMC2013/signalling-stack.pdf}
+	\includegraphics[width=0.6\columnwidth]{images/signalling-stack.pdf}
 	\caption{Typical signaling protocol stack at the Gn interface between \ac{SGSN} and \ac{GGSN}.}
-	\label{fig:signallingstack}
+	\label{c4:fig:signallingstack}
 \end{figure}
 
 
@@ -66,14 +66,14 @@ Taking the maximum size we arrive at a naive estimate of the maximum overhead on
 \subsubsection{GTP Influencing State Machines}
 
 As indicated, most nodes in a cellular mobile network keep all sorts of state characterizing the data connection. For the tunnel management aspects, two state machines are of special note, namely the Mobility Management and RRC state machines.
-The former, defined in \cite{3gpp23060}, describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. The \ac{RRC} state machine depicted in Figure~\ref{fig:rrcstatemodel} governs the usage of radio channels. State changes happen again depending on user activity and inactivity.
+The former, defined in \cite{3gpp23060}, describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. The \ac{RRC} state machine depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels. State changes happen again depending on user activity and inactivity.
 Based on the state both procedures can enable and disable radio tunnels as well as core network tunnels, making them a good example of user traffic dynamics directly influencing core network signaling, similar to the observations in \cite{lee2007detection}.
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{images/IMC2013/rrc-simplified-state-model.pdf}
 	\caption{Simplified Radio Resource Control State Model.}
-	\label{fig:rrcstatemodel}
+	\label{c4:fig:rrcstatemodel}
 \end{figure}
 
 
@@ -103,28 +103,9 @@ This section starts with a primer on cellular data network basics, and then move
 
 Before diving into specifics of \ac{GTP} messaging, we give a short overview on the packet switched domain of an \ac{UMTS} network. This domain is closely related to the \ac{GPRS} part introduced for \acs{GSM}. \ac{UMTS}, first defined by the \ac{3GPP} in Release 99, focuses its improvements over \ac{GSM} mostly on the radio aspects, while keeping the core network \ac{GPRS} architecture intact at large. \ac{3GPP} \ac{TS} 23.060 \cite{3gpp23060} defines the basic aspects involving \ac{GPRS} protocols and its system architecture. \ac{TS} 29.060 \cite{3gpp29060} describes the specifics of \ac{GTP} flowing across the Gn and Gp interfaces which forms the basis for our work.
 
+As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \ac{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \ac{RNC}. Node Bs and \acp{RNC} form the \ac{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \ac{SGSN} and the \ac{GGSN}.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\textwidth]{images/CONEXT2012/umts-network.pdf}
-	\caption{Typical simplified setup of the packet switched domain in an \acs{UMTS} network including a METAWIN monitoring probe.}
-	\label{fig:umtsnetwork-CONEXT}
-\end{figure}
-
-
-
-As shown in Figure \ref{fig:umtsnetwork-CONEXT}, user traffic originating at any \ac{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \ac{RNC}. Node Bs and \acp{RNC} form the \ac{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \ac{SGSN} and the \ac{GGSN}.
-
-One role of the \ac{SGSN} is as the mobility anchor for mobile devices, and it is the endpoint for \ac{RRC}-based signaling and the \ac{RAB}. The \ac{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \ac{GTP} protocol to exchange user as well as control plane traffic as seen in the protocol stack in Figure \ref{fig:signallingstack-CONEXT}. \ac{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels.
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\columnwidth]{images/CONEXT2012/signalling-stack.pdf}
-	\caption{Typical signaling protocol stack at the Gn interface between \ac{SGSN} and \ac{GGSN}.}
-	\label{fig:signallingstack-CONEXT}
-\end{figure}
-
+One role of the \ac{SGSN} is as the mobility anchor for mobile devices, and it is the endpoint for \ac{RRC}-based signaling and the \ac{RAB}. The \ac{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \ac{GTP} protocol to exchange user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \ac{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels.
 
 
 
@@ -154,14 +135,15 @@ Taking this maximum value we arrive at a naive estimate of the maximum overhead 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Create Context Messages}
-\begin{figure}
+
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{images/CONEXT2012/pdp-context-activation.pdf}
+	\includegraphics[width=1.0\columnwidth]{images/pdp-context-activation.pdf}
 	\caption{PDP Context Activation Procedure in a UMTS network.}
-	\label{fig:pdpcontextactivation}
+	\label{c4:fig:pdpcontextactivation}
 \end{figure}
 
-Figure \ref{fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp23060}. Some additional \ac{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \ac{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
+Figure \ref{c4:fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp23060}. Some additional \ac{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \ac{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
 
 Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary PDP context Activation} procedure for every tunnel beyond the first. When a \ac{GGSN} receives this request from an \ac{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
 
@@ -206,23 +188,17 @@ The third type of Tunnel Management messages are the \textit{Delete Context Requ
 
 As indicated before, most nodes in a cellular mobile network keep all sorts of states characterizing the data connection. For the tunnel management aspects, two state machines are of special note.
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\columnwidth]{images/CONEXT2012/mm-state-model.pdf}
+	\includegraphics[width=0.8\columnwidth]{images/mm-state-model.pdf}
 	\caption{SGSN Mobility Management State Model.}
-	\label{fig:mmstatemodel}
+	\label{c4:fig:mmstatemodel}
 \end{figure}
 
-First, consider the Mobility Management state machine depicted in Figure \ref{fig:mmstatemodel}, defined in \cite{3gpp23060}, and held in both the \ac{SGSN} as well as the mobile device. It describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. Therefore, it also controls tunnel management, as the involved GPRS Detach and Attach procedures involve deleting and creating contexts. We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
+First, consider the Mobility Management state machine depicted in Figure \ref{c4:fig:mmstatemodel}, defined in \cite{3gpp23060}, and held in both the \ac{SGSN} as well as the mobile device. It describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. Therefore, it also controls tunnel management, as the involved GPRS Detach and Attach procedures involve deleting and creating contexts. We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\columnwidth]{images/CONEXT2012/rrc-state-model.pdf}
-	\caption{Radio Resource Control State Model.}
-	\label{fig:rrcstatemodel-CONEXT}
-\end{figure}
 
-The \ac{RRC} state machine shown in Figure \ref{fig:rrcstatemodel-CONEXT} governs the usage of radio channels, i.e. spectral and temporal usage of the wireless interface. State changes happen depending on the inter-arrival time of user packets. In this case, if the state machine transitions to the IDLE state, the \ac{RAB} on the path between mobile device and \ac{SGSN} is not needed anymore and will be deleted, in most cases destroying the SGSN and GGSN PDP Context as well.
+The \ac{RRC} state machine shown in Figure \ref{c4:fig:rrcstatemodel} governs the usage of radio channels, i.e. spectral and temporal usage of the wireless interface. State changes happen depending on the inter-arrival time of user packets. In this case, if the state machine transitions to the IDLE state, the \ac{RAB} on the path between mobile device and \ac{SGSN} is not needed anymore and will be deleted, in most cases destroying the SGSN and GGSN PDP Context as well.
 
 
 
@@ -384,8 +360,9 @@ EPS first introduced in 3GPP Release 8, completed in March 2009. Consisting of E
 
 \begin{figure}[htbp]
 	\centering
- 	\includegraphics[width=1.0\textwidth]{images/3gpp/eps_ps-overview.pdf}
- 	\caption{Beispielnetz}\label{fig:netzwerk2}
+ 	\includegraphics[width=1.3\textwidth]{images/eps_ps-overview.pdf}
+ 	\caption{Schematic of the packet-switched domain of a combined UMTS/LTE network}
+ 	\label{c4:fig:psdomain}
 \end{figure}
 
 List of interfaces in the 3G/LTE PS network
@@ -423,39 +400,45 @@ List of interfaces in the 3G/LTE PS network
 
 \begin{figure}[htbp]
 	\centering
- 	\includegraphics[width=1.0\textwidth]{images/3gpp/eNB-MME-layers.pdf}
- 	\caption{Beispielnetz}\label{fig:3gpp-enbmme}
+ 	\includegraphics[width=0.9\textwidth]{images/eNB-MME-layers.pdf}
+ 	\caption{Control plane protocol stack at the S1-MME interface between eNodeB and MME.}
+ 	\label{c4:fig:stack-enbmme}
 \end{figure}
 
 \begin{figure}[htbp]
 	 \centering
-	 \includegraphics[width=1.0\textwidth]{images/3gpp/SGSN-MME-layers.pdf}
-	 \caption{Beispielnetz}\label{fig:3gpp-sgsnmme}
+	 \includegraphics[width=0.9\textwidth]{images/SGSN-MME-layers.pdf}
+	 \caption{Control plane protocol stack at the S3 interface between SGSN and MME.}
+	 \label{c4:fig:stack-sgsnmme}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/3gpp/S-GW-P-GW-layers.pdf}
-	\caption{Beispielnetz}\label{fig:3gpp-sgwpgw}
+	\includegraphics[width=0.9\textwidth]{images/S-GW-P-GW-layers.pdf}
+	\caption{Optional control plane protocol stack at the S5 interface between SGW and PGW.}
+	\label{c4:fig:stack-sgwpgw}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/3gpp/MME-S-GW-layers.pdf}
-	\caption{Beispielnetz}\label{fig:3gpp-mmesgw}
+	\includegraphics[width=0.9\textwidth]{images/MME-S-GW-layers.pdf}
+	\caption{Control plane protocol stack at the S11 interface between MME and SGW.}
+	\label{c4:fig:stack-mmesgw}
 \end{figure}
 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/3gpp/3g-userplane.pdf}
-	\caption{Beispielnetz}\label{fig:3gpp-umtsuserplane}
+	\includegraphics[width=1.2\textwidth]{images/3g-userplane.pdf}
+	\caption{User plane protocol stack in an UMTS network.}
+	\label{c4:fig:3gpp-umtsuserplane}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/3gpp/LTE-userplane.pdf}
-	\caption{Beispielnetz}\label{fig:3gpp-lteuserplane}
+	\includegraphics[width=1.2\textwidth]{images/LTE-userplane.pdf}
+	\caption{User plane protocol stack in an LTE/EPC network.}
+	\label{c4:fig:3gpp-lteuserplane}
 \end{figure}
 
 
@@ -472,15 +455,17 @@ Does I will get in any spec for this. As the default bearer are of  NON-GBR type
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/3gpp/bearers.pdf}
-	\caption{Beispielnetz}\label{fig:3gpp-bearers}
+	\includegraphics[width=1.2\textwidth]{images/bearers.pdf}
+	\caption{3GPP bearer model.}
+	\label{c4:fig:3gpp-bearers}
 \end{figure}
 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/3gpp/ECM-states.pdf}
-	\caption{Beispielnetz}\label{fig:3gpp-ecmstates}
+	\includegraphics[width=1.2\textwidth]{images/ECM-states.pdf}
+	\caption{\ac{ECM} state machine.}
+	\label{c4:fig:3gpp-ecmstates}
 \end{figure}
 
 \begin{itemize}
@@ -512,8 +497,9 @@ EMM Service request procedure
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/3gpp/UE-service-request.pdf}
-	\caption{Beispielnetz}\label{fig:3gpp-ueservicereq}
+	\includegraphics[width=1.2\textwidth]{images/UE-service-request.pdf}
+	\caption{EMM service request procedure sequence diagram.}
+	\label{c4:fig:3gpp-ueservicereq}
 \end{figure}
 
 Annotations:
@@ -527,8 +513,9 @@ per PLMN node, cf. 3GPP TS 23.401 clause 5.7.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/3gpp/UE-requested-PDN-connectivity.pdf}
-	\caption{Beispielnetz}\label{fig:3gpp-uepdnreq}
+	\includegraphics[width=1.2\textwidth]{images/UE-requested-PDN-connectivity.pdf}
+	\caption{PDN connectivity request by the UE procedure sequence diagram.}
+	\label{c4:fig:3gpp-uepdnreq}
 \end{figure}
 
 
@@ -536,47 +523,56 @@ per PLMN node, cf. 3GPP TS 23.401 clause 5.7.
 \subsection{GTPv2}
 
 
+\begin{table}[htbp]
+	\caption{GTP header format (TODO: which one exactly.}
+	\label{c4:tbl:gtpheader}
+	\begin{tabu}{c|c|c|c|c|c|c|c|c|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{3}{c|}{Version}  & P & T & Spare & Spare & Spare \\ 
+	\cline{2-9} 2 & \multicolumn{8}{c|}{Message Type}  \\ 
+	\cline{2-9} 3 & \multicolumn{8}{c|}{Message Length (1st Octet)}  \\ 
+	\cline{2-9} 4 & \multicolumn{8}{c|}{Message Length (2nd Octet)}  \\ 
+	\cline{2-9} m to & \multicolumn{8}{c|}{\multirow{2}{10cm}{If T flag is set to 1, then TEID shall be placed into octets 5-8. Otherwise, TEID field is not present at all.}} \\ 
+	 k(m+3) & \multicolumn{8}{c|}{} \\ 
+	\cline{2-9} n to (n+2) & \multicolumn{8}{c|}{Sequence Number} \\ 
+	\cline{2-9} (n+3) & \multicolumn{8}{c|}{Spare} \\ 
+	\cline{2-9} 
+	\end{tabu} 
+\end{table}
 
-\begin{tabular}{c|c|c|c|c|c|c|c|c|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{3}{c|}{Version}  & P & T & Spare & Spare & Spare \\ 
-\cline{2-9} 2 & \multicolumn{8}{c|}{Message Type}  \\ 
-\cline{2-9} 3 & \multicolumn{8}{c|}{Message Length (1st Octet)}  \\ 
-\cline{2-9} 4 & \multicolumn{8}{c|}{Message Length (2nd Octet)}  \\ 
-\cline{2-9} m to & \multicolumn{8}{c|}{\multirow{2}{10cm}{If T flag is set to 1, then TEID shall be placed into octets 5-8. Otherwise, TEID field is not present at all.}} \\ 
- k(m+3) & \multicolumn{8}{c|}{} \\ 
-\cline{2-9} n to (n+2) & \multicolumn{8}{c|}{Sequence Number} \\ 
-\cline{2-9} (n+3) & \multicolumn{8}{c|}{Spare} \\ 
-\cline{2-9} 
-\end{tabular} 
+
 \subsection{GTP-C}
 
-\begin{tabular}{c|c|c|c|c|c|c|c|c|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{3}{c|}{Version}  & P & T=1 & Spare & Spare & Spare \\ 
-\cline{2-9} 2 & \multicolumn{8}{c|}{Message Type}  \\ 
-\cline{2-9} 3 & \multicolumn{8}{c|}{Message Length (1st Octet)}  \\ 
-\cline{2-9} 4 & \multicolumn{8}{c|}{Message Length (2nd Octet)}  \\ 
-\cline{2-9} 5 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (1st Octet)} \\ 
-\cline{2-9} 6 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (2nd Octet)} \\ 
-\cline{2-9} 7 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (3rd Octet)} \\ 
-\cline{2-9} 8 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (4th Octet)} \\ 
-\cline{2-9} 9 & \multicolumn{8}{c|}{Sequence Number (1st Octet)} \\
-\cline{2-9} 10 & \multicolumn{8}{c|}{Sequence Number (2nd Octet)} \\
-\cline{2-9} 11 & \multicolumn{8}{c|}{Sequence Number (3rd Octet)} \\
-\cline{2-9} 12 & \multicolumn{8}{c|}{Spare} \\
-\cline{2-9}
-\end{tabular} 
+\begin{table}[htbp]
+	\caption{12 Byte GTPv2-C header format.}
+	\label{c4:tbl:gtpv2cheader}
+	\begin{tabu}{c|c|c|c|c|c|c|c|c|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{3}{c|}{Version}  & P & T=1 & Spare & Spare & Spare \\ 
+	\cline{2-9} 2 & \multicolumn{8}{c|}{Message Type}  \\ 
+	\cline{2-9} 3 & \multicolumn{8}{c|}{Message Length (1st Octet)}  \\ 
+	\cline{2-9} 4 & \multicolumn{8}{c|}{Message Length (2nd Octet)}  \\ 
+	\cline{2-9} 5 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (1st Octet)} \\ 
+	\cline{2-9} 6 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (2nd Octet)} \\ 
+	\cline{2-9} 7 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (3rd Octet)} \\ 
+	\cline{2-9} 8 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (4th Octet)} \\ 
+	\cline{2-9} 9 & \multicolumn{8}{c|}{Sequence Number (1st Octet)} \\
+	\cline{2-9} 10 & \multicolumn{8}{c|}{Sequence Number (2nd Octet)} \\
+	\cline{2-9} 11 & \multicolumn{8}{c|}{Sequence Number (3rd Octet)} \\
+	\cline{2-9} 12 & \multicolumn{8}{c|}{Spare} \\
+	\cline{2-9}
+	\end{tabu} 
+\end{table}
 
-12 Byte GTPv2-C header.
+
 
 \subsubsection{Create Session Request Message}
 
 Information Elements Table for PDP Context Activation Case only
 
-\begin{longtabu}{|p{2cm}|c|p{1.5cm}|p{8cm}|}
+\begin{longtabu} to\linewidth{| X[2,l] | X[2,c] | X[l] | X[4] |}
 \hline
 Information Element 						& IE Type 					& Max Wire Size (Bytes)	& Comment \\ \hline
 IMSI 										& IMSI 						& 12					& \\ \hline
@@ -611,33 +607,41 @@ Private Extensions							& Private Extensions		&						& \\ \hline
 
 \paragraph{IMSI}
 
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 1 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 & \multicolumn{4}{c|}{Number digit 2} & \multicolumn{4}{c|}{Number digit 1} \\ 
-\cline{2-9} 6 & \multicolumn{4}{c|}{Number digit 4} & \multicolumn{4}{c|}{Number digit 3} \\ 
-\cline{2-9} ... & \multicolumn{4}{c|}{...} & \multicolumn{4}{c|}{...} \\ 
-\cline{2-9} n+4 & \multicolumn{4}{c|}{Number digit m} & \multicolumn{4}{c|}{Number digit m-1} \\ 
-\cline{2-9}
-\end{tabular} 
+\begin{table}[htbp]
+	\caption{IMSI Information Element Format.}
+	\label{c4:tbl:imsiieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 1 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 & \multicolumn{4}{c|}{Number digit 2} & \multicolumn{4}{c|}{Number digit 1} \\ 
+	\cline{2-9} 6 & \multicolumn{4}{c|}{Number digit 4} & \multicolumn{4}{c|}{Number digit 3} \\ 
+	\cline{2-9} ... & \multicolumn{4}{c|}{...} & \multicolumn{4}{c|}{...} \\ 
+	\cline{2-9} n+4 & \multicolumn{4}{c|}{Number digit m} & \multicolumn{4}{c|}{Number digit m-1} \\ 
+	\cline{2-9}
+	\end{tabu}
+\end{table}
 
 Decimals coded as TBCD; if odd number fill last nibble with 1; max digits is 15.\\
 Max IE size 12 Byte.
 
 \paragraph{APN}
 
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 71 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Access Point Name} \\ 
-\cline{2-9}
-\end{tabular} 
+\begin{table}[htbp]
+	\caption{APN Information Element Format.}
+	\label{c4:tbl:apnieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 71 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Access Point Name} \\ 
+	\cline{2-9}
+	\end{tabu} 
+\end{table}
 
 Full APN name including APN Network Identifier and APN Operator Identifier.
 Network Identifier: max length 63 bytes.
@@ -648,175 +652,205 @@ Max total $4+63+16=83$
 
 \paragraph{AMBR}
 
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 72 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 to 8 & \multicolumn{8}{c|}{APN-AMBR for uplink} \\ 
-\cline{2-9} 9 to 12 & \multicolumn{8}{c|}{APN-AMBR for downlink} \\ 
-\cline{2-9}
-\end{tabular} 
-
+\begin{table}[htbp]
+	\caption{APN Information Element Format.}
+	\label{c4:tbl:abmrieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 72 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 to 8 & \multicolumn{8}{c|}{APN-AMBR for uplink} \\ 
+	\cline{2-9} 9 to 12 & \multicolumn{8}{c|}{APN-AMBR for downlink} \\ 
+	\cline{2-9}
+	\end{tabu} 
+\end{table}
 
 Total size 12 bytes.
 
 
 \paragraph{Recovery}
 
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 3 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Recovery (Restart Counter} \\ 
-\cline{2-9}
-\end{tabular} 
+\begin{table}[htbp]
+	\caption{Recovery Information Element Format.}
+	\label{c4:tbl:recoveryieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 3 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Recovery (Restart Counter} \\ 
+	\cline{2-9}
+	\end{tabu} 
+\end{table}
 
 IN GTPv2 first release IE length is 5 bytes. May be longer in the future.
 
 
 \paragraph{MEI}
 
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 75 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Mobile Equipment (ME) Identity} \\ 
-\cline{2-9}
-\end{tabular} 
+\begin{table}[htbp]
+	\caption{MEI Information Element Format.}
+	\label{c4:tbl:meiieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 75 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Mobile Equipment (ME) Identity} \\ 
+	\cline{2-9}
+	\end{tabu}
+\end{table}
 
 15 (IMEI) or 16 (IMEISV) BCD digits filled with 1 to full octet. Size is 12 bytes.
 
 \paragraph{MSISDN}
 
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 76 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 & \multicolumn{4}{c|}{Number digit 2} & \multicolumn{4}{c|}{Number digit 1} \\ 
-\cline{2-9} 6 & \multicolumn{4}{c|}{Number digit 4} & \multicolumn{4}{c|}{Number digit 3} \\ 
-\cline{2-9} ... & \multicolumn{4}{c|}{...} & \multicolumn{4}{c|}{...} \\ 
-\cline{2-9} n+4 & \multicolumn{4}{c|}{Number digit m} & \multicolumn{4}{c|}{Number digit m-1} \\ 
-\cline{2-9}
-\end{tabular} 
+\begin{table}[htbp]
+	\caption{MSISDN Information Element Format.}
+	\label{c4:tbl:msisdnieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 76 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 & \multicolumn{4}{c|}{Number digit 2} & \multicolumn{4}{c|}{Number digit 1} \\ 
+	\cline{2-9} 6 & \multicolumn{4}{c|}{Number digit 4} & \multicolumn{4}{c|}{Number digit 3} \\ 
+	\cline{2-9} ... & \multicolumn{4}{c|}{...} & \multicolumn{4}{c|}{...} \\ 
+	\cline{2-9} n+4 & \multicolumn{4}{c|}{Number digit m} & \multicolumn{4}{c|}{Number digit m-1} \\ 
+	\cline{2-9}
+	\end{tabu}
+\end{table}
 
 MSISDN limited to 15 digits. Max total size 12 bytes.
 
 
 \paragraph{Indication}
 
-\begin{center}
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 77 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 & DAF & DTF & HI & DFI & OI & ISRSI & ISRAI & SGWCI \\ 
-\cline{2-9} 6 & Spare & UIMSI & CFSI & CRSI & P & PT & SI & MSV \\ 
-\cline{2-9} 7 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\ 
-\cline{2-9}
-\end{tabular}
-\end{center}
+\begin{table}[htbp]
+	\caption{Indication Information Element Format.}
+	\label{c4:tbl:indicationieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 77 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 & DAF & DTF & HI & DFI & OI & ISRSI & ISRAI & SGWCI \\ 
+	\cline{2-9} 6 & Spare & UIMSI & CFSI & CRSI & P & PT & SI & MSV \\ 
+	\cline{2-9} 7 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\ 
+	\cline{2-9}
+	\end{tabu}
+\end{table}
 
 Size is 7 bytes.
 
 \paragraph{PCO}
 
-\begin{center}
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 78 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Protocol Configuration Options} \\
-\cline{2-9}
-\end{tabular}
-\end{center}
+
+\begin{table}[htbp]
+	\caption{PCO Information Element Format.}
+	\label{c4:tbl:pcoieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 78 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 to (n+4) & \multicolumn{8}{c|}{Protocol Configuration Options} \\
+	\cline{2-9}
+	\end{tabu}
+\end{table}
 
 Minimum length 4+3-3, maximum length 4+253-3; average?
 
 
 \paragraph{PAA}
 
-\begin{center}
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 79 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 & \multicolumn{5}{c|}{Spare} & \multicolumn{3}{c|}{PDN Type} \\
-\cline{2-9} 6 to (n+4) & \multicolumn{8}{c|}{PDN Adress and Prefix} \\
-\cline{2-9}
-\end{tabular} 
-\end{center}
+\begin{table}[htbp]
+	\caption{PAA Information Element Format.}
+	\label{c4:tbl:paaieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 79 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 & \multicolumn{5}{c|}{Spare} & \multicolumn{3}{c|}{PDN Type} \\
+	\cline{2-9} 6 to (n+4) & \multicolumn{8}{c|}{PDN Adress and Prefix} \\
+	\cline{2-9}
+	\end{tabu} 
+\end{table}
 
 Either 9 (IPv4), 22 (IPv6), or 26 (IPv4v6).
 
 
 \paragraph{RAT Type}
-\begin{center}
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 82 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 & \multicolumn{8}{c|}{RAT Type} \\
-\cline{2-9} 6 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
-\cline{2-9}
-\end{tabular} 
-\end{center}
+
+
+\begin{table}[htbp]
+	\caption{RAT Information Element Format.}
+	\label{c4:tbl:ratieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 82 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 & \multicolumn{8}{c|}{RAT Type} \\
+	\cline{2-9} 6 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
+	\cline{2-9}
+	\end{tabu} 
+\end{table}
 
 Maximum length 5 to ?.
 
 \paragraph{Serving Network}
 
-\begin{center}
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 83 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 & \multicolumn{4}{c|}{MCC digit 2} & \multicolumn{4}{c|}{MCC digit 1} \\ 
-\cline{2-9} 6 & \multicolumn{4}{c|}{MNC digit 3} & \multicolumn{4}{c|}{MCC digit 3} \\ 
-\cline{2-9} 7 & \multicolumn{4}{c|}{MNC digit 2} & \multicolumn{4}{c|}{MNC digit 1} \\ 
-\cline{2-9} 8 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
-\cline{2-9}
-\end{tabular}
-\end{center} 
+\begin{table}[htbp]
+	\caption{Serving Network Information Element Format.}
+	\label{c4:tbl:servingnetieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 83 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 & \multicolumn{4}{c|}{MCC digit 2} & \multicolumn{4}{c|}{MCC digit 1} \\ 
+	\cline{2-9} 6 & \multicolumn{4}{c|}{MNC digit 3} & \multicolumn{4}{c|}{MCC digit 3} \\ 
+	\cline{2-9} 7 & \multicolumn{4}{c|}{MNC digit 2} & \multicolumn{4}{c|}{MNC digit 1} \\ 
+	\cline{2-9} 8 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
+	\cline{2-9}
+	\end{tabu}
+\end{table} 
 
 Maximum length 7 to ?.
 
 
 \paragraph{User Location Information}
 
-\begin{center}
-\begin{tabular}{c|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
-\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 86 (decimal)} \\ 
-\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
-\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
-\cline{2-9} 5 & \multicolumn{3}{c|}{Spare} & ECGI & TAI & RAI & SAI & CGI \\ 
-\cline{2-9} a to a+6 & \multicolumn{8}{c|}{CGI} \\ 
-\cline{2-9} 7 & \multicolumn{8}{c|}{SAI} \\ 
-\cline{2-9} 7 & \multicolumn{8}{c|}{RAI} \\ 
-\cline{2-9} 7 & \multicolumn{8}{c|}{TAI} \\ 
-\cline{2-9} 7 & \multicolumn{8}{c|}{ECGI} \\ 
-\cline{2-9} 8 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
-\cline{2-9}
-\end{tabular} 
-\end{center}
+\begin{table}[htbp]
+	\caption{User Location Information Element Format.}
+	\label{c4:tbl:userlocieformat}
+	\begin{tabu}{X[c]|X|X|X|X|X|X|X|X|}
+	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+	\cline{2-9} 1 & \multicolumn{8}{c|}{Type = 86 (decimal)} \\ 
+	\cline{2-9} 2 to 3 & \multicolumn{8}{c|}{Length = n}  \\ 
+	\cline{2-9} 4 & \multicolumn{4}{c|}{Spare} & \multicolumn{4}{c|}{Instance} \\ 
+	\cline{2-9} 5 & \multicolumn{3}{c|}{Spare} & ECGI & TAI & RAI & SAI & CGI \\ 
+	\cline{2-9} a to a+6 & \multicolumn{8}{c|}{CGI} \\ 
+	\cline{2-9} 7 & \multicolumn{8}{c|}{SAI} \\ 
+	\cline{2-9} 7 & \multicolumn{8}{c|}{RAI} \\ 
+	\cline{2-9} 7 & \multicolumn{8}{c|}{TAI} \\ 
+	\cline{2-9} 7 & \multicolumn{8}{c|}{ECGI} \\ 
+	\cline{2-9} 8 to (n+4) & \multicolumn{8}{c|}{These octet(s) is/are present only if explicitly specified} \\
+	\cline{2-9}
+	\end{tabu} 
+\end{table}
 
 \subsection{GTP-U}
