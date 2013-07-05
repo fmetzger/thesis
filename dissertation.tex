@@ -1,20 +1,22 @@
-\documentclass[openright,titlepage,numbers=noenddot,headinclude,footinclude=true,cleardoublepage=empty,abstractoff,BCOR=5mm,paper=a4,fontsize=11pt,]{scrreprt}
+\documentclass[openright,titlepage,numbers=noenddot,headinclude,footinclude=true,cleardoublepage=empty,BCOR=5mm,paper=a4,fontsize=11pt,]{scrreprt}
 
 %% document theme and structure inspired from http://git.dgsiegel.net/master-thesis.git/
 \input{components/info}
 \input{components/packages}
 \input{components/settings}
 
+
 %% doc
 \begin{document}
 
 \input{components/cover.tex}
-\pagenumbering{roman}
 \input{components/license.tex}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TOC
 \newpage
+\pagenumbering{roman}
 \tableofcontents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% lists
@@ -24,17 +26,21 @@
 \listoftables
 
 \cleardoublepage
-\pagenumbering{arabic}
 \include{components/quote}
 
+\cleardoublepage
+\include{components/abstract}
+
 \newtheorem{mydef}{Definition}
-
-
 \chapter*{Acknowledgments}
 
+
+\pagenumbering{arabic}
+\pagestyle{plain}
+
 \subimport{chapters/01-intro/}{introduction}
-\include{relatedwork}
-\include{streaming}
+\subimport{chapters/02-relwork/}{relatedwork}
+\subimport{chapters/03-streaming/}{streaming}
 \include{mobilenetworks}
 \include{mobilestreaming}
 \include{conclusion}

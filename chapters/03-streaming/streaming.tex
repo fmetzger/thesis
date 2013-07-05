@@ -1,4 +1,4 @@
-%!TEX root = dissertation.tex
+%!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Video Streaming Techniques}
 
@@ -8,14 +8,14 @@
 \section{Streaming Control Flow Nomenclature}
 
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{images/expose/nif.pdf}
+\includegraphics[width=0.8\textwidth]{images/nif.pdf}
 \caption{Theoretical information exchange paths between streaming partners.}
-\label{fig:nif}
+\label{c3:fig:nif}
 \end{figure}
 
-In every network architecture there is a control information flow between its participating layers, protocols and elements (cf. also Fig. \ref{fig:nif}). Control information may need to be exchanged to coordinate and negotiate the modes of communication between two endpoints and can be helpful in many ways. For example can a network explicitly expose network's quality of service data to applications or these application can make reservation requests to the network. Communication can also work implicitly, demonstrated in the distributed TCP congestion control enabled by the lack of resource isolation. This shows two major ways for the information flow to be implemented: Either through directly and explicitly exchanging information or by one participant implicitly drawing conclusions on another participants resources and behavior.
+In every network architecture there is a control information flow between its participating layers, protocols and elements (cf. also Fig. \ref{c3:fig:nif}). Control information may need to be exchanged to coordinate and negotiate the modes of communication between two endpoints and can be helpful in many ways. For example can a network explicitly expose network's quality of service data to applications or these application can make reservation requests to the network. Communication can also work implicitly, demonstrated in the distributed TCP congestion control enabled by the lack of resource isolation. This shows two major ways for the information flow to be implemented: Either through directly and explicitly exchanging information or by one participant implicitly drawing conclusions on another participants resources and behavior.
 
 These different approaches can also be observed in video streaming. The explicit control structure of protocol suites like IMS\cite{3gpp23228} and MBMS weaves application and network layer tightly together. This theoretically allows for an improved streaming performance at the cost of universally applicable behavior. Today's IP-based HTTP streaming forms the other side of the pole having only an implicit network information flow by guessing the current network conditions.
 
@@ -80,13 +80,13 @@ The capabilities and shortcomings of these novel mechanisms are not yet fully re
 
 \item \textit{Playback control and media data buffering}. Using the reliable TCP as transport protocol means that there will be no packet loss visible to the application layer. The video file will always reach the client in the same form as stored on the server. If packets are lost, the result will additional delay and decreased throughput through the occurring retransmissions. If video data does not reach the client in time before its playback buffer is depleted, this will results in video stalling and therefore a perceptible loss of quality. This situation can be alleviated or even avoided by carefully planning the playback process and the buffering behavior.
 
-\item \textit{Application layer flow control}. HTTP file downloading is a very simple process. The server has very little influence on this and just forwards requested stored data into a TCP socket. This is not an optimal behavior for video streaming as it does not allow for any throttling or rate management. The buffer space in mobile or embedded devices can be very limited, it would be useful to limit the amount of received data while still ensuring sufficiently available future playback data in the buffer. Services have begun to implement application layer flow control mechanisms for their video streaming application, e.g. YouTube \cite{alcock2011application}. Figure \ref{fig:streamingtransfermodes} shows a comparison of several possible rate management modes. The first sequence diagram shows the unaltered transfer mode observable in regular HTTP file transmissions. The second and third diagrams show possible ways of implementing application layer flow control with either evenly spread out transmissions or sending in blocks. The last diagram displays a mode using multiple requests for one video which can be facilitated for rate adaptations discussed in the next item.
+\item \textit{Application layer flow control}. HTTP file downloading is a very simple process. The server has very little influence on this and just forwards requested stored data into a TCP socket. This is not an optimal behavior for video streaming as it does not allow for any throttling or rate management. The buffer space in mobile or embedded devices can be very limited, it would be useful to limit the amount of received data while still ensuring sufficiently available future playback data in the buffer. Services have begun to implement application layer flow control mechanisms for their video streaming application, e.g. YouTube \cite{alcock2011application}. Figure \ref{c3:fig:streamingtransfermodes} shows a comparison of several possible rate management modes. The first sequence diagram shows the unaltered transfer mode observable in regular HTTP file transmissions. The second and third diagrams show possible ways of implementing application layer flow control with either evenly spread out transmissions or sending in blocks. The last diagram displays a mode using multiple requests for one video which can be facilitated for rate adaptations discussed in the next item.
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.9\textwidth]{images/expose/streaming-transfer-modes.pdf}
+\includegraphics[width=1.0\textwidth]{images/streaming-transfer-modes.pdf}
 \caption{Comparison of several possible streaming transfer modes (Source: \cite{ma2011mobile}).}
-\label{fig:streamingtransfermodes}
+\label{c3:fig:streamingtransfermodes}
 \end{figure}
 
 \item \textit{Video quality and rate adaptation}. To be able to support varying video bitrate levels similar to RTP some adaptations to HTTP streaming are needed. At first, the video has to be encoded multiple times to several output bitrates. Also, the video container needs to be able to support switching the stream at will with everything required for the playback in place. Additionally, an independently available index file needs to correlate the video files with their contents. Alternatively, the video can be segmented into short pieces of several seconds outlined by a separate index file. Then the client can choose the stream variant that best fits its current condition, which depends on parameters including the display size or varying network QoS. \cite{ma2011mobile} gives an overview over some possibilities. Several proprietary protocols, some of them in the process of standardization, tackle this, including HTTP Live Streaming \cite{pantos2011livestreaming} and Microsoft Smooth Streaming \cite{zambelli_iis_2009}. They are either based on file segmentation or HTTP RANGE requests. Initial experiments in \cite{akhshabi2011experimental} evaluate the viability of this kind of approach. We plan to extend this by modelling the fundamental building blocks the mechanisms have in common and after that giving tools to find and evaluate combinations best suited to specific network conditions.
@@ -186,7 +186,7 @@ Therefore adaptive forms of HTTP streaming were developed. The techniques comple
 \section{Metrics and Model}
 \label{sec:metricsmodel}
 
-\begin{figure}[t!]
+\begin{figure}[htbp]
 %\vskip -2.5cm
         \centering
         % \begin{subfigure}[b]{0.50\textwidth}
@@ -199,33 +199,33 @@ Therefore adaptive forms of HTTP streaming were developed. The techniques comple
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/streaming/bufferlevel-stall-new.pdf}
+                \includegraphics[width=\textwidth]{images/bufferlevel-stall-new.pdf}
                 \caption{Playback stalling method, 33s total stalling.}
-                \label{fig:bufferlevel-stall}
+                \label{c3:fig:bufferlevel-stall}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/streaming/bufferlevel-startdelay-new.pdf}
+                \includegraphics[width=\textwidth]{images/bufferlevel-startdelay-new.pdf}
                 \caption{Delayed playback method, 33s total stalling.}
-                \label{fig:bufferlevel-startdelay}
+                \label{c3:fig:bufferlevel-startdelay}
         \end{subfigure}
 
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/streaming/bufferlevel-flash-new.pdf}
+                \includegraphics[width=\textwidth]{images/bufferlevel-flash-new.pdf}
                 \caption{YouTube Flash Player method, 34s total stalling.}
-                \label{fig:bufferlevel-flash}
+                \label{c3:fig:bufferlevel-flash}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.50\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/streaming/bufferlevel-firefox-new.pdf}
+                \includegraphics[width=\textwidth]{images/bufferlevel-firefox-new.pdf}
                 \caption{Firefox 4 method, 44s total stalling.}
-                \label{fig:bufferlevel-firefox}
+                \label{c3:fig:bufferlevel-firefox}
         \end{subfigure}
 \caption{Modelled buffer fill level graphs and resulting total stalling times.}
-\label{fig:bufferlevel-PV}
+\label{c3:fig:bufferlevel-PV}
 \end{figure}
 
 
@@ -263,19 +263,19 @@ While these models try to give dimensions and characteristics to the initial sta
 
 \subsection{Simple Stalling Model}
 
-The simplest version of the model is represented in Figure \ref{fig:bufferlevel-stall} which shows the difference between the aggregate downloaded and already played data, which is the buffer level. The model starts and advances playback immediately when it has enough data to show a full frame and stops every time the buffer is about to run out and restarts immediately when there is data to show. This results in numerous stops and a large loss in playback continuity. However, this model also has the shortest total stalling time and can therefore act as a reference baseline to compare the performance of the other models against it.
+The simplest version of the model is represented in Figure \ref{c3:fig:bufferlevel-stall} which shows the difference between the aggregate downloaded and already played data, which is the buffer level. The model starts and advances playback immediately when it has enough data to show a full frame and stops every time the buffer is about to run out and restarts immediately when there is data to show. This results in numerous stops and a large loss in playback continuity. However, this model also has the shortest total stalling time and can therefore act as a reference baseline to compare the performance of the other models against it.
 
 
 \subsection{Simple Predictive Model}
 
-The second approach in Fig. \ref{fig:bufferlevel-startdelay} defers the playback start as long as it is needed to play the video uninterrupted, meaning that the playback buffer will never run out of data. However, this approach is only viable with a complete knowledge over the downloading process, which can only be estimated in live scenarios. Because playback is done with global knowledge and at the earliest point possible the total stalling time is also 33 seconds, but only one long stalling phase occurs while the user initially waits for the playback to start.
+The second approach in Fig. \ref{c3:fig:bufferlevel-startdelay} defers the playback start as long as it is needed to play the video uninterrupted, meaning that the playback buffer will never run out of data. However, this approach is only viable with a complete knowledge over the downloading process, which can only be estimated in live scenarios. Because playback is done with global knowledge and at the earliest point possible the total stalling time is also 33 seconds, but only one long stalling phase occurs while the user initially waits for the playback to start.
 
 
 \subsection{YouTube Model}
 
 This model tries to resemble the playback mechanisms as implemented in YouTube's Flash video player.
 It defers the start until at least two seconds of video data are buffered. When a stall occurs the player buffers at least five seconds of video before restarting. The model does not use any knowledge about the transmission (e.g. current bandwidth).
-The result can be seen in Figure \ref{fig:bufferlevel-flash}. Compared to the simple stalling model it increases the playback stability while only marginally affecting the total stalling time, resulting in 34 seconds of stalling.
+The result can be seen in Figure \ref{c3:fig:bufferlevel-flash}. Compared to the simple stalling model it increases the playback stability while only marginally affecting the total stalling time, resulting in 34 seconds of stalling.
 
 \subsection{HTML5 Predictive Model}
 The standard playback and buffering process of HTML5 is described in the HTML5 specification but adds up to:
@@ -288,7 +288,7 @@ The standard playback and buffering process of HTML5 is described in the HTML5 s
 \item The moving average of the transmission rate is larger than the moving average of the video bitrate and the player has a safety buffer with 20 seconds of video data.
 \end{itemize}
 
-This approach is quite conservative and trades longer waiting times for fewer interruptions. The test case for our model is shown in Figure \ref{fig:bufferlevel-firefox}. Initially, playback starts only after a long waiting period of about 25 seconds. Also, the only intermittent stall causes a long buffering period. Then again, the model keeps the total number of stalls down to this single stall. However, due to the longer overall stalling time of 44 seconds the player needs to buffer more data than the other model implementations. In our test case the maximum buffer size increased from about 2800 KiB to 5600 KiB. This may be a problem for devices with sparse amounts of memory, e.g. mobile telephones or small dedicated streaming boxes. However, a large buffer can also increase the chance of continuous playback in mobile scenarios with intermittent service interruption.
+This approach is quite conservative and trades longer waiting times for fewer interruptions. The test case for our model is shown in Figure \ref{c3:fig:bufferlevel-firefox}. Initially, playback starts only after a long waiting period of about 25 seconds. Also, the only intermittent stall causes a long buffering period. Then again, the model keeps the total number of stalls down to this single stall. However, due to the longer overall stalling time of 44 seconds the player needs to buffer more data than the other model implementations. In our test case the maximum buffer size increased from about 2800 KiB to 5600 KiB. This may be a problem for devices with sparse amounts of memory, e.g. mobile telephones or small dedicated streaming boxes. However, a large buffer can also increase the chance of continuous playback in mobile scenarios with intermittent service interruption.
 
 
 %Which offers better quality to users? Some approaches (TODO: refs and explain how)
@@ -307,39 +307,39 @@ This approach is quite conservative and trades longer waiting times for fewer in
 
 For the YouTube streaming measurements we implemented an automated video downloading and playback simulation software to feed information into the model and evaluate the total stalling time. For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
 
-The first point of interest discovered during the evaluation of the measurements was the information encoded in the URLs pointing to the actual video files (cf. Table \ref{tbl:yturl}) as they hinted on the presence of transmission rate throttling for some videos. However, if one tries to alter or remove the throttling parameters the YouTube server responds to this with a HTTP 403 forbidden error code, meaning that there are further checks in place to ensure this behavior. 
+The first point of interest discovered during the evaluation of the measurements was the information encoded in the URLs pointing to the actual video files (cf. Table \ref{c3:tbl:yturl}) as they hinted on the presence of transmission rate throttling for some videos. However, if one tries to alter or remove the throttling parameters the YouTube server responds to this with a HTTP 403 forbidden error code, meaning that there are further checks in place to ensure this behavior. 
 
-We experienced this hinted throttling for all non-HD (i.e. lower than 720p resolution) videos. The throttling method, which \cite{alcock2011afcyt} also observed, limits the transmission to a rate higher than but correlated to the average media bitrate. The \textit{block-sending} method used for the limiting is rather unusual as it transmits short packet bursts, typically 64 KiB in size, followed by long pauses as seen in Figure \ref{fig:blocktransfer-detail}. Initially, a larger burst is transmitted to allow for some pre-buffering to occur in the client's media player (cf. Fig. \ref{fig:blocktransfer-overall}). This limiting is probably in place to even the load on the caches and to prevent load spikes, yet ensuring that every client receives the necessary data in time for playback.
+We experienced this hinted throttling for all non-HD (i.e. lower than 720p resolution) videos. The throttling method, which \cite{alcock2011afcyt} also observed, limits the transmission to a rate higher than but correlated to the average media bitrate. The \textit{block-sending} method used for the limiting is rather unusual as it transmits short packet bursts, typically 64 KiB in size, followed by long pauses as seen in Figure \ref{c3:fig:blocktransfer-detail}. Initially, a larger burst is transmitted to allow for some pre-buffering to occur in the client's media player (cf. Fig. \ref{c3:fig:blocktransfer-overall}). This limiting is probably in place to even the load on the caches and to prevent load spikes, yet ensuring that every client receives the necessary data in time for playback.
 
 
 
-\begin{figure}
+\begin{figure}[htbp]
 % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
 	\centering
-    	\begin{subfigure}[b]{0.50\textwidth}
+    	\begin{subfigure}[b]{0.80\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/streaming/blocktransfer-mod.pdf}
+                \includegraphics[width=\textwidth]{images/blocktransfer-mod.pdf}
                 \caption{Overall graph.}
-                \label{fig:blocktransfer-overall}
-        \end{subfigure}%
-        ~
-    	\begin{subfigure}[b]{0.50\textwidth}
+                \label{c3:fig:blocktransfer-overall}
+        \end{subfigure}
+
+    	\begin{subfigure}[b]{0.80\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/streaming/blocktransferdetail.pdf}
+                \includegraphics[width=\textwidth]{images/blocktransferdetail.pdf}
                 \caption{Detail plot of the rate-limited block-sending phase.}
-                \label{fig:blocktransfer-detail}
+                \label{c3:fig:blocktransfer-detail}
         \end{subfigure}
 \caption{Measurement results for the download and playback of a video.}
-\label{fig:blocktransfer}
+\label{c3:fig:blocktransfer}
 \end{figure}
 
 
 
-\begin{table}
+\begin{table}[htbp]
 % increase table row spacing, adjust to taste
 \renewcommand{\arraystretch}{1.3}
 \caption{Transmission Related Parameters from YouTube's Video URL Setup}
-\label{tbl:yturl}
+\label{c3:tbl:yturl}
 \centering
 \begin{tabular}{|p{4.7cm}||p{3.3cm}|}\hline
 URL Part & Description \\ \hline \hline
@@ -352,16 +352,16 @@ URL Part & Description \\ \hline \hline
 
 \end{table}
 
-We performed two measurement series, one with increased packet loss, the other one adding latency to the path. For each value of loss and latency a mean total stalling time was calculated out of five separate experiments to eliminate temporal and network load influences. Additionally, standard deviations are shown in the resulting graphs of Figure \ref{fig:seriesgraphs}. We clearly notice very large deviations in some experiments. Some of these can be explained by connection timeouts and later resumption of the streaming. Furthermore, an exponential regression line shows the trend of the total stalling times in the experiments.
+We performed two measurement series, one with increased packet loss, the other one adding latency to the path. For each value of loss and latency a mean total stalling time was calculated out of five separate experiments to eliminate temporal and network load influences. Additionally, standard deviations are shown in the resulting graphs of Figure \ref{c3:fig:seriesgraphs}. We clearly notice very large deviations in some experiments. Some of these can be explained by connection timeouts and later resumption of the streaming. Furthermore, an exponential regression line shows the trend of the total stalling times in the experiments.
 
 
-Figure \ref{fig:delayseries} displays the results of of the latency measurement series with up to five seconds of additional delay. In the worst case the stalling time increases to about 50 seconds. In mobile scenarios latencies of up to 2 seconds can be expected, which would, according to our measurements, result in a maximum mean stalling time of 15 seconds for a 90 second video, which could very well be bearable for YouTube users.
+Figure \ref{c3:fig:delayseries} displays the results of of the latency measurement series with up to five seconds of additional delay. In the worst case the stalling time increases to about 50 seconds. In mobile scenarios latencies of up to 2 seconds can be expected, which would, according to our measurements, result in a maximum mean stalling time of 15 seconds for a 90 second video, which could very well be bearable for YouTube users.
 
 There are several factors that could contribute to the increase in stalling time in the latency experiments. 
 TCP, in its simplest form, increases the congestion window based on the Round Trip Time (RTT), making it highly dependent on this connection parameter. Newer congestion avoidance algorithms, e.g. the CUBIC algorithm used in Linux \cite{ha2008cubic}, however reduce this dependence on the RTT.
 Another influencing factor might be YouTube's block sending mechanism, which, according to \cite{alcock2011afcyt}, may negatively interact with congestion control algorithms. The impact of packet loss on stalling is much higher than that of latency in our measurements. Yet, due to TCP's reliable transmissions, loss only causes increased packet retransmissions, and, thus, acts as a source of burst delay which negatively impacts the overall throughput.
 
-Figure \ref{fig:lossseries} shows the series of loss experiments. While the 6\% packet loss and below has an almost negligible influence on the stalling time anything above this value will probably not achieve good user experience at all. Interesting to note is the rather sudden increase in stalling time when there is more than 6\% loss added. This could again hints to the transport protocol's reliable transport feature, which catches all the occurring losses, through timeouts or gaps in the sequence numbers. However, the detection and retransmission takes some time, which is reflected in the increased stalling time.
+Figure \ref{c3:fig:lossseries} shows the series of loss experiments. While the 6\% packet loss and below has an almost negligible influence on the stalling time anything above this value will probably not achieve good user experience at all. Interesting to note is the rather sudden increase in stalling time when there is more than 6\% loss added. This could again hints to the transport protocol's reliable transport feature, which catches all the occurring losses, through timeouts or gaps in the sequence numbers. However, the detection and retransmission takes some time, which is reflected in the increased stalling time.
 
 
 
@@ -370,25 +370,25 @@ Figure \ref{fig:lossseries} shows the series of loss experiments. While the 6\% 
 % TODO: Mobile video delivery with HTTP \cite{ma2011mobile}
 % reasoning for "HTTP pacing" and segmented delivery
 
-\begin{figure}
+\begin{figure}[htbp]
 % yt-delay-allBW.ods, graphik aus LibreOffice Calc, OLE in LibreOffice Draw, font sizes min 11pt, Page Margins passen (18,2 x 10,3), als PDF exportiert.
 % new method: extra libreoffice calc page, scaled to fit on one page, pdf export, cut with acrobat
 	\centering
-    	\begin{subfigure}[b]{0.50\textwidth}
+    	\begin{subfigure}[b]{1.0\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/streaming/delay.pdf}
+                \includegraphics[width=\textwidth]{images/delay.pdf}
                 \caption{Latency Graph.}
-                \label{fig:delayseries}
-        \end{subfigure}%
-        ~
-    	\begin{subfigure}[b]{0.50\textwidth}
+                \label{c3:fig:delayseries}
+        \end{subfigure}
+
+    	\begin{subfigure}[b]{1.00\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/streaming/loss.pdf}
+                \includegraphics[width=\textwidth]{images/loss.pdf}
                 \caption{Loss Graph.}
-                \label{fig:lossseries}
+                \label{c3:fig:lossseries}
         \end{subfigure}
 \caption{Total buffering time and exponential trend for degraded network parameter scenarios.}
-\label{fig:seriesgraphs}
+\label{c3:fig:seriesgraphs}
 \end{figure}
 
 
@@ -455,23 +455,23 @@ The remainder of this paper is structured as follows. Section \ref{chap:relatedw
 In network layering models, it is often assumed that the layers are independent (or at least strongly decoupled) from, and only present narrow interfaces to, one another. From a conceptual point of view, media streaming is a process governing the application layer. Thus, the application and its behavior might be thought to dominate the overall streaming process and associated quality. In this Section, we will show that this is not necessarily the case. % for reasons of conflicting time constraints on the different layers, 
 
 
-Figure \ref{fig:timescales} overviews the approximate time scales on which activities on different layers may take place, spanning a remarkable range of twelve orders of magnitude. Multiple layers might implement the same or similar functionality, e.g. flow control in the application and on transport layer, resulting in nested control loops, which might be coupled due to the timing constraints. 
+Figure \ref{c3:fig:timescales} overviews the approximate time scales on which activities on different layers may take place, spanning a remarkable range of twelve orders of magnitude. Multiple layers might implement the same or similar functionality, e.g. flow control in the application and on transport layer, resulting in nested control loops, which might be coupled due to the timing constraints. 
 
 
 % As such, the aim of this deliverable is to provide a methodology that identifies influencing factors on the user experience, and quantifies the relative impact of these factors.
 
 
-\begin{figure}
-\includegraphics[width=\textwidth]{images/streaming/timescales.pdf}
-\caption{Relevant time scales in the layers of the stack}
-\label{fig:timescales}
+\begin{figure}[htbp]
+	\includegraphics[width=\textwidth]{images/timescales.pdf}
+	\caption{Relevant time scales in the layers of the stack}
+	\label{c3:fig:timescales}
 \end{figure}
 
 
 
 \subsection{Network Layer}
 
-As seen in Figure \ref{fig:timescales}, the time constants found in different network implementations range from nanoseconds (for Gigabit Ethernet) to seconds (for UMTS and LTE/SAE wireless networks), depending on the technology used. This also influences the achievable round-trip time across such networks, which directly affects the performance of higher-layer protocols: IP, ICMP, UDP, TCP, and subsequently all application-layer protocols are all subject to these timing constraints.
+As seen in Figure \ref{c3:fig:timescales}, the time constants found in different network implementations range from nanoseconds (for Gigabit Ethernet) to seconds (for UMTS and LTE/SAE wireless networks), depending on the technology used. This also influences the achievable round-trip time across such networks, which directly affects the performance of higher-layer protocols: IP, ICMP, UDP, TCP, and subsequently all application-layer protocols are all subject to these timing constraints.
 
 In the case of wireless networks, typical effects of wireless connectivity relating to physical phenomena like fading and interference come into play. Flaky radio connectivity is a major source of packet loss and excessive delay. Certain cellular mobile technologies like UMTS and its evolutions implement loss concealment themselves, confounding IP's assumption of a host-to-network layer lacking guaranteed delivery. Other peculiarities of cellular mobile networks include a maximum transmission unit (MTU) opaque to IP, and delay variances as functions of packet sizes \cite{Arlos10} and radio access technologies \cite{laner2011dissecting}.
 
@@ -580,7 +580,7 @@ Another user parameter is the quality level of the video for adaptive streaming.
 
 %\begin{figure}[!t] % use 1.75in each for single-column
 %\centering
-%\includegraphics[width=0.8\columnwidth]{usersatisfaction}
+%\includegraphics[width=0.8\textwidth]{usersatisfaction}
 %\caption{User Experience as a trade-off between stalls and start-up delay}
 %\label{fig:stalltradeoff}
 %\end{figure}
@@ -604,38 +604,37 @@ The stalling and initial delay models define the maximum achievable upper and lo
 \subsection{Firefox HTML5 Model}
 The algorithm used in the Firefox 4 browser is an approximate realization of the HTML5 video standard \cite{html5} which suggests starting the playback only when it can be ensured that the video can be played without interruption similar to the initial playback delay model.
 
-The algorithm and its variables are shown in Algorithm \ref{alg:firefox-PV} and Table \ref{tbl:buffvars}, respectively. Firefox 4 uses moving averages to estimate the development of the transmission rate. It does not differentiate between intermittent and initial conditions. As the approach is similar in concept to the initial playback delay model, %it results in a very large required buffer space, but also %
+The algorithm and its variables are shown in Algorithm \ref{c3:alg:firefox-PV} and Table \ref{c3:tbl:buffvars}, respectively. Firefox 4 uses moving averages to estimate the development of the transmission rate. It does not differentiate between intermittent and initial conditions. As the approach is similar in concept to the initial playback delay model, %it results in a very large required buffer space, but also %
 it sports very few stalling events due to conservatively chosen (i.e., long) buffering times.
 
 
 
-\begin{figure}
-\centering
-\begin{algorithmic}
-\IF {$s_{MA} > v_{MA}$} 
-  \STATE $c \gets ( b_b=20s \lor b_T=20s )$
-\ELSE
-  \STATE $c \gets ( b_b=30s \lor b_T=30s )$
-\ENDIF 
-\end{algorithmic}
-\caption{Firefox playback (re-)start decision algorithm.}
-\label{alg:firefox-PV}
+\begin{figure}[htbp]
+	\centering
+	\begin{algorithmic}
+		\IF {$s_{MA} > v_{MA}$} 
+		  \STATE $c \gets ( b_b=20s \lor b_T=20s )$
+		\ELSE
+		  \STATE $c \gets ( b_b=30s \lor b_T=30s )$
+		\ENDIF 
+	\end{algorithmic}
+	\caption{Firefox playback (re-)start decision algorithm.}
+	\label{c3:alg:firefox-PV}
 \end{figure}
 
-\begin{table}
 
-\caption{Variables involved in buffering decisions.}
-\label{tbl:buffvars}
-\centering
-\begin{tabular}{|c|c|} \hline
-Variable & Explanation \\ \hline\hline
-$s_{MA}$ & Moving average of the transmission speed. \\ \hline
-$v_{MA}$ & Moving average of the video bitrate. \\ \hline
-$c$   & Condition upon which to start/resume playback. \\ \hline
-$b_b$    & Amount of video data the buffer contains. \\ \hline
-$b_T$    & Amount of time spent in non-playing buffering state. \\ \hline
-\end{tabular}
-
+\begin{table}[htbp]
+	\caption{Variables involved in buffering decisions.}
+	\label{c3:tbl:buffvars}
+	\centering
+	\begin{tabular}{|c|c|} \hline
+	Variable & Explanation \\ \hline\hline
+	$s_{MA}$ & Moving average of the transmission speed. \\ \hline
+	$v_{MA}$ & Moving average of the video bitrate. \\ \hline
+	$c$   & Condition upon which to start/resume playback. \\ \hline
+	$b_b$    & Amount of video data the buffer contains. \\ \hline
+	$b_T$    & Amount of time spent in non-playing buffering state. \\ \hline
+	\end{tabular}
 \end{table}
  
   
@@ -665,14 +664,14 @@ At the same time, it must be able to answer specific questions about  protocols,
 % Through configuration, one may evaluate the influence of network parameters, states, and topologies on the multimedia stream, e.g. parallel bearers with different quality settings, cross traffic, or stream-support middleboxes.
 
 
-Figure \ref{fig:testbed} depicts the evaluation testbed. % To enable rapid comparison of network quality of service against application behaviors we employ a two-step process. 
+Figure \ref{c3:fig:testbed} depicts the evaluation testbed. % To enable rapid comparison of network quality of service against application behaviors we employ a two-step process. 
 Conceptually, it replicates the actual steps a user would perform to consume a media stream on a playback device. Through appropriate configuration different scenarios can be modeled, e.g. network conditions, behavior and specifics of the user device.
  
  
-\begin{figure}
-\includegraphics[width=\columnwidth]{images/streaming/measurement-model.pdf}
-\caption{Testbed Schematic.}
-\label{fig:testbed}
+\begin{figure}[htbp]
+	\includegraphics[width=\textwidth]{images/measurement-model.pdf}
+	\caption{Testbed Schematic.}
+	\label{c3:fig:testbed}
 \end{figure}
 
 In the first pass of the process, the stream data is transmitted from a server to the client. The server can either be an actual streaming service on the Internet, or a local server (to eliminate the unpredictable impact of the Internet connection). The traffic is directed through a network emulation node capable of altering the network QoS parameters, i.e. latency, jitter, and packet loss. The parameters could also be set according to stochastic models derived from actual network traces. 
@@ -692,19 +691,19 @@ In the second pass, these two traces are then used to feed the playback models d
 The results presented here show some of the capabilities in comparing play network conditions based on playback models. We compare how the four playback models introduced previously fare against each other in a measurement series featuring  emulated transmission latency and packet loss . At the same time, we acknowledge that other specific questions are not touched in this first set of experiments, e.g. the inclusion of a mobile network or handset, or RTP-based streams.
 
 The video used in our measurements was streamed from the YouTube web site. This provides a realistic base for all the experiments. Note that YouTube also employs its own form of application layer flow control in addition to TCP's \cite{alcock2011application}. % The influence of the access bandwidth can mostly be neglected with this mechanism as long as the limit is well above the video bitrate, which was the case here.
-Details on the streamed video are available in Table \ref{tbl:videoparams}.
+Details on the streamed video are available in Table \ref{c3:tbl:videoparams}.
 
-\begin{table}
-\centering
-\caption{Test Video Parameters}
-\label{tbl:videoparams}
-\begin{tabular}{l|r}
-Video Duration	& 01:32.536 minutes \\ \hline
-Size & 9.61 MiB \\ \hline
-Framerate & 23.976/s \\ \hline
-Average Video Bitrate & 871 Kbps \\ \hline
-Codec & AVC+AAC \\ \hline
-\end{tabular}
+\begin{table}[htbp]
+	\centering
+	\caption{Test Video Parameters}
+	\label{c3:tbl:videoparams}
+	\begin{tabular}{l|r}
+	Video Duration	& 01:32.536 minutes \\ \hline
+	Size & 9.61 MiB \\ \hline
+	Framerate & 23.976/s \\ \hline
+	Average Video Bitrate & 871 Kbps \\ \hline
+	Codec & AVC+AAC \\ \hline
+	\end{tabular}
 \end{table}
 
 For the loss experiment series, the network emulator was configured to drop a certain percentage of packets based on a normal distribution on both the uplink and the downlink direction. There was no loss correlation involved, the existence of which one would expect, e.g., in wireless networks. One streaming run for every two percentage points of additional loss up to 14\% was conducted.
@@ -714,51 +713,51 @@ After the traces were recorded, every playback model was applied to all runs. Fo
 
 All models will generally work very similar in good network conditions. If sufficient bandwidth is available, they will play videos with almost no delay and  intermediate buffering. If, however, the achievable TCP goodput is close to the average video bitrate, the buffer may be strained by short deviations from the average rates. %TCP goodput can also be severely limited by high latency and loss. Many TCP congestion control algorithms depend on the round trip time. If the RTT is high, the congestion window will increase much slower.
 
-High latency can also trigger TCP timeouts and retransmissions, and in turn decrease the congestion window, further impacting the goodput. The latency measurements are depicted in Figure \ref{fig:eval-latency}. The stalling time increases with the additional latency. The Initial Start Delay model provides the best possible result in terms of pure stalling time. On the other hand, Figure \ref{fig:eval-latency-numstalls} shows the Stalling model provides always the worst result for the number of stalls. Any other model will lie beyond that line. The Flash and HTML5 models both run in just a few buffering events which however tend to increase in length with rising latency. Attributed to the simple and optimistic assumption of the Flash model, stalling time is usually lower than with HTML5, at the cost of slightly more buffering events.
+High latency can also trigger TCP timeouts and retransmissions, and in turn decrease the congestion window, further impacting the goodput. The latency measurements are depicted in Figure \ref{c3:fig:eval-latency}. The stalling time increases with the additional latency. The Initial Start Delay model provides the best possible result in terms of pure stalling time. On the other hand, Figure \ref{c3:fig:eval-latency-numstalls} shows the Stalling model provides always the worst result for the number of stalls. Any other model will lie beyond that line. The Flash and HTML5 models both run in just a few buffering events which however tend to increase in length with rising latency. Attributed to the simple and optimistic assumption of the Flash model, stalling time is usually lower than with HTML5, at the cost of slightly more buffering events.
  
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-    	\begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/streaming/eval-latency-stallingtime.pdf}
-                \caption{Total stalling time.}
-                \label{fig:eval-latency-stallingtime}
-        \end{subfigure}%
-        ~
-    	\begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/streaming/eval-latency-frequency.pdf}
-                \caption{Number of stalls.}
-                \label{fig:eval-latency-numstalls}
+    	\begin{subfigure}[b]{1.0\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/eval-latency-stallingtime.pdf}
+            \caption{Total stalling time.}
+            \label{c3:fig:eval-latency-stallingtime}
+        \end{subfigure}
+
+    	\begin{subfigure}[b]{1.0\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/eval-latency-frequency.pdf}
+            \caption{Number of stalls.}
+            \label{c3:fig:eval-latency-numstalls}
         \end{subfigure}
 	\caption{Playback model observations on additional latency.}
-	\label{fig:eval-latency}
+	\label{c3:fig:eval-latency}
 \end{figure}
 
 
-TCP goodput is even more severely affected by packet loss. A lost packet results in a duplicate acknowledgement, retransmissions, and a decrease of the congestion window. The problem gets worse if also the ACKs are lost and the connection stalls on missing old segments without which the playback cannot proceed. Figure \ref{fig:eval-loss} shows some exemplary measurements for a loss scenario. While additional packet losses of up to four percent seem to have no noticeable impact on streaming quality, the total stalling time suffers a large increase for any model as seen in Fig. \ref{fig:eval-loss-stallingtime} rendering any streaming attempts practically unusable. Figure \ref{fig:eval-loss-numstalls} shows the extremity of the Stalling model compared to other models reaching a number orders of magnitude larger than any other model.
+TCP goodput is even more severely affected by packet loss. A lost packet results in a duplicate acknowledgement, retransmissions, and a decrease of the congestion window. The problem gets worse if also the ACKs are lost and the connection stalls on missing old segments without which the playback cannot proceed. Figure \ref{c3:fig:eval-loss} shows some exemplary measurements for a loss scenario. While additional packet losses of up to four percent seem to have no noticeable impact on streaming quality, the total stalling time suffers a large increase for any model as seen in Fig. \ref{c3:fig:eval-loss-stallingtime} rendering any streaming attempts practically unusable. Figure \ref{c3:fig:eval-loss-numstalls} shows the extremity of the Stalling model compared to other models reaching a number orders of magnitude larger than any other model.
 As a result, when planning a network for streaming applications, the maximum loss should be kept below the noticed mark to achieve reasonable streaming quality. 
 
 
-\begin{figure}
+\begin{figure}[htbp]
 % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
 	\centering
-    	\begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/streaming/eval-loss4mb-stallingtime.pdf}
-                \caption{Total stalling time.}
-                \label{fig:eval-loss-stallingtime}
-        \end{subfigure}%
-        ~
-    	\begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/streaming/eval-loss4mb-frequency.pdf}
-                \caption{Number of stalls.}
-                \label{fig:eval-loss-numstalls}
+    	\begin{subfigure}[b]{1.0\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/eval-loss4mb-stallingtime.pdf}
+            \caption{Total stalling time.}
+            \label{c3:fig:eval-loss-stallingtime}
+        \end{subfigure}
+
+    	\begin{subfigure}[b]{1.0\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/eval-loss4mb-frequency.pdf}
+            \caption{Number of stalls.}
+            \label{c3:fig:eval-loss-numstalls}
         \end{subfigure}
 	\caption{Playback model observations on additional packet loss.}
-	\label{fig:eval-loss}
+	\label{c3:fig:eval-loss}
 \end{figure}
  
 Through these to exemplary experiments, we tried to show that network QoS parameters have a direct measurable impact on the application layer, namely on HTTP streaming quality. While the models scale rather well with latency, any HTTP streaming is almost impossible with high packet loss values.
