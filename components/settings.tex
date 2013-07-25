@@ -26,7 +26,15 @@
 
 
 %%% bibliography
-\bibliography{bibliography/literature}
+%\bibliography{bibliography/literature}
+\addbibresource{bibliography/literature.bib}
+\addbibresource{chapters/01-intro/introduction.bib}
+\addbibresource{chapters/02-relwork/relatedwork.bib}
+\addbibresource{chapters/03-streaming/streaming.bib}
+\addbibresource{chapters/04-mobilenets/mobilenetworks.bib}
+\addbibresource{chapters/05-mobilestreaming/mobilestreaming.bib}
+\addbibresource{chapters/99-conclusion/conclusion.bib}
+
 % use integers instead of a,b,c,... for same key cites
 \DeclareFieldFormat{extraalpha}{\##1}
 \defbibheading{bibliography}[\bibname]{
