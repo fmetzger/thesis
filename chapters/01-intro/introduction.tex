@@ -6,6 +6,9 @@
 %% new thesis stuff
 Packet Switching is the process of chunking information into smaller bits, labeling it and transmitting it independently. Paul Baran described this process in the 1960s\cite{baran1964distributed}. It changed a lot and provided one of the foundations for the emergence of the Internet. ARPANET, evolution, today's scale, outside and inside developments brings new Internet usage (mp3+p2p, bandwidth+codecs -> video, digicams/camcorder), mobile networks: more of a parallel development to the Internet, started from the old copper/telephony/circuit switched world, very slow development compared to Internet (in the beginning), but now finally able to do stuff, HOWEVER, very different beast, circuit switched roots, signalling, explicitly NOT a distributed system as compared to Internet, i.e. explicit signalling central controllers; now let's do research on it
 
+%TODO:
+additionally vint cerf + bob kahn: tcp/ip \cite{1092259}
+
 
 %% old
 The Internet began its life in the 1960s after the invention of packet switching \cite{baran1964distributed}. Throughout the years an amalgamation of networks, protocols, architectural evolutions, constant and changing principles, and applications lead to the Internet in its current form.
@@ -30,16 +33,42 @@ Figure~\ref{c1:fig:traffic_netvine} and Figure~\ref{c1:fig:traffic_cisco} ... TO
 \end{figure}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INSERT: Reenabled text with a broader background view}
+
+It was originally used to enable login to remote computers and soon thereafter remotely accessing files using FTP. But from it emerged countless other services and applications that are today used by hundreds of millions of people touching almost every aspect of daily life. 
+
+The rise of the World Wide Web in the 1990s and even more in the last years made adoption of the Internet for the masses much easier. One needs just a single application to access and participate in most of the Internet's content in an easy accessible viewing format, i.e. the Web page defined with HTML.
+
+External influences and developments also had a huge impact on the development of the Internet and the Web. E.g. it can be argued that the invention of MP3 audio compression lead to the development of peer-to-peer mechanisms and file sharing (Napster). The wide spread of digital cameras and camcorders was one of the pillars of success for social networks, including video streaming sites like YouTube.
+A further requirements for these were the ever-increasing bandwidth capacities users had to access the Internet creating a two-way feedback loop. For every leap in bandwidth new services came up that filled it and fuelling the users' demand for further capacity increases. 
+
+Several factors contributed to the quick acceptance of the Internet. On the one hand, there are no assumptions made on the transported content. In contrast to the circuit switched telephone networks, which favor one mode of transportation and content (voice calls with specific procedures and/or codecs), in the Internet every packet is treated in the same way, leveling the playing field for every contender. On the other hand, one of the driving concepts of the Internet is the ``End-to-End Principle'' \cite{saltzer1984end2end, bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} which states:
+
+``The function in question can completely and correctly be implemented only with the knowledge and help of the application standing at the endpoints of the communications system. Therefore, providing that questioned function as a feature of the communication system itself is not possible. (Sometimes an incomplete version of the function provided by the communication system may be useful as a performance enhancement)'' \cite{saltzer1984end2end} 
+
+This means, that functionality, i.e. services or applications, should only be implemented at the two endpoints of any packet flow. Making assumptions of the higher protocol layers and implementing functions in the network, essentially making it intelligent, will always only be valid for existing and narrow use cases and cannot support future developments. Despite critical arguments, e.g. in \cite{reed2000endofe2e, moors2002critical}, and mechanisms that superficially seem to violate it (NAT, ECN) this principle still drives progress in the Web.
+
+The total volume if of Internet traffic has for many years been rising exponentially, as stated often fueled through external developments. The composition of today's traffic is manifold, but one large contributing factor is video. 
+Video transport in the Internet is currently a topic of hot discussions. Older and well researched transport modes, e.g. RTP, are challenged by new ones, which integrate themselves better into the current web ecosystem. Yet, they use completely different approaches to streaming and the control thereof. This is also the first research interest of the doctoral thesis.
+Streaming, or more generalized media transport is also not only relevant for the purpose of watching videos, there are many more fields of use which have slightly different requirements. With the popular cloud computing approach, which essentially means to run ones applications remotely on any number of hosts, it is necessary to transport the output of the applications, which often can be graphical, to the client. This is especially true for so-called Cloud Gaming services, which have hard temporal constraints on both directions of the transport path.
+
+Mobile networks are still much closer to their circuit switching roots. Having evolved from GSM over UMTS to LTE, mobile networks have only very recently become fully packet switched. However, the data transport through its many core network elements is still using connection oriented techniques. The radio access' properties are also wildly different to traditional This poses unique challenges and opportunities for the design and performance of protocols. Therefore, we take a special interest in mobile network environments in our research of video streaming.
+
+Concepts for future Internet structures are strongly disputed at the moment. A vast array of concepts is under discussion to either replace or enhance the protocol stack of the Internet's current setup. It will be interesting to measure the influence on media streaming and transport of these proposed changes or if there is any influence at all.
+
+END BACKGROUND INSERT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 This can put pressure on the overly complex cellular network structures. The radio transmissions have only access to a limited radio frequency spectrum that, moreover, has to be shared with any other phone user in the same cell. But there is also deemed to be significant pressure on the traffic management mechanisms of the mobile core networks backing up and aggregating the numerous radio cells of an operator. Little is known of the exact make-up of these networks as they are closely guarded secrets of the operator.
 
 The popularity of these video services can to a degree be attributed to their full integration into the WWW. While previous offerings used completely different techniques which required the use of additional software, today one can enjoy videos just by directing ones browser to a website. Furthermore, other services related to video streaming are now also beginning to migrate to Web platforms. An example that is becoming increasingly popular at the moment are cloud gaming offerings which uses mechanisms very similar to real time video streaming but has stringent temporal constraints.
 
 
-The topic of the thesis will be the research of the inner workings of these new streaming services and mechanisms and especially its impact on the aforementioned cellular core network structures. This means conducting performance evaluations of the streaming mechanisms on itself and in the context of mobile networks as well as performing systematic assessments and classifications of the mechanisms. 
 
-The result will be an understanding of the quantitative attributes related to these new forms of streaming. Furthermore, the thesis should provide tools and methods that help decide all participants of media streaming and mobile network operators which protocols and methods to choose and which are best suited for specific applications.
 
-The tackled protocols, systems, and mechanisms are described in Section X. Section Y details the methods that are and are planned to be used for the research. The final section gives a rough estimation on the thesis' schedule.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -238,13 +267,29 @@ As demonstrated, the ongoing work of this thesis is twofold, the application lay
 The thesis should be concluded in the first or second quarter of 2014 with the last quarters being dedicated to the writeup and finalization work.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Thesis' Future Impact}
+
+The topic of the thesis will be the research of the inner workings of these new streaming services and mechanisms and especially its impact on the aforementioned cellular core network structures. This means conducting performance evaluations of the streaming mechanisms on itself and in the context of mobile networks as well as performing systematic assessments and classifications of the mechanisms. 
+
+The result will be an understanding of the quantitative attributes related to these new forms of streaming. Furthermore, the thesis should provide tools and methods that help decide all participants of media streaming and mobile network operators which protocols and methods to choose and which are best suited for specific applications
+
+
+%TODO:
+    Performance analysis and comparison model of existing media streaming solutions
+      But do not compare the protocols but the mechanisms and paradigms behind it
+    Special focus on mobile environments and their pitfalls
+    Improvements to protocols and new approaches
+
+    Neue Videostreamingtechniken sind beliebt und bringen immer mehr Last in Mobilfunksysteme. Die Leistungsfähigkeit und die Qualität der Streaming-Dienste hängt insbesondere vom Verkehrsmanagement in Mobilfunksystem ab. Die Arbeit soll die Leistungsfähigkeit der neuen Streamingverfahren in heutigen und zukünftigen Mobilfunksystemen, die mit dem Internet verbunden sind, untersuchen. Die Schwierigkeit der Arbeit besteht in der Komplexität der Mobilfunksysteme und der neuen Streamingverfahren sowie in der Verknüpfungen der beiden Konzepte. Insbesondere die Auswirkung der Mobilfunkkernnetze auf die Leistungsfähigkeit der Mechanismen der Transportschicht sollen mit Hilfe von Methoden aus der Leistungsbewertung von Rechner- und Kommunikationsnetzen, untersucht werden.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Thesis Structure}
 
 This thesis is structured as follows.
 
-
+The tackled protocols, systems, and mechanisms are described in Section X. Section Y details the methods that are and are planned to be used for the research. The final section gives a rough estimation on the thesis' schedule.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{Services in the Internet}
@@ -339,57 +384,6 @@ This thesis is structured as follows.
 %http://en.wikipedia.org/wiki/TCP_global_synchronization
 
 
-
-
-%TODO:
-%Thesis' Future Impact
-%    Performance analysis and comparison model of existing media streaming solutions
-%      But do not compare the protocols but the mechanisms and paradigms behind it
-%    Special focus on mobile environments and their pitfalls
-%    Improvements to protocols and new approaches
-
-
-%Concepts for future Internet structures are strongly disputed at the moment. A vast array of concepts is under discussion to either replace or enhance the protocol stack of the Internet's current setup. It will be interesting to measure the influence on media streaming and transport of these proposed changes or if there is any influence at all.
-
-    
-    %Neue Videostreamingtechniken sind beliebt und bringen immer mehr Last in Mobilfunksysteme. Die Leistungsfähigkeit und die Qualität der Streaming-Dienste hängt insbesondere vom Verkehrsmanagement in Mobilfunksystem ab. Die Arbeit soll die Leistungsfähigkeit der neuen Streamingverfahren in heutigen und zukünftigen Mobilfunksystemen, die mit dem Internet verbunden sind, untersuchen. Die Schwierigkeit der Arbeit besteht in der Komplexität der Mobilfunksysteme und der neuen Streamingverfahren sowie in der Verknüpfungen der beiden Konzepte. Insbesondere die Auswirkung der Mobilfunkkernnetze auf die Leistungsfähigkeit der Mechanismen der Transportschicht sollen mit Hilfe von Methoden aus der Leistungsbewertung von Rechner- und Kommunikationsnetzen, untersucht werden.
-
-
-
-
-
-
-
-%It was originally used to enable login to remote computers and soon thereafter remotely accessing files using FTP. But from it emerged countless other services and applications that are today used by hundreds of millions of people touching almost every aspect of daily life. 
-
-%The rise of the World Wide Web in the 1990s and even more in the last years made adoption of the Internet for the masses much easier. One needs just a single application to access and participate in most of the Internet's content in an easy accessible viewing format, i.e. the Web page defined with HTML.
-
-%External influences and developments also had a huge impact on the development of the Internet and the Web. E.g. it can be argued that the invention of MP3 audio compression lead to the development of peer-to-peer mechanisms and file sharing (Napster). The wide spread of digital cameras and camcorders was one of the pillars of success for social networks, including video streaming sites like YouTube.
-%A further requirements for these were the ever-increasing bandwidth capacities users had to access the Internet creating a two-way feedback loop. For every leap in bandwidth new services came up that filled it and fuelling the users' demand for further capacity increases. 
-
-%Several factors contributed to the quick acceptance of the Internet. On the one hand, there are no assumptions made on the transported content. In contrast to the circuit switched telephone networks, which favor one mode of transportation and content (voice calls with specific procedures and/or codecs), in the Internet every packet is treated in the same way, leveling the playing field for every contender. On the other hand, one of the driving concepts of the Internet is the "End-to-End Principle" \cite{saltzer1984end2end, bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} which states:
-
-%''The function in question can completely and correctly be implemented only with the knowledge and help of the application standing at the endpoints of the communications system. Therefore, providing that questioned function as a feature of the communication system itself is not possible. (Sometimes an incomplete version of the function provided by the communication system may be useful as a performance enhancement)'' \cite{saltzer1984end2end} 
-
-%This means, that functionality, i.e. services or applications, should only be implemented at the two endpoints of any packet flow. Making assumptions of the higher protocol layers and implementing functions in the network, essentially making it intelligent, will always only be valid for existing and narrow use cases and cannot support future developments. Despite critical arguments, e.g. in \cite{reed2000endofe2e, moors2002critical}, and mechanisms that superficially seem to violate it (NAT, ECN) this principle still drives progress in the Web.
-
-%The total volume if of Internet traffic has for many years been rising exponentially, as stated often fueled through external developments. The composition of today's traffic is manifold, but one large contributing factor is video. 
-%Video transport in the Internet is currently a topic of hot discussions. Older and well researched transport modes, e.g. RTP, are challenged by new ones, which integrate themselves better into the current web ecosystem. Yet, they use completely different approaches to streaming and the control thereof. This is also the first research interest of the doctoral thesis.
-%Streaming, or more generalized media transport is also not only relevant for the purpose of watching videos, there are many more fields of use which have slightly different requirements. With the popular cloud computing approach, which essentially means to run ones applications remotely on any number of hosts, it is necessary to transport the output of the applications, which often can be graphical, to the client. This is especially true for so-called Cloud Gaming services, which have hard temporal constraints on both directions of the transport path.
-
-%Mobile networks are still much closer to their circuit switching roots. Having evolved from GSM over UMTS to LTE, mobile networks have only very recently become fully packet switched. However, the data transport through its many core network elements is still using connection oriented techniques. The radio access' properties are also wildly different to traditional This poses unique challenges and opportunities for the design and performance of protocols. Therefore, we take a special interest in mobile network environments in our research of video streaming.
-
-%Concepts for future Internet structures are strongly disputed at the moment. A vast array of concepts is under discussion to either replace or enhance the protocol stack of the Internet's current setup. It will be interesting to measure the influence on media streaming and transport of these proposed changes or if there is any influence at all.
-
-
-%TODO:
-%Thesis' Future Impact
-%    Performance analysis and comparison model of existing media streaming solutions
-%      But do not compare the protocols but the mechanisms and paradigms behind it
-%    Special focus on mobile environments and their pitfalls
-%    Improvements to protocols and new approaches
-
-
 %\begin{itemize}
 %  \item The Internet
 %    \begin{itemize}
@@ -423,12 +417,6 @@ This thesis is structured as follows.
 %    
 %    Special requirements and convergence
 
-
-%  \item Thesis' Future Impact
-%    Performance analysis and comparison model of existing media streaming solutions
-%      But do not compare the protocols but the mechanisms and paradigms behind it
-%    Special focus on mobile environments and their pitfalls
-%    Improvements to protocols and new approaches
 
 %\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -541,8 +529,6 @@ This thesis is structured as follows.
 %Paul Müller, define protocol stacks by features, assemble on the fly -> performance?
 
 % SmoothIT mechanisms; lower layer elements provide information to higher layers, overlays  \cite{oechsner2009pushing}
-
-
 
 
 

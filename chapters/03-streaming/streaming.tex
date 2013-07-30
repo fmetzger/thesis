@@ -49,7 +49,7 @@ RTP streaming is a push-based design. This means, that the server is in control 
 
 RTP also offered intricate multicasting mechanisms, i.e., the ability to simultaneously deliver the same stream to multiple nodes using specially configured routers. These mechanisms were however never fully adopted by the majority of Internet users. On the one hand the required infrastructure was only available in some provider networks, never at the Internet's full scale. On the other hand, the rise of community pages like YouTube has shown, that the interest does not lie in watching the same content at the same time, but rather in high individualism. Therefore, multicast is less relevant for today's streaming. If there is a media event that is streamed live, one can always fall back to using the relatively new structures of Content Delivery Networks (CDN) to be able to serve large groups of users while still conserving bandwidth on the Internet backbones.
 
-There are also other proprietary and standardized streaming systems which better fulfil the requirements of specific fields of applications.  Multimedia Broadcast Multicast Services (MBMS)\cite{3gpp22146,3gpp22246} is a specification defined by the 3GPP group for multicasting multimedia traffic specific to the architecture in mobile networks. But similar to RTP the number of implementations and their acceptance are negligible.
+There are also other proprietary and standardized streaming systems which better fulfil the requirements of specific fields of applications.  Multimedia Broadcast Multicast Services (MBMS)\cite{3gpp22.146,3gpp22.246} is a specification defined by the 3GPP group for multicasting multimedia traffic specific to the architecture in mobile networks. But similar to RTP the number of implementations and their acceptance are negligible.
 
 
 
@@ -129,15 +129,6 @@ This paper investigates how Web-based media delivery works in general, and how m
 As YouTube is one of the largest world-wide operating Web streaming contenders it is the focus of our attention in this paper. After giving a brief overview of the tackled research areas in Section \ref{chap:relatedwork} we make initial insights into YouTube's network architecture in Section \ref{sec:videodeliveryarchitecture} and cover the basics of HTTP streaming in Section \ref{sec:featureshttpstreaming}. we move on to describe the underlying models used in the streaming process and the metrics we intend to use in the observations in Section \ref{sec:metricsmodel}. Finally, Section \ref{sec:measurements} covers the video streaming measurements, and Sections \ref{sec:outlook} and \ref{sec:conclusion} give and outlook and conclude the paper.
 
 
-%how to measure the video streaming quality and possible buffering models of watching of videos from their network infrastructure, which we also describe. Furthermore, we look at 
-
-%TODO: 
- % expand paragraph, wieso YouTube, wie machen die es, ...
-
-
-
-% TODO: evtl mit dem vorherigen absatz kombinieren
-%The paper is structured as follows. In Section \ref{sec:relatedwork} we give a brief overview of the tackled research areas. After making an initial insight into YouTube's network architecture in Section \ref{sec:videodeliveryarchitecture} and covering the basics of HTTP streaming in Section \ref{sec:featureshttpstreaming} we move on to describe the underlying models used in the streaming process and the metrics we intend to use in the observations in Section \ref{sec:metricsmodel}. Finally, Section covers the video streaming measurements and Sections \ref{sec:outlook} and \ref{sec:conclusion} conclude the paper and give and outlook.
 
 
 
@@ -153,7 +144,7 @@ In today's Content Distribution Networks (CDN), a much larger number of mirror s
 
 To get an insight into the structure of YouTube's content distribution network, we undertook a two-step measurement campaign \cite{rafetseder2011explyt}. First, we downloaded and manually parsed the HTML code served by YouTube's web servers. We could thus enumerate and learn about the structure of domain names in the system. The most relevant category of domain names for our purposes takes the form of \texttt{v$\alpha$.lscache$\beta$.c.youtube.com}, where $0<\alpha<25$ and $0<\beta<9$. Not all permutations of names are found at all times. We also noted that there are hostnames that seem to point to geographical locations, but have not succeeded so far in exhaustively mapping those two types of names.
 
-The second part of our campaign consisted of active measurements on forty distributed computers (part of the \textit{Seattle} Internet testbed \cite{Cappos:2009:SPE:1508865.1508905, seattlewww}) for over 600 hours. We learned that the frontend web server name, \texttt{www.youtube.com}, resolves to multiple IP addresses per geographical location of the probing host which are mostly disjoint from sets of addresses found on other hosts. The number of frontend IP addresses also changes over time, e.g. to account for load variations such as load increases during the evening hours in the hosts' time zones. The actual video cache servers only have one IP address per name and location each, but sometime this address is seen to change during the day. 
+The second part of our campaign consisted of active measurements on forty distributed computers (part of the \textit{Seattle} Internet testbed\footnote{\url{https://seattle.poly.edu/html/}} \cite{Cappos:2009:SPE:1508865.1508905}) for over 600 hours. We learned that the frontend web server name, \texttt{www.youtube.com}, resolves to multiple IP addresses per geographical location of the probing host which are mostly disjoint from sets of addresses found on other hosts. The number of frontend IP addresses also changes over time, e.g. to account for load variations such as load increases during the evening hours in the hosts' time zones. The actual video cache servers only have one IP address per name and location each, but sometime this address is seen to change during the day. 
 
 When looking at the resolved addresses per frontend server and time zone, two interesting time-dependent scaling effects can be seen: First, servers become reachable or vanish in a coordinated manner controlled by the time of day, i.e. in a 24 hour pattern. We speculate this provides a gain in efficiency for the overall system to turn on parts of the resource pool for load balancing only when there is demand.
 
@@ -172,7 +163,7 @@ The leitmotif of HTTP streaming is the inversion of control compared to RTP stre
 %Because HTTP streaming relies on TCP this is not necessary, but it also removes a bit of flexibility, as the type of congestion control is given. 
 
 
-In its simplest form Web streaming acts like regular HTTP traffic. The video is requested and then delivered from the server in one single block transfer. The transfer is controlled by the server and it can employ pacing mechanisms to somewhat match the download duration to the playback duration. This reduces load spikes and the required buffer size on the client device but also makes the process more vulnerable to changing network conditions. YouTube uses a server-side pacing mechanism which is  discovered in \cite{alcock2011afcyt} and also discussed in Section \ref{sec:measurements}.
+In its simplest form Web streaming acts like regular HTTP traffic. The video is requested and then delivered from the server in one single block transfer. The transfer is controlled by the server and it can employ pacing mechanisms to somewhat match the download duration to the playback duration. This reduces load spikes and the required buffer size on the client device but also makes the process more vulnerable to changing network conditions. YouTube uses a server-side pacing mechanism which is  discovered in \cite{alcock2011afcyt}\footnote{\url{http://www.wand.net.nz/~salcock/youtube/}} and also discussed in Section \ref{sec:measurements}.
 
 These simple mechanisms, however, can not seamlessly change quality in a currently running video. This can be important for, e.g., mobile networks or when an increasingly loaded server can not fulfill every request in its highest quality at the required speed anymore.
 
@@ -227,22 +218,6 @@ Therefore adaptive forms of HTTP streaming were developed. The techniques comple
 \caption{Modelled buffer fill level graphs and resulting total stalling times.}
 \label{c3:fig:bufferlevel-PV}
 \end{figure}
-
-
-% \begin{figure*}[!t] % use 1.75in each for single-column
-
-% \noindent\makebox[\textwidth]{\subfloat[Playback stalling method, 33s total stalling.]{\label{fig:bufferlevel-stall}\includegraphics[width=3in]{images/bufferlevel-stall-new.pdf}}
-% \hfil
-% \subfloat[Delayed playback method, 33s total stalling.]{\label{fig:bufferlevel-startdelay}\includegraphics[width=3in]{images/bufferlevel-startdelay-new.pdf}}}
-
-% \noindent\makebox[\textwidth]{\subfloat[YouTube Flash Player method, 34s total stalling.]{\label{fig:bufferlevel-flash}\includegraphics[width=3in]{images/bufferlevel-flash-new.pdf}}
-% \hfil
-% \subfloat[Firefox 4 method, 44s total stalling.]{\label{fig:bufferlevel-firefox}\includegraphics[width=3in]{images/bufferlevel-firefox-new.pdf}}}
-
-% \caption{Modelled buffer fill level graphs and resulting total stalling times.}
-% \label{fig:bufferlevel-PV}
-% \end{figure*}
-
 % used yt-delay/hPUGNCIozp0_delay_2500 1, spyder, color #aa5500
 % data
 % start delay 33s 
@@ -819,7 +794,7 @@ The purpose of this model and its evaluations is manifold. It could lead to prot
 %Understand the problem and dissect it / break it down to its elemental components
 %Find similar problems/models, extend the model for other problems
 
-%Quantification of quality of experience for edge-based applications\cite{hossfeld2007quantification}
+Quantification of quality of experience for edge-based applications\cite{hossfeld2007quantification}
 
   
 %Overview on the models:
@@ -846,7 +821,7 @@ The purpose of this model and its evaluations is manifold. It could lead to prot
 %[performance evaluation (BWs, played vs received data)]
 
 
-%Also observed and analyzed by \cite{alcock2011afcytwww}. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
+%Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
 
 
 %These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.

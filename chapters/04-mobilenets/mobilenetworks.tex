@@ -7,6 +7,21 @@ Core is usually neglected in communication investigations
 
 But 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Standards and Standards Bodies}
+
+Point out the Standards organizations responsible for mobile networks and the differences to / conflicts with other areas, especially the Internet
+
+Compare 3GPP TSs with IETF RFCs in terms of accessibility, size, technical clarity and what this means for the market and implementors (scarce number, because no one really understands TSs, only now F/OSS implementations of GSM (barely GPRS))
+
+Conclude, that this pretty much hinders and closes any competitive market and innovation (not by committee) by few major players
+
+IETF+ISOC+IAB+? on Internet site
+ISO+ETSI+? old school standards by committee, closed standards
+ITU+3GPP+? mobile standards
+IEEE
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -102,8 +117,8 @@ For more information on the \ac{3G} network structure, please refer to~\cite{ban
 
 The METAWIN monitoring system extracts and correlates information from the lower
 layers of the \ac{3GPP} protocol stack, and specifically the \ac{GTP} protocol
-on the Gn interface \cite{etsi_3gpp_2008}. This includes the \acf{RAT} identifier as well as the terminal types of the mobile clients. The
-latter is determinable by the \acf{TAC} part of the \acf{IMEI} (cf. \cite{3gpp23003}) and will be discussed later in detail.
+on the Gn interface \cite{3gpp129.060}. This includes the \acf{RAT} identifier as well as the terminal types of the mobile clients. The
+latter is determinable by the \acf{TAC} part of the \acf{IMEI} (cf. \cite{3gpp23.003}) and will be discussed later in detail.
 
 To meet privacy requirements, the METAWIN system anonymizes captured data on the fly at multiple
 layers: the application-level payload is removed and all user identifiers (e.g. \ac{IMSI}) are
@@ -152,9 +167,9 @@ Based on these factors, it was decided to make a first categorization according 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Difficulties of Device-based Evaluations}
 
-In our dataset, the \ac{TAC} field is provided in clear\-text, whereas the \ac{IMEI} is only available in hashed form to preserve the privacy of device owners. The \ac{TAC} is contained in the first eight decimal digits of the \ac{IMEI}, uniquely identifying each device type \cite{3gpp23003}. The rest of the \ac{IMEI} constitutes the serial number of the involved devices.
+In our dataset, the \ac{TAC} field is provided in clear\-text, whereas the \ac{IMEI} is only available in hashed form to preserve the privacy of device owners. The \ac{TAC} is contained in the first eight decimal digits of the \ac{IMEI}, uniquely identifying each device type \cite{3gpp23.003}. The rest of the \ac{IMEI} constitutes the serial number of the involved devices.
 
-\acp{TAC} are managed by the GSM Association which in turn assigns local organizations, distinguished by the first two digits of the \ac{TAC} as Reporting Body Identifier, to allocate \acp{TAC} to manufacturers. For reasons beyond us, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \acp{TAC} for non-commercial purposes, only very few efforts to collect \ac{TAC} information into a database are publicly available. We based our data-mining efforts on a set from \cite{tacdb}, with some additional devices with known \ac{TAC} collected from various sites, friends, and colleagues. Since the unit identification part of the \ac{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \acp{TAC} even more complicated.
+\acp{TAC} are managed by the GSM Association which in turn assigns local organizations, distinguished by the first two digits of the \ac{TAC} as Reporting Body Identifier, to allocate \acp{TAC} to manufacturers. For reasons beyond us, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \acp{TAC} for non-commercial purposes, only very few efforts to collect \ac{TAC} information into a database are publicly available. We based our data-mining efforts on a publicly available set\footnote{\url{http://www.mulliner.org/tacdb/}, Mulliner, C.}, with some additional devices with known \ac{TAC} collected from various sites, friends, and colleagues. Since the unit identification part of the \ac{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \acp{TAC} even more complicated.
 
 
 
@@ -409,9 +424,6 @@ Figure~\ref{c4:fig:stacked-durations} shows another interesting influence the op
 
 %different tacs for same devices with >1M units as the unit identifier part of the IMEI would otherwise overflow 
 
-%On TACs; what are TACs? How to get them?
-%Freely available resources?
-%Using Research TAC Database assembled at \cite{tacdb}
 
 
 % One week in April 2011 (04/11/2011 up to including 04/17/2011) measured at one SGSN-GGSN path, about half of the total traffic of the operator.
@@ -457,7 +469,7 @@ We also look forward to searching for multiple active tunnels per device. As dis
 
 The Internet has reached ubiquity some time ago. When there is no wired access nearby you can rely on WiFi hotspots and cellular networks for wide area coverage. These cellular networks are usually based on \ac{3GPP} specifications which have evolved from the circuit switched \ac{GSM} network into the fully packet switched \ac{LTE} which is still in its unrolling phase. But being packet switched does not mean that it shares a lot of similarity with a typical wireline Internet protocol stack and network infrastructure. A ``3G'' network (a term synonymous for the typical type of cellular network used today) is very distinct from typical wired networks as it must provide, amongst others, mobility and authentication in its core specifications rather than being optional on-top services as is typically used in the Internet.
 
-The TCP/IP stacks largely follows two principles: \ac{KISS} and the end-to-end principle\cite{saltzer1984end}, which essentially means to restrict the protocols to the necessary bare-minimum and keep state only in the end systems. 3G takes a different approach, keeps a large amount of state at the obligatory nodes in its ``core network'', which explicitly communicate by signaling procedures defined by the \ac{3GPP}.
+The TCP/IP stacks largely follows two principles: \ac{KISS} and the end-to-end principle\cite{saltzer1984end2end}, which essentially means to restrict the protocols to the necessary bare-minimum and keep state only in the end systems. 3G takes a different approach, keeps a large amount of state at the obligatory nodes in its ``core network'', which explicitly communicate by signaling procedures defined by the \ac{3GPP}.
 The adverse effects of state-keeping in network devices have been known to, e.g.,  Internet users running BitTorrent across low-end home routers as of the early 2000s. In \ac{UMTS} mobile networks, the networking hardware is vastly more powerful, but the control plane tasks are vastly more complex than port and network translation as well, namely carrying and routing IP and voice traffic, user mobility, \ac{AAA} and so on. Many specialized protocols are involved to communicate intents and states in the network. This causes processing overhead, additional traffic on network paths, and increases the number of states to be held in memory on the core network nodes. All of these attributes can be subsumed under the term network ``load'' which we plan to investigate in this work.
 
 While other publications look at the near-edge interactions in these network, research on the core is scarce, the reason for it being simple: you cannot do research without data from the operator there. Research at the edge, beginning at the IP stack level and upwards, can be conducted relatively simple. Writing simple tests and measurement scripts, often involving tcpdump and other tools, is usually all you need. But a mobile phone doesn't let you peek inside its layer 1 and 2 interactions (or even the implementation). Any information on this black box must be indirectly inferred from above (forcing behavior known from the specifications through scripts) or below (spectrum analysis using software defined radio approaches). To take a look at the core's view of traffic and data, one needs access to a dedicated measurement and capturing infrastructure placed inside the network. With this, researchers can not just look into user traffic flowing through the network but also quite easily into the signaling heavy mobile network control plane. 
@@ -478,7 +490,7 @@ The rest of the paper is structured as follows. Section \ref{chap:relatedwork} d
 
 For our analysis, we use the \ac{METAWIN} monitoring system developed in a previous research project and deployed in the network of an Austrian mobile operator.  More in-depth information about \ac{METAWIN} is available in \cite{ricciato_2011}.
 
- The location of the measurement probe at the Gn interface within the core network, marked in Figure~\ref{c4:fig:umtsnetwork}, gives access to both wide-area mobility signaling (not analyzed in this paper) and signaling related to user-plane IP traffic (which we want to scrutinize). The \ac{METAWIN} monitoring system extracts and correlates information from the lower layers of the \ac{3GPP} protocol stack, and specifically the \ac{GTP} protocol on the Gn interface \cite{etsi_3gpp_2008}. This includes the \acf{RAT} identifier as well as the terminal types of the mobile clients. The latter is determinable by the \acf{TAC} part of the \acf{IMEI} (cf.~\cite{3gpp23003}) and will be discussed later in detail.
+ The location of the measurement probe at the Gn interface within the core network, marked in Figure~\ref{c4:fig:umtsnetwork}, gives access to both wide-area mobility signaling (not analyzed in this paper) and signaling related to user-plane IP traffic (which we want to scrutinize). The \ac{METAWIN} monitoring system extracts and correlates information from the lower layers of the \ac{3GPP} protocol stack, and specifically the \ac{GTP} protocol on the Gn interface \cite{3gpp129.060}. This includes the \acf{RAT} identifier as well as the terminal types of the mobile clients. The latter is determinable by the \acf{TAC} part of the \acf{IMEI} (cf.~\cite{3gpp23.003}) and will be discussed later in detail.
 
 To meet privacy requirements, the \ac{METAWIN} system anonymizes captured data on the fly at multiple layers: the application-level payload is removed and all user identifiers (e.g. \ac{IMSI}) are hashed with a one-way function before recording. That is, single \acp{MS} in our dataset may be differentiated by means of an anonymized \ac{MS-ID}, but not traced back to the actual customer. The packet capturing hardware deployed within the \ac{METAWIN} monitoring system is synchronized using \ac{GPS}. Accordingly, the packet timestamps have an accuracy of $\pm100$ ns or better~\cite[p.97-98]{donnelly_high_2002}.
 
@@ -496,9 +508,9 @@ We fed the records into a SQL database, and conducted further evaluations throug
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Device Identification \& Classification}
 
-Individual device types can also still be identified in form of the \ac{TAC} on every entry. The \ac{TAC} is part of the \ac{IMEI}, uniquely identifying each device type \cite{3gpp23003}. The rest of the \ac{IMEI} constitutes the serial number of the involved devices, which is not present in the data.
+Individual device types can also still be identified in form of the \ac{TAC} on every entry. The \ac{TAC} is part of the \ac{IMEI}, uniquely identifying each device type \cite{3gpp23.003}. The rest of the \ac{IMEI} constitutes the serial number of the involved devices, which is not present in the data.
 
-\acp{TAC} are managed by the GSM Association which in turn assigns local organizations, distinguished by the first two digits of the \ac{TAC} as Reporting Body Identifier, to allocate \acp{TAC} to manufacturers. However, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \acp{TAC} for non-commercial purposes, only very few efforts attempt to collect \ac{TAC} information into a publicly available database. We based our data-mining efforts on a set from \cite{tacdb}, with some additional devices collected on our own. Since the unit identification part of the \ac{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \acp{TAC} even more complicated.
+\acp{TAC} are managed by the GSM Association which in turn assigns local organizations, distinguished by the first two digits of the \ac{TAC} as Reporting Body Identifier, to allocate \acp{TAC} to manufacturers. However, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \acp{TAC} for non-commercial purposes, only very few efforts attempt to collect \ac{TAC} information into a publicly available database. We based our data-mining efforts on a publicly available set\footnote{\url{http://www.mulliner.org/tacdb/}, Mulliner, C.}, with some additional devices collected on our own. Since the unit identification part of the \ac{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \acp{TAC} even more complicated.
 
 For our investigation, we went through large portions of the \acp{TAC} present in our dataset, and identified and categorized the most important entries. In this case, importance means various metrics like the traffic volume, the number of flows, and the number of \ac{GTP} signaling messages for each \ac{TAC}. 
 
