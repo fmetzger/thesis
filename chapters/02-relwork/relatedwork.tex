@@ -1,6 +1,6 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Related Work}
+\chapter{Background}
 \label{chap:relatedwork}
 
 
@@ -17,7 +17,7 @@ Whereas these focused on the architectural setup they do not investigate the cli
 Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measmmmquality} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model. In another approach taken by the authors of \cite{staehle2010yomo, staehle2011aquarema} network degradations are predicted by monitoring live YouTube traffic of one host and used to conduct traffic shaping in a wireless mesh network.
 
 
-Finally, the authors of \cite{ma2011mobile} as well as \cite{5677508} describe in detail the numerous manifestations of adaptive HTTP streaming. Akhshabi et al. \cite{akhshabi2011experimental} take a look at real world implementations of these and do comparative measurements.
+Finally, the authors of \cite{ma2011mobile} as well as \cite{watching-video1} describe in detail the numerous manifestations of adaptive HTTP streaming. Akhshabi et al. \cite{akhshabi2011experimental} take a look at real world implementations of these and do comparative measurements.
 
 
 
@@ -25,7 +25,7 @@ Finally, the authors of \cite{ma2011mobile} as well as \cite{5677508} describe i
 \section{PV2012 Streaming Related Work}
 
 
-The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. We focus on TCP and especially HTTP streaming to which \cite{watching-video1} and \cite{mobile-video} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery.
+The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. We focus on TCP and especially HTTP streaming to which \cite{watching-video1} and \cite{ma2011mobile} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery.
 
 
 The authors of \cite{wang2003model} propose an analytical model for TCP-based video streaming, differentiating between live (``constrained'') and pre-recorded videos. In our approach, analytical tractability is not an issue as we perform actual measurements and decoding, so we are not limited to constant-bit rate video streams, constant packet sizes, or single playback strategies.
@@ -35,7 +35,7 @@ The importance of packet loss for an H.264 SD video stream is studied in \cite{p
 
 In \cite{pv2010qoe}, the authors present a quality-assessment model for video streaming services, with the quality features derived from the actual video. The model does not include the network behavior, but focuses on the codec performance instead. 
 
-A metric termed ``application comfort'' is calculated from YouTube videos in \cite{yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
+A metric termed ``application comfort'' is calculated from YouTube videos in \cite{staehle2010yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
 
 
 
