@@ -3,60 +3,33 @@
 \chapter{Mobile Core Network Investigation}
 \label{chap:mobilenets}
 
+
 Core is usually neglected in communication investigations
 
 But 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Standards and Standards Bodies}
 
-Point out the Standards organizations responsible for mobile networks and the differences to / conflicts with other areas, especially the Internet
-
-Compare 3GPP TSs with IETF RFCs in terms of accessibility, size, technical clarity and what this means for the market and implementors (scarce number, because no one really understands TSs, only now F/OSS implementations of GSM (barely GPRS))
-
-Conclude, that this pretty much hinders and closes any competitive market and innovation (not by committee) by few major players
-
-IETF+ISOC+IAB+? on Internet site
-ISO+ETSI+? old school standards by committee, closed standards
-ITU+3GPP+? mobile standards
-IEEE
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% describe anything related to 3gpp architectures, protocol,
-% and signaling basics here
-\input{3gppdesc.tex}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Traffic Characteristics}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Control Plane and Signaling Analysis}
-\subsection{Traffic Transport}
-\subsubsection{PDP Contexts and LTE Bearers}
-\subsection{Control Messaging Protocols}
-\subsection{Control Messaging Causes}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Signaling Load Observations}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{CoNEXT2012 Core Signaling INLET}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-\label{sec:introduction-CONEXT}
+\label{c4:sec:introduction}
+
+
+The Internet has reached ubiquity some time ago. When there is no wired access nearby you can rely on WiFi hotspots and cellular networks for wide area coverage. These cellular networks are usually based on \ac{3GPP} specifications which have evolved from the circuit switched \ac{GSM} network into the fully packet switched \ac{LTE} which is still in its unrolling phase. But being packet switched does not mean that it shares a lot of similarity with a typical wireline Internet protocol stack and network infrastructure. A ``3G'' network (a term synonymous for the typical type of cellular network used today) is very distinct from typical wired networks as it must provide, amongst others, mobility and authentication in its core specifications rather than being optional on-top services as is typically used in the Internet.
+
+The TCP/IP stacks largely follows two principles: \ac{KISS} and the end-to-end principle\cite{saltzer1984end2end}, which essentially means to restrict the protocols to the necessary bare-minimum and keep state only in the end systems. 3G takes a different approach, keeps a large amount of state at the obligatory nodes in its ``core network'', which explicitly communicate by signaling procedures defined by the \ac{3GPP}.
+The adverse effects of state-keeping in network devices have been known to, e.g.,  Internet users running BitTorrent across low-end home routers as of the early 2000s. In \ac{UMTS} mobile networks, the networking hardware is vastly more powerful, but the control plane tasks are vastly more complex than port and network translation as well, namely carrying and routing IP and voice traffic, user mobility, \ac{AAA} and so on. Many specialized protocols are involved to communicate intents and states in the network. This causes processing overhead, additional traffic on network paths, and increases the number of states to be held in memory on the core network nodes. All of these attributes can be subsumed under the term network ``load'' which we plan to investigate in this work.
+
+While other publications look at the near-edge interactions in these network, research on the core is scarce, the reason for it being simple: you cannot do research without data from the operator there. Research at the edge, beginning at the IP stack level and upwards, can be conducted relatively simple. Writing simple tests and measurement scripts, often involving tcpdump and other tools, is usually all you need. But a mobile phone doesn't let you peek inside its layer 1 and 2 interactions (or even the implementation). Any information on this black box must be indirectly inferred from above (forcing behavior known from the specifications through scripts) or below (spectrum analysis using software defined radio approaches). To take a look at the core's view of traffic and data, one needs access to a dedicated measurement and capturing infrastructure placed inside the network. With this, researchers can not just look into user traffic flowing through the network but also quite easily into the signaling heavy mobile network control plane. 
+
+Operators usually dimension their networks in relation to the occurring user traffic. But in such a signaling-dependent architecture this might not hold true anymore, as every user traffic has to be explicitly allowed, set up, and metered through all of the network's components. This has already led to some troubles in some mobile access networks, as heavy signaling for user traffic tunnels with very small amounts of traffic, that were however closed and reopened at a very high rate, caused an unintended \ac{DDoS} in the radio access network\cite{lt2012docostorm, it2011birdandroid}. 
+This inherent complexity of signaling in mobile cellular networks is easily missed by programmers who do not or cannot know that their applications will run over such wireless links, and probably would not expect it from a network that pretends to transparently carry IP.
+
+In this publication we attempt to give some insights into the mobile network control plane and its impact on dimensioning and load modeling. To do this, some important aspects of the \ac{3GPP} specifications have to be explained to give some basic vocabulary for the following exploratory research into signaling with a focus on \ac{PDP} Contexts and their management through \ac{GTP} tunnel management procedures. Using a week long data set from an Austrian mobile operator recorded at the Gn interface between the \ac{SGSN} and \ac{GGSN}, we attempt to find criteria influencing the signaling but we are also formulating hypotheses on the load impact of signaling, both backed by statistics gathered from the the data set.\\
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CoNEXT Intro starts here
 
 Given its roots as a research network and its growing pervasiveness over the last forty years, it is understandable that research on the Internet covers all parts of the network from applications to access to the core, and has been going on ever since what could be considered prehistoric times of the Net. The state of research on mobile cellular networks such as 3G is lean in comparison. Mobile networks providing Internet access have not been around for too long, and still are not available in all parts of the world. Furthermore, most research focuses on user-oriented metrics such as traffic statistics and mobility patterns, or takes into account the radio part of the network only. Little has been published about activity within the core network, and yet less about signaling.
 
@@ -75,478 +48,58 @@ we take a look at \ac{PDP} Context durations, i.e. the time a \ac{PDP} Context i
 
 Our measurement data backs up a number of straightforward assumptions on the behavior of different device and operating system types, but also reveals some remarkable differences in tunnel characteristics.\\
 
-The rest of the paper is structured as follows. Section \ref{chap:relatedwork} discusses relevant work in the field. Section \ref{sec:gtp-CONEXT} introduces \ac{UMTS} as well as \ac{GTP} basics and protocol details relevant to core signaling. Chapter \ref{sec:darwin-CONEXT} gives an overview on the \acs{METAWIN} data acquisition platform. Chapter \ref{sec:evaluations-CONEXT} evaluates our data set, and Chapter \ref{sec:conclusion-CONEXT} concludes the paper and gives an outlook to future endeavors.
 
-
-%Traditionally, mobile network performance evaluation is either done by active probing through the handset, or, in case of passive measurements, with a heavy focus on radio performance. In this paper, we instead Stake an initial look on control plane performance characteristics in mobile core networks. Our focus lies on evaluating GTP Tunnel Management signaling messages on the path between SGSN and GGSN and the overhead imposed on user plane traffic. Therefore, we make an effort to correlate PDP Context durations to device specific parameters such as device class, e.g., dongles or smartphones, or operating system. From the context duration we can then estimate the signaling overhead each device burdens on the core network.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Network and Monitoring Setup}
-\label{sec:darwin-CONEXT}
-
-
-%\begin{figure*}%[tbp]
-%\centering
-%\includegraphics[width=0.98\textwidth]{figures/network_setup_gtp_tun-crop.pdf}
-%\caption{Measurement setup.}
-%\label{fig:net_setup}
-%\end{figure*}
-
-For our analysis, we use the \ac{METAWIN} monitoring system developed in a previous research project
-and deployed in the network of an Austrian mobile operator.  More in-depth information about \ac{METAWIN} is available in \cite{ricciato_2011}.
-The location of the measurement probe within the core network is highlighted in Figure~\ref{c4:fig:umtsnetwork}. 
-
-As said before, the \ac{GGSN} acts as the IP-layer gateway for the user traffic. It is in charge of setting up,
-maintaining, and tearing down a logical connection to each active \ac{MS}. This logical connection, the \ac{PDP} context,
-is conceptually similar to a dial-up connection. During set up, an
-IP address is dynamically assigned to the \ac{MS}.
-%The \acp{SGSN} and \acp{GGSN} in the core network are interconnected by a wide-area IP network that
-%will be referred to as the ``G$_n$ network'' following the terminology of \ac{3GPP} specifications
-%(``Gn interface'').
-In the network under study, a so-called \textit{direct tunnel} setup might be used for \acp{MS} connected
-via \ac{UMTS}/\ac{HSPA}. Such a setup consists of a direct link between \acp{GGSN} and the
-\acp{RNC} %(indicated by the upper dashed line in Fig.~\ref{fig:umtsnetwork}), % Dashing is indiscernible in the figure.
-which is used for
-transporting user-plane data traffic only. Since signaling procedures such
-as mobility management are carried out by the \acp{SGSN}, a \ac{GGSN} always has to send signaling packets
-via the path involving the \acp{SGSN}. Monitoring the Gn interface thus gives us access to both wide-area mobility signaling (not analyzed in this paper) % routing area updates
-and signaling related to user-plane IP traffic (which we want to scrutinize).
-For more information on the \ac{3G} network structure, please refer to~\cite{bannister_convergence_2004}.
-
-The METAWIN monitoring system extracts and correlates information from the lower
-layers of the \ac{3GPP} protocol stack, and specifically the \ac{GTP} protocol
-on the Gn interface \cite{3gpp129.060}. This includes the \acf{RAT} identifier as well as the terminal types of the mobile clients. The
-latter is determinable by the \acf{TAC} part of the \acf{IMEI} (cf. \cite{3gpp23.003}) and will be discussed later in detail.
-
-To meet privacy requirements, the METAWIN system anonymizes captured data on the fly at multiple
-layers: the application-level payload is removed and all user identifiers (e.g. \ac{IMSI}) are
-hashed with a one-way function before recording. That is, single
-\acp{MS} in our dataset may be differentiated by means of an anonymized \ac{MS-ID}, but not traced back to the actual customer.
-The packet capturing hardware deployed within the METAWIN monitoring system is synchronized
-using \ac{GPS}. Accordingly, the packet timestamps
-have an accuracy of $\pm100$ ns or better~\cite[p.97-98]{donnelly_high_2002}.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Evaluation}
-\label{sec:evaluations-CONEXT}
-
-In this section we attempt to shed some light on the overall control plane dynamics in a mobile core network. We evaluate a dataset recorded in a live 3G network for PDP Context durations, and attempt to show the possible impact of certain device categories on the total tunnel durations. As discussed before, this can serve as a proxy metric for the signaling load on the system. 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Dataset Description}
-Our dataset, kindly provided by an Austrian mobile operator and recorded using the \ac{METAWIN} monitoring system, was taken in the third week of April 2011. It consists of seven days of aggregated flow-level data for the user traffic and a summary entry for every \ac{GTP} Tunnel Management transaction, the latter representing the data base for this paper. It was tapped at one of the \acp{GGSN} of the operator, and contains about half of the total traffic volume handled by the operator in this period. The \ac{GTP} data contain the response codes for each transactions. With these codes, failed interactions can be sorted out and treated separately.
-
-We fed the records into a SQL database, and conducted further evaluations through scripted queries on the database. Any privacy-relevant data, e.g. the \ac{IMEI}, \ac{MS-ID} and any IP address involved, is only visible as hashes and can only be processed in anonymized form. Individual device types can be identified in form of the unhashed \ac{TAC} on every entry. Since the hashing of the \ac{IMEI} is consistent, user traffic flows and the \ac{GTP} data can be cross-correlated despite anonymization, giving the opportunity for further research.
-
- 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Factors Influencing Tunnel Durations}
-
-With such a dataset available and with the intent to evaluate core network signaling by looking at tunnel durations, let's first discuss some of the factors that influence this duration.
-
-One factor are the mobile devices themselves. The device decides when it should establish a mobile data connection, how long the connection is held, or which mobile technology takes preference. Devices can be further differentiated by their operating system and their firmware (sometimes called \textit{baseband}) which usually takes care of much of layers 1 and 2.
-
-Some specific tunnel durations could stem from the TCP/IP stack implementations in the operating systems of the devices. TCP timeouts might be configured to different default values in different releases of OSs. Also, mobile network firewalls have been found to interfere with transport and application-layer timeout and keep-alive or heartbeat mechanisms on mobile devices \cite{sigcomm11middleboxes}.
-
-Of course, the applications that run on top of the OS and generate the actual user-traffic patterns play a role as well. An example for how applications can influence network signaling is the casual game ``Angry Birds'' mentioned before. Since the application ecosystem for smartphones is extremely rich (and grows still), we cannot pinpoint individual ones from our aggregate dataset.
-
-An additional factor in the picture is the user and his or her behavioral patterns. They express themselves both in the traffic dynamics and in the mobility pattern, but they are rather difficult to distinguish in such a dataset given the large amount of data and the difficulty of correctly correlating tunnel management messages. We leave this as a potential future work.
-
-We also expect the mobile network and its protocol implementations to express themselves in the measurements. For example, the \ac{RRC} idle timer is typically in the range of 10 to 30 minutes, which could mean there will be a large number of tunnels with a duration in this range. Such choices are usually made either by the mobile network operator or the device manufacturer and can vary from one implementation to another. It is therefore quite difficult to give any hard numbers in advance, and one has to correlate such aspects with certain events in the results.
-
-Based on these factors, it was decided to make a first categorization according to the device type, be it either a smartphone, a regular or feature phone, or one of the many 3G dongles or mobile routers. Second, we also differentiate based on the device operating system, if known. Both differentiating aspects should prove valuable for example in deciding if currently some phone types put more signaling load on the network and to direct measures to improve this situation. Pitfalls in this differentiation are described in the next sections.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Difficulties of Device-based Evaluations}
-
-In our dataset, the \ac{TAC} field is provided in clear\-text, whereas the \ac{IMEI} is only available in hashed form to preserve the privacy of device owners. The \ac{TAC} is contained in the first eight decimal digits of the \ac{IMEI}, uniquely identifying each device type \cite{3gpp23.003}. The rest of the \ac{IMEI} constitutes the serial number of the involved devices.
-
-\acp{TAC} are managed by the GSM Association which in turn assigns local organizations, distinguished by the first two digits of the \ac{TAC} as Reporting Body Identifier, to allocate \acp{TAC} to manufacturers. For reasons beyond us, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \acp{TAC} for non-commercial purposes, only very few efforts to collect \ac{TAC} information into a database are publicly available. We based our data-mining efforts on a publicly available set\footnote{\url{http://www.mulliner.org/tacdb/}, Mulliner, C.}, with some additional devices with known \ac{TAC} collected from various sites, friends, and colleagues. Since the unit identification part of the \ac{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \acp{TAC} even more complicated.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Device Classification}
-
-For our investigation, we went through large portions of the \acp{TAC} present in our dataset, and identified and categorized the most important entries. In this case, importance means various metrics like the traffic volume, the number of flows, and the number of \ac{GTP} signaling messages for each \ac{TAC}. 
-
-After having available the device names for most \acp{TAC}, we were able to add meta-information to the entries in form of the following categories:
+%% NEW
+This chapter is structured as follows.
 
 \begin{itemize}
-\item The device type. We distinguished between smartphones, regular mobile phones and feature phones, and 3G USB dongles or 3G/WiFi routers.
-
-\item The operating system of the device (if known), such as Android, iOS, Series 40, BlackBerry OS etc. This is especially interesting to identify potential differences in the core network signaling patterns of devices. Note however that we cannot link USB dongles and OS types from the \ac{TAC}.
-
+\item Technical Background. Standard Organisations. Network Architecture. Protocol Details.
+\item Dataset Description. Methodology.
+\item Evaluations. Dataset Analysis. Statistics. Traffic Characteristics. How does that user traffic fit in?
+\item Definition of Load etc
+\item Fitting, Modeling and Simulation
+\item Summary
 \end{itemize}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\acs{TAC} Statistics and Evaluation Validity}
+\subsection{Standards and Standards Bodies}
 
-\begin{table}[htbp]
-	\centering
-	\caption{Relative \acs{TAC} Statistics.}
-	\label{c4:tbl:tacstats}
-	\begin{tabu}{|X[3,l]|X[2,c]|} \hline
-	& \textbf{Portion of devices with entry in TAC DB}\\ \hline
-	\# of Flows & 99.72\% \\ \hline
-	Ratio of Traffic & 99.97\%\\ \hline
-	\# of Tunnels & 87.57\% \\ \hline
-	\# of GTP Signaling Msgs & 90.95\% \\ \hline
-	\# of Distinct \acp{MS-ID} & 80.93\%\\ \hline
-	\end{tabu}
-\end{table}
+Point out the Standards organizations responsible for mobile networks and the differences to / conflicts with other areas, especially the Internet
 
+Compare \ac{3GPP} \acp{TS} with \ac{IETF} \acp{RFC} in terms of accessibility, size, technical clarity and what this means for the market and implementors (scarce number, because no one really understands TSs, only now \ac{FOSS} implementations of \ac{GSM} (barely \ac{GPRS}))
 
-It is important to know whether our \ac{TAC} mappings provide sufficient useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all  distinct devices active could be identified. Looking at the total number of \ac{GTP} signaling messages, we see that we can determine the device name of over 90 percent.
-The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
+Conclude, that this pretty much hinders and closes any competitive market and innovation (not by committee) by few major players
 
-
-After applying the categorization to the \acp{TAC} we evaluate the device composition in the network. The two largest portions of devices are smartphones  and 3G dongles, while classic cell phones do not seem to play a major role anymore. 
-%We see about twice as many Android as iOS devices, possibly attributed either to the contractual situation of the operator or the wider price range of Android devices.
-
-%Regular phones have negligible user traffic despite still making up one tenth of the device fraction. 
-
-Initially, one planned endeavor was to investigate possible peculiarities of business phone behavior, especially of those easily identifiable Blackberry OS phones, but the number of distinct Blackberry devices in the dataset is too low to draw conclusions of any significance.
-
-One observation across all device types is that about 18 percent of all mobile devices have activated their mobile data service and have signaling traffic, but do not cause any use plane traffic.
-
-The difference between 3G dongles and smartphones is also noteworthy. While the former cause large amounts of user plane traffic (compared to the device numbers), they are responsible for but a low number of core network signaling events and tunnels. This picture is reversed for smartphones.
-
+\ac{IETF}+\ac{ISOC}+\ac{IAB}+? on Internet site
+\ac{ISO}+\ac{ETSI}+? old school standards by committee, closed standards
+\ac{ITU}+\ac{3GPP}+? mobile standards
+\ac{IEEE}
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{PDP Context Durations}
-
-Our measure of choice are the PDP Context Durations as they carry lots of meaning in being directly related to the signaling amount in the network. Therefore, we now direct our attention at the tunnel durations in the individual device and OS categories as identified via \ac{TAC} values.
-
-
-\subsubsection{Tunnel Durations by Category}
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{images/tunnel-dur-class-cdf-mod.pdf}
-	\caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
-	\label{c4:fig:cdf-duration-device-class-CONEXT}
-\end{figure}
-
-Figure~\ref{c4:fig:cdf-duration-device-class-CONEXT} shows the empirical cumulative distribution functions for the PDP Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and 3G dongles. It can be observed that tunnel durations range between  seconds and more than one week\footnote{Although our dataset is one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
-
-The median differs between device types, being much longer for 3G dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also for the dongles, we observe less extremely long tunnels with durations above several hours. Again, we could hypothetically relate this to a usual laptop working environment, where the device is used for a few hours but then shut down. With this, the PDP Context is deleted as well. Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that  smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, RSS feeds, or email notifications. We also observe two distinct steps, one at 6.8 seconds for dongles, and one at 30 minutes in the overall and smartphone distributions. While we do not have a plausible explanation for the former, the latter could be explained by a value chosen for the RRC state machine transition to the IDLE state (cf. Figure \ref{c4:fig:rrcstatemodel}).
-
-
-%%
-% Influence of the Device Operating System
-%%
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{images/tunnel-dur-os-cdf-mod.pdf}
-	\caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
-	\label{c4:fig:cdf-duration-os-CONEXT}
-\end{figure}
-
-Taking an even closer look at the smartphone device fraction, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{c4:fig:cdf-duration-os-CONEXT}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{c4:fig:cdf-duration-device-class-CONEXT}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
-
-Again, a number of steps are visible in the distributions. %Steps at multiples of 10 seconds indicate that timer-induced transitions happen. 
-Those steps that are only visible in one operating system type point to a source involving the phone rather the network. This especially includes the 30 seconds, 300 seconds, and 600 seconds steps (i.e. accumulations of incidents) for Android, and the 600 seconds step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other factors, e.g. the device's firmware version and user traffic dynamics need also be observed. We leave this point for future work..
-
-A last artifact of note are the larger number of iOS devices with very short tunnel durations. Over 20\% of all tunnels established by these devices are shorter than two seconds. While the actual cause still remains unknown, it could be an interaction between short regular traffic burst and 3GPP Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement. Fast Dormancy is a technique to release radio resources more quickly. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent transition to the IDLE state, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the CDF.
-
-
-
-
-
-%%
-\subsubsection{Impact of Categories on Total Signaling}
-%%
-
-
-\begin{figure}[htbp]
-        \centering
-        % \begin{subfigure}[b]{0.50\textwidth}
-        %         \centering
-        %         \includegraphics[width=\textwidth]{figures/R-IAT-ecdf-2h-log.png}
-        %         \caption{All incoming tunnel requests.}
-        %         \label{fig:IAT-ecdf-2h-all}
-        % \end{subfigure}%
-        %~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.50\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/qq-total-vs-android.pdf}
-            \caption{Android duration over the total duration.}
-            \label{c4:fig:qq-total-vs-android}
-        \end{subfigure}%
-        ~
-        \begin{subfigure}[b]{0.50\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/qq-total-vs-ios.pdf}
-            \caption{iOS duration over the total duration.}
-            \label{c4:fig:qq-total-vs-ios}
-        \end{subfigure}
-
-        \begin{subfigure}[b]{0.50\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/qq-total-vs-dongle.pdf}
-            \caption{3G Dongle duratio over the total duration.}
-            \label{c4:fig:qq-total-vs-dongle}
-        \end{subfigure}%
-        ~
-        \begin{subfigure}[b]{0.50\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/qq-total-vs-smartphone.pdf}
-            \caption{Smartphone duration over the total duration.}
-            \label{c4:fig:qq-total-vs-smartphones}
-        \end{subfigure}
- \caption{Q-Q Plots of the tunnel duration distributions per operating system, with encircled deciles.}
-\label{c4:fig:qq-plots}
-\end{figure}
-
-% \begin{figure}
-% %\vskip -3cm
-% \noindent\makebox[\textwidth]{\subfloat[Android duration distribution over the total duration distribution.]{\label{fig:qq-total-vs-android}\includegraphics[width=\columnwidth]{images/qq-total-vs-android.pdf}}
-% \hfil
-% \subfloat[iOS duration distribution over the total duration distribution.]{\label{fig:qq-total-vs-ios}\includegraphics[width=\columnwidth]{images/qq-total-vs-ios.pdf}}}
-% \noindent\makebox[\textwidth]{\subfloat[3G Dongle duration distribution over the total duration distribution.]{\label{fig:qq-total-vs-dongle}\includegraphics[width=\columnwidth]{images/qq-total-vs-dongle.pdf}}
-% \hfil
-% \subfloat[Smartphone duration distribution over the total duration distribution.]{\label{fig:qq-total-vs-smartphones}\includegraphics[width=\columnwidth]{images/qq-total-vs-smartphone.pdf}}}
-% \caption{Q-Q Plots of the tunnel duration distributions per operating system, with encircled deciles.}
-% \label{fig:qq-plots}
-% %\vskip -2cm
-% \end{figure}
-
-
-In an attempt to show which of the presented categories have an impact on the total duration (if at all), we present Q-Q plots of the various categorized durations against the total duration in Figure~\ref{c4:fig:qq-plots}. In theory, if both durations follow the same distribution, one expects a straight line through the origin at an angle of 45$^o$. A steeper incline indicates less densely spaced values in the distribution at the y axis. Looking at igures~\ref{c4:fig:qq-total-vs-android} and \ref{c4:fig:qq-total-vs-ios} which compare different operating systems, both similar and dispersing parts can be observed. While tunnel durations on Android  are more similarly distributed for the shorter and longer durations, iOS device tunnel durations are most similar to the overall tunnel duration distribution in the middle range of values.
-
-Combining all types of smartphones together and comparing them to the other major player in any mobile network, the 3G dongles, we observe in Figure \ref{c4:fig:qq-total-vs-smartphones} that both the total and the smartphone durations are almost equally distributed (except for minor variations). On the other hand, 3G dongles follow a very different distribution, see Figure \ref{c4:fig:qq-total-vs-dongle}. Their effect on tunnel management signaling seems to be negligible despite the  large amount of traffic they are causing. Therefore, we conclude that planning and dimensioning of the control plane needs to keep smartphone behaviors more closely in mind than that of other device types.
-
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=1.0\textwidth]{images/stacked-durations-2-fixed.pdf}
-	\caption{Stacked logscale bin plot of the number of tunnels with duration in this bin; classified by Android, iOS and 3G dongles.}
-	\label{c4:fig:stacked-durations}
-\end{figure}
-
-Figure~\ref{c4:fig:stacked-durations} shows another interesting influence the operating system has on signaling in the mobile core network. This plot shows the relative number of tunnels with a duration in one of 1000 logarithmically scaled bins, stacked by OS category on top of each other. As with the separate distributions, we discover that the durations are not evenly distributed, but rather follow sharp spikes. The largest spike across all categories is the one at a duration of 30 minutes, making up about 1.8\% of all tunnels in the network. Since this spike happens across all device types, we think this makes a rather strong case for being network-induced, and an indication for the aforementioned possible IDLE state transition. On the other hand, the bulk in the short-to-medium ranges of tunnel duration is rather not governed by the two major smartphone operation systems but by other devices in the network, which do not show major spikes in other bins. We can also recognize a long-tail behavior in the distribution of tunnel durations.
-
-%iOS: over 20\% of tunnels shorter than two seconds. 
-
-%\begin{table*}
-%\centering
-%\caption{Relative \acs{TAC} Statistics.}
-%\label{tab:tacstats}
-%\begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} \hline
-%& \textbf{\# of Flows} & \textbf{Ratio of Traffic} & \textbf{\# of Tunnels} & \textbf{\# of GTP Signalling Msgs} & \textbf{\# of Distinct \acp{MS-ID}}%\\ \hline
-%Total 			& 2234659247 	& 122758578593993	& 16632094 	& 409733865	& 1255293 (from GTPdb) / 1030895 (from flow db) \\ \hline
-%Have entry in TAC DB 	& 99.72\% 	& 99.97\%	& 87.57\% 	& 90.95\% 	& 80.93\% \\ \hline
-%Classified as smartphone& 20.58\% 	& 12.81\%	& 60.31\% 	& 75.99\% 	& 37.97\% \\ \hline
-
-%as regular phone 	& 0.26\% 	& 0.37\%	& 5.40\% 	& 0.94\% 	& 9.25\% \\ \hline
-%as 3G dongle		& 66.55\% 	& 75.12\%	& 12.71\% 	& 9.53\% 	& 25.10\% \\ \hline
-%Running on Android	& 10.82\% 	& 6.48\%	& 14.33\% 	& 43.33\% 	& 14.01\% \\ \hline
-%iOS			& 7.22\% 	& 4.47\%	& 18.91\% 	& 20.35\% 	& 7.94\% \\ \hline
-%S40 / S60 / Symbian	& 1.02\% 	& 1.09\%	& 21.17\% 	& 4.51\% 	& 12.97\% \\ \hline
-%Blackberry OS		& 0.07\% 	& 0.10\%	& 2.17\% 	& 2.60\% 	& 1.48\% \\ \hline
-%\end{tabular}
-%\end{table*}
-
-
-
-%%
-% Influence of the Radio Access Type
-%%
-%TODO: radio access type plots, if we have the data
-%
-%\begin{figure}
-%\centering
-%\includegraphics[width=\columnwidth]{figures/tunnel-dur-radio-cdf-mod.pdf}
-%\caption{Tunnel duration distribution, separated for UMTS and GPRS radio access [NOTE: only in the last tunnel segment; and majority of radio types %is unknown anyway.}
-%\label{fig:cdf-duration-radio}
-%\end{figure}
-
-% 10/30m jumps can be seen on android, but not on iOS, why?
-%  maybe fast dormancy?
-
-%Corner Cases: 
-% - Tunnels active longer than the measurement duration, i.e. either CREATE or DELETE message outside of the one week time span
-
-
-%We search for factors influencing tunnel durations, and discuss if and how we can observe them in the data set. Thereafter we build up our proposed classification based on these factors.
-
-% User behavior factors, mobility
-% Factors from the device: OS, firmware
-% Network side factors
-% Protocol factors: RRC state change, timeouts
-
-% typical CELL\_PCH to IDLE transition timer 10 to 30 mins
-% does/can this influence core sgsn<->ggsn tunnels?
-% when is a tunnel deleted?
-% data can still flow when in CELL\_PCH, so probably only in IDLE?
-% give references to specs!
-
-%On of our goal in our evaluation was to distinguish between certain device types and classes. 
-
-%\begin{table}
-%\centering
-%\caption{TAC Statistics}
-%
-%\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} \hline
-%& \textbf{\# of Flows} & Total Traffic (Bytes) & Upstream (Bytes) & Downstream (Bytes) & \textbf{\# of Tunnels} & \textbf{\# of GTP Signalling Msgs} & \textbf{\# of Distinct IMSIs}\\ \hline
-%Total 			& 2234659247 	& 122758578593993 (112TB) 	&  &  	& 16632094 	& 409733865	& 1255293 (from GTPdb) / 1030895 (from flow db) \\ \hline
-%Available in TAC DB 	& 2228315260 	& 122716712007150 (111.61TB) 	&  &  			& 14565430 	& 372662108	& 1015891 \\ \hline
-%Classified as smartphone& 459990512 	& 15721818747754 (14.30TB)	&  &  			& 10030734 	& 311342846 	& 476675 \\ \hline
-%as regular phone 	& 5705832 	& 448140315058 (0.41TB)		&  & 			& 897529 	& 3860162	& 116124 \\ \hline
-%as 3G dongle		& 1487230062 	& 92215931895630 (83.87TB) 	&  & 			& 2114756 	& 39053819 	& 315003 \\ \hline
-%Running on Android	& 241973565 	& 7953178401958	(7.2TB)		&  & 			& 2383255 	& 177537567 	& 175919\\ \hline
-%iOS			& 161408903 	& 5481693567152 (5TB)		&  & 	& 3145384 	& 83374590 	& 99679 \\ \hline
-%S40 / S60 / Symbian	& 22827418 	& 1332996529271 (1.21TB) 	&  & 			& 3520242 	& 18479002 	& 162790 \\ \hline
-% blackberry 128074907884 (0.12TB)
-%\end{tabular}
-%\end{table}
-
-%Devices with GTP signaling but no user plane traffic: (\#distinct imsis gtp db)-(\#distinct imsis flow db):
-
-% $255293-1030895=224398\text{ or }17.88\%$
-
-
-%different tacs for same devices with >1M units as the unit identifier part of the IMEI would otherwise overflow 
-
-
-
-% One week in April 2011 (04/11/2011 up to including 04/17/2011) measured at one SGSN-GGSN path, about half of the total traffic of the operator.
-%Containing user traffic flow aggregated data; Entry for every GTP control plane message on the path, including success/failure status codes
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion}
-\label{sec:conclusion-CONEXT}
-\acresetall
-In this paper, we take a look at the signaling behavior of devices in an operational \ac{3G} mobile network providing Internet access. Our focus does not lie on the wireless or user-oriented parts of the network, but on signaling in the core network. To the best of our knowledge, this paper is the first to offer a core network perspective on signaling. We give a \ac{GPRS} and \ac{UMTS} network primer, and introduce \ac{GTP} tunnel management, explaining the causes and actions within the network. Our evaluation is based on a week long data set acquired in the core network of an Austrian mobile operator.
-
-% We now go back to the case of Angry Birds which was much quoted for causing excessive radio signaling at one point in time. 
-In our observation of core network signaling involving PDP Contexts and their management, we looked at the effect of device types and operating systems on the duration of GTP tunnels. We can conclude that the distribution of tunnel durations in our evaluated dataset is dominated by smartphones. This is contrary to the conventional idea that a larger volume of user plane traffic also leads to an increase of signaling. In our dataset, this would mean that 3G dongles would cause most signaling, which is definitely not the case. In this aspect, our findings support the stories of the casual game ``Angry Birds'' causing signaling storms in mobile networks by frequently downloading small ads, each small download resulting in disproportionate amounts of signaling load being generated. We conjecture from our results that measures taken to improve the radio interface control plane such as Fast Dormancy can have the converse effects in the core, as they could increase the tunnel churn.
-
-All in all, our paper shows that operators can determine which type of device has the most influence on the current network infrastructure by looking at and comparing tunnel duration distributions. %Moreover, if a load situation occurs in the core network, the operator can decide which devices are the root cause and take appropriate measures. 
-This investigations can also lead to better network planning that is more aware of the control plane by providing the necessary tools to identify probable causes for control plane activity. Lastly, we hope to raises some awareness with programmers about the potential unintended side effects their application traffic patterns can cause.
-
-\subsection{Future Endeavors}
-
-This paper serves as an introduction to the topic of the 3G core network control plane, and therefore provides only some initial insights into the actual signaling dynamics. Therefore, we would like to expand our evaluations, as there are several  angles not investigated so far that could prove worthwhile.
-
-To get a grasp of the imposed load on the network as well as the involved network nodes, a calculation of the sizes of the tunneling messages was already hinted at. To improve on this naive attempt, actual numbers on the message sizes and involved \acp{IE} could be recorded in future traces. Having correct signaling traffic volume data still does not reveal the processing load on core network elements. We plan to improve our methodology in this respect by taking at a look at how long it takes for the gateway nodes to process \ac{GTP} messages with respect to the current amount of user traffic and signaling. \ac{GTP} tunnels also cause a certain amount of overhead through additional headers and potential fragmentation of the user traffic, providing another investigation venue for the future (albeit more oriented towards user-plane IP traffic). 
-
-Furthermore, besides the device-based classification, a differentiation based on the user traffic dynamics and correlation to signaling is planned. When looking closer at specific users, the mobility behavior also comes to mind. To investigate this, we intend to take a closer look at the occurring tunnel update messages as evidence, amongst others for mobility.
-
-We also look forward to searching for multiple active tunnels per device. As discussed in Section \ref{sec:gtp-CONEXT}, the \textit{Secondary PDP Context Activation Procedure} enables devices to establish up to ten additional tunnels attributed with a different, higher QoS level, if the network supports this. The additional load of managing and holding multiple tunnels plus the displacement of other, ``lower-quality'' traffic could prove to be an interesting investigation. Initial observations indicate that this feature is rarely used today by very few types of devices, but it will be of increased interest in the face of ongoing LTE/EPS deployments, whose specifications expand upon this secondary tunnel concept.
-
-%Further outlook: correlate user traffic with core signaling.
-% tunnel establishment time as pointer for possible load
-% Improved signaling size calculations or even evaluations if this is feasible for recording.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{IMC2013 Core Signaling Load Followup INSERT}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
-\label{sec:introduction-IMC}
-
-
-The Internet has reached ubiquity some time ago. When there is no wired access nearby you can rely on WiFi hotspots and cellular networks for wide area coverage. These cellular networks are usually based on \ac{3GPP} specifications which have evolved from the circuit switched \ac{GSM} network into the fully packet switched \ac{LTE} which is still in its unrolling phase. But being packet switched does not mean that it shares a lot of similarity with a typical wireline Internet protocol stack and network infrastructure. A ``3G'' network (a term synonymous for the typical type of cellular network used today) is very distinct from typical wired networks as it must provide, amongst others, mobility and authentication in its core specifications rather than being optional on-top services as is typically used in the Internet.
-
-The TCP/IP stacks largely follows two principles: \ac{KISS} and the end-to-end principle\cite{saltzer1984end2end}, which essentially means to restrict the protocols to the necessary bare-minimum and keep state only in the end systems. 3G takes a different approach, keeps a large amount of state at the obligatory nodes in its ``core network'', which explicitly communicate by signaling procedures defined by the \ac{3GPP}.
-The adverse effects of state-keeping in network devices have been known to, e.g.,  Internet users running BitTorrent across low-end home routers as of the early 2000s. In \ac{UMTS} mobile networks, the networking hardware is vastly more powerful, but the control plane tasks are vastly more complex than port and network translation as well, namely carrying and routing IP and voice traffic, user mobility, \ac{AAA} and so on. Many specialized protocols are involved to communicate intents and states in the network. This causes processing overhead, additional traffic on network paths, and increases the number of states to be held in memory on the core network nodes. All of these attributes can be subsumed under the term network ``load'' which we plan to investigate in this work.
-
-While other publications look at the near-edge interactions in these network, research on the core is scarce, the reason for it being simple: you cannot do research without data from the operator there. Research at the edge, beginning at the IP stack level and upwards, can be conducted relatively simple. Writing simple tests and measurement scripts, often involving tcpdump and other tools, is usually all you need. But a mobile phone doesn't let you peek inside its layer 1 and 2 interactions (or even the implementation). Any information on this black box must be indirectly inferred from above (forcing behavior known from the specifications through scripts) or below (spectrum analysis using software defined radio approaches). To take a look at the core's view of traffic and data, one needs access to a dedicated measurement and capturing infrastructure placed inside the network. With this, researchers can not just look into user traffic flowing through the network but also quite easily into the signaling heavy mobile network control plane. 
-
-Operators usually dimension their networks in relation to the occurring user traffic. But in such a signaling-dependent architecture this might not hold true anymore, as every user traffic has to be explicitly allowed, set up, and metered through all of the network's components. This has already led to some troubles in some mobile access networks, as heavy signaling for user traffic tunnels with very small amounts of traffic, that were however closed and reopened at a very high rate, caused an unintended \ac{DDoS} in the radio access network\cite{lt2012docostorm, it2011birdandroid}. 
-This inherent complexity of signaling in mobile cellular networks is easily missed by programmers who do not or cannot know that their applications will run over such wireless links, and probably would not expect it from a network that pretends to transparently carry IP.
-
-In this publication we attempt to give some insights into the mobile network control plane and its impact on dimensioning and load modeling. To do this, some important aspects of the \ac{3GPP} specifications have to be explained to give some basic vocabulary for the following exploratory research into signaling with a focus on \ac{PDP} Contexts and their management through \ac{GTP} tunnel management procedures. Using a week long data set from an Austrian mobile operator recorded at the Gn interface between the \ac{SGSN} and \ac{GGSN}, we attempt to find criteria influencing the signaling but we are also formulating hypotheses on the load impact of signaling, both backed by statistics gathered from the the data set.\\
-
-The rest of the paper is structured as follows. Section \ref{chap:relatedwork} discusses relevant work in the field. Section \ref{sec:gtp-IMC} briefly introduces \ac{UMTS} as well as \ac{GTP} basics and protocol details relevant to core signaling. Chapter \ref{sec:darwin-IMC} gives an overview on the \acs{METAWIN} data acquisition platform and a description of the dataset specifics and our approach to evaluation. While Chapter \ref{sec:tunnelstats-IMC} presents a statistical evaluation of aspects of our data set, Chapter \ref{sec:modeling-IMC} is an attempt on deriving an initial and simple toy load model from these statistics. Chapter \ref{sec:conclusion-IMC} concludes the paper and gives a short outlook.
-
-
-
-%!TEX root = paper.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Dataset and Methodology}
-\label{sec:darwin-IMC}
-
-For our analysis, we use the \ac{METAWIN} monitoring system developed in a previous research project and deployed in the network of an Austrian mobile operator.  More in-depth information about \ac{METAWIN} is available in \cite{ricciato_2011}.
-
- The location of the measurement probe at the Gn interface within the core network, marked in Figure~\ref{c4:fig:umtsnetwork}, gives access to both wide-area mobility signaling (not analyzed in this paper) and signaling related to user-plane IP traffic (which we want to scrutinize). The \ac{METAWIN} monitoring system extracts and correlates information from the lower layers of the \ac{3GPP} protocol stack, and specifically the \ac{GTP} protocol on the Gn interface \cite{3gpp129.060}. This includes the \acf{RAT} identifier as well as the terminal types of the mobile clients. The latter is determinable by the \acf{TAC} part of the \acf{IMEI} (cf.~\cite{3gpp23.003}) and will be discussed later in detail.
-
-To meet privacy requirements, the \ac{METAWIN} system anonymizes captured data on the fly at multiple layers: the application-level payload is removed and all user identifiers (e.g. \ac{IMSI}) are hashed with a one-way function before recording. That is, single \acp{MS} in our dataset may be differentiated by means of an anonymized \ac{MS-ID}, but not traced back to the actual customer. The packet capturing hardware deployed within the \ac{METAWIN} monitoring system is synchronized using \ac{GPS}. Accordingly, the packet timestamps have an accuracy of $\pm100$ ns or better~\cite[p.97-98]{donnelly_high_2002}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Dataset Description}
-
-% TODO: more detailed data set description? maybe table? (# of entries etc)
-
-%TODO: OLD
-The \ac{METAWIN}-recorded dataset used in our evaluation is a week-long trace from the third week of April 2011. It consists of 2.2 billion aggregated flows for the user traffic and 410 million \ac{GTP} Tunnel Management transactions, the latter representing the data base for this paper. It was tapped at one of the \acp{GGSN} of the operator, and contains about half of the total traffic volume handled by the operator in this period. The \ac{GTP} data contains the response codes for each transactions. With these codes, failed interactions can be sorted out and treated separately.
-
-We fed the records into a SQL database, and conducted further evaluations through scripted queries on the database. Any privacy-relevant data, e.g. the \ac{IMEI}, \ac{MS-ID} and any IP address involved, is only visible as hashes and is processed in a privacy-preserving manner.  Since the hashing of the \ac{IMEI} is consistent throughout the dataset, user traffic flows and the \ac{GTP} data can be cross-correlated despite anonymization, giving the opportunity for further research.
+% describe anything related to 3gpp architectures, protocol,
+% and signaling basics here
+\input{3gppdesc.tex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Device Identification \& Classification}
-
-Individual device types can also still be identified in form of the \ac{TAC} on every entry. The \ac{TAC} is part of the \ac{IMEI}, uniquely identifying each device type \cite{3gpp23.003}. The rest of the \ac{IMEI} constitutes the serial number of the involved devices, which is not present in the data.
-
-\acp{TAC} are managed by the GSM Association which in turn assigns local organizations, distinguished by the first two digits of the \ac{TAC} as Reporting Body Identifier, to allocate \acp{TAC} to manufacturers. However, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \acp{TAC} for non-commercial purposes, only very few efforts attempt to collect \ac{TAC} information into a publicly available database. We based our data-mining efforts on a publicly available set\footnote{\url{http://www.mulliner.org/tacdb/}, Mulliner, C.}, with some additional devices collected on our own. Since the unit identification part of the \ac{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \acp{TAC} even more complicated.
-
-For our investigation, we went through large portions of the \acp{TAC} present in our dataset, and identified and categorized the most important entries. In this case, importance means various metrics like the traffic volume, the number of flows, and the number of \ac{GTP} signaling messages for each \ac{TAC}. 
-
-After having available the device names for most \acp{TAC}, we were able to add meta-information and categorize the entries based on their device type and operating system. For the device type we partitioned the devices roughly into smartphones, regular mobile phones and 3G USB dongles or 3G/WiFi routers. The operating system includes most of the popular incarnations found in the network at measurement time, including Android, iOS, and Symbian. Note however that many devices, especially USB dongles cannot be linked to any specific OS.
-
-\begin{table}
-\centering
-\caption{Relative \acs{TAC} Statistics.}
-\label{tab:tacstats}
-\begin{tabular}{|p{4cm}|p{3cm}|} \hline
-& \textbf{Portion of devices with entry in TAC DB}\\ \hline
-\# of Flows & 99.72\% \\ \hline
-Ratio of Traffic & 99.97\%\\ \hline
-\# of Tunnels & 87.57\% \\ \hline
-\# of GTP Signaling Msgs & 90.95\% \\ \hline
-\# of Distinct \acp{MS-ID} & 80.93\%\\ \hline
-\end{tabular}
-\end{table}
-
-As we are working with an incomplete \ac{TAC} database it is important to know whether our \ac{TAC} mappings provide sufficiently useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{tab:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct and active devices could be identified. Looking at the total number of \ac{GTP} signaling messages, we see that we can determine the device name of over 90 percent. The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
-
-After applying the categorization to the \acp{TAC} we evaluate the device composition in the network. The two largest portions of devices are smartphones and 3G dongles, while classic cell phones do not seem to play a major role in the packet-switched domain anymore. One observation across all device types is that about 14 percent of all mobile devices have activated their mobile data service and have signaling traffic, but do not cause any user plane traffic.
-
-The difference between 3G dongles and smartphones is also noteworthy. While the former cause large amounts of user plane traffic (compared to the device numbers), they are responsible for but a few core network signaling events and tunnels. This picture is reversed for smartphones.
+\input{methodology.tex}
 
 
-%!TEX root = paper.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Core Network Load Statistics}
-\label{sec:tunnelstats-IMC}
+\input{evaluations.tex}
 
-Having characterized the dataset available to us we now shed some light on the control plane and load dynamics in a mobile core network and attempt to show the possible impact of certain devices or other properties of the network. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Defining Core Network Load}
+\section{Defining Core Network Load}
+\label{c4:sec:loaddefinition}
 
 Before beginning the evaluation, the primary question driving this investigation was: ``How can load in a core network be defined and measured?'' A summary of our thoughts to this question follows here.
 
@@ -562,7 +115,6 @@ Apart from the two gateways directly inside the traffic path there are several o
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Load Influencing Factors}
-% TODO: OLD, WAS: \subsection{Factors Influencing Tunnel Durations}
 
 Having described our understanding of core network load we can now move to discuss some of the factors that could influence the load, making them targets for our evaluation.
 
@@ -580,247 +132,38 @@ We also expect the mobile network and its protocol implementations to express th
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Individual Examinations}
 
-To examine some of these factors, we present the following number of individual investigations. Our measure of choice are the GTP tunnels as they carry lots of meaning in being directly related to the signaling amount in the network. We investigate their duration as well as the number of arrivals and look at a measure for the processing time of events at the GGSN. These insights will also allow us to build a simple toy model for the core network load in the next chapter.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{modeling.tex}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{GTP Tunnel Duration}
 
-In our evaluation, we define the duration of a GTP tunnel as the time between a GTP CREATE and the corresponding GTP DELETE event. After the reply for a CREATE has been sent from the \ac{GGSN} any setup procedures at the node should have completed and it should recognize incoming traffic from or to this user. After the DELETE, the user's traffic will not be routed anymore. Any lazy cleanup happening after the DELETE is not relevant for this specific investigation.
 
-We differentiate all the tunnel events in our dataset based on two factors. First, we look at tunnels from different device types, be it either a smartphone, a regular or feature phone, or one of the many 3G dongles or mobile routers. After that, we investigate possible influences from the operating system. Both categorizations should prove valuable for example in deciding if currently some phone types put more signaling load on the network and to direct measures to improve this situation.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Summary}
+\label{c4:sec:conclusion}
+In this paper, we take a look at the signaling behavior of devices in an operational \ac{3G} mobile network providing Internet access. Our focus does not lie on the wireless or user-oriented parts of the network, but on signaling in the core network. To the best of our knowledge, this paper is the first to offer a core network perspective on signaling. We give a \ac{GPRS} and \ac{UMTS} network primer, and introduce \ac{GTP} tunnel management, explaining the causes and actions within the network. Our evaluation is based on a week long data set acquired in the core network of an Austrian mobile operator.
 
+% We now go back to the case of Angry Birds which was much quoted for causing excessive radio signaling at one point in time. 
+In our observation of core network signaling involving PDP Contexts and their management, we looked at the effect of device types and operating systems on the duration of GTP tunnels. We can conclude that the distribution of tunnel durations in our evaluated dataset is dominated by smartphones. This is contrary to the conventional idea that a larger volume of user plane traffic also leads to an increase of signaling. In our dataset, this would mean that 3G dongles would cause most signaling, which is definitely not the case. In this aspect, our findings support the stories of the casual game ``Angry Birds'' causing signaling storms in mobile networks by frequently downloading small ads, each small download resulting in disproportionate amounts of signaling load being generated. We conjecture from our results that measures taken to improve the radio interface control plane such as Fast Dormancy can have the converse effects in the core, as they could increase the tunnel churn.
 
+All in all, our paper shows that operators can determine which type of device has the most influence on the current network infrastructure by looking at and comparing tunnel duration distributions. %Moreover, if a load situation occurs in the core network, the operator can decide which devices are the root cause and take appropriate measures. 
+This investigations can also lead to better network planning that is more aware of the control plane by providing the necessary tools to identify probable causes for control plane activity. Lastly, we hope to raises some awareness with programmers about the potential unintended side effects their application traffic patterns can cause.
 
-%%
-\paragraph{Influence of the Device Type}
-%%
+\subsection{Future Endeavors}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/tunnel-dur-class-cdf-mod.pdf}
-	\caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
-	\label{fig:cdf-duration-device-class}
-\end{figure}
+This paper serves as an introduction to the topic of the 3G core network control plane, and therefore provides only some initial insights into the actual signaling dynamics. Therefore, we would like to expand our evaluations, as there are several  angles not investigated so far that could prove worthwhile.
 
-Figure~\ref{fig:cdf-duration-device-class} shows the empirical cumulative distribution functions for the PDP Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and 3G dongles. It can be observed that tunnel durations range between mere seconds and more than one week\footnote{Although our dataset is just one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
+To get a grasp of the imposed load on the network as well as the involved network nodes, a calculation of the sizes of the tunneling messages was already hinted at. To improve on this naive attempt, actual numbers on the message sizes and involved \acp{IE} could be recorded in future traces. Having correct signaling traffic volume data still does not reveal the processing load on core network elements. We plan to improve our methodology in this respect by taking at a look at how long it takes for the gateway nodes to process \ac{GTP} messages with respect to the current amount of user traffic and signaling. \ac{GTP} tunnels also cause a certain amount of overhead through additional headers and potential fragmentation of the user traffic, providing another investigation venue for the future (albeit more oriented towards user-plane IP traffic). 
 
-The median is clearly different between device types, being much longer for 3G dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also, for the dongles, we observe less extremely long tunnels. Again, we could relate this to a hypothetical laptop working environment, where the device is used for a few hours but then shut down. With this, the PDP Context is deleted as well. 
+Furthermore, besides the device-based classification, a differentiation based on the user traffic dynamics and correlation to signaling is planned. When looking closer at specific users, the mobility behavior also comes to mind. To investigate this, we intend to take a closer look at the occurring tunnel update messages as evidence, amongst others for mobility.
 
-Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, RSS feeds, or email notifications. We also observe two distinct steps, one at 6.8 seconds for dongles, and one at 30 minutes in the overall and smartphone distributions.
+We also look forward to searching for multiple active tunnels per device. As discussed previously, the \textit{Secondary PDP Context Activation Procedure} enables devices to establish up to ten additional tunnels attributed with a different, higher QoS level, if the network supports this. The additional load of managing and holding multiple tunnels plus the displacement of other, ``lower-quality'' traffic could prove to be an interesting investigation. Initial observations indicate that this feature is rarely used today by very few types of devices, but it will be of increased interest in the face of ongoing LTE/EPS deployments, whose specifications expand upon this secondary tunnel concept.
 
 
-%%
-\paragraph{Influence of the OS}
-%%
 
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/tunnel-dur-os-cdf-mod.pdf}
-	\caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
-	\label{fig:cdf-duration-os}
-\end{figure}
-
-Taking an even closer look at the smartphone device fraction, and differentiating the operating system to Symbian, Android, and iOS, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{fig:cdf-duration-os}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{fig:cdf-duration-device-class}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
-
-Again, a number of steps (i.e. accumulations of incidents) are visible in the distributions. Those that are only visible in one operating system type point to a source involving the device rather the network. This especially includes the 30 seconds, 300 seconds, and 600 seconds steps for Android, and the 600 seconds step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other sources, e.g. the device's firmware version and user traffic dynamics need also be observed.
-
-A last artifact of note are the large number of iOS devices with very short tunnel durations. Over 20\% of all tunnels established by these devices are shorter than two seconds. Our working hypothesis is, that this is an interaction between short regular traffic burst and a form of Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement, a technique to explicitly release radio resources. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent radio state changes, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the CDF.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Tunnel Number of Arrivals and Inter-Arrival Time}
-
-While tunnel durations and the involved signaling at the beginning and end of the duration is one aspect of control plane load, the number of tunnel arrivals might be another, which we are looking into in this section.
-
-In addition to describing the arrival process on the basis of the number of arrivals, we also take a look at the tunnel inter-arrival time. Specifically, with this process we mean the arrival of tunnel requests, i.e. GTP CREATE requests, at the \ac{GGSN}. This also adds to the foundation of the load model constructed in the next chapter. 
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/create_freq.pdf}
-	\caption{Tunnel arrivals in one second intervals.}
-	\label{fig:freq-arrivals}
-\end{figure}
-
-Figure \ref{fig:freq-arrivals} depicts the number of arrivals per second during the whole weeklong period. Of note is the clear bimodal nature with one peak around twelve and the other in the low thirties. While the distribution is rather compact around these two peaks, there are some clear outliers up to 107.
-If we again hypothesize that an increased number of arrivals means higher load in the network, we can assume that load is not constant but rather switches between two modes with some periods with extraordinary load induced by an increased number of arrivals.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/R-createspersecond-1h-violin.pdf}
-	\caption{Violin plot of tunnel arrivals in one second per time of day.}
-	\label{fig:freq-arrivals-per-second-violin}
-\end{figure}
-
-To find the cause of these two modes we take a peek at the diurnal arrival pattern. Figure \ref{fig:freq-arrivals-per-second-violin} contains a violin plot showing again the arrivals per second but broken down by time of day. A violion plot, while being similar to a box plot, additionally shows the density of the individual items on the vertical axis.
-The nocturnal median from around midnight to 5am and the longer daytime median, 8am to 19pm, closely resemble the two modes found in the histogram. In between are short transition phases. Notably, during daytime the arrivals and their densities are spread out on a much larger value range. This could be an indication of load fluctuations in the system.
-
-
-\begin{figure}
-%\vskip -2.5cm
-        \centering
-        % \begin{subfigure}[b]{0.50\textwidth}
-        %         \centering
-        %         \includegraphics[width=\textwidth]{figures/R-IAT-ecdf-2h-log.png}
-        %         \caption{All incoming tunnel requests.}
-        %         \label{fig:IAT-ecdf-2h-all}
-        % \end{subfigure}%
-        %~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/IMC2013/R-IAT-successful-2h-ecdfs.png}
-                \caption{Successful tunnel requests.}
-                \label{fig:IAT-ecdf-2h-successful}
-        \end{subfigure}%
-        ~
-        \begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/IMC2013/R-IAT-fromflows-ecdfs-2h.png}
-                \caption{Only tunnels with data flows.}
-                \label{fig:IAT-ecdf-2h-active}
-        \end{subfigure}
-        
-        \begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/IMC2013/R-IAT-fromflows-gprs-ecdfs-2h.png}
-                \caption{Only GPRS tunnels with data flows.}
-                \label{fig:IAT-ecdf-2h-active-gprs}
-        \end{subfigure}%
-        ~
-        \begin{subfigure}[b]{0.50\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{images/IMC2013/R-IAT-fromflows-umts-ecdfs-2h.png}
-                \caption{Only UMTS tunnels with data flows.}
-                \label{fig:IAT-ecdf-2h-active-umts}
-        \end{subfigure}
-        \caption{Empirical cumulative distribution function of the tunnel inter-arrival time in seconds by time of day for each day of one week.}\label{fig:IAT-ecdf-2h}
-\end{figure}
-
-To investigate the arrivals from yet another angle we take a look at inter-arrival time of the tunnels in Figure~\ref{fig:IAT-ecdf-2h}. This metric is more suited to describe the arrival process in the toy queuing model we propose. The empirical CDFs are again broken down by time of day, the same diurnal load oscillation can be observed. The medians range between about 20 and 60 milliseconds. Figure~\ref{fig:IAT-ecdf-2h-successful}, which represents all tunnel requests that the \ac{GGSN} successfully handled, shows wave-like steps in 20ms intervals in the plot. As this is happening very regularly at every time of the day we believe, that this effect must be from a source inside the mobile network and not induced from the outside, .e.g. through mobile devices.
-
-This becomes even more peculiar when further breaking down the tunnel arrivals. We now distinguish between active tunnels, i.e. tunnels, that actually transported user traffic during their lifetime (cf. Fig.~\ref{fig:IAT-ecdf-2h-active}), and active tunnels, which were created while having a GPRS (Fig.~\ref{fig:IAT-ecdf-2h-active-gprs}) or UMTS (Fig.~\ref{fig:IAT-ecdf-2h-active-umts}) connectivity, respectively. Note that only about 86\% of requested and created tunnels where actually used for user data transmissions afterwards. The 20ms-steps occur strongest when observing all tunnel arrivals, in a weaker form it is also present in the active and \ac{UMTS} tunnel portion. 
-
-Our working hypothesis as to the origin of the effect is the \ac{TTI}. This time indicates the duration of a radio transmission and is usually either 10 or 20 milliseconds in length. It is also in sync for the whole network of base stations making the \ac{TTI} noticeable even when not measuring directly at the radio link. The observed step-width of 20ms therefore indicates, that the signaling procedure the GTP CREATE is part of, includes at least one trip from the mobile device over the radio interface. This makes sense, as the tunnel is typically created during the GPRS Attach procedure, which is indeed initiated at the user's device. Unfortunately, this also makes the tunnel arrivals come in somewhat batched, which could momentarily increase the load at the \ac{GGSN} that then would need to process more requests at once than if the arrivals followed a smooth stochastic distribution.
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Tunnel Event Processing Time}
-
-This brings us to another and potentially more direct measure of \ac{GGSN} load, namely the event processing time, meaning the time it takes for the \ac{GGSN} to fullfil a \ac{GTP} request. This is calculated from the requested and finished timestamps of every \ac{GTP} event in our dataset. As the measurement is conducted at the Gn interface these timestamps represent the time the \ac{GTP} signaling request moves to the \ac{GGSN} and the time the response transitions through the link.
-
-As stated in the previous section, it would be of special interest to know if the setup time of tunnels is influenced by anything, as this is one of the \ac{GGSN}'s most time-sensitive jobs and can impact the time a user has to wait before being able to actually transfer data. Unfortunately, some issues with the dataset did not allow the investigation of the processing time of either create and delete messages.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/R-update-time-cdfs.png}
-	\caption{Empirical CDFs of the time it takes a GGSN to process a GTP update event, plotted for each hour of the day.}
-	\label{fig:update-time}
-\end{figure}
-
-
-However, we could investigate the processing time of \ac{GTP} update messages. The core network transmits roughly two orders of magnitude more update than either create or delete events and therefore the number of usable events exceeded the significance level. While no direct investigation of the setup and deletion procedures was possible with these events, a rough overall picture of load can still be attained through this. Figure \ref{fig:update-time} depicts a band of empirical cumulative distribution functions for the processing time of update events broken down by time of day. The processing time is almost uniformly distributed between 2 and 22 milliseconds, with a slightly longer duration during the evening, making for a continuous uniform distribution. This is rather unexpected as uniform distributions do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., scheduling or queuing artifacts. In the future we hope to investigate these features more closely, including a proper investigation of the tunnel setup and teardown processing time, if the dataset allows it.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\paragraph{Relative Total Number of Tunnels in the Core}
-%
-% TODO: for the next paper?
-%
-%  tunnel numbers (relative?)
-%  i.e. how much state is currently held in the core?
-
-
-
-
-%!TEX root = paper.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Load Modeling}
-\label{sec:modeling-IMC}
-
-Drawing conclusions from statistical analysis alone is a difficult task. The next logical step lies therefore in the creation of models abstracting this real system, making them easier to calculate with the loss of some precision. This and future improved models should support network operators in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Creating a Simple Toy Queuing Model}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/GGn-model.pdf}
-	\caption{Simple toy-model for tunnel-induced load on the core network.}
-	\label{fig:ggn-model}
-\end{figure}
-
-To begin the modeling process we attempt to represent the tunnel management as a queuing system, specifically as a G/G/n-0 system in Kendall's notation. Figure~\ref{fig:ggn-model} shows this model for the case of our proposed tunnel load metric. Here, tunnels enter the system by a general random distribution, are then ``served'' at the \ac{GGSN} for the duration of their existence, which also follows a general distribution, and leave the system, i.e. are torn down, afterwards. If the serving units are filled, blocking occurs and arriving tunnel requests are rejected.
-
-In this case ``servers'' correspond to available resources at one or more \ac{GGSN}, making the maximum number of tunnels hard to guess and depend on a number of factors. This could include soft-limits like the specific configuration, and hard-limits, e.g. the \ac{GGSN}'s processing and memory constraints. Unfortunately, all of these are unknown to us. Moreover, as the tunnels are all served on a relatively small number of hardware entities they are not independent of each other. Increasing load could very well influence both the arrival as well as the serving process.
-
-For the purpose of creating a toy model we are further simplifying the G/G/n-0 to a M/M/$\infty$ queue. As stated, no actual limit to the number of virtual servers is known and the data also does not show any obvious limits. So we can safely assume an unlimited system and do not have to treat blocking or queuing explicitly.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/R-IAT-densities.pdf}
-	\caption{Sampled inter-arrival time density and fitted theoretical distributions.}
-	\label{fig:IAT-densities}
-\end{figure}
-
-Furthermore, we fitted univariate distributions to the experimental data for the tunnel inter-arrivals and durations and tested the goodness of the fit both numerically, using Pearson's $\chi^2$ test, and visually for the density and CDF plots. No standard random distribution reaches the significance level for either process. We attribute this fact largely to the various artifacts in the data, e.g. the described wave effect every 20 milliseconds in the inter-arrival time. Matching them visually (confer also the density plot in Figure~\ref{fig:IAT-densities}) we find that the exponential fit is reasonably close to the experimental data in both the arrival and duration cases. Again, these distribution fits are just for a toy model to lay the groundwork for future and improved modeling.
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/markovchain.pdf}
-	\caption{Markov chain model for the tunnel serving process.}
-	\label{fig:markovchain}
-\end{figure}
-
-Now, assuming both a Poisson arrival and an exponential serving process, a Markov chain representing the queue can be set up (cf. Fig.~\ref{fig:markovchain}) and stationary analysis can be conducted. From the measured data an arrival rate of $\lambda=25.64123$ and the parameter $\mu=0.0001586728$ for the exponential service time distribution are calculated. Using Little's Law this gives an estimate for the mean number of concurrent tunnels at the \ac{GGSN} of 
-
-$$
-L=\frac{\lambda}{\mu}\approx 161\,599. %=161598.14.
-$$
-
-As stated, the amount of state held at the node and propagated through the network is directly related to the number of tunnels. Therefore, we propose this metric as an initial estimate of the load at the \ac{GGSN}. 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Modeling Discussion}
-
-On the basis of this toy model better fitting models can now be constructed. Those should also factor in more of the core network's properties and specified parameters omitted in this model. Specifically, this means shifting from M/M/$\infty$ to the more generalized G/G/n and therefore finding better distribution fits for the involved processes.
-
-It is also entirely possible that the single queue approach is not the best way to describe control plane load. Several load influencing factors discussed earlier have direct influence on the tunnel arrivals and duration, e.g. the device type or the radio access technology. Therefore, amongst others multidimensional queuing networks or fluid flow could be a better fit. Our plan is to conduct further investigations into the modeling of mobile core network signaling. This also includes a rough simulative approach, which could also be used to validate our models against experimental data.
-
-
-
-
-% \begin{figure}
-% \centering
-% \includegraphics[width=\columnwidth]{figures/R-ST-ecdfs.pdf}
-% \caption{Sampled serving time cumulative distribution function and fitted theoretical distributions.}
-% \label{fig:ST-ecdf}
-% \end{figure}
-
-% \begin{figure}
-% \centering
-% \includegraphics[width=\columnwidth]{figures/R-IAT-ecdfs.pdf}
-% \caption{Sampled inter-arrival time cumulative distribution function and fitted theoretical distributions.}
-% \label{fig:IAT-ecdfs}
-% \end{figure}
-
-
-
-%!TEX root = paper.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion}
-\label{sec:conclusion-IMC}
-\acresetall
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% CoNEXT Conclusion Starts here
 
 In this paper, we took a look at the signaling behavior of devices in an operational \ac{3G} mobile network providing Internet access. Our focus does not lie on the wireless or user-oriented parts of the network, but on signaling in the core network. To the best of our knowledge, this paper is the first to offer an in-depth core network perspective on signaling. We gave a \ac{GPRS} and \ac{UMTS} network primer, and introduced \ac{GTP} tunnel management and evaluated a week long data set recorded in the core network of an Austrian mobile operator.
 

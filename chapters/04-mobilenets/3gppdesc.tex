@@ -3,15 +3,26 @@
 %
 % Collection of all relevant mobile radio specifications and descriptions
 %
-\section{Architecture of GSM derived mobile networks}
+\subsection{Architecture of GSM derived mobile networks}
 \label{sec:3gpparchitecture}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{IMC2013 GPRS and Tunnel Management}
+\subsection{IMC2013 GPRS and Tunnel Management}
 \label{sec:gtp-IMC}
-\acresetall
+
 
 This section serves as a short introduction on cellular data network basics and describes relevant details of \ac{GTP}, the tunneling protocol under investigation.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Control Plane and Signaling Analysis}
+\subsubsection{Traffic Transport}
+\paragraph{PDP Contexts and LTE Bearers}
+\subsubsection{Control Messaging Protocols}
+\subsubsection{Control Messaging Causes}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,7 +50,7 @@ One role of the \ac{SGSN} is to serve as mobility anchor for mobile devices. It 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{GTP Signaling}
+\subsubsection{GTP Signaling}
 
 Tunnels state is held in the \ac{SGSN} and \ac{GGSN} as \ac{PDP} Context data structures. These contain various information, such as the device IP address, \ac{IMSI}, and a tunnel identifier. The concept is used to isolate user traffic from core network control plane signaling and to provide certain \ac{QoS} guarantees to the user traffic. Multiple \ac{QoS} profiles per device can also be established by setting up up to ten secondary contexts beyond the primary PDP context. However, \ac{QoS} secondary contexts are very rarely in use today, any user-plane IP traffic is typically transported within the primary ``best effort'' tunnel.
 
@@ -78,7 +89,7 @@ Based on the state both procedures can enable and disable radio tunnels as well 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Discussion of GTP Signaling}
+\subsubsection{Discussion of GTP Signaling}
 
 Looking at the Create, Update and Delete PDP Context Request and Reply message pairs we can already directly deduce some possibly load-related information. The total tunnel duration originates from the time delta between corresponding Create and Delete events. The shorter those tunnels are the higher will be volume of signaling messages and the necessary processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \ac{PDP} Contexts. Large numbers of update messages, especially combined with frequent \ac{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. 
 The time between a request and its corresponding response could also be an indicator for the amount of processing involved for this message as well as the current general processing load at the \ac{GGSN}.
@@ -89,9 +100,8 @@ As discussed, most of the actions in the network as well as in the mobile device
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{CONEXT2012 GPRS and Tunnel Management}
-\label{sec:gtp-CONEXT}
-\acresetall
+\subsection{CONEXT2012 GPRS and Tunnel Management}
+
 This section starts with a primer on cellular data network basics, and then moves on to describe relevant details of \ac{GTP}, the tunneling protocol under investigation.
 
 %---
@@ -99,7 +109,7 @@ This section starts with a primer on cellular data network basics, and then move
 %linked NSAPI: indicates the NSAPI assigned to any one of the already activated PDP contexts for this address/phone ("foreign key"?)
 
 
-\subsection{\acs{GPRS} Fundamentals}
+\subsubsection{\acs{GPRS} Fundamentals}
 
 Before diving into specifics of \ac{GTP} messaging, we give a short overview on the packet switched domain of an \ac{UMTS} network. This domain is closely related to the \ac{GPRS} part introduced for \acs{GSM}. \ac{UMTS}, first defined by the \ac{3GPP} in Release 99, focuses its improvements over \ac{GSM} mostly on the radio aspects, while keeping the core network \ac{GPRS} architecture intact at large. \ac{3GPP} \ac{TS} 23.060 \cite{3gpp23.060} defines the basic aspects involving \ac{GPRS} protocols and its system architecture. \ac{TS} 29.060 \cite{3gpp29.060} describes the specifics of \ac{GTP} flowing across the Gn and Gp interfaces which forms the basis for our work.
 
@@ -110,7 +120,7 @@ One role of the \ac{SGSN} is as the mobility anchor for mobile devices, and it i
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{GTP Signaling}
+\subsubsection{GTP Signaling}
 
 
 Tunnels are defined in the \ac{SGSN} and \ac{GGSN} in \ac{PDP} Context data structures. These hold various information related to a tunnel, such as the device IP address, \ac{IMSI}, and a tunnel identifier. A tunneling concept is used for user traffic to isolate it from core network control plane traffic and to provide certain \ac{QoS} guarantees to the user traffic. To distinguish multiple \ac{QoS} profiles per device, up to ten additional secondary contexts can be established beyond the primary PDP context, all with different \ac{QoS} allocations. However, secondary contexts are rarely in use today, and any user-plane IP traffic is transported within the primary ``best effort'' tunnel.
@@ -204,7 +214,7 @@ The \ac{RRC} state machine shown in Figure \ref{c4:fig:rrcstatemodel} governs th
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Discussion of GTP Signaling}
+\subsubsection{Discussion of GTP Signaling}
 
 Looking at the Create, Update and Delete PDP Context Request and Reply message pairs we can already deduce a certain amount of information. Measuring the time delta between corresponding Create and Delete events obviously gives the total duration a tunnel was established. Given the amount of user-plane IP traffic transferred, when the tunnel durations are short, we can expect the number of tunnel creation and deletion events to go up instead, resulting in a higher volume of signaling messages and an increase in processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \ac{PDP} Contexts. Large numbers of update messages, especially combined with frequent \ac{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. This mobility behavior could be investigated by evaluating the update messages.
 
@@ -315,42 +325,9 @@ Correlation to stories about carrier complaints over (radio) ``signalling storms
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% old 3gpp summary insert
+\subsection{3GPP Protocols Overview}
 
-\section{Übersicht}
 
-\begin{itemize}
-\item Einarbeitung
-	\begin{itemize}
-		\item Architektur von 3G-Netzen
-		\item Modelle zur Beschreibung von Datenverkehrsflüssen
-		\item Einarbeitung in das Messsystem des FTW
-	\end{itemize}
-\item Definition eines einfachen Bearer-Modells
-\item Programmierung der Auswertung
-\item Durchführung und Auswertung der Messungen
-\item Anfertigung eines Berichtes
-\end{itemize}
-
-\section{Modeling}
-Macroscopic Behavior
-
-	-- time Connection Setup until Call Termination with Talk Spurts
-	--> ON/OFF Process
-	--> Empricial measurement
-	
-Source Traffic Model
-	-- 2 parts: 
-		arrival process for user activities
-		process describing activity phase
-	-- arrival time:
-		User begins web browsing
-	
-Simulation \& Software
-	ns-2 UMTS mobile parts only
-	ns-3 GSoC2010 implementing \ac{UTRAN} (MAC\&PHY) incl radio bearers (+OpenFlow)
-	Harald Welte GPRS: OpenBSC, OpenGGSN incl GTP
-	
 
 EPS first introduced in 3GPP Release 8, completed in March 2009. Consisting of EUTRAN, EPC (formerly SAE)
 
@@ -396,7 +373,10 @@ List of interfaces in the 3G/LTE PS network
 \item \textbf{Rx}: Interface between a PRCF and the packet data network.
 \end{itemize}
 
-\section{Control Plane Protocol Stacks}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Control Plane Protocol Stacks}
 
 \begin{figure}[htbp]
 	\centering
@@ -442,7 +422,9 @@ List of interfaces in the 3G/LTE PS network
 \end{figure}
 
 
-\section{Bearers}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bearers}
 
 As you said only 11 bearer are permitted.
 So PDN connection(Default bearer) + Dedicated bearers put together should not exceed 11 bearers at any instant of time at UE side.
@@ -508,7 +490,9 @@ Annotations:
 3. Various security procedures.
 
 
-\section{Information Storage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Network State and State Exchange}
 per PLMN node, cf. 3GPP TS 23.401 clause 5.7.
 
 \begin{figure}[htbp]
@@ -519,8 +503,11 @@ per PLMN node, cf. 3GPP TS 23.401 clause 5.7.
 \end{figure}
 
 
-\section{GTP}
-\subsection{GTPv2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\ac{GTP}}
+
+\subsubsection{GTPv2}
 
 
 \begin{table}[htbp]
@@ -542,7 +529,7 @@ per PLMN node, cf. 3GPP TS 23.401 clause 5.7.
 \end{table}
 
 
-\subsection{GTP-C}
+\subsubsection{GTP-C}
 
 \begin{table}[htbp]
 	\caption{12 Byte GTPv2-C header format.}
@@ -602,6 +589,8 @@ Charging Characteristics					& Charging Characteristics	&						& \\ \hline
 Private Extensions							& Private Extensions		&						& \\ \hline
 
 \end{longtabu}
+
+
 
 \subsubsection{Information Elements Wire Format}
 
@@ -853,4 +842,4 @@ Maximum length 7 to ?.
 	\end{tabu} 
 \end{table}
 
-\subsection{GTP-U}
+\subsubsection{GTP-U}
