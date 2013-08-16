@@ -24,14 +24,7 @@ Our measure of choice are the PDP Context Durations as they carry lots of meanin
 
 \subsubsection{Tunnel Durations by Category}
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{images/tunnel-dur-class-cdf-mod.pdf}
-	\caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
-	\label{c4:fig:cdf-duration-device-class-CONEXT}
-\end{figure}
-
-Figure~\ref{c4:fig:cdf-duration-device-class-CONEXT} shows the empirical cumulative distribution functions for the PDP Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and 3G dongles. It can be observed that tunnel durations range between  seconds and more than one week\footnote{Although our dataset is one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
+Figure~\ref{c4:fig:cdf-duration-device-class} shows the empirical cumulative distribution functions for the PDP Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and 3G dongles. It can be observed that tunnel durations range between  seconds and more than one week\footnote{Although our dataset is one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
 
 The median differs between device types, being much longer for 3G dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also for the dongles, we observe less extremely long tunnels with durations above several hours. Again, we could hypothetically relate this to a usual laptop working environment, where the device is used for a few hours but then shut down. With this, the PDP Context is deleted as well. Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that  smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, RSS feeds, or email notifications. We also observe two distinct steps, one at 6.8 seconds for dongles, and one at 30 minutes in the overall and smartphone distributions. While we do not have a plausible explanation for the former, the latter could be explained by a value chosen for the RRC state machine transition to the IDLE state (cf. Figure \ref{c4:fig:rrcstatemodel}).
 
@@ -40,14 +33,8 @@ The median differs between device types, being much longer for 3G dongles than f
 % Influence of the Device Operating System
 %%
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{images/tunnel-dur-os-cdf-mod.pdf}
-	\caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
-	\label{c4:fig:cdf-duration-os-CONEXT}
-\end{figure}
 
-Taking an even closer look at the smartphone device fraction, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{c4:fig:cdf-duration-os-CONEXT}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{c4:fig:cdf-duration-device-class-CONEXT}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
+Taking an even closer look at the smartphone device fraction, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{c4:fig:cdf-duration-os}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{c4:fig:cdf-duration-device-class}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
 
 Again, a number of steps are visible in the distributions. %Steps at multiples of 10 seconds indicate that timer-induced transitions happen. 
 Those steps that are only visible in one operating system type point to a source involving the phone rather the network. This especially includes the 30 seconds, 300 seconds, and 600 seconds steps (i.e. accumulations of incidents) for Android, and the 600 seconds step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other factors, e.g. the device's firmware version and user traffic dynamics need also be observed. We leave this point for future work..
@@ -55,6 +42,49 @@ Those steps that are only visible in one operating system type point to a source
 A last artifact of note are the larger number of iOS devices with very short tunnel durations. Over 20\% of all tunnels established by these devices are shorter than two seconds. While the actual cause still remains unknown, it could be an interaction between short regular traffic burst and 3GPP Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement. Fast Dormancy is a technique to release radio resources more quickly. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent transition to the IDLE state, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the CDF.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{GTP Tunnel Duration}
+
+In our evaluation, we define the duration of a GTP tunnel as the time between a GTP CREATE and the corresponding GTP DELETE event. After the reply for a CREATE has been sent from the \ac{GGSN} any setup procedures at the node should have completed and it should recognize incoming traffic from or to this user. After the DELETE, the user's traffic will not be routed anymore. Any lazy cleanup happening after the DELETE is not relevant for this specific investigation.
+
+We differentiate all the tunnel events in our dataset based on two factors. First, we look at tunnels from different device types, be it either a smartphone, a regular or feature phone, or one of the many 3G dongles or mobile routers. After that, we investigate possible influences from the operating system. Both categorizations should prove valuable for example in deciding if currently some phone types put more signaling load on the network and to direct measures to improve this situation.
+
+
+
+%%
+\paragraph{Influence of the Device Type}
+%%
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{images/tunnel-dur-class-cdf-mod.pdf}
+    \caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
+    \label{c4:fig:cdf-duration-device-class}
+\end{figure}
+
+Figure~\ref{c4:fig:cdf-duration-device-class} shows the empirical cumulative distribution functions for the PDP Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and 3G dongles. It can be observed that tunnel durations range between mere seconds and more than one week\footnote{Although our dataset is just one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
+
+The median is clearly different between device types, being much longer for 3G dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also, for the dongles, we observe less extremely long tunnels. Again, we could relate this to a hypothetical laptop working environment, where the device is used for a few hours but then shut down. With this, the PDP Context is deleted as well. 
+
+Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, RSS feeds, or email notifications. We also observe two distinct steps, one at 6.8 seconds for dongles, and one at 30 minutes in the overall and smartphone distributions.
+
+
+%%
+\paragraph{Influence of the OS}
+%%
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{images/tunnel-dur-os-cdf-mod.pdf}
+    \caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
+    \label{c4:fig:cdf-duration-os}
+\end{figure}
+
+Taking an even closer look at the smartphone device fraction, and differentiating the operating system to Symbian, Android, and iOS, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{c4:fig:cdf-duration-os}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{c4:fig:cdf-duration-device-class}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
+
+Again, a number of steps (i.e. accumulations of incidents) are visible in the distributions. Those that are only visible in one operating system type point to a source involving the device rather the network. This especially includes the 30 seconds, 300 seconds, and 600 seconds steps for Android, and the 600 seconds step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other sources, e.g. the device's firmware version and user traffic dynamics need also be observed.
+
+A last artifact of note are the large number of iOS devices with very short tunnel durations. Over 20\% of all tunnels established by these devices are shorter than two seconds. Our working hypothesis is, that this is an interaction between short regular traffic burst and a form of Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement, a technique to explicitly release radio resources. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent radio state changes, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the CDF.
 
 
 
@@ -212,8 +242,7 @@ Figure~\ref{c4:fig:stacked-durations} shows another interesting influence the op
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Core Network Load Statistics}
-\label{sec:tunnelstats-IMC}
+\subsection{Core Network Load Statistics}
 
 Having characterized the dataset available to us we now shed some light on the control plane and load dynamics in a mobile core network and attempt to show the possible impact of certain devices or other properties of the network. 
 
@@ -226,49 +255,6 @@ Having characterized the dataset available to us we now shed some light on the c
 To examine some of these factors, we present the following number of individual investigations. Our measure of choice are the GTP tunnels as they carry lots of meaning in being directly related to the signaling amount in the network. We investigate their duration as well as the number of arrivals and look at a measure for the processing time of events at the GGSN. These insights will also allow us to build a simple toy model for the core network load in the next chapter.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{GTP Tunnel Duration}
-
-In our evaluation, we define the duration of a GTP tunnel as the time between a GTP CREATE and the corresponding GTP DELETE event. After the reply for a CREATE has been sent from the \ac{GGSN} any setup procedures at the node should have completed and it should recognize incoming traffic from or to this user. After the DELETE, the user's traffic will not be routed anymore. Any lazy cleanup happening after the DELETE is not relevant for this specific investigation.
-
-We differentiate all the tunnel events in our dataset based on two factors. First, we look at tunnels from different device types, be it either a smartphone, a regular or feature phone, or one of the many 3G dongles or mobile routers. After that, we investigate possible influences from the operating system. Both categorizations should prove valuable for example in deciding if currently some phone types put more signaling load on the network and to direct measures to improve this situation.
-
-
-
-%%
-\paragraph{Influence of the Device Type}
-%%
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/tunnel-dur-class-cdf-mod.pdf}
-	\caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
-	\label{fig:cdf-duration-device-class}
-\end{figure}
-
-Figure~\ref{fig:cdf-duration-device-class} shows the empirical cumulative distribution functions for the PDP Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and 3G dongles. It can be observed that tunnel durations range between mere seconds and more than one week\footnote{Although our dataset is just one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
-
-The median is clearly different between device types, being much longer for 3G dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also, for the dongles, we observe less extremely long tunnels. Again, we could relate this to a hypothetical laptop working environment, where the device is used for a few hours but then shut down. With this, the PDP Context is deleted as well. 
-
-Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, RSS feeds, or email notifications. We also observe two distinct steps, one at 6.8 seconds for dongles, and one at 30 minutes in the overall and smartphone distributions.
-
-
-%%
-\paragraph{Influence of the OS}
-%%
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/tunnel-dur-os-cdf-mod.pdf}
-	\caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
-	\label{fig:cdf-duration-os}
-\end{figure}
-
-Taking an even closer look at the smartphone device fraction, and differentiating the operating system to Symbian, Android, and iOS, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{fig:cdf-duration-os}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{fig:cdf-duration-device-class}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
-
-Again, a number of steps (i.e. accumulations of incidents) are visible in the distributions. Those that are only visible in one operating system type point to a source involving the device rather the network. This especially includes the 30 seconds, 300 seconds, and 600 seconds steps for Android, and the 600 seconds step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other sources, e.g. the device's firmware version and user traffic dynamics need also be observed.
-
-A last artifact of note are the large number of iOS devices with very short tunnel durations. Over 20\% of all tunnels established by these devices are shorter than two seconds. Our working hypothesis is, that this is an interaction between short regular traffic burst and a form of Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement, a technique to explicitly release radio resources. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent radio state changes, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the CDF.
 
 
 
@@ -279,62 +265,67 @@ While tunnel durations and the involved signaling at the beginning and end of th
 
 In addition to describing the arrival process on the basis of the number of arrivals, we also take a look at the tunnel inter-arrival time. Specifically, with this process we mean the arrival of tunnel requests, i.e. GTP CREATE requests, at the \ac{GGSN}. This also adds to the foundation of the load model constructed in the next chapter. 
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/create_freq.pdf}
+	\includegraphics[width=\columnwidth]{images/create_freq.pdf}
 	\caption{Tunnel arrivals in one second intervals.}
-	\label{fig:freq-arrivals}
+	\label{c4:fig:freq-arrivals}
 \end{figure}
 
-Figure \ref{fig:freq-arrivals} depicts the number of arrivals per second during the whole weeklong period. Of note is the clear bimodal nature with one peak around twelve and the other in the low thirties. While the distribution is rather compact around these two peaks, there are some clear outliers up to 107.
+Figure \ref{c4:fig:freq-arrivals} depicts the number of arrivals per second during the whole weeklong period. Of note is the clear bimodal nature with one peak around twelve and the other in the low thirties. While the distribution is rather compact around these two peaks, there are some clear outliers up to 107.
 If we again hypothesize that an increased number of arrivals means higher load in the network, we can assume that load is not constant but rather switches between two modes with some periods with extraordinary load induced by an increased number of arrivals.
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/R-createspersecond-1h-violin.pdf}
+	\includegraphics[width=\columnwidth]{images/R-createspersecond-1h-violin.pdf}
 	\caption{Violin plot of tunnel arrivals in one second per time of day.}
-	\label{fig:freq-arrivals-per-second-violin}
+	\label{c4:fig:freq-arrivals-per-second-violin}
 \end{figure}
 
-To find the cause of these two modes we take a peek at the diurnal arrival pattern. Figure \ref{fig:freq-arrivals-per-second-violin} contains a violin plot showing again the arrivals per second but broken down by time of day. A violion plot, while being similar to a box plot, additionally shows the density of the individual items on the vertical axis.
+To find the cause of these two modes we take a peek at the diurnal arrival pattern. Figure \ref{c4:fig:freq-arrivals-per-second-violin} contains a violin plot showing again the arrivals per second but broken down by time of day. A violion plot, while being similar to a box plot, additionally shows the density of the individual items on the vertical axis.
 The nocturnal median from around midnight to 5am and the longer daytime median, 8am to 19pm, closely resemble the two modes found in the histogram. In between are short transition phases. Notably, during daytime the arrivals and their densities are spread out on a much larger value range. This could be an indication of load fluctuations in the system.
 
 
-\begin{figure}
+\begin{figure}[htbp]
         \centering
-        \begin{subfigure}[b]{0.50\textwidth}
+\makebox[\textwidth]{        
+        \begin{subfigure}[b]{0.45\paperwidth}    
                 \centering
-                \includegraphics[width=\textwidth]{images/IMC2013/R-IAT-successful-2h-ecdfs.png}
-                \caption{Successful tunnel requests.}
-                \label{fig:IAT-ecdf-2h-successful}
+                \includegraphics[width=\textwidth]{images/R-IAT-all-2h-ecdfs.pdf}
+                \caption{All tunnel requests.}
+                \label{c4:fig:IAT-ecdf-2h-all}
         \end{subfigure}%
         ~
-        \begin{subfigure}[b]{0.50\textwidth}
+        \begin{subfigure}[b]{0.45\paperwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/IMC2013/R-IAT-fromflows-ecdfs-2h.png}
+                \includegraphics[width=\textwidth]{images/R-IAT-fromflows-ecdfs-2h.pdf}
                 \caption{Only tunnels with data flows.}
-                \label{fig:IAT-ecdf-2h-active}
+                \label{c4:fig:IAT-ecdf-2h-active}
         \end{subfigure}
-        
-        \begin{subfigure}[b]{0.50\textwidth}
+        }
+
+ \makebox[\textwidth]{    
+        \begin{subfigure}[b]{0.45\paperwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/IMC2013/R-IAT-fromflows-gprs-ecdfs-2h.png}
-                \caption{Only GPRS tunnels with data flows.}
-                \label{fig:IAT-ecdf-2h-active-gprs}
+                \includegraphics[width=\textwidth]{images/R-IAT-fromflows-gprs-ecdfs-2h.pdf}
+                \caption{Tunnels with data flows initiated in GPRS.}
+                \label{c4:fig:IAT-ecdf-2h-active-gprs}
         \end{subfigure}%
         ~
-        \begin{subfigure}[b]{0.50\textwidth}
+        \begin{subfigure}[b]{0.45\paperwidth}
                 \centering
-                \includegraphics[width=\textwidth]{images/IMC2013/R-IAT-fromflows-umts-ecdfs-2h.png}
-                \caption{Only UMTS tunnels with data flows.}
-                \label{fig:IAT-ecdf-2h-active-umts}
+                \includegraphics[width=\textwidth]{images/R-IAT-fromflows-umts-ecdfs-2h.pdf}
+                \caption{Tunnels with data flows initiated in UMTS.}
+                \label{c4:fig:IAT-ecdf-2h-active-umts}
         \end{subfigure}
-        \caption{Empirical cumulative distribution function of the tunnel inter-arrival time in seconds by time of day for each day of one week.}\label{fig:IAT-ecdf-2h}
+}
+        \caption{Empirical cumulative distribution function of the tunnel inter-arrival time in seconds by time of day for each day of one week.}
+        \label{c4:fig:IAT-ecdf-2h}
 \end{figure}
 
-To investigate the arrivals from yet another angle we take a look at inter-arrival time of the tunnels in Figure~\ref{fig:IAT-ecdf-2h}. This metric is more suited to describe the arrival process in the toy queuing model we propose. The empirical CDFs are again broken down by time of day, the same diurnal load oscillation can be observed. The medians range between about 20 and 60 milliseconds. Figure~\ref{fig:IAT-ecdf-2h-successful}, which represents all tunnel requests that the \ac{GGSN} successfully handled, shows wave-like steps in 20ms intervals in the plot. As this is happening very regularly at every time of the day we believe, that this effect must be from a source inside the mobile network and not induced from the outside, .e.g. through mobile devices.
+To investigate the arrivals from yet another angle we take a look at inter-arrival time of the tunnels in Figure~\ref{c4:fig:IAT-ecdf-2h}. This metric is more suited to describe the arrival process in the toy queuing model we propose. The empirical CDFs are again broken down by time of day, the same diurnal load oscillation can be observed. The medians range between about 20 and 60 milliseconds. Figure~\ref{c4:fig:IAT-ecdf-2h-all}, which represents all tunnel requests that the \ac{GGSN} received, shows wave-like steps in 20ms intervals in the plot. As this is happening very regularly at every time of the day we believe, that this effect must be from a source inside the mobile network and not induced from the outside, .e.g. through mobile devices.
 
-This becomes even more peculiar when further breaking down the tunnel arrivals. We now distinguish between active tunnels, i.e. tunnels, that actually transported user traffic during their lifetime (cf. Fig.~\ref{fig:IAT-ecdf-2h-active}), and active tunnels, which were created while having a GPRS (Fig.~\ref{fig:IAT-ecdf-2h-active-gprs}) or UMTS (Fig.~\ref{fig:IAT-ecdf-2h-active-umts}) connectivity, respectively. Note that only about 86\% of requested and created tunnels where actually used for user data transmissions afterwards. The 20ms-steps occur strongest when observing all tunnel arrivals, in a weaker form it is also present in the active and \ac{UMTS} tunnel portion. 
+This becomes even more peculiar when further breaking down the tunnel arrivals. We now distinguish between active tunnels, i.e. tunnels, that actually transported user traffic during their lifetime (cf. Fig.~\ref{c4:fig:IAT-ecdf-2h-active}), and active tunnels, which were created while having a GPRS (Fig.~\ref{c4:fig:IAT-ecdf-2h-active-gprs}) or UMTS (Fig.~\ref{c4:fig:IAT-ecdf-2h-active-umts}) connectivity, respectively. Note that only about 86\% of requested and created tunnels where actually used for user data transmissions afterwards. The 20ms-steps occur strongest when observing all tunnel arrivals, in a weaker form it is also present in the active and \ac{UMTS} tunnel portion. 
 
 Our working hypothesis as to the origin of the effect is the \ac{TTI}. This time indicates the duration of a radio transmission and is usually either 10 or 20 milliseconds in length. It is also in sync for the whole network of base stations making the \ac{TTI} noticeable even when not measuring directly at the radio link. The observed step-width of 20ms therefore indicates, that the signaling procedure the GTP CREATE is part of, includes at least one trip from the mobile device over the radio interface. This makes sense, as the tunnel is typically created during the GPRS Attach procedure, which is indeed initiated at the user's device. Unfortunately, this also makes the tunnel arrivals come in somewhat batched, which could momentarily increase the load at the \ac{GGSN} that then would need to process more requests at once than if the arrivals followed a smooth stochastic distribution.
 
@@ -344,19 +335,19 @@ Our working hypothesis as to the origin of the effect is the \ac{TTI}. This time
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Tunnel Event Processing Time}
 
-This brings us to another and potentially more direct measure of \ac{GGSN} load, namely the event processing time, meaning the time it takes for the \ac{GGSN} to fullfil a \ac{GTP} request. This is calculated from the requested and finished timestamps of every \ac{GTP} event in our dataset. As the measurement is conducted at the Gn interface these timestamps represent the time the \ac{GTP} signaling request moves to the \ac{GGSN} and the time the response transitions through the link.
+This brings us to another and potentially more direct measure of \ac{GGSN} load, namely the event processing time, meaning the time it takes for the \ac{GGSN} to fulfill a \ac{GTP} request. This is calculated from the requested and finished timestamps of every \ac{GTP} event in our dataset. As the measurement is conducted at the Gn interface these timestamps represent the time the \ac{GTP} signaling request moves to the \ac{GGSN} and the time the response transitions through the link.
 
 As stated in the previous section, it would be of special interest to know if the setup time of tunnels is influenced by anything, as this is one of the \ac{GGSN}'s most time-sensitive jobs and can impact the time a user has to wait before being able to actually transfer data. Unfortunately, some issues with the dataset did not allow the investigation of the processing time of either create and delete messages.
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\columnwidth]{images/IMC2013/R-update-time-cdfs.png}
+	\includegraphics[width=\columnwidth]{images/R-update-time-cdfs.pdf}
 	\caption{Empirical CDFs of the time it takes a GGSN to process a GTP update event, plotted for each hour of the day.}
-	\label{fig:update-time}
+	\label{c4:fig:update-time}
 \end{figure}
 
 
-However, we could investigate the processing time of \ac{GTP} update messages. The core network transmits roughly two orders of magnitude more update than either create or delete events and therefore the number of usable events exceeded the significance level. While no direct investigation of the setup and deletion procedures was possible with these events, a rough overall picture of load can still be attained through this. Figure \ref{fig:update-time} depicts a band of empirical cumulative distribution functions for the processing time of update events broken down by time of day. The processing time is almost uniformly distributed between 2 and 22 milliseconds, with a slightly longer duration during the evening, making for a continuous uniform distribution. This is rather unexpected as uniform distributions do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., scheduling or queuing artifacts. In the future we hope to investigate these features more closely, including a proper investigation of the tunnel setup and teardown processing time, if the dataset allows it.
+However, we could investigate the processing time of \ac{GTP} update messages. The core network transmits roughly two orders of magnitude more update than either create or delete events and therefore the number of usable events exceeded the significance level. While no direct investigation of the setup and deletion procedures was possible with these events, a rough overall picture of load can still be attained through this. Figure \ref{c4:fig:update-time} depicts a band of empirical cumulative distribution functions for the processing time of update events broken down by time of day. The processing time is almost uniformly distributed between 2 and 22 milliseconds, with a slightly longer duration during the evening, making for a continuous uniform distribution. This is rather unexpected as uniform distributions do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., scheduling or queuing artifacts. In the future we hope to investigate these features more closely, including a proper investigation of the tunnel setup and teardown processing time, if the dataset allows it.
 
 
 
