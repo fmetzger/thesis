@@ -14,7 +14,8 @@
 \item Baran Packet Switching
 \item A History of the Internet and the Digital Future \cite{ryan2010history}
 		RAND
-\item TCP/IP
+\item TCP/IP vint cerf + bob kahn: tcp/ip \cite{1092259}
+\item van Jacobson Congestion Avoidance and Control \cite{Jacobson:1995:CAC:205447.205462}
 \item ISO/OSI / ATM
 \item (Slotted) Aloha as one of the first mobile packet switched
 \item Mobile Networks 1G/2G/3G/4G
@@ -22,13 +23,51 @@
 \item (Not just) A question of bandwidth Videostreaming (but also cheap access to recording devices, efficient codecs)
 \item Camcorders
 
+\end{itemize}
+
+
+
+
+\subsection{Services in the Internet}
+
+\subsubsection{Video Streaming}
+
+\subsection{Streaming and Other Transmission Approaches}
+History, correlation to external developments (codecs, access bandwidths), techniques
+
+observe existing systems, e.g. YouTube \cite{metzger2011delivery}
+
+\subsubsection{Mechanisms}
+RTP, HTTP, adaptivity and reliability, application layer flow control, push and pull, fairness, segmentation
+\subsubsection{Quality Estimation and Modeling}
+QoE metrics, MOS, stalling time and buffering models, subjective and objective testing
+
+
+Cloud gaming as a media streaming application with strong real-time requirements \cite{4795441,wang2009modeling,jarschel2011cloudevaluation,ct2010wolken}
+
+
+
+\subsection{Current and Future Transport Developments}
+
+\begin{itemize}
+\item Improvements to congestion control for mobile streaming
+\item Alternative modes of transport (e.g. DCCP, ECN, ReECN, RED, Google's SPDY or new approaches)
+\item Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...) %; what works better with it? compare, model and measure
 
 \end{itemize}
+
+
+TCP modifications for short-lived connections (e.g. initially ignore congestion avoidance and push a lot of data at once (google.com approach, Increasing TCP's Initial Window)) 
+IW10: better response time, still fair
+Link page: http://code.google.com/speed/protocols/tcpm-IW10.html
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Related Work}
 
 \subsection{Video Streaming Related Work}
+
+Video streaming touches many aspects of computer communication network research. They can be categorized in aspects touching on the one hand the service itself and on the other hand  the transport and underlying network. This chapter splits the topic roughly on a top-down layer approach. At first, modern video streaming applications and their mechanisms are presented. Afterwards, the streaming transport is discussed with a concluding section on the influences of wired and especially mobile network architectures.
+
 
 The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. We focus on TCP and especially HTTP streaming to which \cite{watching-video1} and \cite{ma2011mobile} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery.
 
