@@ -44,14 +44,13 @@ We experienced this hinted throttling for all non-HD (i.e. lower than 720p resol
 \caption{Transmission Related Parameters from YouTube's Video URL Setup}
 \label{c3:tbl:yturl}
 \centering
-\begin{tabular}{|p{4.7cm}||p{3.3cm}|}\hline
-URL Part & Description \\ \hline \hline
-\texttt{v$\alpha$.lscache$\beta$.c.youtube.com} &  Cache server involved in the delivery.\\ \hline
-%\texttt{expire=<UNIX Epoch>} & Describes temporal validity of the URL.\\ \hline
-%\texttt{itag=<DIGIT>} and \texttt{signature=<40xHEX>.<40xHEX>} and \texttt{id=<16xHEX>} & Video identification parameters.\\ \hline
-\texttt{algorithm=throttle-factor} and \texttt{burst=40} and \texttt{factor=1.25} & Indicates initial burst plus block sending configuration. \\ \hline
+\begin{tabu}{|X[l]|X[p]|}
+\hline
+URL Part & Description \\ \hline
+\texttt{v$\alpha$.lscache$\beta$.c.youtube.com} &  Cache server involved in the delivery.\\
+\texttt{algorithm=throttle-factor} and \texttt{burst=40} and \texttt{factor=1.25} & Indicates initial burst plus block sending configuration. \\
 \texttt{ratebypass=yes} & Parameter to indicate no rate limiting.\\ \hline
-\end{tabular}
+\end{tabu}
 
 \end{table}
 
@@ -143,13 +142,15 @@ Details on the streamed video are available in Table \ref{c3:tbl:videoparams}.
 	\centering
 	\caption{Test Video Parameters}
 	\label{c3:tbl:videoparams}
-	\begin{tabular}{l|r}
-	Video Duration	& 01:32.536 minutes \\ \hline
-	Size & 9.61 MiB \\ \hline
-	Framerate & 23.976/s \\ \hline
-	Average Video Bitrate & 871 Kbps \\ \hline
+	\begin{tabu}{|l|X[r]|}
+    \hline
+    Parameter & Value \\ \hline
+	Video Duration	& 01:32.536 minutes \\
+	Size & 9.61 MiB \\
+	Framerate & 23.976/s \\
+	Average Video Bitrate & 871 Kbps \\
 	Codec & AVC+AAC \\ \hline
-	\end{tabular}
+	\end{tabu}
 \end{table}
 
 For the loss experiment series, the network emulator was configured to drop a certain percentage of packets based on a normal distribution on both the uplink and the downlink direction. There was no loss correlation involved, the existence of which one would expect, e.g., in wireless networks. One streaming run for every two percentage points of additional loss up to 14\% was conducted.
@@ -164,14 +165,14 @@ High latency can also trigger TCP timeouts and retransmissions, and in turn decr
 
 \begin{figure}[htbp]
 	\centering
-    	\begin{subfigure}[b]{1.0\textwidth}
+    	\begin{subfigure}[htbb]{0.9\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/eval-latency-stallingtime.pdf}
             \caption{Total stalling time.}
             \label{c3:fig:eval-latency-stallingtime}
         \end{subfigure}
 
-    	\begin{subfigure}[b]{1.0\textwidth}
+    	\begin{subfigure}[htbp]{0.9\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/eval-latency-frequency.pdf}
             \caption{Number of stalls.}
@@ -189,14 +190,14 @@ As a result, when planning a network for streaming applications, the maximum los
 \begin{figure}[htbp]
 % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
 	\centering
-    	\begin{subfigure}[b]{1.0\textwidth}
+    	\begin{subfigure}[htbp]{0.9\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/eval-loss4mb-stallingtime.pdf}
             \caption{Total stalling time.}
             \label{c3:fig:eval-loss-stallingtime}
         \end{subfigure}
 
-    	\begin{subfigure}[b]{1.0\textwidth}
+    	\begin{subfigure}[htbp]{0.9\textwidth}
             \centering
             \includegraphics[width=\textwidth]{images/eval-loss4mb-frequency.pdf}
             \caption{Number of stalls.}

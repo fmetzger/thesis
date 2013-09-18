@@ -83,18 +83,19 @@ After having available the device names for most \acp{TAC}, we were able to add 
 \begin{table}
 \centering
 \caption{Relative \acs{TAC} Statistics.}
-\label{tab:tacstats}
-\begin{tabular}{|p{4cm}|p{3cm}|} \hline
+\label{c4:tbl:tacstats}
+\begin{tabu}{|l|X[r]|}
+\hline
 & \textbf{Portion of devices with entry in TAC DB}\\ \hline
-\# of Flows & 99.72\% \\ \hline
-Ratio of Traffic & 99.97\%\\ \hline
-\# of Tunnels & 87.57\% \\ \hline
-\# of GTP Signaling Msgs & 90.95\% \\ \hline
+\# of Flows & 99.72\% \\
+Ratio of Traffic & 99.97\%\\
+\# of Tunnels & 87.57\% \\
+\# of GTP Signaling Msgs & 90.95\% \\
 \# of Distinct \acp{MS-ID} & 80.93\%\\ \hline
-\end{tabular}
+\end{tabu}
 \end{table}
 
-As we are working with an incomplete \ac{TAC} database it is important to know whether our \ac{TAC} mappings provide sufficiently useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{tab:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct and active devices could be identified. Looking at the total number of \ac{GTP} signaling messages, we see that we can determine the device name of over 90 percent. The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
+As we are working with an incomplete \ac{TAC} database it is important to know whether our \ac{TAC} mappings provide sufficiently useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct and active devices could be identified. Looking at the total number of \ac{GTP} signaling messages, we see that we can determine the device name of over 90 percent. The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
 
 After applying the categorization to the \acp{TAC} we evaluate the device composition in the network. The two largest portions of devices are smartphones and 3G dongles, while classic cell phones do not seem to play a major role in the packet-switched domain anymore. One observation across all device types is that about 14 percent of all mobile devices have activated their mobile data service and have signaling traffic, but do not cause any user plane traffic.
 
@@ -161,21 +162,6 @@ After having available the device names for most \acp{TAC}, we were able to add 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\acs{TAC} Statistics and Evaluation Validity}
-
-\begin{table}[htbp]
-	\centering
-	\caption{Relative \acs{TAC} Statistics.}
-	\label{c4:tbl:tacstats}
-	\begin{tabu}{|X[3,l]|X[2,c]|} \hline
-	& \textbf{Portion of devices with entry in TAC DB}\\ \hline
-	\# of Flows & 99.72\% \\ \hline
-	Ratio of Traffic & 99.97\%\\ \hline
-	\# of Tunnels & 87.57\% \\ \hline
-	\# of GTP Signaling Msgs & 90.95\% \\ \hline
-	\# of Distinct \acp{MS-ID} & 80.93\%\\ \hline
-	\end{tabu}
-\end{table}
-
 
 It is important to know whether our \ac{TAC} mappings provide sufficient useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all  distinct devices active could be identified. Looking at the total number of \ac{GTP} signaling messages, we see that we can determine the device name of over 90 percent.
 The flow data shows an even clearer picture, as we can identify almost all of the devices involved.

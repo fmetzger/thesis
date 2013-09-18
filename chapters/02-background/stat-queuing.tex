@@ -1,0 +1,156 @@
+%!TEX root = ../../dissertation.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Statistical Foundation}
+
+\begin{itemize}
+\item The Art of Computer Programming Volume 2 (3rd ed.) random numbers and statistical tests\cite{Knuth:1997:ACP:270146}
+\item Probability Distributions
+\item Null / alternative hypotheses
+\item Statistical model
+\item probability distribution fitting
+		methods: moment matching, maximum likelihood
+\item tests: sum of squares, variance, chi-squared, kolmogorov-smirnov
+\item visual tools: histogram, density, ecdf
+
+\end{itemize}
+
+\subsection{Distribution Function}
+
+\begin{equation}
+\phantom{.} F(x) = P(X\leq x) = \text{probabilty that } (X \leq x).
+\end{equation}
+
+Properties: monotonous
+
+empirical distribution function $F_n(x)$ for values $X_1, X_2, ... , X_n$
+
+\begin{equation}
+F_n(x) = \frac{\text{number of }X_1, X_2, ... , X_n \leq x}{x}
+\end{equation}
+
+
+\subsection{Distribution and Function Fitting}
+
+One of the analysis's goal is to break down the actual measured system to a simplified model. Usually this is conducted by finding matching random distributions using one of several readily available matching methods which rely either on closed formulas or numerical optimization.
+
+\paragraph{Matching Moments}
+Parameters for a selected distribution are estimated by calculating the first and higher moments of the given random variables and solving equations corresponding to the selected distribution.
+
+
+http://cran.r-project.org/web/packages/fitdistrplus/fitdistrplus.pdf
+Vose D (2000) Risk analysis, a quantitative guide. John Wiley \& Sons Ltd, Chischester, England,
+pp. 99-143.
+
+\paragraph{Maximum Likelihood}
+A fit is found by calculating the log-likelihood of the given random variables for a selected distribution and maximizing the likelihood.
+
+TODO: more details
+
+
+\paragraph{Eureqa}
+In cases where no ``simple'' distribution fit was plausible we attempted to match generic functions to the sample empirical distribution using tools specialized for this case.
+
+TODO: optimization, quoting, short desc
+
+
+
+
+\subsection{Statistical Tests}
+
+Generally, tests compare the values observed in an experiment (in our case data obtained from measurements) to expected values following a theoretical distribution. In this case, the tests are used to validate and estimate the quality of the discovered fits to the empirical data.
+
+
+
+
+\subsubsection{$\chi^2$ Test}
+
+
+Specifically this means Pearson's chi-square test for independence\cite{doi:10.1080/14786440009463897} and is the oldest known test. It can only be used for discrete count values obtained from independent observations and is compared against a frequency distribution. It is defined as
+
+\begin{equation}
+\phantom{.}V=\sum_{i=1}^{k} \frac{(o_i - e_i)^2}{e_i}\text{.}
+\end{equation}
+
+This simply calculates the sum of the squared difference between the observed $o_i$ an expected values $e_i$ and adjusts each for their weight. The result can then be compared to the $\chi^2$-distribution with the same degrees of freedom\footnote{The degree of freedom of count experiments is one less than the number of observable categories.} as the test for a given significance level. In most practical cases comparison is conducted against precomputed tables with set significance levels.
+
+Most data collected in this thesis is typically continuous in nature on which this test cannot be used directly. However, data could still be split into a finite number of intervals, as is done when generating a histogram, and then using the intervals as categories for the chi-square test, albeit with a certain loss of precision.
+
+\subsubsection{Kolmogorov-Smirnov Test}
+
+This is where the Kolmogorov-Smirnov Test comes into play. First suggested by Kolmogorov in 1933 \cite{kolmogorov1933sulla} and expanded on by Smirnov in 1939 \cite{smirnov1939estimation} it is defined as
+
+\begin{equation}
+	\begin{aligned}
+	\phantom{,}K_n^+ = \sqrt{n} \sup_{-\infty < x < + \infty} \left( F_n(x) - F(x) \right), \\
+	\phantom{.}K_n^- = \sqrt{n} \sup_{-\infty < x < + \infty} \left( F(x) - F_n(x) \right).
+	\end{aligned}
+\end{equation}
+
+Once again the results are compared against a precomputed table of values from the Kolmogorov-Smirnov distribution to test the significance of the observed results' deviation from expected values. The advantage is being able to work directly with a measurement's continuous empirical distribution function.
+
+Nowadays, there are also much more powerful statistical tests available. But, as will be explained later, these are not necessary (nor will suffice any better) for our kind of data.
+
+
+\subsection{Sampling}
+Taking randomly selected samples from measurement data does not only simplify handling large sets (working on a set with 2 billion entries is quite problematic) but can even improve statistical significance as long as one keeps in mind, that random sampling error can also be introduced using this.
+By selecting entries using a uniform distribution it is ensured that no unintentional sampling bias occurs. The intended evaluation is now applied onto multiple and independently drawn sample groups. If the results of every sample agree then it is also highly likely that the assumption holds for the whole data set.
+
+TODO: R statistics book ref and information VERIFY
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Queuing Theory Basics}
+
+\begin{itemize}
+\item Kleinrock Queuing Systems Volume 1 \cite{Kleinrock:1975:TVQ:1096491}
+\item Tran-Gia Analytische Leistungsbewertung verteilter Systeme \cite{trangia-lbvs}
+\item Markov Models 
+\item Solvability and Queuing Simulation
+\end{itemize}
+
+
+\subsection{Little's Law}
+``A proof for the queuing formula: L= $\lambda$W'' \cite{little1961proof}
+
+With $L$  as the number of customers in a stable system, the arrival rate of new customers $\lambda$ and the average time $W$ of a customer in the system this universal law states:
+
+\begin{equation}
+L = \lambda W
+\end{equation}
+
+\subsection{Kendall's Notation}
+
+Kendall's notation is a naming and classification convention for queuing systems first defined by Kendall in in 1953 \cite{kendall1953stochastic} and later extended on. In its simplest form it reads \textit{A/S/s} with A denoting the arrival distribution, S the service time, and s the number of servers. One extended notation \textit{A/S/s-q}, the one we will use, additionally describes the queue length. With this, one can, e.g., easily distinguish between a queueing system ($q=\infty$) and a blocking or loss system ($q=0$). The most commonly used arrival processes and servie time distributions are summarized in Table~\ref{c2:tbl:kendalldistributions}.
+
+
+\begin{table}[htbp]
+	\caption{Typical abbreviation of processes in Kendall's notation.}
+	\label{c2:tbl:kendalldistributions}
+	\begin{tabu}{|l|X[p]|}
+	\hline
+	Symbol & Description \\ \hline
+	M & Markovian, i.e. Poisson, arrival process or exponential service time distribution\\
+	D & Deterministic arrival process or service time distribution\\
+	G & General arrival process or service time distribution with no special assumptions\\
+	GI & General arrival process with independent arrivals; also called regenerative \\ \hline
+	\end{tabu} 
+\end{table}
+
+The simplest queuing system is \textit{M/M/1-$\infty$}, which can also be described as a Markov chain and thus 
+
+TODO: oder direkt M/M/n-$\infty$?
+
+State probability, i.e. number of customers in the system
+Blocking probability $p_B$ (for loss systems)
+
+
+Following from Little's Theorem, the queue utilization $\rho$ is given as
+\begin{equation}
+\rho = \frac{\lambda}{\gamma}
+\end{equation}
+
+with $\lambda$ Poisson arrival rate, $\gamma$ exponential service time parameter

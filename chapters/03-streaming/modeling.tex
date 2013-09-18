@@ -181,14 +181,15 @@ it sports very few stalling events due to conservatively chosen (i.e., long) buf
     \caption{Variables involved in buffering decisions.}
     \label{c3:tbl:buffvars}
     \centering
-    \begin{tabular}{|c|c|} \hline
-    Variable & Explanation \\ \hline\hline
-    $s_{MA}$ & Moving average of the transmission speed. \\ \hline
-    $v_{MA}$ & Moving average of the video bitrate. \\ \hline
-    $c$   & Condition upon which to start/resume playback. \\ \hline
-    $b_b$    & Amount of video data the buffer contains. \\ \hline
+    \begin{tabu}{|l|X[p]|} 
+    \hline
+    Variable & Description \\ \hline
+    $s_{MA}$ & Moving average of the transmission speed. \\
+    $v_{MA}$ & Moving average of the video bitrate. \\ 
+    $c$   & Condition upon which to start/resume playback. \\
+    $b_b$    & Amount of video data the buffer contains. \\
     $b_T$    & Amount of time spent in non-playing buffering state. \\ \hline
-    \end{tabular}
+    \end{tabu}
 \end{table}
  
   

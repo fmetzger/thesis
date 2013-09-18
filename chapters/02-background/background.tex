@@ -4,7 +4,8 @@
 \label{chap:relatedwork}
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Historical Background}
 
@@ -24,8 +25,6 @@
 \item Camcorders
 
 \end{itemize}
-
-
 
 
 \subsection{Services in the Internet}
@@ -61,239 +60,13 @@ TCP modifications for short-lived connections (e.g. initially ignore congestion 
 IW10: better response time, still fair
 Link page: http://code.google.com/speed/protocols/tcpm-IW10.html
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Related Work}
-
-\subsection{Video Streaming Related Work}
-
-Video streaming touches many aspects of computer communication network research. They can be categorized in aspects touching on the one hand the service itself and on the other hand  the transport and underlying network. This chapter splits the topic roughly on a top-down layer approach. At first, modern video streaming applications and their mechanisms are presented. Afterwards, the streaming transport is discussed with a concluding section on the influences of wired and especially mobile network architectures.
-
-
-The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. We focus on TCP and especially HTTP streaming to which \cite{watching-video1} and \cite{ma2011mobile} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery.
-
-Akhshabi et al. \cite{akhshabi2011experimental} take a look at real world implementations of these and do comparative measurements.
-
-There are several publications discussing YouTube's architecture. Gill et al. made in \cite{gill2007youtube} a long-term observation of YouTube traffic originating from an university network. Their analysis shows detailed characteristics of the served videos, among others file sizes, durations, and bitrates, and reveals a daily number of video requests. Adhikari et al. \cite{adhikari2010youtube} collected data from points of presence of one ISP to explore the service's traffic distribution and load balancing techniques.
-
-However, these were still based on the old architecture prior to being acquired by Google. The new infrastructure differs largely from the old, e.g. load balancing and content distribution now exclusively uses Google’s network. Mori et al. in \cite{mori2010characterizing} describe distinctive attributes of video traffic flows originating from YouTube's new and current setup while Torres et al. \cite{torres2011dissecting} focus on observations of the CDN's server selection process using multi-network passive measurements.
-
-
-The authors of \cite{wang2003model} propose an analytical model for TCP-based video streaming, differentiating between live (``constrained'') and pre-recorded videos. In our approach, analytical tractability is not an issue as we perform actual measurements and decoding, so we are not limited to constant-bit rate video streams, constant packet sizes, or single playback strategies.
-
-The importance of packet loss for an H.264 SD video stream is studied in \cite{pv2010loss}. Packet loss on the link is also investigated in our comparison of playback behaviors, but in our first evaluations we analyze TCP as the transport protocol for the stream, so from the perspective of the application, packets are not lost, but delayed.
-
-
-In \cite{pv2010qoe}, the authors present a quality-assessment model for video streaming services, with the quality features derived from the actual video. The model does not include the network behavior, but focuses on the codec performance instead. 
-
-A metric termed ``application comfort'' is calculated from YouTube videos in \cite{staehle2010yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
-
-Whereas these focused on the architectural setup they do not investigate the client's role and the resulting quality of the video streaming process in this. 
-Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measmmmquality} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model.
-
-
-\subsection{Mobile Network Measurement Related Work}
-
-Existing research can roughly be divided into two areas. First are attempts to infer control plane behavior through application layer active measurement at the mobile device or through synthetic traces or traces from other radio networks (e.g. 802.11).
-Second, investigations of user traffic characteristics by means of real 3G core network traces.
-This paper does not strictly fall in either of these two categories but instead aims to provide insights into the control plane from the perspective of the core network. It is also an extension to our Research Report\cite{metzger2012research} aiming to provide more in-depth statistical analyses to the control plane.  
-However, both areas are still highly relevant at related to our work. Therefore we present a selection of publications from these fields and detail the interesting aspects for this work.
-
-%%%%%%%%%%%%
-%%% part 1 active measurements at the handset, RRC signaling
-\subsubsection{Device Active Measurement Investigations}
-
-Recently, stories about signaling storms and overloaded control planes in mobile networks reached popular news media \cite{it2011birdandroid, lt2012docostorm}. These stories blame a specific combination of mobile device type, operating system and application to cause excessive amounts of signaling in the radio network. The Android version of the popular casual game ``Angry Birds'' is a free download, and uses regularly refreshed advertisements displaying after every game stage. Now imagine a large amount of devices setting up and tearing down data connections only to retrieve new ads and therefore causing tens of control plane messages on each retrieval, which could strain the signaling-heavy structure of current networks. 
-
-The dynamics behind such events are already under investigation by several publications, focusing on the impact at the radio interface and on \ac{RRC} signaling but paying little attention to potential aspects in the core network. A paper on cross-layer interaction in mobile cellular networks falls into this category \cite{qian2011profiling}, discussing interaction, e.g., between the application layer and the \ac{RRC} (such as seen in the ``Angry Birds'' case) and its consequences for device energy consumption and radio channel allocation efficiency. The authors argue that there is much room for improvement in this area, and propose some enhancements.
-
-
-In \cite{lee2007detection}, mobile network traces are used to simulate a malicious signaling storm by transmitting low-volume user plane traffic with inter-departure times slightly larger than the transition timers in the \ac{RRC} state machines. This constantly causes signaling to occur. The authors propose tools to detect this, and discuss a possible scale of this type of denial-of-service attack.
-
- 
-Wang et al.\cite{wang2011untold} developed NetPiculet to probe mobile networks for middle boxes that alter traffic and affect performance, e.g. NAT, firewalls, or non-transparent proxies. Such nodes were present in a large portion of the investigated networks, increasing device power usage and download durations while providing themselves a surface for certain attacks.
-
-Looking at the transition of \ac{RRC} states, which is briefly explained in Sec. TODO, we find in \cite{5360763} some simple albeit effective application layer methods at the mobile device to investigate these transitions. This is further enhanced by research from Schwartz et al.\cite{schwartz2013angrybirds} using this technique to analyze the radio signaling load and thus power efficiency from different applications including the aforementioned
-
-
-\subsubsection{Research Based On Core Traces}
-
-As stated, all of these approaches cannot take the core network into account, as they do not have access to the necessary measurement infrastructure. The following research papers all have some kind of core network dataset. Most of them do not directly tackle signaling, however.
-
-The authors of \cite{shafiq2011characterizing} and \cite{paul2011understanding} both take the approach of looking at high-level user traffic characteristics in a mobile network, focusing on temporal and spatial variations of user traffic volume and peeking at the influence of different devices on this metric. Additional user flow and session traffic metrics are being looked at in \cite{Zhang:2012:UCC:2377677.2377764} with the conclusion that, in comparison to wired traffic, much more shorter flows are occurring. If this shorter-but-more theme is also evident in signaling traffic, this could translate into an increased signaling load.
-
-In 2006, Svoboda et al. \cite{svoboda2006composition} conducted a core network measurement study of various user traffic related patterns, and also provided an initial insight into \ac{PDP} context activity and durations. Another recent publication at \cite{he2012panoramic} provides an investigation aimed at \ac{RRC} signaling on the \ac{RNC} to \ac{SGSN} link but not at \ac{GTP} signaling at the \ac{SGSN} to \ac{GGSN} path which we deem more important for our core network load characteristics research. The authors classify their evaluations based on device model and vendor and on the application type, and find that different devices have strongly different \ac{RRC} characteristics, which could possibly also have an impact on \ac{GTP} signaling. Here the \ac{RRC} evaluation was done in a direct manner using explicit logs from the \ac{RNC}. A 2010 publication\cite{Qian:2010:CRR:1879141.1879159} however uses the indirect \ac{RRC} inferring method described earlier on a core network TCP trace data set and finds that the involved \ac{RRC} state machine is largely inefficient in terms of signaling overhead and energy consumption for typical traffic patterns seen in the data.
-
-The authors of \cite{4675847} give us some thoughts on the influence of core network elements on one-way delays in mobile networks, also providing us with initial clues on the expected load impact of these elements for our own investigation. A final paper \cite{Ricciato2010551} presents some \ac{DoS} attack scenarios on these networks from a theoretical view. As a \ac{DoS} either needs to find a weak (performance-wise) link in an architecture or a good source for an amplification attack -- small information causes a large amount of information to be computed or transmitted -- this is also very helpful information in evaluating core network load and finding bottlenecks.
-
-All of these touch to some degree parts of the areas tackled in this paper, but we think that the combination of the focus on core signaling, a statistical evaluation of PDP Contexts with an investigation of sources influencing these, and a simple load model are genuine contributions of our work.
-
-
-
-\subsection{unreferenced bibtex TODO}
-
-\begin{itemize}
-\item Auch unnötig: Cellular data network infrastructure characterization and implication on mobile content placement Xu\cite{Xu:2011:CDN:2007116.2007149}
-\item Regarding investigations of network infrastructure we again see an user network layer centric approach in \cite{Xu:2011:CDN:2007116.2007149}
-\item nur in die darwin section: Traffic monitoring and analysis in 3G networks: lessons learned from the METAWIN project \cite{ricciato2006traffic}
-\item A Comparison Between One-way Delays in Operating HSPA and LTE Networks \cite{laner2012delaycomparison}
-\item LTE-EPC Network Simulator (LENA) \cite{ns3lte}
-\item Fundamental Limitations of current Internet and the path to Future Internet \cite{ec2011fundamental}
-\item Overview: Real Time Protocols for Brower-based Applications\cite{ietf2011rtcwebdraft}
-\item Networking named content \cite{jacobson2009networking}
-\item Planetlab: an overlay testbed for broad-coverage services \cite{chun2003planetlab}
-\item HTTP Live Streaming \cite{pantos2011livestreaming}
-\item IIS smooth streaming technical overview \cite{zambelli_iis_2009}
-\item CurveCP: Usable security for the Internet \cite{curvecpwww}
-\item Cryptographic protection of TCP Streams (tcpcrypt) \cite{tcpcrypt}
-\item SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp}
-\item An argument for increasing TCP's initial congestion window \cite{dukkipati2010argument}
-\item Comparison of end-to-end and network-supported fast startup congestion control schemes \cite{scharf2011comparison}
-\item Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
-\item Bufferbloat: Dark Buffers in the Internet \cite{gettys2011bufferbloat}
-\item Detecting and quantifying bufferbloat in network paths \cite{groenewegen2011detecting}
-\item Congestion avoidance and control \cite{jacobson1988congestion}
-\item OsmocomBB project \cite{osmocombbwww}
-\item Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
-
-
-\item The Master Switch: The Rise and Fall of Information Empires \cite{wu2010master}
-\item Network neutrality, broadband discrimination \cite{wu2003network}
-\item Simulating LTE Cellular Systems: An Open-Source Framework \cite{5634134}
-\item Computer networking: a top-down approach \cite{kurose2008computer}
-\item Computer networks: a systems approach \cite{peterson2007computer}
-\item Google now second-largest ISP, carries 6.4\% of Internet traffic \cite{nw2010carrier}
-\item ComScore February 2011 U.S. Online Video Rankings \cite{comscore2011ranking}
-\item Comparing DNS resolvers in the wild \cite{ager2010comparing}
-\item Adaptive streaming: The network HAS to help \cite{BLTJ:BLTJ20505}
-\item Watching Video over the Web, Part II: Applications, Standardization and Open Issues \cite{watching-video2}
-\item Discovering Parameter Setting in 3G Networks via Active Measurements \cite{4640935}
-\end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Statistical Foundation}
-
-\begin{itemize}
-\item The Art of Computer Programming Volume 2 (3rd ed.) random numbers and statistical tests\cite{Knuth:1997:ACP:270146}
-\item Probability Distributions
-\item Null / alternative hypotheses
-\item Statistical model
-\item probability distribution fitting
-		methods: moment matching, maximum likelihood
-\item tests: sum of squares, variance, chi-squared, kolmogorov-smirnov
-\item visual tools: histogram, density, ecdf
-
-\end{itemize}
-
-\paragraph{Distribution Function}
-
-\begin{equation}
-\phantom{.} F(x) = P(X\leq x) = \text{probabilty that } (X \leq x).
-\end{equation}
-
-Properties: monotonous
-
-empirical distribution function $F_n(x)$ for values $X_1, X_2, ... , X_n$
-
-\begin{equation}
-F_n(x) = \frac{\text{number of }X_1, X_2, ... , X_n \leq x}{x}
-\end{equation}
-
-
-\subsection{Distribution and Function Fitting}
-
-One of the analysis's goal is to break down the actual measured system to a simplified model. Usually this is conducted by finding matching random distributions using one of several readily available matching methods which rely either on closed formulas or numerical optimization.
-
-\paragraph{Matching Moments}
-Parameters for a selected distribution are estimated by calculating the first and higher moments of the given random variables and solving equations corresponding to the selected distribution.
-
-
-http://cran.r-project.org/web/packages/fitdistrplus/fitdistrplus.pdf
-Vose D (2000) Risk analysis, a quantitative guide. John Wiley \& Sons Ltd, Chischester, England,
-pp. 99-143.
-
-\paragraph{Maximum Likelihood}
-A fit is found by calculating the log-likelihood of the given random variables for a selected distribution and maximizing the likelihood.
-
-TODO: more details
-
-
-\paragraph{Eureqa}
-In cases where no ``simple'' distribution fit was plausible we attempted to match generic functions to the sample empirical distribution using tools specialized for this case.
-
-TODO: optimization, quoting, short desc
-
-
-
-
-\subsection{Statistical Tests}
-
-Generally, tests compare the values observed in an experiment (in our case data obtained from measurements) to expected values following a theoretical distribution. In this case, the tests are used to validate and estimate the quality of the discovered fits to the empirical data.
-
-
-
-
-\subsubsection{$\chi^2$ Test}
-
-
-Specifically this means Pearson's chi-square test for independence\cite{doi:10.1080/14786440009463897} and is the oldest known test. It can only be used for discrete count values obtained from independent observations and is compared against a frequency distribution. It is defined as
-
-\begin{equation}
-\phantom{.}V=\sum_{i=1}^{k} \frac{(o_i - e_i)^2}{e_i}\text{.}
-\end{equation}
-
-This simply calculates the sum of the squared difference between the observed $o_i$ an expected values $e_i$ and adjusts each for their weight. The result can then be compared to the $\chi^2$-distribution with the same degrees of freedom\footnote{The degree of freedom of count experiments is one less than the number of observable categories.} as the test for a given significance level. In most practical cases comparison is conducted against precomputed tables with set significance levels.
-
-Most data collected in this thesis is typically continuous in nature on which this test cannot be used directly. However, data could still be split into a finite number of intervals, as is done when generating a histogram, and then using the intervals as categories for the chi-square test, albeit with a certain loss of precision.
-
-\subsubsection{Kolmogorov-Smirnov Test}
-
-This is where the Kolmogorov-Smirnov Test comes into play. First suggested by Kolmogorov in 1933 \cite{kolmogorov1933sulla} and expanded on by Smirnov in 1939 \cite{smirnov1939estimation} it is defined as
-
-\begin{equation}
-	\begin{aligned}
-	\phantom{,}K_n^+ = \sqrt{n} \sup_{-\infty < x < + \infty} \left( F_n(x) - F(x) \right), \\
-	\phantom{.}K_n^- = \sqrt{n} \sup_{-\infty < x < + \infty} \left( F(x) - F_n(x) \right).
-	\end{aligned}
-\end{equation}
-
-Once again the results are compared against a precomputed table of values from the Kolmogorov-Smirnov distribution to test the significance of the observed results' deviation from expected values. The advantage is being able to work directly with a measurement's continuous empirical distribution function.
-
-Nowadays, there are also much more powerful statistical tests available. But, as will be explained later, these are not necessary (nor will suffice any better) for our kind of data.
-
-
-\subsection{Sampling}
-Taking randomly selected samples from measurement data does not only simplify handling large sets (working on a set with 2 billion entries is quite problematic) but can even improve statistical significance as long as one keeps in mind, that random sampling error can also be introduced using this.
-By selecting entries using a uniform distribution it is ensured that no unintentional sampling bias occurs. The intended evaluation is now applied onto multiple and independently drawn sample groups. If the results of every sample agree then it is also highly likely that the assumption holds for the whole data set.
-
-TODO: R statistics book ref and information VERIFY
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Queuing Theory Basics}
-
-\begin{itemize}
-\item Kleinrock Queuing Systems Volume 1 \cite{Kleinrock:1975:TVQ:1096491}
-\item Little's Law
-\item Kendall's Notation
-\item Tran-Gia Analytische Leistungsbewertung verteilter Systeme \cite{trangia-lbvs}
-\item Markov Models 
-\item Solvability and Queuing Simulation
-\end{itemize}
+\input{relwork.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Little's Law}
-``A proof for the queuing formula: L= $\lambda$W'' \cite{little1961proof}
-
-With $L$  as the number of customers in a stable system, the arrival rate of new customers $\lambda$ and the average time $W$ of a customer in the system this universal law states:
-
-\begin{equation}
-L = \lambda W
-\end{equation}
-
-\subsection{Kendall's Notation}
-
-``{Stochastic processes occurring in the theory of queues and their analysis by the method of the imbedded Markov chain''\cite{kendall1953stochastic}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{stat-queuing.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
