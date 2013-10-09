@@ -23,17 +23,26 @@
 %% new thesis stuff
 Packet Switching, the process of chunking information into smaller bits, labeling it and transmitting it independently, was first described by Paul Baran in the 1960s\cite{baran1964distributed}. This changed communication a lot and provided one of the foundations for the emergence of the Internet. 
 
+The original usage intent was mostly limited to remotely logging into and communicating with mainframe computers and transferring files supported by the emergence of new multiuser and multitasking operating systems, especially including the release of UNIX in 1969.\todo{needs references}
 
-It was originally used to enable login to remote computers and soon thereafter remotely accessing files using FTP. But from it emerged countless other services and applications that are today used by hundreds of millions of people touching almost every aspect of daily life. 
+From these early times countless other services and applications emerged. Today, the Internet is by used hundreds of millions of people, touching almost every aspect of daily life. The creation of the World Wide Web -- begun by Tim Berners-Lee in 1989\todo{reference} -- brought an easily accessible ``user interface'' to the Internet and made adoption for the masses much easier. Today, almost any form of application is available through the Web as a combination of \ac{HTML}, \ac{CSS}, and JavaScript and can be accessed by just opening a Web browser.
 
-The rise of the World Wide Web in the 1990s and even more in the last years made adoption of the Internet for the masses much easier. One needs just a single application to access and participate in most of the Internet's content in an easy accessible viewing format, i.e. the Web page defined with HTML.
+But as is the case with many technological fields, the Internet's development was also closely entangled with other advancements. Take the huge Internet music wave beginning in 1999 as an example. It may have been started by the creation of Napster, the first peer-to-peer file sharing service. However, without the large improvements in audio compression -- namely MP3 -- a few years before, including computers that could handle decompression as well as compression and increasing Internet access bandwidth (and fixed service fees) , this would not have been possible. Similarly, YouTube could not have existed without a wide spread of digital camcorders and many other devices with recording capability, good video compression codes, and an even further increase in access bandwidths.
+ For every leap in bandwidth new services sprung to life fueling the users' demand for further capacity increases. 
 
-External influences and developments also had a huge impact on the development of the Internet and the Web. E.g. it can be argued that the invention of MP3 audio compression lead to the development of peer-to-peer mechanisms and file sharing (Napster). The wide spread of digital cameras and camcorders was one of the pillars of success for social networks, including video streaming sites like YouTube.
-A further requirements for these were the ever-increasing bandwidth capacities users had to access the Internet creating a two-way feedback loop. For every leap in bandwidth new services came up that filled it and fueling the users' demand for further capacity increases. 
+Several factors contributed to the quick acceptance of the Internet. First and foremost no assumptions are made on the transported content. The original idea is to treat every packet, every participating node the same, offering a level playing field for every contender wanting to offer services. This is upheld by the second driving concept, the ``End-to-End Principle'', \cite{saltzer1984end2end} stating:
 
-Several factors contributed to the quick acceptance of the Internet. On the one hand, there are no assumptions made on the transported content. In contrast to the circuit switched telephone networks, which favor one mode of transportation and content (voice calls with specific procedures and/or codecs), in the Internet every packet is treated in the same way, leveling the playing field for every contender. On the other hand, one of the driving concepts of the Internet is the ``End-to-End Principle'' \cite{saltzer1984end2end, bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} which states:
+\begin{quote}
+``The function in question can completely and correctly be implemented only with the knowledge and help of the application standing at the endpoints of the communications system. Therefore, providing that questioned function as a feature of the communication system itself is not possible. [...]''
+\end{quote}
 
-``The function in question can completely and correctly be implemented only with the knowledge and help of the application standing at the endpoints of the communications system. Therefore, providing that questioned function as a feature of the communication system itself is not possible. (Sometimes an incomplete version of the function provided by the communication system may be useful as a performance enhancement)'' \cite{saltzer1984end2end} 
+End-to-End means, that functionality, i.e. services or applications, should only be implemented at the two endpoints of any transmission not somewhere in between.
+% 
+ Making assumptions of the higher protocol layers and implementing functions in the network, essentially making it intelligent, will always only be valid for existing and narrow use cases and cannot support future developments. Despite critical arguments, e.g. in \cite{reed2000endofe2e, moors2002critical}, and mechanisms that superficially seem to violate it (NAT, ECN) this principle still drives progress in the Web.
+
+During the past decades this has often been discussed  \cite{bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} but is still being upheld for the most part for good reason. \todo{probably should clarify the good reason}. This is in contrast to the way telephone networks and their operating companies historically worked. These networks, are based on circuit switching and access as well as content (namely voice calls) and procedures are tightly controlled by the operator.
+
+
 
 %%
 network intelligence at the end nodes
@@ -46,7 +55,7 @@ Rethinking the design of the Internet: the end-to-end arguments vs. the brave ne
 ``[...] when are actions of an ISP responsible management, and when are they manipulative control of the nature and effective pricing of content and application?''
 %%
 
-This means, that functionality, i.e. services or applications, should only be implemented at the two endpoints of any packet flow. Making assumptions of the higher protocol layers and implementing functions in the network, essentially making it intelligent, will always only be valid for existing and narrow use cases and cannot support future developments. Despite critical arguments, e.g. in \cite{reed2000endofe2e, moors2002critical}, and mechanisms that superficially seem to violate it (NAT, ECN) this principle still drives progress in the Web.
+
 
 The total volume if of Internet traffic has for many years been rising exponentially, as stated often fueled through external developments. The composition of today's traffic is manifold, but one large contributing factor is video. 
 Video transport in the Internet is currently a topic of hot discussions. Older and well researched transport modes, e.g. RTP, are challenged by new ones, which integrate themselves better into the current web ecosystem. Yet, they use completely different approaches to streaming and the control thereof. This is also the first research interest of the doctoral thesis.
