@@ -5,12 +5,15 @@
 
 
 \begin{itemize}
+
 \item ARPANAT and evolutionary process to today's Internet scale
 \item outside and inside developments brings new Internet usage (mp3+p2p, bandwidth+codecs -> video, digicams/camcorder); socioeconomic developments of a free speech network;New traffic patterns emerging due to external developments. Digital cameras, new codecs (esp MP3, mpeg4, WebM) -> p2p, Webcams 
 \item mobile networks: more of a parallel development to the Internet, always centralized (from the old copper/telephony/circuit switched world)
 \item MNs very different to the Internet structures we are used to
 \item circuit switched roots, signaling, explicitly NOT a distributed system as compared to Internet, i.e. explicit signaling central controllers
 \item Streaming and Multicasting, Multicasting in the Internet in general (only somewhat relevant for live/realtime non-interactive stuff)
+\item  network intelligence at the end nodes
+\item --> end-to-end violations: ECN? only signaling, decision is e2e, same category as indirect TCP congestion control signaling (through loss) from the network; NAT, Firewalls?
 \item content agnosticism: we do not know what applications the future will bring, so we do not make any assumptions
 \item HTTP; ``The Web adopts relatively simple technologies with sufficient scalability efficiency and utility'' \cite{W3Arch}
 \item Why HTTP streaming? Generalization of HTTP streaming (reliable transport, control shift to the client); Less control, more effective; Why global QoS control doesn't work
@@ -30,45 +33,18 @@ From these early times countless other services and applications emerged. Today,
 But as is the case with many technological fields, the Internet's development was also closely entangled with other advancements. Take the huge Internet music wave beginning in 1999 as an example. It may have been started by the creation of Napster, the first peer-to-peer file sharing service. However, without the large improvements in audio compression -- namely MP3 -- a few years before, including computers that could handle decompression as well as compression and increasing Internet access bandwidth (and fixed service fees) , this would not have been possible. Similarly, YouTube could not have existed without a wide spread of digital camcorders and many other devices with recording capability, good video compression codes, and an even further increase in access bandwidths.
  For every leap in bandwidth new services sprung to life fueling the users' demand for further capacity increases. 
 
-Several factors contributed to the quick acceptance of the Internet. First and foremost no assumptions are made on the transported content. The original idea is to treat every packet, every participating node the same, offering a level playing field for every contender wanting to offer services. This is upheld by the second driving concept, the ``End-to-End Principle'', \cite{saltzer1984end2end} stating:
+% content agnosticism: we do not know what applications the future will bring, so we do not make any assumptions
+
+Several factors contributed to the quick acceptance of the Internet. First and foremost no assumptions are made on the transported content, or content agnosticism. The original idea is to treat every packet, every participating node the same and do not make any assumptions on specific applications. This provides a level playing field for every contender wanting to offer services. This is upheld by the second driving concept, the ``End-to-End Principle'', \cite{saltzer1984end2end} stating:
 
 \begin{quote}
 ``The function in question can completely and correctly be implemented only with the knowledge and help of the application standing at the endpoints of the communications system. Therefore, providing that questioned function as a feature of the communication system itself is not possible. [...]''
 \end{quote}
 
-End-to-End means, that functionality, i.e. services or applications, should only be implemented at the two endpoints of any transmission not somewhere in between.
-% 
- Making assumptions of the higher protocol layers and implementing functions in the network, essentially making it intelligent, will always only be valid for existing and narrow use cases and cannot support future developments. Despite critical arguments, e.g. in \cite{reed2000endofe2e, moors2002critical}, and mechanisms that superficially seem to violate it (NAT, ECN) this principle still drives progress in the Web.
+End-to-End means that any functionality, meaning services or applications, should only be implemented at the two endpoints of a transmission not somewhere in between. Tuning the network to specific applications and implementing functions inside the network, will always only be valid for existing and narrow use cases and cannot support future developments.
 
 During the past decades this has often been discussed  \cite{bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} but is still being upheld for the most part for good reason. \todo{probably should clarify the good reason}. This is in contrast to the way telephone networks and their operating companies historically worked. These networks, are based on circuit switching and access as well as content (namely voice calls) and procedures are tightly controlled by the operator.
-
-
-
-%%
-network intelligence at the end nodes
---> end-to-end violations: ECN? only signaling, decision is e2e, same category as indirect TCP congestion control signaling (through loss) from the network
-                           NAT, Firewalls?
-Authors' 2000 followup \cite{reed2000endofe2e}
-critical article \cite{moors2002critical}
-
-Rethinking the design of the Internet: the end-to-end arguments vs. the brave new world \cite{blumenthal2001rethinking} : end-to-end enables the freedom to innovate and puts the choice of software and services completely to the user, no assumptions of the network have to be made
-``[...] when are actions of an ISP responsible management, and when are they manipulative control of the nature and effective pricing of content and application?''
-%%
-
-
-
-The total volume if of Internet traffic has for many years been rising exponentially, as stated often fueled through external developments. The composition of today's traffic is manifold, but one large contributing factor is video. 
-Video transport in the Internet is currently a topic of hot discussions. Older and well researched transport modes, e.g. RTP, are challenged by new ones, which integrate themselves better into the current web ecosystem. Yet, they use completely different approaches to streaming and the control thereof. This is also the first research interest of the doctoral thesis.
-Streaming, or more generalized media transport is also not only relevant for the purpose of watching videos, there are many more fields of use which have slightly different requirements. With the popular cloud computing approach, which essentially means to run ones applications remotely on any number of hosts, it is necessary to transport the output of the applications, which often can be graphical, to the client. This is especially true for so-called Cloud Gaming services, which have hard temporal constraints on both directions of the transport path.
-
-Mobile networks are still much closer to their circuit switching roots. Having evolved from GSM over UMTS to LTE, mobile networks have only very recently become fully packet switched. However, the data transport through its many core network elements is still using connection oriented techniques. The radio access' properties are also wildly different to traditional This poses unique challenges and opportunities for the design and performance of protocols. Therefore, we take a special interest in mobile network environments in our research of video streaming.
-
-Concepts for future Internet structures are strongly disputed at the moment. A vast array of concepts is under discussion to either replace or enhance the protocol stack of the Internet's current setup. It will be interesting to measure the influence on media streaming and transport of these proposed changes or if there is any influence at all.
-
-
-%%
-Today, services based on the World Wide Web dominate the Internet's landscape. Especially noteworthy is the dominance of video streaming services in the traffic mixes of today and in future predictions (cf. Figures fig:netvine and fig:cisco). This development was supported through the availability of cheap and small digital camcorders and especially the now sufficient access bandwidth to support high quality video streams.
-A similar development for cellular networks is now ongoing. Through the advent of affordable high performance smartphones and access technologies like UMTS and LTE many are now using their phones as the primary device for interacting with the Internet, including video streaming services such as YouTube, Netflix, or Hulu.
+\\
 
 \begin{figure}[htbp]
     \centering
@@ -77,14 +53,35 @@ A similar development for cellular networks is now ongoing. Through the advent o
     \label{c1:fig:traffic_netvine}
 \end{figure}
 
-Figure~\ref{c1:fig:traffic_netvine} and Figure~\ref{c1:fig:traffic_cisco} ... TODO.
-
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{images/VNI_Hyperconnectivity_WP.pdf}
+    \includegraphics[width=0.8\textwidth]{images/VNI_Hyperconnectivity_WP.pdf}
     \caption{Cisco, global consumer Internet traffic prediction (Source: \cite{cisco2013VNI}).}
-	\label{c1:fig:traffic_cisco}
+    \label{c1:fig:traffic_cisco}
 \end{figure}
+
+The total volume of Internet traffic has been rising exponentially for many years. The composition of today's traffic is manifold, but one of the largest contributing factors is arguably video (take a look at Figures~\ref{c1:fig:traffic_netvine} and \ref{c1:fig:traffic_cisco}). Studies predicting the development of the Internet's traffic also tell of the large influence of video in the near future. The two main sources for this video are YouTube\footnote{\url{https://www.youtube.com}} and, in countries where its available, Netflix\footnote{\url{https://www.netflix.com}}
+
+Despite not wanting to tune the network to video, it is still very important to understand the dynamics happening around this type of traffic there. With a traffic portion this large any events or behavior specific to this portion will also have a huge impact on the total network.
+Transporting this video in the Internet has again become a topic of hot discussions. There are long-standing application layer protocols for exactly this use case. \ac{RTP}, as the most prominent, has been described as early as 1996 \cite{rfc1889}. It is well described in standard educational literature and specifics to it are still being improved and researched on. However, 
+%% <--
+
+Long-standing and well researched transport modes, e.g. \ac{RTP}, are challenged by new ones, which integrate themselves better into the current web ecosystem. Yet, they use completely different approaches to streaming and the control thereof. This is also the first research interest of the doctoral thesis.
+Streaming, or more generalized media transport is also not only relevant for the purpose of watching videos, there are many more fields of use which have slightly different requirements. With the popular cloud computing approach, which essentially means to run ones applications remotely on any number of hosts, it is necessary to transport the output of the applications, which often can be graphical, to the client. This is especially true for so-called Cloud Gaming services, which have hard temporal constraints on both directions of the transport path.
+
+ And there is still a lot of room to improve. 
+
+%%
+Mobile networks are still much closer to their circuit switching roots. Having evolved from GSM over UMTS to LTE, mobile networks have only very recently become fully packet switched. However, the data transport through its many core network elements is still using connection oriented techniques. The radio access' properties are also wildly different to traditional This poses unique challenges and opportunities for the design and performance of protocols. Therefore, we take a special interest in mobile network environments in our research of video streaming.
+
+Concepts for future Internet structures are strongly disputed at the moment. A vast array of concepts is under discussion to either replace or enhance the protocol stack of the Internet's current setup. It will be interesting to measure the influence on media streaming and transport of these proposed changes or if there is any influence at all.
+
+
+%%
+
+A similar development for cellular networks is now ongoing. Through the advent of affordable high performance smartphones and access technologies like UMTS and LTE many are now using their phones as the primary device for interacting with the Internet, including video streaming services such as YouTube, Netflix, or Hulu.
+
+
 
 
 
