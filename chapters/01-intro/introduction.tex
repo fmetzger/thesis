@@ -43,8 +43,11 @@ Several factors contributed to the quick acceptance of the Internet. First and f
 
 End-to-End means that any functionality, meaning services or applications, should only be implemented at the two endpoints of a transmission not somewhere in between. Tuning the network to specific applications and implementing functions inside the network, will always only be valid for existing and narrow use cases and cannot support future developments.
 
-During the past decades this has often been discussed  \cite{bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} but is still being upheld for the most part for good reason. \todo{probably should clarify the good reason}. This is in contrast to the way telephone networks and their operating companies historically worked. These networks, are based on circuit switching and access as well as content (namely voice calls) and procedures are tightly controlled by the operator.
-\\
+During the past decades this has often been discussed  \cite{bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} but is still being upheld for the most part for good reason. \todo{probably should clarify the good reason}. This is in contrast to the way telephone networks and their operating companies historically worked. These networks are based on circuit switching and access as well as content (namely voice calls) and procedures are tightly controlled by the operator.
+%\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Video and the Internet}
 
 \begin{figure}[htbp]
     \centering
@@ -60,51 +63,85 @@ During the past decades this has often been discussed  \cite{bhattacharjee1997ac
     \label{c1:fig:traffic_cisco}
 \end{figure}
 
-The total volume of Internet traffic has been rising exponentially for many years. The composition of today's traffic is manifold, but one of the largest contributing factors is arguably video (take a look at Figures~\ref{c1:fig:traffic_netvine} and \ref{c1:fig:traffic_cisco}). Studies predicting the development of the Internet's traffic also tell of the large influence of video in the near future. The two main sources for this video are YouTube\footnote{\url{https://www.youtube.com}} and, in countries where its available, Netflix\footnote{\url{https://www.netflix.com}}
+The total volume of Internet traffic has been rising exponentially for many years. The composition of today's traffic is manifold, but one of the largest contributing factors is arguably video (take a look at Figures~\ref{c1:fig:traffic_netvine} and \ref{c1:fig:traffic_cisco}). Studies predicting the development of the Internet's traffic also tell of the large influence of video in the near future. The two main sources for this video are YouTube\footnote{\url{https://www.youtube.com}} and, in countries where its available, Netflix\footnote{\url{https://www.netflix.com}}, and even newer services like the live-streaming site Twitch\footnote{\url{http://twitch.tv}} acting as runner-up.
 
 Despite not wanting to tune the network to video, it is still very important to understand the dynamics happening around this type of traffic there. With a traffic portion this large any events or behavior specific to this portion will also have a huge impact on the total network.
-Transporting this video in the Internet has again become a topic of hot discussions. There are long-standing application layer protocols for exactly this use case. \ac{RTP}, as the most prominent, has been described as early as 1996 \cite{rfc1889}. It is well described in standard educational literature and specifics to it are still being improved and researched on. However, 
+Transporting this video -- or rather ``streaming'' as in watching the video while it's still being transmitted -- -- integrating themselves much better into the current Web ecosystem --  in the Internet has again become a topic of hot discussions. There are long-standing application layer protocols for exactly this use case. \ac{RTP}, as the most prominent, has been described as early as 1996 \cite{rfc1889}. It is well described in standard educational literature and specifics to it are still being researched and improved on. Interestingly however, it is practically not being used at all in the current updraft of video traffic. \todo{explain the reason (Web-relationship, tcp basis, firewalls, walled gardens, ...)either here or in a later chapter}
+Instead, new approaches have been thought out, integrating themselves much better into the current Web ecosystem.
+And they are using completely different modes of transportation and control. Streaming, and media transport in general, is also not only relevant for the purpose of watching videos, there are many more fields of use with similar requirements. Becoming popular in the last years is the so-called Cloud Gaming: Running virtualized video games on large racks and streaming just the video output to the clients with all the user input handled by the server, putting a huge emphasize on achieving low latency.\footnote{Select works overviewing this thematic complex are, e.g., \cite{4795441,wang2009modeling,jarschel2011cloudevaluation,ct2010wolken}.}
+Investigating the implications coming with these new streaming protocols will be the first task of this thesis.
+%\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Network Below}
+
+Looking back to the actual networks, we also see lots of progress in the past. Despite their rapid evolution, mobile networks, however, still carry much heritage from their circuit switching roots. \footnote{For an historical overview refer to \url{https://en.wikipedia.org/wiki/History_of_mobile_phones}. \todo{should remove wikipedia}}
+Starting in the 1950s with early analog predecessors like the German ``A-Netz'' and first generation cellular structured networks in the eighties, mobile telephony entered the fully digital world with the European \ac{GSM} and competing \ac{CDMA}-based technologies around the year 1991. This was similar to the development in the \ac{POTS} with its shift away from the analog roots to digital circuit switching technologies like \ac{ISDN}.
+
+Because of its huge success \ac{GSM} and its packet-switching extension \ac{GPRS} was used as a blueprint for the following mobile network standard evolutions resulting in \ac{UMTS} (including \ac{HSPA} and \ac{HSPA+}), today's \ac{LTE} and even the upcoming \ac{LTE} Advanced. Through this heritage, many network elements and protocol have hardly changed since the beginning and are still strongly connection orientated with a strong tendency to signaling and statefulness.
+This creates a wide range of problems which have only begun to show up in recent years due to the large influx of new user and usage scenarios, creating traffic patterns unheard of a few years ago and overwhelming the network's control plane structures. 
+
+%% still WIP
+Traffic in cellular networks follows a development similar to that of the Internet as a whole as described earlier. Through the advent of affordable high performance smartphones, thriving mobile application ecosystems, and (relatively) fast access technologies many are now using their phones as the primary device for interacting with the Internet. This includes the same bandwidth consuming services as in fixed access 
+
+Combined, these facts pose unique challenges and opportunities for the design and dimensioning of network protocols. Adding to this, is the circumstance, that mobile networks and mobile network equipment is usually regarded as trade secrets by 
+Little is known of the exact make-up of these networks as they are closely guarded secrets of the operator.
+This presents us with the second task of this thesis.
+
+This can put pressure on the overly complex cellular network structures. The radio transmissions have only access to a limited radio frequency spectrum that, moreover, has to be shared with any other phone user in the same cell. But there is also deemed to be significant pressure on the traffic management mechanisms of the mobile core networks backing up and aggregating the numerous radio cells of an operator. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Research Motifs and Goals}
+
 %% <--
 
-Long-standing and well researched transport modes, e.g. \ac{RTP}, are challenged by new ones, which integrate themselves better into the current web ecosystem. Yet, they use completely different approaches to streaming and the control thereof. This is also the first research interest of the doctoral thesis.
-Streaming, or more generalized media transport is also not only relevant for the purpose of watching videos, there are many more fields of use which have slightly different requirements. With the popular cloud computing approach, which essentially means to run ones applications remotely on any number of hosts, it is necessary to transport the output of the applications, which often can be graphical, to the client. This is especially true for so-called Cloud Gaming services, which have hard temporal constraints on both directions of the transport path.
 
- And there is still a lot of room to improve. 
 
-%%
-Mobile networks are still much closer to their circuit switching roots. Having evolved from GSM over UMTS to LTE, mobile networks have only very recently become fully packet switched. However, the data transport through its many core network elements is still using connection oriented techniques. The radio access' properties are also wildly different to traditional This poses unique challenges and opportunities for the design and performance of protocols. Therefore, we take a special interest in mobile network environments in our research of video streaming.
+The topic of the thesis will be the research of the inner workings of these new streaming services and mechanisms and especially its impact on the aforementioned cellular core network structures. This means conducting performance evaluations of the streaming mechanisms on itself and in the context of mobile networks as well as performing systematic assessments and classifications of the mechanisms. 
+
+The result will be an understanding of the quantitative attributes related to these new forms of streaming. Furthermore, the thesis should provide tools and methods that help decide all participants of media streaming and mobile network operators which protocols and methods to choose and which are best suited for specific applications
+
+
+%TODO:
+    Performance analysis and comparison model of existing media streaming solutions
+      But do not compare the protocols but the mechanisms and paradigms behind it
+    Special focus on mobile environments and their pitfalls
+    Improvements to protocols and new approaches
+
+    Neue Videostreamingtechniken sind beliebt und bringen immer mehr Last in Mobilfunksysteme. Die Leistungsfähigkeit und die Qualität der Streaming-Dienste hängt insbesondere vom Verkehrsmanagement in Mobilfunksystem ab. Die Arbeit soll die Leistungsfähigkeit der neuen Streamingverfahren in heutigen und zukünftigen Mobilfunksystemen, die mit dem Internet verbunden sind, untersuchen. Die Schwierigkeit der Arbeit besteht in der Komplexität der Mobilfunksysteme und der neuen Streamingverfahren sowie in der Verknüpfungen der beiden Konzepte. Insbesondere die Auswirkung der Mobilfunkkernnetze auf die Leistungsfähigkeit der Mechanismen der Transportschicht sollen mit Hilfe von Methoden aus der Leistungsbewertung von Rechner- und Kommunikationsnetzen, untersucht werden.
+
+
+On which kind of network information flow should streaming applications rely on in general and mobile networks specifically? What information is actually required for streaming?
+
+What information flow should be provided by networks?
+
+How can and should information be exchanged?
+
+Can or should there be any dependence of the information flow on the application layer protocol?
+
+How can the information flow be evaluated and modelled and the protocols and network architectures be compared? Is a generic evaluation model possible?
+
+Design of new transport or streaming mechanisms
+-> Formal Description Techniques
+
+-> Analytical Tool, test viability
+
+
+%%%% end work-in-progress text -->
+
 
 Concepts for future Internet structures are strongly disputed at the moment. A vast array of concepts is under discussion to either replace or enhance the protocol stack of the Internet's current setup. It will be interesting to measure the influence on media streaming and transport of these proposed changes or if there is any influence at all.
 
 
-%%
-
-A similar development for cellular networks is now ongoing. Through the advent of affordable high performance smartphones and access technologies like UMTS and LTE many are now using their phones as the primary device for interacting with the Internet, including video streaming services such as YouTube, Netflix, or Hulu.
 
 
 
-
-
-This can put pressure on the overly complex cellular network structures. The radio transmissions have only access to a limited radio frequency spectrum that, moreover, has to be shared with any other phone user in the same cell. But there is also deemed to be significant pressure on the traffic management mechanisms of the mobile core networks backing up and aggregating the numerous radio cells of an operator. Little is known of the exact make-up of these networks as they are closely guarded secrets of the operator.
-
-The popularity of these video services can to a degree be attributed to their full integration into the WWW. While previous offerings used completely different techniques which required the use of additional software, today one can enjoy videos just by directing ones browser to a website. Furthermore, other services related to video streaming are now also beginning to migrate to Web platforms. An example that is becoming increasingly popular at the moment are cloud gaming offerings which uses mechanisms very similar to real time video streaming but has stringent temporal constraints.
-
-
-Most of today's services base itself on the Web and HTTP as ``transport protocol''. It is even proposed to use
-a slightly modified version of HTTP as the basic end-to-end protocol for a future iteration of the Internet\cite{Popa:2010:HNW:1868447.1868453} as it already fulfills many of the demands proposed for the future of the Internet.
-
-
-There are other applications closely related to video streaming and are showing similar transmission characteristics. Examples include remote desktop services or cloud gaming. Cloud gaming facilitates the same core principles as video streaming. However, it adds strong bidirectional real time requirements as user interaction needs to be immediately reflected in the streamed images. One of the concerns of the thesis could be an investigation of streaming models for cloud gaming in the context of mechanisms used . Initial work has already been done, e.g., in \cite{4795441,wang2009modeling,jarschel2011cloudevaluation,ct2010wolken}.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Motifs}
-
-
-
-
-\subsection{Technical Solution Spaces}
+\section{Solution Spaces}
 
 
 \begin{figure}[htbp]
@@ -195,39 +232,6 @@ Mechanisms and protocols for the future of media streaming
 \end{itemize}
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Goals and Aims}
-
-The topic of the thesis will be the research of the inner workings of these new streaming services and mechanisms and especially its impact on the aforementioned cellular core network structures. This means conducting performance evaluations of the streaming mechanisms on itself and in the context of mobile networks as well as performing systematic assessments and classifications of the mechanisms. 
-
-The result will be an understanding of the quantitative attributes related to these new forms of streaming. Furthermore, the thesis should provide tools and methods that help decide all participants of media streaming and mobile network operators which protocols and methods to choose and which are best suited for specific applications
-
-
-%TODO:
-    Performance analysis and comparison model of existing media streaming solutions
-      But do not compare the protocols but the mechanisms and paradigms behind it
-    Special focus on mobile environments and their pitfalls
-    Improvements to protocols and new approaches
-
-    Neue Videostreamingtechniken sind beliebt und bringen immer mehr Last in Mobilfunksysteme. Die Leistungsfähigkeit und die Qualität der Streaming-Dienste hängt insbesondere vom Verkehrsmanagement in Mobilfunksystem ab. Die Arbeit soll die Leistungsfähigkeit der neuen Streamingverfahren in heutigen und zukünftigen Mobilfunksystemen, die mit dem Internet verbunden sind, untersuchen. Die Schwierigkeit der Arbeit besteht in der Komplexität der Mobilfunksysteme und der neuen Streamingverfahren sowie in der Verknüpfungen der beiden Konzepte. Insbesondere die Auswirkung der Mobilfunkkernnetze auf die Leistungsfähigkeit der Mechanismen der Transportschicht sollen mit Hilfe von Methoden aus der Leistungsbewertung von Rechner- und Kommunikationsnetzen, untersucht werden.
-
-
-On which kind of network information flow should streaming applications rely on in general and mobile networks specifically? What information is actually required for streaming?
-
-What information flow should be provided by networks?
-
-How can and should information be exchanged?
-
-Can or should there be any dependence of the information flow on the application layer protocol?
-
-How can the information flow be evaluated and modelled and the protocols and network architectures be compared? Is a generic evaluation model possible?
-
-Design of new transport or streaming mechanisms
--> Formal Description Techniques
-
--> Analytical Tool, test viability
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
