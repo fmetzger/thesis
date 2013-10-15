@@ -81,51 +81,40 @@ Starting in the 1950s with early analog predecessors like the German ``A-Netz'' 
 Because of its huge success \ac{GSM} and its packet-switching extension \ac{GPRS} was used as a blueprint for the following mobile network standard evolutions resulting in \ac{UMTS} (including \ac{HSPA} and \ac{HSPA+}), today's \ac{LTE} and even the upcoming \ac{LTE} Advanced. Through this heritage, many network elements and protocol have hardly changed since the beginning and are still strongly connection orientated with a strong tendency to signaling and statefulness.
 This creates a wide range of problems which have only begun to show up in recent years due to the large influx of new user and usage scenarios, creating traffic patterns unheard of a few years ago and overwhelming the network's control plane structures. 
 
-%% still WIP
-Traffic in cellular networks follows a development similar to that of the Internet as a whole as described earlier. Through the advent of affordable high performance smartphones, thriving mobile application ecosystems, and (relatively) fast access technologies many are now using their phones as the primary device for interacting with the Internet. This includes the same bandwidth consuming services as in fixed access 
+Traffic in cellular networks follows a development similar to that of the Internet as a whole. Through the advent of affordable high performance smartphones, a thriving mobile application ecosystems, and (relatively) fast access technologies many are now using their phones as the primary device for interacting with the Internet. Video, too, has here become one of the largest contributors of cellular traffic. 
 
-Combined, these facts pose unique challenges and opportunities for the design and dimensioning of network protocols. Adding to this, is the circumstance, that mobile networks and mobile network equipment is usually regarded as trade secrets by 
-Little is known of the exact make-up of these networks as they are closely guarded secrets of the operator.
+However, heavy traffic on a stateful network poses unique challenges to the performance, the design, and dimensioning of network protocols. This gets even more complicated by the circumstance, that operators and vendors usually regard any details on mobile networks equipment as closely kept trade secrets Thus, little is known of the exact make-up of these networks as they are closely guarded secrets of the operator.
+
 This presents us with the second task of this thesis.
 
-This can put pressure on the overly complex cellular network structures. The radio transmissions have only access to a limited radio frequency spectrum that, moreover, has to be shared with any other phone user in the same cell. But there is also deemed to be significant pressure on the traffic management mechanisms of the mobile core networks backing up and aggregating the numerous radio cells of an operator. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Research Motifs and Goals}
+\section{Lines of Research and Goals}
 
-%% <--
+This thesis will follow in most parts two mostly independent lines of research.
+
+The first line will be a thorough investigation of current video streaming mechanisms and services facilitating them. All of the investigated streaming ``protocols'' are comparatively young and similar. 
+
+Protocol is put in parenthesis for a reason here. Many of the approaches are not protocols in the classical sense. They do not follow a specification of any standards body, be it \ac{ISO}, \ac{ITU} or the \ac{IETF}. Neither do they show much distinction in the way the use the network and transport video as they simply rely on normal Web protocols. Rather, much of their differences stems just from the behavior of the actual application. The way how it requests and retrieve the data and displays the video, including its reaction to unwanted events, e.g. having insufficient data in the playback buffer. 
+Surprisingly, even just with these rather simple rules, applications can still distinguish themselves from one another. Making the right decisions to events can greatly influence the quality of the video playback. 
+
+During the investigation we created a model describing all the common elements in the streaming process. With such a model at hand and in knowledge of the structure and similarities of the applications, one can do many things. Through a performance analysis they can be compared to each other. Interrelations to the network's transport layer and other influences of the network on streaming could be uncovered. This especially includes mobile networks where many assumptions made for wired networks do not hold anymore. One quick example is the circumstance, that the network layer and all layers above generally do not experience any packet loss in a cellular network. Any loss is treated by the mobile layers, albeit with other side effects on the upper layers. For example, they will experience intermittent times of extremely high latency.
+This leads to the question, on which kind of information from the network a streaming application could and should depend, or even if there are any actual requirements for streaming.
+
+Gathering this kind of information can result in a better understanding of the quantitative attributes related to these new forms of streaming. The results can be used as an analytical and testing tool for improving the protocols or even lead to different approaches. Furthermore, the thesis aims to provide methods for helpingall parties involved in media streaming decide which protocols and methods to choose and which are best suited for specific scenarios.
+\\
+
+The second line of research...
+%% <-- %% WIP
 
 
 
 The topic of the thesis will be the research of the inner workings of these new streaming services and mechanisms and especially its impact on the aforementioned cellular core network structures. This means conducting performance evaluations of the streaming mechanisms on itself and in the context of mobile networks as well as performing systematic assessments and classifications of the mechanisms. 
 
-The result will be an understanding of the quantitative attributes related to these new forms of streaming. Furthermore, the thesis should provide tools and methods that help decide all participants of media streaming and mobile network operators which protocols and methods to choose and which are best suited for specific applications
 
 
-%TODO:
-    Performance analysis and comparison model of existing media streaming solutions
-      But do not compare the protocols but the mechanisms and paradigms behind it
-    Special focus on mobile environments and their pitfalls
-    Improvements to protocols and new approaches
 
-    Neue Videostreamingtechniken sind beliebt und bringen immer mehr Last in Mobilfunksysteme. Die Leistungsfähigkeit und die Qualität der Streaming-Dienste hängt insbesondere vom Verkehrsmanagement in Mobilfunksystem ab. Die Arbeit soll die Leistungsfähigkeit der neuen Streamingverfahren in heutigen und zukünftigen Mobilfunksystemen, die mit dem Internet verbunden sind, untersuchen. Die Schwierigkeit der Arbeit besteht in der Komplexität der Mobilfunksysteme und der neuen Streamingverfahren sowie in der Verknüpfungen der beiden Konzepte. Insbesondere die Auswirkung der Mobilfunkkernnetze auf die Leistungsfähigkeit der Mechanismen der Transportschicht sollen mit Hilfe von Methoden aus der Leistungsbewertung von Rechner- und Kommunikationsnetzen, untersucht werden.
-
-
-On which kind of network information flow should streaming applications rely on in general and mobile networks specifically? What information is actually required for streaming?
-
-What information flow should be provided by networks?
-
-How can and should information be exchanged?
-
-Can or should there be any dependence of the information flow on the application layer protocol?
-
-How can the information flow be evaluated and modelled and the protocols and network architectures be compared? Is a generic evaluation model possible?
-
-Design of new transport or streaming mechanisms
--> Formal Description Techniques
-
--> Analytical Tool, test viability
 
 
 %%%% end work-in-progress text -->
@@ -240,3 +229,9 @@ Mechanisms and protocols for the future of media streaming
 This thesis is structured as follows.
 
 The tackled protocols, systems, and mechanisms are described in Section X. Section Y details the methods that are and are planned to be used for the research. The final section gives a rough estimation on the thesis' schedule.
+
+
+
+
+
+%This can put pressure on the overly complex cellular network structures. The radio transmissions have only access to a limited radio frequency spectrum that, moreover, has to be shared with any other phone user in the same cell. But there is also deemed to be significant pressure on the traffic management mechanisms of the mobile core networks backing up and aggregating the numerous radio cells of an operator. 
