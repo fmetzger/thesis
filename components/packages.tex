@@ -3,14 +3,31 @@
 % packages
 
 % general
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[american]{babel}
-\usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
+
+\usepackage{ifluatex}
+
+\ifluatex
+  \usepackage[no-math]{fontspec}
+  \usepackage{unicode-math} % fixes math
+  \usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
+  \usepackage{polyglossia}
+  \setdefaultlanguage{english}
+  
+\else
+  \usepackage[utf8]{inputenc}                   
+  \usepackage[T1]{fontenc}
+  \usepackage[american]{babel}
+  \usepackage{mathtools} % instead of amsmath; amssymb and amsthm not included
+\fi
+
+
+%\usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
+
 \usepackage{scrhack} % fix komascript floattolist issues
+
 \usepackage[defernumbers=true,style=alphabetic,firstinits=true,backend=biber]{biblatex} % 
-\usepackage{csquotes} % ?
-%\usepackage{fullpage} % ?
+\usepackage{csquotes} % context sensitive quotations; especially for use with biblatex and biber
+
 \usepackage{listings} % ?
 \usepackage[scale=3]{ccicons} % creative commons icons
 
@@ -18,7 +35,7 @@
 
 
 % graphics and floats
-\usepackage[pdftex]{graphicx}
+%\usepackage[pdftex]{graphicx} <- do not explicitly use the pdftex option when under lualatex
 \usepackage{caption} % figure caption control
 \usepackage{subcaption} % sub figure replacement
 \usepackage{multirow} % tables spanning multiple rows
@@ -32,7 +49,11 @@
 
 
 % layout
-\usepackage[pdftex,hyperfootnotes=false,pdfpagelabels]{hyperref}
+%\usepackage[pdftex,hyperfootnotes=false,pdfpagelabels]{hyperref}
+\usepackage[hyperfootnotes=false,pdfpagelabels=true]{hyperref}
+\hypersetup{pdfencoding=auto}
+
+
 \PassOptionsToPackage{eulerchapternumbers,
                       listings,
                       pdfspacing,
@@ -48,11 +69,12 @@
 
 % convenience
 \usepackage[smaller,nohyperlinks]{acronym} %printonlyused as an option
-\usepackage{mathtools} % instead of amsmath, amssymb, amsthm
-\usepackage{fixltx2e} % ?
-\usepackage{mparhack} % ?
-\usepackage{ragged2e} % ?
-\usepackage{textcomp} % provides extra symbols, e.g. arrows like \textrightarrow, various currencies (\texteuro,...), things like \textcelsius and many other
+
+%\usepackage{fixltx2e} % ?
+%\usepackage{mparhack} % ?
+
+\usepackage{ragged2e} % \raggedright command in dissertation.tex
+\usepackage{textcomp} % extra symbols; used for euro and copyright symbol
 \usepackage{units}
 \usepackage{url}
 \usepackage{xspace} % ?
