@@ -15,27 +15,26 @@
 \subsubsection{Control Messaging Causes}
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\acs{GPRS} Fundamentals}
+\subsection{GPRS Fundamentals}
 
-The packet switched domain of an \ac{UMTS} network is an evolution of \ac{GPRS} and thus closely related to it. First defined by the \ac{3GPP} in Release 99, it focuses its improvements over \ac{GSM} mostly on the radio aspects, while keeping the core network \ac{GPRS} architecture intact at large. \ac{3GPP} \ac{TS} 23.060 \cite{3gpp23.060} defines the basic aspects involving \ac{GPRS} protocols and its system architecture. \ac{TS} 29.060 \cite{3gpp29.060} describes the specifics of \ac{GTP} flowing across the Gn and Gp interfaces which forms the foundation for our work.
+The packet switched domain of an \gls{UMTS} network is an evolution of \gls{GPRS} and thus closely related to it. First defined by the \gls{3GPP} in Release 99, it focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the foundation for our work.
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/umts-network.pdf}
-	\caption{Simplified setup of the packet switched domain in an \acs{UMTS} network including a METAWIN monitoring probe.}
+	\caption{Simplified setup of the packet switched domain in an \acrshort{UMTS} network including a METAWIN monitoring probe.}
 	\label{c4:fig:umtsnetwork}
 \end{figure}
 
-As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \ac{MS} connected to the radio network flows through a Node B (also called base station), which provides radio connectivity. Multiple Node B are aggregated into a \ac{RNC}. The base stations and \acp{RNC} form the \ac{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \ac{SGSN} and the \ac{GGSN}.
+As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \gls{MS} connected to the radio network flows through a Node B (also called base station), which provides radio connectivity. Multiple Node B are aggregated into a \gls{RNC}. The base stations and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
 
-One role of the \ac{SGSN} is to serve as mobility anchor for mobile devices. It is also the endpoint for \ac{RRC}-based signaling and the \ac{RAB}, the radio counterpart to the core network user traffic tunnel. The \ac{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \ac{GTP} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \ac{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels in the core.
+One role of the \gls{SGSN} is to serve as mobility anchor for mobile devices. It is also the endpoint for \gls{RRC}-based signaling and the \gls{RAB}, the radio counterpart to the core network user traffic tunnel. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{GTP} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels in the core.
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.6\columnwidth]{images/signalling-stack.pdf}
-	\caption{Typical signaling protocol stack at the Gn interface between \ac{SGSN} and \ac{GGSN}.}
+	\caption{Typical signaling protocol stack at the Gn interface between \gls{SGSN} and \gls{GGSN}.}
 	\label{c4:fig:signallingstack}
 \end{figure}
 
@@ -43,14 +42,14 @@ One role of the \ac{SGSN} is to serve as mobility anchor for mobile devices. It 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{GTP Signaling}
 
-Tunnels state is held in the \ac{SGSN} and \ac{GGSN} as \ac{PDP} Context data structures. These contain various information, such as the device IP address, \ac{IMSI}, and a tunnel identifier. The concept is used to isolate user traffic from core network control plane signaling and to provide certain \ac{QoS} guarantees to the user traffic. Multiple \ac{QoS} profiles per device can also be established by setting up up to ten secondary contexts beyond the primary PDP context. However, \ac{QoS} secondary contexts are very rarely in use today, any user-plane IP traffic is typically transported within the primary ``best effort'' tunnel.
+Tunnels state is held in the \gls{SGSN} and \gls{GGSN} as \gls{PDP} Context data structures. These contain various information, such as the device IP address, \gls{IMSI}, and a tunnel identifier. The concept is used to isolate user traffic from core network control plane signaling and to provide certain \gls{QoS} guarantees to the user traffic. Multiple \gls{QoS} profiles per device can also be established by setting up up to ten secondary contexts beyond the primary PDP context. However, \gls{QoS} secondary contexts are very rarely in use today, any user-plane IP traffic is typically transported within the primary ``best effort'' tunnel.
 
-The GTP-C signaling, responsible for the context management interactions, contains procedures for managing data paths, \ac{MS} locations, mobility, and, of course, tunnels. \ac{GTP} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \acp{IE}, many of which are either optional or variable length through additional optional fields.
+The GTP-C signaling, responsible for the context management interactions, contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. \gls{GTP} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE}, many of which are either optional or variable length through additional optional fields.
 
 The focus of our work will be the three Tunnel Management message pairs involved in the maintenance of PDP Contexts. These are:
 
 \begin{itemize}
-\item The \textbf{Create Context Message}, which is part of several larger control procedures that activate the GTP tunnel for a mobile device. These can be initiated from the network as well as the device itself, again depending on the specific implementation of the architecture. When a \ac{GGSN} receives this request from an \ac{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, lack of resource, or unrecoverable system failures.
+\item The \textbf{Create Context Message}, which is part of several larger control procedures that activate the GTP tunnel for a mobile device. These can be initiated from the network as well as the device itself, again depending on the specific implementation of the architecture. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, lack of resource, or unrecoverable system failures.
 
 \item \textbf{Delete Context Message}; This indicates the immediate release of the Context involved. 
 Together with the Create event these mark the beginning and the end of every GTP tunnel, making them good candidates to determine tunnel durations for our load evaluations.
@@ -59,7 +58,7 @@ Together with the Create event these mark the beginning and the end of every GTP
 By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. 
 \end{itemize}
 
-The variable-length nature of these messages makes evaluating the imposed network signaling overhead rather difficult. For example, the Create Context Response consists of up to 36 \acp{IE}, some of them mandatory, most either conditional or optional. Including the headers of both the packet and the individual elements, the minimum size (counting only the required bytes of variable length elements) is 52 bytes, while the lower bound for the message size with all \acp{IE} present is 307 bytes.
+The variable-length nature of these messages makes evaluating the imposed network signaling overhead rather difficult. For example, the Create Context Response consists of up to 36 \glspl{IE}, some of them mandatory, most either conditional or optional. Including the headers of both the packet and the individual elements, the minimum size (counting only the required bytes of variable length elements) is 52 bytes, while the lower bound for the message size with all \glspl{IE} present is 307 bytes.
 
 Taking the maximum size we arrive at a naive estimate of the maximum overhead on user traffic induced by tunnel management signaling in our dataset. The estimated ratio of (tunnel management) signaling traffic to total user plane traffic in our dataset is a minute $0.10\%$. Therefore, the volume of control plane traffic appears to be non-critical in this setup. Thus, we assume that the overload problems mentioned above arise rather in areas affected by signaling except for the pure transport of data, such as the memory profile of the states kept in the gateway nodes, the time required to process the large number of information held in the messages, or the imposed latency through several message round trips during transactions.
 
@@ -68,7 +67,7 @@ Taking the maximum size we arrive at a naive estimate of the maximum overhead on
 \subsubsection{GTP Influencing State Machines}
 
 As indicated, most nodes in a cellular mobile network keep all sorts of state characterizing the data connection. For the tunnel management aspects, two state machines are of special note, namely the Mobility Management and RRC state machines.
-The former, defined in \cite{3gpp23.060}, describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. The \ac{RRC} state machine depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels. State changes happen again depending on user activity and inactivity.
+The former, defined in \cite{3gpp23.060}, describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. The \gls{RRC} state machine depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels. State changes happen again depending on user activity and inactivity.
 Based on the state both procedures can enable and disable radio tunnels as well as core network tunnels, making them a good example of user traffic dynamics directly influencing core network signaling, similar to the observations in \cite{lee2007detection}.
 
 \begin{figure}[htbp]
@@ -82,8 +81,8 @@ Based on the state both procedures can enable and disable radio tunnels as well 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Discussion of GTP Signaling}
 
-Looking at the Create, Update and Delete PDP Context Request and Reply message pairs we can already directly deduce some possibly load-related information. The total tunnel duration originates from the time delta between corresponding Create and Delete events. The shorter those tunnels are the higher will be volume of signaling messages and the necessary processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \ac{PDP} Contexts. Large numbers of update messages, especially combined with frequent \ac{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. 
-The time between a request and its corresponding response could also be an indicator for the amount of processing involved for this message as well as the current general processing load at the \ac{GGSN}.
+Looking at the Create, Update and Delete PDP Context Request and Reply message pairs we can already directly deduce some possibly load-related information. The total tunnel duration originates from the time delta between corresponding Create and Delete events. The shorter those tunnels are the higher will be volume of signaling messages and the necessary processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \gls{PDP} Contexts. Large numbers of update messages, especially combined with frequent \gls{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. 
+The time between a request and its corresponding response could also be an indicator for the amount of processing involved for this message as well as the current general processing load at the \gls{GGSN}.
 
 As discussed, most of the actions in the network as well as in the mobile devices are reflected in the presented tunnel management messaging. Therefore, taking a look at the dynamics of this control aspect in real networks gives valuable insights on the influence of many of the networks' aspects.
 
@@ -93,20 +92,20 @@ As discussed, most of the actions in the network as well as in the mobile device
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{CONEXT2012 GPRS and Tunnel Management}
 
-This section starts with a primer on cellular data network basics, and then moves on to describe relevant details of \ac{GTP}, the tunneling protocol under investigation.
+This section starts with a primer on cellular data network basics, and then moves on to describe relevant details of \gls{GTP}, the tunneling protocol under investigation.
 
 %---
 %NSAPI {0;15} Integer
 %linked NSAPI: indicates the NSAPI assigned to any one of the already activated PDP contexts for this address/phone ("foreign key"?)
 
 
-\subsubsection{\acs{GPRS} Fundamentals}
+\subsubsection{\acrshort{GPRS} Fundamentals}
 
-Before diving into specifics of \ac{GTP} messaging, we give a short overview on the packet switched domain of an \ac{UMTS} network. This domain is closely related to the \ac{GPRS} part introduced for \acs{GSM}. \ac{UMTS}, first defined by the \ac{3GPP} in Release 99, focuses its improvements over \ac{GSM} mostly on the radio aspects, while keeping the core network \ac{GPRS} architecture intact at large. \ac{3GPP} \ac{TS} 23.060 \cite{3gpp23.060} defines the basic aspects involving \ac{GPRS} protocols and its system architecture. \ac{TS} 29.060 \cite{3gpp29.060} describes the specifics of \ac{GTP} flowing across the Gn and Gp interfaces which forms the basis for our work.
+Before diving into specifics of \gls{GTP} messaging, we give a short overview on the packet switched domain of an \gls{UMTS} network. This domain is closely related to the \gls{GPRS} part introduced for \acrshort{GSM}. \gls{UMTS}, first defined by the \gls{3GPP} in Release 99, focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the basis for our work.
 
-As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \ac{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \ac{RNC}. Node Bs and \acp{RNC} form the \ac{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \ac{SGSN} and the \ac{GGSN}.
+As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \gls{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \gls{RNC}. Node Bs and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
 
-One role of the \ac{SGSN} is as the mobility anchor for mobile devices, and it is the endpoint for \ac{RRC}-based signaling and the \ac{RAB}. The \ac{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \ac{GTP} protocol to exchange user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \ac{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels.
+One role of the \gls{SGSN} is as the mobility anchor for mobile devices, and it is the endpoint for \gls{RRC}-based signaling and the \gls{RAB}. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{GTP} protocol to exchange user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels.
 
 
 
@@ -114,13 +113,13 @@ One role of the \ac{SGSN} is as the mobility anchor for mobile devices, and it i
 \subsubsection{GTP Signaling}
 
 
-Tunnels are defined in the \ac{SGSN} and \ac{GGSN} in \ac{PDP} Context data structures. These hold various information related to a tunnel, such as the device IP address, \ac{IMSI}, and a tunnel identifier. A tunneling concept is used for user traffic to isolate it from core network control plane traffic and to provide certain \ac{QoS} guarantees to the user traffic. To distinguish multiple \ac{QoS} profiles per device, up to ten additional secondary contexts can be established beyond the primary PDP context, all with different \ac{QoS} allocations. However, secondary contexts are rarely in use today, and any user-plane IP traffic is transported within the primary ``best effort'' tunnel.
+Tunnels are defined in the \gls{SGSN} and \gls{GGSN} in \gls{PDP} Context data structures. These hold various information related to a tunnel, such as the device IP address, \gls{IMSI}, and a tunnel identifier. A tunneling concept is used for user traffic to isolate it from core network control plane traffic and to provide certain \gls{QoS} guarantees to the user traffic. To distinguish multiple \gls{QoS} profiles per device, up to ten additional secondary contexts can be established beyond the primary PDP context, all with different \gls{QoS} allocations. However, secondary contexts are rarely in use today, and any user-plane IP traffic is transported within the primary ``best effort'' tunnel.
 
-As already mentioned, GTP-C signaling is used to administer these contexts. Across the Gn path, it contains procedures for managing data paths, \ac{MS} locations, mobility, and, of course, tunnels. We take a specific look at the last one. \ac{GTP} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \acp{IE} of partially variable length. 
+As already mentioned, GTP-C signaling is used to administer these contexts. Across the Gn path, it contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. We take a specific look at the last one. \gls{GTP} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE} of partially variable length. 
 
 The focus of our work will be the three Tunnel Management message pairs involved in the maintenance of PDP Contexts. These are the \textit{Create, Update,} and \textit{Delete PDP Context Requests} and \textit{Responses}. Each pair, including their causes and possible effects, will be treated in a separate section, with the Create and Delete messages forming the substrate for our investigations presented in this paper.
 
-The variable-length nature of these messages makes evaluating the imposed network signaling load rather difficult. For example, the Create Context Response consists of up to 36 \acp{IE}, some of them mandatory, most either conditional or optional. Including the headers of both the packet and the individual elements, the minimum size (counting only the required bytes of variable length elements) is 52 bytes, while the minimal maximum size with all \acp{IE} present is 307 bytes.
+The variable-length nature of these messages makes evaluating the imposed network signaling load rather difficult. For example, the Create Context Response consists of up to 36 \glspl{IE}, some of them mandatory, most either conditional or optional. Including the headers of both the packet and the individual elements, the minimum size (counting only the required bytes of variable length elements) is 52 bytes, while the minimal maximum size with all \glspl{IE} present is 307 bytes.
 
 Taking this maximum value we arrive at a naive estimate of the maximum overhead on user traffic imposed by tunnel management signaling in our dataset. The ratio of (tunnel management) signaling traffic to total user plane traffic is a minute $0.10\%$. Therefore, the sheer volume of control plane traffic appears to be non-critical in this setup. We assume thus that the overload problems mentioned above arise rather in areas affected by signaling except for the pure transport of data, such as the memory profile of the states kept in the gateway nodes, the time required to process the large number of information held in the messages, or the imposed latency through several message round trips during transactions. The detailed mechanics of system load could be a field of investigation for future work.
 
@@ -144,9 +143,9 @@ Taking this maximum value we arrive at a naive estimate of the maximum overhead 
 	\label{c4:fig:pdpcontextactivation}
 \end{figure}
 
-Figure \ref{c4:fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp23.060}. Some additional \ac{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \ac{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
+Figure \ref{c4:fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
 
-Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary PDP context Activation} procedure for every tunnel beyond the first. When a \ac{GGSN} receives this request from an \ac{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
+Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary PDP context Activation} procedure for every tunnel beyond the first. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
 
 
 
@@ -157,15 +156,15 @@ Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Act
 The possible causes for an \textit{Update Context Request} are as following.
 
 \begin{itemize}
-	\item The mobile devices moves between \acp{SGSN}, causing a \textit{GPRS inter-SGSN Routing Area Update} procedure.
-	\item Parameters belonging to the context such as the assigned \ac{QoS} are altered using the the \textit{PDP Context Modification}.
+	\item The mobile devices moves between \glspl{SGSN}, causing a \textit{GPRS inter-SGSN Routing Area Update} procedure.
+	\item Parameters belonging to the context such as the assigned \gls{QoS} are altered using the the \textit{PDP Context Modification}.
 	\item As part of \textit{Context redistribution and load balancing} procedures.
-	\item The \ac{MS} switches between \ac{UMTS} and \ac{GPRS} access technologies, causing a \textit{Inter-system intra- \\SGSN Update} procedure. Note that the same tunnel can be used regardless of the radio technology.
-	\item As part of a direct \ac{RNC} to \ac{GGSN} GTP-U tunnel activation procedure, thereby circumventing the \ac{SGSN}. Or, finally, 
+	\item The \gls{MS} switches between \gls{UMTS} and \gls{GPRS} access technologies, causing a \textit{Inter-system intra- \\SGSN Update} procedure. Note that the same tunnel can be used regardless of the radio technology.
+	\item As part of a direct \gls{RNC} to \gls{GGSN} GTP-U tunnel activation procedure, thereby circumventing the \gls{SGSN}. Or, finally, 
 	\item To activate secondary PDP contexts using the \textit{Secondary PDP Context Activation} as previously described. 
 \end{itemize}
 
-By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. Additionally, tunnels using \ac{UMTS} and \ac{GPRS} radio technology can be distinguished, which should in theory lead to wholly different pictures, as nowadays GSM/GPRS is either used in older models or feature phones, or in mobile scenarios in rural areas where the larger GSM cells are more prevalent. Both could indicate that the data session will be rather short  due to either clumsy devices or the low throughput rates of \ac{GPRS}.
+By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. Additionally, tunnels using \gls{UMTS} and \gls{GPRS} radio technology can be distinguished, which should in theory lead to wholly different pictures, as nowadays GSM/GPRS is either used in older models or feature phones, or in mobile scenarios in rural areas where the larger GSM cells are more prevalent. Both could indicate that the data session will be rather short  due to either clumsy devices or the low throughput rates of \gls{GPRS}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Delete Context Messages}
@@ -173,9 +172,9 @@ By observing Update Context message one could, for example, capture most forms o
 The third type of Tunnel Management messages are the \textit{Delete Context Request} and \textit{Response}, indicating the immediate release of the Context involved. They are part of 
 
 \begin{itemize}
-	\item The \textit{GPRS Detach} procedure from the \ac{SGSN} to the \ac{GGSN}, when a device completely deactivates its data services.
-	\item The \textit{GPRS PDP Context Deactivation} procedure from the \ac{SGSN} to the \ac{GGSN}, if only one specific tunnel is to be removed.
-	\item The \textit{part of PDP Context Deactivation Initiated by GGSN} procedure signaled to the \ac{SGSN}.
+	\item The \textit{GPRS Detach} procedure from the \gls{SGSN} to the \gls{GGSN}, when a device completely deactivates its data services.
+	\item The \textit{GPRS PDP Context Deactivation} procedure from the \gls{SGSN} to the \gls{GGSN}, if only one specific tunnel is to be removed.
+	\item The \textit{part of PDP Context Deactivation Initiated by GGSN} procedure signaled to the \gls{SGSN}.
 \end{itemize}
 
 
@@ -196,10 +195,10 @@ As indicated before, most nodes in a cellular mobile network keep all sorts of s
 	\label{c4:fig:mmstatemodel}
 \end{figure}
 
-First, consider the Mobility Management state machine depicted in Figure \ref{c4:fig:mmstatemodel}, defined in \cite{3gpp23.060}, and held in both the \ac{SGSN} as well as the mobile device. It describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. Therefore, it also controls tunnel management, as the involved GPRS Detach and Attach procedures involve deleting and creating contexts. We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
+First, consider the Mobility Management state machine depicted in Figure \ref{c4:fig:mmstatemodel}, defined in \cite{3gpp23.060}, and held in both the \gls{SGSN} as well as the mobile device. It describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. Therefore, it also controls tunnel management, as the involved GPRS Detach and Attach procedures involve deleting and creating contexts. We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
 
 
-The \ac{RRC} state machine shown in Figure \ref{c4:fig:rrcstatemodel} governs the usage of radio channels, i.e. spectral and temporal usage of the wireless interface. State changes happen depending on the inter-arrival time of user packets. In this case, if the state machine transitions to the IDLE state, the \ac{RAB} on the path between mobile device and \ac{SGSN} is not needed anymore and will be deleted, in most cases destroying the SGSN and GGSN PDP Context as well.
+The \gls{RRC} state machine shown in Figure \ref{c4:fig:rrcstatemodel} governs the usage of radio channels, i.e. spectral and temporal usage of the wireless interface. State changes happen depending on the inter-arrival time of user packets. In this case, if the state machine transitions to the IDLE state, the \gls{RAB} on the path between mobile device and \gls{SGSN} is not needed anymore and will be deleted, in most cases destroying the SGSN and GGSN PDP Context as well.
 
 
 
@@ -207,7 +206,7 @@ The \ac{RRC} state machine shown in Figure \ref{c4:fig:rrcstatemodel} governs th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Discussion of GTP Signaling}
 
-Looking at the Create, Update and Delete PDP Context Request and Reply message pairs we can already deduce a certain amount of information. Measuring the time delta between corresponding Create and Delete events obviously gives the total duration a tunnel was established. Given the amount of user-plane IP traffic transferred, when the tunnel durations are short, we can expect the number of tunnel creation and deletion events to go up instead, resulting in a higher volume of signaling messages and an increase in processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \ac{PDP} Contexts. Large numbers of update messages, especially combined with frequent \ac{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. This mobility behavior could be investigated by evaluating the update messages.
+Looking at the Create, Update and Delete PDP Context Request and Reply message pairs we can already deduce a certain amount of information. Measuring the time delta between corresponding Create and Delete events obviously gives the total duration a tunnel was established. Given the amount of user-plane IP traffic transferred, when the tunnel durations are short, we can expect the number of tunnel creation and deletion events to go up instead, resulting in a higher volume of signaling messages and an increase in processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \gls{PDP} Contexts. Large numbers of update messages, especially combined with frequent \gls{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. This mobility behavior could be investigated by evaluating the update messages.
 
 As discussed, most of the actions in the network as well as in the mobile devices are reflected in the presented tunnel management messaging. Therefore, taking a look at the dynamics of this control aspect in real networks gives valuable insights on the influence of many of the networks' aspects.
 
@@ -266,8 +265,8 @@ Correlation to stories about carrier complaints over (radio) ``signalling storms
 
 %GTP Header: 12 Byte
 %IE header and footer: 2 Byte
-%Maximum minimum data size including all \acp{IE}: 221 Byte + 12 Byte Header + 2*37 Extension Header = 307 Byte
-%Minium size of mesage with just mandatory \acp{IE}: 12 + 30 + 2*5 = 52 Byte
+%Maximum minimum data size including all \glspl{IE}: 221 Byte + 12 Byte Header + 2*37 Extension Header = 307 Byte
+%Minium size of mesage with just mandatory \glspl{IE}: 12 + 30 + 2*5 = 52 Byte
 
 % Berechnungsgrundlage für die IEs
 %\begin{table*}
@@ -437,7 +436,7 @@ Does I will get in any spec for this. As the default bearer are of  NON-GBR type
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1.2\textwidth]{images/ECM-states.pdf}
-	\caption{\ac{ECM} state machine.}
+	\caption{\gls{ECM} state machine.}
 	\label{c4:fig:3gpp-ecmstates}
 \end{figure}
 
@@ -496,7 +495,7 @@ per PLMN node, cf. 3GPP TS 23.401 clause 5.7.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\ac{GTP}}
+\subsection{GTP}
 
 \subsubsection{GTPv2}
 

@@ -20,6 +20,7 @@
 
 
 %%% page layout
+\setlength{\headheight}{1.2\baselineskip} % fixes small headheight warning from screport with lualatex
 \pagestyle{scrheadings}
 \ohead{\headmark}
 \ofoot{\pagemark}
@@ -58,34 +59,11 @@
 }
 \renewcommand*{\finalnamedelim}{\addspace\bibstring{and}\space}
 
-
-%%% pdf
-%\pdfcompresslevel=9
-%\pdfadjustspacing=1
-\makeatletter
-  \hypersetup{
-      colorlinks=true,
-      linktocpage=true,
-      breaklinks=true,
-      bookmarksnumbered,
-      bookmarksopen=true,
-      bookmarksopenlevel=1,
-      pdfhighlight=/O,
-      urlcolor=webbrown,
-      linkcolor=RoyalBlue,
-      citecolor=webgreen,
-      pdftitle={\@title},
-      pdfauthor={\@author}}
-      %pdfsubject={\doctype}
-\makeatother
-
-
 %%% toc
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
 \setlength{\cftbeforechapskip}{0.3em}
 \setlength{\cftbeforesecskip}{0.1em}
 
-
 %%% classicthesis
-\renewcommand{\bflabel}[1]{{#1}\hfill} % fix the list of acronyms
+%\renewcommand{\bflabel}[1]{{#1}\hfill} % fix the list of acronyms

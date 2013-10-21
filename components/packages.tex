@@ -4,20 +4,49 @@
 
 % general
 
+
 \usepackage{ifluatex}
 
 \ifluatex
-  \usepackage[no-math]{fontspec}
-  \usepackage{unicode-math} % fixes math
+  \usepackage{fontspec}
+
+  \usepackage{mathtools}
   \usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
+  \usepackage{unicode-math} % fixes math
+  \setmathfont{Asana-Math.otf}
+
+  \RequirePackage{scrlfile}
+  \PreventPackageFromLoading{mathpazo}
+
   \usepackage{polyglossia}
   \setdefaultlanguage{english}
-  
+
+  %\setmainfont{Calibri}
+  \setmonofont{Inconsolatazi4-Regular.otf}
+
+  \PassOptionsToPackage{eulerchapternumbers,
+                      listings,
+                      pdfspacing,
+                      beramono,
+                      parts,
+                      dottedtoc,
+                      floatperchapter,
+                     }{classicthesis}
 \else
   \usepackage[utf8]{inputenc}                   
   \usepackage[T1]{fontenc}
   \usepackage[american]{babel}
   \usepackage{mathtools} % instead of amsmath; amssymb and amsthm not included
+
+  \PassOptionsToPackage{eulerchapternumbers,
+                      listings,
+                      pdfspacing,
+                      beramono,
+                      eulermath,
+                      parts,
+                      dottedtoc,
+                      floatperchapter,
+                     }{classicthesis}
 \fi
 
 
@@ -35,7 +64,7 @@
 
 
 % graphics and floats
-%\usepackage[pdftex]{graphicx} <- do not explicitly use the pdftex option when under lualatex
+
 \usepackage{caption} % figure caption control
 \usepackage{subcaption} % sub figure replacement
 \usepackage{multirow} % tables spanning multiple rows
@@ -48,35 +77,50 @@
 \usepackage{styles/tangocolors}
 
 
-% layout
+
+%\usepackage[toc,acronym,nomain,xindy,sanitize=none]{glossaries}
+
+
 %\usepackage[pdftex,hyperfootnotes=false,pdfpagelabels]{hyperref}
-\usepackage[hyperfootnotes=false,pdfpagelabels=true]{hyperref}
-\hypersetup{pdfencoding=auto}
+\usepackage[pdfencoding=auto,unicode=true,hyperfootnotes=false,pdfpagelabels=true]{hyperref}
+\hypersetup{}
+  \hypersetup{
+      pdfencoding=auto,
+      colorlinks=true,
+      linktocpage=true,
+      breaklinks=true,
+      bookmarksnumbered,
+      bookmarksopen=true,
+      bookmarksopenlevel=1,
+      pdfhighlight=/O,
+      urlcolor=webbrown,
+      linkcolor=RoyalBlue,
+      citecolor=webgreen%,
+      %pdftitle={\@title},
+      %pdfauthor={\@author}}
+      %pdfsubject={\doctype}
+      %
+      }
+
+\usepackage[acronym,toc,section=section]{glossaries}
+\glsdisablehyper   % does not work; but why?
 
 
-\PassOptionsToPackage{eulerchapternumbers,
-                      listings,
-                      pdfspacing,
-                      beramono,
-                      eulermath,
-                      parts,
-                      dottedtoc,
-                      floatperchapter,
-                     }{classicthesis}
 \usepackage{classicthesis} % https://code.google.com/p/classicthesis/
 \usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
-
-
-% convenience
-\usepackage[smaller,nohyperlinks]{acronym} %printonlyused as an option
-
-%\usepackage{fixltx2e} % ?
-%\usepackage{mparhack} % ?
-
 \usepackage{ragged2e} % \raggedright command in dissertation.tex
 \usepackage{textcomp} % extra symbols; used for euro and copyright symbol
 \usepackage{units}
-\usepackage{url}
+
 \usepackage{xspace} % ?
 \usepackage{algorithmic}
 \usepackage{algorithm}
+
+%\usepackage[smaller,nohyperlinks]{acronym} %printonlyused as an option
+
+
+
+%\usepackage{url} % superseeded/autoloaded by hyperref
+%\usepackage[pdftex]{graphicx} <- do not explicitly use the pdftex option when under lualatex
+%\usepackage{fixltx2e} % ?
+%\usepackage{mparhack} % ?

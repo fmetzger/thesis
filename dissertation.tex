@@ -1,4 +1,4 @@
-%!TEX program = lualatex
+%!TEX program = pdflatex
 \documentclass[openright,titlepage,numbers=noenddot,headinclude,footinclude=true,cleardoublepage=empty,BCOR=5mm,paper=A4,fontsize=11pt,twoside]{scrreprt}
 
 %% document theme and structure inspired from http://git.dgsiegel.net/master-thesis.git/
@@ -7,6 +7,9 @@
 \input{components/settings}
 
 \newcommand{\todo}[1]{{\small \color{red} [TODO: #1]}}
+
+\makeglossaries
+\input{components/acronyms}
 
 %% doc
 \begin{document}
@@ -23,12 +26,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% lists
 
+
+
 \newpage
-\pdfbookmark[1]{Acronyms}{Acronyms} %TODO: acronyms bookmark is waaaaay off
-{
-\chapter*{Acronyms}
-\input{components/acronyms}
-}
+%\pdfbookmark[1]{Acronyms}{Acronyms} %TODO: acronyms bookmark is waaaaay off
+% {
+% 	\chapter*{Acronyms}
+	%\glsaddall
+	%\printglossary[type=acronym]
+	%\printglossary
+	\printglossaries
+% }
 
 \newpage
 \pdfbookmark[1]{List of Figures}{List of Figures}
