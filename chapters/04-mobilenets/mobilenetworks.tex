@@ -138,7 +138,7 @@ We also expect the mobile network and its protocol implementations to express th
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{modeling.tex}
+\input{modeling.tex}
 
 
 
@@ -177,3 +177,15 @@ For additional load investigations we also looked at the inter-arrival and proce
 
 We think that this investigation and load modeling can lead to better network planning: Being more aware of the control plane provides the necessary tools to identify probable causes for control plane activity. We would also like to expand our evaluations, as there are several angles not investigated so far that could prove worthwhile. This includes an examination of the exact number and size of signaling messages flowing through the core, a more detailed picture of the processing load these messages induce at the \gls{GGSN}, and an evolved model. Furthermore, a differential analysis of our data compared to a newer dataset (potentially including \gls{LTE} access) could really prove worthwhile.
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% MMB2014 Conclusion Starts here
+In this paper we investigated trade-offs when virtualizing components of the mobile core network.
+
+To this end, we first discussed a novel approach to mobile core network load modeling based on the control plane load at the \gls{GGSN}. The M/G/$c_c$ loss model is based on the currently implemented state of the network architecture and can serve as a baseline reference to plan and dimension one's own mobile network accordingly, not just based on expected user traffic as traditionally. To improve scaling in the future, we proposed a completely new and virtualizable approach to a \gls{GGSN}'s makeup.
+
+Then, we presented random variables to model load in a \gls{GGSN} based on measurement data from the network of a nation-wide mobile service provider and made them available for reuse by other researchers.
+
+Finally, we evaluate the model using a queing simulation. We have shown, that the system's blocking probability is roughly equal to the single-server model but in addition achieves large efficiency gains, even with very simplistic provisioning conditions and very long boot times. The model also has the ability to very easily scale out one's infrastructure by simply adding more small servers, reducing operational overhead. This might even lead to a new GGSN-as-a-Service business models, removing the need to provide and operate large amounts of infrastructure for rare cases of peak load. 
+In the future we would like to deepen our modeling efforts to provide more dimensioning options for a core network. Also, we want to further investigate the correlation of user traffic and signaling and take a look at the implications specific traffic types bring for the core network. 

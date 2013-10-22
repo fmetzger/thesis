@@ -2,124 +2,66 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % packages
 
-% general
-
-
 \usepackage{ifluatex}
 
 \ifluatex
   \usepackage{fontspec}
-
   \usepackage{mathtools}
   \usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
   \usepackage{unicode-math} % fixes math
   \setmathfont{Asana-Math.otf}
-
-  \RequirePackage{scrlfile}
-  \PreventPackageFromLoading{mathpazo}
-
-  \usepackage{polyglossia}
+  \RequirePackage{scrlfile} % provides preventpackagefromloading
+  \PreventPackageFromLoading{mathpazo} % classicthesis loads mathpazo, but this will break math with luatex
+  \usepackage{polyglossia} % babel replacement for use with fontspec
   \setdefaultlanguage{english}
-
-  %\setmainfont{Calibri}
-  \setmonofont{Inconsolatazi4-Regular.otf}
-
-  \PassOptionsToPackage{eulerchapternumbers,
-                      listings,
-                      pdfspacing,
-                      beramono,
-                      parts,
-                      dottedtoc,
-                      floatperchapter,
-                     }{classicthesis}
+  \PassOptionsToPackage{eulerchapternumbers,listings,pdfspacing,beramono,parts,dottedtoc,floatperchapter,}{classicthesis}
 \else
   \usepackage[utf8]{inputenc}                   
   \usepackage[T1]{fontenc}
   \usepackage[american]{babel}
   \usepackage{mathtools} % instead of amsmath; amssymb and amsthm not included
 
-  \PassOptionsToPackage{eulerchapternumbers,
-                      listings,
-                      pdfspacing,
-                      beramono,
-                      eulermath,
-                      parts,
-                      dottedtoc,
-                      floatperchapter,
-                     }{classicthesis}
+  \PassOptionsToPackage{eulerchapternumbers,listings,pdfspacing,beramono,eulermath,parts,dottedtoc,floatperchapter,}{classicthesis}
 \fi
 
 
-%\usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
+\usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
 
 \usepackage{scrhack} % fix komascript floattolist issues
-
-\usepackage[defernumbers=true,style=alphabetic,firstinits=true,backend=biber]{biblatex} % 
+\usepackage[defernumbers=true,style=alphabetic,firstinits=true,backend=biber,doi=true,url=true]{biblatex} % 
 \usepackage{csquotes} % context sensitive quotations; especially for use with biblatex and biber
-
 \usepackage{listings} % ?
 \usepackage[scale=3]{ccicons} % creative commons icons
-
 \usepackage{import} % for subimport and relative directory \includegraphics
-
-
-% graphics and floats
-
 \usepackage{caption} % figure caption control
 \usepackage{subcaption} % sub figure replacement
 \usepackage{multirow} % tables spanning multiple rows
 \usepackage{longtable} %required for tabu with longtabu
 \usepackage{tabu} %supersedes tabularx, provides tables spanning multiple pages
 \usepackage{tikz}
+\usetikzlibrary{arrows}
 \usepackage{marginnote} % ?
 \usepackage{enumitem} % ?
 \usepackage{array} % ?
 \usepackage{styles/tangocolors}
-
-
-
-%\usepackage[toc,acronym,nomain,xindy,sanitize=none]{glossaries}
-
-
 %\usepackage[pdftex,hyperfootnotes=false,pdfpagelabels]{hyperref}
-\usepackage[pdfencoding=auto,unicode=true,hyperfootnotes=false,pdfpagelabels=true]{hyperref}
-\hypersetup{}
-  \hypersetup{
-      pdfencoding=auto,
-      colorlinks=true,
-      linktocpage=true,
-      breaklinks=true,
-      bookmarksnumbered,
-      bookmarksopen=true,
-      bookmarksopenlevel=1,
-      pdfhighlight=/O,
-      urlcolor=webbrown,
-      linkcolor=RoyalBlue,
-      citecolor=webgreen%,
-      %pdftitle={\@title},
-      %pdfauthor={\@author}}
-      %pdfsubject={\doctype}
-      %
-      }
+\usepackage[pdfencoding=auto, unicode=true, hyperfootnotes=false, pdfpagelabels=true]{hyperref}
+\hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen%,%pdftitle={\@title},%pdfauthor={\@author}}%pdfsubject={\doctype}
+}
 
 \usepackage[acronym,toc,section=section]{glossaries}
-\glsdisablehyper   % does not work; but why?
-
+\glsdisablehyper   % hyperlinks do not work with glossaries; but why?
 
 \usepackage{classicthesis} % https://code.google.com/p/classicthesis/
 \usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
 \usepackage{ragged2e} % \raggedright command in dissertation.tex
 \usepackage{textcomp} % extra symbols; used for euro and copyright symbol
-\usepackage{units}
-
+\usepackage{units} % typeset physical units
 \usepackage{xspace} % ?
 \usepackage{algorithmic}
 \usepackage{algorithm}
 
 %\usepackage[smaller,nohyperlinks]{acronym} %printonlyused as an option
-
-
-
 %\usepackage{url} % superseeded/autoloaded by hyperref
 %\usepackage[pdftex]{graphicx} <- do not explicitly use the pdftex option when under lualatex
 %\usepackage{fixltx2e} % ?

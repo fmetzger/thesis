@@ -68,6 +68,21 @@ The \gls{METAWIN}-recorded dataset used in our evaluation is a week-long trace f
 
 We fed the records into a SQL database, and conducted further evaluations through scripted queries on the database. Any privacy-relevant data, e.g. the \gls{IMEI}, \gls{MS-ID} and any IP address involved, is only visible as hashes and is processed in a privacy-preserving manner.  Since the hashing of the \gls{IMEI} is consistent throughout the dataset, user traffic flows and the \gls{GTP} data can be cross-correlated despite anonymization, giving the opportunity for further research.
 
+%\section{The Data}
+%\label{sec:dataset}
+%TODO
+In order to evaluate our models, we use data gathered from a nation-wide mobile operator. This allows for precise core network evaluations and the creation statistical fits for the observed processes.
+In this section we first describe the dataset used for the evaluation and afterwards we derive the random variables required for our models.
+
+%\subsection{Dataset Description}
+%\label{sec:dataset_description}
+
+All data was collected by the \gls{METAWIN} monitoring system \cite{ricciato_2011} with measurement probes located at the Gn interface within the core network, enabling broad access to signaling. For this investigation we exclusively use \gls{GTP} protocol data gathered by \gls{METAWIN}. This includes the \gls{RAT} identifier as well as the terminal types of the mobile clients, by use of the \gls{TAC} part of the \gls{IMEI}. % \cite{etsi_3gpp_2008} for GTP on Gn
+To meet privacy requirements, \gls{METAWIN} anonymizes all captured data. The application-level payload is removed and all user identifiers are hashed with one-way functions before recording. Individual \glspl{MS} in our dataset can be differentiated by the hashed \gls{MS-ID}, but not traced back to the actual user.
+
+The dataset used in our evaluation is a week-long trace from the third week of April 2011. It consists of $2.2$ billion aggregated flows for the user traffic and $410$ million \gls{GTP} Tunnel Management transactions. It was tapped at one of the \glspl{GGSN} of the operator, and contains about half of the total traffic volume handled by the operator in this period.
+%The records were stored in a SQL database, with most of the statistical evaluation conducted using R.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Device Identification \& Classification}
