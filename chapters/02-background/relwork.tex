@@ -28,7 +28,7 @@ In \cite{pv2010qoe}, the authors present a quality-assessment model for video st
 A metric termed ``application comfort'' is calculated from YouTube videos in \cite{staehle2010yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
 
 Whereas these focused on the architectural setup they do not investigate the client's role and the resulting quality of the video streaming process in this. 
-Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measmmmquality} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model.
+Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measuring} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model.
 
 
 \subsection{Mobile Network Measurement Related Work}
@@ -50,7 +50,7 @@ The dynamics behind such events are already under investigation by several publi
 In \cite{lee2007detection}, mobile network traces are used to simulate a malicious signaling storm by transmitting low-volume user plane traffic with inter-departure times slightly larger than the transition timers in the \gls{RRC} state machines. This constantly causes signaling to occur. The authors propose tools to detect this, and discuss a possible scale of this type of denial-of-service attack.
 
  
-Wang et al.\cite{wang2011untold} developed NetPiculet to probe mobile networks for middle boxes that alter traffic and affect performance, e.g. NAT, firewalls, or non-transparent proxies. Such nodes were present in a large portion of the investigated networks, increasing device power usage and download durations while providing themselves a surface for certain attacks.
+Wang et al.\cite{sigcomm11middleboxes} developed NetPiculet to probe mobile networks for middle boxes that alter traffic and affect performance, e.g. NAT, firewalls, or non-transparent proxies. Such nodes were present in a large portion of the investigated networks, increasing device power usage and download durations while providing themselves a surface for certain attacks.
 
 Looking at the transition of \gls{RRC} states, which is briefly explained in Sec. TODO, we find in \cite{5360763} some simple albeit effective application layer methods at the mobile device to investigate these transitions. This is further enhanced by research from Schwartz et al.\cite{schwartz2013angrybirds} using this technique to analyze the radio signaling load and thus power efficiency from different applications including the aforementioned
 
@@ -105,6 +105,7 @@ Having access to core network datasets, the authors of \cite{shafiq2011character
 \item Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
 
 
+
 \item The Master Switch: The Rise and Fall of Information Empires \cite{wu2010master}
 \item Network neutrality, broadband discrimination \cite{wu2003network}
 \item Simulating LTE Cellular Systems: An Open-Source Framework \cite{5634134}
@@ -116,4 +117,60 @@ Having access to core network datasets, the authors of \cite{shafiq2011character
 \item Adaptive streaming: The network HAS to help \cite{BLTJ:BLTJ20505}
 \item Watching Video over the Web, Part II: Applications, Standardization and Open Issues \cite{watching-video2}
 \item Discovering Parameter Setting in 3G Networks via Active Measurements \cite{4640935}
+
+%% Mostly traffic modeling stuff
+\item Controlling Queue Delay; Van Jacobson \cite{Nichols:2012:CQD:2209249.2209264}
+\item A first look at cellular machine-to-machine traffic: large scale measurement and characterization \cite{Shafiq:2012:FLC:2254756.2254767}
+\item Comparative Performance Study of LTE Downlink Schedulers \cite{biernacki2013ltescheduler}
+\item Tracking Down Skype Traffic \cite{4509656}
+\item The New Web: Characterizing AJAX Traffic \cite{characterizeajax2008}
+\item Measuring Internet user traffic behavior dependent on access speed \cite{vicari1999measuring}
+\item Measurement and modeling of WWW-sessions \cite{vicari1997measurement}
+\item Empirically derived analytic models of wide-area TCP connections \cite{Paxson:1994:EDA:189520.189525}
+\item Wide area traffic: the failure of Poisson modeling \cite{Paxson:1995:WAT:208389.208390}
+\item Source traffic modeling of wireless applications \cite{staehle2000source}
+\item A behavioral model of Web traffic \cite{801961}
+\item Generating representative Web workloads for network and server performance evaluation \cite{Barford:1998:GRW:277851.277897}
+\item Traffic analysis at short time-scales: an empirical case study from a 3G cellular network \cite{4570772}
+\item Testing the IQX hypothesis for exponential interdependency between QoS and QoE of voice codecs iLBC and G. 711 \cite{hossfeld2008testing}
+\item On the Role of Flows and Sessions in Internet Traffic Modeling: An Explorative Toy-Model \cite{5425847}
+\item Traffic modeling and characterization for UMTS networks \cite{965876}
+
+%% multimedia
+\item Aquarema in action: Improving the YouTube QoE in wireless mesh networks \cite{5733220}
+\item Transport Protocol Influences on YouTube QoE \cite{report2011-258}
+\item FoG and Clouds: Optimizing QoE for YouTube \cite{hossfeld2011fog}
+\item Quality of experience estimation for adaptive HTTP/TCP video streaming using H.264/AVC \cite{6181070}
+\item Dynamic adaptive streaming over HTTP --: standards and design principles \cite{Stockhammer:2011:DAS:1943552.1943572}
+\item Non Bandwidth-intrusive Video Streaming over TCP \cite{5945211}
+\item Modeling Network Protocol Overhead for Video \cite{5703713}
+\item Over the top video: the gorilla in cellular networks \cite{Erman:2011:OTV:2068816.2068829}
+\item Feedback control for adaptive live video streaming \cite{DeCicco:2011:FCA:1943552.1943573}
+\item Passive YouTube QoE Monitoring for ISPs \cite{6296879}
+\item Quantification of YouTube QoE via Crowdsourcing \cite{6123395}
+\item Initial delay vs. interruptions: Between the devil and the deep blue sea \cite{6263849}
+\item Network characteristics of video streaming traffic \cite{Rao:2011:NCV:2079296.2079321}
+\item An Experimental Investigation of the Akamai Adaptive Video Streaming \cite{cicco2010akamai}
+\item Drafting behind Akamai (travelocity-based detouring) \cite{Su:2006:DBA:1159913.1159962}
+\item Internet inter-domain traffic \cite{Labovitz:2010:IIT:2043164.1851194}
+\item What DNS is not. \cite{vixie2009dns}
+
+%%
+\item HTTP as the narrow waist of the future internet \cite{Popa:2010:HNW:1868447.1868453}
+\item The evolution of layered protocol stacks leads to an hourglass-shaped architecture \cite{akhshabi2011evolution}
+
+%%
+\item Study on non-MTC mobile data applications impacts \cite{3gpp.22.801}
+\item The end of the end-to-end argument? \cite{reed2000end}
+
+\item Statistical inference for exploratory data analysis and model diagnostics \cite{Buja13112009}
+
+\item Where in the Internet is congestion? \cite{genin2013internet}
+
+\item TaintDroid: An Information-Flow Tracking System for Realtime Privacy Monitoring on Smartphones. \cite{enck2010taintdroid}
+\item An evaluation of dynamic adaptive streaming over HTTP in vehicular environments \cite{Muller:2012:EDA:2151677.2151686}
+
+\item Two parallel approaches to network data analysis \cite{baer2011two}
+\item Confused, timid, and unstable: picking a video streaming rate is hard \cite{Huang:2012:CTU:2398776.2398800}
+
 \end{itemize}
