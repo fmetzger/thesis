@@ -16,12 +16,16 @@
 \item --> end-to-end violations: ECN? only signaling, decision is e2e, same category as indirect TCP congestion control signaling (through loss) from the network; NAT, Firewalls?
 \item content agnosticism: we do not know what applications the future will bring, so we do not make any assumptions
 \item HTTP; ``The Web adopts relatively simple technologies with sufficient scalability efficiency and utility'' \cite{W3Arch}
-\item Why HTTP streaming? Generalization of HTTP streaming (reliable transport, control shift to the client); Less control, more effective; Why global QoS control doesn't work
-\item LTE, EPC, Core network tunneling concepts, bottlenecks in the access and the core, LTE network model
+\item Why HTTP streaming? Generalization of HTTP streaming (reliable transport, control shift to the client); Less control, more effective; Why global \gls{QoS} control doesn't work
+\item \gls{LTE}, \gls{EPC}, Core network tunneling concepts, bottlenecks in the access and the core, \gls{LTE} network model
 \item Improvements to congestion control for mobile streaming
 \item Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...) ; what works better with it? compare, model and measure
-\item QoE metrics, MOS, stalling time and buffering models, subjective and objective testing
+\item \gls{QoE} metrics, \gls{MOS}, stalling time and buffering models, subjective and objective testing
 \item http://www.ipjforum.org/?p=926 Vint Cerf looking forward
+
+\item Data-mining of network trace data from mobile networks.
+\item Investigation of mobility awareness and prediction techniques ("unassisted mobility")
+
 \end{itemize}
 
 %% new thesis stuff
@@ -91,13 +95,42 @@ This presents us with the second task of this thesis.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Research Methods and Approaches}
+
+As is the case with any scientific endeavor, this work is based on a specific set of tools and knowledge of many years of prior research. Measuring, evaluating and modeling is standard practice in many fields. Therefore, many tools  are available to tackle problems, but one still has to choose the most fitting ones for a given problem.
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/apparatus-new.pdf}
+    \caption{Methodical solution spaces and apparatus comparison.}
+    \label{c1:fig:appcomp}
+\end{figure}
+
+Figure~\ref{c1:fig:appcomp} attempts to categorize all tools available to a performance analyst, with their corresponding level of detail and abstraction.
+
+The most precise results will always be achieved through actual measurements of the actual system under scrutiny. This will give a point of reference and can be used to validate the accuracy of other methods. But it also comes with a hefty price of huge amounts of data to process and understand. With such measurements at hand, one can now start to make sense of this data and extract the relevant features observed in this process.
+
+Aside from measurements on implementations there are three further possible approaches to widen the scope: emulation, simulation, and mathematical analysis or analytical models.  An emulation tries to resemble implemented functionality as closely as possible with the cost of high complexity. While there are many forms of emulation, relevant to our research interests is just the so-called network emulator. Instead of having a real network, parts of it are substituted with emulating hardware or software that treats transmissions according to properties from the actual network. Most typically these properties are the transmission bandwidth, loss, and latency (and variation over time thereof).
+But emulations always just replace parts of the actual system and therefore its capability to scale is limited.
+
+This is where simulations come into play, implementing all internal and external functionality, including the physical nodes and the network in software. A typical \gls{DES} can have subtle functional differences but can be scaled almost indefinitely limited only by the available processing time. 
+
+Prior to any simulation or emulation and following every measurement on a system is of course the mathematical analysis of existing data. Through this models are built abstracting the system the data is gathered from. With every iteration the model can be refined and new hypotheses formed.
+A mathematical analysis, for example using queuing theory and stochastic models, can then further broaden the understanding of the system.
+
+
+\todo{mention here? Application of queuing theory, modeling the system through arrival processes, service time distributions and a number of servers and waiting places.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines of Research and Goals}
 
-This thesis will follow in most parts two mostly independent lines of research.
+With these tools at hand, this thesis will follow in most parts two mostly independent lines of research.
 
 The first line will be a thorough investigation of current video streaming mechanisms and services facilitating them. All of the investigated streaming ``protocols'' are comparatively young and similar. 
 
-Protocol is put in parenthesis for a reason here. Many of the approaches are not protocols in the classical sense. They do not follow a specification of any standards body, be it \gls{ISO}, \gls{ITU} or the \gls{IETF}. Neither do they show much distinction in the way the use the network and transport video as they simply rely on normal Web protocols. Rather, much of their differences stems just from the behavior of the actual application. The way how it requests and retrieve the data and displays the video, including its reaction to unwanted events, e.g. having insufficient data in the playback buffer. 
+Protocol is put in parentheses for a reason here. Many of the approaches are not protocols in the classical sense. They do not follow a specification of any standards body, be it \gls{ISO}, \gls{ITU} or the \gls{IETF}. Neither do they show much distinction in the way the use the network and transport video as they simply rely on normal Web protocols. Rather, much of their differences stems just from the behavior of the actual application. The way how it requests and retrieve the data and displays the video, including its reaction to unwanted events, e.g. having insufficient data in the playback buffer. 
 Surprisingly, even just with these rather simple rules, applications can still distinguish themselves from one another. Making the right decisions to events can greatly influence the quality of the video playback. 
 
 During the investigation we created a model describing all the common elements in the streaming process. With such a model at hand and in knowledge of the structure and similarities of the applications, one can do many things. Through a performance analysis they can be compared to each other. Interrelations to the network's transport layer and other influences of the network on streaming could be uncovered. This especially includes mobile networks where many assumptions made for wired networks do not hold anymore. One quick example is the circumstance, that the network layer and all layers above generally do not experience any packet loss in a cellular network. Any loss is treated by the mobile layers, albeit with other side effects on the upper layers. For example, they will experience intermittent times of extremely high latency.
@@ -119,79 +152,18 @@ Measuring mobile networks is always rather complicated, with a vast number of va
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Research Methods and Approaches}
+\section{Main Contributions and Structure}
 
-As is the case with any scientific endeavor, this work is based on a specific set of tools and knowledge of many years of prior research.
+Following these research lines, several contributions are made. \todo{present contributions}
 
+To introduce to the video streaming investigations, covered in Chapter~\ref{chap:streaming}, at first the protocols and techniques, that have been used in the past, will be described in Section~\ref{c3:background}. This then leads, to a broad survey of current protocols. A subset of them will serve as the basis for the presented \gls{TCP} streaming model. Furthermore, to be able to work with the model, an evaluation metric is required, which needs to be select from a choice of several available ones. 
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/apparatus-new.pdf}
-    \caption{Methodical solution spaces and apparatus comparison.}
-    \label{c1:fig:appcomp}
-\end{figure}
+The tackled protocols, systems, and mechanisms are described in Section X. Section Y details the methods that are and are planned to be used for the research. The final section gives a rough estimation on the thesis' schedule.
 
 %% <-- %% WIP
 
 
-
-As discussed, the core problems are layered into services and transport. Technologically, to solve the tasks of video streaming, one can approach these  in three different ways.
-
-The first is to dissect the involved protocols and architectures and break them down into their functional and methodical components. This will result in an improved understanding on the manner and process of their implementation. These components serve as building blocks for generalized models that abstracts the problem space from the actual implementation. The model will be defined by a set of parameters. To explore viable parameter ranges performance evaluation methods will be facilitated.
-
-
-Secondly, using performance evaluation a system is methodically tested to the outcome of determining the influence of the system's parameters on a set of performance metrics. The parameters can be categorized into system intrinsic parameters, describing behavior only relevant and observable inside the system, and external parameters. In communication networks a good example for external parameters are the network Quality of Service parameters including latency, loss, jitter, and bandwidth capacity. Identifying fitting metrics for the measurement is a challenge. They can be either subjective or objective. The former are called Quality of Experience (QoE) metrics. They can only be measured by conducting empirical user studies and questionnaires and are mapped to a Mean Opinion Score (MOS). Extensive work has already been done to define baseline references for QoE metrics. Using these, one can directly translate objectively measurable outcomes into QoE metrics. However, these mappings may need to be adjusted to be able to handle stalling as the main source of quality loss. Examples for measuring subjective quality are available in \cite{gustafsson2008measuring, ketyko2010qoe}. 
-Finally, one could employ methods of self-organization to try to reach improvements over conventional network setups.
-
-
-%\subsection{Apparatus for System Analyses and Comparison}
-
-
-
-Depicted in Figure \ref{c1:fig:appcomp} are levels of abstraction involved in system analysis and possible approaches to understand the system involved.
-
-The upper limit for precision is achieved through actual measurements of the system itself. These give a point of reference and can be used to validate all other methods. However, this is not feasible to ascertain a larger view. The time frame or the physical size of the system is always limited.
-
-Aside from measurements on implementations there are three further possible approaches which can widen the scope: emulation, simulation and mathematical analysis. 
-Emulation tries to resemble implemented functionality as closely as possible while reducing the non-important parts to a minimum. Measurements using emulations can run in a normal network environment testbed and thus can only be done on a scale equivalent to implementations. The simulative approach implements all internal and external functionality, including the physical nodes and the network, in a discrete event simulation (DES). There may be subtle functional differences between a simulation and a real implementation. Therefore, validation is required. This approach benefits from the decoupling of the simulation from physical nodes as well as real time, allowing to measure large-scale networks in a short amount of time.
-A mathematical analysis, for example using queuing theory and stochastic models, can then further broaden the understanding of the system.
-
-
-The methods can all be used to define and explore solution spaces and are therefore important tools in understanding the problem. A fitting combination of these tools has to be found to advance the research. Our initial approach is to investigate existing streaming services, YouTube \cite{metzger2011delivery,mokmeasuring} and, e.g., video libraries of broadcast stations for simple HTTP streaming. A suitable candidate for measuring adaptive streaming still needs to be found as some candidate services apply regional restrictions. There are several reference applications available that implement different standardization approaches. These can be used to either directly measure the performance or to setup an emulation model based on their specifications.
-
-
-%\subsection{Further Approaches}
-Further approaches which are under consideration, but will not be presented in detail here, are:
-
-\begin{itemize}
-\item Application of analytic and stochastic methods.
-\item Creation of equivalent models.
-\item Application of queuing theory, modeling the system through arrival processes, service time distributions and a number of servers and waiting places.
-\item Data-mining of network trace data from mobile networks.
-
-\item Mobile networks
- \begin{itemize}
-   \item Loss Hiding and conflict with congestion control mechanisms
-   \item Shared media access, streaming with bandwidth/delay variations
-   \item Mobility issues
-     \begin{itemize}
-       \item Mobility as a delay and loss source and its influence
-       \item Investigation of mobility awareness and prediction techniques ("unassisted mobility")
-     \end{itemize}
- \end{itemize}
-
-\end{itemize}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Structure}
-
-This thesis is structured as follows.
-
-The tackled protocols, systems, and mechanisms are described in Section X. Section Y details the methods that are and are planned to be used for the research. The final section gives a rough estimation on the thesis' schedule.
-
+%The methods can all be used to define and explore solution spaces and are therefore important tools in understanding the problem. A fitting combination of these tools has to be found to advance the research. Our initial approach is to investigate existing streaming services, YouTube \cite{metzger2011delivery,mokmeasuring} and, e.g., video libraries of broadcast stations for simple HTTP streaming. A suitable candidate for measuring adaptive streaming still needs to be found as some candidate services apply regional restrictions. There are several reference applications available that implement different standardization approaches. These can be used to either directly measure the performance or to setup an emulation model based on their specifications.
 
 
 % \begin{figure}[htbp]
@@ -202,3 +174,10 @@ The tackled protocols, systems, and mechanisms are described in Section X. Secti
 % \end{figure}
 
 %This can put pressure on the overly complex cellular network structures. The radio transmissions have only access to a limited radio frequency spectrum that, moreover, has to be shared with any other phone user in the same cell. But there is also deemed to be significant pressure on the traffic management mechanisms of the mobile core networks backing up and aggregating the numerous radio cells of an operator. 
+
+
+%As discussed, the core problems are layered into services and transport. Technologically, to solve the tasks of video streaming, one can approach these  in three different ways.
+
+%The first is to dissect the involved protocols and architectures and break them down into their functional and methodical components. This will result in an improved understanding on the manner and process of their implementation. These components serve as building blocks for generalized models that abstracts the problem space from the actual implementation. The model will be defined by a set of parameters. To explore viable parameter ranges performance evaluation methods will be facilitated.
+
+%Secondly, using performance evaluation a system is methodically tested to the outcome of determining the influence of the system's parameters on a set of performance metrics. The parameters can be categorized into system intrinsic parameters, describing behavior only relevant and observable inside the system, and external parameters. In communication networks a good example for external parameters are the network \gls{QoS} parameters including latency, loss, jitter, and bandwidth capacity. Identifying fitting metrics for the measurement is a challenge. They can be either subjective or objective. The former are called \gls{QoE} metrics. They can only be measured by conducting empirical user studies and questionnaires and are mapped to a \gls{MOS}. Extensive work has already been done to define baseline references for QoE metrics. Using these, one can directly translate objectively measurable outcomes into \gls{QoE} metrics. However, these mappings may need to be adjusted to be able to handle stalling as the main source of quality loss. Examples for measuring subjective quality are available in \cite{gustafsson2008measuring, ketyko2010qoe}. Finally, one could employ methods of self-organization to try to reach improvements over conventional network setups.
