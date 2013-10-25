@@ -9,6 +9,25 @@
 
 \newcommand{\todo}[1]{{\small \color{red} [TODO: #1]}}
 
+\makeatletter
+\providecommand\phantomsection{}% for hyperref
+\newcommand\listofillustrations{%
+	\begingroup
+		\let\clearpage\relax
+		\let\cleardoublepage\relax
+		\let\cleardoublepage\relax
+	    \chapter*{Figures}%
+	    \phantomsection
+	    \addcontentsline{toc}{chapter}{\protect\numberline{}Figures}%
+	    \@starttoc{lof}%
+	    \bigskip
+	    \chapter*{Tables}%
+	    \phantomsection
+	    \addcontentsline{toc}{chapter}{\protect\numberline{}Tables}%
+	    \@starttoc{lot}
+    \endgroup}
+\makeatother
+
 %% doc
 \begin{document}
 
@@ -20,38 +39,34 @@
 %% TOC
 \newpage
 \pagenumbering{roman}
+\phantomsection
+\addcontentsline{toc}{chapter}{\protect\numberline{}Contents}
 \tableofcontents
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% lists
-
-
+\newpage
+\listofillustrations
 
 \newpage
-%\pdfbookmark[1]{Acronyms}{Acronyms} %TODO: acronyms bookmark is waaaaay off
-% {
-% 	\chapter*{Acronyms}
-\glsaddall
-\printglossaries
-% }
+\begingroup
+	\let\clearpage\relax
+	\let\cleardoublepage\relax
+	\let\cleardoublepage\relax
+	\glsaddall
+	\printglossaries
+\endgroup
 
-\newpage
-\pdfbookmark[1]{List of Figures}{List of Figures}
-\listoffigures
-
-\newpage
-\pdfbookmark[1]{List of Tables}{List of Tables}
-\listoftables
-
-\cleardoublepage
+\newpage % or \cleardoublepage
 \include{components/quote}
 
-\cleardoublepage
+\newpage % or \cleardoublepage
 \include{components/abstract}
 
 \newtheorem{mydef}{Definition}
-\cleardoublepage
+\newpage % or \cleardoublepage
 \chapter*{Acknowledgments}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cleardoublepage
 \pagenumbering{arabic}
 

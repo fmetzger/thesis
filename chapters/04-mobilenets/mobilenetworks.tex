@@ -10,8 +10,8 @@ This chapter is structured as follows.
 \begin{itemize}
 \item Technical Background. Standard Organisations. Network Architecture. Protocol Details.
 \item Dataset Description. Methodology.
-\item Evaluations. Dataset Analysis. Statistics. Traffic Characteristics. How does that user traffic fit in?
 \item Definition of Load etc
+\item Evaluations. Dataset Analysis. Statistics. Traffic Characteristics. How does that user traffic fit in?
 \item Fitting, Modeling and Simulation
 \item Summary
 \end{itemize}
@@ -68,6 +68,7 @@ Our measurement data backs up a number of straightforward assumptions on the beh
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background}
+\label{c4:background}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Standards and Standards Bodies}
@@ -96,14 +97,10 @@ Conclude, that this pretty much hinders and closes any competitive market and in
 \input{methodology.tex}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{evaluations.tex}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Defining Core Network Load}
-\label{c4:sec:loaddefinition}
+\section{A New Definition for Mobile Core Network Load}
+\label{c4:loaddefinition}
 
 Before beginning the evaluation, the primary question driving this investigation was: ``How can load in a core network be defined and measured?'' A summary of our thoughts to this question follows here.
 
@@ -134,6 +131,10 @@ Easier to observe are the temporal effects of user behavior, which do not target
 
 We also expect the mobile network and its protocol implementations to express themselves in the measurements. For example, the \gls{RRC} idle timer is typically in the range of 10 to 30 minutes, which could mean there will be a large number of tunnels with a duration in this range. Such choices are usually made either by the mobile network operator or the device manufacturer and can vary from one implementation to another. It is therefore quite difficult to give any hard numbers in advance, and one has to correlate such aspects with certain events in the results.
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{evaluations.tex}
 
 
 
