@@ -4,8 +4,7 @@
 \label{chap:relatedwork}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Historical Background}
 
@@ -47,42 +46,6 @@
 \item Testing the IQX hypothesis for exponential interdependency between QoS and QoE of voice codecs iLBC and G. 711 \cite{hossfeld2008testing}
 \item On the Role of Flows and Sessions in Internet Traffic Modeling: An Explorative Toy-Model \cite{5425847}
 \end{itemize}
-
-
-\subsection{Services in the Internet}
-
-\subsubsection{Video Streaming}
-
-\subsection{Streaming and Other Transmission Approaches}
-History, correlation to external developments (codecs, access bandwidths), techniques
-
-observe existing systems, e.g. YouTube \cite{metzger2011delivery}
-
-\subsubsection{Mechanisms}
-RTP, HTTP, adaptivity and reliability, application layer flow control, push and pull, fairness, segmentation
-\subsubsection{Quality Estimation and Modeling}
-QoE metrics, MOS, stalling time and buffering models, subjective and objective testing
-
-
-Cloud gaming as a media streaming application with strong real-time requirements \cite{4795441,wang2009modeling,jarschel2011cloudevaluation,ct2010wolken}
-
-
-
-\subsection{Current and Future Transport Developments}
-
-\begin{itemize}
-\item Improvements to congestion control for mobile streaming
-\item Alternative modes of transport (e.g. DCCP, ECN, ReECN, RED, Google's SPDY or new approaches)
-\item Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...) %; what works better with it? compare, model and measure
-
-\end{itemize}
-
-
-TCP modifications for short-lived connections (e.g. initially ignore congestion avoidance and push a lot of data at once (google.com approach, Increasing TCP's Initial Window)) 
-IW10: better response time, still fair
-Link page: http://code.google.com/speed/protocols/tcpm-IW10.html
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{stat-queuing.tex}
