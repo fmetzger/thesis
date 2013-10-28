@@ -26,10 +26,10 @@ Video streaming needs to cope with all of these circumstances and still work wel
 The presented method rather aims to evaluate the performance by capturing generic behavioral patterns of streaming mechanisms from the perspective of a streaming application. Specifically, the model is based on the level of the playback buffer, which is a common attribute to any media playback.
 Thus, it can consider any network and playback behavior, and maintains flexibility with regards to the actual streaming server implementation, type of transmission network, protocol stack, and codec.
 
-After defining an appropriate performance metric, this model is implemented in a network emulation testbed. A measurement campaign on YouTube is then conducted while the network is being subjected to emulated \gls{QoS} parameters.
+After defining an appropriate performance metric, this model is implemented in a network emulation testbed. A measurement campaign on YouTube is then conducted while the network is being subjected to emulated \gls{QoS} parameters (compare also our with publications \cite{metzger2011delivery} and \cite{6229739}).
 
-%% <-- %% WIP
 
+%observe existing systems, e.g. YouTube \cite{metzger2011delivery}
 
 %This paper investigates how Web-based media delivery works in general, and how meaningful measurement of its streaming quality can be achieved with future network developments and degraded network parameters in mind.
 %Our model reports perceivable artifacts of buffer underruns, e.g. skips or stalls, which could then be fed into a QoE model to yield actual user QoE values.
@@ -46,6 +46,7 @@ After defining an appropriate performance metric, this model is implemented in a
 \section{Metrics for Reliable Transport Streaming}
 \label{c3:metrics}
 
+Quality Estimation and Modeling: QoE metrics, MOS, stalling time and buffering models, subjective and objective testing
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Unreliable Streaming Metrics}
