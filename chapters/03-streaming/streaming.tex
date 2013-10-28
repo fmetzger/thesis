@@ -3,8 +3,6 @@
 \chapter{Video Streaming Techniques}
 \label{chap:streaming}
 
-This chapter is structured as follows.
-
 \begin{itemize}
 \item Introduction. Streaming, Popularity. Chapter Intention.
 \item Technical Background. Reliable and Unreliable Streaming. Realtime and Stored Streaming.
@@ -14,6 +12,57 @@ This chapter is structured as follows.
 \item Streaming Measurements
 \item Summary
 \end{itemize}
+
+%Web-based video streaming in general
+
+%Web, Flash, HTML5
+  
+%relevance for mobile and future Internet
+
+%Drawbacks (no streaming, scaling, signaling, etc)
+
+%Internet Load and Video delivery performing with load
+  
+%Example of YouTube
+
+%Recent changes in the architecture after YouTube was acquired by Google
+
+%applicable quality metrics (normal metrics don't apply, no video quality scaling, observable only initial buffering time, stalls during playback, number, length, frequency thereof)
+
+%streaming-buffering-playback model creation
+
+%Why model at all?
+%Understand the problem and dissect it / break it down to its elemental components
+%Find similar problems/models, extend the model for other problems
+
+%Overview on the models:
+%  Generic HTML5 model:
+%  "automatically begin playback of the media resource as soon as it can do so without stopping"
+
+%  Firefox model:
+%   Buffer 30 seconds of media time or do so at least for 30 seconds
+%   If download bitrate greater than media bitrate then start playing immediately.
+%   Exceptions apply for special cases.
+    
+%  Flash model:
+%    Buffer at least two seconds of the media resource before starting to play. If the player has filled the 2 second buffer, the buffer size increases by another two seconds and buffering (while already playing) continues. If the buffer runs out any time during the playback the player buffers at least five seconds of the media resource before continuing.
+  
+%  We implemented a source model which tries to resemble these applications. We based our work on the HTML5 model as it was the simplest yet still effective, delaying the start of the playback until it can be consumed in one pass.
+  
+%[general observations, YouTube rate limiting, correlation to media bit-rate]
+  
+
+%[network emulation setup, degraded network quality of service parameters (netem Aufbau, delay und loss serien bei bw-begrenzung)]
+
+%[visualization and results (does yt still work well with high delay/loss?)]
+
+%[performance evaluation (BWs, played vs received data)]
+
+
+%Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
+
+
+%These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.
 
 
 %%% FITCE intro
@@ -107,58 +156,10 @@ The purpose of this model and its evaluations is manifold. It could lead to prot
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Web-based video streaming in general
 
-%Web, Flash, HTML5
-  
-%relevance for mobile and future Internet
-
-%Drawbacks (no streaming, scaling, signaling, etc)
-
-%Internet Load and Video delivery performing with load
-  
-%Example of YouTube
-
-%Recent changes in the architecture after YouTube was acquired by Google
-
-%applicable quality metrics (normal metrics don't apply, no video quality scaling, observable only initial buffering time, stalls during playback, number, length, frequency thereof)
-
-%streaming-buffering-playback model creation
-
-%Why model at all?
-%Understand the problem and dissect it / break it down to its elemental components
-%Find similar problems/models, extend the model for other problems
 
 Quantification of quality of experience for edge-based applications\cite{hossfeld2007quantification}
 
   
-%Overview on the models:
-%  Generic HTML5 model:
-%  "automatically begin playback of the media resource as soon as it can do so without stopping"
-
-%  Firefox model:
-%   Buffer 30 seconds of media time or do so at least for 30 seconds
-%   If download bitrate greater than media bitrate then start playing immediately.
-%   Exceptions apply for special cases.
-    
-%  Flash model:
-%    Buffer at least two seconds of the media resource before starting to play. If the player has filled the 2 second buffer, the buffer size increases by another two seconds and buffering (while already playing) continues. If the buffer runs out any time during the playback the player buffers at least five seconds of the media resource before continuing.
-  
-%  We implemented a source model which tries to resemble these applications. We based our work on the HTML5 model as it was the simplest yet still effective, delaying the start of the playback until it can be consumed in one pass.
-  
-%[general observations, YouTube rate limiting, correlation to media bit-rate]
-  
-
-%[network emulation setup, degraded network quality of service parameters (netem Aufbau, delay und loss serien bei bw-begrenzung)]
-
-%[visualization and results (does yt still work well with high delay/loss?)]
-
-%[performance evaluation (BWs, played vs received data)]
-
-
-%Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
-
-
-%These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.
 
 

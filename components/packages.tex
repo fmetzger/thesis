@@ -14,16 +14,15 @@
   \PreventPackageFromLoading{mathpazo} % classicthesis loads mathpazo, but this will break math with luatex
   \usepackage{polyglossia} % babel replacement for use with fontspec
   \setdefaultlanguage{english}
-  \PassOptionsToPackage{eulerchapternumbers,listings,pdfspacing,beramono,parts,dottedtoc,floatperchapter,}{classicthesis}
+  \PassOptionsToPackage{eulerchapternumbers,listings,pdfspacing,beramono,parts,dottedtoc,floatperchapter,linedheaders}{classicthesis}
 \else
   \usepackage[utf8]{inputenc}                   
   \usepackage[T1]{fontenc}
   \usepackage[american]{babel}
   \usepackage{mathtools} % instead of amsmath; amssymb and amsthm not included
 
-  \PassOptionsToPackage{eulerchapternumbers,listings,pdfspacing,beramono,eulermath,parts,dottedtoc,floatperchapter,}{classicthesis}
+  \PassOptionsToPackage{eulerchapternumbers,listings,pdfspacing,beramono,eulermath,parts,dottedtoc,floatperchapter}{classicthesis}
 \fi
-
 
 \usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
 
@@ -60,9 +59,3 @@
 \usepackage{xspace} % ?
 \usepackage{algorithmic}
 \usepackage{algorithm}
-
-%\usepackage[smaller,nohyperlinks]{acronym} %printonlyused as an option
-%\usepackage{url} % superseeded/autoloaded by hyperref
-%\usepackage[pdftex]{graphicx} <- do not explicitly use the pdftex option when under lualatex
-%\usepackage{fixltx2e} % ?
-%\usepackage{mparhack} % ?

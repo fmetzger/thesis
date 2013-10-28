@@ -35,8 +35,7 @@
 \ofoot{\pagemark}
 
 
-%%% bibliography
-%\bibliography{bibliography/literature}
+
 \addbibresource{bibliography/literature.bib}
 \addbibresource{bibliography/rfc.bib}
 \addbibresource{bibliography/3gpp.bib}
@@ -74,5 +73,8 @@
 \setlength{\cftbeforechapskip}{0.3em}
 \setlength{\cftbeforesecskip}{0.1em}
 
-%%% classicthesis
-%\renewcommand{\bflabel}[1]{{#1}\hfill} % fix the list of acronyms
+%% move chapter number to the left
+%\usepackage{titlesec}
+\titleformat{\chapter}[display]%
+  {\relax}{\vspace*{-3\baselineskip}\makebox[\linewidth][r]{\color{halfgray}\chapterNumber\thechapter}}{0pt}%
+  {\raggedright\spacedallcaps}[\normalsize\vspace*{.8\baselineskip}\titlerule]%
