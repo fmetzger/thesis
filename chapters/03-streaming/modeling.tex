@@ -5,6 +5,16 @@
 \section{Streaming Modeling}
 \label{c3:sec:modeling}
 
+%% models
+    %streaming-buffering-playback model creation
+    %Why model at all?
+    %Understand the problem and dissect it / break it down to its elemental components
+    %Find similar problems/models, extend the model for other problems
+    %Overview on the models
+    %  We implemented a source model which tries to resemble these applications. We based our work on the HTML5 model as it was the simplest yet still effective, delaying the start of the playback until it can be consumed in one pass.
+
+    %Multiple incarnations of media streaming, but similar and (most of all!) comparable concepts and mechanisms => no need to assess single, specific protocols, networks, codecs, etc., but measure and describe generic, universal, common behavioral patterns => model, compare performance based on behavioral, structural commonalities. Choose for example a (range of) timescale(s) to find sets of mechanisms you need to look at. First use case to show how our system works: Progressive HTTP streaming. Will show adaptability to adaptive streaming and different protocols.
+
 As web-based delivery uses reliable TCP transfers and (in its simplest form) does not use any kind of scaling or multi-layered video encoding, there will never be any change in the actual video quality. Therefore, the users' experience is influenced by only a small number of parameters. A user will notice some delay after he starts the video streaming process. If the video download is slower than the average video bitrate the playback will stall, i.e. stop playing, at some point until there is enough data available to resume playing again.
 The QoS parameters affecting these metrics are limited bandwidth, packet loss, and latency, causing the player to intermittently pause playback and enter a re-buffering state.
 

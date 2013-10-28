@@ -13,91 +13,35 @@
 \item Summary
 \end{itemize}
 
-%Web-based video streaming in general
+The Web wouldn't have seen that big an increase in popularity and traffic if it weren't for the tight integration of video streaming into every browser. Most forms of today's Web-based video delivery take advantage of \gls{HTTP} and \gls{TCP} to transport video. This is a completely different approach to what was used before and is traditionally understood as video streaming. 
+Streaming itself can be conducted in many ways, resulting in an ever-increasing number of protocols. Furthermore, the current boom in smartphones creates an increasing plurality of access network technologies.
+Any network shows characteristic properties, or \gls{QoS} metrics. These are typically:
+\begin{itemize}
+\item The \textit{bandwidth}, or the maximum throughput a user can achieve, which is always limited by at least one link, serving as the bottleneck. In most cases this will be the access link, but can also be any other link in times of high load. Bandwidth on an access medium can also be shared between all of its participants as is the case with any radio technology or cable Internet access.
+\item The \textit{delay} is the time data travels between a sender and a recipient. The term \textit{jitter} is used  for the delay variation and occurs for example when successive packets travel on different routes or through different radio receivers during mobility.
+\item \textit{Loss} occurs when data packets do not reach the target. An imperfect physical medium can flip some bits in a packet, which the responsible protocol layer will recognize and drop the packet or re-request it.
+\end{itemize}
 
-%Web, Flash, HTML5
-  
-%relevance for mobile and future Internet
+Video streaming needs to cope with all of these circumstances and still work well. This chapter investigates the model Web streaming uses. It differs significantly from models for traditional streaming, which are mostly specific to a single protocol.
+The presented method rather aims to evaluate the performance by capturing generic behavioral patterns of streaming mechanisms from the perspective of a streaming application. Specifically, the model is based on the level of the playback buffer, which is a common attribute to any media playback.
+Thus, it can consider any network and playback behavior, and maintains flexibility with regards to the actual streaming server implementation, type of transmission network, protocol stack, and codec.
 
-%Drawbacks (no streaming, scaling, signaling, etc)
+After defining an appropriate performance metric, this model is implemented in a network emulation testbed. A measurement campaign on YouTube is then conducted while the network is being subjected to emulated \gls{QoS} parameters.
 
-%Internet Load and Video delivery performing with load
-  
-%Example of YouTube
-
-%Recent changes in the architecture after YouTube was acquired by Google
-
-%applicable quality metrics (normal metrics don't apply, no video quality scaling, observable only initial buffering time, stalls during playback, number, length, frequency thereof)
-
-%streaming-buffering-playback model creation
-
-%Why model at all?
-%Understand the problem and dissect it / break it down to its elemental components
-%Find similar problems/models, extend the model for other problems
-
-%Overview on the models:
-%  Generic HTML5 model:
-%  "automatically begin playback of the media resource as soon as it can do so without stopping"
-
-%  Firefox model:
-%   Buffer 30 seconds of media time or do so at least for 30 seconds
-%   If download bitrate greater than media bitrate then start playing immediately.
-%   Exceptions apply for special cases.
-    
-%  Flash model:
-%    Buffer at least two seconds of the media resource before starting to play. If the player has filled the 2 second buffer, the buffer size increases by another two seconds and buffering (while already playing) continues. If the buffer runs out any time during the playback the player buffers at least five seconds of the media resource before continuing.
-  
-%  We implemented a source model which tries to resemble these applications. We based our work on the HTML5 model as it was the simplest yet still effective, delaying the start of the playback until it can be consumed in one pass.
-  
-%[general observations, YouTube rate limiting, correlation to media bit-rate]
-  
-
-%[network emulation setup, degraded network quality of service parameters (netem Aufbau, delay und loss serien bei bw-begrenzung)]
-
-%[visualization and results (does yt still work well with high delay/loss?)]
-
-%[performance evaluation (BWs, played vs received data)]
+%% <-- %% WIP
 
 
-%Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
-
-
-%These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.
-
-
-%%% FITCE intro
-Web-based video delivery uses the Web's general purpose transfer protocols, primarily HTTP and the underlying TCP transport protocol. The only requirement to participate in this form  of video streaming is either a recent version of one's favorite web browser supporting the HTML5 \texttt{<video>} tag or, becoming less important, a player for Flash content. This user-friendliness opened the curtains for a much broader audience when compared to RTP streaming approaches. Popular examples include sites with user generated content like YouTube which has an especially large number of viewers and high watch duration \cite{comscore2011ranking}, and commercial sites such as Netflix and Hulu. Netflix accounts for 30\% of today's peak downstream Internet traffic in North America \cite{sandvine_spring2011}, also demonstrating the huge demand for this type of service.
-
-The proportion of total Internet traffic shifted hugely towards video transfers in recent years. Google, who operates YouTube since 2006, now carries a large percentage of that traffic \cite{nw2010carrier}. But the Internet's traffic volume is expected to continue to rise in the next years. If the underlying network infrastructure is not upgraded at the the same speed, this could result in performance degradations for the Internet. Moreover, mobile networks struggle with limited and shared bandwidths, high delay and considerable loss due to intrinsic radio problems, even with new and upcoming mobile specifications such as LTE. Web-based video delivery does not use specialized streaming techniques such as quality scaling, loss tolerance or dedicated signaling connections, but still needs to be able to work well even under theses circumstances
-
-This paper investigates how Web-based media delivery works in general, and how meaningful measurement of its streaming quality can be achieved with future network developments and degraded network parameters in mind.
-
-
-
-%% PV intro
-Video streaming resonates well with web users, and streaming traffic makes up an ever-growing share of network traffic. At the same time, multiple streaming methods exists, resulting in a multitude of protocols, codecs, and their variety increases at an astonishing rate. Furthermore, the current boom in smart-phones creates an increasing plurality of access network technologies across which media are streamed.
-
-This poses a problem to traditional analytical approaches like source-traffic modeling: Such models are complex to develop, and hard to adapt to new streaming mechanisms; often, they deliberately omit details for reasons of analytical tractability, or only look at single layers of the network stack.
-
-The method presented in this paper rather aims to evaluate performance by capturing generic behavioral patterns of streaming mechanisms, embracing the perspective of a streaming application. Specifically, we model the level of the playback buffer, and thus can subsume both network and playback behavior, while maintaining flexibility and adaptability with regards to the actual streaming server implementation, type of transmission network, protocol stack, and codec. Our model reports perceivable artefacts of buffer underruns, e.g. skips or stalls, which could then be fed into a QoE model to yield actual user QoE values.
-
-
-
- Multiple incarnations of media streaming, but similar and (most of all!) comparable concepts and mechanisms => no need to assess single, specific protocols, networks, codecs, etc., but measure and describe generic, universal, common behavioral patterns => model, compare performance based on behavioral, structural commonalities. Choose for example a (range of) timescale(s) to find sets of mechanisms you need to look at. First use case to show how our system works: Progressive HTTP streaming. Will show adaptability to adaptive streaming and different protocols.
-
-
-
+%This paper investigates how Web-based media delivery works in general, and how meaningful measurement of its streaming quality can be achieved with future network developments and degraded network parameters in mind.
+%Our model reports perceivable artifacts of buffer underruns, e.g. skips or stalls, which could then be fed into a QoE model to yield actual user QoE values.
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{background.tex}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Metrics for Reliable Transport Streaming}
 \label{c3:metrics}
@@ -115,51 +59,24 @@ The method presented in this paper rather aims to evaluate performance by captur
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{measurements.tex}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary}
 \label{c3:sec:conclusion}
 
 Streaming to mobile devices, especially in mobility scenarios, arises several new issues not seen at wireline connected devices. The lower-layer protocols on the radio link can cause additional unexpected behavior. Handover between radio cells can cause long periods of very high delay (up to seconds) and packet reordering which does not play well with TCP, resulting in a decreased throughput. Therefore, we would like to investigate its interplay with server-side bandwidth pacing methods as employed by YouTube.
 
-
 We also would like to extend our analysis of video streaming to adaptive HTTP streaming mechanisms previously mentioned. We expect them to further complicate the client's buffer management algorithms but they could also serve as a full replacement and evolution to RTP streaming.
 
-
-%%
 In our research we analyzed both the topology as well as the streaming performance of the YouTube platform as a popular example for today's Web-based video delivery. 
 
 With the Seattle platform we actively probed the CDN and discovered several geographical and time-dependent features. Through streaming experiments we have shown that packet loss and delay have considerable influence on the quality of the HTTP video delivery but overall it is reasonably robust to conditions in normal wireline networks. Whether they work as well in wireless networks is a question for future research. Furthermore, we looked at various theoretical and real-world buffering models. We observed that one needs to strike a balance between frequency and length of buffering phases to achieve acceptable playback quality. However, quantizing the quality is also a topic for further research.
-
-
-
-%albeit for values which probably will not be observable in the wild for wireline network accesses and if providers have sufficient infrastuctures
-% however mobile could very well ...
-
 
 %% PV Conclusion
 Because of rapid developments in the field of video streaming, full-scale measurement campaigns and analytical modeling might prove too time consuming to test every new protocol. The streaming model framework presented here offers methodologies to quickly evaluate new streaming mechanisms under the influence of network QoS as it decouples the network trace recording and the playback model calculation phase.
 
 We detailed possible influences of the different network layers on video streaming, This inspired the creation of a generic model, incorporating universal notions on data transport, flow control, and buffering, striving to cover most possible streaming methods. Using this model, we explored the theoretical quality limits for streaming such as limits for the maximum stalling duration, and the user trade-offs incurred by making specific choices on how to treat conditions related to streaming processes. In our evaluation of the model on YouTube we observed the influence of network QoS on playback quality and found that high loss is detrimental to HTTP streaming.
 
-
 The purpose of this model and its evaluations is manifold. It could lead to protocols tailor-made for specific networks or an improved network planning process.
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-Quantification of quality of experience for edge-based applications\cite{hossfeld2007quantification}
-
-  
-
-

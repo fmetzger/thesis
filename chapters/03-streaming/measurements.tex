@@ -8,6 +8,14 @@
 %TODO:
 %comment on which buffering model is used, both simple models result in smallest buffering time possible, as no overhead waiting is involved
 
+%measurement
+%[general observations, YouTube rate limiting, correlation to media bit-rate]
+%[network emulation setup, degraded network quality of service parameters (netem Aufbau, delay und loss serien bei bw-begrenzung)]
+%[visualization and results (does yt still work well with high delay/loss?)]
+%[performance evaluation (BWs, played vs received data)]
+%Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
+%These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.
+
 For the YouTube streaming measurements we implemented an automated video downloading and playback simulation software to feed information into the model and evaluate the total stalling time. For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
 
 The first point of interest discovered during the evaluation of the measurements was the information encoded in the URLs pointing to the actual video files (cf. Table \ref{c3:tbl:yturl}) as they hinted on the presence of transmission rate throttling for some videos. However, if one tries to alter or remove the throttling parameters the YouTube server responds to this with a HTTP 403 forbidden error code, meaning that there are further checks in place to ensure this behavior. 

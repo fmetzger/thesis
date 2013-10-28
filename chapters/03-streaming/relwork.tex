@@ -1,0 +1,59 @@
+%!TEX root = ../../dissertation.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Related Work}
+
+\begin{itemize}
+	\item Cloud gaming as a media streaming application with strong real-time requirements \cite{4795441,wang2009modeling,jarschel2011cloudevaluation,ct2010wolken}
+
+	\item Overview: Real Time Protocols for Brower-based Applications\cite{ietf2011rtcwebdraft}
+	\item HTTP Live Streaming \cite{pantos2011livestreaming}
+	\item IIS smooth streaming technical overview \cite{zambelli_iis_2009}
+	\item Adaptive streaming: The network HAS to help \cite{BLTJ:BLTJ20505}
+	\item Watching Video over the Web, Part II: Applications, Standardization and Open Issues \cite{watching-video2}
+	\item Google now second-largest ISP, carries 6.4\% of Internet traffic \cite{nw2010carrier}
+	\item ComScore February 2011 U.S. Online Video Rankings \cite{comscore2011ranking}
+	\item Aquarema in action: Improving the YouTube QoE in wireless mesh networks \cite{5733220}
+	\item Transport Protocol Influences on YouTube QoE \cite{report2011-258}
+	\item FoG and Clouds: Optimizing QoE for YouTube \cite{hossfeld2011fog}
+	\item Quality of experience estimation for adaptive HTTP/TCP video streaming using H.264/AVC \cite{6181070}
+	\item Dynamic adaptive streaming over HTTP --: standards and design principles \cite{Stockhammer:2011:DAS:1943552.1943572}
+	\item Non Bandwidth-intrusive Video Streaming over TCP \cite{5945211}
+	\item Modeling Network Protocol Overhead for Video \cite{5703713}
+	\item Over the top video: the gorilla in cellular networks \cite{Erman:2011:OTV:2068816.2068829}
+	\item Feedback control for adaptive live video streaming \cite{DeCicco:2011:FCA:1943552.1943573}
+	\item Passive YouTube QoE Monitoring for ISPs \cite{6296879}
+	\item Quantification of YouTube QoE via Crowdsourcing \cite{6123395}
+	\item Initial delay vs. interruptions: Between the devil and the deep blue sea \cite{6263849}
+	\item Network characteristics of video streaming traffic \cite{Rao:2011:NCV:2079296.2079321}
+	\item An Experimental Investigation of the Akamai Adaptive Video Streaming \cite{cicco2010akamai}
+	\item Drafting behind Akamai (travelocity-based detouring) \cite{Su:2006:DBA:1159913.1159962}
+	\item Confused, timid, and unstable: picking a video streaming rate is hard \cite{Huang:2012:CTU:2398776.2398800}
+	\item Internet inter-domain traffic \cite{Labovitz:2010:IIT:2043164.1851194}
+	\item What DNS is not. \cite{vixie2009dns}
+	\item Comparing DNS resolvers in the wild \cite{ager2010comparing}
+	\item Quantification of quality of experience for edge-based applications\cite{hossfeld2007quantification}
+\end{itemize}
+
+Video streaming touches many aspects of computer communication network research. They can be categorized in aspects touching on the one hand the service itself and on the other hand  the transport and underlying network. This chapter splits the topic roughly on a top-down layer approach. At first, modern video streaming applications and their mechanisms are presented. Afterwards, the streaming transport is discussed with a concluding section on the influences of wired and especially mobile network architectures.
+
+
+The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. We focus on TCP and especially HTTP streaming to which \cite{watching-video1} and \cite{ma2011mobile} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery.
+
+Akhshabi et al. \cite{akhshabi2011experimental} take a look at real world implementations of these and do comparative measurements.
+
+There are several publications discussing YouTube's architecture. Gill et al. made in \cite{gill2007youtube} a long-term observation of YouTube traffic originating from an university network. Their analysis shows detailed characteristics of the served videos, among others file sizes, durations, and bitrates, and reveals a daily number of video requests. Adhikari et al. \cite{adhikari2010youtube} collected data from points of presence of one ISP to explore the service's traffic distribution and load balancing techniques.
+
+However, these were still based on the old architecture prior to being acquired by Google. The new infrastructure differs largely from the old, e.g. load balancing and content distribution now exclusively uses Google’s network. Mori et al. in \cite{mori2010characterizing} describe distinctive attributes of video traffic flows originating from YouTube's new and current setup while Torres et al. \cite{torres2011dissecting} focus on observations of the CDN's server selection process using multi-network passive measurements.
+
+
+The authors of \cite{wang2003model} propose an analytical model for TCP-based video streaming, differentiating between live (``constrained'') and pre-recorded videos. In our approach, analytical tractability is not an issue as we perform actual measurements and decoding, so we are not limited to constant-bit rate video streams, constant packet sizes, or single playback strategies.
+
+The importance of packet loss for an H.264 SD video stream is studied in \cite{pv2010loss}. Packet loss on the link is also investigated in our comparison of playback behaviors, but in our first evaluations we analyze TCP as the transport protocol for the stream, so from the perspective of the application, packets are not lost, but delayed.
+
+
+In \cite{pv2010qoe}, the authors present a quality-assessment model for video streaming services, with the quality features derived from the actual video. The model does not include the network behavior, but focuses on the codec performance instead. 
+
+A metric termed ``application comfort'' is calculated from YouTube videos in \cite{staehle2010yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
+
+Whereas these focused on the architectural setup they do not investigate the client's role and the resulting quality of the video streaming process in this. 
+Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measuring} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model.
