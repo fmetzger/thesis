@@ -27,7 +27,7 @@
     \endgroup}
 \makeatother
 
-%% doc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
 \input{components/cover.tex}
@@ -41,6 +41,7 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{Contents}%
 \tableofcontents
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% lists
@@ -64,6 +65,8 @@
 \newtheorem{mydef}{Definition}
 \newpage % or \cleardoublepage
 \chapter*{Acknowledgments}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cleardoublepage
 \pagenumbering{arabic}
@@ -76,21 +79,8 @@
 \subimport{chapters/05-mobilestreaming/}{mobilestreaming}
 \subimport{chapters/99-conclusion/}{conclusion}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\nocite{*}
-
-
-
-% bib
-\begingroup
-\RaggedRight
 \printbibliography
-\endgroup
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \end{document}
