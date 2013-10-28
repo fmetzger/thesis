@@ -15,15 +15,14 @@
 	\begingroup
 		\let\clearpage\relax
 		\let\cleardoublepage\relax
-		\let\cleardoublepage\relax
 	    \chapter*{Figures}%
 	    \phantomsection
-	    \addcontentsline{toc}{chapter}{\protect\numberline{}Figures}%
+	    \addcontentsline{toc}{chapter}{Figures}%
 	    \@starttoc{lof}%
 	    \bigskip
 	    \chapter*{Tables}%
 	    \phantomsection
-	    \addcontentsline{toc}{chapter}{\protect\numberline{}Tables}%
+	    \addcontentsline{toc}{chapter}{Tables}%
 	    \@starttoc{lot}
     \endgroup}
 \makeatother
@@ -40,7 +39,7 @@
 \newpage
 \pagenumbering{roman}
 \phantomsection
-\addcontentsline{toc}{chapter}{\protect\numberline{}Contents}
+\addcontentsline{toc}{chapter}{Contents}%
 \tableofcontents
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -51,7 +50,6 @@
 \newpage
 \begingroup
 	\let\clearpage\relax
-	\let\cleardoublepage\relax
 	\let\cleardoublepage\relax
 	\glsaddall
 	\printglossaries
