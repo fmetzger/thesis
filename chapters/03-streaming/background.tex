@@ -17,41 +17,53 @@ Before diving into the model some technical groundwork has to be laid. We descri
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Definition} 
 
-Any digitally stored video consists of a number of frames, organized into groups and audio samples which are played in sequence. Frames, single images of the video, do not only make use of typical spatial image compression mechanisms but encompass also temporal motion compensation, creating a dependence between frames. To correctly display a frame, all previous frames in a block need to be present.
+Any digitally stored video consists of a number of frames, organized into variable-sized groups, and audio samples which are played in sequence. Frames, single images of the video, do not only make use of typical spatial image compression mechanisms but encompass also temporal motion compensation, creating a dependence between frames. Videos can be encoded with a bit rate that is constant or variable over time. Typically, a variable bit rate encoding is chosen as these schemes offer a higher compression rate. To correctly display a frame, all previous frames in a block need to be present. 
 
+Streaming, or to be more precise video streaming, is the process of playing a video while it is still being transmitted over a medium. As there is no need to have a file stored locally, received frames are typically put in a buffer to be played at the correct time. The amount of buffered video depends on the allocated buffer size as well as the video bit rate, and the transmission bit rate. It can also be controlled by the time offset between receiving the first frame of a video and actually playing it.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Streaming Variants and Classification}
+\subsection{Streaming Classification}
 
-Video streaming is a broad term covering a wide spectrum of applications as well as possible implementations. To break down and classify this field we define four criteria.
+Video streaming is a broad term covering a wide spectrum of applications as well as possible implementations. To break down and classify this field we define the following criteria to make a distinction.
 
-\paragraph{Location of Control}
-Push-based (stateful) vs pull-based (stateless) vs network-controlled(?)
+\paragraph{Video Source}
+The first criterion is the source of the video with the two major sources being a file stored on a remote server or a live source. Stored video can be streamed and played at any point in time. Live sources, on the other hand, are transmitting only at a fixed point in time. Depending on the type of content the timeliness of playback may also be important (imagine you are watching a game that is played right now).
 
 
-In every network architecture there is a control information flow between its participating layers, protocols and elements. Control information may need to be exchanged to coordinate and negotiate the modes of communication between two endpoints and can be helpful in many ways. For example, can a network explicitly expose network's quality of service data to applications or these application can make reservation requests to the network. Communication can also work implicitly, demonstrated in the distributed \gls{TCP} congestion control enabled by the lack of resource isolation. This shows two major ways for the information flow to be implemented: Either through directly and explicitly exchanging information or by one participant implicitly drawing conclusions on another participants resources and behavior.
+\paragraph{Adaptivity of Content}
+Video streaming can also be distinguished based on its adaptivity. In the simplest case there is no adaptivity present and the video is available in only one bit rate (which may still be a variable bit rate). 
+But there are cases where an adaptation of the bit rate would be helpful. For example to accommodate for a clients needs in matters of the screen size. Usually, adaptation is used to tune the video stream to the currently available connection bandwidth. Adaptation can be achieved in two ways. Either to prepare and store several encoding levels beforehand or by encoding on-the-fly to a specific target. While the latter approach can adapt much more specific to certain goals it cannot be precomputed and will require more compute time when the number of clients becomes larger.
 
-These different approaches can also be observed in video streaming. The explicit control structure of protocol suites like \gls{IMS}\cite{3gpp.23.228} and \gls{MBMS} weaves application and network layer tightly together. This theoretically allows for an improved streaming performance at the cost of universally applicable behavior. Today's IP-based \gls{HTTP} streaming forms the other side of the pole having only an implicit network information flow by guessing the current network conditions.
+Adaptation also increases the amount of necessary control and information exchange. In the simplest case, streaming would only require a single command to start the streaming while any single adaptation adds another set of commands.
 
-\gls{HTTP} is a state-less request-response protocol. The synchronous behavior of the request-response mechanism does not allow for server events to be sent in a timely manner to the client. This increases the difficulty of implementing some extended features. Examples are server-side load balancing, or real time or live streaming. 
 
-\gls{RTP} employs a server-side control scheme. This means that the server is responsible for every aspect of the streaming process. Even client play and pause requests are directly communicated to the server. Therefore the server also has to maintain a session for the user.
+\paragraph{Location of Control} % Push-based (stateful) vs pull-based (stateless) vs network-controlled(?)
+Another matter is the location of control for a stream, with several possible ways to choose from. We distinguish between horizontal and vertical control.
 
-In contrast to \gls{RTP}, \gls{HTTP} streaming facilitates complete client side control. HTTP includes some support by the network in the form of proxies, but there are signaling methods that can e.g. forbid the caching of specific content through the no-cache directive \cite{rfc2616}. Due to its use of \gls{TCP} as the transport protocol, \gls{HTTP} has issues with inter-activity, especially across lossy links.
+In a horizontal direction control can be placed either at the streaming server, the streaming client or possibly somewhere in the network path in between.
 
-\paragraph{Reliability of Underlying Transport Protocol}
-reliable vs unreliable
+A controller at the client typically just means that the video player itself is in control of the streaming process. The player starts the streaming and adjusts its requests to the server based on the player's needs. In this situation the server can be very lightweight as no decision logic needs to be present there.
+
+Control can also be placed at the server with a stronger emphasis on the information available at the server side, making it easier to coordinate and adapt to a larger number of streaming clients.For control to work properly, especially server-side control, state has to be kept imposing a
+certain memory overhead. This can become significant and a limiting factor for large streaming servers.
+
+Control information may need to be exchanged to communicate the state between the two endpoints. 
+ For example, can a network explicitly expose network's quality of service data to applications or these application can make reservation requests to the network. Communication can also work implicitly, demonstrated in the distributed \gls{TCP} congestion control enabled by the lack of resource isolation. This shows two major ways for the information flow to be implemented: Either through directly and explicitly exchanging information or by one participant implicitly drawing conclusions on another participants resources and behavior.
+
+While not being able to control everything about streaming, the network may still be able to influence or manipulate an ongoing video stream. (Non-)Transparent proxies come to mind, which could intercept streaming requests and redirect them to another server located in the proximity of the requesting client.
+
+Vertical control...
+
+\paragraph{Reliability of Underlying Transport Protocol} % reliable vs unreliable
 
 Through TCP's reliability the whole video file will always be transferred during the streaming process. As mentioned, adverse network conditions can cause \gls{TCP}'s mechanisms to increase latency, jitter as well as reduce the throughput. Protocols that offers congestion control but no reliable delivery and video codecs that are robust to packet loss might be more desirable for streaming. \gls{DCCP} \cite{kohler2006designing} is an example for such a compromise and might prove beneficial for the streaming process.
 
 \textit{Playback control and media data buffering}. Using the reliable \gls{TCP} as transport protocol means that there will be no packet loss visible to the application layer. The video file will always reach the client in the same form as stored on the server. If packets are lost, the result will additional delay and decreased throughput through the occurring retransmissions. If video data does not reach the client in time before its playback buffer is depleted, this will results in video stalling and therefore a perceptible loss of quality. This situation can be alleviated or even avoided by carefully planning the playback process and the buffering behavior.
 
-\paragraph{Adaptivity of Content}
-adaptive vs simple/constant
 
-\paragraph{Multiplexing of Delivery}
-multicast vs unicast
+
+\paragraph{Multiplexing of Delivery} % multicast vs unicast vs maybe even broadcast
 
 
 
@@ -66,6 +78,14 @@ Mechanisms RTP, HTTP, adaptivity and reliability, application layer flow control
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Survey of Protocols}
+
+These different approaches can also be observed in video streaming. The explicit control structure of protocol suites like \gls{IMS}\cite{3gpp.23.228} and \gls{MBMS} weaves application and network layer tightly together. This theoretically allows for an improved streaming performance at the cost of universally applicable behavior. Today's IP-based \gls{HTTP} streaming forms the other side of the pole having only an implicit network information flow by guessing the current network conditions.
+
+\gls{HTTP} is a state-less request-response protocol. The synchronous behavior of the request-response mechanism does not allow for server events to be sent in a timely manner to the client. This increases the difficulty of implementing some extended features. Examples are server-side load balancing, or real time or live streaming. 
+
+\gls{RTP} employs a server-side control scheme. This means that the server is responsible for every aspect of the streaming process. Even client play and pause requests are directly communicated to the server. Therefore the server also has to maintain a session for the user.
+
+In contrast to \gls{RTP}, \gls{HTTP} streaming facilitates complete client side control. HTTP includes some support by the network in the form of proxies, but there are signaling methods that can e.g. forbid the caching of specific content through the no-cache directive \cite{rfc2616}. Due to its use of \gls{TCP} as the transport protocol, \gls{HTTP} has issues with inter-activity, especially across lossy links.
 
 WebSocket\footnote{\url{http://www.websocket.org/}} \cite{ietf2011websocket} is a protocol running atop of \gls{HTTP} offering connection multiplexing and asynchronous as well as full duplex communication. It could be used to implement a more flexible \gls{HTTP} video streaming offering or unlocking further use cases. Similar approaches should be included and evaluated in the research for this thesis.
 
@@ -86,7 +106,7 @@ There are also other proprietary and standardized streaming systems which better
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{,,Simple'' HTML Streaming}
+\subsubsection{``Simple'' HTML Streaming}
 \subsubsection{Adaptive HTML Streaming Techniques}
 \subsubsection{\gls{DASH}}
 
@@ -111,7 +131,7 @@ The capabilities and shortcomings of these novel mechanisms are not yet fully re
 \label{c3:fig:streamingtransfermodes}
 \end{figure}
 
-\item \textit{Video quality and rate adaptation}. To be able to support varying video bitrate levels similar to \gls{RTP} some adaptations to \gls{HTTP} streaming are needed. At first, the video has to be encoded multiple times to several output bitrates. Also, the video container needs to be able to support switching the stream at will with everything required for the playback in place. Additionally, an independently available index file needs to correlate the video files with their contents. Alternatively, the video can be segmented into short pieces of several seconds outlined by a separate index file. Then the client can choose the stream variant that best fits its current condition, which depends on parameters including the display size or varying network \gls{QoS}. \cite{ma2011mobile} gives an overview over some possibilities. Several proprietary protocols, some of them in the process of standardization, tackle this, including \gls{HTTP} Live Streaming \cite{pantos2011livestreaming} and Microsoft Smooth Streaming \cite{zambelli_iis_2009}. They are either based on file segmentation or HTTP RANGE requests. Initial experiments in \cite{akhshabi2011experimental} evaluate the viability of this kind of approach. We plan to extend this by modelling the fundamental building blocks the mechanisms have in common and after that giving tools to find and evaluate combinations best suited to specific network conditions.
+\item \textit{Video quality and rate adaptation}. To be able to support varying video bitrate levels similar to \gls{RTP} some adaptations to \gls{HTTP} streaming are needed. At first, the video has to be encoded multiple times to several output bitrates. Also, the video container needs to be able to support switching the stream at will with everything required for the playback in place. Additionally, an independently available index file needs to correlate the video files with their contents. Alternatively, the video can be segmented into short pieces of several seconds outlined by a separate index file. Then the client can choose the stream variant that best fits its current condition, which depends on parameters including the display size or varying network \gls{QoS}. \cite{ma2011mobile} gives an overview over some possibilities. Several proprietary protocols, some of them in the process of standardization, tackle this, including \gls{HTTP} Live Streaming \cite{pantos2011livestreaming} and Microsoft Smooth Streaming \cite{zambelli_iis_2009}. They are either based on file segmentation or HTTP RANGE requests. Initial experiments in \cite{akhshabi2011experimental} evaluate the viability of this kind of approach. We plan to extend this by modeling the fundamental building blocks the mechanisms have in common and after that giving tools to find and evaluate combinations best suited to specific network conditions.
 This includes evaluations of the optimal length of segments as well as tuning the aforementioned buffering models to be able to cope with at least two new degrees of freedom, i.e. being able to load multiple segments at once using more than one connection as well as the ability to switch to another video encoding level in case of changing connection capacity or buffer pressure conditions.
 
 \end{itemize}
