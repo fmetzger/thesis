@@ -1,0 +1,399 @@
+%%!TEX program = lualatex
+
+\documentclass{beamer}
+
+\usefonttheme{professionalfonts}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
+\usepackage{unicode-math} % fixes math
+%\setmathfont{Asana-Math.otf}
+\setmathfont{Latin Modern Math}
+\usepackage{polyglossia} % babel replacement for use with fontspec
+\setdefaultlanguage{english}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\definecolor{grey}{RGB}{153, 153, 153}
+\definecolor{orange}{RGB}{230, 159, 0}
+\definecolor{skyblue}{RGB}{86, 180, 233}
+\definecolor{bluishgreen}{RGB}{0, 158, 115}
+\definecolor{yellow}{RGB}{240, 228, 66}
+\definecolor{blue}{RGB}{0, 114, 178}
+\definecolor{vermillion}{RGB}{213, 94, 0}
+\definecolor{reddishpurple}{RGB}{204, 121, 167}
+\usepackage{amsmath,amssymb}
+
+\usecolortheme{seagull}
+\usetheme{CambridgeUS}
+\useinnertheme{rectangles}
+
+
+\title[GGSN Models]{Measurements and Models of a 3G Network's GGSN}
+%\subtitle{Evidence from India}
+\author{Florian Metzger}
+\institute[Unversity of Vienna]
+{
+	University of Vienna\\
+  	Faculty of Computer Science
+
+}
+\date[Forschungsseminar WS13/14]{DOC Forschungsseminar\\ 2013/11/13}
+
+%\subject{Informatik}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+%%%
+\section{Introduction}
+%%%
+
+\begin{frame}
+	\frametitle{Relation to Thesis}
+
+	Thesis will consist of 2.5 parts:
+	\begin{enumerate}
+		\item Investigation of TCP-based video streaming techniques
+			\begin{itemize}
+				\item Protocol survey and classification
+				\item Deriving a model
+				\item Measurements with the model
+			\end{itemize}
+		\item Evaluation of a 3G core network
+			\begin{itemize}
+				\item Investigation and evaluation of the control plane
+				\item \textbf{Modeling and simulating load}
+			\end{itemize}
+		\item Measuring video streaming in a 3G network 
+	\end{enumerate}
+
+	Presentation based on MMB'14 submission \textit{``A PDP Context Load Model and Virtualization
+Gain for a Mobile Network's GGSN''}
+
+	% \begin{block}{}
+	% 	This presentation
+	% \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Motivation}
+
+
+
+	Mobile network planning and dimensioning today
+    \begin{itemize}
+    	\item solely based on expected user traffic
+		\item good algorithms and tools for placing radio towers and planning radio propagation
+		\item core network and control plane usually not given much consideration
+	\end{itemize}
+
+	Our approach
+	\begin{itemize}
+		\item presents models for a GGSN in the core network
+		\item models fed with data from a real network
+		\item simulates the model
+	\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{GTP Tunnels}
+
+      \begin{center}
+		\includegraphics[height=3cm]{figures/umts-network.pdf}
+	\end{center}
+
+	% \begin{center}
+	% 	\includegraphics[height=2.5cm]{figures/mm-state-model.pdf}
+ % 	\end{center}
+
+	Tunneling concept
+    \begin{itemize}
+		\item Any user traffic in a 3G net is encapsulated into tunnels
+		\item GTP protocol between SGSN and GGSN
+		\item Tunnel state (PDP Context) held at nodes
+		\item Tunnels created, deleted, and updated based in reaction to user
+		\item GGSN involved in all GTP signaling
+	\end{itemize}
+\end{frame}
+
+
+%%%
+\section{Dataset \& Evaluations}
+%%%
+
+\begin{frame}
+	\frametitle{The Dataset}
+
+	\begin{itemize}
+		\item Passive measurements in the core network of a operator (METAWIN)
+		\item One week long, anonymized (April 2011)
+		\item 2.2Bn user traffic records, 410 GTP tunnel management messages
+		\item Specific properties make distribution modeling hard 
+	\end{itemize}
+
+	Evaluated properties important for the model
+	\begin{itemize}
+		\item arrival rate of new tunnels
+		\item duration of tunnels
+		\item and diurnal influences on them
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Arrival Process}
+		\framesubtitle{Interarrival Time of Successful Tunnel Requests}
+	\begin{columns}[c]
+		\begin{column}{7cm}
+				\includegraphics[width=7cm]{figures/R-IAT-fromflows-ecdfs-2h.pdf}
+		\end{column}
+		\begin{column}{7cm}
+			\includegraphics[width=7cm]{figures/create_freq.pdf}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tunnel Durations}
+	\begin{center}
+		\includegraphics[height=7.5cm]{figures/R-duration-activetunnels-timeofday-ecdf.pdf}
+	\end{center}
+\end{frame}
+
+%%%
+\section{Models}
+%%%
+
+\begin{frame}
+	\frametitle{Queuing Models}
+
+	\begin{center}
+		\includegraphics[height=2cm]{figures/kendall-model.pdf}
+	\end{center}
+
+	Described by Kendall's Notation A/S/c-q
+	\begin{itemize}
+	\item Distribution of the arrival process \textbf{A}
+	\item Distribution of the serving time \textbf{S}
+	\item Number of Servers \textbf{c}
+	\item Queue Length \textbf{q}
+	\begin{itemize}
+		\item If $\infty$ no loss will occur
+		\item If $0$ loss/blocking system, no queue
+	\end{itemize}
+	\item Evaluate
+		\begin{itemize}
+			\item Average queue length and server occupation
+			\item Blocking probability
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Simplified Queuing Toy Model}
+
+	\begin{centering}
+		\includegraphics[height=1cm]{figures/markovchain.pdf}
+	\end{centering}
+
+	\begin{itemize}
+		\item Assume a simple distribution/model to approximate the system
+		\item M/M/n-0 blocking system would be easiest to solve
+		\begin{itemize}
+			\item Poisson arrivals, memoryless
+			\item Markov chain model
+			\item Stationary analysis for
+			\begin{itemize}
+				\item Number of concurrent tunnels
+				\item State and blocking probability
+				\item System load
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Traditional GGSN Model}
+		\begin{center}
+		\resizebox{!}{4cm}{%
+			\input{figures/model_traditional_ggsn.tex}
+		}
+		\end{center}
+
+		\begin{itemize}
+			\item Poisson arrivals with rate $\lambda(t)$
+			\item GGSN server can serve $n$ in parallel, each with a serving time (tunnel duration) of $\mu(t)$
+			\item If server is full, reject new tunnel requests
+		\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Virtualized GGSN Model}
+		\begin{center}
+		\resizebox{!}{4cm}{%
+			\input{figures/model_nfv_ggsn.tex}
+		}
+		\end{center}
+
+		\begin{itemize}
+			\item Hypervisor/Load Balancer receives requests and forwards to virtualized GGSN instances
+			\item Up to $s_{max}$ instances with capacity of $n$ each
+			\item If server is full, reject new tunnel requests
+			\item New instances are only switched on, when system near full capacity
+		\end{itemize}
+\end{frame}
+
+
+%%%
+\section{Queuing Simulation}
+%%%
+
+
+\begin{frame}
+	\frametitle{Fitting Distributions to the Data}
+	\begin{itemize}
+		\item Data preparation with mysql \& python
+		\begin{itemize}
+			\item Fetch CREATE and DELETE from db
+			\item Calculate tunnel IAT and durations
+		\end{itemize}
+		\item Statistical analysis and fitting using R/fitdistrplus/MASS
+		\begin{itemize}
+			\item $1\%$ random sampling of the data
+			\item Distribution parameter estimation by closed formula matching of theoretical and observed means and variances (Method of Moments Estimation)
+			\item Testing goodness of the fit
+				\begin{itemize}
+					\item Pearson's $\chi^2$-test
+					\item Kolmogorov-Smirnov $d = \max|F_n(x)-F(x)|$
+					\item Visually
+					\item ANOVA
+				\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+% \begin{frame}
+% 	\frametitle{Exponential Arrival Process Fits}
+
+% 	\begin{center}
+% 		\includegraphics[height=7.5cm]{figures/timeslot-fits.pdf}
+% 	\end{center}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Serving Time Rational Functions Fit}
+
+% 	\begin{center}
+% 		\includegraphics[height=7.5cm]{figures/R-IAT-active-fit-cdf-facets.pdf}
+% 	\end{center}
+% \end{frame}
+
+
+\begin{frame}
+	\frametitle{Simulating the Model}
+
+	\begin{itemize}
+		\item Why? M/G/n-0 model, not mathematically solvable
+		\item Therefore: Use queuing simulation and evaluate the results
+		\item Discrete Event Simulation (SimPy 3 based)
+		\item Arrival process with normalized exponential distributions fitted to our dataset evaluations
+		\item Tunnel durations / serving time with fitted rational functions
+		\item Simple hypervisor instance start logic: always keep at least one active free instance in reserve
+		\item Evaluate the simulation results based on
+		\begin{itemize}
+			\item Blocking probability
+			\item resource and instance usage
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Blocking Probability}
+
+	\begin{center}
+		\includegraphics[height=7cm]{figures/virtual-blocking.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Scaling Up or Out with a Virtualized GGSN}
+	
+	\begin{center}
+		\includegraphics[height=7cm]{figures/resourceusedistribution-detail-barplot-annotated.pdf}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{}
+
+	\begin{center}
+		\includegraphics[height=7cm]{figures/instanceuse-multiserver-real.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{}
+
+	\begin{center}
+		\includegraphics[height=7cm]{figures/compare-maxinstances-block.pdf}
+	\end{center}
+\end{frame}
+
+
+%%%
+\section{Conclusion}
+%%%
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}
+		\item Search for simple GGSN core network load models for dimensioning and to predict future traffic mixes
+
+		\item Observed tunnel IAT and duration dependent on many variables 
+		\begin{itemize}
+			\item Diurnal effects, user behavior, network properties
+		\end{itemize}
+
+		\item Work in progress
+		\begin{itemize}
+			\item Conduct M/M/n analysis and look at deviation from the observed data
+			\item Find more appropriate distribution fits and (queuing) models
+			\item (Dis-)proof of tunnel-IAT/ST-as-load hypothesis still open
+			\item Other measures for core load?
+		\end{itemize}
+
+	\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+	\frametitle{Thanks!}
+
+	\centering
+		\Large Questions?
+\end{frame}
+
+\end{document}
+
+
