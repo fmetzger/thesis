@@ -73,15 +73,30 @@ With these classification criteria at hand, we can now start looking at actual p
 
 
 %%
-\subsubsection{RTP}
+\subsubsection{RTP and Related Protocols}
 
-
+RTP is a \textit{push-based approach}, the server has full control of the streaming process. Control and information exchange is also out of band through \gls{RTSP} and \gls{RTCP}
+Adaptivity: yes, but limited when multicasting, and overhead (on-the-fly encoding)
 
 The established standards for video streaming use combinations of \gls{RTP}, \gls{RTSP}, and \gls{RTCP} \cite{rfc3550, rfc2326}. They are the classic approach to video streaming according to literature (cf., e.g., \cite[p.~589ff]{kurose2008computer}, and \cite[p.~426ff]{peterson2007computer}), \gls{RTP} is a dedicated streaming protocol suite, that offers out-of-band control using TCP with separate \gls{UDP}-based content transport channels. However, the requirement of several open \gls{UDP} sockets does not work well in environments using middleboxes, .e.g, firewall or \gls{NAT} nodes, because of the difficulty to forward incoming \gls{UDP} packets to the destined host. Furthermore, it mandated additional software to be installed at the client. 
 
 \gls{RTP} streaming is a push-based design. This means, that the server is in control of every aspect of the streaming. When the client requests the start of the playback over the control channel, the server starts pushing down the data over one RTP path. The server application completely controls the transmission speed and the video quality. Therefore, performance and quality metrics have to be exchanged between the two communicating nodes to allow for informed choices on the server side.
 
 RTP also offered intricate multicasting mechanisms, i.e., the ability to simultaneously deliver the same stream to multiple nodes using specially configured routers. These mechanisms were however never fully adopted by the majority of Internet users. On the one hand the required infrastructure was only available in some provider networks, never at the Internet's full scale. On the other hand, the rise of community pages like YouTube has shown, that the interest does not lie in watching the same content at the same time, but rather in high individualism. Therefore, multicast is less relevant for today's streaming. If there is a media event that is streamed live, one can always fall back to using the relatively new structures of \gls{CDN} to be able to serve large groups of users while still conserving bandwidth on the Internet backbones.
+
+\paragraph{RTCP}
+
+\paragraph{RTSP}
+
+
+
+\paragraph{Interaction with Underlying Protocols}
+RTP is independent of transport protocol, can be either UDP or TCP (or one of the more exotic transport variants, \gls{SCTP} or \gls{DCCP} come to mind).
+
+It is also be used in conjunction with \gls{IGMP} \cite{rfc4604} at the network layer to create and stream to multicast groups. However, this is usually only seen in closed networks (``walled gardens''), where the whole network infrastructure is owned by a single instance.
+
+\paragraph{RTP Variants}
+ZRTP, Secure RTP
 
 
 
