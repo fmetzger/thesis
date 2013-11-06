@@ -137,7 +137,7 @@ Gain for a Mobile Network's GGSN''}
 	\begin{itemize}
 		\item Passive measurements in the core network of a operator (METAWIN)
 		\item One week long, anonymized (April 2011)
-		\item 2.2Bn user traffic records, 410 GTP tunnel management messages
+		\item 2.2Bn user traffic records, 410M GTP tunnel management messages
 		\item Specific properties make distribution modeling hard 
 	\end{itemize}
 
@@ -181,15 +181,19 @@ Gain for a Mobile Network's GGSN''}
 		\includegraphics[height=2cm]{figures/kendall-model.pdf}
 	\end{center}
 
-	Described by Kendall's Notation A/S/c-q
+	Described by Kendall's Notation $A/S/c/q$
 	\begin{itemize}
-	\item Distribution of the arrival process \textbf{A}
-	\item Distribution of the serving time \textbf{S}
-	\item Number of Servers \textbf{c}
-	\item Queue Length \textbf{q}
+	\item Distribution of the arrival process $A$
+		% \begin{itemize}
+		% 	\item Poisson arrivals, memoryless
+		% 	\item Markov chain model
+		% \end{itemize}
+	\item Distribution of the serving time $S$
+	\item Number of Servers $c$
+	\item Queue Length $q$
 	\begin{itemize}
-		\item If $\infty$ no loss will occur
-		\item If $0$ loss/blocking system, no queue
+		\item $q=\infty$ no loss will occur
+		\item $0$ loss/blocking system, no queue
 	\end{itemize}
 	\item Evaluate
 		\begin{itemize}
@@ -201,40 +205,19 @@ Gain for a Mobile Network's GGSN''}
 
 
 \begin{frame}
-	\frametitle{Simplified Queuing Toy Model}
-
-	\begin{centering}
-		\includegraphics[height=1cm]{figures/markovchain.pdf}
-	\end{centering}
-
-	\begin{itemize}
-		\item Assume a simple distribution/model to approximate the system
-		\item M/M/n-0 blocking system would be easiest to solve
-		\begin{itemize}
-			\item Poisson arrivals, memoryless
-			\item Markov chain model
-			\item Stationary analysis for
-			\begin{itemize}
-				\item Number of concurrent tunnels
-				\item State and blocking probability
-				\item System load
-			\end{itemize}
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Traditional GGSN Model}
 		\begin{center}
-		\resizebox{!}{4cm}{%
+		\resizebox{!}{3cm}{%
 			\input{figures/model_traditional_ggsn.tex}
 		}
 		\end{center}
 
 		\begin{itemize}
-			\item Poisson arrivals with rate $\lambda(t)$
-			\item GGSN server can serve $n$ in parallel, each with a serving time (tunnel duration) of $\mu(t)$
+			\item Poisson tunnel arrival process with rate $\lambda(t)$, adjusted for the time of day
+			\item GGSN server can serve $n$ tunnels in parallel (limited by state / processing overhead)
+			\item each with a serving time (tunnel duration) of $\mu(t)$
 			\item If server is full, reject new tunnel requests
+			\item Non-stationary Erlang loss model $M_t/G/n/0$ with blocking probability $p_b$
 		\end{itemize}
 
 \end{frame}
@@ -242,16 +225,17 @@ Gain for a Mobile Network's GGSN''}
 \begin{frame}
 	\frametitle{Virtualized GGSN Model}
 		\begin{center}
-		\resizebox{!}{4cm}{%
+		\resizebox{!}{3cm}{%
 			\input{figures/model_nfv_ggsn.tex}
 		}
 		\end{center}
 
 		\begin{itemize}
-			\item Hypervisor/Load Balancer receives requests and forwards to virtualized GGSN instances
-			\item Up to $s_{max}$ instances with capacity of $n$ each
-			\item If server is full, reject new tunnel requests
-			\item New instances are only switched on, when system near full capacity
+			\item Same arrival and serving time process, no queue
+			\item Hypervisor distributes tunnels and starts virtualized GGSN instances on demand
+			\item Up to $s_{max}$ instances with capacity of $m$ each
+			\item Instance count kept near actual system load (energy efficiency)
+			\item Additional blocking, when new instances are not switched on fast enough
 		\end{itemize}
 \end{frame}
 
@@ -262,57 +246,17 @@ Gain for a Mobile Network's GGSN''}
 
 
 \begin{frame}
-	\frametitle{Fitting Distributions to the Data}
-	\begin{itemize}
-		\item Data preparation with mysql \& python
-		\begin{itemize}
-			\item Fetch CREATE and DELETE from db
-			\item Calculate tunnel IAT and durations
-		\end{itemize}
-		\item Statistical analysis and fitting using R/fitdistrplus/MASS
-		\begin{itemize}
-			\item $1\%$ random sampling of the data
-			\item Distribution parameter estimation by closed formula matching of theoretical and observed means and variances (Method of Moments Estimation)
-			\item Testing goodness of the fit
-				\begin{itemize}
-					\item Pearson's $\chi^2$-test
-					\item Kolmogorov-Smirnov $d = \max|F_n(x)-F(x)|$
-					\item Visually
-					\item ANOVA
-				\end{itemize}
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-
-% \begin{frame}
-% 	\frametitle{Exponential Arrival Process Fits}
-
-% 	\begin{center}
-% 		\includegraphics[height=7.5cm]{figures/timeslot-fits.pdf}
-% 	\end{center}
-% \end{frame}
-
-% \begin{frame}
-% 	\frametitle{Serving Time Rational Functions Fit}
-
-% 	\begin{center}
-% 		\includegraphics[height=7.5cm]{figures/R-IAT-active-fit-cdf-facets.pdf}
-% 	\end{center}
-% \end{frame}
-
-
-\begin{frame}
 	\frametitle{Simulating the Model}
 
 	\begin{itemize}
-		\item Why? M/G/n-0 model, not mathematically solvable
-		\item Therefore: Use queuing simulation and evaluate the results
-		\item Discrete Event Simulation (SimPy 3 based)
-		\item Arrival process with normalized exponential distributions fitted to our dataset evaluations
-		\item Tunnel durations / serving time with fitted rational functions
-		\item Simple hypervisor instance start logic: always keep at least one active free instance in reserve
-		\item Evaluate the simulation results based on
+		\item $M_t/G/n/0$ model, no exact mathematical solution available
+		\item Use queuing simulation instead of stationary analysis
+		\item SimPy3 based discrete event simulation\footnote{\url{https://github.com/fmetzger/ggsn-simulation}}
+		\item Arrival process with normalized exponential distributions fitted to dataset, four time of day slots
+		\item Tunnel durations fitted with rational functions
+		%\item Simple hypervisor instance start logic: always keep at least one active free instance in reserve
+		\item Scenario variables: $n$ and $s_max$
+		\item Evaluate and compare both models based on
 		\begin{itemize}
 			\item Blocking probability
 			\item resource and instance usage
@@ -321,12 +265,100 @@ Gain for a Mobile Network's GGSN''}
 
 \end{frame}
 
-
 \begin{frame}
 	\frametitle{Blocking Probability}
 
 	\begin{center}
-		\includegraphics[height=7cm]{figures/virtual-blocking.pdf}
+		\includegraphics[height=6cm]{figures/virtual-blocking.pdf}
+	\end{center}
+
+	\begin{itemize}
+		\item Traditional and virtualized scale equally with supported tunnels
+	\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+	\frametitle{Virtualized GGSN Resource Usage}
+
+	\begin{center}
+		\includegraphics[height=6cm]{figures/instanceuse-multiserver-real.pdf}
+	\end{center}
+
+	\begin{itemize}
+		\item System scales both up (tunnels/instance) and out (instances)
+	\end{itemize}
+\end{frame}
+
+
+
+
+%%%
+\section{Conclusion}
+%%%
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}
+		\item Investigated dataset for tunnel properties
+
+		\begin{itemize}
+			\item Non-stationary poisson-arrivals
+			\item Tunnel duration with general distribution fitted to a rational function
+		\end{itemize}
+
+		\item Two novel models for tunnel load at a mobile core network's GGSN
+		\begin{itemize}
+			\item Traditional GGSN representing today's makeup
+			\item Virtualized GGSN proposal with improved scalability and efficiency
+		\end{itemize}
+
+		\item Simulative evaluation of the model
+
+		\item Enable mobile network dimensioning based on tunnel blocking rate instead of only user traffic volume
+
+
+	\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Thanks!}
+
+	\centering
+		\Large Questions?
+\end{frame}
+
+
+\begin{frame}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{}
+	\begin{center}
+		\includegraphics[height=7cm]{figures/compare-maxinstances-block.pdf}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Exponential Arrival Process Fits}
+
+	\begin{center}
+		\includegraphics[height=7.5cm]{figures/timeslot-fits.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Serving Time Rational Functions Fit}
+
+	\begin{center}
+		\includegraphics[height=7.5cm]{figures/R-IAT-active-fit-cdf-facets.pdf}
 	\end{center}
 \end{frame}
 
@@ -338,62 +370,30 @@ Gain for a Mobile Network's GGSN''}
 	\end{center}
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{}
-
-	\begin{center}
-		\includegraphics[height=7cm]{figures/instanceuse-multiserver-real.pdf}
-	\end{center}
-\end{frame}
-
-\begin{frame}
-	\frametitle{}
-
-	\begin{center}
-		\includegraphics[height=7cm]{figures/compare-maxinstances-block.pdf}
-	\end{center}
-\end{frame}
-
-
-%%%
-\section{Conclusion}
-%%%
-
-\begin{frame}
-	\frametitle{Conclusion}
-
-	\begin{itemize}
-		\item Search for simple GGSN core network load models for dimensioning and to predict future traffic mixes
-
-		\item Observed tunnel IAT and duration dependent on many variables 
-		\begin{itemize}
-			\item Diurnal effects, user behavior, network properties
-		\end{itemize}
-
-		\item Work in progress
-		\begin{itemize}
-			\item Conduct M/M/n analysis and look at deviation from the observed data
-			\item Find more appropriate distribution fits and (queuing) models
-			\item (Dis-)proof of tunnel-IAT/ST-as-load hypothesis still open
-			\item Other measures for core load?
-		\end{itemize}
-
-	\end{itemize}
-
-\end{frame}
-
-
-
-
-
-\begin{frame}
-	\frametitle{Thanks!}
-
-	\centering
-		\Large Questions?
-\end{frame}
-
 \end{document}
+
+
+% \begin{frame}
+% 	\frametitle{Fitting Distributions to the Data}
+% 	\begin{itemize}
+% 		\item Data preparation with mysql \& python
+% 		\begin{itemize}
+% 			\item Fetch CREATE and DELETE from db
+% 			\item Calculate tunnel IAT and durations
+% 		\end{itemize}
+% 		\item Statistical analysis and fitting using R/fitdistrplus/MASS
+% 		\begin{itemize}
+% 			\item $1\%$ random sampling of the data
+% 			\item Distribution parameter estimation by closed formula matching of theoretical and observed means and variances (Method of Moments Estimation)
+% 			\item Testing goodness of the fit
+% 				\begin{itemize}
+% 					\item Pearson's $\chi^2$-test
+% 					\item Kolmogorov-Smirnov $d = \max|F_n(x)-F(x)|$
+% 					\item Visually
+% 					\item ANOVA
+% 				\end{itemize}
+% 		\end{itemize}
+% 	\end{itemize}
+% \end{frame}
 
 
