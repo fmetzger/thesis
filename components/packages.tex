@@ -54,7 +54,9 @@
 \usepackage{classicthesis} % https://code.google.com/p/classicthesis/
 \usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
 \usepackage{textcomp} % extra symbols; used for euro and copyright symbol
-\usepackage{units} % typeset physical units
+%\usepackage{units} % typeset physical units
+\usepackage[load-configurations={abbreviations,binary}]{siunitx}
+\sisetup{load-configurations = abbreviations,binary-units}
 \usepackage{xspace} % ?
 \usepackage{algorithmic}
 \usepackage{algorithm}

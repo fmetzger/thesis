@@ -63,7 +63,7 @@ Transport protocols that offers congestion control but no reliable delivery migh
 
 
 \paragraph{Multiplexing of Delivery} % multicast vs unicast vs maybe even broadcast
-Finally, the number of targets of a single video stream can also differ. A stream is unicast if the control loop is exactly between one sender and one recipient. Servers can still support multiple unicast streams at once, they are just completely independent of each other. A multicast, or even a broadcast, stream is simultaneously sent to a group of recipients, stream control is established at the sender for the whole group. Therefore, multicasting is always using a pull-based approach to control.
+Finally, the number of targets of a single video stream can also differ. A stream is unicast if the control loop is exactly between one sender and one recipient. Servers can still support multiple unicast streams at once, they are just completely independent of each other. A multicast, or even a broadcast, stream is simultaneously sent to a group of recipients, stream control is established at the sender for the whole group. Therefore, multicasting is always using a push-based approach to control.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -75,14 +75,31 @@ With these classification criteria at hand, we can now start looking at actual p
 %%
 \subsubsection{RTP and Related Protocols}
 
-RTP is a \textit{push-based approach}, the server has full control of the streaming process. Control and information exchange is also out of band through \gls{RTSP} and \gls{RTCP}
-Adaptivity: yes, but limited when multicasting, and overhead (on-the-fly encoding)
+\todo{Mention Bernhard's A1TV measurements?}
 
-The established standards for video streaming use combinations of \gls{RTP}, \gls{RTSP}, and \gls{RTCP} \cite{rfc3550, rfc2326}. They are the classic approach to video streaming according to literature (cf., e.g., \cite[p.~589ff]{kurose2008computer}, and \cite[p.~426ff]{peterson2007computer}), \gls{RTP} is a dedicated streaming protocol suite, that offers out-of-band control using TCP with separate \gls{UDP}-based content transport channels. However, the requirement of several open \gls{UDP} sockets does not work well in environments using middleboxes, .e.g, firewall or \gls{NAT} nodes, because of the difficulty to forward incoming \gls{UDP} packets to the destined host. Furthermore, it mandated additional software to be installed at the client. 
+\gls{RTP} \cite{rfc3550} is always used in conjunction with its sister-protocol \gls{RTCP} and usually also employs \gls{RTSP} \cite{rfc2326}. According to literature, they are the classic approach to video streaming (for example compare \cite[p.~589ff]{kurose2008computer} and \cite[p.~426ff]{peterson2007computer}).
+The protocol suite employs a \textit{push-based approach}, the \gls{RTP} server application has full control of the streaming process. Control and information exchange is also out of band through \gls{RTSP} and \gls{RTCP}. Therefore, multicast is also easily possible with \gls{RTP} but not mandatory.
+
+\gls{RTP} has also no inherent adaptivity nor reliability mechanisms, neither does it conduct congestion control on its own. Moreover, \gls{RTP} generally runs on top of \gls{UDP}, which also does not provide congestion control. All must be provided by the server-side application implementation if necessary. In case of multicasting the potential to conduct transport adaptations is very limited, as the server has to take all the recipients into consideration for its decisions.
+
+\paragraph{RTP}
+
+\gls{RTP} itself provides just the packet format and header for the transport of the actual multimedia data. Any stream type is transported in a separate session. This includes the presence of both video and audio, which must then be synchronized to each other. Each session uses its own \gls{UDP} source-destination port pair.
+
+The \gls{RTP} specification itself defines only the most basic packet header, with several additional specs describing dedicated profiles for various content types. For today's prevalent MPEG-4 protocols, including H.264, multiple profiles, defined in \cite{rfc3640,rfc6184,rfc6416} , and with this many ways to embed video into RTP packets, are available. Common to all is the variable-size \gls{RTP} header of at least \SI{16}{\byte}. Video codecs may embed their own organizational structure inside the packet. For example, if dealing with an MPEG-4 \gls{ES}, the payload may contain one or more \gls{AU}.
+
+
+
+
+\paragraph{RTCP}
+
+\paragraph{RTSP}
+
+ However, the requirement of several open \gls{UDP} sockets does not work well in environments using middleboxes, .e.g, firewall or \gls{NAT} nodes, because of the difficulty to forward incoming \gls{UDP} packets to the destined host. Furthermore, it mandated additional software to be installed at the client. 
 
 \gls{RTP} streaming is a push-based design. This means, that the server is in control of every aspect of the streaming. When the client requests the start of the playback over the control channel, the server starts pushing down the data over one RTP path. The server application completely controls the transmission speed and the video quality. Therefore, performance and quality metrics have to be exchanged between the two communicating nodes to allow for informed choices on the server side.
 
-RTP also offered intricate multicasting mechanisms, i.e., the ability to simultaneously deliver the same stream to multiple nodes using specially configured routers. These mechanisms were however never fully adopted by the majority of Internet users. On the one hand the required infrastructure was only available in some provider networks, never at the Internet's full scale. On the other hand, the rise of community pages like YouTube has shown, that the interest does not lie in watching the same content at the same time, but rather in high individualism. Therefore, multicast is less relevant for today's streaming. If there is a media event that is streamed live, one can always fall back to using the relatively new structures of \gls{CDN} to be able to serve large groups of users while still conserving bandwidth on the Internet backbones.
+
 
 \paragraph{RTCP}
 
@@ -93,10 +110,14 @@ RTP also offered intricate multicasting mechanisms, i.e., the ability to simulta
 \paragraph{Interaction with Underlying Protocols}
 RTP is independent of transport protocol, can be either UDP or TCP (or one of the more exotic transport variants, \gls{SCTP} or \gls{DCCP} come to mind).
 
-It is also be used in conjunction with \gls{IGMP} \cite{rfc4604} at the network layer to create and stream to multicast groups. However, this is usually only seen in closed networks (``walled gardens''), where the whole network infrastructure is owned by a single instance.
+It is also be used in conjunction with \gls{IGMP} \cite{rfc4604} at the network layer to create and stream to multicast groups. However, all intermediary routers need to play along for this to work. Therefore, it is usually only seen in closed networks (``walled gardens''), where the whole network infrastructure is owned by a single instance.
+
+WebRTC
 
 \paragraph{RTP Variants}
 ZRTP, Secure RTP
+
+Use \gls{RTP} and \gls{RTCP} without RTSP but instead with \gls{SDP} \cite{rfc2327} to discover and initiate multicast \gls{RTP} streams.
 
 
 
@@ -106,6 +127,10 @@ ZRTP, Secure RTP
 
 %%
 \subsubsection{``Simple'' HTML Streaming}
+
+
+No multicast, but can use CDN to almost the same effect.
+	On the other hand, the rise of community pages like YouTube has shown, that the interest does not lie in watching the same content at the same time, but rather in high individualism. Therefore, multicast is less relevant for today's streaming. If there is a media event that is streamed live, one can always fall back to using the relatively new structures of \gls{CDN} to be able to serve large groups of users while still conserving bandwidth on the Internet backbones.
 
 \gls{HTTP} is a state-less request-response protocol. The synchronous behavior of the request-response mechanism does not allow for server events to be sent in a timely manner to the client. This increases the difficulty of implementing some extended features. Examples are server-side load balancing, or real time or live streaming. 
 
