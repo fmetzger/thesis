@@ -75,12 +75,11 @@ With these classification criteria at hand, we can now start looking at actual p
 %%
 \subsubsection{RTP and Related Protocols}
 
-\todo{Mention Bernhard's A1TV measurements?}
-
-\gls{RTP} \cite{rfc3550} is always used in conjunction with its sister-protocol \gls{RTCP} and usually also employs \gls{RTSP} \cite{rfc2326}. According to literature, they are the classic approach to video streaming (for example compare \cite[p.~589ff]{kurose2008computer} and \cite[p.~426ff]{peterson2007computer}).
+\gls{RTP} \cite{rfc3550} is always used in conjunction with its sister-protocol \gls{RTCP} and often also employs \gls{RTSP} \cite{rfc2326}. According to literature, they are the classic approach to video streaming (for example compare \cite[p.~589ff]{kurose2008computer} and \cite[p.~426ff]{peterson2007computer}).
 The protocol suite employs a \textit{push-based approach}, the \gls{RTP} server application has full control of the streaming process. Control and information exchange is also out of band through \gls{RTSP} and \gls{RTCP}. Therefore, multicast is also easily possible with \gls{RTP} but not mandatory.
 
 \gls{RTP} has also no inherent adaptivity nor reliability mechanisms, neither does it conduct congestion control on its own. Moreover, \gls{RTP} generally runs on top of \gls{UDP}, which also does not provide congestion control. All must be provided by the server-side application implementation if necessary. In case of multicasting the potential to conduct transport adaptations is very limited, as the server has to take all the recipients into consideration for its decisions.
+
 
 \paragraph{RTP}
 
@@ -89,66 +88,56 @@ The protocol suite employs a \textit{push-based approach}, the \gls{RTP} server 
 The \gls{RTP} specification itself defines only the most basic packet header, with several additional specs describing dedicated profiles for various content types. For today's prevalent MPEG-4 protocols, including H.264, multiple profiles, defined in \cite{rfc3640,rfc6184,rfc6416} , and with this many ways to embed video into RTP packets, are available. Common to all is the variable-size \gls{RTP} header of at least \SI{16}{\byte}. Video codecs may embed their own organizational structure inside the packet. For example, if dealing with an MPEG-4 \gls{ES}, the payload may contain one or more \gls{AU}.
 
 
-
-
 \paragraph{RTCP}
 
-\paragraph{RTSP}
-
- However, the requirement of several open \gls{UDP} sockets does not work well in environments using middleboxes, .e.g, firewall or \gls{NAT} nodes, because of the difficulty to forward incoming \gls{UDP} packets to the destined host. Furthermore, it mandated additional software to be installed at the client. 
-
-\gls{RTP} streaming is a push-based design. This means, that the server is in control of every aspect of the streaming. When the client requests the start of the playback over the control channel, the server starts pushing down the data over one RTP path. The server application completely controls the transmission speed and the video quality. Therefore, performance and quality metrics have to be exchanged between the two communicating nodes to allow for informed choices on the server side.
+\gls{RTCP} is used to exchange feedback and control information between receivers and sender and vice versa. These sender and receiver reports are transmitted on a separate \gls{UDP} connection at small intervals scaled in such a way, that the bandwidth should not exceed 5\% of the stream's bandwidth. The reports will include statistics related to lost packets and the packet delay and variation. Based on these, a sender can adjust its streams to fit the current conditions. Likewise, a receiver may tune its video buffering behavior or may even switch stream sources.
 
 
+\paragraph{Stream Initiation}
 
-\paragraph{RTCP}
+RTP/RTCP itself provides no means to discover, initiate, and control the streaming process and has to rely on additional protocols. \gls{RTSP} is on of these, sitting atop of either \gls{UDP} or \gls{TCP}. It provides a set of commands the client can issue to a streaming server to control a stream and the streaming state at the server.
 
-\paragraph{RTSP}
-
-
-
-\paragraph{Interaction with Underlying Protocols}
-RTP is independent of transport protocol, can be either UDP or TCP (or one of the more exotic transport variants, \gls{SCTP} or \gls{DCCP} come to mind).
-
-It is also be used in conjunction with \gls{IGMP} \cite{rfc4604} at the network layer to create and stream to multicast groups. However, all intermediary routers need to play along for this to work. Therefore, it is usually only seen in closed networks (``walled gardens''), where the whole network infrastructure is owned by a single instance.
-
-WebRTC
-
-\paragraph{RTP Variants}
-ZRTP, Secure RTP
-
-Use \gls{RTP} and \gls{RTCP} without RTSP but instead with \gls{SDP} \cite{rfc2327} to discover and initiate multicast \gls{RTP} streams.
+In case of multicasting, stream management can also be conducted directly by joining predetermined multicast groups through the use of \gls{IGMP} \cite{rfc4604} without the need for \gls{RTSP}.
+This requires the cooperation of all intermediary routers. Therefore, it is usually only seen in closed networks (``walled gardens''), where the whole network infrastructure is owned by a single instance. For example, Telekom Austria's A1TV employs this scheme. \todo{reference, bernhard?}
 
 
+\gls{RTP} is also used extensively in conjunction with a lot of other protocol suites, including \gls{SDP} \cite{rfc2327} and \gls{SAP} \cite{rfc2974} for stream discovery or in realtime communication protocols such as \gls{SIP} \cite{rfc3261} and \gls{XMPP} \cite{rfc6120,rfc6121} with the Jingle extension.
 
-%% <-- %% WIP
-%% <-- %% end WIP
+However, the requirement of several open \gls{UDP} sockets has issues with the presence of middleboxes, especially \gls{NAT} nodes, because of the difficulty to forward incoming \gls{UDP} packets to the destined host. This can be, sometimes though unreliably, circumvented by using \gls{NAT} traversal techniques like \gls{STUN} \cite{rfc5389} or \gls{ICE} \cite{rfc5245}.
+
+%\gls{WebRTC} ZRTP, Secure RTP
 
 
 %%
-\subsubsection{``Simple'' HTML Streaming}
+\subsubsection{HTTP Streaming}
 
+When compared to \gls{RTP}, streaming based on \gls{HTTP} uses a much less intricate approach and only reuses existing protocols. HTTP/1.1 \cite{rfc2616} is the basis of the Web and is a request/response protocol mainly to retrieve and pull files from and to a remote location. The protocol is stateless for the server, any request is treated as standalone and will be responded to only with the provided metadata.\footnote{State can still be achieved through other paths, like cookies, but this is out of scope.} This holds true even when more than one request is sent over the same TCP connection, which can be done with persistent \gls{HTTP} connections. Additionally, requests can be sent over one connection without waiting for the answer of the previous request. This is called pipelining and can reduce the round-trip time delay between two consecutive requests.
+
+
+But \gls{HTTP} can also be easily exploited for media streaming
+%% <-- %% WIP
+
+
+
+Video Source: Due to the nature of \gls{HTTP} more suited for stored video. But has also been successfully employed for live content
+
+
+Location of Control: client-side and in-band ... but with websockets and SPDY / HTTP/2.0 could also be server side through server push
+
+
+
+
+The leitmotif of \gls{HTTP} streaming is the inversion of control compared to \gls{RTP} streaming. Due to \gls{UDP}'s lack of reliability, congestion control, and flow control features, \gls{RTP} does need to do this on its own. Therefore, the \gls{RTP} server application is responsible to implement and conduct these, increasing its complexity. Even playback control is done by the server, albeit at the request of the client. Web-streaming turns this around and puts the client in charge. Because \gls{HTTP} streaming relies on \gls{TCP} explicit server control is unnecessary. Control is now done either implicitly by the transport protocol or explicitly by the client, e.g. playback control which also plays an important role in buffer management. This inversion also eliminates the need to exchange client metrics to the server, but increases the complexity of the client. Moreover, \gls{TCP}'s reliable transport feature may prove to negatively affect playback in suboptimal network conditions.
+
+
+\paragraph{Multicast}
 
 No multicast, but can use CDN to almost the same effect.
 	On the other hand, the rise of community pages like YouTube has shown, that the interest does not lie in watching the same content at the same time, but rather in high individualism. Therefore, multicast is less relevant for today's streaming. If there is a media event that is streamed live, one can always fall back to using the relatively new structures of \gls{CDN} to be able to serve large groups of users while still conserving bandwidth on the Internet backbones.
 
-\gls{HTTP} is a state-less request-response protocol. The synchronous behavior of the request-response mechanism does not allow for server events to be sent in a timely manner to the client. This increases the difficulty of implementing some extended features. Examples are server-side load balancing, or real time or live streaming. 
-
-In contrast to \gls{RTP}, \gls{HTTP} streaming facilitates complete client side control. HTTP includes some support by the network in the form of proxies, but there are signaling methods that can e.g. forbid the caching of specific content through the no-cache directive \cite{rfc2616}. Due to its use of \gls{TCP} as the transport protocol, \gls{HTTP} has issues with inter-activity, especially across lossy links.
-
-WebSocket\footnote{\url{http://www.websocket.org/}} \cite{ietf2011websocket} is a protocol running atop of \gls{HTTP} offering connection multiplexing and asynchronous as well as full duplex communication. It could be used to implement a more flexible \gls{HTTP} video streaming offering or unlocking further use cases. Similar approaches should be included and evaluated in the research for this thesis.
-
-%%
-\subsubsection{\gls{DASH}}
-
-\gls{HTTP} streaming pursuits a pull-based approach. The client establishes \gls{TCP} connections to send \gls{HTTP} requests for video files stored on the Web server, which are then sent to the client. During the sequential downloading process the client can at any time start playing the file even before it is completely downloaded, resulting in a so-called pseudo-streaming behavior.
-With this principle the client makes its own decisions regarding the playback process. It has intrinsic knowledge on the current and estimated future connection quality. This leads to a shift of control logic from the server to the client. The former can now be implemented very lightweight, allowing, e.g., for a more distributed content placement in the Internet, especially when using.
-
-By using \gls{HTTP} the ideal platform for the client is either a plugin living inside a Web browser, the method chosen by Flash, or the browser itself, that in most cases has built-in video playback capabilities.
-
-The capabilities and shortcomings of these novel mechanisms are not yet fully researched making it one of the prime foci of the thesis. Of special interest are:
  
-\textit{Application layer flow control}. \gls{HTTP} file downloading is a very simple process. The server has very little influence on this and just forwards requested stored data into a TCP socket. This is not an optimal behavior for video streaming as it does not allow for any throttling or rate management. The buffer space in mobile or embedded devices can be very limited, it would be useful to limit the amount of received data while still ensuring sufficiently available future playback data in the buffer. Services have begun to implement application layer flow control mechanisms for their video streaming application, e.g. YouTube \cite{alcock2011afcyt}. Figure \ref{c3:fig:streamingtransfermodes} shows a comparison of several possible rate management modes. The first sequence diagram shows the unaltered transfer mode observable in regular HTTP file transmissions. The second and third diagrams show possible ways of implementing application layer flow control with either evenly spread out transmissions or sending in blocks. The last diagram displays a mode using multiple requests for one video which can be facilitated for rate adaptations discussed in the next item.
+
+ \paragraph{Adaptivity and Reliability}
 
 \begin{figure}[htbp]
 \centering
@@ -157,19 +146,45 @@ The capabilities and shortcomings of these novel mechanisms are not yet fully re
 \label{c3:fig:streamingtransfermodes}
 \end{figure}
 
-\textit{Video quality and rate adaptation}. To be able to support varying video bitrate levels similar to \gls{RTP} some adaptations to \gls{HTTP} streaming are needed. At first, the video has to be encoded multiple times to several output bitrates. Also, the video container needs to be able to support switching the stream at will with everything required for the playback in place. Additionally, an independently available index file needs to correlate the video files with their contents. Alternatively, the video can be segmented into short pieces of several seconds outlined by a separate index file. Then the client can choose the stream variant that best fits its current condition, which depends on parameters including the display size or varying network \gls{QoS}. \cite{ma2011mobile} gives an overview over some possibilities. Several proprietary protocols, some of them in the process of standardization, tackle this, including \gls{HTTP} Live Streaming \cite{pantos2011livestreaming} and Microsoft Smooth Streaming \cite{zambelli_iis_2009}. They are either based on file segmentation or HTTP RANGE requests. Initial experiments in \cite{akhshabi2011experimental} evaluate the viability of this kind of approach. We plan to extend this by modeling the fundamental building blocks the mechanisms have in common and after that giving tools to find and evaluate combinations best suited to specific network conditions.
-This includes evaluations of the optimal length of segments as well as tuning the aforementioned buffering models to be able to cope with at least two new degrees of freedom, i.e. being able to load multiple segments at once using more than one connection as well as the ability to switch to another video encoding level in case of changing connection capacity or buffer pressure conditions.
+\textit{Application layer flow control}. \gls{HTTP} file downloading is a very simple process. The server has very little influence on this and just forwards requested stored data into a TCP socket. This is not an optimal behavior for video streaming as it does not allow for any throttling or rate management. The buffer space in mobile or embedded devices can be very limited, it would be useful to limit the amount of received data while still ensuring sufficiently available future playback data in the buffer. Services have begun to implement application layer flow control mechanisms for their video streaming application, e.g. YouTube \cite{alcock2011afcyt}. Figure \ref{c3:fig:streamingtransfermodes} shows a comparison of several possible rate management modes. The first sequence diagram shows the unaltered transfer mode observable in regular HTTP file transmissions. The second and third diagrams show possible ways of implementing application layer flow control with either evenly spread out transmissions or sending in blocks. The last diagram displays a mode using multiple requests for one video which can be facilitated for rate adaptations discussed in the next item.
 
-
-The leitmotif of \gls{HTTP} streaming is the inversion of control compared to \gls{RTP} streaming. Due to \gls{UDP}'s lack of reliability, congestion control, and flow control features, \gls{RTP} does need to do this on its own. Therefore, the \gls{RTP} server application is responsible to implement and conduct these, increasing its complexity. Even playback control is done by the server, albeit at the request of the client. Web-streaming turns this around and puts the client in charge. Because \gls{HTTP} streaming relies on \gls{TCP} explicit server control is unnecessary. Control is now done either implicitly by the transport protocol or explicitly by the client, e.g. playback control which also plays an important role in buffer management. This inversion also eliminates the need to exchange client metrics to the server, but increases the complexity of the client. Moreover, \gls{TCP}'s reliable transport feature may prove to negatively affect playback in suboptimal network conditions.
 
 In its simplest form Web streaming acts like regular \gls{HTTP} traffic. The video is requested and then delivered from the server in one single block transfer. The transfer is controlled by the server and it can employ pacing mechanisms to somewhat match the download duration to the playback duration. This reduces load spikes and the required buffer size on the client device but also makes the process more vulnerable to changing network conditions. YouTube uses a server-side pacing mechanism which is  discovered in \cite{alcock2011afcyt} and also discussed in Section \ref{c3:measurements}.
 
 These simple mechanisms, however, can not seamlessly change quality in a currently running video. This can be important for, e.g., mobile networks or when an increasingly loaded server can not fulfill every request in its highest quality at the required speed anymore.
 
+
+\gls{HTTP} is a state-less request-response protocol. The synchronous behavior of the request-response mechanism does not allow for server events to be sent in a timely manner to the client. This increases the difficulty of implementing some extended features. Examples are server-side load balancing, or real time or live streaming. 
+
+
+
+In contrast to \gls{RTP}, \gls{HTTP} streaming facilitates complete client side control. HTTP includes some support by the network in the form of proxies, but there are signaling methods that can e.g. forbid the caching of specific content through the no-cache directive \cite{rfc2616}. Due to its use of \gls{TCP} as the transport protocol, \gls{HTTP} has issues with inter-activity, especially across lossy links.
+
+WebSocket\footnote{\url{http://www.websocket.org/}} \cite{ietf2011websocket} is a protocol running atop of \gls{HTTP} offering connection multiplexing and asynchronous as well as full duplex communication. It could be used to implement a more flexible \gls{HTTP} video streaming offering or unlocking further use cases. Similar approaches should be included and evaluated in the research for this thesis.
+
+
+\paragraph{Formal Approaches: DASH and Others}
+
+\gls{DASH}
+\gls{HTTP} streaming pursuits a pull-based approach. The client establishes \gls{TCP} connections to send \gls{HTTP} requests for video files stored on the Web server, which are then sent to the client. During the sequential downloading process the client can at any time start playing the file even before it is completely downloaded, resulting in a so-called pseudo-streaming behavior.
+With this principle the client makes its own decisions regarding the playback process. It has intrinsic knowledge on the current and estimated future connection quality. This leads to a shift of control logic from the server to the client. The former can now be implemented very lightweight, allowing, e.g., for a more distributed content placement in the Internet, especially when using.
+
+By using \gls{HTTP} the ideal platform for the client is either a plugin living inside a Web browser, the method chosen by Flash, or the browser itself, that in most cases has built-in video playback capabilities.
+
+The capabilities and shortcomings of these novel mechanisms are not yet fully researched making it one of the prime foci of the thesis. Of special interest are:
+
+
+\textit{Video quality and rate adaptation}. To be able to support varying video bitrate levels similar to \gls{RTP} some adaptations to \gls{HTTP} streaming are needed. At first, the video has to be encoded multiple times to several output bitrates. Also, the video container needs to be able to support switching the stream at will with everything required for the playback in place. Additionally, an independently available index file needs to correlate the video files with their contents. Alternatively, the video can be segmented into short pieces of several seconds outlined by a separate index file. Then the client can choose the stream variant that best fits its current condition, which depends on parameters including the display size or varying network \gls{QoS}. \cite{ma2011mobile} gives an overview over some possibilities. Several proprietary protocols, some of them in the process of standardization, tackle this, including \gls{HTTP} Live Streaming \cite{pantos2011livestreaming} and Microsoft Smooth Streaming \cite{zambelli_iis_2009}. They are either based on file segmentation or HTTP RANGE requests. Initial experiments in \cite{akhshabi2011experimental} evaluate the viability of this kind of approach. We plan to extend this by modeling the fundamental building blocks the mechanisms have in common and after that giving tools to find and evaluate combinations best suited to specific network conditions.
+This includes evaluations of the optimal length of segments as well as tuning the aforementioned buffering models to be able to cope with at least two new degrees of freedom, i.e. being able to load multiple segments at once using more than one connection as well as the ability to switch to another video encoding level in case of changing connection capacity or buffer pressure conditions.
+
+
+
 Therefore adaptive forms of \gls{HTTP} streaming were developed. The techniques complement and extend the server-side pacing mechanisms and introduce video quality and bitrate adaption to \gls{HTTP} streaming by doing file segmentation \cite{ma2011mobile, watching-video1}. Bitrate adaption, belonging to a class of application-layer flow control mechanisms, can add an extra level of feedback to react to changing network conditions but could also make buffer management more complex. Protocols based on this approach are already widespread, e.g. in Netflix's offerings.
 
 
+
+
+%% <-- %% end WIP
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Other and Proprietary Approaches}
@@ -179,6 +194,8 @@ RTMP, ...
 There are also other proprietary and standardized streaming systems which better fulfill the requirements of specific fields of applications. \gls{MBMS} \cite{3gpp22.146,3gpp22.246} is a specification defined by the 3GPP group for multicasting multimedia traffic specific to the architecture in mobile networks. But similar to \gls{RTP} the number of implementations and their acceptance are negligible.
 
 The explicit control structure of protocol suites like \gls{IMS} \cite{3gpp.23.228} and \gls{MBMS} weaves application and network layer tightly together. This theoretically allows for an improved streaming performance at the cost of universally applicable behavior.
+
+Peer-to-peer based approaches, including live-streaming!; describe P2P, 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
