@@ -121,13 +121,15 @@ Alternatively, streams can also be stored in separate files, potentially simplif
 The actual streaming is controlled completely by the player application at the client. This player simply has to issue a \gls{HTTP} `GET'-request to a video file located at a Web server. The file can already be read during the transmission process and extracted video data will be put in the player's buffer. If there is enough video in the buffer, playback can be started. The complexity in this process comes from the need to keep track of the amount of video in the buffer and avoid to it run out at any point during playback. Approaches to this task will be explained in detail in Section~\ref{c3:sec:modeling}. \gls{HTTP} also allows so-called Range Requests, which allows to download only certain portions of a file, indicated by the Byte position. Streaming players can exploit this to enable skipping to certain positions. This again needs metadata to correctly infer the byte position in a file from the video playback position. Else, the Range Requests have to be guessed. 
 
 %%
-\paragraph{Information Exchange, Adaptivity, and Reliability}
+\paragraph{Reliability and Adaptivity}
 
-\gls{HTTP} uses \tcp{TCP} as transport protocol, which has implications to \gls{HTTP} streaming and makes it so distinct from \gls{RTP}/\gls{UDP}-based approaches. \gls{TCP}'s three large features are arguably reliability, congestion control, and flow control.
+\gls{HTTP} uses \gls{TCP} as transport protocol, which has implications to \gls{HTTP} streaming and makes it so distinct from \gls{RTP}/\gls{UDP}-based approaches. \gls{TCP}'s three large features are arguably reliability, congestion control, and flow control.
 
+Reliability means, that at the transport layer and above no packets are lost and file requested by a \gls{HTTP} application will always be transmitted in full to the client (as long as the connection is not completely interrupted). \gls{TCP}'s sender side detects lost packets either by timeouts waiting for the corresponding acknowledgment or, preferably, through duplicate acknowledgments of previous packets. If either of this happens, the lost packet is retransmitted, causing a noticeably increase and variation in latency. But this also means, that the transmission of all consecutive packets has to wait on this one. On links with high loss the transmission can be stalled to such a degree that the incoming bitrate is lower than the bitrate of the playing stream, draining the buffer until it runs empty. Keep in mind, that with reliable streaming, frames, or parts of it, cannot be dropped, and the whole video will always be played.
 
+In addition, \gls{TCP} also employs congestion control and avoidance mechanisms. While the sending rate of an \gls{UDP} application is completely controlled by the application's logic, \gls{TCP} detects and throttles the transmission to its fair share of the current connection. This can also cause the transmission rate to become lower than the video bitrate. The third transmission rate influencing mechanism is flow control. The receiver (and especially also the receiving application) can notify the sender, how much data it can receive in the next time window and thus can throttle the transmission rate itself.
 
- Information exchange: not necessary, implicit
+This is an important method of control for the player. Usually, \gls{TCP}'s transmission fair share rate is expected to be much higher than the stream's video bitrate. While this makes sense for a simple file download to finish it as soon as possible, this behavior is unwanted for streaming. Rather, one wants to match the stream bitrate, with a bit of additional headroom to compensate for rate variations, to keep the playback buffer size in certain bounds that neither overwhelm the receiving device nor should the buffer be in danger of running empty. 
 
 \begin{figure}[htbp]
 \centering
@@ -135,6 +137,13 @@ The actual streaming is controlled completely by the player application at the c
 \caption{Comparison of several possible streaming transfer modes \cite{ma2011mobile}.}
 \label{c3:fig:streamingtransfermodes}
 \end{figure}
+
+One of the alternatives to achieve this using \gls{HTTP}-streaming this is an appropriately sized flow control receive window. Alternatively, the \gls{HTTP}-server can also manually throttle the download process. A third way, is to either partition the stream file into smaller even-spaced segments, that have to be requested independently, or use the aforementioned range requests on the stream's file. Through this, the receiving application can delay the request of new ranges or segments so that it matches a targeted bitrate over a longer timeframe. This will however also result in a very bursty transmission, a so-called ON-OFF pattern, and can cause undesireably interactions with \gls{TCP}'s flow and congestion control mechanisms. Figure~\ref{c3:fig:streamingtransfermodes} compares these mechanisms in terms of their transmission pattern.
+\todo{reference to transmission pattern here? alternatively, put one of the old youtube throttling pictures here}
+
+These mechanisms can be subsumed under the term \textit{Application Layer Flow Control}
+
+%% <-- %% WIP
 
 
 \gls{HTTP} file downloading is a very simple process. The server has very little influence on this and just forwards requested stored data into a TCP socket. This is not an optimal behavior for video streaming as it does not allow for any throttling or rate management. The buffer space in mobile or embedded devices can be very limited, it would be useful to limit the amount of received data while still ensuring sufficiently available future playback data in the buffer. Services have begun to implement application layer flow control mechanisms for their video streaming application, e.g. YouTube \cite{alcock2011afcyt}. Figure \ref{c3:fig:streamingtransfermodes} shows a comparison of several possible rate management modes. The first sequence diagram shows the unaltered transfer mode observable in regular HTTP file transmissions. The second and third diagrams show possible ways of implementing application layer flow control with either evenly spread out transmissions or sending in blocks. The last diagram displays a mode using multiple requests for one video which can be facilitated for rate adaptations discussed in the next item.
@@ -160,7 +169,7 @@ Therefore adaptive forms of \gls{HTTP} streaming were developed. The techniques 
 
 HTTP includes some support by the network in the form of proxies, but there are signaling methods that can e.g. forbid the caching of specific content through the no-cache directive \cite{rfc2616}.
 
-%% <-- %% WIP
+
 
 \paragraph{Multicast}
 
