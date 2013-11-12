@@ -29,10 +29,9 @@
 \useinnertheme{rectangles}
 
 
-\title[GGSN Models]{Measurements and Models of a 3G Network's GGSN}
-%\subtitle{Evidence from India}
+\title[GGSN Models]{Models for a 3G Network's GGSN}
 \author{Florian Metzger}
-\institute[Unversity of Vienna]
+\institute[University of Vienna]
 {
 	University of Vienna\\
   	Faculty of Computer Science
@@ -47,10 +46,10 @@
 
 \frame{\titlepage}
 
-\begin{frame}
-	\frametitle{Outline}
-	\tableofcontents
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Outline}
+% 	\tableofcontents
+% \end{frame}
 
 %%%
 \section{Introduction}
@@ -59,7 +58,8 @@
 \begin{frame}
 	\frametitle{Relation to Thesis}
 
-	Thesis will consist of 2.5 parts:
+	Planned thesis parts
+	%Thesis will consist of 2.5 parts:
 	\begin{enumerate}
 		\item Investigation of TCP-based video streaming techniques
 			\begin{itemize}
@@ -90,152 +90,119 @@ Gain for a Mobile Network's GGSN''}
 
 	Mobile network planning and dimensioning today
     \begin{itemize}
-    	\item solely based on expected user traffic
+    	\item based on expected user traffic
 		\item good algorithms and tools for placing radio towers and planning radio propagation
 		\item core network and control plane usually not given much consideration
 	\end{itemize}
 
 	Our approach
 	\begin{itemize}
-		\item presents models for a GGSN in the core network
-		\item models fed with data from a real network
-		\item simulates the model
+		\item presents queuing models for a GGSN in the core network
+		\item models simulated with data from a real network
+		\item can be used to dimension to control plane
+		\item offers more scaling options
 	\end{itemize}
 
 \end{frame}
-
-
-\begin{frame}
-    \frametitle{GTP Tunnels}
-
-      \begin{center}
-		\includegraphics[height=3cm]{figures/umts-network.pdf}
-	\end{center}
-
-	% \begin{center}
-	% 	\includegraphics[height=2.5cm]{figures/mm-state-model.pdf}
- % 	\end{center}
-
-	Tunneling concept
-    \begin{itemize}
-		\item Any user traffic in a 3G net is encapsulated into tunnels
-		\item GTP protocol between SGSN and GGSN
-		\item Tunnel state (PDP Context) held at nodes
-		\item Tunnels created, deleted, and updated based in reaction to user
-		\item GGSN involved in all GTP signaling
-	\end{itemize}
-\end{frame}
-
 
 %%%
 \section{Dataset \& Evaluations}
 %%%
 
 \begin{frame}
-	\frametitle{The Dataset}
+    \frametitle{GTP Tunneling Concept}
 
-	\begin{itemize}
-		\item Passive measurements in the core network of a operator (METAWIN)
-		\item One week long, anonymized (April 2011)
-		\item 2.2Bn user traffic records, 410M GTP tunnel management messages
-		\item Specific properties make distribution modeling hard 
+      \begin{center}
+		\includegraphics[height=2.5cm]{figures/umts-network.pdf}
+	\end{center}
+
+	% \begin{center}
+	% 	\includegraphics[height=2.5cm]{figures/mm-state-model.pdf}
+ % 	\end{center}
+
+	%Tunneling concept
+    \begin{itemize}
+		\item any user traffic in a 3G net is encapsulated into tunnels
+		\item GPRS Tunneling Protocol (GTP) used between SGSN and GGSN
+		\item tunnel state (PDP Context) held at and signaled between nodes through create/delete/update messages
+		%\item tunnel management signaling: creation, deletion, and update request/response messages
 	\end{itemize}
-
-	Evaluated properties important for the model
+	Recorded dataset
 	\begin{itemize}
-		\item arrival rate of new tunnels
-		\item duration of tunnels
-		\item and diurnal influences on them
+		\item one week long passive measurements in the core network of a operator (METAWIN, April 2011)
+		\item 2.2Bn anonymized user traffic records, 410M GTP tunnel management messages
 	\end{itemize}
-
 \end{frame}
 
+
+
 \begin{frame}
-	\frametitle{Arrival Process}
+	\frametitle{Tunnel Arrivals}
 		\framesubtitle{Interarrival Time of Successful Tunnel Requests}
 	\begin{columns}[c]
-		\begin{column}{7cm}
-				\includegraphics[width=7cm]{figures/R-IAT-fromflows-ecdfs-2h.pdf}
+		\begin{column}{6.5cm}
+				\includegraphics[width=6.5cm]{figures/R-IAT-fromflows-ecdfs-2h.pdf}
 		\end{column}
-		\begin{column}{7cm}
-			\includegraphics[width=7cm]{figures/create_freq.pdf}
+		\begin{column}{6.5cm}
+			\includegraphics[width=6.5cm]{figures/create_freq.pdf}
 		\end{column}
 	\end{columns}
+
+	\begin{itemize}
+		\item Strong time of day dependence with busy hour in the early afternoon
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Tunnel Durations}
 	\begin{center}
-		\includegraphics[height=7.5cm]{figures/R-duration-activetunnels-timeofday-ecdf.pdf}
+		\includegraphics[height=5.5cm]{figures/R-duration-activetunnels-timeofday-ecdf.pdf}
 	\end{center}
+
+	\begin{itemize}
+		\item Only slight dependence on time of day
+		\item Much stronger influence of user device type, OS, or network timers
+	\end{itemize}
 \end{frame}
 
 %%%
 \section{Models}
 %%%
 
-\begin{frame}
-	\frametitle{Queuing Models}
-
-	\begin{center}
-		\includegraphics[height=2cm]{figures/kendall-model.pdf}
-	\end{center}
-
-	Described by Kendall's Notation $A/S/c/q$
-	\begin{itemize}
-	\item Distribution of the arrival process $A$
-		% \begin{itemize}
-		% 	\item Poisson arrivals, memoryless
-		% 	\item Markov chain model
-		% \end{itemize}
-	\item Distribution of the serving time $S$
-	\item Number of Servers $c$
-	\item Queue Length $q$
-	\begin{itemize}
-		\item $q=\infty$ no loss will occur
-		\item $0$ loss/blocking system, no queue
-	\end{itemize}
-	\item Evaluate
-		\begin{itemize}
-			\item Average queue length and server occupation
-			\item Blocking probability
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
 
 \begin{frame}
-	\frametitle{Traditional GGSN Model}
+	\frametitle{Monolithic GGSN Queuing Model}
 		\begin{center}
-		\resizebox{!}{3cm}{%
+		\resizebox{!}{2.8cm}{%
 			\input{figures/model_traditional_ggsn.tex}
 		}
 		\end{center}
 
 		\begin{itemize}
 			\item Poisson tunnel arrival process with rate $\lambda(t)$, adjusted for the time of day
-			\item GGSN server can serve $n$ tunnels in parallel (limited by state / processing overhead)
-			\item each with a serving time (tunnel duration) of $\mu(t)$
-			\item If server is full, reject new tunnel requests
-			\item Non-stationary Erlang loss model $M_t/G/n/0$ with blocking probability $p_b$
+			\item GGSN can serve $n$ tunnels in parallel, limited by network/processing costs and signaling/state overhead
+			\item Tunnels have a duration of $\mu(t)$ with a general distribution
+			\item If GGSN is full, reject new tunnels with blocking probability $p_b$
+			\item[$\rightarrow$] Non-stationary Erlang loss model $M_t/G/n/0$ 
 		\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{Virtualized GGSN Model}
+	\frametitle{Virtualized GGSN Queuing Model}
 		\begin{center}
-		\resizebox{!}{3cm}{%
+		\resizebox{!}{3.8cm}{%
 			\input{figures/model_nfv_ggsn.tex}
 		}
 		\end{center}
 
 		\begin{itemize}
 			\item Same arrival and serving time process, no queue
-			\item Hypervisor distributes tunnels and starts virtualized GGSN instances on demand
-			\item Up to $s_{max}$ instances with capacity of $m$ each
-			\item Instance count kept near actual system load (energy efficiency)
-			\item Additional blocking, when new instances are not switched on fast enough
+			\item Hypervisor distributes tunnels and starts up to $s_{max}$ virtualized GGSN instances, each with capacity $m$, on demand
+			%\item Up to $s_{max}$ instances with capacity of $m$ each
+			%\item Instance count kept near actual system load (energy efficiency)
+			\item Additional blocking when new instances are not switched on fast enough, or instance overhead if not shut down when unused
+			\item System scales up (larger instances) and out (more instances)
 		\end{itemize}
 \end{frame}
 
@@ -249,13 +216,14 @@ Gain for a Mobile Network's GGSN''}
 	\frametitle{Simulating the Model}
 
 	\begin{itemize}
-		\item $M_t/G/n/0$ model, no exact mathematical solution available
+		\item No exact mathematical solution available for a $M_t/G/n/0$ model
 		\item Use queuing simulation instead of stationary analysis
 		\item SimPy3 based discrete event simulation\footnote{\url{https://github.com/fmetzger/ggsn-simulation}}
-		\item Arrival process with normalized exponential distributions fitted to dataset, four time of day slots
-		\item Tunnel durations fitted with rational functions
+		\item One week simulated period, omitted startup phase, 10 repetitions
+		\item Arrival process with exponential distributions fitted to dataset, four time of day slots ($\lambda=\{10.67,24.53,29.25,23.50\}$ before normalization)
+		\item Tunnel duration CDF fitted with a rational function
 		%\item Simple hypervisor instance start logic: always keep at least one active free instance in reserve
-		\item Scenario variables: $n$ and $s_max$
+		\item Scenario variable parameters: $n$, $m$, and $s_{max}$
 		\item Evaluate and compare both models based on
 		\begin{itemize}
 			\item Blocking probability
@@ -269,11 +237,12 @@ Gain for a Mobile Network's GGSN''}
 	\frametitle{Blocking Probability}
 
 	\begin{center}
-		\includegraphics[height=6cm]{figures/virtual-blocking.pdf}
+		\includegraphics[height=5.5cm]{figures/virtual-blocking.pdf}
 	\end{center}
 
 	\begin{itemize}
-		\item Traditional and virtualized scale equally with supported tunnels
+		\item Monolithic and virtualized GGSN scale equally with supported tunnels
+		\item No impact on $p_B$ if virtualized model is scaled by tuning $m$ or $s_{max}$
 	\end{itemize}
 \end{frame}
 
@@ -284,11 +253,12 @@ Gain for a Mobile Network's GGSN''}
 	\frametitle{Virtualized GGSN Resource Usage}
 
 	\begin{center}
-		\includegraphics[height=6cm]{figures/instanceuse-multiserver-real.pdf}
+		\includegraphics[height=5cm]{figures/instanceuse-multiserver.pdf}
 	\end{center}
 
 	\begin{itemize}
 		\item System scales both up (tunnels/instance) and out (instances)
+		\item Unused instances can be shut down for increased energy efficiency versus the monolithic model
 	\end{itemize}
 \end{frame}
 
@@ -303,16 +273,16 @@ Gain for a Mobile Network's GGSN''}
 	\frametitle{Conclusion}
 
 	\begin{itemize}
-		\item Investigated dataset for tunnel properties
+		\item Investigated tunnel properties in core network dataset
 
 		\begin{itemize}
-			\item Non-stationary poisson-arrivals
-			\item Tunnel duration with general distribution fitted to a rational function
+			\item Non-stationary Poisson arrivals
+			\item Tunnel duration with general distribution
 		\end{itemize}
 
 		\item Two novel models for tunnel load at a mobile core network's GGSN
 		\begin{itemize}
-			\item Traditional GGSN representing today's makeup
+			\item Monolithic GGSN representing today's makeup
 			\item Virtualized GGSN proposal with improved scalability and efficiency
 		\end{itemize}
 
@@ -325,8 +295,9 @@ Gain for a Mobile Network's GGSN''}
 
 \end{frame}
 
+%%
 \section*{}
-
+%%
 \begin{frame}
 	\frametitle{Thanks!}
 
@@ -334,9 +305,14 @@ Gain for a Mobile Network's GGSN''}
 		\Large Questions?
 \end{frame}
 
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
 
 \begin{frame}
 \end{frame}
+
+
 
 
 \begin{frame}
@@ -371,8 +347,56 @@ Gain for a Mobile Network's GGSN''}
 	\end{center}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Queuing Models}
+
+	\begin{center}
+		\includegraphics[height=2cm]{figures/kendall-model.pdf}
+	\end{center}
+
+	Described by Kendall's Notation $A/S/c/q$
+	\begin{itemize}
+	\item Distribution of the arrival process $A$
+		% \begin{itemize}
+		% 	\item Poisson arrivals, memoryless
+		% 	\item Markov chain model
+		% \end{itemize}
+	\item Distribution of the serving time $S$
+	\item Number of Servers $c$
+	\item Queue Length $q$
+	\begin{itemize}
+		\item $q=\infty$ no loss will occur
+		\item $0$ loss/blocking system, no queue
+	\end{itemize}
+	\item Evaluate
+		\begin{itemize}
+			\item Average queue length and server occupation
+			\item Blocking probability
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\setcounter{framenumber}{\value{finalframe}}
+
 \end{document}
 
+
+
+% \begin{frame}
+% 	\frametitle{The Dataset}
+
+% 	\begin{itemize}
+% 		\item one week long passive measurements in the core network of a operator (METAWIN, April 2011)
+% 		\item 2.2Bn anonymized user traffic records, 410M GTP tunnel management messages
+% 	\end{itemize}
+
+% 	Evaluated properties important for the model
+% 	\begin{itemize}
+% 		\item arrival rate of new tunnels
+% 		\item duration of tunnels
+% 		\item and diurnal influences on them
+% 	\end{itemize}
+% \end{frame}
 
 % \begin{frame}
 % 	\frametitle{Fitting Distributions to the Data}
