@@ -99,7 +99,7 @@ Gain for a Mobile Network's GGSN''}
 	\begin{itemize}
 		\item presents queuing models for a GGSN in the core network
 		\item models simulated with data from a real network
-		\item can be used to dimension to control plane
+		\item can be used to dimension for control plane
 		\item offers more scaling options
 	\end{itemize}
 
@@ -110,7 +110,7 @@ Gain for a Mobile Network's GGSN''}
 %%%
 
 \begin{frame}
-    \frametitle{GTP Tunneling Concept}
+    \frametitle{GTP Tunnels and Dataset}
 
       \begin{center}
 		\includegraphics[height=2.5cm]{figures/umts-network.pdf}
@@ -122,14 +122,14 @@ Gain for a Mobile Network's GGSN''}
 
 	%Tunneling concept
     \begin{itemize}
-		\item any user traffic in a 3G net is encapsulated into tunnels
+		\item Any user traffic in a 3G net is encapsulated into tunnels
 		\item GPRS Tunneling Protocol (GTP) used between SGSN and GGSN
-		\item tunnel state (PDP Context) held at and signaled between nodes through create/delete/update messages
+		\item Tunnel state (PDP Context) held at and signaled between core nodes through create/delete/update messages
 		%\item tunnel management signaling: creation, deletion, and update request/response messages
 	\end{itemize}
 	Recorded dataset
 	\begin{itemize}
-		\item one week long passive measurements in the core network of a operator (METAWIN, April 2011)
+		\item One week long passive measurements in an operator's core network (METAWIN, April 2011)
 		\item 2.2Bn anonymized user traffic records, 410M GTP tunnel management messages
 	\end{itemize}
 \end{frame}
@@ -138,7 +138,7 @@ Gain for a Mobile Network's GGSN''}
 
 \begin{frame}
 	\frametitle{Tunnel Arrivals}
-		\framesubtitle{Interarrival Time of Successful Tunnel Requests}
+		%\framesubtitle{Interarrival Time of Successful Tunnel Requests}
 	\begin{columns}[c]
 		\begin{column}{6.5cm}
 				\includegraphics[width=6.5cm]{figures/R-IAT-fromflows-ecdfs-2h.pdf}
@@ -161,7 +161,7 @@ Gain for a Mobile Network's GGSN''}
 
 	\begin{itemize}
 		\item Only slight dependence on time of day
-		\item Much stronger influence of user device type, OS, or network timers
+		\item Much stronger influence of user device type, OS, or network timers (not shown here)
 	\end{itemize}
 \end{frame}
 
@@ -180,7 +180,7 @@ Gain for a Mobile Network's GGSN''}
 
 		\begin{itemize}
 			\item Poisson tunnel arrival process with rate $\lambda(t)$, adjusted for the time of day
-			\item GGSN can serve $n$ tunnels in parallel, limited by network/processing costs and signaling/state overhead
+			\item GGSN can serve $n$ tunnels in parallel, limited by network/processing load and signaling/state overhead
 			\item Tunnels have a duration of $\mu(t)$ with a general distribution
 			\item If GGSN is full, reject new tunnels with blocking probability $p_b$
 			\item[$\rightarrow$] Non-stationary Erlang loss model $M_t/G/n/0$ 
@@ -198,7 +198,7 @@ Gain for a Mobile Network's GGSN''}
 
 		\begin{itemize}
 			\item Same arrival and serving time process, no queue
-			\item Hypervisor distributes tunnels and starts up to $s_{max}$ virtualized GGSN instances, each with capacity $m$, on demand
+			\item Hypervisor distributes tunnels and starts on demand up to $s_{max}$ virtualized GGSN instances, each with capacity $m$
 			%\item Up to $s_{max}$ instances with capacity of $m$ each
 			%\item Instance count kept near actual system load (energy efficiency)
 			\item Additional blocking when new instances are not switched on fast enough, or instance overhead if not shut down when unused
@@ -242,7 +242,7 @@ Gain for a Mobile Network's GGSN''}
 
 	\begin{itemize}
 		\item Monolithic and virtualized GGSN scale equally with supported tunnels
-		\item No impact on $p_B$ if virtualized model is scaled by tuning $m$ or $s_{max}$
+		\item Negligible to no impact on $p_B$ if virtualized model is scaled by tuning $s_{max}$ instead of $m$
 	\end{itemize}
 \end{frame}
 
@@ -257,8 +257,8 @@ Gain for a Mobile Network's GGSN''}
 	\end{center}
 
 	\begin{itemize}
-		\item System scales both up (tunnels/instance) and out (instances)
-		\item Unused instances can be shut down for increased energy efficiency versus the monolithic model
+		%\item System scales both up (tunnels/instance) and out (instances)
+		\item Unused instances can be shut down for increased energy efficiency compared to monolithic model
 	\end{itemize}
 \end{frame}
 
@@ -280,7 +280,7 @@ Gain for a Mobile Network's GGSN''}
 			\item Tunnel duration with general distribution
 		\end{itemize}
 
-		\item Two novel models for tunnel load at a mobile core network's GGSN
+		\item Erlang loss models for tunnel load at a mobile core network's GGSN
 		\begin{itemize}
 			\item Monolithic GGSN representing today's makeup
 			\item Virtualized GGSN proposal with improved scalability and efficiency
