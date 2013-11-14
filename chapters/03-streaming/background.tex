@@ -138,33 +138,16 @@ This is an important method of control for the player. Usually, \gls{TCP}'s tran
 \label{c3:fig:streamingtransfermodes}
 \end{figure}
 
-One of the alternatives to achieve this using \gls{HTTP}-streaming this is an appropriately sized flow control receive window. Alternatively, the \gls{HTTP}-server can also manually throttle the download process. A third way, is to either partition the stream file into smaller even-spaced segments, that have to be requested independently, or use the aforementioned range requests on the stream's file. Through this, the receiving application can delay the request of new ranges or segments so that it matches a targeted bitrate over a longer timeframe. This will however also result in a very bursty transmission, a so-called ON-OFF pattern, and can cause undesireably interactions with \gls{TCP}'s flow and congestion control mechanisms. Figure~\ref{c3:fig:streamingtransfermodes} compares these mechanisms in terms of their transmission pattern.
 \todo{reference to transmission pattern here? alternatively, put one of the old youtube throttling pictures here}
 
-These mechanisms can be subsumed under the term \textit{Application Layer Flow Control}
+The first of the alternatives to achieve control over the playback buffer using \gls{HTTP}-streaming is to appropriately size \gls{TCP}'s flow control receive window by the application. 
+Alternatively, the \gls{HTTP}-server can also manually throttle the download process, through various pacing strategies. The second and third transmission diagrams in Figure~\ref{c3:fig:streamingtransfermodes} depict two possible strategies compared to a regular \gls{HTTP} file transmission in the first transmission diagram. A third way, is to either partition the stream file into smaller even-spaced segments, that have to be requested independently, or use the aforementioned range requests on the stream's file. Through this, the receiving application can delay the request of new ranges or segments so that it matches a targeted bitrate over a longer timeframe.
 
-%% <-- %% WIP
+These mechanism, however, can also result in a very bursty block-like transmission, a so-called ON-OFF pattern, and can cause undesirably interactions with \gls{TCP}'s flow and congestion control mechanisms \todo{ref to interaction}. Overall, stretching out the transmission may reduce server load spikes and the required buffer size on the client device but also makes streaming more vulnerable to insufficient network \gls{QoS} parameters. These specific approaches to pace to a target rate can generally be subsumed under the term \textit{Application Layer Flow Control}, which is also being implemented by some Web streaming services, e.g. YouTube \cite{alcock2011afcyt,metzger2011delivery}.
 
+The aforementioned only adapt the transmission rate to the stream's bit rate and not the stream rate itself. Different video bitrates may be desired for many use cases, especially reacting to changing network conditions, take vertical handover from a 802.11 to a \gls{UMTS} network with a much lower throughput as an example. Quality adaptation with \gls{HTTP} streaming is generally achieved through the described range request or file segmentation mechanisms. For both approaches, multiple versions of the file or the segments have to be generated in different encoding quality levels. Also, the video file format needs to be able to support switching the stream and have an index to correlate the video files with their quality level and temporal position. \cite{ma2011mobile, watching-video1}
 
-\gls{HTTP} file downloading is a very simple process. The server has very little influence on this and just forwards requested stored data into a TCP socket. This is not an optimal behavior for video streaming as it does not allow for any throttling or rate management. The buffer space in mobile or embedded devices can be very limited, it would be useful to limit the amount of received data while still ensuring sufficiently available future playback data in the buffer. Services have begun to implement application layer flow control mechanisms for their video streaming application, e.g. YouTube \cite{alcock2011afcyt}. Figure \ref{c3:fig:streamingtransfermodes} shows a comparison of several possible rate management modes. The first sequence diagram shows the unaltered transfer mode observable in regular HTTP file transmissions. The second and third diagrams show possible ways of implementing application layer flow control with either evenly spread out transmissions or sending in blocks. The last diagram displays a mode using multiple requests for one video which can be facilitated for rate adaptations discussed in the next item.
-
-
-In its simplest form Web streaming acts like regular \gls{HTTP} traffic. The video is requested and then delivered from the server in one single block transfer. The transfer is controlled by the server and it can employ pacing mechanisms to somewhat match the download duration to the playback duration. This reduces load spikes and the required buffer size on the client device but also makes the process more vulnerable to changing network conditions. YouTube uses a server-side pacing mechanism which is  discovered in \cite{alcock2011afcyt} and also discussed in Section \ref{c3:measurements}.
-
-These simple mechanisms, however, can not seamlessly change quality in a currently running video. This can be important for, e.g., mobile networks or when an increasingly loaded server can not fulfill every request in its highest quality at the required speed anymore.
-
-
-\gls{HTTP} is a state-less request-response protocol. The synchronous behavior of the request-response mechanism does not allow for server events to be sent in a timely manner to the client. This increases the difficulty of implementing some extended features. Examples are server-side load balancing, or real time or live streaming. 
-
-
-\textit{Video quality and rate adaptation}. To be able to support varying video bitrate levels similar to \gls{RTP} some adaptations to \gls{HTTP} streaming are needed. At first, the video has to be encoded multiple times to several output bitrates. Also, the video container needs to be able to support switching the stream at will with everything required for the playback in place. Additionally, an independently available index file needs to correlate the video files with their contents. Alternatively, the video can be segmented into short pieces of several seconds outlined by a separate index file. Then the client can choose the stream variant that best fits its current condition, which depends on parameters including the display size or varying network \gls{QoS}. \cite{ma2011mobile} gives an overview over some possibilities. Several proprietary protocols, some of them in the process of standardization, tackle this, including \gls{HTTP} Live Streaming \cite{pantos2011livestreaming} and Microsoft Smooth Streaming \cite{zambelli_iis_2009}. They are either based on file segmentation or HTTP RANGE requests. 
-
-
-This includes evaluations of the optimal length of segments as well as tuning the aforementioned buffering models to be able to cope with at least two new degrees of freedom, i.e. being able to load multiple segments at once using more than one connection as well as the ability to switch to another video encoding level in case of changing connection capacity or buffer pressure conditions.
-
-
-Therefore adaptive forms of \gls{HTTP} streaming were developed. The techniques complement and extend the server-side pacing mechanisms and introduce video quality and bitrate adaption to \gls{HTTP} streaming by doing file segmentation \cite{ma2011mobile, watching-video1}. Bitrate adaption, belonging to a class of application-layer flow control mechanisms, can add an extra level of feedback to react to changing network conditions but could also make buffer management more complex. Protocols based on this approach are already widespread, e.g. in Netflix's offerings.
-
+Several formal adaptive streaming protocols are in the process of standardization. \gls{HLS} \cite{pantos2011livestreaming} defines a playlist format to be stored separately on a server that links to all available stream variants and segments thereof in sequence. \gls{DASH} \cite{Stockhammer:2011:DAS:1943552.1943572} is a \gls{ISO}/\gls{IEC} \cite{iso-iec-23009-1} and 3GP-DASH \cite{3gpp.26.247} standard. Herein, all video segments are gathered in an alternative XML-based presentation scheme. Due to its file-based, using \gls{HTTP} for streaming is much more suited for stored video. But has also been successfully employed for live content, both \gls{HLS} as well as \gls{DASH} support this.
 
 
 HTTP includes some support by the network in the form of proxies, but there are signaling methods that can e.g. forbid the caching of specific content through the no-cache directive \cite{rfc2616}.
@@ -177,14 +160,6 @@ No multicast, but can use CDN to almost the same effect.
 	On the other hand, the rise of community pages like YouTube has shown, that the interest does not lie in watching the same content at the same time, but rather in high individualism. Therefore, multicast is less relevant for today's streaming. If there is a media event that is streamed live, one can always fall back to using the relatively new structures of \gls{CDN} to be able to serve large groups of users while still conserving bandwidth on the Internet backbones.
 
 
-\paragraph{Formal Approaches: DASH and Others}
-
-Due to the nature of \gls{HTTP} more suited for stored video. But has also been successfully employed for live content \gls{HLS}, \gls{DASH}
-
-\gls{DASH}
-\gls{HTTP} streaming pursuits a pull-based approach. The client establishes \gls{TCP} connections to send \gls{HTTP} requests for video files stored on the Web server, which are then sent to the client. During the sequential downloading process the client can at any time start playing the file even before it is completely downloaded, resulting in a so-called pseudo-streaming behavior.
-With this principle the client makes its own decisions regarding the playback process. It has intrinsic knowledge on the current and estimated future connection quality. This leads to a shift of control logic from the server to the client. The former can now be implemented very lightweight, allowing, e.g., for a more distributed content placement in the Internet, especially when using.
-
 WebSocket\footnote{\url{http://www.websocket.org/}} \cite{ietf2011websocket} is a protocol running atop of \gls{HTTP} offering connection multiplexing and asynchronous as well as full duplex communication. It could be used to implement a more flexible \gls{HTTP} video streaming offering or unlocking further use cases. Similar approaches should be included and evaluated in the research for this thesis.
 
 By using \gls{HTTP} the ideal platform for the client is either a plugin living inside a Web browser, the method chosen by Flash, or the browser itself, that in most cases has built-in video playback capabilities.
@@ -195,10 +170,10 @@ The capabilities and shortcomings of these novel mechanisms are not yet fully re
 
 
 
+%% <-- WIP
 
 
 
-%% <-- %% end WIP
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Other and Proprietary Approaches}
@@ -212,7 +187,24 @@ The explicit control structure of protocol suites like \gls{IMS} \cite{3gpp.23.2
 Peer-to-peer based approaches, including live-streaming!; describe P2P, 
 
 %%
-\todo{Übersichtstabelle über alle Protokolle und Klassifizierung davon}
+
+\begin{table}[htbp]
+  \caption{Protocol Classification Matrix.}
+  \label{c3:tab:streamingclassification}
+  \tabulinesep=1.2mm
+  \centering
+  \begin{tabu}{|X|X|X|X|X|X|} 
+
+  Protocol & \textbf{Location of Control} & \textbf{Reliable Transport} & \textbf{Video Type} & \textbf{Adaptivity} & \textbf{Multicast} \\ \tabucline[1pt]-\everyrow{\tabucline[on 1.5pt off 2pt] - }
+  RTP &  &  &  & & \\
+  simple HTTP & & & & & \\
+  adaptive HTTP (DASH) & & & & & \\
+  RTMP &  &  &  & &
+  \end{tabu}
+\end{table}
+
+
+%% <-- %% end WIP
 %%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
