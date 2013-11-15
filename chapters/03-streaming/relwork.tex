@@ -2,6 +2,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Related Work}
 
+
+Video streaming touches many aspects of computer communication network research. The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. This section arranges relevant related work topics on a protocol layer top-down approach. First, publications related to video streaming applications and their mechanisms are presented. Afterwards, work on streaming transport is discussed.
+
+
+The chapter's focus lies on reliable \gls{HTTP} streaming to which \cite{watching-video1} and \cite{ma2011mobile} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery. Akhshabi et al. \cite{akhshabi2011experimental} take a look at real world streaming implementations and conduct comparative measurements. Initial experiments evaluate the viability of this kind of approach. 
+
+Concerning specific streaming solutions, there are several publications discussing YouTube's architecture. In 2007 Gill et al. \cite{gill2007youtube} made a long-term observation of YouTube traffic originating from an university network. Their analysis shows detailed characteristics of the served videos, among others file sizes, durations, and bitrates, and reveals a daily number of video requests. Adhikari et al. \cite{adhikari2010youtube} collected data from points of presence of one ISP to explore the service's traffic distribution and load balancing techniques. However, these were still based on YouTube's old architecture prior to being acquired by Google. The new infrastructure differs largely from the old, e.g. load balancing and content distribution now exclusively uses Google's network. Mori et al. describe in \cite{mori2010characterizing} distinctive attributes of video traffic flows originating from YouTube's new and current setup while Torres et al. \cite{torres2011dissecting} focus on observations of the CDN's server selection process using multi-network passive measurements.
+
+
+The authors of \cite{wang2003model} propose an analytical model for TCP-based video streaming, differentiating between live (``constrained'') and pre-recorded videos. The impact of packet loss on an unreliable video stream is studied in \cite{pv2010loss}. The loss-hiding properties of reliable streaming makes this study only somewhat applicable to \gls{HTTP} streaming.
+
+%% <-- WIP
+
+In \cite{pv2010qoe}, the authors present a quality-assessment model for video streaming services, with the quality features derived from the actual video. The model does not include the network behavior, but focuses on the codec performance instead. 
+
+A metric termed ``application comfort'' is calculated from YouTube videos in \cite{staehle2010yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
+
+Whereas these focused on the architectural setup they do not investigate the client's role and the resulting quality of the video streaming process in this. 
+Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measuring} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model.
+
+
+%% <-- %% end WIP
+%%
+
 \begin{itemize}
 	\item Cloud gaming as a media streaming application with strong real-time requirements \cite{4795441,wang2009modeling,jarschel2011cloudevaluation,ct2010wolken}
 
@@ -32,31 +56,7 @@
 	\item What DNS is not. \cite{vixie2009dns}
 	\item Comparing DNS resolvers in the wild \cite{ager2010comparing}
 	\item Quantification of quality of experience for edge-based applications\cite{hossfeld2007quantification}
+	\item Biernacki/Metzger On the Influence of Network Impairments on YouTube Video Streaming \cite{cs3518}
 \end{itemize}
 
 
-Biernacki/Metzger On the Influence of Network Impairments on YouTube Video Streaming \cite{cs3518}
-
-Video streaming touches many aspects of computer communication network research. They can be categorized in aspects touching on the one hand the service itself and on the other hand  the transport and underlying network. This chapter splits the topic roughly on a top-down layer approach. At first, modern video streaming applications and their mechanisms are presented. Afterwards, the streaming transport is discussed with a concluding section on the influences of wired and especially mobile network architectures.
-
-
-The technical fundamentals for video streaming have existed for a sufficiently long time so that there is a large body of existing work. We focus on TCP and especially HTTP streaming to which \cite{watching-video1} and \cite{ma2011mobile} give an introduction and overview the mechanics involved in streaming, e.g. flow control mechanisms in the video delivery.
-
-Akhshabi et al. \cite{akhshabi2011experimental} take a look at real world implementations of these and do comparative measurements. Initial experiments in \cite{akhshabi2011experimental} evaluate the viability of this kind of approach. We plan to extend this by modeling the fundamental building blocks the mechanisms have in common and after that giving tools to find and evaluate combinations best suited to specific network conditions.
-
-There are several publications discussing YouTube's architecture. Gill et al. made in \cite{gill2007youtube} a long-term observation of YouTube traffic originating from an university network. Their analysis shows detailed characteristics of the served videos, among others file sizes, durations, and bitrates, and reveals a daily number of video requests. Adhikari et al. \cite{adhikari2010youtube} collected data from points of presence of one ISP to explore the service's traffic distribution and load balancing techniques.
-
-However, these were still based on the old architecture prior to being acquired by Google. The new infrastructure differs largely from the old, e.g. load balancing and content distribution now exclusively uses Google’s network. Mori et al. in \cite{mori2010characterizing} describe distinctive attributes of video traffic flows originating from YouTube's new and current setup while Torres et al. \cite{torres2011dissecting} focus on observations of the CDN's server selection process using multi-network passive measurements.
-
-
-The authors of \cite{wang2003model} propose an analytical model for TCP-based video streaming, differentiating between live (``constrained'') and pre-recorded videos. In our approach, analytical tractability is not an issue as we perform actual measurements and decoding, so we are not limited to constant-bit rate video streams, constant packet sizes, or single playback strategies.
-
-The importance of packet loss for an H.264 SD video stream is studied in \cite{pv2010loss}. Packet loss on the link is also investigated in our comparison of playback behaviors, but in our first evaluations we analyze TCP as the transport protocol for the stream, so from the perspective of the application, packets are not lost, but delayed.
-
-
-In \cite{pv2010qoe}, the authors present a quality-assessment model for video streaming services, with the quality features derived from the actual video. The model does not include the network behavior, but focuses on the codec performance instead. 
-
-A metric termed ``application comfort'' is calculated from YouTube videos in \cite{staehle2010yomo} to monitor live network conditions in realtime. While this approach is in effect similar to our evaluations, it is geared towards a very specific implementation of streaming, whereas we believe our methodology is more generic.
-
-Whereas these focused on the architectural setup they do not investigate the client's role and the resulting quality of the video streaming process in this. 
-Observations performed in \cite{ketyko2010qoe} on the Android platform were showing that re-buffering events, i.e. phases of video stalling, can result in a large drop in Mean Opinion Score (MOS). The authors of \cite{mokmeasuring} measure Quality of Experience (QoE) effects of HTTP video streaming in a controlled test setup and also conclude that degraded network QoS increases re-buffering frequency and decreases the MOS. Gustafsson et al. \cite{gustafsson2008measuring} also discovers the loss in perceived streaming quality and establishes a parametric objective opinion model.
