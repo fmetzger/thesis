@@ -4,8 +4,10 @@
 \input{components/info}
 \input{components/packages}
 \input{components/settings}
+
+%% load and typeset acronyms
 \makeglossaries
-%\input{components/acronyms}
+\renewcommand{\glsseeitemformat}[1]{\textsc{\glsentryname{#1}}}
 \loadglsentries{components/acronyms}
 
 \newcommand{\todo}[1]{{\small \color{red} [TODO: #1]}}
@@ -54,7 +56,8 @@
 	\let\clearpage\relax
 	\let\cleardoublepage\relax
 	\glsaddall
-	\printglossaries
+	%\printglossaries
+	\printacronyms
 \endgroup
 
 \newpage % or \cleardoublepage

@@ -43,20 +43,19 @@
 \usepackage{enumitem} % ?
 \usepackage{array} % ?
 \usepackage{styles/tangocolors}
-%\usepackage[pdftex,hyperfootnotes=false,pdfpagelabels]{hyperref}
-\usepackage[pdfencoding=auto, unicode=true, hyperfootnotes=false, pdfpagelabels=true]{hyperref}
-\hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen%,%pdftitle={\@title},%pdfauthor={\@author}}%pdfsubject={\doctype}
-}
+\usepackage[colorlinks, unicode=true]{hyperref}
+\hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen}
 
-\usepackage[acronym,toc,section=chapter]{glossaries}
-\glsdisablehyper   % hyperlinks do not work with glossaries; but why?
+%\usepackage[acronym,toc,section=chapter]{glossaries}
+\usepackage[acronym, nomain, style=tree, hyperfirst=false, toc, section=chapter]{glossaries}
+%\glsdisablehyper   % enable this, if hyperref for glossaries breaks again
 
 \usepackage{classicthesis} % https://code.google.com/p/classicthesis/
 \usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
 \usepackage{textcomp} % extra symbols; used for euro and copyright symbol
-%\usepackage{units} % typeset physical units
 \usepackage[load-configurations={abbreviations,binary}]{siunitx}
 \sisetup{load-configurations = abbreviations,binary-units}
 \usepackage{xspace} % ?
 \usepackage{algorithmic}
 \usepackage{algorithm}
+
