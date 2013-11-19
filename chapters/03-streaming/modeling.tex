@@ -5,6 +5,74 @@
 \section{Streaming Modeling}
 \label{c3:sec:modeling}
 
+The goal of this chapter is to model the measuring process and reliable streaming itself.
+To evaluate any such models, metrics are required.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Metrics for Reliable Transport Streaming}
+\label{c3:metrics}
+
+\cite{ituJ144}
+
+\cite{ituG1080}
+
+metrics by \gls{VQEG}
+
+Quality Estimation and Modeling: QoE metrics, MOS, stalling time and buffering models, subjective and objective testing
+
+full-reference vs no reference
+
+\subsubsection{Unreliable Streaming Metrics}
+... and why they mostly do not work / are not applicable.
+
+subjective tests: human ``assessors'' evaluating videos in a standardized environment, overall relative quality score \gls{MOS}, also used as standard output for objective metrics
+
+objective perceptual measurements through signal (network/traffic) measurements
+
+Full Reference FR model
+
+Reduced Reference RR model
+
+No reference NR model
+
+FR most relevant to investigate encoding quality of (lossy) video coders by directly comparing the in- and output frames against each other. Or to test a (unreliable) video transmission /streaming system in a controlled testbed, when both sender and receiver are controlled. It is less applicable to assessing the quality of a reliable video stream, where most often no reference video is available and the video quality is not influenced by network loss.
+
+\gls{PSNR} FR metric
+
+\gls{MSE}
+
+\gls{PEVQ} FR metric ITU-T J.247
+
+\gls{SSIM} FR metric
+
+\subsubsection{Reliable Streaming Metrics}
+
+Model and Performance of a No-Reference Quality Assessment Metric for Video Streaming\cite{DBLP:journals/corr/SeyedebrahimiBP13}
+
+packet delay variation metric for sizing of playout buffers\cite{rfc3393}
+
+\gls{MDI} \cite{rfc4445}
+
+Continuity Index (CI)
+the fraction of video packets retrieved by and arrived at a peer before the corresponding playback deadline 
+
+Stalling, number of buffer underruns, length of buffer underruns
+
+Initial Delay, length
+
+possible buffer overflow? uservisible implications?
+
+``application comfort'' time to skip, ...
+
+Adaptive: Quality Level; Average / Median / Higher Moments
+
+
+
+
+%% <-- WIP
+
+%% <-- %% end WIP
+
 Biernacki/Metzger On the Influence of Network Impairments on YouTube Video Streaming \cite{cs3518}
 and refs to the other two (three?) papers
 
