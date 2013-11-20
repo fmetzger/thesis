@@ -5,47 +5,45 @@
 \section{Streaming Modeling}
 \label{c3:sec:modeling}
 
-The goal of this chapter is to model the measuring process and reliable streaming itself.
-To evaluate any such models, metrics are required.
+As stated, the goal of this chapter is to model the measuring process and reliable streaming. This section will introduce our reliable \gls{TCP}-based streaming model. It is intended for easily comparing different protocol variants against each other and measuring all variants in one testbed. 
 
+But first, because any evaluation of a model requires metrics, we describe ones appropriate to the model and give a rationale.
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Metrics for Reliable Transport Streaming}
 \label{c3:metrics}
 
-\cite{ituJ144}
+When measuring anything related to video or even just image quality, one has the choice between conducting a subjective or objective assessment. 
 
-\cite{ituG1080}
+During a subjective test, human assessors evaluate and rate video quality in a controlled environment with the results usually being aggregated into an overall relative quality score \gls{MOS}. Through the human element, conducting a subjective assessment is very time and resource consuming but it also achieves the highest precision.
 
-metrics by \gls{VQEG}
+This is where, objective video quality assessments come into play. Modern objective models attempt to recreate the features of the humans' visual perception and psychophysics and are calibrated by subjective assessments. Most objective models operate on a full reference approach, they directly compare the original reference video to the resulting video after being encoding or transmitted.
 
-Quality Estimation and Modeling: QoE metrics, MOS, stalling time and buffering models, subjective and objective testing
+Two of the simplest full reference image quality metrics, which can also be applied on video, are the \gls{MSE} and \gls{PSNR}, defined as:
 
-full-reference vs no reference
+\begin{equation}
+    \begin{aligned}
+    MSE = \frac{1}{N} \sum_{i=1}^{N}(x_i - y_i)^2\\
+    \text{and } PSNR = 10 \log_{10} \frac{L^2}{MSE},
+    \end{aligned}
+\end{equation}
 
-\subsubsection{Unreliable Streaming Metrics}
-... and why they mostly do not work / are not applicable.
+with $N$ as the number of pixels in a frame and individual pixels $x$ and $y$ from the reference and output frame respectively. $L$ denotes the maximum value of a pixel. For grayscale or when investigating each color channel separately, usually $L = \SI{8}{\bit} = 255$.  \cite{objective-vqa}
 
-subjective tests: human ``assessors'' evaluating videos in a standardized environment, overall relative quality score \gls{MOS}, also used as standard output for objective metrics
+Image quality models can by nature only test for spatial distortions of a single image. This includes a general blockiness or blurriness, noise, or reduced resolution. Dedicated video quality assessments can additionally take temporal metrics into account, e.g. frame rate anomalies. Such models are being researched and standardized by the \gls{ITU} and \gls{VQEG} for example in \cite{ituJ144, ituJ246, ituJ247}.
 
-objective perceptual measurements through signal (network/traffic) measurements
+Most of the aforementioned only have quality degradation from a video encoding process or sometimes additionally through classical transmission channels in mind.  
 
-Full Reference FR model
+For a dedicated video streaming quality metric, only the streaming process should be factored in, and not the encoding process itself. During streaming only a specific subset of quality degradations can occur. Lost or late packets can cause missing blocks in a frame or frames to be skipped completely. Initial thoughts on \gls{IPTV} have been given in \cite{ituG1080}.
 
-Reduced Reference RR model
-
-No reference NR model
 
 FR most relevant to investigate encoding quality of (lossy) video coders by directly comparing the in- and output frames against each other. Or to test a (unreliable) video transmission /streaming system in a controlled testbed, when both sender and receiver are controlled. It is less applicable to assessing the quality of a reliable video stream, where most often no reference video is available and the video quality is not influenced by network loss.
 
-\gls{PSNR} FR metric
 
-\gls{MSE}
-
-\gls{PEVQ} FR metric ITU-T J.247
-
-\gls{SSIM} FR metric
 
 \subsubsection{Reliable Streaming Metrics}
+
+objective perceptual measurements through signal (network/traffic) measurements
 
 Model and Performance of a No-Reference Quality Assessment Metric for Video Streaming\cite{DBLP:journals/corr/SeyedebrahimiBP13}
 
@@ -67,6 +65,9 @@ possible buffer overflow? uservisible implications?
 Adaptive: Quality Level; Average / Median / Higher Moments
 
 
+
+%\subsubsection{Unreliable Streaming Metrics}
+%... and why they mostly do not work / are not applicable.
 
 
 %% <-- WIP
