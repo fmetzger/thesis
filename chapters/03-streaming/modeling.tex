@@ -32,60 +32,61 @@ with $N$ as the number of pixels in a frame and individual pixels $x$ and $y$ fr
 
 Image quality models can by nature only test for spatial distortions of a single image. This includes a general blockiness or blurriness, noise, or reduced resolution. Dedicated video quality assessments can additionally take temporal metrics into account, e.g. frame rate anomalies. Such models are being researched and standardized by the \gls{ITU} and \gls{VQEG} for example in \cite{ituJ144, ituJ246, ituJ247}.
 
-Most of the aforementioned only have quality degradation from a video encoding process or sometimes additionally through classical transmission channels in mind.  
 
-For a dedicated video streaming quality metric, only the streaming process should be factored in, and not the encoding process itself. During streaming only a specific subset of quality degradations can occur. Lost or late packets can cause missing blocks in a frame or frames to be skipped completely. Initial thoughts on \gls{IPTV} have been given in \cite{ituG1080}.
+When conducting dedicated streaming quality measurements, only this portion should be taken into account by a metric, and not the initial encoding process. During streaming only a specific subset of quality degradations can occur. Lost or late packets can cause missing blocks in a frame or frames to be skipped completely. Initial thoughts concerning \gls{IPTV} \gls{QoE} have been given in \cite{ituG1080} and the influence of packet delay variations on playout buffers is investigated in \cite{rfc3393}The \gls{MDI} \cite{rfc4445} is an attempt to capture this behavior and relate it to the network \gls{QoS}. Its metric relies on two properties, the \gls{DF}, as a measure of the network's latency and jitter, and the media loss rate. Of special interest to this investigation is the \gls{DF}, which is calculated based on a virtual buffer (VB) of received stream data as
 
+\begin{equation}
+    \begin{aligned}
+        VB = r_{rcv} - r_{drain} \\
+        DF_i = \frac{\max(VB) - \min(VB)}{r_{drain}}
+    \end{aligned}
+\end{equation}
+ 
+Reliable streaming has even less possibilities to degrade a video stream. Packets can not be out of order and loss is concealed by \gls{TCP}, meaning that the transmitted and the played video are identical. The only thing that can still happen, is portions of the video arriving too late to be played out at their intended point in time.
+A potential reliable streaming quality assessment metric needs to keep track of the following properties:
 
-FR most relevant to investigate encoding quality of (lossy) video coders by directly comparing the in- and output frames against each other. Or to test a (unreliable) video transmission /streaming system in a controlled testbed, when both sender and receiver are controlled. It is less applicable to assessing the quality of a reliable video stream, where most often no reference video is available and the video quality is not influenced by network loss.
+\begin{itemize}
+    \item The initial delay, which is the time delta between the start of the transmission and the start of the video play.
+    \item The number and lengths of interruptions or stalls during playback.
+    \item For adaptive streaming, the characteristics of the quality levels the video was played in. This includes the number of switching events and the duration of each level.
+\end{itemize}
 
+A concise metric covering all properties has not been defined yet. The \gls{CI} was defined in \cite{1498486} and used to determine quality in \gls{P2P} live streaming. It is defined as \enquote{the number of segments that arrive before or on playback deadlines over the total number of segments} and with this partly captures the stalling property. In \cite{5634160} and \cite{DBLP:journals/corr/SeyedebrahimiBP13} a so-called \gls{PI} is defined and evaluated. The definition $I_p = uv$ is simply based on the number of stalls $u$ and the average stall duration $v$. 
 
-
-\subsubsection{Reliable Streaming Metrics}
-
-objective perceptual measurements through signal (network/traffic) measurements
-
-Model and Performance of a No-Reference Quality Assessment Metric for Video Streaming\cite{DBLP:journals/corr/SeyedebrahimiBP13}
-
-packet delay variation metric for sizing of playout buffers\cite{rfc3393}
-
-\gls{MDI} \cite{rfc4445}
-
-Continuity Index (CI)
-the fraction of video packets retrieved by and arrived at a peer before the corresponding playback deadline 
-
-Stalling, number of buffer underruns, length of buffer underruns
-
-Initial Delay, length
-
-possible buffer overflow? uservisible implications?
-
-``application comfort'' time to skip, ...
-
-Adaptive: Quality Level; Average / Median / Higher Moments
+Generally, most research operates just directly on these three properties, which allows for the most freedom in usage scenarios. The streaming measurement model presented in the following section also works with the assumption, that only the three properties are of importance. The model assumes no special metric, the individual properties can be directly attained from the model. Though any metric could still be applied on the results.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Measurement and Playback Model}
+\label{c3:model}
 
-%\subsubsection{Unreliable Streaming Metrics}
-%... and why they mostly do not work / are not applicable.
+The model presentation presents in part on the author's previous work published in \cite{cs3518}, \cite{metzger2011delivery}, and \cite{6229739}.
 
+Model Goal:
+    We implemented a source model which tries to resemble these applications. We based our work on the HTML5 model as it was the simplest yet still effective, delaying the start of the playback until it can be consumed in one pass.
+    Multiple incarnations of media streaming, but similar and (most of all!) comparable concepts and mechanisms => no need to assess single, specific protocols, networks, codecs, etc., but measure and describe generic, universal, common behavioral patterns => model, compare performance based on behavioral, structural commonalities. Choose for example a (range of) timescale(s) to find sets of mechanisms you need to look at. First use case to show how our system works: Progressive HTTP streaming. Will show adaptability to adaptive streaming and different protocols.
+
+Common to all approaches: player ... player buffer!
+
+input: data transmission time-series (trace)
+
+adjustments to adaptive model: needs feedback loop to adjust quality
+
+models: 
+    keep buffer between two thresholds // simpler version keep above one threshold
+    measure
 
 %% <-- WIP
 
+\subsubsection{Simple Buffering Model}
+
+\subsubsection{Feedback Buffering Model}
+
+\subsubsection{Buffering Strategies}
+
 %% <-- %% end WIP
 
-Biernacki/Metzger On the Influence of Network Impairments on YouTube Video Streaming \cite{cs3518}
-and refs to the other two (three?) papers
 
-%% models
-    %streaming-buffering-playback model creation
-    %Why model at all?
-    %Understand the problem and dissect it / break it down to its elemental components
-    %Find similar problems/models, extend the model for other problems
-    %Overview on the models
-    %  We implemented a source model which tries to resemble these applications. We based our work on the HTML5 model as it was the simplest yet still effective, delaying the start of the playback until it can be consumed in one pass.
-
-    %Multiple incarnations of media streaming, but similar and (most of all!) comparable concepts and mechanisms => no need to assess single, specific protocols, networks, codecs, etc., but measure and describe generic, universal, common behavioral patterns => model, compare performance based on behavioral, structural commonalities. Choose for example a (range of) timescale(s) to find sets of mechanisms you need to look at. First use case to show how our system works: Progressive HTTP streaming. Will show adaptability to adaptive streaming and different protocols.
 
 As web-based delivery uses reliable TCP transfers and (in its simplest form) does not use any kind of scaling or multi-layered video encoding, there will never be any change in the actual video quality. Therefore, the users' experience is influenced by only a small number of parameters. A user will notice some delay after he starts the video streaming process. If the video download is slower than the average video bitrate the playback will stall, i.e. stop playing, at some point until there is enough data available to resume playing again.
 The QoS parameters affecting these metrics are limited bandwidth, packet loss, and latency, causing the player to intermittently pause playback and enter a re-buffering state.
@@ -145,23 +146,27 @@ While these models try to give dimensions and characteristics to the initial sta
 % stalling 32.68s
 % html5 as implemented in firefox 44s
 
-\subsection{Simple Stalling Model}
+\subsubsection{Simple Stalling Model}
 
 The simplest version of the model is represented in Figure \ref{c3:fig:bufferlevel-stall} which shows the difference between the aggregate downloaded and already played data, which is the buffer level. The model starts and advances playback immediately when it has enough data to show a full frame and stops every time the buffer is about to run out and restarts immediately when there is data to show. This results in numerous stops and a large loss in playback continuity. However, this model also has the shortest total stalling time and can therefore act as a reference baseline to compare the performance of the other models against it.
 
+The behavior can be summarized as ``Whenever anything can be played from the buffer, do so''. This means that, if the player is currently stalling and a complete frame becomes available in the buffer, playback will immediately restart and the frame will be shown even if this means stopping playback after that frame again. This results in the lowest required buffer space. Moreover, it gives an upper limit for the number of stalls occurring\footnote{As a video frame is atomic, no other model could possibly stop the playback more often.}.
 
-\subsection{Simple Predictive Model}
+
+\subsubsection{Simple Predictive Model / Initial Playback Delay Model}
 
 The second approach in Fig. \ref{c3:fig:bufferlevel-startdelay} defers the playback start as long as it is needed to play the video uninterrupted, meaning that the playback buffer will never run out of data. However, this approach is only viable with a complete knowledge over the downloading process, which can only be estimated in live scenarios. Because playback is done with global knowledge and at the earliest point possible the total stalling time is also 33 seconds, but only one long stalling phase occurs while the user initially waits for the playback to start.
 
+The model is similar to progressively downloading the whole stream, as it will simply delay the initial start of the video until it can be played completely without any buffer underruns occurring. The only stall occurring is the initial waiting period until the video starts. The time spent waiting will also be minimal. The downside of this model is its use of perfect knowledge on the future network conditions at any point in time, making it purely theoretical. Actual streaming players need to accurately predict the transmission process, e.g. through moving averages.
 
-\subsection{YouTube Model}
+
+\subsubsection{YouTube Model}
 
 This model tries to resemble the playback mechanisms as implemented in YouTube's Flash video player.
 It defers the start until at least two seconds of video data are buffered. When a stall occurs the player buffers at least five seconds of video before restarting. The model does not use any knowledge about the transmission (e.g. current bandwidth).
 The result can be seen in Figure \ref{c3:fig:bufferlevel-flash}. Compared to the simple stalling model it increases the playback stability while only marginally affecting the total stalling time, resulting in 34 seconds of stalling.
 
-\subsection{HTML5 Predictive Model}
+\subsubsection{(Firefox) HTML5 Predictive Model}
 The standard playback and buffering process of HTML5 is described in the HTML5 specification but adds up to:
 \textit{``[...] the user agent [...] will automatically begin playback of the media resource as soon as it can do so without stopping.''} \cite{html5video}. The model presented here is based on the HTML5 implementation of the open source Firefox Browser in version 4 which differs slightly from the HTML standard. Because it is an online algorithm which does not have global knowledge of the video and transmission speeds of any point in the future it has to estimate these. It does so by calculating the moving averages of both. Playback is started when one of these conditions are met:
 
@@ -174,70 +179,6 @@ The standard playback and buffering process of HTML5 is described in the HTML5 s
 
 This approach is quite conservative and trades longer waiting times for fewer interruptions. The test case for our model is shown in Figure \ref{c3:fig:bufferlevel-firefox}. Initially, playback starts only after a long waiting period of about 25 seconds. Also, the only intermittent stall causes a long buffering period. Then again, the model keeps the total number of stalls down to this single stall. However, due to the longer overall stalling time of 44 seconds the player needs to buffer more data than the other model implementations. In our test case the maximum buffer size increased from about 2800 KiB to 5600 KiB. This may be a problem for devices with sparse amounts of memory, e.g. mobile telephones or small dedicated streaming boxes. However, a large buffer can also increase the chance of continuous playback in mobile scenarios with intermittent service interruption.
 
-
-%Which offers better quality to users? Some approaches (TODO: refs and explain how)
-
-% Longer waiting time but very few stops. Stalling model definitely the shortest waiting time but stops too frequent with insufficient network conditions, i.e. can not really be used. Delayed playback requires total knowledge not available beforehand. Can maybe used with reduced information, bandwidth estimation, but this is essentially HTML5/Firefox.
-
-
-
-\subsection{Application Behavior}
-
-The time scale on which streaming applications buffer content lies in the range of seconds. This is a necessity in a best-effort network, as the available network bitrate might drop unexpectedly and could drain a shallower buffer quickly. % On the other hand, given sufficient band-width or even bandwidth guarantees as demanded in SAE, buffer sizes could be reduced, improving interactivity of the stream and enabling closer-to-realtime live streaming or conferencing.
-The application behavior represents a trade-off between different types of perceivable artifacts -- initial startup delay, stalls, (partial) media skips (e.g. continuous audio, but skipping video), and quality adaption. The next Section will specifically look at these issues.
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Application Behavior}
-
-%This section provides an analysis of different playback models, both hypothetical best/worst-case, and actually implemented ones. We set off to develop a generic model for the playback process of a streaming application, and then explore the result space yielded by the application behavior.
-%
-%\subsection{Generic playback model}
-
-To play back a media stream, an application needs to maintain a media buffer of sufficient size to at least gather enough data to reconstruct one single atomic unit of playback such as a video frame.
-
-The current buffer level at time $t$ is given by the amount of data received from the network so far, diminished by the amount of data already played back. The actual media format used in the stream determines the progress of the playback process, whereas the network conditions and application download strategies yield the overall progress of data reception:
-
-\begin{equation*}
-\mathit{buffer}(t) = \sum_{0}^{t} data_\mathrm{received} - \sum_{0}^{t} data_\mathrm{played}
-\end{equation*}
- 
-The playback buffer level governs how well the player can conduct the playback. If the buffer reaches zero size the playback process stops and stalling occurs. Then a decision is required when to restart the playback process again after a stall, and if the stream should skip forward to a more current playback position. This process is the core part of the playback model for an HTTP streaming service. The model could also be extended to accommodate adaptive streaming mechanisms that feed back the buffer level to influence the download strategy of the player, e.g. send a receiver report to request a lower-bitrate stream in the case of RTP. % Consequently, the progress of data received would increase at a lower rate, and the playback rate would decrease as well once the residual stream data in the buffer were played out.
-
-Playback models need to define the behavior at the occurrence of one of two conditions during the playback process. These are the initial playout delay (the point in time when to start draining the playback buffer), and the buffer fill level at which to start playing again if the buffer had intermittently emptied and the video had to be stopped.
-
-These decisions yield a stalling period distribution for a streamed video. The frequency and the duration of stalls directly relate to the decision function of the playback model. The more frequent the stalls are, the shorter they will be; if the function produces longer stalls, they will be less frequent.
-
-There can be other parameter spaces governed in the model. For example, in a live streaming scenario a user could prefer to always stay at the most current stream position. To enable this, a player would skip older parts of the video. If the user prefers to consume the entire stream, the player would show the video without skipping parts, but pause intermittently. 
-
-Another user parameter is the quality level of the video for adaptive streaming. This trades off between maintaining a certain quality level and putting up with increased waiting times, and dropping the quality to a level sustainable at the current transmission rate.
-
-%\begin{figure}[!t] % use 1.75in each for single-column
-%\centering
-%\includegraphics[width=0.8\textwidth]{usersatisfaction}
-%\caption{User Experience as a trade-off between stalls and start-up delay}
-%\label{fig:stalltradeoff}
-%\end{figure}
-
-% As sketched for the start-up delay and the number of stalls in Figure \ref{fig:stalltradeoff}, all of these resulting parameter spaces could in turn be mapped to user satisfaction metrics describing the user's experienced quality. 
-% However, this mapping goes beyond the scope of this work. The focus is rather on the creation of simple evaluation methods to assign combinations of network conditions and playback models to specific stalling characteristics defining a base for user satisfaction decisions.
-
-The next subsections present four stalling playback models, ranging from theoretical models that represent boundaries to the values possible in stalling characteristics, to the Firefox and the Flash model, which represent actual player behaviors that can be seen ``in the wild''.
-
-
-\subsection{Simple Playback Stalling Model}
-The behavior can be summarized as ``Whenever anything can be played from the buffer, do so''. This means that, if the player is currently stalling and a complete frame becomes available in the buffer, playback will immediately restart and the frame will be shown even if this means stopping playback after that frame again. This results in the lowest required buffer space. Moreover, it gives an upper limit for the number of stalls occurring\footnote{As a video frame is atomic, no other model could possibly stop the playback more often.}.
-
-\subsection{Initial Playback Delay Model}
-The model is similar to progressively downloading the whole stream, as it will simply delay the initial start of the video until it can be played completely without any buffer underruns occurring. The only stall occurring is the initial waiting period until the video starts. The time spent waiting will also be minimal. The downside of this model is its use of perfect knowledge on the future network conditions at any point in time, making it purely theoretical. Actual streaming players need to accurately predict the transmission process, e.g. through moving averages.
-
-
-The stalling and initial delay models define the maximum achievable upper and lower limits for the stalling parameter space for all possible real models.
-
-
-\subsection{Firefox HTML5 Model}
 The algorithm used in the Firefox 4 browser is an approximate realization of the HTML5 video standard \cite{html5} which suggests starting the playback only when it can be ensured that the video can be played without interruption similar to the initial playback delay model.
 
 The algorithm and its variables are shown in Algorithm \ref{c3:alg:firefox-PV} and Table \ref{c3:tbl:buffvars}, respectively. Firefox 4 uses moving averages to estimate the development of the transmission rate. It does not differentiate between intermittent and initial conditions. As the approach is similar in concept to the initial playback delay model, %it results in a very large required buffer space, but also %
@@ -274,16 +215,78 @@ it sports very few stalling events due to conservatively chosen (i.e., long) buf
     \end{tabu}
 \end{table}
  
-  
-\subsection{YouTube Flash Player Model}
+
+\subsubsection{YouTube Flash Player Model}
 This model is facilitated by the Flash Player used by the YouTube website. It will initially start the playback after it has buffered two seconds of video data. If a stall occurs it will restart playing after five seconds of video are in the buffer.
 The Flash Model assumes sufficient network conditions in the beginning, requiring only a short initial playback delay to pre-fill the playback buffer. If, however, stalling occurs, then it will buffer longer to keep the stalling frequency down.
 
 
-\subsection{Further Models and Variables}
+\subsubsection{Further Models and Variables}
 In general, every streaming service practically implements its own playback model. Most of them will be very similar to the presented ones as the choices and parameters a streaming player has are rather limited.
 
 For simple TCP streaming, the client can only influence the playback start and restart points after stalls. Adaptive streaming, i.e. streaming with the possibility of rate adaptation during playback, adds the choice of the quality and the number of segments to request in advance to control the fill level of the buffer.
 
 Typical models for simple streaming will often try to set the current rates of the streaming transmission and the video in comparison to estimate if the buffer will continue to drain or fill. Depending on this variable an optimal buffering length can be calculated. The size should typically be larger if the transmission rate is not sufficient enough for the playback process to prevent frequent stalls.
 
+%Which offers better quality to users? Some approaches (TODO: refs and explain how)
+
+% Longer waiting time but very few stops. Stalling model definitely the shortest waiting time but stops too frequent with insufficient network conditions, i.e. can not really be used. Delayed playback requires total knowledge not available beforehand. Can maybe used with reduced information, bandwidth estimation, but this is essentially HTML5/Firefox.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Application Behavior}
+
+The time scale on which streaming applications buffer content lies in the range of seconds. This is a necessity in a best-effort network, as the available network bitrate might drop unexpectedly and could drain a shallower buffer quickly. % On the other hand, given sufficient band-width or even bandwidth guarantees as demanded in SAE, buffer sizes could be reduced, improving interactivity of the stream and enabling closer-to-realtime live streaming or conferencing.
+The application behavior represents a trade-off between different types of perceivable artifacts -- initial startup delay, stalls, (partial) media skips (e.g. continuous audio, but skipping video), and quality adaption. The next Section will specifically look at these issues.
+
+%This section provides an analysis of different playback models, both hypothetical best/worst-case, and actually implemented ones. We set off to develop a generic model for the playback process of a streaming application, and then explore the result space yielded by the application behavior.
+%
+%\subsection{Generic playback model}
+
+To play back a media stream, an application needs to maintain a media buffer of sufficient size to at least gather enough data to reconstruct one single atomic unit of playback such as a video frame.
+
+The current buffer level at time $t$ is given by the amount of data received from the network so far, diminished by the amount of data already played back. The actual media format used in the stream determines the progress of the playback process, whereas the network conditions and application download strategies yield the overall progress of data reception:
+
+\begin{equation*}
+\mathit{buffer}(t) = \sum_{0}^{t} data_\mathrm{received} - \sum_{0}^{t} data_\mathrm{played}
+\end{equation*}
+ 
+The playback buffer level governs how well the player can conduct the playback. If the buffer reaches zero size the playback process stops and stalling occurs. Then a decision is required when to restart the playback process again after a stall, and if the stream should skip forward to a more current playback position. This process is the core part of the playback model for an HTTP streaming service. The model could also be extended to accommodate adaptive streaming mechanisms that feed back the buffer level to influence the download strategy of the player, e.g. send a receiver report to request a lower-bitrate stream in the case of RTP. % Consequently, the progress of data received would increase at a lower rate, and the playback rate would decrease as well once the residual stream data in the buffer were played out.
+
+Playback models need to define the behavior at the occurrence of one of two conditions during the playback process. These are the initial playout delay (the point in time when to start draining the playback buffer), and the buffer fill level at which to start playing again if the buffer had intermittently emptied and the video had to be stopped.
+
+These decisions yield a stalling period distribution for a streamed video. The frequency and the duration of stalls directly relate to the decision function of the playback model. The more frequent the stalls are, the shorter they will be; if the function produces longer stalls, they will be less frequent.
+
+There can be other parameter spaces governed in the model. For example, in a live streaming scenario a user could prefer to always stay at the most current stream position. To enable this, a player would skip older parts of the video. If the user prefers to consume the entire stream, the player would show the video without skipping parts, but pause intermittently. 
+
+Another user parameter is the quality level of the video for adaptive streaming. This trades off between maintaining a certain quality level and putting up with increased waiting times, and dropping the quality to a level sustainable at the current transmission rate.
+
+%\begin{figure}[!t] % use 1.75in each for single-column
+%\centering
+%\includegraphics[width=0.8\textwidth]{usersatisfaction}
+%\caption{User Experience as a trade-off between stalls and start-up delay}
+%\label{fig:stalltradeoff}
+%\end{figure}
+
+% As sketched for the start-up delay and the number of stalls in Figure \ref{fig:stalltradeoff}, all of these resulting parameter spaces could in turn be mapped to user satisfaction metrics describing the user's experienced quality. 
+% However, this mapping goes beyond the scope of this work. The focus is rather on the creation of simple evaluation methods to assign combinations of network conditions and playback models to specific stalling characteristics defining a base for user satisfaction decisions.
+
+The next subsections present four stalling playback models, ranging from theoretical models that represent boundaries to the values possible in stalling characteristics, to the Firefox and the Flash model, which represent actual player behaviors that can be seen ``in the wild''.
+
+
+
+
+
+
+
+The stalling and initial delay models define the maximum achievable upper and lower limits for the stalling parameter space for all possible real models.
+
+
+  
+
+
+
+
+%``application comfort'' time to skip, ...
+%\subsubsection{Unreliable Streaming Metrics}
+%... and why they mostly do not work / are not applicable.
