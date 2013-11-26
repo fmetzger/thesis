@@ -162,22 +162,31 @@ Most strategies for adaptive streaming are an extension of both the threshold as
 
 \subsubsection{Real World Implementation Examples}
 
-Conditional and Combination Strategies
-
-strategy values and threshold often arbitrarily chosen by the implementor 
-
-The application behavior represents a trade-off between different types of perceivable artifacts -- initial startup delay, stalls, (partial) media skips (e.g. continuous audio, but skipping video), and quality adaption. The next Section will specifically look at these issues.
-
-In general, every streaming service practically implements its own playback model. Most of them will be very similar to the presented ones as the choices and parameters a streaming player has are rather limited.
+Actual streaming player implementations often do not implement only one of these strategies, but rather combine ideas from several. Herein, thresholds are often set arbitrarily through the implementor's best practices and not empirically evaluated, often making a trade-off between user perceivable quality and resulting server load. In general, every streaming service practically implements its own playback strategies. This section describes three example applications.
 
 %%
-\paragraph{2011 YouTube Flash Player Model}
+\paragraph{2011 YouTube Flash Player Buffering Strategy}
 
+Google's video streaming site YouTube is constantly changing its appearance and technical makeup. In recent years, YouTube streams are delivered by one of three players: The Website's Flash player, a browser-integrated HTML5-based player, or custom player implementations in mobile phones, set-top boxes and similar devices. Here, the Flash-based variant used in 2011 is described.
 
-This model is facilitated by the Flash Player used by the YouTube website. It will initially start the playback after it has buffered two seconds of video data. If a stall occurs it will restart playing after five seconds of video are in the buffer.
-The Flash Model assumes sufficient network conditions in the beginning, requiring only a short initial playback delay to pre-fill the playback buffer. If, however, stalling occurs, then it will buffer longer to keep the stalling frequency down.
+This player used a single threshold strategy with different threshold values for the initial delay and any subsequent stalls. The values were already described in Figure~\ref{c3:fig:bufferlevel-flash}. This model assumes sufficient network conditions in the beginning, requiring only a short initial playback delay to pre-fill the playback buffer. If, however, stalling occurs, then it will buffer longer to keep the stalling frequency down.
 
-The first point of interest discovered during the evaluation of the measurements was the information encoded in the URLs pointing to the actual video files (cf. Table \ref{c3:tbl:yturl}) as they hinted on the presence of transmission rate throttling for some videos. However, if one tries to alter or remove the throttling parameters the YouTube server responds to this with a HTTP 403 forbidden error code, meaning that there are further checks in place to ensure this behavior. 
+\begin{table}[htb]
+    % increase table row spacing, adjust to taste
+    %\renewcommand{\arraystretch}{1.3}
+    \caption{Transmission Related Parameters from YouTube's Video URL Setup}
+    \label{c3:tbl:yturl}
+    \centering
+    \begin{tabu}{|X[l]|X[p]|}
+        \hline
+        URL Part & Description \\ \hline
+        \texttt{v$\alpha$.lscache$\beta$.c.youtube.com} &  Cache server involved in the delivery.\\
+        \texttt{algorithm=throttle-factor} and \texttt{burst=40} and \texttt{factor=1.25} & Indicates initial burst plus block sending configuration. \\
+        \texttt{ratebypass=yes} & Parameter to indicate no rate limiting.\\ \hline
+    \end{tabu}
+\end{table}
+
+YouTube also employs a proprietary pacing mechanism outside of the control of the streaming player. This is hinted at in the encoding of the \glspl{URL} of the video files and enforced by the video file cache server. Some of those not user-changeable parameters are described in Table~\ref{c3:tbl:yturl}.
 
 We experienced this hinted throttling for all non-HD (i.e. lower than 720p resolution) videos. The throttling method, which \cite{alcock2011afcyt} also observed, limits the transmission to a rate higher than but correlated to the average media bitrate. The \textit{block-sending} method used for the limiting is rather unusual as it transmits short packet bursts, typically 64 KiB in size, followed by long pauses as seen in Figure \ref{c3:fig:blocktransfer-detail}. Initially, a larger burst is transmitted to allow for some pre-buffering to occur in the client's media player (cf. Fig. \ref{c3:fig:blocktransfer-overall}). This limiting is probably in place to even the load on the caches and to prevent load spikes, yet ensuring that every client receives the necessary data in time for playback.
 
@@ -202,7 +211,7 @@ We experienced this hinted throttling for all non-HD (i.e. lower than 720p resol
 \end{figure}
 
 %%
-\subsubsection{(Firefox) HTML5 Predictive Model}
+\paragraph{(Firefox) HTML5 Predictive Model}
 The standard playback and buffering process of HTML5 is described in the HTML5 specification but adds up to:
 \textit{``[...] the user agent [...] will automatically begin playback of the media resource as soon as it can do so without stopping.''} \cite{html5video}. The model presented here is based on the HTML5 implementation of the open source Firefox Browser in version 4 which differs slightly from the HTML standard. Because it is an online algorithm which does not have global knowledge of the video and transmission speeds of any point in the future it has to estimate these. It does so by calculating the moving averages of both. Playback is started when one of these conditions are met:
 
@@ -259,6 +268,7 @@ it sports very few stalling events due to conservatively chosen (i.e., long) buf
 \end{figure}
 
 
+\paragraph{Reference DASH player}
 
 
 \subsubsection{Measurements with the Model}

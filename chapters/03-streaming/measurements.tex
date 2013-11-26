@@ -42,20 +42,20 @@ For the YouTube streaming measurements we implemented an automated video downloa
 
 
 
-\begin{table}[htb]
-    % increase table row spacing, adjust to taste
-    \renewcommand{\arraystretch}{1.3}
-    \caption{Transmission Related Parameters from YouTube's Video URL Setup}
-    \label{c3:tbl:yturl}
-    \centering
-    \begin{tabu}{|X[l]|X[p]|}
-        \hline
-        URL Part & Description \\ \hline
-        \texttt{v$\alpha$.lscache$\beta$.c.youtube.com} &  Cache server involved in the delivery.\\
-        \texttt{algorithm=throttle-factor} and \texttt{burst=40} and \texttt{factor=1.25} & Indicates initial burst plus block sending configuration. \\
-        \texttt{ratebypass=yes} & Parameter to indicate no rate limiting.\\ \hline
-    \end{tabu}
-\end{table}
+% \begin{table}[htb]
+%     % increase table row spacing, adjust to taste
+%     \renewcommand{\arraystretch}{1.3}
+%     \caption{Transmission Related Parameters from YouTube's Video URL Setup}
+%     \label{c3:tbl:yturl}
+%     \centering
+%     \begin{tabu}{|X[l]|X[p]|}
+%         \hline
+%         URL Part & Description \\ \hline
+%         \texttt{v$\alpha$.lscache$\beta$.c.youtube.com} &  Cache server involved in the delivery.\\
+%         \texttt{algorithm=throttle-factor} and \texttt{burst=40} and \texttt{factor=1.25} & Indicates initial burst plus block sending configuration. \\
+%         \texttt{ratebypass=yes} & Parameter to indicate no rate limiting.\\ \hline
+%     \end{tabu}
+% \end{table}
 
 We performed two measurement series, one with increased packet loss, the other one adding latency to the path. For each value of loss and latency a mean total stalling time was calculated out of five separate experiments to eliminate temporal and network load influences. Additionally, standard deviations are shown in the resulting graphs. We clearly notice very large deviations in some experiments. Some of these can be explained by connection timeouts and later resumption of the streaming. Furthermore, an exponential regression line shows the trend of the total stalling times in the experiments.
 

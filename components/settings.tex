@@ -16,8 +16,6 @@
 \definecolor{reddishpurple}{RGB}{204, 121, 167}
 
 
-
-
 \captionsetup{format=hang,font=small}
 \setlength{\extrarowheight}{3pt} % increase table row height
 \newcommand{\tableheadline}[1]{\spacedlowsmallcaps{#1}}
@@ -43,26 +41,6 @@
 \addbibresource{bibliography/video.bib}
 \addbibresource{bibliography/network.bib}
 
-% use integers instead of a,b,c,... for same key cites
-\DeclareFieldFormat{extraalpha}{\##1}
-\defbibheading{bibliography}[\bibname]{
-  \manualmark
-  \markboth{\spacedlowsmallcaps{#1}}{\spacedlowsmallcaps{#1}}
-  \phantomsection
-  \addtocontents{toc}{\protect\vspace{\beforebibskip}}
-  \addcontentsline{toc}{chapter}{\tocEntry{#1}}
-  \chapter*{#1}
-}
-\defbibheading{resources}[\bibname]{
-  \manualmark
-  \markboth{\spacedlowsmallcaps{#1}}{\spacedlowsmallcaps{#1}}
-   \chapter{#1}
-}
-\defbibheading{subbibliography}[\bibname]{
-  \automark[chapter]{chapter}
-  \section{#1}
-}
-\renewcommand*{\finalnamedelim}{\addspace\bibstring{and}\space}
 
 %%% toc
 \setcounter{tocdepth}{2}
