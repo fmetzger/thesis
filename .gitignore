@@ -34,3 +34,5 @@
 *.tmp
 *.run.xml
 dissertation.pdf
+.Rhistory
+*.fls
