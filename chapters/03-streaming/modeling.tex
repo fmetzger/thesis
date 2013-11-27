@@ -186,52 +186,42 @@ This player used a single threshold strategy with different threshold values for
     \end{tabu}
 \end{table}
 
-YouTube also employs a proprietary pacing mechanism outside of the control of the streaming player. This is hinted at in the encoding of the \glspl{URL} of the video files and enforced by the video file cache server. Some of those not user-changeable parameters are described in Table~\ref{c3:tbl:yturl}.
-
-We experienced this hinted throttling for all non-HD (i.e. lower than 720p resolution) videos. The throttling method, which \cite{alcock2011afcyt} also observed, limits the transmission to a rate higher than but correlated to the average media bitrate. The \textit{block-sending} method used for the limiting is rather unusual as it transmits short packet bursts, typically 64 KiB in size, followed by long pauses as seen in Figure \ref{c3:fig:blocktransfer-detail}. Initially, a larger burst is transmitted to allow for some pre-buffering to occur in the client's media player (cf. Fig. \ref{c3:fig:blocktransfer-overall}). This limiting is probably in place to even the load on the caches and to prevent load spikes, yet ensuring that every client receives the necessary data in time for playback.
+Furthermore, YouTube employs a proprietary pacing mechanism outside of the control of the streaming player. This is hinted at in the encoding of the \glspl{URL} of the video files and enforced by the video file cache server. Some of those not user-changeable parameters are described in Table~\ref{c3:tbl:yturl}. The pacing was in effect for all videos below high definition resolution, but has since then been extended to include all video files. 
 
 \begin{figure}[htbp]
 % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
     \centering
-        \begin{subfigure}[b]{0.80\textwidth}
+        \begin{subfigure}[b]{0.90\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{images/blocktransfer-mod.pdf}
                 \caption{Overall graph.}
                 \label{c3:fig:blocktransfer-overall}
         \end{subfigure}
 
-        \begin{subfigure}[b]{0.80\textwidth}
+        \begin{subfigure}[b]{0.90\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{images/blocktransferdetail.pdf}
                 \caption{Detail plot of the rate-limited block-sending phase.}
                 \label{c3:fig:blocktransfer-detail}
         \end{subfigure}
-\caption{Measurement results for the download and playback of a video.}
+\caption{Comparison of downloaded and consumed data volume revealing the pacing mechanism used by YouTube.}
 \label{c3:fig:blocktransfer}
 \end{figure}
 
+
+The throttling method, also observed in \cite{alcock2011afcyt}, limits the transmission to a rate slightly above the average media bitrate, measurements and the \gls{URL} scheme indicates this to be a factor of the video bitrate of $1.25$. The rate limit is not constant, instead a ON-OFF block-sending scheme is facilitated. The scheme transmits short packet bursts, typically \SI{64}{\kibi\byte} in size, followed by long pauses as seen in Figure~\ref{c3:fig:blocktransfer}. The pause length between two bursts is set dynamically to reach the targeted bitrate on a larger time scale. The initial phase of the stream transmission is conducted unthrottled at line speed, presumably to allow for some pre-buffering to occur at the client media player. A possible reason for this server-side pacing is to avoid load spikes, with the added side effect of keeping the clients' buffer sizes in check.
+
+
+
 %%
-\paragraph{(Firefox) HTML5 Predictive Model}
-The standard playback and buffering process of HTML5 is described in the HTML5 specification but adds up to:
-\textit{``[...] the user agent [...] will automatically begin playback of the media resource as soon as it can do so without stopping.''} \cite{html5video}. The model presented here is based on the HTML5 implementation of the open source Firefox Browser in version 4 which differs slightly from the HTML standard. Because it is an online algorithm which does not have global knowledge of the video and transmission speeds of any point in the future it has to estimate these. It does so by calculating the moving averages of both. Playback is started when one of these conditions are met:
+\paragraph{Firefox's HTML5 Player Strategy}
 
-\begin{itemize}
-\item The player has been buffering data for at least 30 seconds.
-\item The player has already buffered an amount of data corresponding to 30 seconds of video.
-\item The video download has been completed.
-\item The moving average of the transmission rate is larger than the moving average of the video bitrate and the player has a safety buffer with 20 seconds of video data.
-\end{itemize}
+Video streaming can also be directly conducted with the Web browser, through the use of a HTML5 canvas element. The \gls{W3C} specifies the default technical process of HTMl5 video streaming in \cite{html5video} and essentially suggests a predictive strategy. Herein, the Web browser should estimate and correlate the transmission rate to the video bitrate. A property called ``autoplay'' uses this definition to start  playback of the associated video \enquote{as soon as it can do so without stopping}. The HTML5 strategy also allows to limit the buffer size through transmission pacing, negotiated with the server, and appropriately timed range requests.
 
-This approach is quite conservative and trades longer waiting times for fewer interruptions. The test case for our model is shown in Figure \ref{c3:fig:bufferlevel-firefox}. Initially, playback starts only after a long waiting period of about 25 seconds. Also, the only intermittent stall causes a long buffering period. Then again, the model keeps the total number of stalls down to this single stall. However, due to the longer overall stalling time of 44 seconds the player needs to buffer more data than the other model implementations. In our test case the maximum buffer size increased from about 2800 KiB to 5600 KiB. This may be a problem for devices with sparse amounts of memory, e.g. mobile telephones or small dedicated streaming boxes. However, a large buffer can also increase the chance of continuous playback in mobile scenarios with intermittent service interruption.
+The open-source Firefox browser represents an implementation of this specification and substantiates it further. The description of this strategy is based on Firefox's version 4.0 released in March 2011. Because it is an online algorithm which does not have global knowledge of the video and transmission speeds of any point in the future it has to estimate these.
+To estimate the current and future rates, the moving average of the transmission rate $s_{MA}$ and the video bitrate $v_{MA}$ are calculated. The condition $c$ Firefox uses to start and resume the playback process is given in Algorithm~\ref{c3:alg:firefox}, with the buffered video duration $b_b$, and the duration spent buffering $b_T$.
 
-The algorithm used in the Firefox 4 browser is an approximate realization of the HTML5 video standard \cite{html5} which suggests starting the playback only when it can be ensured that the video can be played without interruption similar to the initial playback delay model.
-
-The algorithm and its variables are shown in Algorithm \ref{c3:alg:firefox-PV} and Table \ref{c3:tbl:buffvars}, respectively. Firefox 4 uses moving averages to estimate the development of the transmission rate. It does not differentiate between intermittent and initial conditions. As the approach is similar in concept to the initial playback delay model, %it results in a very large required buffer space, but also %
-it sports very few stalling events due to conservatively chosen (i.e., long) buffering times.
-
-
-
-\begin{figure}[htb]
+\begin{algorithm}[htb]
     \centering
     \begin{algorithmic}
         \IF {$s_{MA} > v_{MA}$} 
@@ -241,34 +231,28 @@ it sports very few stalling events due to conservatively chosen (i.e., long) buf
         \ENDIF 
     \end{algorithmic}
     \caption{Firefox playback (re-)start decision algorithm.}
-    \label{c3:alg:firefox-PV}
-\end{figure}
+    \label{c3:alg:firefox}
+\end{algorithm}
 
-
-\begin{table}[htb]
-    \caption{Variables involved in buffering decisions.}
-    \label{c3:tbl:buffvars}
-    \centering
-    \begin{tabu}{|l|X[p]|} 
-    \hline
-    Variable & Description \\ \hline
-    $s_{MA}$ & Moving average of the transmission speed. \\
-    $v_{MA}$ & Moving average of the video bitrate. \\ 
-    $c$   & Condition upon which to start/resume playback. \\
-    $b_b$    & Amount of video data the buffer contains. \\
-    $b_T$    & Amount of time spent in non-playing buffering state. \\ \hline
-    \end{tabu}
-\end{table}
- 
  \begin{figure}[htb]
     \centering
     \includegraphics[width=0.9\textwidth]{images/bufferlevel-firefox-new.pdf}
-    \caption{Buffer fill level for the Firefox 4 model, \SI{44}{\second} total stalling.}
+    \caption{Sample buffer fill level for the Firefox 4 strategy, \SI{44}{\second} total stalling.}
     \label{c3:fig:bufferlevel-firefox}
 \end{figure}
 
 
-\paragraph{Reference DASH player}
+This approach is quite conservative and trades off long stalling periods for fewer stalls. The test case for our model is shown in Figure \ref{c3:fig:bufferlevel-firefox}. The playback starts only after a long waiting period and intermittent stalls cause a long buffering period. 
+Due to the longer overall stalling time the player needs to buffer more data than other strategies. This may make it unsuitable for devices with sparse amounts of memory, e.g. mobile phones. On the other hand, could a large buffer also increase the chance of continuous playback in such scenarios with bad \gls{QoS}.
+
+
+\paragraph{Adaptive streaming strategies}
+
+Implementations for adaptive streaming players are again mostly proprietary and their behavior has to be derived from measurements. This is even true for adaptive streaming protocols, which have open specifications as these generally do not specify the player's behavior.
+
+Microsoft's Silverlight player's strategy is described in \cite{BLTJ:BLTJ20505}. It employs a two-threshold model and rate estimations. When on of the thresholds is reached, the quality will be adjusted by one step upwards or downwards as long as the transmission rate is sufficient.
+
+The buffering behavior of further protocol variants, including Adobe's \gls{HTTP} Dynamic Streaming, Apple's \gls{HTTP} Live Streaming and a sample implementation of \gls{DASH}, are investigated in \cite{Muller:2012:EDA:2151677.2151686,akhshabi2011experimental}.
 
 
 \subsubsection{Measurements with the Model}
@@ -287,9 +271,27 @@ To achieve increased flexibility we created several models that emulate the stre
 
 %% <-- %% end WIP
 
+% \begin{itemize}
+% \item The player has been buffering data for at least 30 seconds.
+% \item The player has already buffered an amount of data corresponding to 30 seconds of video.
+% \item The video download has been completed.
+% \item The moving average of the transmission rate is larger than the moving average of the video bitrate and the player has a safety buffer with 20 seconds of video data.
+% \end{itemize}
 
-
-
+% \begin{table}[htb]
+%     \caption{Variables involved in buffering decisions.}
+%     \label{c3:tbl:buffvars}
+%     \centering
+%     \begin{tabu}{|l|X[p]|} 
+%     \hline
+%     Variable & Description \\ \hline
+%     $s_{MA}$ & Moving average of the transmission speed. \\
+%     $v_{MA}$ & Moving average of the video bitrate. \\ 
+%     $c$   & Condition upon which to start/resume playback. \\
+%     $b_b$    & Amount of video data the buffer contains. \\
+%     $b_T$    & Amount of time spent in non-playing buffering state. \\ \hline
+%     \end{tabu}
+% \end{table}
 
 % used yt-delay/hPUGNCIozp0_delay_2500 1, spyder, color #aa5500
 % data
