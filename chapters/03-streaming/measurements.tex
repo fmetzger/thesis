@@ -13,27 +13,34 @@ The problem lies in comparing these protocols to each other. Each of them is usu
 
 %%
 \subsection{Offline Measurement Framework}
-%[network emulation setup, degraded network quality of service parameters (netem Aufbau, delay und loss serien bei bw-begrenzung)]
 
+Testing and comparing new protocols is a complex and time-consuming undertaking if traditional evaluation approaches such as analytical source-traffic models are employed. For today's fast-paced development of streaming protocols, faster evaluation methods are needed. A testing environment must be simple and sufficiently flexible to allow its application on and adaption to current and future protocols, services, network structures, and associated parameter spaces. 
+% This also demands to take a generic approach that does not rely on specific implementations. 
+At the same time, it must be able to answer specific questions about  protocols, applications, and network setups. 
+
+
+Which metric to compare strategies and to record during experiments? Time, number and duration of stalls, buffer fill level.
+
+Which experiment parameters to change and test for? Network \gls{QoS}, meaning bandwidth, latency distribution, loss; strategie parameters on the other hand --> could empirically test every parameter combination, improve it and feed it back into the testing framework; emulate specific network conditions, e.g. mobile 3g/lte network + signaling/control plane, middlebox influences
+ Through configuration, one may evaluate the influence of network parameters, states, and topologies on the multimedia stream, e.g. parallel bearers with different quality settings, cross traffic, or stream-support middleboxes.
 
 
 drawback: first need to find out the exact playback strategy from the player under investigation (if player is tested and not mechanism in general)
 model, compare performance based on behavioral, structural commonalities
+
+for offline (or no feedback strategies) two pass process, online trace recording and offline emulation/simulation phase
+allows for very fast evaluation of a strategy subset
+
+record a large number of traces to compare adaptability to many scenarios or just to a specific one
+
+
+describe network emulation (and specifically netem)
+
 %% <-- WIP
 %% <-- %% end WIP
 
 
 
-Testbed Architecture
-
-
-
-Testing and comparing new protocols is a complex and time-consuming undertaking if traditional evaluation approaches such as analytical source-traffic models are employed. For today's fast-paced development of streaming protocols, faster evaluation methods are needed. A testing environment must be simple and sufficiently flexible to allow its application on and adaption to current and future protocols, services, network structures, and associated parameter spaces. 
-% This also demands to take a generic approach that does not rely on specific implementations. 
-At the same time, it must be able to answer specific questions about  protocols, applications, and network setups. Finally, the results yielded from analyzing and evaluating a streaming service should be user-oriented, i.e. provide a foundation of data that can be fed into the calculation of a Quality of Experience (QoE) model. We believe our proposed testbed, the architecture of which will be explained in the following, meets these requirements.
-
-%In the following sections, we first describe the methodology and then present exemplary evaluations to show how this approach can be used to evaluate real world streaming scenarios under configurable network conditions. 
-% Through configuration, one may evaluate the influence of network parameters, states, and topologies on the multimedia stream, e.g. parallel bearers with different quality settings, cross traffic, or stream-support middleboxes.
 
 
 Figure \ref{c3:fig:testbed} depicts the evaluation testbed. % To enable rapid comparison of network quality of service against application behaviors we employ a two-step process. 
@@ -60,11 +67,22 @@ In the second pass, these two traces are then used to feed the playback models d
 
 For the YouTube streaming measurements we implemented an automated video downloading and playback simulation software to feed information into the model and evaluate the total stalling time. For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
 
+
+%%
 \subsection{Online Framework Extension}
 
+modifications for adaptive/segmnet-based/feedback streaming
+
+can use server under own control, to influence server side pacing
+
+no trace phase anymore, (emulated) transmission phase now part of old phase 2
+
+
+updated framework figure here
 
 
 
+%%
 \subsection{Measurement Series and Evaluations with the Framework}
 %[visualization and results (does yt still work well with high delay/loss?)]
 %[performance evaluation (BWs, played vs received data)]
