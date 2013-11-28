@@ -1,101 +1,32 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Measurements}
 \label{c3:measurements}
 
-%TODO:
-%comment on which buffering model is used, both simple models result in smallest buffering time possible, as no overhead waiting is involved
+With these playback models at hand, this section demonstrates how to conduct actual evaluations of reliable streaming protocols with it.
 
-%measurement
-%[general observations, YouTube rate limiting, correlation to media bit-rate]
+As discussed, there are numerous incarnations of reliable streaming protocols in use. Almost all of them follow the same basic approach but with slight variations in execution and choice of playback strategies and corresponding parameters. But it is exactly these choices that can have a large impact on the streaming process and resulting quality. 
+
+The problem lies in comparing these protocols to each other. Each of them is usually tied to a specific -- and most often proprietary closed source -- streaming player. Setting up all these players in one testbed is a huge effort and requires very specific software environments to be used on the client machines. Moreover, these players are built with user interaction and not automation and directly measuring the outcome in mind. This can still be achieved through extensive workarounds, but must be tailored to every player application. The presented approach avoids this hassle and provides a concise way to test any conceivable playback strategy in one single testbed.
+
+
+
+%%
+\subsection{Offline Measurement Framework}
 %[network emulation setup, degraded network quality of service parameters (netem Aufbau, delay und loss serien bei bw-begrenzung)]
-%[visualization and results (does yt still work well with high delay/loss?)]
-%[performance evaluation (BWs, played vs received data)]
-%Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
-%These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.
-
-For the YouTube streaming measurements we implemented an automated video downloading and playback simulation software to feed information into the model and evaluate the total stalling time. For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
-
-% The first point of interest discovered during the evaluation of the measurements was the information encoded in the URLs pointing to the actual video files (cf. Table \ref{c3:tbl:yturl}) as they hinted on the presence of transmission rate throttling for some videos. However, if one tries to alter or remove the throttling parameters the YouTube server responds to this with a HTTP 403 forbidden error code, meaning that there are further checks in place to ensure this behavior. 
-
-% We experienced this hinted throttling for all non-HD (i.e. lower than 720p resolution) videos. The throttling method, which \cite{alcock2011afcyt} also observed, limits the transmission to a rate higher than but correlated to the average media bitrate. The \textit{block-sending} method used for the limiting is rather unusual as it transmits short packet bursts, typically 64 KiB in size, followed by long pauses as seen in Figure \ref{c3:fig:blocktransfer-detail}. Initially, a larger burst is transmitted to allow for some pre-buffering to occur in the client's media player (cf. Fig. \ref{c3:fig:blocktransfer-overall}). This limiting is probably in place to even the load on the caches and to prevent load spikes, yet ensuring that every client receives the necessary data in time for playback.
 
 
 
-% \begin{figure}[htb]
-% % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
-% 	\centering
-%     \includegraphics[width=\textwidth]{images/blocktransfer-mod.pdf}
-%     \caption{Measurement results for the download and playback of a video. Overall graph.}
-%     \label{c3:fig:blocktransfer-overall}
-% \end{figure}
-
-% \begin{figure}[htb]
-% % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
-%     \centering
-%     \includegraphics[width=\textwidth]{images/blocktransferdetail.pdf}
-%     \caption{Measurement results for the download and playback of a video. Detail plot of the rate-limited block-sending phase.}
-%     \label{c3:fig:blocktransfer-detail}
-% \end{figure}
+drawback: first need to find out the exact playback strategy from the player under investigation (if player is tested and not mechanism in general)
+model, compare performance based on behavioral, structural commonalities
+%% <-- WIP
+%% <-- %% end WIP
 
 
 
-% \begin{table}[htb]
-%     % increase table row spacing, adjust to taste
-%     \renewcommand{\arraystretch}{1.3}
-%     \caption{Transmission Related Parameters from YouTube's Video URL Setup}
-%     \label{c3:tbl:yturl}
-%     \centering
-%     \begin{tabu}{|X[l]|X[p]|}
-%         \hline
-%         URL Part & Description \\ \hline
-%         \texttt{v$\alpha$.lscache$\beta$.c.youtube.com} &  Cache server involved in the delivery.\\
-%         \texttt{algorithm=throttle-factor} and \texttt{burst=40} and \texttt{factor=1.25} & Indicates initial burst plus block sending configuration. \\
-%         \texttt{ratebypass=yes} & Parameter to indicate no rate limiting.\\ \hline
-%     \end{tabu}
-% \end{table}
-
-We performed two measurement series, one with increased packet loss, the other one adding latency to the path. For each value of loss and latency a mean total stalling time was calculated out of five separate experiments to eliminate temporal and network load influences. Additionally, standard deviations are shown in the resulting graphs. We clearly notice very large deviations in some experiments. Some of these can be explained by connection timeouts and later resumption of the streaming. Furthermore, an exponential regression line shows the trend of the total stalling times in the experiments.
+Testbed Architecture
 
 
-Figure \ref{c3:fig:delayseries} displays the results of of the latency measurement series with up to five seconds of additional delay. In the worst case the stalling time increases to about 50 seconds. In mobile scenarios latencies of up to 2 seconds can be expected, which would, according to our measurements, result in a maximum mean stalling time of 15 seconds for a 90 second video, which could very well be bearable for YouTube users.
-
-There are several factors that could contribute to the increase in stalling time in the latency experiments. 
-TCP, in its simplest form, increases the congestion window based on the Round Trip Time (RTT), making it highly dependent on this connection parameter. Newer congestion avoidance algorithms, e.g. the CUBIC algorithm used in Linux \cite{ha2008cubic}, however reduce this dependence on the RTT.
-Another influencing factor might be YouTube's block sending mechanism, which, according to \cite{alcock2011afcyt}, may negatively interact with congestion control algorithms. The impact of packet loss on stalling is much higher than that of latency in our measurements. Yet, due to TCP's reliable transmissions, loss only causes increased packet retransmissions, and, thus, acts as a source of burst delay which negatively impacts the overall throughput.
-
-Figure \ref{c3:fig:lossseries} shows the series of loss experiments. While the 6\% packet loss and below has an almost negligible influence on the stalling time anything above this value will probably not achieve good user experience at all. Interesting to note is the rather sudden increase in stalling time when there is more than 6\% loss added. This could again hints to the transport protocol's reliable transport feature, which catches all the occurring losses, through timeouts or gaps in the sequence numbers. However, the detection and retransmission takes some time, which is reflected in the increased stalling time.
-
-
-
-
-
-% TODO: Mobile video delivery with HTTP \cite{ma2011mobile}
-% reasoning for "HTTP pacing" and segmented delivery
-
-\begin{figure}[htbp]
-% yt-delay-allBW.ods, graphik aus LibreOffice Calc, OLE in LibreOffice Draw, font sizes min 11pt, Page Margins passen (18,2 x 10,3), als PDF exportiert.
-% new method: extra libreoffice calc page, scaled to fit on one page, pdf export, cut with acrobat
-	\centering
-    \includegraphics[width=\textwidth]{images/R-delayseries.pdf}
-    \caption{Total buffering time and linear smooth for degraded network parameter scenarios. Latency Graph.}
-    \label{c3:fig:delayseries}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{images/R-lossseries.pdf}
-    \caption{Total buffering time and linear model for degraded network parameter scenarios. Loss Graph.}
-    \label{c3:fig:lossseries}
-\end{figure}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Testbed Architecture}
 
 Testing and comparing new protocols is a complex and time-consuming undertaking if traditional evaluation approaches such as analytical source-traffic models are employed. For today's fast-paced development of streaming protocols, faster evaluation methods are needed. A testing environment must be simple and sufficiently flexible to allow its application on and adaption to current and future protocols, services, network structures, and associated parameter spaces. 
 % This also demands to take a generic approach that does not rely on specific implementations. 
@@ -110,9 +41,9 @@ Conceptually, it replicates the actual steps a user would perform to consume a m
  
  
 \begin{figure}[htb]
-	\includegraphics[width=\textwidth]{images/measurement-model.pdf}
-	\caption{Testbed Schematic.}
-	\label{c3:fig:testbed}
+    \includegraphics[width=\textwidth]{images/measurement-model.pdf}
+    \caption{Testbed Schematic.}
+    \label{c3:fig:testbed}
 \end{figure}
 
 In the first pass of the process, the stream data is transmitted from a server to the client. The server can either be an actual streaming service on the Internet, or a local server (to eliminate the unpredictable impact of the Internet connection). The traffic is directed through a network emulation node capable of altering the network QoS parameters, i.e. latency, jitter, and packet loss. The parameters could also be set according to stochastic models derived from actual network traces. 
@@ -127,9 +58,48 @@ In the second pass, these two traces are then used to feed the playback models d
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Evaluation}
-\label{sec:evaluations}
+For the YouTube streaming measurements we implemented an automated video downloading and playback simulation software to feed information into the model and evaluate the total stalling time. For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
+
+\subsection{Online Framework Extension}
+
+
+
+
+\subsection{Measurement Series and Evaluations with the Framework}
+%[visualization and results (does yt still work well with high delay/loss?)]
+%[performance evaluation (BWs, played vs received data)]
+%Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
+%These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.
+
+First use case to show how our system works: Progressive HTTP streaming. Will show adaptability to adaptive streaming and different protocols. For this comparison we used a video of about 90 seconds length and network conditions that could not fulfill the video bitrate in time and hereby forced stalling to occur.
+
+We performed two measurement series, one with increased packet loss, the other one adding latency to the path. For each value of loss and latency a mean total stalling time was calculated out of five separate experiments to eliminate temporal and network load influences. Additionally, standard deviations are shown in the resulting graphs. We clearly notice very large deviations in some experiments. Some of these can be explained by connection timeouts and later resumption of the streaming. Furthermore, an exponential regression line shows the trend of the total stalling times in the experiments.
+
+\begin{figure}[htbp]
+% yt-delay-allBW.ods, graphik aus LibreOffice Calc, OLE in LibreOffice Draw, font sizes min 11pt, Page Margins passen (18,2 x 10,3), als PDF exportiert.
+% new method: extra libreoffice calc page, scaled to fit on one page, pdf export, cut with acrobat
+    \centering
+    \includegraphics[width=\textwidth]{images/R-delayseries.pdf}
+    \caption{Total buffering time and linear smooth for degraded network parameter scenarios. Latency Graph.}
+    \label{c3:fig:delayseries}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/R-lossseries.pdf}
+    \caption{Total buffering time and linear model for degraded network parameter scenarios. Loss Graph.}
+    \label{c3:fig:lossseries}
+\end{figure}
+
+Figure \ref{c3:fig:delayseries} displays the results of of the latency measurement series with up to five seconds of additional delay. In the worst case the stalling time increases to about 50 seconds. In mobile scenarios latencies of up to 2 seconds can be expected, which would, according to our measurements, result in a maximum mean stalling time of 15 seconds for a 90 second video, which could very well be bearable for YouTube users.
+
+There are several factors that could contribute to the increase in stalling time in the latency experiments. 
+TCP, in its simplest form, increases the congestion window based on the Round Trip Time (RTT), making it highly dependent on this connection parameter. Newer congestion avoidance algorithms, e.g. the CUBIC algorithm used in Linux \cite{ha2008cubic}, however reduce this dependence on the RTT.
+Another influencing factor might be YouTube's block sending mechanism, which, according to \cite{alcock2011afcyt}, may negatively interact with congestion control algorithms. The impact of packet loss on stalling is much higher than that of latency in our measurements. Yet, due to TCP's reliable transmissions, loss only causes increased packet retransmissions, and, thus, acts as a source of burst delay which negatively impacts the overall throughput.
+
+Figure \ref{c3:fig:lossseries} shows the series of loss experiments. While the 6\% packet loss and below has an almost negligible influence on the stalling time anything above this value will probably not achieve good user experience at all. Interesting to note is the rather sudden increase in stalling time when there is more than 6\% loss added. This could again hints to the transport protocol's reliable transport feature, which catches all the occurring losses, through timeouts or gaps in the sequence numbers. However, the detection and retransmission takes some time, which is reflected in the increased stalling time.
+
+
 
 The results presented here show some of the capabilities in comparing play network conditions based on playback models. We compare how the four playback models introduced previously fare against each other in a measurement series featuring  emulated transmission latency and packet loss . At the same time, we acknowledge that other specific questions are not touched in this first set of experiments, e.g. the inclusion of a mobile network or handset, or RTP-based streams.
 
@@ -137,18 +107,18 @@ The video used in our measurements was streamed from the YouTube web site. This 
 Details on the streamed video are available in Table \ref{c3:tbl:videoparams}.
 
 \begin{table}[htbp]
-	\centering
-	\caption{Test Video Parameters}
-	\label{c3:tbl:videoparams}
-	\begin{tabu}{|l|X[r]|}
+    \centering
+    \caption{Test Video Parameters}
+    \label{c3:tbl:videoparams}
+    \begin{tabu}{|l|X[r]|}
         \hline
         Parameter & Value \\ \hline
-    	Video Duration	& 01:32.536 minutes \\
-    	Size & 9.61 MiB \\
-    	Framerate & 23.976/s \\
-    	Average Video Bitrate & 871 Kbps \\
-    	Codec & AVC+AAC \\ \hline
-	\end{tabu}
+        Video Duration  & 01:32.536 minutes \\
+        Size & 9.61 MiB \\
+        Framerate & 23.976/s \\
+        Average Video Bitrate & 871 Kbps \\
+        Codec & AVC+AAC \\ \hline
+    \end{tabu}
 \end{table}
 
 For the loss experiment series, the network emulator was configured to drop a certain percentage of packets based on a normal distribution on both the uplink and the downlink direction. There was no loss correlation involved, the existence of which one would expect, e.g., in wireless networks. One streaming run for every two percentage points of additional loss up to 14\% was conducted.
@@ -182,7 +152,7 @@ As a result, when planning a network for streaming applications, the maximum los
 
 \begin{figure}[htb]
 % used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
-	\centering
+    \centering
     \includegraphics[width=\textwidth]{images/eval-loss4mb-stallingtime.pdf}
     \caption{Playback model observations on additional packet loss. Total stalling time.}
     \label{c3:fig:eval-loss-stallingtime}
@@ -198,17 +168,3 @@ As a result, when planning a network for streaming applications, the maximum los
 Through these to exemplary experiments, we tried to show that network QoS parameters have a direct measurable impact on the application layer, namely on HTTP streaming quality. While the models scale rather well with latency, any HTTP streaming is almost impossible with high packet loss values.
 Comparing the presented playback models, we conclude that every model represents a trade-off between several parameters, e.g. as measured here, the number and length of stalls. With the knowledge gained from the experiments, playback models could be tailor-made to best suit certain conditions and user requirements. 
 
-%The behavior of the existing models is summarized in the table as follows:
-
-%\begin{table}
-%\centering
-%\begin{tabular}{l|p{1cm}|p{1cm}|p{1cm}|p{1cm}}
-% & \textbf{Start Delay} & \textbf{Stalling} & \textbf{YouTube Flash} & \textbf{Firefox HTML5} \\ \hline \hline
-%\textit{\# of stalls} & min & max & med & low \\ \hline
-%\textit{Duration of stalls} & min & min & med & high \\ \hline
-%\end{tabular}
-%\caption{Stalling Trade-Offs of the Playback Models}
-%\label{tbl:modeleval}
-%\end{table}
-
-	
