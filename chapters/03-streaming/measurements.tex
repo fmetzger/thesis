@@ -7,16 +7,38 @@ With these playback models at hand, this section demonstrates how to conduct act
 
 As discussed, there are numerous incarnations of reliable streaming protocols in use. Almost all of them follow the same basic approach but with slight variations in execution and choice of playback strategies and corresponding parameters. But it is exactly these choices that can have a large impact on the streaming process and resulting quality. 
 
-The problem lies in comparing these protocols to each other. Each of them is usually tied to a specific -- and most often proprietary closed source -- streaming player. Setting up all these players in one testbed is a huge effort and requires very specific software environments to be used on the client machines. Moreover, these players are built with user interaction and not automation and directly measuring the outcome in mind. This can still be achieved through extensive workarounds, but must be tailored to every player application. The presented approach avoids this hassle and provides a concise way to test any conceivable playback strategy in one single testbed.
+The problem lies in comparing these protocols to each other. Each of them is usually tied to a specific -- and most often proprietary closed source -- streaming player. Setting up all these players in one testbed is a huge effort and requires very specific software environments to be used on the client machines. Moreover, these players are built with user interaction and not automation and directly measuring the outcome in mind. This can still be achieved through extensive workarounds, but must be tailored to every player application. The presented approach avoids this hassle and provides a concise way to test any conceivable playback strategy in one single test setup.
 
 
 
 %%
-\subsection{Offline Measurement Framework}
+\subsection{Progressive Streaming Measurement Framework}
 
-Testing and comparing new protocols is a complex and time-consuming undertaking if traditional evaluation approaches such as analytical source-traffic models are employed. For today's fast-paced development of streaming protocols, faster evaluation methods are needed. A testing environment must be simple and sufficiently flexible to allow its application on and adaption to current and future protocols, services, network structures, and associated parameter spaces. 
-% This also demands to take a generic approach that does not rely on specific implementations. 
-At the same time, it must be able to answer specific questions about  protocols, applications, and network setups. 
+To enable quick evaluations for progressive streaming the framework follows a two phase approach. This separates the active online recording phase, being very time intensive, from the passive playback emulation.
+
+
+
+
+Figure \ref{c3:fig:framework} depicts the evaluation testbed. % To enable rapid comparison of network quality of service against application behaviors we employ a two-step process. 
+Conceptually, it replicates the actual steps a user would perform to consume a media stream on a playback device. Through appropriate configuration different scenarios can be modeled, e.g. network conditions, behavior and specifics of the user device.
+ 
+ 
+\begin{figure}[htb]
+    \includegraphics[width=\textwidth]{images/measurement-model.pdf}
+    \caption{Measurement framework for progressive streaming playback strategies overview.}
+    \label{c3:fig:framework}
+\end{figure}
+
+In the first pass of the process, the stream data is transmitted from a server to the client. The server can either be an actual streaming service on the Internet, or a local server (to eliminate the unpredictable impact of the Internet connection). The traffic is directed through a network emulation node capable of altering the network QoS parameters, i.e. latency, jitter, and packet loss. The parameters could also be set according to stochastic models derived from actual network traces. 
+%Therefore, almost any kind of access network conditions can be modeled. 
+%Of particular interest are mobile radio behaviors and core network architectures. An example would be to compare guaranteed bit rate (GBR) with best-effort PDP contexts to assess the impact of QoS parameters on the stream quality.
+
+The measurement host downloads and records the video stream as a network trace. For HTTP streaming, it issues a single HTTP \texttt{GET} request on the video file, and then maintains the TCP connection until the file has fully arrived. A trace should at least contain the sizes and timestamps of every incoming packet. More detailed traces can be used to scrutinize other layers of the connection, e.g. the dynamics of TCP receive window size. The packet trace is then decoded using the popular open source \texttt{ffmpeg} suite, yielding another set of traces consisting of video frame sizes and playout timestamps.
+
+In the second pass, these two traces are then used to feed the playback models described before. The playback emulation process combines the transmission and video frame traces to calculate the playback buffer fill level for every point in time during the playback. It then generates statistics about user-perceivable artifacts such as playback stalls that would occur during the playback. These statistics can then be compared to the results of other models and network QoS.
+
+% For simple HTTP streaming, there is no feedback from the client to the server that would result in adaptions of the stream (``rate control''). Therefore, recording the packet trace and simulating playback are decoupled, as the latter cannot influence the former. As such, the testbed can test and compare several playback models on the same recorded network trace. This enables fast and efficient comparison of non-feedback protocols subject to the same network conditions.
+
 
 
 Which metric to compare strategies and to record during experiments? Time, number and duration of stalls, buffer fill level.
@@ -43,26 +65,6 @@ describe network emulation (and specifically netem)
 
 
 
-Figure \ref{c3:fig:testbed} depicts the evaluation testbed. % To enable rapid comparison of network quality of service against application behaviors we employ a two-step process. 
-Conceptually, it replicates the actual steps a user would perform to consume a media stream on a playback device. Through appropriate configuration different scenarios can be modeled, e.g. network conditions, behavior and specifics of the user device.
- 
- 
-\begin{figure}[htb]
-    \includegraphics[width=\textwidth]{images/measurement-model.pdf}
-    \caption{Testbed Schematic.}
-    \label{c3:fig:testbed}
-\end{figure}
-
-In the first pass of the process, the stream data is transmitted from a server to the client. The server can either be an actual streaming service on the Internet, or a local server (to eliminate the unpredictable impact of the Internet connection). The traffic is directed through a network emulation node capable of altering the network QoS parameters, i.e. latency, jitter, and packet loss. The parameters could also be set according to stochastic models derived from actual network traces. 
-%Therefore, almost any kind of access network conditions can be modeled. 
-%Of particular interest are mobile radio behaviors and core network architectures. An example would be to compare guaranteed bit rate (GBR) with best-effort PDP contexts to assess the impact of QoS parameters on the stream quality.
-
-The measurement host downloads and records the video stream as a network trace. For HTTP streaming, it issues a single HTTP \texttt{GET} request on the video file, and then maintains the TCP connection until the file has fully arrived. A trace should at least contain the sizes and timestamps of every incoming packet. More detailed traces can be used to scrutinize other layers of the connection, e.g. the dynamics of TCP receive window size. The packet trace is then decoded using the popular open source \texttt{ffmpeg} suite, yielding another set of traces consisting of video frame sizes and playout timestamps.
-
-In the second pass, these two traces are then used to feed the playback models described before. The playback emulation process combines the transmission and video frame traces to calculate the playback buffer fill level for every point in time during the playback. It then generates statistics about user-perceivable artifacts such as playback stalls that would occur during the playback. These statistics can then be compared to the results of other models and network QoS.
-
-% For simple HTTP streaming, there is no feedback from the client to the server that would result in adaptions of the stream (``rate control''). Therefore, recording the packet trace and simulating playback are decoupled, as the latter cannot influence the former. As such, the testbed can test and compare several playback models on the same recorded network trace. This enables fast and efficient comparison of non-feedback protocols subject to the same network conditions.
-
 
 
 For the YouTube streaming measurements we implemented an automated video downloading and playback simulation software to feed information into the model and evaluate the total stalling time. For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
@@ -71,6 +73,8 @@ For the YouTube streaming measurements we implemented an automated video downloa
 %%
 \subsection{Online Framework Extension}
 
+define feedback: any strategy, that alters transmission (i.e. requesting segments/ranges; when to request, parallel request, quality to request) based on current conditions
+
 modifications for adaptive/segmnet-based/feedback streaming
 
 can use server under own control, to influence server side pacing
@@ -78,8 +82,14 @@ can use server under own control, to influence server side pacing
 no trace phase anymore, (emulated) transmission phase now part of old phase 2
 
 
-updated framework figure here
+\begin{figure}[htb]
+    \includegraphics[width=\textwidth]{images/feedback-measurement-model.pdf}
+    \caption{Measurement framework for adaptive streaming playback strategies overview.}
+    \label{c3:fig:framework-feedback}
+\end{figure}
 
+
+Figure~\ref{c3:fig:framework-feedback}
 
 
 %%
