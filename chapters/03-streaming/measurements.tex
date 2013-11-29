@@ -14,14 +14,7 @@ The problem lies in comparing these protocols to each other. Each of them is usu
 %%
 \subsection{Progressive Streaming Measurement Framework}
 
-To enable quick evaluations for progressive streaming the framework follows a two phase approach. This separates the active online recording phase, being very time intensive, from the passive playback emulation.
-
-
-
-
-Figure \ref{c3:fig:framework} depicts the evaluation testbed. % To enable rapid comparison of network quality of service against application behaviors we employ a two-step process. 
-Conceptually, it replicates the actual steps a user would perform to consume a media stream on a playback device. Through appropriate configuration different scenarios can be modeled, e.g. network conditions, behavior and specifics of the user device.
- 
+To enable quick evaluations for progressive streaming the framework follows a two phase approach, separating the active online recording phase from the passive playback emulation. Recording data is very time intensive and cannot be sped up when conducting investigation of a real world process, and not relying on simulated data. It still replicates the steps a user would perform to consume a media stream on a playback device. Through appropriate configuration different scenarios can be modeled, e.g. network conditions, behavior and specifics of the user device.
  
 \begin{figure}[htb]
     \includegraphics[width=\textwidth]{images/measurement-model.pdf}
@@ -29,11 +22,15 @@ Conceptually, it replicates the actual steps a user would perform to consume a m
     \label{c3:fig:framework}
 \end{figure}
 
-In the first pass of the process, the stream data is transmitted from a server to the client. The server can either be an actual streaming service on the Internet, or a local server (to eliminate the unpredictable impact of the Internet connection). The traffic is directed through a network emulation node capable of altering the network QoS parameters, i.e. latency, jitter, and packet loss. The parameters could also be set according to stochastic models derived from actual network traces. 
-%Therefore, almost any kind of access network conditions can be modeled. 
-%Of particular interest are mobile radio behaviors and core network architectures. An example would be to compare guaranteed bit rate (GBR) with best-effort PDP contexts to assess the impact of QoS parameters on the stream quality.
+Figure \ref{c3:fig:framework} depicts the framework for a streaming evaluation testbed. In phase one the stream's transmission is conducted and recorded on a per-packet level. Stream data is transmitted to the client from a server which can be any actual streaming service on the Internet or a local server under the testbed's control, eliminating undesired side effects caused by the Internet connection. 
 
-The measurement host downloads and records the video stream as a network trace. For HTTP streaming, it issues a single HTTP \texttt{GET} request on the video file, and then maintains the TCP connection until the file has fully arrived. A trace should at least contain the sizes and timestamps of every incoming packet. More detailed traces can be used to scrutinize other layers of the connection, e.g. the dynamics of TCP receive window size. The packet trace is then decoded using the popular open source \texttt{ffmpeg} suite, yielding another set of traces consisting of video frame sizes and playout timestamps.
+The traffic is directed through a network emulation node capable of altering the network QoS parameters, i.e. latency, jitter, and packet loss. The parameters could also be set according to stochastic models derived from actual network traces. Instead of network emulation, any preexisting architecture can also be placed here to achieve more accurate results for the intended target. This is especially helpful for complex infrastructures hard to model or with no good and concise models available yet, for example mobile and mobile core networks.
+
+The measurement host downloads and records the video stream as a network trace. For progressive \gls{HTTP} streaming, a single request on the video file is issued and the \gls{TCP} connection maintained until the file has fully arrived.
+This process is recorded in traces as basis for the second phase. A trace should consists of the size and timestamp of every incoming packet. More detailed traces can be used to scrutinize other layers of the connection, e.g. the dynamics of TCP receive window size. Additionally the received file is decoded yielding a trace of the video frame sizes and playout timestamps.
+
+%% <-- WIP
+
 
 In the second pass, these two traces are then used to feed the playback models described before. The playback emulation process combines the transmission and video frame traces to calculate the playback buffer fill level for every point in time during the playback. It then generates statistics about user-perceivable artifacts such as playback stalls that would occur during the playback. These statistics can then be compared to the results of other models and network QoS.
 
@@ -55,19 +52,12 @@ allows for very fast evaluation of a strategy subset
 
 record a large number of traces to compare adaptability to many scenarios or just to a specific one
 
+playback emulation: just caluclate buffer level: speed up versus actual playback but the same outcome
 
-describe network emulation (and specifically netem)
 
-%% <-- WIP
+
 %% <-- %% end WIP
 
-
-
-
-
-
-
-For the YouTube streaming measurements we implemented an automated video downloading and playback simulation software to feed information into the model and evaluate the total stalling time. For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
 
 
 %%
@@ -92,12 +82,25 @@ no trace phase anymore, (emulated) transmission phase now part of old phase 2
 Figure~\ref{c3:fig:framework-feedback}
 
 
+\subsection{Transition to Full Simulation}
+
+\subsection{Technical Implementation}
+
+3 linux nodes, python emulation, netem module, curl, ffmpeg, mplayer, R
+event based emulation?
+
+describe network emulation (and specifically netem)
+
+
+
 %%
 \subsection{Measurement Series and Evaluations with the Framework}
 %[visualization and results (does yt still work well with high delay/loss?)]
 %[performance evaluation (BWs, played vs received data)]
 %Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
 %These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.
+
+For the YouTube streaming measurements we implemented an automated video downloading and playback simulation software to feed information into the model and evaluate the total stalling time. For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
 
 First use case to show how our system works: Progressive HTTP streaming. Will show adaptability to adaptive streaming and different protocols. For this comparison we used a video of about 90 seconds length and network conditions that could not fulfill the video bitrate in time and hereby forced stalling to occur.
 
