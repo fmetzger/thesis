@@ -71,15 +71,15 @@ To both retrieve the streaming file and record the transmission process at the c
 
 %%
 \subsection{Measurement Series and Evaluations with the Framework}
-%[visualization and results (does yt still work well with high delay/loss?)]
-%[performance evaluation (BWs, played vs received data)]
-%Also observed and analyzed. The deduce that the initial buffering time and the later block sending rate are directly correlated. 64kb blocks, probably due to GFS, problems with this method, ...
-%These Quality-of-Service parameters loss and delay do not have any direct influence on the downloading process but instead have negative impacts on the throughput of the underlying TCP due to its congestion control feature and, in the end, serve as another source of delay and jitter.
 
-This implementation has been used to conduct a comparative study of two theoretical and two real world playback strategies. They are tested for their susceptibility to worsening network \gls{QoS}, latency and loss in this case.
+This implementation has been used to conduct a comparative study of two theoretical and two real world playback strategies. They are tested for their susceptibility to worsening network \gls{QoS}, latency and loss in this case. The evaluated strategies are the described YouTube and Firefox strategies as well as the null strategy and the predictive strategy with perfect knowledge and just the initial stalling period.
 
-The video used in the experiment was streamed from the YouTube web site providing a realistic foundation for the experiments. This also enables a server side pacing mechanism adjusted to the video bitrate for free
-Details on the video used in the experiment are available in Table~\ref{c3:tbl:videoparams}. Two measurement series are performed with this video, both only differ in the network emulator setting. The first series increasingly adds packet loss to the stream, with the second series altering the packet delay. 
+The video used in the experiment was streamed from the YouTube web site providing a realistic foundation for the experiments. This also enables a server side pacing mechanism adjusted to the video bitrate for free.
+Details on the video used in the experiment are available in Table~\ref{c3:tbl:videoparams}. Two measurement series are performed with this video, both only differ in the network emulator setting. The first series increasingly adds packet loss to the stream, with the second series altering the packet delay. In both scenarios, the link bandwidth was limited to a typical dialup value of \SI{16}{\mega\bit\per\second} in the downlink direction and \SI{1}{\mega\bit\per\second} up.
+
+It can be stated, that all playback strategies will generally work very similar under good network conditions as long as the \gls{TCP} goodput, i.e. the rate the payload is transported by \gls{TCP}, is higher than the video bitrate. With sufficient goodput video streams will start with almost no delay or intermediate buffering. 
+If, however, the achievable \gls{TCP} goodput is close to the average video bitrate, the buffer can be quickly drained by short deviations from the average transmission and video bit rates. The \gls{TCP} goodput can be limited by high latency and loss. Many \gls{TCP} congestion control algorithms depend on the round trip time. If the \gls{RTT} is high, the congestion window will increase much slower. High latency triggers \gls{TCP} timeouts and retransmissions, and in turn decrease the congestion window reducing the goodput. Packet loss affects \gls{TCP} goodput even more. A lost packet results in duplicate acknowledgments followed by retransmissions and a decrease of the congestion window. The problem is worsened if the acknowledgments are also lost. The connection could stalls on missing old segments without which the playback cannot proceed. In addition to the reduction of goodput this results in a delay burst and high jitter for the streaming application.
+
 
 \begin{table}[htbp]
     \centering
@@ -98,99 +98,78 @@ Details on the video used in the experiment are available in Table~\ref{c3:tbl:v
 
 
 %% latency
-In the latency measurement series, the emulator delayed forwarding the packets for a constant amount of time
-The latency was increased in \SI{100}{\milli\second} steps, up to a total of \SI{5000}{\milli\second}. The added latency is split up evenly between the uplink and the downlink.
-
-
-It can be stated, that all playback strategies will generally work very similar under good network conditions. If sufficient bandwidth is available, they will play videos with almost no delay or intermediate buffering. 
-If, however, the achievable \gls{TCP} goodput is close to the average video bitrate, the buffer can be quickly drained by short deviations from the average transmission and video bit rates. The \gls{TCP} goodput can be limited by high latency and loss. Many \gls{TCP} congestion control algorithms depend on the round trip time. If the \gls{RTT} is high, the congestion window will increase much slower. High latency can also trigger \gls{TCP} timeouts and retransmissions, and in turn decrease the congestion window, further impacting the goodput. 
-
-%% <-- WIP
-
-The latency measurements are depicted in Figures \ref{c3:fig:eval-latency-stallingtime} and \ref{c3:fig:eval-latency-numstalls}. The stalling time increases with the additional latency. The Initial Start Delay model provides the best possible result in terms of pure stalling time. On the other hand, Figure \ref{c3:fig:eval-latency-numstalls} shows the Stalling model provides always the worst result for the number of stalls. Any other model will lie beyond that line. The Flash and HTML5 models both run in just a few buffering events which however tend to increase in length with rising latency. Attributed to the simple and optimistic assumption of the Flash model, stalling time is usually lower than with HTML5, at the cost of slightly more buffering events.
- 
+In the latency measurement series, the emulator delays forwarding the packets for a constant amount of time. The latency was increased in \SI{100}{\milli\second} steps, up to a total of \SI{5000}{\milli\second}. The added latency is split up evenly between the uplink and the downlink.
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{images/eval-latency-stallingtime.pdf}
-    \caption{Total stalling time.}
+    \caption{Stalling duration in relation to transmission latency.}
     \label{c3:fig:eval-latency-stallingtime}
 \end{figure}
+
+Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the added latency and the stalling duration of the playback strategies. The stalling time increases as expected with the additional latency. Both the predictive and the null strategy provide the best possible result in terms of pure stalling time. This was already theoretically explored during the strategy's introduction.
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{images/eval-latency-frequency.pdf}
-    \caption{Playback model observations on additional latency. Number of stalls.}
+    \caption{Number of stalls in relation to transmission latency.}
     \label{c3:fig:eval-latency-numstalls}
 \end{figure}
 
+Figure \ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling events occuring during the playback with the null strategy at the high end and the predictive strategy just showing the expected single stall before playback start. But both YouTube and Firefox are not much worse compared to the predictive strategy, running in just a few buffering events of increasing duration with rising latency. YouTube stalling time is usually lower than with Firefox, at the cost of slightly more buffering events, which could be attributed to its optimistic threshold choice, which still seems to work at the tested latency levels.
 
-% loss
-In the loss experiment series, uncorrelated uniformly distributed loss was added in both the uplink and the downlink direction. The loss was increased in $2\%$ steps up to a total additional loss of $14\%$
+Overall, it can be said, that in this specific latency scenario the real world playback strategies seem to honor the fact that more video interruption lead to a worse experience than fewer but longer ones.  Through mobility and handovers, mobile devices experience short bursts of latency of several seconds fairly common. According to the measurement series, the resulting stalling behavior could still very well be bearable for streaming users.
 
-TCP goodput is even more severely affected by packet loss. A lost packet results in a duplicate acknowledgement, retransmissions, and a decrease of the congestion window. The problem gets worse if also the ACKs are lost and the connection stalls on missing old segments without which the playback cannot proceed. Figure xyz shows some exemplary measurements for a loss scenario. While additional packet losses of up to four percent seem to have no noticeable impact on streaming quality, the total stalling time suffers a large increase for any model as seen in Fig. \ref{c3:fig:eval-loss-stallingtime} rendering any streaming attempts practically unusable. Figure \ref{c3:fig:eval-loss-numstalls} shows the extremity of the Stalling model compared to other models reaching a number orders of magnitude larger than any other model.
-As a result, when planning a network for streaming applications, the maximum loss should be kept below the noticed mark to achieve reasonable streaming quality. 
+In the loss measurement series, uncorrelated uniformly distributed loss was added in both the uplink and the downlink direction. The loss was incrementally increased in $2\%$ steps up to a total additional loss of $14\%$. About $60\%$ of the individual experiments did not finish correctly, and the video was not completely transmitted. This was caused by the \gls{TCP} stack, which at some point terminated the connection after to many packets were lost back to back, and curl giving up after several retries.
 
+\todo{update the upper loss limit as well as the aborted number of runs and other values}
 
 \begin{figure}[htb]
-% used yt-delay/hPUGNCIozp0_delay_100 2, spyder with matplotlib config patch
     \centering
     \includegraphics[width=\textwidth]{images/eval-loss4mb-stallingtime.pdf}
-    \caption{Playback model observations on additional packet loss. Total stalling time.}
+    \caption{Stalling duration in relation to packet loss.}
     \label{c3:fig:eval-loss-stallingtime}
 \end{figure}
+
+Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling duration in the packet loss measurement series. Loss of up to $4\%$ seems to have no discernible impact on the streaming process. Anything beyond this point sees a large increase in the stalling duration. 
+With a relative duration of almost four times the actual video length at $12\%$ packet loss any streaming attempt is practically rendered unusable. 
+This behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission takes time and leads to a bursty increase in latency, which may be a reason of the increased stalling time.
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{images/eval-loss4mb-frequency.pdf}
-    \caption{Playback model observations on additional packet loss. Number of stalls.}
+    \caption{Number of playback stalls in relation to packet loss}
     \label{c3:fig:eval-loss-numstalls}
 \end{figure}
- 
- %%
+
+Figure~\ref{c3:fig:eval-loss-numstalls} shows the extremity of the null strategy in terms of the number of experienced stalls compared to other strategies reaching a number two orders of magnitude larger than any other model. As a result, when planning a network for streaming applications, the maximum loss should be kept below the $4\%$ mark to achieve reasonable streaming quality. 
 
 
+\todo{expand loss section a bit more}
 
 
-For this the simple stalling model is used because this results in the shortest possible playback duration in every scenario. Furthermore, we used a network emulation testbed to subject the video streaming to increased loss and latency while fixing the maximum network bandwidth and observe the influence on the QoE.
-
-First use case to show how our system works: Progressive HTTP streaming. Will show adaptability to adaptive streaming and different protocols. For this comparison we used a video of about \SI{90}{second} length and network conditions that could not fulfill the video bitrate in time and hereby forced stalling to occur.
-
-We performed two measurement series, one with increased packet loss, the other one adding latency to the path. For each value of loss and latency a mean total stalling time was calculated out of five separate experiments to eliminate temporal and network load influences. Additionally, standard deviations are shown in the resulting graphs. We clearly notice very large deviations in some experiments. Some of these can be explained by connection timeouts and later resumption of the streaming. Furthermore, an exponential regression line shows the trend of the total stalling times in the experiments.
-
-
+ %% <-- WIP
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/R-playbackemulation-loss.pdf}
+    \caption{Playback model observations on additional packet loss. Relative stalling time. (Temporary placeholder)}
+    \label{c3:fig:eval-loss-stallingtime-R}
+\end{figure}
 
 
 %% <-- %% end WIP
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{images/R-delayseries.pdf}
-    \caption{Total buffering time and linear smooth for degraded network parameter scenarios. Latency Graph.}
-    \label{c3:fig:delayseries}
-\end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{images/R-lossseries.pdf}
-    \caption{Total buffering time and linear model for degraded network parameter scenarios. Loss Graph.}
-    \label{c3:fig:lossseries}
-\end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=\textwidth]{images/R-delayseries.pdf}
+%     \caption{Total buffering time and linear smooth for degraded network parameter scenarios. Latency Graph.}
+%     \label{c3:fig:delayseries}
+% \end{figure}
 
-Figure \ref{c3:fig:delayseries} displays the results of of the latency measurement series with up to five seconds of additional delay. In the worst case the stalling time increases to about 50 seconds. In mobile scenarios latencies of up to 2 seconds can be expected, which would, according to our measurements, result in a maximum mean stalling time of 15 seconds for a 90 second video, which could very well be bearable for YouTube users.
-
-There are several factors that could contribute to the increase in stalling time in the latency experiments. 
-TCP, in its simplest form, increases the congestion window based on the Round Trip Time (RTT), making it highly dependent on this connection parameter. Newer congestion avoidance algorithms, e.g. the CUBIC algorithm used in Linux \cite{ha2008cubic}, however reduce this dependence on the RTT.
-Another influencing factor might be YouTube's block sending mechanism, which, according to \cite{alcock2011afcyt}, may negatively interact with congestion control algorithms. The impact of packet loss on stalling is much higher than that of latency in our measurements. Yet, due to TCP's reliable transmissions, loss only causes increased packet retransmissions, and, thus, acts as a source of burst delay which negatively impacts the overall throughput.
-
-Figure \ref{c3:fig:lossseries} shows the series of loss experiments. While the 6\% packet loss and below has an almost negligible influence on the stalling time anything above this value will probably not achieve good user experience at all. Interesting to note is the rather sudden increase in stalling time when there is more than 6\% loss added. This could again hints to the transport protocol's reliable transport feature, which catches all the occurring losses, through timeouts or gaps in the sequence numbers. However, the detection and retransmission takes some time, which is reflected in the increased stalling time.
-
-
-
-
-
-
-
-Through these to exemplary experiments, we tried to show that network QoS parameters have a direct measurable impact on the application layer, namely on HTTP streaming quality. While the models scale rather well with latency, any HTTP streaming is almost impossible with high packet loss values.
-Comparing the presented playback models, we conclude that every model represents a trade-off between several parameters, e.g. as measured here, the number and length of stalls. With the knowledge gained from the experiments, playback models could be tailor-made to best suit certain conditions and user requirements. 
-
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=\textwidth]{images/R-lossseries.pdf}
+%     \caption{Total buffering time and linear model for degraded network parameter scenarios. Loss Graph.}
+%     \label{c3:fig:lossseries}
+% \end{figure}

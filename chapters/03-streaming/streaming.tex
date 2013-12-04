@@ -53,6 +53,10 @@ After defining an appropriate performance metric, this model is implemented in a
 \section{Summary}
 \label{c3:conclusion}
 
+% merge into chapter summary
+Through these to exemplary experiments, we tried to show that network QoS parameters have a direct measurable impact on the application layer, namely on HTTP streaming quality. While the models scale rather well with latency, any HTTP streaming is almost impossible with high packet loss values.Comparing the presented playback models, we conclude that every model represents a trade-off between several parameters, e.g. as measured here, the number and length of stalls. With the knowledge gained from the experiments, playback models could be tailor-made to best suit certain conditions and user requirements. 
+%
+
 Streaming to mobile devices, especially in mobility scenarios, arises several new issues not seen at wireline connected devices. The lower-layer protocols on the radio link can cause additional unexpected behavior. Handover between radio cells can cause long periods of very high delay (up to seconds) and packet reordering which does not play well with TCP, resulting in a decreased throughput. Therefore, we would like to investigate its interplay with server-side bandwidth pacing methods as employed by YouTube.
 
 We also would like to extend our analysis of video streaming to adaptive HTTP streaming mechanisms previously mentioned. We expect them to further complicate the client's buffer management algorithms but they could also serve as a full replacement and evolution to RTP streaming.

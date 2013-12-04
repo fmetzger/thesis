@@ -27,15 +27,11 @@ def calcstalls(stalls):
 			plcnt = plcnt + 1
 			num = plcnt
 			pllen = pllen + (stalls[i].end-stalls[i].start)
-
 		print(str(i) + ": " + stalls[i].type + "=" + str(i) + "; start=" + str(stalls[i].start) + "; end:" + str(stalls[i].end) + "; duration="+str(stalls[i].end-stalls[i].start))
-
-	print("")
 	print("num_stalls="+str(stcnt))
 	print("time_stall_total="+str(stlen)) 
 	print("num_playruns="+str(plcnt))
 	print("time_play_total="+str(pllen)) 
-
 	return(stcnt,stlen,plcnt,pllen)
 
 if __name__ == "__main__":
