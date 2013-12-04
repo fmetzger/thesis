@@ -146,6 +146,8 @@ class Graphs:
     self.frame_timestamps = [0]
     for frame in self.framelist:
       self.frame_timestamps.append(frame.time)
+
+    self.video_duration = self.frame_timestamps[-1] #save the last frame timestamp as video duration
     
     f_trace_in.close()
 ################################################################################

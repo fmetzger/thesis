@@ -61,41 +61,45 @@ if __name__ == "__main__":
 	# dirs = os.listdir(os.path.abspath(rootfolder))
 	vals = []
 
-	for current_dir, subfolders, files in os.walk(rootdir):
-		if not subfolders: # only leaf dirs are interesting
+	with open('playbackemulation-1.csv', 'wb') as f:
+		writer = csv.writer(f)
+		writer.writerow(["video_id", "video_duration", "strat", "video_width", "video_height", "video_bitrate", "qostype", "qosvalue", "duration", "stall_duration", "stall_count"])
 
-			for alg in algs:
-				for subvideoid in range(10):
-					print "Calculating values for " + current_dir
+		for current_dir, subfolders, files in os.walk(rootdir):
+			if not subfolders: # only leaf dirs are interesting
 
-					try:
-						dirname = string.split(current_dir, "/")[-1]
-						dirsplit = string.split(dirname,"_")
-						videoid = dirsplit[0]
-						qostype = dirsplit[1]
-						qosparam = dirsplit[2]
+				for alg in algs:
+					for subvideoid in range(10):
+						print "Calculating values for " + current_dir
 
-					
-						myG = yt.Graphs(current_dir, subvideoid)
-						(bufferlevels, frame_timestamps, total_offset, stalls) = myG.stallingalgorithm(alg)
-						video_width = myG.video_width
-						video_height = myG.video_height
-						video_bitrate = myG.overall_bitrate
+						try:
+							dirname = string.split(current_dir, "/")[-1]
+							dirsplit = string.split(dirname,"_")
+							videoid = dirsplit[0]
+							qostype = dirsplit[1]
+							qosparam = dirsplit[2]
 
-						(num_stalls, time_stalls, num_playruns, time_play) = calcstalls(stalls)
-						vals.append((videoid, alg, video_width, video_height, video_bitrate, qostype, float(qosparam), time_play, time_stalls, num_stalls))
+						
+							myG = yt.Graphs(current_dir, subvideoid)
+							(bufferlevels, frame_timestamps, total_offset, stalls) = myG.stallingalgorithm(alg)
+							video_width = myG.video_width
+							video_height = myG.video_height
+							video_bitrate = myG.overall_bitrate
+							video_duration = myG.video_duration
 
-					except Exception, e:
-						print e
+							(num_stalls, time_stalls, num_playruns, time_play) = calcstalls(stalls)
+							vals.append((videoid, video_duration, alg, video_width, video_height, video_bitrate, qostype, float(qosparam), time_play, time_stalls, num_stalls))
+							writer.writerows(vals)
+
+						except Exception, e:
+							print e
 
 
 
-	vals = sorted(vals, key=lambda x: x[1]) # sort by first item in tuple: qosparam
+	
+		#vals = sorted(vals, key=lambda x: x[1]) # sort by first item in tuple: qosparam
 
-	with open('playbackemulation.csv', 'wb') as f:
-	    writer = csv.writer(f)
-	    writer.writerow(["video_id", "strat", "video_width", "video_height", "video_bitrate", "qostype", "qosvalue", "duration", "stall_duration", "stall_count"])
-	    writer.writerows(vals)
+	   
 
 
 
