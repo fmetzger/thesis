@@ -12,7 +12,7 @@ df <- subset(d, d$duration == d$video_duration) # temporary; in future instead f
 dloss <- subset(df, df$qostype == "loss")
 dlatency <- subset(df, df$qostype == "delay")
 
-pl <- ggplot(dloss, aes(x=qosvalue, y=stall_duration, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="line") + stat_summary(fun.data="mean_cl_boot", geom="errorbar")
+pl <- ggplot(dloss, aes(x=qosvalue, y=relativestall, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="line") + stat_summary(fun.data="mean_cl_boot", geom="errorbar")
 pl + xlab("packet loss (%)") + ylab("stall duration / video duration") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox HTML5", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
 ggsave("R-playbackemulation-stallduration-loss.pdf")
 
