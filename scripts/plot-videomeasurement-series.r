@@ -1,25 +1,36 @@
 # evaluate python playback emulation csv
 #
 
+library(Hmisc) #implicitly loaded by ggplot2 when required
 library(ggplot2)
 
-setwd("/home/fm/git/thesis/scripts/py-playbackemulation")
+#setwd("/home/fm/git/thesis/scripts/py-playbackemulation")
+setwd("F:/uni/git/thesis/scripts/py-playbackemulation/")
+
 d <- read.csv("playbackemulation.csv", header=T)
 
 d$relativestall <- d$stall_duration/d$duration
-df <- subset(d, d$duration == d$video_duration) # temporary; in future instead filter out any where duration < video_duration
+df <- subset(d, d$duration == d$video_duration)
 
 dloss <- subset(df, df$qostype == "loss")
 dlatency <- subset(df, df$qostype == "delay")
 
-pl <- ggplot(dloss, aes(x=qosvalue, y=relativestall, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="line") + stat_summary(fun.data="mean_cl_boot", geom="errorbar")
-pl + xlab("packet loss (%)") + ylab("stall duration / video duration") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox HTML5", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
+pl <- ggplot(dloss, aes(x=qosvalue, y=relativestall, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="point", size=4) + stat_summary(fun.data="mean_cl_boot", geom="errorbar") + stat_smooth(method="loess",  fullrange=T, size=1, se=T, lty=2)
+pl + xlab("packet loss (%)") + ylab("stall duration / video duration") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox 4", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
 ggsave("R-playbackemulation-stallduration-loss.pdf")
 
-pl <- ggplot(dloss, aes(x=qosvalue, y=stall_count, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="line") + stat_summary(fun.data="mean_cl_boot", geom="errorbar")
-pl + xlab("packet loss (%)") + ylab("number of playback stalls") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox HTML5", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
+pl <- ggplot(dloss, aes(x=qosvalue, y=stall_count, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="line")  + stat_summary(fun.y = mean, geom="point", size=4) + stat_summary(fun.data="mean_cl_boot", geom="errorbar") + stat_smooth(method="loess",  fullrange=T, size=1, se=F, lty=2)
+pl + xlab("packet loss (%)") + ylab("number of playback stalls") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox 4", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
 ggsave("R-playbackemulation-stallnumber-loss.pdf")
 
+
+pl <- ggplot(dlatency, aes(x=qosvalue, y=relativestall, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="point", size=4) + stat_summary(fun.data="mean_cl_boot", geom="errorbar") + stat_smooth(method="loess",  fullrange=T, size=1, se=T, lty=2)
+pl + xlab("latency (ms)") + ylab("stall duration / video duration") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox 4", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
+ggsave("R-playbackemulation-stallduration-latency.pdf")
+
+pl <- ggplot(dlatency, aes(x=qosvalue, y=stall_count, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="point", size=4) + stat_summary(fun.data="mean_cl_boot", geom="errorbar") + stat_smooth(method="loess",  fullrange=T, size=1, se=T, lty=2)
+pl + xlab("latency (ms)") + ylab("number of playback stalls") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox 4", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
+ggsave("R-playbackemulation-stallnumber-latency.pdf")
 
 
 ## old single strategy libreoffice import
