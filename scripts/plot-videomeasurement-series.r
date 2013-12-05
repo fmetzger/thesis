@@ -19,7 +19,7 @@ pl <- ggplot(dloss, aes(x=qosvalue, y=relativestall, color=as.factor(strat))) + 
 pl + xlab("packet loss (%)") + ylab("stall duration / video duration") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox 4", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
 ggsave("R-playbackemulation-stallduration-loss.pdf")
 
-pl <- ggplot(dloss, aes(x=qosvalue, y=stall_count, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="line")  + stat_summary(fun.y = mean, geom="point", size=4) + stat_summary(fun.data="mean_cl_boot", geom="errorbar") + stat_smooth(method="loess",  fullrange=T, size=1, se=F, lty=2)
+pl <- ggplot(dloss, aes(x=qosvalue, y=stall_count, color=as.factor(strat))) + stat_summary(fun.y = mean, geom="point", size=4) + stat_summary(fun.data="mean_cl_boot", geom="errorbar") + stat_smooth(method="loess",  fullrange=T, size=1, se=T, lty=2)
 pl + xlab("packet loss (%)") + ylab("number of playback stalls") + scale_color_discrete(name="Playback Strategies",breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox 4", "Null Strategy", "Predictive", "YouTube Flash")) + theme(text = element_text(size=20))
 ggsave("R-playbackemulation-stallnumber-loss.pdf")
 

@@ -1,0 +1,48 @@
+%!TEX root = ../../dissertation.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Related Work}
+Existing research can roughly be divided into two areas. First are attempts to infer control plane behavior through application layer active measurement at the mobile device or through synthetic traces or traces from other radio networks (e.g. 802.11).
+Second, investigations of user traffic characteristics by means of real 3G core network traces.
+This paper does not strictly fall in either of these two categories but instead aims to provide insights into the control plane from the perspective of the core network. It is also an extension to our Research Report\cite{metzger2012research} aiming to provide more in-depth statistical analyses to the control plane.  
+However, both areas are still highly relevant at related to our work. Therefore we present a selection of publications from these fields and detail the interesting aspects for this work.
+
+
+
+%% part 1 active measurements at the handset, RRC signaling
+\subsection{Device Active Measurement Investigations}
+
+Recently, stories about signaling storms and overloaded control planes in mobile networks reached popular news media \cite{it2011birdandroid, lt2012docostorm}. These stories blame a specific combination of mobile device type, operating system and application to cause excessive amounts of signaling in the radio network. The Android version of the popular casual game ``Angry Birds'' is a free download, and uses regularly refreshed advertisements displaying after every game stage. Now imagine a large amount of devices setting up and tearing down data connections only to retrieve new ads and therefore causing tens of control plane messages on each retrieval, which could strain the signaling-heavy structure of current networks. 
+
+The dynamics behind such events are already under investigation by several publications, focusing on the impact at the radio interface and on \gls{RRC} signaling but paying little attention to potential aspects in the core network. A paper on cross-layer interaction in mobile cellular networks falls into this category \cite{qian2011profiling}, discussing interaction, e.g., between the application layer and the \gls{RRC} (such as seen in the ``Angry Birds'' case) and its consequences for device energy consumption and radio channel allocation efficiency. The authors argue that there is much room for improvement in this area, and propose some enhancements.
+
+
+In \cite{lee2007detection}, mobile network traces are used to simulate a malicious signaling storm by transmitting low-volume user plane traffic with inter-departure times slightly larger than the transition timers in the \gls{RRC} state machines. This constantly causes signaling to occur. The authors propose tools to detect this, and discuss a possible scale of this type of denial-of-service attack.
+
+ 
+Wang et al.\cite{sigcomm11middleboxes} developed NetPiculet to probe mobile networks for middle boxes that alter traffic and affect performance, e.g. NAT, firewalls, or non-transparent proxies. Such nodes were present in a large portion of the investigated networks, increasing device power usage and download durations while providing themselves a surface for certain attacks.
+
+Looking at the transition of \gls{RRC} states, which is briefly explained in Sec. TODO, we find in \cite{5360763} some simple albeit effective application layer methods at the mobile device to investigate these transitions. This is further enhanced by research from Schwartz et al.\cite{schwartz2013angrybirds} using this technique to analyze the radio signaling load and thus power efficiency from different applications including the aforementioned
+
+
+%%
+\subsection{Research Based On Core Traces}
+
+As stated, all of these approaches cannot take the core network into account, as they do not have access to the necessary measurement infrastructure. The following research papers all have some kind of core network dataset. Most of them do not directly tackle signaling, however.
+
+The authors of \cite{shafiq2011characterizing} and \cite{paul2011understanding} both take the approach of looking at high-level user traffic characteristics in a mobile network, focusing on temporal and spatial variations of user traffic volume and peeking at the influence of different devices on this metric. Additional user flow and session traffic metrics are being looked at in \cite{Zhang:2012:UCC:2377677.2377764} with the conclusion that, in comparison to wired traffic, much more shorter flows are occurring. If this shorter-but-more theme is also evident in signaling traffic, this could translate into an increased signaling load.
+
+In 2006, Svoboda et al. \cite{svoboda2006composition} conducted a core network measurement study of various user traffic related patterns, and also provided an initial insight into \gls{PDP} context activity and durations. Another recent publication at \cite{he2012panoramic} provides an investigation aimed at \gls{RRC} signaling on the \gls{RNC} to \gls{SGSN} link but not at \gls{GTP} signaling at the \gls{SGSN} to \gls{GGSN} path which we deem more important for our core network load characteristics research. The authors classify their evaluations based on device model and vendor and on the application type, and find that different devices have strongly different \gls{RRC} characteristics, which could possibly also have an impact on \gls{GTP} signaling. Here the \gls{RRC} evaluation was done in a direct manner using explicit logs from the \gls{RNC}. A 2010 publication\cite{Qian:2010:CRR:1879141.1879159} however uses the indirect \gls{RRC} inferring method described earlier on a core network TCP trace data set and finds that the involved \gls{RRC} state machine is largely inefficient in terms of signaling overhead and energy consumption for typical traffic patterns seen in the data.
+
+The authors of \cite{4675847} give us some thoughts on the influence of core network elements on one-way delays in mobile networks, also providing us with initial clues on the expected load impact of these elements for our own investigation. A final paper \cite{Ricciato2010551} presents some \gls{DoS} attack scenarios on these networks from a theoretical view. As a \gls{DoS} either needs to find a weak (performance-wise) link in an architecture or a good source for an amplification attack -- small information causes a large amount of information to be computed or transmitted -- this is also very helpful information in evaluating core network load and finding bottlenecks.
+
+All of these touch to some degree parts of the areas tackled in this paper, but we think that the combination of the focus on core signaling, a statistical evaluation of PDP Contexts with an investigation of sources influencing these, and a simple load model are genuine contributions of our work.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% from MMB2014
+This work is a continuation of our previous evaluations conducted in \cite{metzger2012research} and \cite{metzger2013}. However, to our knowledge there are no other directly related predecessors in literature as this paper provides a novel model. However, some efforts have been made to investigate the special properties of mobile networks and its traffic. These include attempts to infer control plane behavior through active measurements at the mobile device or synthetic traces and investigations of user traffic characteristics by means of real 3G core network traces.
+The authors of \cite{qian2011profiling} discuss cross-layer interactions in mobile cellular networks and the consequences for device energy consumption and radio channel allocation efficiency. In \cite{lee2007detection}, mobile network traces are used to simulate a malicious signaling storm by transmitting low-volume user plane traffic with specially crafted inter-departure times, causing signaling to occur constantly. Looking at the multitude of radio network control state machines, we find in \cite{5360763} some simple yet effective application layer methods investigating transitions of these state machines. This is further elaborated on by \cite{schwartz2013angrybirds}, using this technique to analyze the radio signaling load and thus power efficiency from several different applications.
+
+Having access to core network datasets, the authors of \cite{shafiq2011characterizing} and \cite{paul2011understanding} both take the approach of looking at high-level user traffic characteristics, focusing on temporal and spatial variations of user traffic volume and investigating the influence of different devices on this metric. Additional user flow and session traffic metrics are being studied at in \cite{Zhang:2012:UCC:2377677.2377764} with the conclusion that, in comparison to wired traffic, much more shorter flows are occurring. In 2006, a core network measurement study of various user traffic related patterns was conducted \cite{svoboda2006composition}, providing an initial insight into \gls{PDP} context activity and durations. \cite{he2012panoramic} provides an investigation aimed at radio network signaling. The authors find that different devices have also different signaling characteristics. A 2010 publication \cite{Qian:2010:CRR:1879141.1879159} indirectly infers radio signaling from TCP traces concluding that very commonly occurring traffic patterns cause large signaling overhead and high energy consumption. The authors of \cite{4675847} give some thoughts on the influence of core network elements on one-way delays in mobile networks, hinting the expected load impact of these elements.
+

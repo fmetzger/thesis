@@ -4,67 +4,7 @@
 \label{chap:intro}
 
 
-\begin{itemize}
 
-\item ARPANAT and evolutionary process to today's Internet scale
-\item outside and inside developments brings new Internet usage (mp3+p2p, bandwidth+codecs -> video, digicams/camcorder); socioeconomic developments of a free speech network;New traffic patterns emerging due to external developments. Digital cameras, new codecs (esp MP3, mpeg4, WebM) -> p2p, Webcams 
-\item mobile networks: more of a parallel development to the Internet, always centralized (from the old copper/telephony/circuit switched world)
-\item MNs very different to the Internet structures we are used to
-\item circuit switched roots, signaling, explicitly NOT a distributed system as compared to Internet, i.e. explicit signaling central controllers
-\item Streaming and Multicasting, Multicasting in the Internet in general (only somewhat relevant for live/realtime non-interactive stuff)
-\item  network intelligence at the end nodes
-\item --> end-to-end violations: ECN? only signaling, decision is e2e, same category as indirect TCP congestion control signaling (through loss) from the network; NAT, Firewalls?
-\item content agnosticism: we do not know what applications the future will bring, so we do not make any assumptions
-\item HTTP; ``The Web adopts relatively simple technologies with sufficient scalability efficiency and utility'' \cite{W3Arch}
-\item Why HTTP streaming? Generalization of HTTP streaming (reliable transport, control shift to the client); Less control, more effective; Why global \gls{QoS} control doesn't work
-\item \gls{LTE}, \gls{EPC}, Core network tunneling concepts, bottlenecks in the access and the core, \gls{LTE} network model
-\item Improvements to congestion control for mobile streaming
-\item Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...) ; what works better with it? compare, model and measure
-\item \gls{QoE} metrics, \gls{MOS}, stalling time and buffering models, subjective and objective testing
-\item http://www.ipjforum.org/?p=926 Vint Cerf looking forward
-
-\item Data-mining of network trace data from mobile networks.
-\item Investigation of mobility awareness and prediction techniques ("unassisted mobility")
-
-
-\item Hackers: Heroes of the computer revolution \cite{levy2010hackers}
-        Computers/Hacking Culture: Build stuff first, always have running code
-\item Baran Packet Switching
-\item A History of the Internet and the Digital Future \cite{ryan2010history}
-        RAND
-\item TCP/IP vint cerf + bob kahn: tcp/ip \cite{1092259}
-\item van Jacobson Congestion Avoidance and Control \cite{jacobson1988congestion}
-\item ISO/OSI / ATM
-\item (Slotted) Aloha as one of the first mobile packet switched
-\item Mobile Networks 1G/2G/3G/4G
-\item The Web (Berners-Lee)
-\item (Not just) A question of bandwidth Videostreaming (but also cheap access to recording devices, efficient codecs)
-\item Camcorders
-
-%% future internet stuff
-\item HTTP as the narrow waist of the future internet \cite{Popa:2010:HNW:1868447.1868453}
-\item The evolution of layered protocol stacks leads to an hourglass-shaped architecture \cite{akhshabi2011evolution}
-\item The end of the end-to-end argument? \cite{reed2000endofe2e}
-\item Where in the Internet is congestion? \cite{genin2013internet}
-\item The Master Switch: The Rise and Fall of Information Empires \cite{wu2010master}
-
-%% standard literature
-\item Computer networking: a top-down approach \cite{kurose2008computer}
-\item Computer networks: a systems approach \cite{peterson2007computer}
-
-%% system models in general
-\item Tracking Down Skype Traffic \cite{4509656}
-\item The New Web: Characterizing AJAX Traffic \cite{characterizeajax2008}
-\item Measuring Internet user traffic behavior dependent on access speed \cite{vicari1999measuring}
-\item Measurement and modeling of WWW-sessions \cite{vicari1997measurement}
-\item Empirically derived analytic models of wide-area TCP connections \cite{Paxson:1994:EDA:189520.189525}
-\item Wide area traffic: the failure of Poisson modeling \cite{Paxson:1995:WAT:208389.208390}
-\item A behavioral model of Web traffic \cite{801961}
-\item Generating representative Web workloads for network and server performance evaluation \cite{Barford:1998:GRW:277851.277897}
-\item Testing the IQX hypothesis for exponential interdependency between QoS and QoE of voice codecs iLBC and G. 711 \cite{hossfeld2008testing}
-\item On the Role of Flows and Sessions in Internet Traffic Modeling: An Explorative Toy-Model \cite{5425847}
-
-\end{itemize}
 
 %% new thesis stuff
 Packet Switching, the process of chunking information into smaller bits, labeling it and transmitting it independently, was first described by Paul Baran in the 1960s\cite{baran1964distributed}. This changed communication a lot and provided one of the foundations for the emergence of the Internet. 
@@ -225,3 +165,66 @@ And finally, Section~\ref{c5:crosslayerhinting} presents a model to improve any 
 %The first is to dissect the involved protocols and architectures and break them down into their functional and methodical components. This will result in an improved understanding on the manner and process of their implementation. These components serve as building blocks for generalized models that abstracts the problem space from the actual implementation. The model will be defined by a set of parameters. To explore viable parameter ranges performance evaluation methods will be facilitated.
 
 %Secondly, using performance evaluation a system is methodically tested to the outcome of determining the influence of the system's parameters on a set of performance metrics. The parameters can be categorized into system intrinsic parameters, describing behavior only relevant and observable inside the system, and external parameters. In communication networks a good example for external parameters are the network \gls{QoS} parameters including latency, loss, jitter, and bandwidth capacity. Identifying fitting metrics for the measurement is a challenge. They can be either subjective or objective. The former are called \gls{QoE} metrics. They can only be measured by conducting empirical user studies and questionnaires and are mapped to a \gls{MOS}. Extensive work has already been done to define baseline references for QoE metrics. Using these, one can directly translate objectively measurable outcomes into \gls{QoE} metrics. However, these mappings may need to be adjusted to be able to handle stalling as the main source of quality loss. Examples for measuring subjective quality are available in \cite{gustafsson2008measuring, ketyko2010qoe}. Finally, one could employ methods of self-organization to try to reach improvements over conventional network setups.
+
+
+
+
+
+% \begin{itemize}
+%     \item ARPANAT and evolutionary process to today's Internet scale
+%     \item outside and inside developments brings new Internet usage (mp3+p2p, bandwidth+codecs -> video, digicams/camcorder); socioeconomic developments of a free speech network;New traffic patterns emerging due to external developments. Digital cameras, new codecs (esp MP3, mpeg4, WebM) -> p2p, Webcams 
+%     \item mobile networks: more of a parallel development to the Internet, always centralized (from the old copper/telephony/circuit switched world)
+%     \item MNs very different to the Internet structures we are used to
+%     \item circuit switched roots, signaling, explicitly NOT a distributed system as compared to Internet, i.e. explicit signaling central controllers
+%     \item Streaming and Multicasting, Multicasting in the Internet in general (only somewhat relevant for live/realtime non-interactive stuff)
+%     \item  network intelligence at the end nodes
+%     \item --> end-to-end violations: ECN? only signaling, decision is e2e, same category as indirect TCP congestion control signaling (through loss) from the network; NAT, Firewalls?
+%     \item content agnosticism: we do not know what applications the future will bring, so we do not make any assumptions
+%     \item HTTP; ``The Web adopts relatively simple technologies with sufficient scalability efficiency and utility'' \cite{W3Arch}
+%     \item Why HTTP streaming? Generalization of HTTP streaming (reliable transport, control shift to the client); Less control, more effective; Why global \gls{QoS} control doesn't work
+%     \item \gls{LTE}, \gls{EPC}, Core network tunneling concepts, bottlenecks in the access and the core, \gls{LTE} network model
+%     \item Improvements to congestion control for mobile streaming
+%     \item Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...) ; what works better with it? compare, model and measure
+%     \item \gls{QoE} metrics, \gls{MOS}, stalling time and buffering models, subjective and objective testing
+%     \item http://www.ipjforum.org/?p=926 Vint Cerf looking forward
+
+%     \item Data-mining of network trace data from mobile networks.
+%     \item Investigation of mobility awareness and prediction techniques ("unassisted mobility")
+
+%     \item Hackers: Heroes of the computer revolution \cite{levy2010hackers}
+%             Computers/Hacking Culture: Build stuff first, always have running code
+%     \item Baran Packet Switching
+%     \item A History of the Internet and the Digital Future \cite{ryan2010history}
+%             RAND
+%     \item TCP/IP vint cerf + bob kahn: tcp/ip \cite{1092259}
+%     \item van Jacobson Congestion Avoidance and Control \cite{jacobson1988congestion}
+%     \item ISO/OSI / ATM
+%     \item (Slotted) Aloha as one of the first mobile packet switched
+%     \item Mobile Networks 1G/2G/3G/4G
+%     \item The Web (Berners-Lee)
+%     \item (Not just) A question of bandwidth Videostreaming (but also cheap access to recording devices, efficient codecs)
+%     \item Camcorders
+
+%     %% future internet stuff
+%     \item HTTP as the narrow waist of the future internet \cite{Popa:2010:HNW:1868447.1868453}
+%     \item The evolution of layered protocol stacks leads to an hourglass-shaped architecture \cite{akhshabi2011evolution}
+%     \item The end of the end-to-end argument? \cite{reed2000endofe2e}
+%     \item Where in the Internet is congestion? \cite{genin2013internet}
+%     \item The Master Switch: The Rise and Fall of Information Empires \cite{wu2010master}
+
+%     %% standard literature
+%     \item Computer networking: a top-down approach \cite{kurose2008computer}
+%     \item Computer networks: a systems approach \cite{peterson2007computer}
+
+%     %% system models in general
+%     \item Tracking Down Skype Traffic \cite{4509656}
+%     \item The New Web: Characterizing AJAX Traffic \cite{characterizeajax2008}
+%     \item Measuring Internet user traffic behavior dependent on access speed \cite{vicari1999measuring}
+%     \item Measurement and modeling of WWW-sessions \cite{vicari1997measurement}
+%     \item Empirically derived analytic models of wide-area TCP connections \cite{Paxson:1994:EDA:189520.189525}
+%     \item Wide area traffic: the failure of Poisson modeling \cite{Paxson:1995:WAT:208389.208390}
+%     \item A behavioral model of Web traffic \cite{801961}
+%     \item Generating representative Web workloads for network and server performance evaluation \cite{Barford:1998:GRW:277851.277897}
+%     \item Testing the IQX hypothesis for exponential interdependency between QoS and QoE of voice codecs iLBC and G. 711 \cite{hossfeld2008testing}
+%     \item On the Role of Flows and Sessions in Internet Traffic Modeling: An Explorative Toy-Model \cite{5425847}
+% \end{itemize}
