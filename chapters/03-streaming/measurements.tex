@@ -102,88 +102,87 @@ In the latency measurement series, the emulator delays forwarding the packets fo
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{images/eval-latency-stallingtime.pdf}
-    \caption{Stalling duration in relation to transmission latency.}
+    \includegraphics[width=\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
+    \caption{Stalling duration in relation to transmission latency with local polynomial least-squares fit.}
     \label{c3:fig:eval-latency-stallingtime}
 \end{figure}
 
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
-    \caption{Stalling duration in relation to transmission latency. (Placeholder replacement)}
-    \label{c3:fig:R-eval-latency-stallingtime}
-\end{figure}
 
+Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the added latency and the stalling duration of the playback strategies. The stalling time increases as expected with the additional latency, but Firefox's strategy seems to have slight edge during high latency. Overall, the stalling duration quickly reaches a length comparable to the actual video duration and even surpassing that. Someone watching a stream under this condition might find this not acceptable any longer.
+% Both the predictive and the null strategy provide the best possible result in terms of pure stalling time. This was already theoretically explored during the strategy's introduction. <-- not true, why?
 
-Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the added latency and the stalling duration of the playback strategies. The stalling time increases as expected with the additional latency. Both the predictive and the null strategy provide the best possible result in terms of pure stalling time. This was already theoretically explored during the strategy's introduction.
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\textwidth]{images/eval-latency-frequency.pdf}
-    \caption{Number of stalls in relation to transmission latency.}
-    \label{c3:fig:eval-latency-numstalls}
-\end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
-    \caption{Number of stalls in relation to transmission latency. (Placeholder replacement)}
-    \label{c3:fig:eval-latency-numstalls-R}
+    \caption{Number of stalls in relation to transmission latency with local polynomial least-squares fit.}
+    \label{c3:fig:eval-latency-numstalls}
 \end{figure}
 
-Figure \ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling events occuring during the playback with the null strategy at the high end and the predictive strategy just showing the expected single stall before playback start. But both YouTube and Firefox are not much worse compared to the predictive strategy, running in just a few buffering events of increasing duration with rising latency. YouTube stalling time is usually lower than with Firefox, at the cost of slightly more buffering events, which could be attributed to its optimistic threshold choice, which still seems to work at the tested latency levels.
+Figure \ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling events occurring during the playback with the null strategy at the high end and the predictive strategy just showing the expected single stall before playback start. %But both YouTube and Firefox are not much worse compared to the predictive strategy, running in just a few buffering events of increasing duration with rising latency. 
+%YouTube stalling time is usually lower than with Firefox, at the cost of slightly more buffering events, which could be attributed to its optimistic threshold choice, which still seems to work at the tested latency levels.
 
 Overall, it can be said, that in this specific latency scenario the real world playback strategies seem to honor the fact that more video interruption lead to a worse experience than fewer but longer ones.  Through mobility and handovers, mobile devices experience short bursts of latency of several seconds fairly common. According to the measurement series, the resulting stalling behavior could still very well be bearable for streaming users.
 
-In the loss measurement series, uncorrelated uniformly distributed loss was added in both the uplink and the downlink direction. The loss was incrementally increased in $2\%$ steps up to a total additional loss of $12.5\%$. Over $40\%$ of the individual experiments did not finish correctly, and the video was not completely transmitted. This was caused by the \gls{TCP} stack, which at some point terminated the connection after to many packets were lost back to back, and curl giving up after several retries. This unpredictability and high failure rate also leads to the high variability seen in the results of the loss measurement series. Nonetheless, a certain trend can still be derived from the results.
+In the loss measurement series, uncorrelated and uniformly distributed loss was added in both the uplink and the downlink direction. The loss was incrementally increased in $2\%$ steps up to a total additional loss of $12.5\%$. About $4\%$ of the individual experiments did not finish correctly, and the video was not completely transmitted. This was caused by the \gls{TCP} stack, which at some point terminated the connection after to many packets were lost back to back, and curl giving up after several retries. This unpredictability and failure rate also leads to the high variability seen in the results of the loss measurement series. Nonetheless, a certain trend can still be derived from the results.
 
-\todo{update the upper loss limit as well as the aborted number of runs and other values}
-
-
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\textwidth]{images/eval-loss4mb-stallingtime.pdf}
-    \caption{Stalling duration in relation to packet loss.}
-    \label{c3:fig:eval-loss-stallingtime}
-\end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{images/R-playbackemulation-stallduration-loss.pdf}
-    \caption{Stalling duration in relation to packet loss. (Placeholder replacement)}
-    \label{c3:fig:eval-loss-stallingtime-R}
+    \caption{Stalling duration in relation to packet loss with local polynomial least-squares fit.}
+    \label{c3:fig:eval-loss-stallingtime}
 \end{figure}
 
 
-Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling duration in the packet loss measurement series. Loss of up to $4\%$ seems to have no discernible impact on the streaming process. Anything beyond this point sees a large increase in the stalling duration. 
-With a relative duration of almost four times the actual video length at $12\%$ packet loss any streaming attempt is practically rendered unusable. 
-This behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission takes time and leads to a bursty increase in latency, which may be a reason of the increased stalling time.
+Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling duration in the packet loss measurement series. Loss of up to $4\%$ seems to have no discernible impact on the streaming process. Anything beyond this point sees a large increase in the stalling duration.  With a relative stalling duration of almost four times the actual video length at $12\%$ packet loss any streaming attempt is practically rendered unusable. This behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission takes time and leads to a bursty increase in latency offering a possible reason of the increased stalling time.
 
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\textwidth]{images/eval-loss4mb-frequency.pdf}
-    \caption{Number of playback stalls in relation to packet loss}
-    \label{c3:fig:eval-loss-numstalls}
-\end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
-    \caption{Number of playback stalls in relation to packet loss. (Placeholder replacement)}
-    \label{c3:fig:eval-loss-numstalls-R}
+    \caption{Number of playback stalls in relation to packet loss with local polynomial least-squares fit.}
+    \label{c3:fig:eval-loss-numstalls}
 \end{figure}
 
 
-Figure~\ref{c3:fig:eval-loss-numstalls} shows the extremity of the null strategy in terms of the number of experienced stalls compared to other strategies reaching a number two orders of magnitude larger than any other model. As a result, when planning a network for streaming applications, the maximum loss should be kept below the $4\%$ mark to achieve reasonable streaming quality. 
+Figure~\ref{c3:fig:eval-loss-numstalls} shows the extremity of the null strategy in terms of the number of experienced stalls compared to other strategies reaching a number two orders of magnitude larger than any other model. 
+
+
+As a result, when planning a network for streaming applications, the maximum loss should be kept below the $4\%$ mark to achieve reasonable streaming quality. 
 
 
 \todo{expand loss section a bit more}
 
-\todo{check why null strat always seems to be null, this should not be}
 
+%% original python plots
+% \begin{figure}[htb]
+%     \centering
+%     \includegraphics[width=\textwidth]{images/eval-latency-stallingtime.pdf}
+%     \caption{Stalling duration in relation to transmission latency.}
+%     \label{c3:fig:eval-latency-stallingtime}
+% \end{figure}
 
-%% <-- %% end WIP
+% \begin{figure}[htb]
+%     \centering
+%     \includegraphics[width=\textwidth]{images/eval-latency-frequency.pdf}
+%     \caption{Number of stalls in relation to transmission latency.}
+%     \label{c3:fig:eval-latency-numstalls}
+% \end{figure}
+
+% \begin{figure}[htb]
+%     \centering
+%     \includegraphics[width=\textwidth]{images/eval-loss4mb-stallingtime.pdf}
+%     \caption{Stalling duration in relation to packet loss.}
+%     \label{c3:fig:eval-loss-stallingtime}
+% \end{figure}
+
+% \begin{figure}[htb]
+%     \centering
+%     \includegraphics[width=\textwidth]{images/eval-loss4mb-frequency.pdf}
+%     \caption{Number of playback stalls in relation to packet loss}
+%     \label{c3:fig:eval-loss-numstalls}
+% \end{figure}
 
 
 % \begin{figure}[htbp]
