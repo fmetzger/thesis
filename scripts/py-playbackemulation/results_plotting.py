@@ -8,6 +8,7 @@ Created on Thu Nov 24 10:56:52 2011
 import matplotlib.pyplot as plt
 import pylab
 import matplotlib
+import csv
 
 import results_helpermethods
 
@@ -50,7 +51,20 @@ def plotadditiveframedownloadbytes(download_timestamps, download_bytes, video_fi
     for byte in f_additivesizes_mod:
       m_f_additivesizes_mod.append(float(byte)/1000)
     
-    
+    with open('buffer.csv', 'wb') as f:
+        writer = csv.writer(f)
+        writer.writerow(["timestamp", "size", "type"])
+        i = 0
+        for ts in frame_timestamps:
+            writer.writerow([ts, m_f_additivesizes_mod[i], "frame"])
+            i += 1
+        i = 0
+        for ts in ts_floats:
+            #print(kbytes_additive[i])
+            writer.writerow([ts, kbytes_additive[i], "segment"])
+            i += 1
+
+
     f1 = pylab.figure()
     plt.hold(True)
     #plt.plot(f_times,f_additivesizes, ls='--', label='played frames', linewidth=0.5)

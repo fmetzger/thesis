@@ -55,7 +55,7 @@ We differentiate all the tunnel events in our dataset based on two factors. Firs
 \paragraph{Influence of the Device Type}
 %%
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{images/tunnel-dur-class-cdf-mod.pdf}
     \caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
@@ -73,7 +73,7 @@ Interestingly, the median duration of regular phones is higher than that of smar
 \paragraph{Influence of the OS}
 %%
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{images/tunnel-dur-os-cdf-mod.pdf}
     \caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
@@ -93,7 +93,7 @@ A last artifact of note are the large number of iOS devices with very short tunn
 %%
 
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
         \centering
         % \begin{subfigure}[b]{0.50\textwidth}
         %         \centering
@@ -141,7 +141,7 @@ In an attempt to show which of the presented categories have an impact on the to
 Combining all types of smartphones together and comparing them to the other major player in any mobile network, the 3G dongles, we observe in Figure \ref{c4:fig:qq-total-vs-smartphones} that both the total and the smartphone durations are almost equally distributed (except for minor variations). On the other hand, 3G dongles follow a very different distribution, see Figure \ref{c4:fig:qq-total-vs-dongle}. Their effect on tunnel management signaling seems to be negligible despite the  large amount of traffic they are causing. Therefore, we conclude that planning and dimensioning of the control plane needs to keep smartphone behaviors more closely in mind than that of other device types.
 
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/stacked-durations-2-fixed.pdf}
 	\caption{Stacked logscale bin plot of the number of tunnels with duration in this bin; classified by Android, iOS and 3G dongles.}
@@ -265,7 +265,7 @@ While tunnel durations and the involved signaling at the beginning and end of th
 
 In addition to describing the arrival process on the basis of the number of arrivals, we also take a look at the tunnel inter-arrival time. Specifically, with this process we mean the arrival of tunnel requests, i.e. GTP CREATE requests, at the \gls{GGSN}. This also adds to the foundation of the load model constructed in the next chapter. 
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=\columnwidth]{images/create_freq.pdf}
 	\caption{Tunnel arrivals in one second intervals.}
@@ -275,7 +275,7 @@ In addition to describing the arrival process on the basis of the number of arri
 Figure \ref{c4:fig:freq-arrivals} depicts the number of arrivals per second during the whole weeklong period. Of note is the clear bimodal nature with one peak around twelve and the other in the low thirties. While the distribution is rather compact around these two peaks, there are some clear outliers up to 107.
 If we again hypothesize that an increased number of arrivals means higher load in the network, we can assume that load is not constant but rather switches between two modes with some periods with extraordinary load induced by an increased number of arrivals.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=\columnwidth]{images/R-createspersecond-1h-violin.pdf}
 	\caption{Violin plot of tunnel arrivals in one second per time of day.}
@@ -356,7 +356,7 @@ However, we could investigate the processing time of \gls{GTP} update messages. 
 \label{c4:sec:statistical_evaluation}
 
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
   \caption{Empirical and exponentially fitted CDFs of the tunnel interarrival duration by time of day. CDFs are overlapping as the coefficient of determination is close to $1$.}
@@ -367,7 +367,7 @@ Using this dataset, we can obtain the distributions required for the models. At 
 %This can be a good measure for the load a \gls{GGSN} experiences, as every incoming tunnel carries several signaling interactions, processing and state with it.
 Typically, a device will only hold one tunnel at a time, but this one tunnel can be initiated and shut down in rapid succession, thus causing the aforementioned issues in the radio network. The arrivals also show a strong diurnal effect, closely resembling patterns present in the actual user traffic: A decline of arrivals, i.e. longer interarrivals, late in the night and during the early morning hours with a peak rate in the afternoon and early evening. To represent this time-of-day dependence in the model, the measurement was split into the four time slots displayed in the figure. Each slot was then fitted with an exponential distribution by way of moments matching. This results in the cumulative distribution function $F(x) = 1- e^{-\lambda x}, x \geq 0$ with $\lambda$ given in Table~\ref{tab:fits} for the four time slots. The fitted functions match the empirical data quite well, with some deviation present at the left tail but overall with a positive correlation coefficient approaching 1.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
   \centering
   \includegraphics{images/timeslot-fits.pdf}
   \caption{Empirical and fitted CDFs of the tunnel duration by time of day with fitted rational functions.}
@@ -381,7 +381,7 @@ For the model, a distribution fit of the tunnel duration was also desired. Howev
 introducing artifacts which make it hard to fit any distribution against. Instead, we fitted rational functions to the empirical CDF using Eureqa \cite{eureqa_paper, eureqa_software}. This allowed for a much closer fitting while still smoothing out some of the artifacts. Table~\ref{tab:fits} also displays these functions fitted to the inverse CDF, to be directly used for generating random numbers using the inversion method. Both the CDF in Fig.~\ref{c4:fig:fittedsdurationlots} as well as the Pearson correlation coefficient confirm the goodness of the fitted functions.
 
 
-\begin{table}[htbp]
+\begin{table}[htb]
   \caption{Parameters for the exponentially distributed inter-arrival times and corresponding Pearson correlation coefficients; also contains the inverse functions fitted to the empirical duration distribution and correlation coefficients of the fit.}
   \label{tab:fits}
   \tabulinesep=1.2mm
@@ -400,7 +400,7 @@ introducing artifacts which make it hard to fit any distribution against. Instea
 
 
 %% to be integrated into evaluation
-\begin{figure}[htbp]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-duration-activetunnels-hours-ecdf.pdf}
   \caption{Tunnel duration of all active tunnels by time of day.}
