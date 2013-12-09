@@ -1,13 +1,26 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Background}
-\label{c4:background}
+%\section{Background}
+%\label{c4:background}
+\section{Mobile Network Architecture}
+\label{c4:3gpparchitecture}
 
 This section starts with a primer on cellular data network basics, and then moves on to describe relevant details of \gls{GTP}, the tunneling protocol under investigation.
 
-\subsection{Mobile Network Architecture}
-\label{sec:3gpparchitecture}
 
+Today's dominating commercial mobile network system, which includes \gls{GSM}, \gls{UMTS}, and up to \gls{LTE}, is designed and specified by the \gls{3GPP}. This group is an umbrella organization for several standardization bodies, including the European \gls{ETSI} and their individual members -- in this case mostly telecommunication companies. Unlike the \gls{IETF}, the Internet's de facto standards body, natural persons cannot participate in the \gls{3GPP} on their own but only through the organizational members.
+
+Specifications are not released individually but are instead grouped together into larger releases once every or every other year. \gls{GSM} was first specified in the Phase 1 release in 1992 with \gls{GPRS} added in Release 97 (1998). \gls{UMTS} followed with Release 99 (2000), but most 3G networks operate at least with Release 5 (2002), 6 (2004), or 7 (2007) as they introduced \gls{HSDPA}, \gls{HSUPA}, and \gls{HSPA+} likewise. \gls{LTE} first found its way into the specifications in 2008 with Release 8 with Release 12 currently being worked on. This background section mostly describes the \gls{UMTS} based \gls{TS} with some comparisons being made to the older \gls{GPRS} and the latest \gls{LTE} specification versions where available.
+
+ 
+physical arch, both circuit and packet switched domains: \cite{3gpp.23.002}
+
+\begin{figure}[htb]
+	\centering
+ 	\includegraphics[width=1.3\textwidth]{images/3gpp-physical-arch.pdf}
+ 	\caption{Placeholder combined CS/PS GSM/UMTS/LTE architecture overview}
+ 	\label{c4:fig:psdomain}
+\end{figure}
 
 general architecture
 
@@ -17,22 +30,8 @@ GSM architecture
 
 some words on 4G/LTE (actually 3.5G by some nomenclature)  architecture
 
-
 general arch, then focus on packet switch domain, then even closer focus on control plane
 
-%%
-\subsubsection{Mobile Network Standards and Bodies}
-
-Point out the Standards organizations responsible for mobile networks and the differences to / conflicts with other areas, especially the Internet
-
-Compare \gls{3GPP} \glspl{TS} with \gls{IETF} \glspl{RFC} in terms of accessibility, size, technical clarity and what this means for the market and implementors (scarce number, because no one really understands TSs, only now \gls{FOSS} implementations of \gls{GSM} (barely \gls{GPRS}))
-
-Conclude, that this pretty much hinders and closes any competitive market and innovation (not by committee) by few major players
-
-\gls{IETF}+\gls{ISOC}+\gls{IAB}+? on Internet site
-\gls{ISO}+\gls{ETSI}+? old school standards by committee, closed standards
-\gls{ITU}+\gls{3GPP}+? mobile standards
-\gls{IEEE}
 
 \subsubsection{3G Network Nodes and Interfaces}
 
