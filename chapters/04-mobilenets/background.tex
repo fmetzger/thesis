@@ -22,6 +22,8 @@ physical arch, both circuit and packet switched domains: \cite{3gpp.23.002}
  	\label{c4:fig:psdomain}
 \end{figure}
 
+interfaces as named reference points each with their own protocol stack
+
 general architecture
 
 GSM architecture
@@ -36,24 +38,41 @@ general arch, then focus on packet switch domain, then even closer focus on cont
 
 \gls{TS} overview
 
-21.905 \cite{3gpp.21.905} basic vocabulary
-22.060 \cite{3gpp.22.060} basic and short \gls{GPRS} service description; unchanged since Release 6 (2004)
-23.002 \cite{3gpp.23.002} Network Architecture : general arch overview, node and interface description
-23.203 \cite{3gpp.23.003} numbering, addressing, identification generals
-23.060 \cite{3gpp.23.060} \gls{GPRS} description : \gls{GPRS} specific procedures, interfaces and nodes; mobility management; radio management; packet routing; operational aspects
-24.008 \cite{3gpp.24.008} general GSM/UMTS core network signaling protocols and procedures
-29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
-29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
-
-23.203 \cite{3gpp.23.203} \gls{PCC} description (\gls{PCRF} \gls{PCEF})
-23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
-23.402 \cite{3gpp.23.402} (LTE only) non-\gls{3GPP} accesses
-24.007 \cite{3gpp.24.007} radio interface signaling
-24.301 \cite{3gpp.24.301} EPS Non-Access-Stratum protocol between UE and MME on Uu
-29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
-36.300 \cite{3gpp.36.300} \gls{E-UTRAN} description (LTE only) 
-36.413 \cite{3gpp.36.413} S1 (\gls{eNB} - \gls{MME}) Application Protocol (LTE only)
-
+\begin{itemize}
+	\item 21.905 \cite{3gpp.21.905} basic vocabulary
+	\item 22.060 \cite{3gpp.22.060} basic and short \gls{GPRS} service description; unchanged since Release 6 (2004)
+	\item 23.002 \cite{3gpp.23.002} Network Architecture : general arch overview, node and interface description
+	\item 23.203 \cite{3gpp.23.003} numbering, addressing, identification generals
+	\item 23.060 \cite{3gpp.23.060} \gls{GPRS} description : \gls{GPRS} specific procedures, interfaces and nodes; mobility management; radio management; packet routing; operational aspects
+	\item 23.101 \cite{3gpp.23.101} general \gls{UMTS} architecture, focus on \gls{UE} / \gls{USIM} and strata
+	\item 
+	\item 24.008 \cite{3gpp.24.008} general GSM/UMTS core network signaling protocols and procedures
+	\item 25.201 \cite{3gpp.25.201} \gls{UTRAN} physical layer description; channels
+	\item 25.301 \cite{3gpp.25.301} Radio interface protocol architecture
+	\item 25.323 \cite{3gpp.25.323} \gls{PDCP}: encapsulates \gls{RAB}
+	\item 25.331 \cite{3gpp.25.331} RRC protocol specification (defined with \gls{ASN.1})
+	\item 25.401 \cite{3gpp.25.401} UTRAN overall description
+	\item 25.931 \cite{3gpp.25.931} UTRAN functions, examples on signalling procedures
+	\item 29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
+	\item 29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
+	\item 
+	\item 23.203 \cite{3gpp.23.203} \gls{PCC} description (\gls{PCRF} \gls{PCEF})
+	\item 23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
+	\item 23.402 \cite{3gpp.23.402} (LTE only) non-\gls{3GPP} accesses
+	\item 24.007 \cite{3gpp.24.007} radio interface signaling
+	\item 24.301 \cite{3gpp.24.301} EPS Non-Access-Stratum protocol between UE and MME on Uu
+	\item 29.002 \cite{3gpp.29.002} Mobile Application Part (MAP) specification; part of SS7
+	\item 29.202 \cite{3gpp.29.202} Signalling System No. 7 (SS7) signalling transport in core network; Stage 3
+	\item 29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
+	\item 36.300 \cite{3gpp.36.300} \gls{E-UTRAN} description (LTE only) 
+	\item 36.413 \cite{3gpp.36.413} S1 (\gls{eNB} - \gls{MME}) Application Protocol (LTE only)
+	\item 36.414 \cite{3gpp.36.414} Evolved Universal Terrestrial Radio Access Network (E-UTRAN); S1 data transport (radio bearer)
+	\item 
+	\item 22.801 \cite{3gpp.22.801} Study on non-MTC mobile data applications impacts; for angry birds // relwork important
+	\item 23.843 \cite{3gpp.23.843} Study on Core Network (CN) overload solutions
+	\item 24.826 \cite{3gpp.24.826} Study on impacts on signalling between User Equipment (UE) and core network from energy saving; deals mostly with switching off cells and moving over UEs, not actual core network efficiency
+	\item 29.807 \cite{3gpp.29.807} Study on GTP-C overload control mechanisms
+\end{itemize}
 to find: PHY description for 2g/3g/4g, RRC signaling, more 23. and 29. series
 
 \subsubsection{3G Network Nodes and Interfaces}
@@ -61,13 +80,6 @@ to find: PHY description for 2g/3g/4g, RRC signaling, more 23. and 29. series
 
 EPS first introduced in 3GPP Release 8, completed in March 2009. Consisting of EUTRAN, EPC (formerly SAE)
 
-
-% \begin{figure}[htb]
-% 	\centering
-%  	\includegraphics[width=1.3\textwidth]{images/eps_ps-overview.pdf}
-%  	\caption{Schematic of the packet-switched domain of a combined UMTS/LTE network}
-%  	\label{c4:fig:psdomain}
-% \end{figure}
 
 List of interfaces in the 3G/LTE PS network
 \begin{itemize}
@@ -200,6 +212,8 @@ resulting complexity
 
 %%
 \paragraph{Tunneling Concept and Bearers}
+
+LTE: mention also \gls{PMIP} as \gls{GTP} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
 
 As you said only 11 bearer are permitted.
 So PDN connection(Default bearer) + Dedicated bearers put together should not exceed 11 bearers at any instant of time at UE side.

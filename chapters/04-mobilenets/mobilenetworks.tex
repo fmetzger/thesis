@@ -75,6 +75,11 @@ Our measurement data backs up a number of straightforward assumptions on the beh
 \section{A New Definition for Mobile Core Network Load}
 \label{c4:loaddefinition}
 
+work in 23.843 \cite{3gpp.23.843} Study on Core Network (CN) overload solutions
+"GTP-C retransmission of unacknowledged requests"
+currently: semi-static DNS based load balancing (does this apply only to LTE/SGW?)
+
+
 Before beginning the evaluation, the primary question driving this investigation was: ``How can load in a core network be defined and measured?'' A summary of our thoughts to this question follows here.
 
 With the basics of the architecture in mind, a top candidate for high load is the \gls{GGSN}. All traffic leaving or entering the packet switched domain must go through this element, and it is in control of the described GTP signaling procedures as well. Being an endpoint for the GTP tunnel makes it responsible to sort and encapsulate incoming traffic into the corresponding user tunnel. To accomplish this a lot of state has to be kept -- and processed when signaling occurs. Therefore, our working hypothesis is, that in order to determine load the \gls{GGSN} needs to be monitored closely and any traffic related to this node investigated for indications of the current load.
