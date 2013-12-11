@@ -15,9 +15,9 @@ Specifications are not released individually but are instead grouped together in
  
 physical arch, both circuit and packet switched domains: \cite{3gpp.23.002}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
- 	\includegraphics[width=1.3\textwidth]{images/3gpp-physical-arch.pdf}
+ 	\includegraphics[width=1.0\textwidth]{images/3gpp-physical-arch.pdf}
  	\caption{Placeholder combined CS/PS GSM/UMTS/LTE architecture overview}
  	\label{c4:fig:psdomain}
 \end{figure}
@@ -32,20 +32,42 @@ some words on 4G/LTE (actually 3.5G by some nomenclature)  architecture
 
 general arch, then focus on packet switch domain, then even closer focus on control plane
 
+\gls{HSS} combined \gls{HLR}/\gls{AuC} \gls{EIR} ...
+
+\gls{TS} overview
+
+21.905 \cite{3gpp.21.905} basic vocabulary
+22.060 \cite{3gpp.22.060} basic and short \gls{GPRS} service description; unchanged since Release 6 (2004)
+23.002 \cite{3gpp.23.002} Network Architecture : general arch overview, node and interface description
+23.203 \cite{3gpp.23.003} numbering, addressing, identification generals
+23.060 \cite{3gpp.23.060} \gls{GPRS} description : \gls{GPRS} specific procedures, interfaces and nodes; mobility management; radio management; packet routing; operational aspects
+24.008 \cite{3gpp.24.008} general GSM/UMTS core network signaling protocols and procedures
+29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
+29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
+
+23.203 \cite{3gpp.23.203} \gls{PCC} description (\gls{PCRF} \gls{PCEF})
+23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
+23.402 \cite{3gpp.23.402} (LTE only) non-\gls{3GPP} accesses
+24.007 \cite{3gpp.24.007} radio interface signaling
+24.301 \cite{3gpp.24.301} EPS Non-Access-Stratum protocol between UE and MME on Uu
+29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
+36.300 \cite{3gpp.36.300} \gls{E-UTRAN} description (LTE only) 
+36.413 \cite{3gpp.36.413} S1 (\gls{eNB} - \gls{MME}) Application Protocol (LTE only)
+
+to find: PHY description for 2g/3g/4g, RRC signaling, more 23. and 29. series
 
 \subsubsection{3G Network Nodes and Interfaces}
-
 
 
 EPS first introduced in 3GPP Release 8, completed in March 2009. Consisting of EUTRAN, EPC (formerly SAE)
 
 
-\begin{figure}[htb]
-	\centering
- 	\includegraphics[width=1.3\textwidth]{images/eps_ps-overview.pdf}
- 	\caption{Schematic of the packet-switched domain of a combined UMTS/LTE network}
- 	\label{c4:fig:psdomain}
-\end{figure}
+% \begin{figure}[htb]
+% 	\centering
+%  	\includegraphics[width=1.3\textwidth]{images/eps_ps-overview.pdf}
+%  	\caption{Schematic of the packet-switched domain of a combined UMTS/LTE network}
+%  	\label{c4:fig:psdomain}
+% \end{figure}
 
 List of interfaces in the 3G/LTE PS network
 \begin{itemize}
@@ -86,7 +108,7 @@ List of interfaces in the 3G/LTE PS network
 
 \paragraph{GPRS Fundamentals}
 
-The packet switched domain of an \gls{UMTS} network is an evolution of \gls{GPRS} and thus closely related to it. First defined by the \gls{3GPP} in Release 99, it focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the foundation for our work.
+The packet switched domain of an \gls{UMTS} network is an evolution of \gls{GPRS} and thus closely related to it. First defined by the \gls{3GPP} in Release 99, it focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the foundation for our work.
 
 \begin{figure}[htb]
 	\centering
@@ -107,7 +129,7 @@ One role of the \gls{SGSN} is to serve as mobility anchor for mobile devices. It
 \end{figure}
 
 
-Before diving into specifics of \gls{GTP} messaging, we give a short overview on the packet switched domain of an \gls{UMTS} network. This domain is closely related to the \gls{GPRS} part introduced for \acrshort{GSM}. \gls{UMTS}, first defined by the \gls{3GPP} in Release 99, focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the basis for our work.
+Before diving into specifics of \gls{GTP} messaging, we give a short overview on the packet switched domain of an \gls{UMTS} network. This domain is closely related to the \gls{GPRS} part introduced for \acrshort{GSM}. \gls{UMTS}, first defined by the \gls{3GPP} in Release 99, focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the basis for our work.
 
 As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \gls{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \gls{RNC}. Node Bs and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
 
@@ -370,7 +392,7 @@ The focus of our work will be the three Tunnel Management message pairs involved
 	\label{c4:fig:pdpcontextactivation}
 \end{figure}
 
-Figure \ref{c4:fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
+Figure \ref{c4:fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp.23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
 
 Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary PDP context Activation} procedure for every tunnel beyond the first. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
 
@@ -468,7 +490,7 @@ linked \gls{NSAPI}: indicates the \gls{NSAPI} assigned to any one of the already
 %\subsubsection{Mobility and Radio-related State Machines}
 
 As indicated, most nodes in a cellular mobile network keep all sorts of state characterizing the data connection. For the tunnel management aspects, two state machines are of special note, namely the Mobility Management and \gls{RRC} state machines.
-The former, defined in \cite{3gpp23.060}, describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. The \gls{RRC} state machine depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels. State changes happen again depending on user activity and inactivity.
+The former, defined in \cite{3gpp.23.060}, describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. The \gls{RRC} state machine depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels. State changes happen again depending on user activity and inactivity.
 Based on the state both procedures can enable and disable radio tunnels as well as core network tunnels, making them a good example of user traffic dynamics directly influencing core network signaling, similar to the observations in \cite{lee2007detection}.
 
 \begin{figure}[htb]
@@ -488,7 +510,7 @@ As indicated before, most nodes in a cellular mobile network keep all sorts of s
 	\label{c4:fig:mmstatemodel}
 \end{figure}
 
-First, consider the Mobility Management state machine depicted in Figure \ref{c4:fig:mmstatemodel}, defined in \cite{3gpp23.060}, and held in both the \gls{SGSN} as well as the mobile device. It describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. Therefore, it also controls tunnel management, as the involved \gls{GPRS} Detach and Attach procedures involve deleting and creating contexts. We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
+First, consider the Mobility Management state machine depicted in Figure \ref{c4:fig:mmstatemodel}, defined in \cite{3gpp.23.060}, and held in both the \gls{SGSN} as well as the mobile device. It describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. Therefore, it also controls tunnel management, as the involved \gls{GPRS} Detach and Attach procedures involve deleting and creating contexts. We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
 
 
 The \gls{RRC} state machine shown in Figure \ref{c4:fig:rrcstatemodel} governs the usage of radio channels, i.e. spectral and temporal usage of the wireless interface. State changes happen depending on the inter-arrival time of user packets. In this case, if the state machine transitions to the IDLE state, the \gls{RAB} on the path between mobile device and \gls{SGSN} is not needed anymore and will be deleted, in most cases destroying the \gls{SGSN} and \gls{GGSN} \gls{PDP} Context as well.

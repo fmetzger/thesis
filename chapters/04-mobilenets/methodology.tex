@@ -5,7 +5,7 @@
 
 For our analysis, we use the \gls{METAWIN} monitoring system developed in a previous research project and deployed in the network of an Austrian mobile operator.  More in-depth information about \gls{METAWIN} is available in \cite{ricciato_2011}.
 
- The location of the measurement probe at the Gn interface within the core network, marked in Figure~\ref{c4:fig:umtsnetwork}, gives access to both wide-area mobility signaling (not analyzed in this paper) and signaling related to user-plane IP traffic (which we want to scrutinize). The \gls{METAWIN} monitoring system extracts and correlates information from the lower layers of the \gls{3GPP} protocol stack, and specifically the \gls{GTP} protocol on the Gn interface \cite{3gpp129.060}. This includes the \acrfull{RAT} identifier as well as the terminal types of the mobile clients. The latter is determinable by the \acrfull{TAC} part of the \acrfull{IMEI} (cf.~\cite{3gpp23.003}) and will be discussed later in detail.
+ The location of the measurement probe at the Gn interface within the core network, marked in Figure~\ref{c4:fig:umtsnetwork}, gives access to both wide-area mobility signaling (not analyzed in this paper) and signaling related to user-plane IP traffic (which we want to scrutinize). The \gls{METAWIN} monitoring system extracts and correlates information from the lower layers of the \gls{3GPP} protocol stack, and specifically the \gls{GTP} protocol on the Gn interface \cite{3gpp.29.060}. This includes the \acrfull{RAT} identifier as well as the terminal types of the mobile clients. The latter is determinable by the \acrfull{TAC} part of the \acrfull{IMEI} (cf.~\cite{3gpp.23.003}) and will be discussed later in detail.
 
 To meet privacy requirements, the \gls{METAWIN} system anonymizes captured data on the fly at multiple layers: the application-level payload is removed and all user identifiers (e.g. \gls{IMSI}) are hashed with a one-way function before recording. That is, single \glspl{MS} in our dataset may be differentiated by means of an anonymized \gls{MS-ID}, but not traced back to the actual customer. The packet capturing hardware deployed within the \gls{METAWIN} monitoring system is synchronized using \gls{GPS}. Accordingly, the packet timestamps have an accuracy of $\pm100$ ns or better~\cite[p.97-98]{donnelly_high_2002}.
 
@@ -45,8 +45,8 @@ For more information on the \gls{3G} network structure, please refer to~\cite{ba
 
 The METAWIN monitoring system extracts and correlates information from the lower
 layers of the \gls{3GPP} protocol stack, and specifically the \gls{GTP} protocol
-on the Gn interface \cite{3gpp129.060}. This includes the \acrfull{RAT} identifier as well as the terminal types of the mobile clients. The
-latter is determinable by the \acrfull{TAC} part of the \acrfull{IMEI} (cf. \cite{3gpp23.003}) and will be discussed later in detail.
+on the Gn interface \cite{3gpp.29.060}. This includes the \acrfull{RAT} identifier as well as the terminal types of the mobile clients. The
+latter is determinable by the \acrfull{TAC} part of the \acrfull{IMEI} (cf. \cite{3gpp.23.003}) and will be discussed later in detail.
 
 To meet privacy requirements, the METAWIN system anonymizes captured data on the fly at multiple
 layers: the application-level payload is removed and all user identifiers (e.g. \gls{IMSI}) are
@@ -87,7 +87,7 @@ The dataset used in our evaluation is a week-long trace from the third week of A
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Device Identification \& Classification}
 
-Individual device types can also still be identified in form of the \gls{TAC} on every entry. The \gls{TAC} is part of the \gls{IMEI}, uniquely identifying each device type \cite{3gpp23.003}. The rest of the \gls{IMEI} constitutes the serial number of the involved devices, which is not present in the data.
+Individual device types can also still be identified in form of the \gls{TAC} on every entry. The \gls{TAC} is part of the \gls{IMEI}, uniquely identifying each device type \cite{3gpp.23.003}. The rest of the \gls{IMEI} constitutes the serial number of the involved devices, which is not present in the data.
 
 \glspl{TAC} are managed by the GSM Association which in turn assigns local organizations, distinguished by the first two digits of the \gls{TAC} as Reporting Body Identifier, to allocate \glspl{TAC} to manufacturers. However, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \glspl{TAC} for non-commercial purposes, only very few efforts attempt to collect \gls{TAC} information into a publicly available database. We based our data-mining efforts on a publicly available set\footnote{\url{http://www.mulliner.org/tacdb/}, Mulliner, C.}, with some additional devices collected on our own. Since the unit identification part of the \gls{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \glspl{TAC} even more complicated.
 
@@ -153,7 +153,7 @@ Based on these factors, it was decided to make a first categorization according 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Difficulties of Device-based Evaluations}
 
-In our dataset, the \gls{TAC} field is provided in clear\-text, whereas the \gls{IMEI} is only available in hashed form to preserve the privacy of device owners. The \gls{TAC} is contained in the first eight decimal digits of the \gls{IMEI}, uniquely identifying each device type \cite{3gpp23.003}. The rest of the \gls{IMEI} constitutes the serial number of the involved devices.
+In our dataset, the \gls{TAC} field is provided in clear\-text, whereas the \gls{IMEI} is only available in hashed form to preserve the privacy of device owners. The \gls{TAC} is contained in the first eight decimal digits of the \gls{IMEI}, uniquely identifying each device type \cite{3gpp.23.003}. The rest of the \gls{IMEI} constitutes the serial number of the involved devices.
 
 \glspl{TAC} are managed by the GSM Association which in turn assigns local organizations, distinguished by the first two digits of the \gls{TAC} as Reporting Body Identifier, to allocate \glspl{TAC} to manufacturers. For reasons beyond us, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \glspl{TAC} for non-commercial purposes, only very few efforts to collect \gls{TAC} information into a database are publicly available. We based our data-mining efforts on a publicly available set\footnote{\url{http://www.mulliner.org/tacdb/}, Mulliner, C.}, with some additional devices with known \gls{TAC} collected from various sites, friends, and colleagues. Since the unit identification part of the \gls{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \glspl{TAC} even more complicated.
 
