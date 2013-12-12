@@ -1,6 +1,4 @@
 %!TEX root = ../../dissertation.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Statistical Foundation}
 
@@ -98,62 +96,3 @@ Taking randomly selected samples from measurement data does not only simplify ha
 By selecting entries using a uniform distribution it is ensured that no unintentional sampling bias occurs. The intended evaluation is now applied onto multiple and independently drawn sample groups. If the results of every sample agree then it is also highly likely that the assumption holds for the whole data set.
 
 TODO: R statistics book ref and information VERIFY
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Queuing Theory Basics}
-
-\begin{itemize}
-\item Kleinrock Queuing Systems Volume 1 \cite{Kleinrock:1975:TVQ:1096491}
-\item Tran-Gia Analytische Leistungsbewertung verteilter Systeme \cite{trangia-lbvs}
-\item Markov Models 
-\item Solvability and Queuing Simulation
-\end{itemize}
-
-
-\subsection{Little's Law}
-``A proof for the queuing formula: L= $\lambda$W'' \cite{little1961proof}
-
-With $L$  as the number of customers in a stable system, the arrival rate of new customers $\lambda$ and the average time $W$ of a customer in the system this universal law states:
-
-\begin{equation}
-L = \lambda W
-\end{equation}
-
-\subsection{Kendall's Notation}
-
-Kendall's notation is a naming and classification convention for queuing systems first defined by Kendall in in 1953 \cite{kendall1953stochastic} and later extended on. In its simplest form it reads \textit{A/S/s} with A denoting the arrival distribution, S the service time, and s the number of servers. One extended notation \textit{A/S/s-q}, the one we will use, additionally describes the queue length. With this, one can, e.g., easily distinguish between a queueing system ($q=\infty$) and a blocking or loss system ($q=0$). The most commonly used arrival processes and servie time distributions are summarized in Table~\ref{c2:tbl:kendalldistributions}.
-
-
-\begin{table}[htbp]
-	\caption{Typical abbreviation of processes in Kendall's notation.}
-	\label{c2:tbl:kendalldistributions}
-	\begin{tabu}{|l|X[p]|}
-	\hline
-	Symbol & Description \\ \hline
-	M & Markovian, i.e. Poisson, arrival process or exponential service time distribution\\
-	D & Deterministic arrival process or service time distribution\\
-	G & General arrival process or service time distribution with no special assumptions\\
-	GI & General arrival process with independent arrivals; also called regenerative \\ \hline
-	\end{tabu} 
-\end{table}
-
-The simplest queuing system is \textit{M/M/1-$\infty$}, which can also be described as a Markov chain and thus 
-
-TODO: oder direkt M/M/n-$\infty$?
-
-State probability, i.e. number of customers in the system
-Blocking probability $p_B$ (for loss systems)
-
-
-Following from Little's Theorem, the queue utilization $\rho$ is given as
-\begin{equation}
-\rho = \frac{\lambda}{\gamma}
-\end{equation}
-
-with $\lambda$ Poisson arrival rate, $\gamma$ exponential service time parameter
-
-
-explain Erlang loss system and tractability

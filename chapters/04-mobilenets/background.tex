@@ -194,17 +194,17 @@ resulting complexity
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.2\textwidth]{images/3g-userplane.pdf}
+	\includegraphics[width=1.0\textwidth]{images/3g-userplane.pdf}
 	\caption{User plane protocol stack in an UMTS network.}
 	\label{c4:fig:3gpp-umtsuserplane}
 \end{figure}
 
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=1.2\textwidth]{images/LTE-userplane.pdf}
-	\caption{User plane protocol stack in an LTE/EPC network.}
-	\label{c4:fig:3gpp-lteuserplane}
-\end{figure}
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=1.2\textwidth]{images/LTE-userplane.pdf}
+% 	\caption{User plane protocol stack in an LTE/EPC network.}
+% 	\label{c4:fig:3gpp-lteuserplane}
+% \end{figure}
 
 
 
@@ -215,29 +215,24 @@ resulting complexity
 
 LTE: mention also \gls{PMIP} as \gls{GTP} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
 
-As you said only 11 bearer are permitted.
-So PDN connection(Default bearer) + Dedicated bearers put together should not exceed 11 bearers at any instant of time at UE side.
-Theoretically 11 PDN connections are possible. But i dont think it will be of any use in practical EPS topology.
 
-One UE Can have Maximum 3 PDN connection.
-where as my knowledge is concern one UE can support maximum 11 bearers, 3 default and 8 dedicated bearers.
+One UE Can have a maximum of 3 \gls{PDN} connections and 11 bearers (one default per \gls{APN} and additional dedicated).
 
-Does I will get in any spec for this. As the default bearer are of  NON-GBR type and and there are 5-9 are of NON-GBR QCI so I think a ue can have maximum 5 default bearer If two default bearer can not use same QCI.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.2\textwidth]{images/bearers.pdf}
+	\includegraphics[width=1.0\textwidth]{images/bearers.pdf}
 	\caption{3GPP bearer model.}
 	\label{c4:fig:3gpp-bearers}
 \end{figure}
 
 
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=1.2\textwidth]{images/ECM-states.pdf}
-	\caption{\gls{ECM} state machine.}
-	\label{c4:fig:3gpp-ecmstates}
-\end{figure}
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=1.2\textwidth]{images/ECM-states.pdf}
+% 	\caption{\gls{ECM} state machine.}
+% 	\label{c4:fig:3gpp-ecmstates}
+% \end{figure}
 
 \begin{itemize}
 \item 	Every bearer has a predefined QoS level between UE and P-GW.
@@ -264,19 +259,21 @@ Allocation and Retention Policy (ARP): priority level preemption capability, pre
 \item	All simultaneously active bearers by one UE are provided are provided by the same P-GW.
 \end{itemize}
 
-EMM Service request procedure
 
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=1.2\textwidth]{images/UE-service-request.pdf}
-	\caption{EMM service request procedure sequence diagram.}
-	\label{c4:fig:3gpp-ueservicereq}
-\end{figure}
 
-Annotations:
-1. Encapsulated in RRC message.
-2. Forwarded in S1-AP Initial UE Message.
-3. Various security procedures.
+
+%EMM Service request procedure
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=1.0\textwidth]{images/UE-service-request.pdf}
+% 	\caption{EMM service request procedure sequence diagram.}
+% 	\label{c4:fig:3gpp-ueservicereq}
+% \end{figure}
+
+% Annotations:
+% 1. Encapsulated in RRC message.
+% 2. Forwarded in S1-AP Initial UE Message.
+% 3. Various security procedures.
 
 
 %%
@@ -348,7 +345,7 @@ Possible context response types and which request types they answer:
 \item 209: ``user authentication failed'' CREATE ONLY rejected for various reasons
 \end{itemize}
 
-Berechnungsgrundlage für die IEs
+\gls{IE} calculation basis
 \begin{table}[htb]
 \caption{Information Elements in a Create PDP Context Request (as peer TS 29.060, Section 7.3.1)}
 \label{tab:createrequestelements}
@@ -401,7 +398,7 @@ The focus of our work will be the three Tunnel Management message pairs involved
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\columnwidth]{images/pdp-context-activation.pdf}
+	\includegraphics[width=0.8\columnwidth]{images/pdp-context-activation.pdf}
 	\caption{PDP Context Activation Procedure in a UMTS network.}
 	\label{c4:fig:pdpcontextactivation}
 \end{figure}
@@ -409,38 +406,6 @@ The focus of our work will be the three Tunnel Management message pairs involved
 Figure \ref{c4:fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp.23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
 
 Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary PDP context Activation} procedure for every tunnel beyond the first. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
-
-
-Information Elements Table for PDP Context Activation Case only for GTPv2 (LTE)
-\begin{longtabu} to\linewidth{| X[2,l] | X[2,c] | X[l] | X[4] |}
-\hline
-Information Element 						& IE Type 					& Max Wire Size (Bytes)	& Comment \\ \hline
-\gls{IMSI} 										& IMSI 						& 12					& \\ \hline
-\gls{MSISDN} 										& MSISDN					& 12					& On S11 Interface if provided by HSS; In case of UE requested connectivity if MME has it stored. \\ \hline
-MEI Identity 								& MEI 						& 12					& If available at MME. \\ \hline
-User Location Information 					& ULI						& 						& E-UTRAN initial attach \&  UE requested connectivity only; included by S-GW if received from MME via S5/S8; included on S4 and S5/S8 for PDP context activation, either CGI, SAI, or RAI. \\ \hline
-Serving Network								& Serving Network			& 						& Initial E-UTRAN attach, context activation and UE requested connectivity \\ \hline
-\gls{RAT} Type									& RAT Type					& 5						& \\ \hline
-Indication Flags							& Indication				& 6						& Flags: S5/S8 Protocol Type; Dual Address Bearer Flag; Handover Indication; Direct Tunnel Flag; Piggybacking Supported; Change Reporting Support Indication \\ \hline
-Sender F-TEID for Control Plane				& F-TEID					& 						& \\ \hline
-P-G S5/S8 Address for Control Plane or PMIP	& F-TEID					& 						& On S11/S4 interfaces; 0 if initial attach, context activation or PDN connectivity \\ \hline
-Access Point Name							& APN						& 83					& \\ \hline
-Selection Mode								& Selection Mode			& 						& Indicate whether subscribed or non-subscribed, chosen by MME, was selected \\ \hline
-PDN Type									& PDN Type					& 						& IPv4, IPv6 or IPv4v6. \\ \hline
-PDN Address Allocation						& PAA						& 26					& Set to static IP address; else (dynamic) to 0.0.0.0 or IPv6 Prefix Length 0. \\ \hline
-Maximum APN Restriction						& APN Restriction			& 						& Set to most stringent restriction of any active bearer. \\ \hline
-Aggregate Maximum Bit Rate					& ABMR						& 12					& \\ \hline
-Protocol Configuration Options				& PCO						& 254					& Forwarded from UE to P-GW via S-GW via MME. \\ \hline
-Bearer Contexts to be created				& Bearer Context			& 						& present multiple times to represent list of bearers \\ \hline
-Trace Information							& Trace Information 		& 						& If S-GW / P-GW is activated. \\ \hline
-Recovery									& Recovery					& 5						& If peer node contacted for the first time. \\ \hline
-MME-FQ-CSID									& FQ-CSID					& 						& Included by MME on S11 \\ \hline
-SGW-FQ-CSID									& FQ-CSID					& 						& Included by SGW on S5/S8 \\ \hline
-UE Time Zone								& UE Time Zone 				& 						& Can be included by MME on S11; forwarded to P-GW via S-GW \\ \hline
-User CSG Information						& UCI						& 						& If \gls{UE} accessed via CSG cell or hybrid cell \\ \hline
-Charging Characteristics					& Charging Characteristics	&						& \\ \hline
-Private Extensions							& Private Extensions		&						& \\ \hline
-\end{longtabu}
 
 
 
@@ -532,12 +497,15 @@ The \gls{RRC} state machine shown in Figure \ref{c4:fig:rrcstatemodel} governs t
 %\subsection{Network State and State Exchange}
 per \gls{PLMN} node, cf. \gls{3GPP} \gls{TS} 23.401 clause 5.7.
 
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=1.2\textwidth]{images/UE-requested-PDN-connectivity.pdf}
-mdcm	\caption{\gls{PDN} connectivity request by the UE procedure sequence diagram.}
-	\label{c4:fig:3gpp-uepdnreq}
-\end{figure}
+
+% TODO: convert to UMTS
+
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=1.0\textwidth]{images/UE-requested-PDN-connectivity.pdf}
+% mdcm	\caption{\gls{PDN} connectivity request by the UE procedure sequence diagram.}
+% 	\label{c4:fig:3gpp-uepdnreq}
+% \end{figure}
 
 
 
@@ -805,6 +773,40 @@ As discussed, most of the actions in the network as well as in the mobile device
 % 	\cline{2-9}
 % 	\end{tabu} 
 % \end{table}
+
+
+
+% Information Elements Table for PDP Context Activation Case only for GTPv2 (LTE)
+% \begin{longtabu} to\linewidth{| X[2,l] | X[2,c] | X[l] | X[4] |}
+% \hline
+% Information Element 						& IE Type 					& Max Wire Size (Bytes)	& Comment \\ \hline
+% \gls{IMSI} 										& IMSI 						& 12					& \\ \hline
+% \gls{MSISDN} 										& MSISDN					& 12					& On S11 Interface if provided by HSS; In case of UE requested connectivity if MME has it stored. \\ \hline
+% MEI Identity 								& MEI 						& 12					& If available at MME. \\ \hline
+% User Location Information 					& ULI						& 						& E-UTRAN initial attach \&  UE requested connectivity only; included by S-GW if received from MME via S5/S8; included on S4 and S5/S8 for PDP context activation, either CGI, SAI, or RAI. \\ \hline
+% Serving Network								& Serving Network			& 						& Initial E-UTRAN attach, context activation and UE requested connectivity \\ \hline
+% \gls{RAT} Type									& RAT Type					& 5						& \\ \hline
+% Indication Flags							& Indication				& 6						& Flags: S5/S8 Protocol Type; Dual Address Bearer Flag; Handover Indication; Direct Tunnel Flag; Piggybacking Supported; Change Reporting Support Indication \\ \hline
+% Sender F-TEID for Control Plane				& F-TEID					& 						& \\ \hline
+% P-G S5/S8 Address for Control Plane or PMIP	& F-TEID					& 						& On S11/S4 interfaces; 0 if initial attach, context activation or PDN connectivity \\ \hline
+% Access Point Name							& APN						& 83					& \\ \hline
+% Selection Mode								& Selection Mode			& 						& Indicate whether subscribed or non-subscribed, chosen by MME, was selected \\ \hline
+% PDN Type									& PDN Type					& 						& IPv4, IPv6 or IPv4v6. \\ \hline
+% PDN Address Allocation						& PAA						& 26					& Set to static IP address; else (dynamic) to 0.0.0.0 or IPv6 Prefix Length 0. \\ \hline
+% Maximum APN Restriction						& APN Restriction			& 						& Set to most stringent restriction of any active bearer. \\ \hline
+% Aggregate Maximum Bit Rate					& ABMR						& 12					& \\ \hline
+% Protocol Configuration Options				& PCO						& 254					& Forwarded from UE to P-GW via S-GW via MME. \\ \hline
+% Bearer Contexts to be created				& Bearer Context			& 						& present multiple times to represent list of bearers \\ \hline
+% Trace Information							& Trace Information 		& 						& If S-GW / P-GW is activated. \\ \hline
+% Recovery									& Recovery					& 5						& If peer node contacted for the first time. \\ \hline
+% MME-FQ-CSID									& FQ-CSID					& 						& Included by MME on S11 \\ \hline
+% SGW-FQ-CSID									& FQ-CSID					& 						& Included by SGW on S5/S8 \\ \hline
+% UE Time Zone								& UE Time Zone 				& 						& Can be included by MME on S11; forwarded to P-GW via S-GW \\ \hline
+% User CSG Information						& UCI						& 						& If \gls{UE} accessed via CSG cell or hybrid cell \\ \hline
+% Charging Characteristics					& Charging Characteristics	&						& \\ \hline
+% Private Extensions							& Private Extensions		&						& \\ \hline
+% \end{longtabu}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
