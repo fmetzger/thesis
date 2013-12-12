@@ -37,3 +37,4 @@ dissertation.pdf
 .Rhistory
 *.fls
 *.pyc
+*.gin
