@@ -7,7 +7,7 @@
 
 
 \begin{itemize}
-	\item LTE-EPC Network Simulator (LENA) \cite{ns3lte}
+	\item LTE-EPC Network Simulator (LENA)\cite{ns3lte}
 	\item Planetlab: an overlay testbed for broad-coverage services \cite{chun2003planetlab}
 	\item SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp}
 	\item An argument for increasing TCP's initial congestion window \cite{dukkipati2010argument}
@@ -85,6 +85,22 @@ Furthermore, traffic could be avoided during cell handover occurrences. This wou
 \subsection{Cross-Layer Mobility Hinting}
 \label{c5:crosslayerhinting}
 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{images/crosslayer-http.pdf}
+\caption{Mock-up of http reordering with handover awareness.}
+\label{c5:fig:http-reorder}
+\end{figure}
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{images/crosslayer-adaptive-streaming.pdf}
+\caption{Mockup of handover prediction and hinting for adaptive streaming and thus avoiding playback stalls.}
+\label{c5:fig:streaming-hinting}
+\end{figure}
+
 i.e. Mobility without network support
 
 Why? Handovers mean very long application interruption, and redirecting tcp flows to the current base station isn't cheap either (also, induces \textbf{very} long latency)
@@ -106,6 +122,9 @@ Violation of Layering/encapsulation? No, only APIs get extended
 
 relevant work
 \begin{itemize}
+	\item --> Cross-layer design optimizations in wireless protocol stacks \cite{Raisinghani2004720}
+	\item ECLAIR: An efficient cross layer architecture for wireless protocol stacks \cite{raisinghani2004eclair}
+	\item Still no implementation of ECLAIR: ``Cross-layer feedback architecture for mobile device protocol stacks'' \cite{1580937}
 	\item 802.21
 	\item A multi-layer mobility management architecture using cross-layer signalling interactions\cite{wang2003multi}
 	\item Dynamic Link Exchange Protocol (DLEP) \cite{ietf2013dlepdraft}
@@ -115,9 +134,11 @@ relevant work
 	\item Cross-layer signalling for next-generation wireless systems \cite{1200522}
 	\item Cross-layer design for wireless networks \cite{1235598}
 	\item A cautionary perspective on cross-layer design \cite{1404568}
+	\item User-centric mobility management for multimedia content access \cite{bolla2011usercentric}
+	\item Socketless TCP -- an end to end handover solution \cite{1635680}
+	\item SATSIX cross-layer architecture \cite{4656786}
+	\item mostly routing protocol optimization oriented ``A cross layer based QoS model for wireless and mobile ad hoc networks'' \cite{krishna2007cross}
 \end{itemize}
-
-TOBECONTINUED
 
 SmoothIT mechanisms; lower layer elements provide information to higher layers, overlays  \cite{oechsner2009pushing}
 
@@ -154,14 +175,14 @@ There exist problems for the practical viability of collection data though: Diff
 Sensorium can access all the information a device provides and makes them available to other applications. Up until now, it has been a challenging task for software developers (especially scientists and experimenters) to implement specialized sensor applications. This task is simplified by providing a generic framework for interfacing sensors. In our current implementation, available for Android, most of the typical sensors are already implemented. Since giving access to sensor data also exposes the user's privacy, the user can disable or set privacy levels for each sensor individually, and all sensor readings that would be shared are displayed. %Setting higher privacy levels reduces the amount of data a sensor shares. %E.g., location data accuracy could be rounded, or just hashes of data shared.
 \\
 
-O3GM\footnote{\url{http://homepage.univie.ac.at/albert.rafetseder/o3gm}} showcases the sensors framework. It comprises a web service displaying cellular access technology data points at their GPS locations collected by devices running Sensorium (see Figure~\ref{c5:fig:ogggm}). This solves a real-world problem: Currently, this kind of data is only available to mobile operators, which however  are hindered by commercial interests to make them publicly available -- at least in raw, unadorned form. Other projects such as OpenSignalMaps\footnote{\url{http://opensignal.com/}} and Sensorly\footnote{\url{http://www.sensorly.com/}}, as well as corporations like Google and Apple collect these data, but are very restrictive regarding usage by other parties. This is not true for O3GM: We make the data points collected available as Open Data under an open content license.
+O3GM\footnote{\url{http://homepage.univie.ac.at/albert.rafetseder/o3gm}} showcases the sensors framework. It comprises a web service displaying cellular access technology data points at their GPS locations collected by devices running Sensorium (see Figure~\ref{c5:fig:ogggm}). This solves a real-world problem: Currently, this kind of data is only available to mobile operators, which however  are hindered by commercial interests to make them publicly available -- at least in raw, unadorned form. Other projects such as OpenSignalMaps\footnote{\url{http://opensignal.com/}} and Sensorly\footnote{\url{http://www.sensorly.com/}}, as well as corporations like Google and Apple collect these data, but are very restrictive regarding usage by other parties. This is not true for O3GM:\@ We make the data points collected available as Open Data under an open content license.
 
 Obviously, other applications are possible. Since code and data are open-sourced, everyone can implement their great ideas, port Sensorium to other platforms or reimplement our interface there, etc.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 \centering
-\includegraphics[width=.98\columnwidth]{images/map-cells.png}
-\caption{\small The O3GM web page, displaying 3G coverage measurements extracted from Sensorium on top of OpenStreetMap.}
+\includegraphics[width=\textwidth]{images/map-cells.png}
+\caption{The O3GM web page, displaying 3G coverage measurements extracted from Sensorium on top of OpenStreetMap.}
 \label{c5:fig:ogggm}
 \end{figure}
 
@@ -171,10 +192,10 @@ Figure~\ref{c5:fig:architecture} overviews Sensorium's architecture components, 
 
 Due to the layered architecture, it is very simple for contributors to add their own implementations of layers or swap them out for their own altogether. Consider a scenario when a contributor wishes to include a sensor we do not yet provide a driver for. All that needs to be implemented is code interfacing the actual sensor, and the lightweight API into our sensor registry. Similarly, additional local display methods, privacy enhancements, and outbound interfaces might be implemented.
 
-\begin{figure}[t!]
+\begin{figure}[htb]
 \centering
-\includegraphics[width=0.85\columnwidth]{images/architecture.pdf}
-\caption{\small Sensorium architecture with O3GM \textit{pickup}~and \textit{server}. Components described in this paper are shown dark gray.}
+\includegraphics[width=0.6\textwidth]{images/architecture.pdf}
+\caption{Sensorium architecture with O3GM \textit{pickup}~and \textit{server}. Components described in this paper are shown dark gray.}
 \label{c5:fig:architecture}
 \end{figure}
 
@@ -182,10 +203,10 @@ Due to the layered architecture, it is very simple for contributors to add their
 
 Our current implementation of Sensorium\footnote{\url{https://github.com/fmetzger/android-sensorium}} runs on the Android platform. To provide a unified interface for accessing the sensor data we incorporated an XML-RPC library\footnote{\url{https://code.google.com/p/android-xmlrpc/}} that listens for connections on localhost, meaning that only applications running on the same device can access it. The pickup code\footnote{\url{https://homepage.univie.ac.at/albert.rafetseder/o3gm_pickup.repy}} to collect sensor values runs on top of the renowned Seattle\footnote{\url{https://seattle.cs.washington.edu/}} platform, which is also available for Android, and allows us to remotely and securely access the collected data, and easily experiment with energy and cost efficient data upload/download strategies. The example application we implemented to make use of Sensorium, O3GM\footnote{\url{https://github.com/lukpueh/Open3GMap}}, is based on JavaScript and the OpenLayers\footnote{\url{http://openlayers.org/}} library. All of our code is dual-licensed under GPLv3 and the BSD license.
 
-\begin{figure}[t!]
+\begin{figure}[htb]
 \centering
-\includegraphics[width=0.45\columnwidth]{images/sesescreenshot.png}
-\caption{\small Sensorium screenshot.}
+\includegraphics[width=0.45\textwidth]{images/sesescreenshot.png}
+\caption{Sensorium screenshot.}
 \label{c5:fig:screenshot}
 \end{figure}
 
@@ -219,7 +240,7 @@ But do not want to use real network, as conditions are hard to manage and reprod
 
 Therefore, use an emulated network provided by the ns-3 network simulator. But transmit real traffic through it, i.e. use it as an emulator and bridges. \ref{fig:lte-testbed}
 
-\begin{figure}
+\begin{figure}[htb]
 \centering
 \includegraphics[width=\textwidth]{images/lte-testbed.pdf}
 \caption{LTE Streaming Evaluation Setup and Action Plan}
