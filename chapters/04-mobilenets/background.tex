@@ -7,13 +7,9 @@
 
 This section starts with a primer on cellular data network basics, and then moves on to describe relevant details of \gls{GTP}, the tunneling protocol under investigation.
 
-
-Today's dominating commercial mobile network system, which includes \gls{GSM}, \gls{UMTS}, and up to \gls{LTE}, is designed and specified by the \gls{3GPP}. This group is an umbrella organization for several standardization bodies, including the European \gls{ETSI} and their individual members -- in this case mostly telecommunication companies. Unlike the \gls{IETF}, the Internet's de facto standards body, natural persons cannot participate in the \gls{3GPP} on their own but only through the organizational members.
+Today's dominating commercial mobile network system, which includes \gls{GSM}, \gls{UMTS}, and up to \gls{LTE}, is designed and specified by the \gls{3GPP}. This group is an umbrella organization for several standardization bodies, including the European \gls{ETSI} and their individual members --- in this case mostly telecommunication companies. Unlike the \gls{IETF}, the Internet's de facto standards body, natural persons cannot participate in the \gls{3GPP} on their own but only through the organizational members.
 
 Specifications are not released individually but are instead grouped together into larger releases once every or every other year. \gls{GSM} was first specified in the Phase 1 release in 1992 with \gls{GPRS} added in Release 97 (1998). \gls{UMTS} followed with Release 99 (2000), but most 3G networks operate at least with Release 5 (2002), 6 (2004), or 7 (2007) as they introduced \gls{HSDPA}, \gls{HSUPA}, and \gls{HSPA+} likewise. \gls{LTE} first found its way into the specifications in 2008 with Release 8 with Release 12 currently being worked on. This background section mostly describes the \gls{UMTS} based \gls{TS} with some comparisons being made to the older \gls{GPRS} and the latest \gls{LTE} specification versions where available.
-
- 
-physical arch, both circuit and packet switched domains: \cite{3gpp.23.002}
 
 \begin{figure}[htbp]
 	\centering
@@ -21,6 +17,20 @@ physical arch, both circuit and packet switched domains: \cite{3gpp.23.002}
  	\caption{Placeholder combined CS/PS GSM/UMTS/LTE architecture overview}
  	\label{c4:fig:psdomain}
 \end{figure}
+
+Today's most common version of the mobile network architecture is depicted in Figure~\ref{c4:fig:psdomain} and based on 3GPP TS 23.002 \cite{3gpp.23.002}, with some minor nodes and network paths omitted\footnote{For a complete reference of all the acronyms used in 3GPP specs please refer to TS 21.905 \cite{3gpp.21.905}.}. The displayed architecture combines all three access technologies as well as the \gls{CS} and the \gls{PS} domain of the core. Concerning the \gls{PS} domain, one has to further distinguish between links and nodes used solely for control plane tasks as well as links and nodes that are in path of the actual user IP traffic. For \gls{UMTS} and \gls{GPRS}\footnote{\gls{GPRS} provides \gls{PS} data services for \gls{GSM} radio access. The same core infrastructure is also used in the \gls{UMTS} \gls{PS} domain.} the \gls{SGSN} and the \gls{GGSN} are the core in-band elements. 
+
+
+
+
+The core network part of \gls{LTE} is called \gls{EPC} and deviates from the previously used architecture. User traffic in the core is now handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and several signaling procedures.
+
+
+
+
+physical arch, both circuit and packet switched domains: 
+
+
 
 interfaces as named reference points each with their own protocol stack
 
@@ -39,9 +49,9 @@ general arch, then focus on packet switch domain, then even closer focus on cont
 \gls{TS} overview
 
 \begin{itemize}
-	\item 21.905 \cite{3gpp.21.905} basic vocabulary
+%	\item 21.905 \cite{3gpp.21.905} basic vocabulary
 	\item 22.060 \cite{3gpp.22.060} basic and short \gls{GPRS} service description; unchanged since Release 6 (2004)
-	\item 23.002 \cite{3gpp.23.002} Network Architecture : general arch overview, node and interface description
+%	\item 23.002 \cite{3gpp.23.002} Network Architecture : general arch overview, node and interface description
 	\item 23.203 \cite{3gpp.23.003} numbering, addressing, identification generals
 	\item 23.060 \cite{3gpp.23.060} \gls{GPRS} description : \gls{GPRS} specific procedures, interfaces and nodes; mobility management; radio management; packet routing; operational aspects
 	\item 23.101 \cite{3gpp.23.101} general \gls{UMTS} architecture, focus on \gls{UE} / \gls{USIM} and strata

@@ -6,7 +6,7 @@
 \input{components/settings}
 
 %% load and typeset acronyms
-\makeglossaries
+\makeglossaries%
 \renewcommand{\glsseeitemformat}[1]{\textsc{\glsentryname{#1}}}
 \loadglsentries{components/acronyms}
 
@@ -39,7 +39,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TOC
-\newpage
+\newpage 
 \pagenumbering{roman}
 \phantomsection
 \addcontentsline{toc}{chapter}{Contents}%
