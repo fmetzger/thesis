@@ -26,6 +26,28 @@ Today's most common version of the mobile network architecture is depicted in Fi
 The core network part of \gls{LTE} is called \gls{EPC} and deviates from the previously used architecture. User traffic in the core is now handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and several signaling procedures.
 
 
+Short description of general node tasks in the \gls{PS} domain
+\begin{itemize}
+	\item \gls{SGSN}:
+	\item \gls{GGSN}:
+
+	\item \gls{HLR} or, respectively, \gls{HSS} in an \gls{EPC}: Centrally storage of all the operator's subscriber information. Other components have to retrieve this data from here, if it is not cached locally. In \gls{PS} the \gls{SGSN} caches all data from currently active users.
+
+	\item \gls{MME}
+
+\end{itemize}
+
+Protocols today usually run on an existing IP (or IPsec) stack, but are mostly also defined to be used with \gls{ATM}.
+
+Relevant protocols and interfaces between nodes:
+\begin{itemize}
+	\item \gls{GTP}, GTPv2, GTP-u, GTP-c, \gls{SGSN} to \gls{GGSN} and others (specify!), on top of \gls{UDP}, GTPv1 will be described in detail in a separate section as it is at the core of the upcoming investigations.
+	\item \gls{MAP} / \gls{SS7}: \gls{SGSN} - \gls{HLR}, \gls{GGSN} - \gls{HLR} and others; subscriber management and information exchange
+	\item Diameter \cite{rfc6733}: \gls{MME} - \gls{HSS}, \gls{SGSN} - \gls{HSS}, replacement for \gls{MAP}, subscriber management
+
+	\item PMIPv6 on \gls{SGW} - \gls{PGW}, alternative tunneling protocol to GTPv2
+\end{itemize}
+
 
 
 physical arch, both circuit and packet switched domains: 
