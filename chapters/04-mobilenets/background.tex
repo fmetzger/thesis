@@ -20,13 +20,41 @@ Specifications are not released individually but are instead grouped together in
 
 Today's most common version of the mobile network architecture is depicted in Figure~\ref{c4:fig:psdomain} and based on 3GPP TS 23.002 \cite{3gpp.23.002}, with some minor nodes and network paths omitted\footnote{For a complete reference of all the acronyms used in 3GPP specs please refer to TS 21.905 \cite{3gpp.21.905}.}. The displayed architecture combines all three access technologies as well as the \gls{CS} and the \gls{PS} domain of the core. Concerning the \gls{PS} domain, one has to further distinguish between links and nodes used solely for control plane tasks as well as links and nodes that are in path of the actual user IP traffic. For \gls{UMTS} and \gls{GPRS}\footnote{\gls{GPRS} provides \gls{PS} data services for \gls{GSM} radio access. The same core infrastructure is also used in the \gls{UMTS} \gls{PS} domain.} the \gls{SGSN} and the \gls{GGSN} are the core in-band elements. 
 
+One thing to keep in mind is the strict separation between user plane and control plane tasks in the \gls{3GPP} architecture. Usually completely separate protocol stacks are used and signaling is mostly very explicit and out of band. The following paragraphs give a short description of nodes, general and \gls{PS} tasks handled by them, and used protocols and stacks in the two major network domains inside the infrastructure domain~\cite{3gpp.23.101} for both the user and the control plane.
 
+%
+\subsection{3GPP Radio Network}
+This includes all three versions of the radio network: \gls{GSM}'s \gls{BSS} (or more complete: \gls{GERAN}), \gls{UTRAN} for \gls{UMTS}, and \gls{E-UTRAN} in \gls{LTE}.
+
+Essential to the radio network is a base station, a radio transceiver providing the physical connection to the user's mobile device\footnote{Mobile devices are called \gls{MS} in \gls{GSM} networks and \gls{UE} in 3G and later.} 3G's base station is called Node B. The used radio spectrum is divided into a number of channels, with various shared channels responsible for management and control plane signaling and one or more dedicated channel for each active mobile device~\cite{3gpp.25.201}. Layer 2 consists of several protocols managing and multiplexing transmissions on the link. These are \gls{MAC}~\cite{3gpp.25.321} and \gls{RLC}~\cite{3gpp.25.322} with a special user plane broadcast service provided by \gls{BMC}~\cite{3gpp.25.324}
+layer 3:
+ user/data plane: \gls{PDCP}~\cite{3gpp.25.323}
+ control plane \gls{RRC}~\cite{3gpp.25.331} 
+user plane above l3: usual Internet TCP/IP stack with \gls{IPv4}/\gls{IPv6}
+
+25.301 \cite{3gpp.25.301} Radio interface protocol architecture
+
+
+Each base station acts as an independent cell.  Mobile devices can be handed over between cells without higher layers being able to notice this.\footnote{However, there are still many ways to detect a handover in the upper layers of a mobile device.} The handover process is fully controlled and conducted by the network by a node that shares the old and new path to the device. For \gls{GSM}, in most cases this can be handled by the \gls{BSC} while the core \gls{MSC} is responsible for handovers between regions.
+
+	
+	
+	25.401 \cite{3gpp.25.401} UTRAN overall description
+	25.931 \cite{3gpp.25.931} UTRAN functions, examples on signalling procedures
+	23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
+	24.007 \cite{3gpp.24.007} radio interface signaling
+	29.002 \cite{3gpp.29.002} Mobile Application Part (MAP) specification; part of SS7
+
+The connection of the decentralized parts of the radio network to a central element is usually called \textit{backhaul}. This term usually subsumes the bulk transport of data over dedicated links to a central location. Often, optical fiber or microwave transmission links are used.
+
+%
+\subsection{3GPP Core Network}
 
 
 The core network part of \gls{LTE} is called \gls{EPC} and deviates from the previously used architecture. User traffic in the core is now handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and several signaling procedures.
 
 
-Short description of general node tasks in the \gls{PS} domain
+
 \begin{itemize}
 	\item \gls{SGSN}:
 	\item \gls{GGSN}:
@@ -76,24 +104,21 @@ general arch, then focus on packet switch domain, then even closer focus on cont
 %	\item 23.002 \cite{3gpp.23.002} Network Architecture : general arch overview, node and interface description
 	\item 23.203 \cite{3gpp.23.003} numbering, addressing, identification generals
 	\item 23.060 \cite{3gpp.23.060} \gls{GPRS} description : \gls{GPRS} specific procedures, interfaces and nodes; mobility management; radio management; packet routing; operational aspects
-	\item 23.101 \cite{3gpp.23.101} general \gls{UMTS} architecture, focus on \gls{UE} / \gls{USIM} and strata
-	\item 
+
 	\item 24.008 \cite{3gpp.24.008} general GSM/UMTS core network signaling protocols and procedures
-	\item 25.201 \cite{3gpp.25.201} \gls{UTRAN} physical layer description; channels
-	\item 25.301 \cite{3gpp.25.301} Radio interface protocol architecture
+
 	\item 25.323 \cite{3gpp.25.323} \gls{PDCP}: encapsulates \gls{RAB}
-	\item 25.331 \cite{3gpp.25.331} RRC protocol specification (defined with \gls{ASN.1})
-	\item 25.401 \cite{3gpp.25.401} UTRAN overall description
-	\item 25.931 \cite{3gpp.25.931} UTRAN functions, examples on signalling procedures
+
+
 	\item 29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
 	\item 29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
 	\item 
 	\item 23.203 \cite{3gpp.23.203} \gls{PCC} description (\gls{PCRF} \gls{PCEF})
-	\item 23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
+
 	\item 23.402 \cite{3gpp.23.402} (LTE only) non-\gls{3GPP} accesses
-	\item 24.007 \cite{3gpp.24.007} radio interface signaling
+
 	\item 24.301 \cite{3gpp.24.301} EPS Non-Access-Stratum protocol between UE and MME on Uu
-	\item 29.002 \cite{3gpp.29.002} Mobile Application Part (MAP) specification; part of SS7
+
 	\item 29.202 \cite{3gpp.29.202} Signalling System No. 7 (SS7) signalling transport in core network; Stage 3
 	\item 29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
 	\item 36.300 \cite{3gpp.36.300} \gls{E-UTRAN} description (LTE only) 
@@ -105,7 +130,6 @@ general arch, then focus on packet switch domain, then even closer focus on cont
 	\item 24.826 \cite{3gpp.24.826} Study on impacts on signalling between User Equipment (UE) and core network from energy saving; deals mostly with switching off cells and moving over UEs, not actual core network efficiency
 	\item 29.807 \cite{3gpp.29.807} Study on GTP-C overload control mechanisms
 \end{itemize}
-to find: PHY description for 2g/3g/4g, RRC signaling, more 23. and 29. series
 
 \subsubsection{3G Network Nodes and Interfaces}
 
