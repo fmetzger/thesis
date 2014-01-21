@@ -18,41 +18,36 @@ Specifications are not released individually but are instead grouped together in
  	\label{c4:fig:psdomain}
 \end{figure}
 
-Today's most common version of the mobile network architecture is depicted in Figure~\ref{c4:fig:psdomain} and based on 3GPP TS 23.002 \cite{3gpp.23.002}, with some minor nodes and network paths omitted\footnote{For a complete reference of all the acronyms used in 3GPP specs please refer to TS 21.905 \cite{3gpp.21.905}.}. The displayed architecture combines all three access technologies as well as the \gls{CS} and the \gls{PS} domain of the core. Concerning the \gls{PS} domain, one has to further distinguish between links and nodes used solely for control plane tasks as well as links and nodes that are in path of the actual user IP traffic. For \gls{UMTS} and \gls{GPRS}\footnote{\gls{GPRS} provides \gls{PS} data services for \gls{GSM} radio access. The same core infrastructure is also used in the \gls{UMTS} \gls{PS} domain.} the \gls{SGSN} and the \gls{GGSN} are the core in-band elements. 
+Today's most common version of the mobile network architecture is depicted in Figure~\ref{c4:fig:psdomain} and based on 3GPP TS 23.002~\cite{3gpp.23.002}, with some minor nodes and network paths omitted\footnote{For a complete reference of all the acronyms used in 3GPP specs please refer to TS 21.905~\cite{3gpp.21.905}.}. The displayed architecture combines all three access technologies as well as the \gls{CS} and the \gls{PS} domain of the core. Concerning the \gls{PS} domain, one has to further distinguish between links and nodes used solely for control plane tasks as well as links and nodes that are in path of the actual user IP traffic. For \gls{UMTS} and \gls{GPRS}\footnote{\gls{GPRS} provides \gls{PS} data services for \gls{GSM} radio access. The same core infrastructure is also used in the \gls{UMTS} \gls{PS} domain.} the \gls{SGSN} and the \gls{GGSN} are the core in-band elements. 
 
-One thing to keep in mind is the strict separation between user plane and control plane tasks in the \gls{3GPP} architecture. Usually completely separate protocol stacks are used and signaling is mostly very explicit and out of band. The following paragraphs give a short description of nodes, general and \gls{PS} tasks handled by them, and used protocols and stacks in the two major network domains inside the infrastructure domain~\cite{3gpp.23.101} for both the user and the control plane.
+One thing to keep in mind is the strict separation between user plane and control plane tasks in the \gls{3GPP} architecture. Usually completely separate protocol stacks are used and signaling is mostly very explicit and out of band. This is contrary to the typical approach of the Internet's stack, especially its upper layers, where most state is implicitly inferred and only some signaled in-band. The following paragraphs give a short description of nodes, general and \gls{PS} tasks handled by them, and used protocols and stacks in the two major network domains inside the infrastructure domain~\cite{3gpp.23.101} for both the user and the control plane. The description will be mostly focused on the \gls{UMTS} parts of the architecture
 
-%
+
+%%
 \subsection{3GPP Radio Network}
-This includes all three versions of the radio network: \gls{GSM}'s \gls{BSS} (or more complete: \gls{GERAN}), \gls{UTRAN} for \gls{UMTS}, and \gls{E-UTRAN} in \gls{LTE}.
 
-Essential to the radio network is a base station, a radio transceiver providing the physical connection to the user's mobile device\footnote{Mobile devices are called \gls{MS} in \gls{GSM} networks and \gls{UE} in 3G and later.} 3G's base station is called Node B. The used radio spectrum is divided into a number of channels, with various shared channels responsible for management and control plane signaling and one or more dedicated channel for each active mobile device~\cite{3gpp.25.201}. Layer 2 consists of several protocols managing and multiplexing transmissions on the link. These are \gls{MAC}~\cite{3gpp.25.321} and \gls{RLC}~\cite{3gpp.25.322} with a special user plane broadcast service provided by \gls{BMC}~\cite{3gpp.25.324}
-layer 3:
- user/data plane: \gls{PDCP}~\cite{3gpp.25.323}
- control plane \gls{RRC}~\cite{3gpp.25.331} 
-user plane above l3: usual Internet TCP/IP stack with \gls{IPv4}/\gls{IPv6}
+The architecture has three completely distinct radio networks, one for each access technology: \gls{GSM}'s \gls{BSS} (or more complete: \gls{GERAN}), \gls{UTRAN} for \gls{UMTS}, and \gls{E-UTRAN} in \gls{LTE}.
 
-25.301 \cite{3gpp.25.301} Radio interface protocol architecture
+Essential to the radio network is a base station, a radio transceiver providing the physical connection to the user's mobile device\footnote{Mobile devices are called \gls{MS} in \gls{GSM} networks and \gls{UE} in 3G and later.} 3G's base station is called Node B. The used radio spectrum is divided into a number of channels, with various shared channels responsible for management and control plane signaling and one or more dedicated channel for each active mobile device~\cite{3gpp.25.201,3gpp.25.301}. Layer 2 consists of several protocols managing and multiplexing transmissions on the link. These are \gls{MAC}~\cite{3gpp.25.321} and \gls{RLC}~\cite{3gpp.25.322} with an additional user plane broadcast service provided by \gls{BMC}~\cite{3gpp.25.324}. On Layer 3, the actual radio control plane signaling protocol \gls{RRC}~\cite{3gpp.25.331} resides, managing the device's state and the radio connection. Some of the signaling procedures are detailed in \cite{3gpp.25.931}. Additionally, \gls{PDCP}~\cite{3gpp.25.323} provides the connection to the  usual Internet TCP/IP userplane stack atop. Thus, all user traffic is encapsulated into so called \textit{radio bearers}, which tunnels traffic from the mobile device directly into the core network.
 
-
-Each base station acts as an independent cell.  Mobile devices can be handed over between cells without higher layers being able to notice this.\footnote{However, there are still many ways to detect a handover in the upper layers of a mobile device.} The handover process is fully controlled and conducted by the network by a node that shares the old and new path to the device. For \gls{GSM}, in most cases this can be handled by the \gls{BSC} while the core \gls{MSC} is responsible for handovers between regions.
+Each base station acts as an independent radio cell. Mobile devices can be handed over between cells without higher layers being able to notice this.\footnote{However, there are still many ways to detect a handover in the upper layers of a mobile device.} The handover process is fully controlled and conducted by the network by a node that shares the old and new path to the device. For \gls{UMTS}, in most cases this can be handled by the \gls{RNC} while the core \gls{SGSN} is responsible for handovers between regions.
 
 	
-	
-	25.401 \cite{3gpp.25.401} UTRAN overall description
-	25.931 \cite{3gpp.25.931} UTRAN functions, examples on signalling procedures
-	23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
-	24.007 \cite{3gpp.24.007} radio interface signaling
-	29.002 \cite{3gpp.29.002} Mobile Application Part (MAP) specification; part of SS7
+In \gls{UMTS} multiple Node B are concentrated into one \gls{RNC}. Most of the functions of a \gls{RNC}, including mobility management, are defined by the \gls{RANAP} control plane protocol \cite{3gpp.25.413}. \gls{RANAP} is used in the Iu interface between the \gls{RNC} and the core network, i.e. the \gls{SGSN}. The connection of the decentralized parts of the radio network to either the core network itself or a \gls{RNC} is called \textit{backhaul}. This term usually subsumes the bulk transport of data over dedicated links to a central location. Often, optical fiber or microwave transmission links are used.
 
-The connection of the decentralized parts of the radio network to a central element is usually called \textit{backhaul}. This term usually subsumes the bulk transport of data over dedicated links to a central location. Often, optical fiber or microwave transmission links are used.
+%	25.401 \cite{3gpp.25.401} UTRAN overall description
+%	25.931 \cite{3gpp.25.931} UTRAN functions, examples on signalling procedures
+%	23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
+%	24.007 \cite{3gpp.24.007} radio interface signaling % only Um interface in plain GSM/GPRS
 
-%
+
+%%
 \subsection{3GPP Core Network}
-
 
 The core network part of \gls{LTE} is called \gls{EPC} and deviates from the previously used architecture. User traffic in the core is now handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and several signaling procedures.
 
+
+	29.002 \cite{3gpp.29.002} Mobile Application Part (MAP) specification; part of SS7 % some core signaling SS7/MAP based
 
 
 \begin{itemize}
