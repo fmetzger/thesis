@@ -14,17 +14,17 @@ Specifications are not released individually but are instead grouped together in
 \begin{figure}[htbp]
 	\centering
  	\includegraphics[width=1.0\textwidth]{images/3gpp-physical-arch.pdf}
- 	\caption{Placeholder combined CS/PS GSM/UMTS/LTE architecture overview}
+ 	\caption{Combined CS/PS GSM/UMTS/LTE architecture overview.}
  	\label{c4:fig:psdomain}
 \end{figure}
 
-Today's most common version of the mobile network architecture is depicted in Figure~\ref{c4:fig:psdomain} and based on 3GPP TS 23.002~\cite{3gpp.23.002}, with some minor nodes and network paths omitted\footnote{For a complete reference of all the acronyms used in 3GPP specs please refer to TS 21.905~\cite{3gpp.21.905}.}. The displayed architecture combines all three access technologies as well as the \gls{CS} and the \gls{PS} domain of the core. Concerning the \gls{PS} domain, one has to further distinguish between links and nodes used solely for control plane tasks as well as links and nodes that are in path of the actual user IP traffic. For \gls{UMTS} and \gls{GPRS}\footnote{\gls{GPRS} provides \gls{PS} data services for \gls{GSM} radio access. The same core infrastructure is also used in the \gls{UMTS} \gls{PS} domain.} the \gls{SGSN} and the \gls{GGSN} are the core in-band elements. 
+Today's most common version of the mobile network architecture is depicted in Figure~\ref{c4:fig:psdomain} and based on 3GPP TS 23.002~\cite{3gpp.23.002}, with some minor nodes and network paths omitted\footnote{For a complete reference of all the acronyms and addressing schemes used in 3GPP specs please refer to TS 21.905~\cite{3gpp.21.905}. and TS 23.003~\cite{3gpp.23.003}}. The displayed architecture combines all three access technologies as well as the \gls{CS} and the \gls{PS} domain of the core. Concerning the \gls{PS} domain, one has to further distinguish between links and nodes used solely for control plane tasks as well as links and nodes that are in path of the actual user IP traffic. For \gls{UMTS} and \gls{GPRS}\footnote{\gls{GPRS} provides \gls{PS} data services for \gls{GSM} radio access. The same core infrastructure is also used in the \gls{UMTS} \gls{PS} domain.} the \gls{SGSN} and the \gls{GGSN} are the core in-band elements. 
 
 One thing to keep in mind is the strict separation between user plane and control plane tasks in the \gls{3GPP} architecture. Usually completely separate protocol stacks are used and signaling is mostly very explicit and out of band. This is contrary to the typical approach of the Internet's stack, especially its upper layers, where most state is implicitly inferred and only some signaled in-band. The following paragraphs give a short description of nodes, general and \gls{PS} tasks handled by them, and used protocols and stacks in the two major network domains inside the infrastructure domain~\cite{3gpp.23.101} for both the user and the control plane. The description will be mostly focused on the \gls{UMTS} parts of the architecture
 
 
 %%
-\subsection{3GPP Radio Network}
+\subsection{\acrshort{3GPP} Radio Network}
 
 The architecture has three completely distinct radio networks, one for each access technology: \gls{GSM}'s \gls{BSS} (or more complete: \gls{GERAN}), \gls{UTRAN} for \gls{UMTS}, and \gls{E-UTRAN} in \gls{LTE}.
 
@@ -33,34 +33,32 @@ Essential to the radio network is a base station, a radio transceiver providing 
 Each base station acts as an independent radio cell. Mobile devices can be handed over between cells without higher layers being able to notice this.\footnote{However, there are still many ways to detect a handover in the upper layers of a mobile device.} The handover process is fully controlled and conducted by the network by a node that shares the old and new path to the device. For \gls{UMTS}, in most cases this can be handled by the \gls{RNC} while the core \gls{SGSN} is responsible for handovers between regions.
 
 	
-In \gls{UMTS} multiple Node B are concentrated into one \gls{RNC}. Most of the functions of a \gls{RNC}, including mobility management, are defined by the \gls{RANAP} control plane protocol \cite{3gpp.25.413}. \gls{RANAP} is used in the Iu interface between the \gls{RNC} and the core network, i.e. the \gls{SGSN}. The connection of the decentralized parts of the radio network to either the core network itself or a \gls{RNC} is called \textit{backhaul}. This term usually subsumes the bulk transport of data over dedicated links to a central location. Often, optical fiber or microwave transmission links are used.
+In \gls{UMTS} multiple Node B are concentrated into one \gls{RNC}. Most of the functions of a \gls{RNC}, including mobility management, are defined by the \gls{RANAP} control plane protocol \cite{3gpp.25.413}. \gls{RANAP} is used in the Iu interface between the \gls{RNC} and the core network, i.e. the \gls{SGSN}. All non-radio links of the network are today \gls{IP}-based, but in the past all interfaces have also been explicitly defined for \gls{ATM} with some differences to the \gls{IP}-based stack. The connection of the decentralized parts of the radio network to either the core network itself or a \gls{RNC} is called \textit{backhaul}. This term usually subsumes the bulk transport of data over dedicated links to a central location. Often, optical fiber or microwave transmission links are used.
 
-%	25.401 \cite{3gpp.25.401} UTRAN overall description
-%	25.931 \cite{3gpp.25.931} UTRAN functions, examples on signalling procedures
-%	23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
-%	24.007 \cite{3gpp.24.007} radio interface signaling % only Um interface in plain GSM/GPRS
 
 
 %%
-\subsection{3GPP Core Network}
+\subsection{\acrshort{3GPP} Core Network}
 
-The core network part of \gls{LTE} is called \gls{EPC} and deviates from the previously used architecture. User traffic in the core is now handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and several signaling procedures.
+The \gls{PS} domain of a mobile core network manages most of the aspects of the connected devices and acts as the bridge to the Internet. It consists of nodes that are directly in the path of the user plane traffic as well as additional nodes, that only exist in the control plane.
 
+\gls{GPRS} and \gls{UMTS} use the exact same \gls{PS} core network architecture, only \gls{LTE} introduced a new core network concept, the \gls{EPC}. If the same core is used for both (or all three) access technologies, nodes for all architecture versions have to be present with the exception of some control plane nodes, that \gls{EPC} replaces with its counterparts that provide legacy interfaces.
 
-	29.002 \cite{3gpp.29.002} Mobile Application Part (MAP) specification; part of SS7 % some core signaling SS7/MAP based
+The two central elements in the userplane's path are the \gls{SGSN} and the \gls{GGSN}~\cite{3gpp.22.060,3gpp.23.060}. The \gls{SGSN} is the endpoint of the \gls{RAB}, tunneling user traffic from the \gls{UE} to the core, and an endpoint for the \gls{GTP} based core tunnel, further transporting userplane traffic to the \gls{GGSN}. \gls{GTP} will be described in detail in Section~\ref{c4:sec:gtp}. The \gls{GGSN}'s control plane tasks include mobility and connection management via \gls{RANAP} to the gls{RNC}. The necessary information is cached and retrieved from the \gls{HLR}  using \gls{MAP}~\cite{3gpp.29.002}. The \gls{HLR} or, respectively, the \gls{HSS} in an \gls{EPC}, acts as the central storage of all the operator's subscriber information.
 
+The \gls{GGSN} represents the gateway to the public Internet and therefore typically is the only node in the network, that has a publicly routable \gls{IP} address. It filters incoming traffic into the corresponding \gls{GTP} tunnel and routes packets to the correct \gls{SGSN}. State about any active tunnel and device has to be kept and is usually retrieved from the \gls{SGSN}.
 
-\begin{itemize}
-	\item \gls{SGSN}:
-	\item \gls{GGSN}:
+In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and several signaling procedures.
 
-	\item \gls{HLR} or, respectively, \gls{HSS} in an \gls{EPC}: Centrally storage of all the operator's subscriber information. Other components have to retrieve this data from here, if it is not cached locally. In \gls{PS} the \gls{SGSN} caches all data from currently active users.
+\gls{PCRF} in conjunction with the \gls{PCEF} part of a \gls{PGW} act as a \gls{DPI} entity, inspecting all userplane traffic and allow to arbitrarily apply filters and can be used for traffic-based billing. \cite{3gpp.23.203}
 
-	\item \gls{MME}
+\gls{MME} 36.413 \cite{3gpp.36.413} S1 (\gls{eNB} - \gls{MME}) Application Protocol (LTE only)
+	
+	23.203 \cite{3gpp.23.203} \gls{PCC} description (\gls{PCRF} \gls{PCEF})
+	%23.402 \cite{3gpp.23.402} (LTE only) non-\gls{3GPP} accesses
+	%24.301 \cite{3gpp.24.301} EPS Non-Access-Stratum protocol between UE and MME on Uu
+	
 
-\end{itemize}
-
-Protocols today usually run on an existing IP (or IPsec) stack, but are mostly also defined to be used with \gls{ATM}.
 
 Relevant protocols and interfaces between nodes:
 \begin{itemize}
@@ -73,114 +71,42 @@ Relevant protocols and interfaces between nodes:
 
 
 
-physical arch, both circuit and packet switched domains: 
+
+%%
+\subsection{\acrshort{GTP} and \acrshort{GTP}-based Core Network Signaling}
+\label{c4:sec:gtp}
 
 
+All core network signaling procedures and state machines are specified in TS 24.008~\cite{3gpp.24.008}
 
-interfaces as named reference points each with their own protocol stack
+simple example procedure:
+	\gls{PDP} context activation procedure in \gls{UMTS}
+	invokes additional \gls{CAMEL} procedures defined in \cite{3gpp.23.078}
 
-general architecture
+	\begin{figure}[htb]
+		\centering
+		\includegraphics[width=0.7\textwidth]{images/pdp-context-activation-procedure.pdf}
+		\caption{PDP Context Activation procedure signaling interaction diagram for \gls{UMTS}, including involved signaling protocols.}
+		\label{c4:fig:pdpcontextactivationinteraction}
+	\end{figure}
 
-GSM architecture
-
-3G architecture
-
-some words on 4G/LTE (actually 3.5G by some nomenclature)  architecture
-
-general arch, then focus on packet switch domain, then even closer focus on control plane
-
-\gls{HSS} combined \gls{HLR}/\gls{AuC} \gls{EIR} ...
-
-\gls{TS} overview
-
-\begin{itemize}
-%	\item 21.905 \cite{3gpp.21.905} basic vocabulary
-	\item 22.060 \cite{3gpp.22.060} basic and short \gls{GPRS} service description; unchanged since Release 6 (2004)
-%	\item 23.002 \cite{3gpp.23.002} Network Architecture : general arch overview, node and interface description
-	\item 23.203 \cite{3gpp.23.003} numbering, addressing, identification generals
-	\item 23.060 \cite{3gpp.23.060} \gls{GPRS} description : \gls{GPRS} specific procedures, interfaces and nodes; mobility management; radio management; packet routing; operational aspects
-
-	\item 24.008 \cite{3gpp.24.008} general GSM/UMTS core network signaling protocols and procedures
-
-	\item 25.323 \cite{3gpp.25.323} \gls{PDCP}: encapsulates \gls{RAB}
-
-
-	\item 29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
-	\item 29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
-	\item 
-	\item 23.203 \cite{3gpp.23.203} \gls{PCC} description (\gls{PCRF} \gls{PCEF})
-
-	\item 23.402 \cite{3gpp.23.402} (LTE only) non-\gls{3GPP} accesses
-
-	\item 24.301 \cite{3gpp.24.301} EPS Non-Access-Stratum protocol between UE and MME on Uu
-
-	\item 29.202 \cite{3gpp.29.202} Signalling System No. 7 (SS7) signalling transport in core network; Stage 3
-	\item 29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
-	\item 36.300 \cite{3gpp.36.300} \gls{E-UTRAN} description (LTE only) 
-	\item 36.413 \cite{3gpp.36.413} S1 (\gls{eNB} - \gls{MME}) Application Protocol (LTE only)
-	\item 36.414 \cite{3gpp.36.414} Evolved Universal Terrestrial Radio Access Network (E-UTRAN); S1 data transport (radio bearer)
-	\item 
-	\item 22.801 \cite{3gpp.22.801} Study on non-MTC mobile data applications impacts; for angry birds // relwork important
-	\item 23.843 \cite{3gpp.23.843} Study on Core Network (CN) overload solutions
-	\item 24.826 \cite{3gpp.24.826} Study on impacts on signalling between User Equipment (UE) and core network from energy saving; deals mostly with switching off cells and moving over UEs, not actual core network efficiency
-	\item 29.807 \cite{3gpp.29.807} Study on GTP-C overload control mechanisms
-\end{itemize}
-
-\subsubsection{3G Network Nodes and Interfaces}
-
-
-EPS first introduced in 3GPP Release 8, completed in March 2009. Consisting of EUTRAN, EPC (formerly SAE)
-
-
-List of interfaces in the 3G/LTE PS network
-\begin{itemize}
-\item \textbf{Uu}: Interface between the mobile station (MS) and the fixed network part in Iu mode. The Uu interface is the Iu mode network interface for providing packet data services over the radio to the MS. The MT part of the MS is used to access the UMTS services through this interface.
-\item \textbf{Iub}: Interface between a NodeB and a RNC.
-\item \textbf{IuPS}: Interface between a RNC and a SGSN.
-
-\item \textbf{S1-U}: Interface between a eNodeB and a S-GW. User plane bearer tunneling.
-\item \textbf{S1-MME}: Interface between a eNodeB and a MME.
-\item \textbf{S3}: Interface between a SGSN and a MME. User/bearer information exchange for active/idle state 3g network access mobility.
-\item \textbf{S4}: Interface between a SGSN and a S-GW.	 2G user plane tunneling. GPRS mobility and control.
-\item \textbf{S5}: Interface between a S-GW and a P-GW within the same PLMN. User plane tunneling; S-GW relocation due to mobility.
-\item \textbf{S6a}: Interface between a MME and a HSS. Auth/auth data transfer to evolved system.
-\item \textbf{Gr/S6d}: Interface between a SGSN and a HSS. 
-\item \textbf{S8}: Interface between a S-GW and a P-GW in different PLMNs. Inter-PLMN variant to S5.
-\item \textbf{S9}: Interface between a PRCF and the packet data network. Data exchange to visited PCRF PLMN.
-\item \textbf{S11}: Interface between a S-GW and a MME.
-\item \textbf{S12}: UTRAN to S-GW reference point. Based on Iu-u/Gn-u. Direct Tunnel via GTP-U.
-\item \textbf{S13}: Interface between a MME and a EIR. UE identity check.
-\item \textbf{SGi}: The reference point between the EPC based PLMN and the packet data network. Same as Gi for 3gpp.
-
-\item \textbf{GC}: Interface between a HSS and a GGSN.
-\item \textbf{Gf}: Interface between a SGSN and a EIR.
-\item \textbf{Gi}: Reference point between Packet Domain and an external packet data network.
-\item \textbf{Gn}: Interface between two GSNs within the same PLMN.
-\item \textbf{Gp}: Interface between two GSNs in different PLMNs. The Gp interface allows support of Packet Domain network services across areas served by the co-operating PLMNs.
-\item \textbf{Gx}: Interface between a PCRF and a P-GW/GGSN. QoS policy and charging rules transfer.
-\item \textbf{Gxc}: Interface between a PCRF and a S-GW.
-
-\item \textbf{Rx}: Interface between a PRCF and the packet data network.
-\end{itemize}
+	29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
+	29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
+	29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
 
 
 %%
-\subsubsection{Packet Switched Domain}
+\subsubsection{\acrshort{PDP} Context}
+explain data structure/state
 
-
-
-\paragraph{GPRS Fundamentals}
+%%
+\subsubsection{\acrshort{GPRS} Fundamentals}
 
 The packet switched domain of an \gls{UMTS} network is an evolution of \gls{GPRS} and thus closely related to it. First defined by the \gls{3GPP} in Release 99, it focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the foundation for our work.
 
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=1.0\textwidth]{images/umts-network.pdf}
-	\caption{Simplified setup of the packet switched domain in an \acrshort{UMTS} network including a METAWIN monitoring probe.}
-	\label{c4:fig:umtsnetwork}
-\end{figure}
 
-As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \gls{MS} connected to the radio network flows through a Node B (also called base station), which provides radio connectivity. Multiple Node B are aggregated into a \gls{RNC}. The base stations and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
+
+As shown in Figure \ref{c4:fig:psdomain}, user traffic originating at any \gls{MS} connected to the radio network flows through a Node B (also called base station), which provides radio connectivity. Multiple Node B are aggregated into a \gls{RNC}. The base stations and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
 
 One role of the \gls{SGSN} is to serve as mobility anchor for mobile devices. It is also the endpoint for \gls{RRC}-based signaling and the \gls{RAB}, the radio counterpart to the core network user traffic tunnel. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{GTP} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels in the core.
 
@@ -194,7 +120,7 @@ One role of the \gls{SGSN} is to serve as mobility anchor for mobile devices. It
 
 Before diving into specifics of \gls{GTP} messaging, we give a short overview on the packet switched domain of an \gls{UMTS} network. This domain is closely related to the \gls{GPRS} part introduced for \acrshort{GSM}. \gls{UMTS}, first defined by the \gls{3GPP} in Release 99, focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the basis for our work.
 
-As shown in Figure \ref{c4:fig:umtsnetwork}, user traffic originating at any \gls{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \gls{RNC}. Node Bs and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
+As shown in Figure \ref{c4:fig:psdomain}, user traffic originating at any \gls{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \gls{RNC}. Node Bs and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
 
 One role of the \gls{SGSN} is as the mobility anchor for mobile devices, and it is the endpoint for \gls{RRC}-based signaling and the \gls{RAB}. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{GTP} protocol to exchange user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels.
 
@@ -214,33 +140,7 @@ resulting complexity
 %%
 \paragraph{Control Plane Protocols and Stacks}
 
-\begin{figure}[htb]
-	\centering
- 	\includegraphics[width=0.9\textwidth]{images/eNB-MME-layers.pdf}
- 	\caption{Control plane protocol stack at the S1-MME interface between eNodeB and MME.}
- 	\label{c4:fig:stack-enbmme}
-\end{figure}
 
-\begin{figure}[htb]
-	 \centering
-	 \includegraphics[width=0.9\textwidth]{images/SGSN-MME-layers.pdf}
-	 \caption{Control plane protocol stack at the S3 interface between SGSN and MME.}
-	 \label{c4:fig:stack-sgsnmme}
-\end{figure}
-
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=0.9\textwidth]{images/S-GW-P-GW-layers.pdf}
-	\caption{Optional control plane protocol stack at the S5 interface between SGW and PGW.}
-	\label{c4:fig:stack-sgwpgw}
-\end{figure}
-
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=0.9\textwidth]{images/MME-S-GW-layers.pdf}
-	\caption{Control plane protocol stack at the S11 interface between MME and SGW.}
-	\label{c4:fig:stack-mmesgw}
-\end{figure}
 
 
 \begin{figure}[htb]
@@ -313,22 +213,7 @@ Allocation and Retention Policy (ARP): priority level preemption capability, pre
 
 
 
-%EMM Service request procedure
-% \begin{figure}[htb]
-% 	\centering
-% 	\includegraphics[width=1.0\textwidth]{images/UE-service-request.pdf}
-% 	\caption{EMM service request procedure sequence diagram.}
-% 	\label{c4:fig:3gpp-ueservicereq}
-% \end{figure}
 
-% Annotations:
-% 1. Encapsulated in RRC message.
-% 2. Forwarded in S1-AP Initial UE Message.
-% 3. Various security procedures.
-
-
-%%
-\paragraph{GTP and GTP Signaling}
 
 
 % \subsubsection{Information Element Concept}
@@ -860,8 +745,91 @@ As discussed, most of the actions in the network as well as in the mobile device
 
 
 
+
+
+% \begin{figure}[htb]
+% 	\centering
+%  	\includegraphics[width=0.9\textwidth]{images/eNB-MME-layers.pdf}
+%  	\caption{Control plane protocol stack at the S1-MME interface between eNodeB and MME.}
+%  	\label{c4:fig:stack-enbmme}
+% \end{figure}
+
+% \begin{figure}[htb]
+% 	 \centering
+% 	 \includegraphics[width=0.9\textwidth]{images/SGSN-MME-layers.pdf}
+% 	 \caption{Control plane protocol stack at the S3 interface between SGSN and MME.}
+% 	 \label{c4:fig:stack-sgsnmme}
+% \end{figure}
+
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=0.9\textwidth]{images/S-GW-P-GW-layers.pdf}
+% 	\caption{Optional control plane protocol stack at the S5 interface between SGW and PGW.}
+% 	\label{c4:fig:stack-sgwpgw}
+% \end{figure}
+
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=0.9\textwidth]{images/MME-S-GW-layers.pdf}
+% 	\caption{Control plane protocol stack at the S11 interface between MME and SGW.}
+% 	\label{c4:fig:stack-mmesgw}
+% \end{figure}
+
+
+
+%List of interfaces in the 3G/LTE PS network
+%\begin{itemize}
+%\item \textbf{Uu}: Interface between the mobile station (MS) and the fixed network part in Iu mode. The Uu interface is the Iu mode network interface for providing packet data services over the radio to the MS. The MT part of the MS is used to access the UMTS services through this interface.
+%\item \textbf{Iub}: Interface between a NodeB and a RNC.
+%\item \textbf{IuPS}: Interface between a RNC and a SGSN.
+%\item \textbf{S1-U}: Interface between a eNodeB and a S-GW. User plane bearer tunneling.
+% \item \textbf{S1-MME}: Interface between a eNodeB and a MME.
+% \item \textbf{S3}: Interface between a SGSN and a MME. User/bearer information exchange for active/idle state 3g network access mobility.
+% \item \textbf{S4}: Interface between a SGSN and a S-GW.	 2G user plane tunneling. GPRS mobility and control.
+% \item \textbf{S5}: Interface between a S-GW and a P-GW within the same PLMN. User plane tunneling; S-GW relocation due to mobility.
+% \item \textbf{S6a}: Interface between a MME and a HSS. Auth/auth data transfer to evolved system.
+% \item \textbf{Gr/S6d}: Interface between a SGSN and a HSS. 
+% \item \textbf{S8}: Interface between a S-GW and a P-GW in different PLMNs. Inter-PLMN variant to S5.
+% \item \textbf{S9}: Interface between a PRCF and the packet data network. Data exchange to visited PCRF PLMN.
+% \item \textbf{S11}: Interface between a S-GW and a MME.
+% \item \textbf{S12}: UTRAN to S-GW reference point. Based on Iu-u/Gn-u. Direct Tunnel via GTP-U.
+% \item \textbf{S13}: Interface between a MME and a EIR. UE identity check.
+% \item \textbf{SGi}: The reference point between the EPC based PLMN and the packet data network. Same as Gi for 3gpp.
+
+% \item \textbf{GC}: Interface between a HSS and a GGSN.
+% \item \textbf{Gf}: Interface between a SGSN and a EIR.
+% \item \textbf{Gi}: Reference point between Packet Domain and an external packet data network.
+% \item \textbf{Gn}: Interface between two GSNs within the same PLMN.
+% \item \textbf{Gp}: Interface between two GSNs in different PLMNs. The Gp interface allows support of Packet Domain network services across areas served by the co-operating PLMNs.
+% \item \textbf{Gx}: Interface between a PCRF and a P-GW/GGSN. QoS policy and charging rules transfer.
+% \item \textbf{Gxc}: Interface between a PCRF and a S-GW.
+
+% \item \textbf{Rx}: Interface between a PRCF and the packet data network.
+% \end{itemize}
+
+
+%EMM Service request procedure
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=1.0\textwidth]{images/UE-service-request.pdf}
+% 	\caption{EMM service request procedure sequence diagram.}
+% 	\label{c4:fig:3gpp-ueservicereq}
+% \end{figure}
+
+% Annotations:
+% 1. Encapsulated in RRC message.
+% 2. Forwarded in S1-AP Initial UE Message.
+% 3. Various security procedures.
+
+%	25.401 \cite{3gpp.25.401} UTRAN overall description
+%	25.931 \cite{3gpp.25.931} UTRAN functions, examples on signalling procedures
+%	23.401 \cite{3gpp.23.401} \gls{E-UTRAN} procedures (LTE only)
+%	24.007 \cite{3gpp.24.007} radio interface signaling % only Um interface in plain GSM/GPRS
+%	36.300 \cite{3gpp.36.300} \gls{E-UTRAN} description (LTE only) 
+%	36.414 \cite{3gpp.36.414} Evolved Universal Terrestrial Radio Access Network (E-UTRAN); S1 data transport (radio bearer)
+%	22.060 \cite{3gpp.22.060} basic and short \gls{GPRS} service description; unchanged since Release 6 (2004)
+%	23.060 \cite{3gpp.23.060} \gls{GPRS} description : \gls{GPRS} specific procedures, interfaces and nodes; mobility management; radio management; packet routing; operational aspects
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{3gppdesc.tex}
-
-
-
