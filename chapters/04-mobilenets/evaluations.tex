@@ -38,7 +38,7 @@ Based on these factors, it was decided to make a first categorization according 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{PDP Context Durations}
+\subsection{\texorpdfstring{\acrshort{PDP}}{PDP} Context Durations}
 
 Our measure of choice are the PDP Context Durations as they carry lots of meaning in being directly related to the signaling amount in the network. Therefore, we now direct our attention at the tunnel durations in the individual device and OS categories as identified via \gls{TAC} values.
 
@@ -64,7 +64,7 @@ A last artifact of note are the larger number of iOS devices with very short tun
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{GTP Tunnel Duration}
+\subsubsection{\texorpdfstring{\acrshort{gtp}}{GTP} Tunnel Duration}
 
 In our evaluation, we define the duration of a GTP tunnel as the time between a GTP CREATE and the corresponding GTP DELETE event. After the reply for a CREATE has been sent from the \gls{GGSN} any setup procedures at the node should have completed and it should recognize incoming traffic from or to this user. After the DELETE, the user's traffic will not be routed anymore. Any lazy cleanup happening after the DELETE is not relevant for this specific investigation.
 
@@ -91,7 +91,7 @@ Interestingly, the median duration of regular phones is higher than that of smar
 
 
 %%
-\paragraph{Influence of the OS}
+\paragraph{Influence of the \texorpdfstring{\acrshort{OS}}{OS}}
 %%
 
 \begin{figure}[htb]
@@ -356,7 +356,7 @@ Our working hypothesis as to the origin of the effect is the \gls{TTI}. This tim
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Tunnel Event Processing Time}
 
-This brings us to another and potentially more direct measure of \gls{GGSN} load, namely the event processing time, meaning the time it takes for the \gls{GGSN} to fulfill a \gls{GTP} request. This is calculated from the requested and finished timestamps of every \gls{GTP} event in our dataset. As the measurement is conducted at the Gn interface these timestamps represent the time the \gls{GTP} signaling request moves to the \gls{GGSN} and the time the response transitions through the link.
+This brings us to another and potentially more direct measure of \gls{GGSN} load, namely the event processing time, meaning the time it takes for the \gls{GGSN} to fulfill a \gls{gtp} request. This is calculated from the requested and finished timestamps of every \gls{gtp} event in our dataset. As the measurement is conducted at the Gn interface these timestamps represent the time the \gls{gtp} signaling request moves to the \gls{GGSN} and the time the response transitions through the link.
 
 As stated in the previous section, it would be of special interest to know if the setup time of tunnels is influenced by anything, as this is one of the \gls{GGSN}'s most time-sensitive jobs and can impact the time a user has to wait before being able to actually transfer data. Unfortunately, some issues with the dataset did not allow the investigation of the processing time of either create and delete messages.
 
@@ -368,7 +368,7 @@ As stated in the previous section, it would be of special interest to know if th
 \end{figure}
 
 
-However, we could investigate the processing time of \gls{GTP} update messages. The core network transmits roughly two orders of magnitude more update than either create or delete events and therefore the number of usable events exceeded the significance level. While no direct investigation of the setup and deletion procedures was possible with these events, a rough overall picture of load can still be attained through this. Figure \ref{c4:fig:update-time} depicts a band of empirical cumulative distribution functions for the processing time of update events broken down by time of day. The processing time is almost uniformly distributed between 2 and 22 milliseconds, with a slightly longer duration during the evening, making for a continuous uniform distribution. This is rather unexpected as uniform distributions do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., scheduling or queuing artifacts. In the future we hope to investigate these features more closely, including a proper investigation of the tunnel setup and teardown processing time, if the dataset allows it.
+However, we could investigate the processing time of \gls{gtp} update messages. The core network transmits roughly two orders of magnitude more update than either create or delete events and therefore the number of usable events exceeded the significance level. While no direct investigation of the setup and deletion procedures was possible with these events, a rough overall picture of load can still be attained through this. Figure \ref{c4:fig:update-time} depicts a band of empirical cumulative distribution functions for the processing time of update events broken down by time of day. The processing time is almost uniformly distributed between 2 and 22 milliseconds, with a slightly longer duration during the evening, making for a continuous uniform distribution. This is rather unexpected as uniform distributions do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., scheduling or queuing artifacts. In the future we hope to investigate these features more closely, including a proper investigation of the tunnel setup and teardown processing time, if the dataset allows it.
 
 
 
@@ -395,7 +395,7 @@ Typically, a device will only hold one tunnel at a time, but this one tunnel can
   \label{c4:fig:fittedsdurationlots}
 \end{figure}
 
-The second important tunnel property is the duration the \gls{PDP} Context state accompanying a \gls{GTP} tunnel is held at the \gls{GGSN}. Fig.~\ref{c4:fig:fittedsdurationlots} shows the tunnel durations split up for the time of day, as there is once again a slight diurnal effect present, albeit with shifted peaks. Longer tunnels tend to occur at night, shorter tunnels during midday.
+The second important tunnel property is the duration the \gls{PDP} Context state accompanying a \gls{gtp} tunnel is held at the \gls{GGSN}. Fig.~\ref{c4:fig:fittedsdurationlots} shows the tunnel durations split up for the time of day, as there is once again a slight diurnal effect present, albeit with shifted peaks. Longer tunnels tend to occur at night, shorter tunnels during midday.
 %Further properties of the tunnel duration, especially the correlation with device types and operating systems, were already investigated in detail in our previous work \cite{metzger2012research,metzger2013}.
 For the model, a distribution fit of the tunnel duration was also desired. However, none of the basic probability distributions (including exponential, gamma, and Weibull distributions) fit the tunnel duration well enough. One of the reasons for this probably being the correlation of the tunnel duration to a large number of factors, including user behavior and network-specific timers and procedures,
 %Tunnels are shut down by the network after specific events (e.g. a 30-minute idle timer), 

@@ -5,7 +5,7 @@
 \section{Mobile Network Architecture}
 \label{c4:3gpparchitecture}
 
-This section starts with a primer on cellular data network basics, and then moves on to describe relevant details of \gls{GTP}, the tunneling protocol under investigation.
+This section starts with a primer on cellular data network basics, and then moves on to describe relevant details of \gls{gtp}, the tunneling protocol under investigation.
 
 Today's dominating commercial mobile network system, which includes \gls{GSM}, \gls{UMTS}, and up to \gls{LTE}, is designed and specified by the \gls{3GPP}. This group is an umbrella organization for several standardization bodies, including the European \gls{ETSI} and their individual members --- in this case mostly telecommunication companies. Unlike the \gls{IETF}, the Internet's de facto standards body, natural persons cannot participate in the \gls{3GPP} on their own but only through the organizational members.
 
@@ -24,7 +24,7 @@ One thing to keep in mind is the strict separation between user plane and contro
 
 
 %%
-\subsection{\acrshort{3GPP} Radio Network}
+\subsection{\texorpdfstring{\acrshort{3GPP}} Radio Network}
 
 The architecture has three completely distinct radio networks, one for each access technology: \gls{GSM}'s \gls{BSS} (or more complete: \gls{GERAN}), \gls{UTRAN} for \gls{UMTS}, and \gls{E-UTRAN} in \gls{LTE}.
 
@@ -38,23 +38,23 @@ In \gls{UMTS} multiple Node B are concentrated into one \gls{RNC}. Most of the f
 
 
 %%
-\subsection{\acrshort{3GPP} Core Network}
+\subsection{\texorpdfstring{\acrshort{3GPP}}{3GPP} Core Network}
 
 The \gls{PS} domain of a mobile core network manages most of the aspects of the connected devices and acts as the bridge to the Internet. It consists of nodes that are directly in the path of the user plane traffic as well as additional nodes, that only exist in the control plane.
 
 \gls{GPRS} and \gls{UMTS} use the exact same \gls{PS} core network architecture, only \gls{LTE} introduced a new core network concept, the \gls{EPC}. If the same core is used for both (or all three) access technologies, nodes for all architecture versions have to be present with the exception of some control plane nodes, that \gls{EPC} replaces with its counterparts that provide legacy interfaces.
 
-The two central elements in the userplane's path are the \gls{SGSN} and the \gls{GGSN}~\cite{3gpp.22.060,3gpp.23.060}. The \gls{SGSN} is the endpoint of the \gls{RAB}, tunneling user traffic from the \gls{UE} to the core, and an endpoint for the \gls{GTP} based core tunnel, further transporting userplane traffic to the \gls{GGSN}. \gls{GTP} will be described in detail in Section~\ref{c4:sec:gtp}. The \gls{GGSN}'s control plane tasks include mobility and connection management via \gls{RANAP} to the gls{RNC}. The necessary information is cached and retrieved from the \gls{HLR}  using \gls{MAP}~\cite{3gpp.29.002}. The \gls{HLR} or, respectively, the \gls{HSS} in an \gls{EPC}, acts as the central storage of all the operator's subscriber information.
+The two central elements in the userplane's path are the \gls{SGSN} and the \gls{GGSN}~\cite{3gpp.22.060,3gpp.23.060}. The \gls{SGSN} is the endpoint of the \gls{RAB}, tunneling user traffic from the \gls{UE} to the core, and an endpoint for the \gls{gtp} based core tunnel, further transporting userplane traffic to the \gls{GGSN}. \gls{gtp} will be described in detail in Section~\ref{c4:sec:gtp}. The \gls{GGSN}'s control plane tasks include mobility and connection management via \gls{RANAP} to the gls{RNC}. The necessary information is cached and retrieved from the \gls{HLR}  using \gls{MAP}~\cite{3gpp.29.002}. The \gls{HLR} or, respectively, the \gls{HSS} in an \gls{EPC}, acts as the central storage of all the operator's subscriber information.
 
-The \gls{GGSN} represents the gateway to the public Internet and therefore typically is the only node in the network, that has a publicly routable \gls{IP} address. It filters incoming traffic into the corresponding \gls{GTP} tunnel and routes packets to the correct \gls{SGSN}. State about any active tunnel and device has to be kept and is usually retrieved from the \gls{SGSN}.
+The \gls{GGSN} represents the gateway to the public Internet and therefore typically is the only node in the network, that has a publicly routable \gls{IP} address. It filters incoming traffic into the corresponding \gls{gtp} tunnel and routes packets to the correct \gls{SGSN}. State about any active tunnel and device has to be kept locally and is initially retrieved from the \gls{SGSN}.
 
-In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and several signaling procedures.
+In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and the \gls{gtp} signaling between them.
 
 \gls{PCRF} in conjunction with the \gls{PCEF} part of a \gls{PGW} act as a \gls{DPI} entity, inspecting all userplane traffic and allow to arbitrarily apply filters and can be used for traffic-based billing. \cite{3gpp.23.203}
 
 \gls{MME} 36.413 \cite{3gpp.36.413} S1 (\gls{eNB} - \gls{MME}) Application Protocol (LTE only)
 	
-	23.203 \cite{3gpp.23.203} \gls{PCC} description (\gls{PCRF} \gls{PCEF})
+
 	%23.402 \cite{3gpp.23.402} (LTE only) non-\gls{3GPP} accesses
 	%24.301 \cite{3gpp.24.301} EPS Non-Access-Stratum protocol between UE and MME on Uu
 	
@@ -62,7 +62,7 @@ In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW},
 
 Relevant protocols and interfaces between nodes:
 \begin{itemize}
-	\item \gls{GTP}, GTPv2, GTP-u, GTP-c, \gls{SGSN} to \gls{GGSN} and others (specify!), on top of \gls{UDP}, GTPv1 will be described in detail in a separate section as it is at the core of the upcoming investigations.
+	\item \gls{gtp}, GTPv2, GTP-u, GTP-c, \gls{SGSN} to \gls{GGSN} and others (specify!), on top of \gls{UDP}, GTPv1 will be described in detail in a separate section as it is at the core of the upcoming investigations.
 	\item \gls{MAP} / \gls{SS7}: \gls{SGSN} - \gls{HLR}, \gls{GGSN} - \gls{HLR} and others; subscriber management and information exchange
 	\item Diameter \cite{rfc6733}: \gls{MME} - \gls{HSS}, \gls{SGSN} - \gls{HSS}, replacement for \gls{MAP}, subscriber management
 
@@ -73,7 +73,7 @@ Relevant protocols and interfaces between nodes:
 
 
 %%
-\subsection{\acrshort{GTP} and \acrshort{GTP}-based Core Network Signaling}
+\subsection{\texorpdfstring{\acrshort{gtp}}{GTP} and \texorpdfstring{\acrshort{gtp}}{GTP}-based Core Network Signaling}
 \label{c4:sec:gtp}
 
 
@@ -96,19 +96,19 @@ simple example procedure:
 
 
 %%
-\subsubsection{\acrshort{PDP} Context}
+\subsubsection{\texorpdfstring{\acrshort{PDP}}{PDP} Context}
 explain data structure/state
 
 %%
-\subsubsection{\acrshort{GPRS} Fundamentals}
+\subsubsection{\texorpdfstring{\acrshort{GPRS}}{GPRS} Fundamentals}
 
-The packet switched domain of an \gls{UMTS} network is an evolution of \gls{GPRS} and thus closely related to it. First defined by the \gls{3GPP} in Release 99, it focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the foundation for our work.
+The packet switched domain of an \gls{UMTS} network is an evolution of \gls{GPRS} and thus closely related to it. First defined by the \gls{3GPP} in Release 99, it focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{gtp} flowing across the Gn and Gp interfaces which forms the foundation for our work.
 
 
 
 As shown in Figure \ref{c4:fig:psdomain}, user traffic originating at any \gls{MS} connected to the radio network flows through a Node B (also called base station), which provides radio connectivity. Multiple Node B are aggregated into a \gls{RNC}. The base stations and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
 
-One role of the \gls{SGSN} is to serve as mobility anchor for mobile devices. It is also the endpoint for \gls{RRC}-based signaling and the \gls{RAB}, the radio counterpart to the core network user traffic tunnel. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{GTP} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels in the core.
+One role of the \gls{SGSN} is to serve as mobility anchor for mobile devices. It is also the endpoint for \gls{RRC}-based signaling and the \gls{RAB}, the radio counterpart to the core network user traffic tunnel. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{gtp} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{gtp} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels in the core.
 
 \begin{figure}[htb]
 	\centering
@@ -118,11 +118,11 @@ One role of the \gls{SGSN} is to serve as mobility anchor for mobile devices. It
 \end{figure}
 
 
-Before diving into specifics of \gls{GTP} messaging, we give a short overview on the packet switched domain of an \gls{UMTS} network. This domain is closely related to the \gls{GPRS} part introduced for \acrshort{GSM}. \gls{UMTS}, first defined by the \gls{3GPP} in Release 99, focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{GTP} flowing across the Gn and Gp interfaces which forms the basis for our work.
+Before diving into specifics of \gls{gtp} messaging, we give a short overview on the packet switched domain of an \gls{UMTS} network. This domain is closely related to the \gls{GPRS} part introduced for \acrshort{GSM}. \gls{UMTS}, first defined by the \gls{3GPP} in Release 99, focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{gtp} flowing across the Gn and Gp interfaces which forms the basis for our work.
 
 As shown in Figure \ref{c4:fig:psdomain}, user traffic originating at any \gls{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \gls{RNC}. Node Bs and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
 
-One role of the \gls{SGSN} is as the mobility anchor for mobile devices, and it is the endpoint for \gls{RRC}-based signaling and the \gls{RAB}. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{GTP} protocol to exchange user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{GTP} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels.
+One role of the \gls{SGSN} is as the mobility anchor for mobile devices, and it is the endpoint for \gls{RRC}-based signaling and the \gls{RAB}. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{gtp} protocol to exchange user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{gtp} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels.
 
 
 %%
@@ -164,7 +164,7 @@ resulting complexity
 %%
 \paragraph{Tunneling Concept and Bearers}
 
-LTE: mention also \gls{PMIP} as \gls{GTP} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
+LTE: mention also \gls{PMIP} as \gls{gtp} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
 
 
 One UE Can have a maximum of 3 \gls{PDN} connections and 11 bearers (one default per \gls{APN} and additional dedicated).
@@ -325,7 +325,7 @@ Total traffic: 122758578593993
 
 Tunnels state is held in the \gls{SGSN} and \gls{GGSN} as \gls{PDP} Context data structures. These contain various information, such as the device IP address, \gls{IMSI}, and a tunnel identifier. The concept is used to isolate user traffic from core network control plane signaling and to provide certain \gls{QoS} guarantees to the user traffic. Multiple \gls{QoS} profiles per device can also be established by setting up up to ten secondary contexts beyond the primary PDP context. However, \gls{QoS} secondary contexts are very rarely in use today, any user-plane IP traffic is typically transported within the primary ``best effort'' tunnel.
 
-The GTP-C signaling, responsible for the context management interactions, contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. \gls{GTP} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE}, many of which are either optional or variable length through additional optional fields.
+The GTP-C signaling, responsible for the context management interactions, contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. \gls{gtp} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE}, many of which are either optional or variable length through additional optional fields.
 
 The focus of our work will be the three Tunnel Management message pairs involved in the maintenance of PDP Contexts. These are:
 
@@ -383,7 +383,7 @@ Taking the maximum size we arrive at a naive estimate of the maximum overhead on
 
 Tunnels are defined in the \gls{SGSN} and \gls{GGSN} in \gls{PDP} Context data structures. These hold various information related to a tunnel, such as the device IP address, \gls{IMSI}, and a tunnel identifier. A tunneling concept is used for user traffic to isolate it from core network control plane traffic and to provide certain \gls{QoS} guarantees to the user traffic. To distinguish multiple \gls{QoS} profiles per device, up to ten additional secondary contexts can be established beyond the primary PDP context, all with different \gls{QoS} allocations. However, secondary contexts are rarely in use today, and any user-plane IP traffic is transported within the primary ``best effort'' tunnel.
 
-As already mentioned, GTP-C signaling is used to administer these contexts. Across the Gn path, it contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. We take a specific look at the last one. \gls{GTP} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE} of partially variable length. 
+As already mentioned, GTP-C signaling is used to administer these contexts. Across the Gn path, it contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. We take a specific look at the last one. \gls{gtp} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE} of partially variable length. 
 
 The focus of our work will be the three Tunnel Management message pairs involved in the maintenance of PDP Contexts. These are the \textit{Create, Update,} and \textit{Delete PDP Context Requests} and \textit{Responses}. Each pair, including their causes and possible effects, will be treated in a separate section, with the Create and Delete messages forming the substrate for our investigations presented in this paper.
 
@@ -401,7 +401,7 @@ Taking this maximum value we arrive at a naive estimate of the maximum overhead 
 linked \gls{NSAPI}: indicates the \gls{NSAPI} assigned to any one of the already activated \gls{PDP} contexts for this address/phone ("foreign key"?)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{GTP Influencing State Machines}
+\paragraph{\texorpdfstring{\acrshort{gtp}}{GTP} Influencing State Machines}
 %\subsubsection{Mobility and Radio-related State Machines}
 
 As indicated, most nodes in a cellular mobile network keep all sorts of state characterizing the data connection. For the tunnel management aspects, two state machines are of special note, namely the Mobility Management and \gls{RRC} state machines.
@@ -446,7 +446,7 @@ per \gls{PLMN} node, cf. \gls{3GPP} \gls{TS} 23.401 clause 5.7.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{Discussion of GTP Signaling}
+\paragraph{Discussion of \texorpdfstring{\acrshort{gtp}}{GTP} Signaling}
 
 Looking at the Create, Update and Delete PDP Context Request and Reply message pairs we can already directly deduce some possibly load-related information. The total tunnel duration originates from the time delta between corresponding Create and Delete events. The shorter those tunnels are the higher will be volume of signaling messages and the necessary processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \gls{PDP} Contexts. Large numbers of update messages, especially combined with frequent \gls{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. 
 The time between a request and its corresponding response could also be an indicator for the amount of processing involved for this message as well as the current general processing load at the \gls{GGSN}.

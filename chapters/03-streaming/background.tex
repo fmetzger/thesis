@@ -69,28 +69,28 @@ Finally, the number of targets of a single video stream can also differ. A strea
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Survey of Protocols}
 
-With these classification criteria at hand, we can now start looking at actual protocols, and find out, which motifs they are following. The section largely describe \gls{RTP} and compare it with \gls{HTTP}-based approaches including \gls{DASH} while also mentioning some other, proprietary, streaming protocols.
+With these classification criteria at hand, we can now start looking at actual protocols, and find out, which motifs they are following. The section largely describe \gls{rtp} and compare it with \gls{HTTP}-based approaches including \gls{DASH} while also mentioning some other, proprietary, streaming protocols.
 
 
 %%
-\subsubsection{RTP and Related Protocols}
+\subsubsection{\texorpdfstring{\acrshort{rtp}}{rtp} and Related Protocols}
 
-\gls{RTP} \cite{rfc3550} is always used in conjunction with its sister-protocol \gls{RTCP} and often also employs \gls{RTSP} \cite{rfc2326}. According to literature, they are the classic approach to video streaming (for example compare \cite[p.~589ff]{kurose2008computer} and \cite[p.~426ff]{peterson2007computer}).
-The protocol suite employs a \textit{push-based approach}, the \gls{RTP} server application has full control of the streaming process. Control and information exchange is also out of band through \gls{RTSP} and \gls{RTCP}. Therefore, multicast is also easily possible with \gls{RTP} but not mandatory.
+\gls{rtp} \cite{rfc3550} is always used in conjunction with its sister-protocol \gls{rtcp} and often also employs \gls{RTSP} \cite{rfc2326}. According to literature, they are the classic approach to video streaming (for example compare \cite[p.~589ff]{kurose2008computer} and \cite[p.~426ff]{peterson2007computer}).
+The protocol suite employs a \textit{push-based approach}, the \gls{rtp} server application has full control of the streaming process. Control and information exchange is also out of band through \gls{RTSP} and \gls{rtcp}. Therefore, multicast is also easily possible with \gls{rtp} but not mandatory.
 
-\gls{RTP} has also no inherent adaptivity nor reliability mechanisms, neither does it conduct congestion control on its own. Moreover, \gls{RTP} generally runs on top of \gls{UDP}, which also does not provide congestion control. All must be provided by the server-side application implementation if necessary. In case of multicasting the potential to conduct transport adaptations is very limited, as the server has to take all the recipients into consideration for its decisions.
-
-
-\paragraph{RTP}
-
-\gls{RTP} itself provides just the packet format and header for the transport of the actual multimedia data. Any stream type is transported in a separate session. This includes the presence of both video and audio, which must then be synchronized to each other. Each session uses its own \gls{UDP} source-destination port pair.
-
-The \gls{RTP} specification itself defines only the most basic packet header, with several additional specs describing dedicated profiles for various content types. For today's prevalent MPEG-4 protocols, including H.264, multiple profiles, defined in \cite{rfc3640,rfc6184,rfc6416} , and with this many ways to embed video into RTP packets, are available. Common to all is the variable-size \gls{RTP} header of at least \SI{16}{\byte}. Video codecs may embed their own organizational structure inside the packet. For example, if dealing with an MPEG-4 \gls{ES}, the payload may contain one or more \gls{AU}.
+\gls{rtp} has also no inherent adaptivity nor reliability mechanisms, neither does it conduct congestion control on its own. Moreover, \gls{rtp} generally runs on top of \gls{UDP}, which also does not provide congestion control. All must be provided by the server-side application implementation if necessary. In case of multicasting the potential to conduct transport adaptations is very limited, as the server has to take all the recipients into consideration for its decisions.
 
 
-\paragraph{RTCP}
+\paragraph{\gls{rtp}}
 
-\gls{RTCP} is used to exchange feedback and control information between receivers and sender and vice versa. These sender and receiver reports are transmitted on a separate \gls{UDP} connection at small intervals scaled in such a way, that the bandwidth should not exceed 5\% of the stream's bandwidth. The reports will include statistics related to lost packets and the packet delay and variation. Based on these, a sender can adjust its streams to fit the current conditions. Likewise, a receiver may tune its video buffering behavior or may even switch stream sources.
+\gls{rtp} itself provides just the packet format and header for the transport of the actual multimedia data. Any stream type is transported in a separate session. This includes the presence of both video and audio, which must then be synchronized to each other. Each session uses its own \gls{UDP} source-destination port pair.
+
+The \gls{rtp} specification itself defines only the most basic packet header, with several additional specs describing dedicated profiles for various content types. For today's prevalent MPEG-4 protocols, including H.264, multiple profiles, defined in \cite{rfc3640,rfc6184,rfc6416} , and with this many ways to embed video into RTP packets, are available. Common to all is the variable-size \gls{rtp} header of at least \SI{16}{\byte}. Video codecs may embed their own organizational structure inside the packet. For example, if dealing with an MPEG-4 \gls{ES}, the payload may contain one or more \gls{AU}.
+
+
+\paragraph{\texorpdfstring{\acrshort{rtcp}}{rtcp}}
+
+\gls{rtcp} is used to exchange feedback and control information between receivers and sender and vice versa. These sender and receiver reports are transmitted on a separate \gls{UDP} connection at small intervals scaled in such a way, that the bandwidth should not exceed 5\% of the stream's bandwidth. The reports will include statistics related to lost packets and the packet delay and variation. Based on these, a sender can adjust its streams to fit the current conditions. Likewise, a receiver may tune its video buffering behavior or may even switch stream sources.
 
 
 \paragraph{Stream Initiation}
@@ -101,7 +101,7 @@ In case of multicasting, stream management can also be conducted directly by joi
 This requires the cooperation of all intermediary routers. Therefore, it is usually only seen in closed networks (``walled gardens''), where the whole network infrastructure is owned by a single instance. For example, Telekom Austria's A1TV employs this scheme. \todo{reference, bernhard?}
 
 
-\gls{RTP} is also used extensively in conjunction with a lot of other protocol suites, including \gls{SDP} \cite{rfc2327} and \gls{SAP} \cite{rfc2974} for stream discovery or in realtime communication protocols such as \gls{SIP} \cite{rfc3261} and \gls{XMPP} \cite{rfc6120,rfc6121} with the Jingle extension.
+\gls{rtp} is also used extensively in conjunction with a lot of other protocol suites, including \gls{SDP} \cite{rfc2327} and \gls{SAP} \cite{rfc2974} for stream discovery or in realtime communication protocols such as \gls{SIP} \cite{rfc3261} and \gls{XMPP} \cite{rfc6120,rfc6121} with the Jingle extension.
 
 However, the requirement of several open \gls{UDP} sockets has issues with the presence of middleboxes, especially \gls{NAT} nodes, because of the difficulty to forward incoming \gls{UDP} packets to the destined host. This can be, sometimes though unreliably, circumvented by using \gls{NAT} traversal techniques like \gls{STUN} \cite{rfc5389} or \gls{ICE} \cite{rfc5245}.
 
@@ -109,9 +109,9 @@ However, the requirement of several open \gls{UDP} sockets has issues with the p
 
 
 %%
-\subsubsection{HTTP Streaming}
+\subsubsection{\texorpdfstring{\acrshort{HTTP}}{HTTP} Streaming}
 
-When compared to \gls{RTP}, streaming based on \gls{HTTP} uses a much less intricate approach and only reuses existing protocols. HTTP/1.1 \cite{rfc2616} is the basis of the Web and is a request/response protocol mainly to retrieve and pull files from and to a remote location. The protocol is stateless for the server, any request is treated as standalone and will be responded to only with the provided metadata.\footnote{State can still be achieved through other paths, like cookies, but this is out of scope.} This holds true even when more than one request is sent over the same TCP connection, which can be done with persistent \gls{HTTP} connections. Additionally, requests can be sent over one connection without waiting for the answer of the previous request. This is called pipelining and can reduce the round-trip time delay between two consecutive requests.
+When compared to \gls{rtp}, streaming based on \gls{HTTP} uses a much less intricate approach and only reuses existing protocols. HTTP/1.1 \cite{rfc2616} is the basis of the Web and is a request/response protocol mainly to retrieve and pull files from and to a remote location. The protocol is stateless for the server, any request is treated as standalone and will be responded to only with the provided metadata.\footnote{State can still be achieved through other paths, like cookies, but this is out of scope.} This holds true even when more than one request is sent over the same TCP connection, which can be done with persistent \gls{HTTP} connections. Additionally, requests can be sent over one connection without waiting for the answer of the previous request. This is called pipelining and can reduce the round-trip time delay between two consecutive requests.
 
 
 But \gls{HTTP} can also be easily exploited for media streaming. The file to be retrieved should of course contain video and all frames have to be stored sequentially. If there are separate streams present in file, most commonly at least video and audio, they must be interwoven.
@@ -123,7 +123,7 @@ The actual streaming is controlled completely by the player application at the c
 %%
 \paragraph{Reliability and Adaptivity}
 
-\gls{HTTP} uses \gls{TCP} as transport protocol, which has implications to \gls{HTTP} streaming and makes it so distinct from \gls{RTP}/\gls{UDP}-based approaches. \gls{TCP}'s three large features are arguably reliability, congestion control, and flow control.
+\gls{HTTP} uses \gls{TCP} as transport protocol, which has implications to \gls{HTTP} streaming and makes it so distinct from \gls{rtp}/\gls{UDP}-based approaches. \gls{TCP}'s three large features are arguably reliability, congestion control, and flow control.
 
 Reliability means, that at the transport layer and above no packets are lost and file requested by a \gls{HTTP} application will always be transmitted in full to the client (as long as the connection is not completely interrupted). \gls{TCP}'s sender side detects lost packets either by timeouts waiting for the corresponding acknowledgment or, preferably, through duplicate acknowledgments of previous packets. If either of this happens, the lost packet is retransmitted, causing a noticeably increase and variation in latency. But this also means, that the transmission of all consecutive packets has to wait on this one. On links with high loss the transmission can be stalled to such a degree that the incoming bitrate is lower than the bitrate of the playing stream, draining the buffer until it runs empty. Keep in mind, that with reliable streaming, frames, or parts of it, cannot be dropped, and the whole video will always be played.
 

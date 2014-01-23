@@ -20,7 +20,7 @@ The performance requirements of the \gls{GGSN} depend on factors like customers 
 But these network components are sold as static middleboxes and cannot not be easily extended with of-the-shelf hardware in order to account for new requirements.
 The newly introduced concept of \gls{NFV} \cite{nfv_whitepaper} suggests to harness technologies from cloud computing in the network. This would allow network operators to scale out, i.e. using additional low performance machines, instead of scaling up, which requires them to replace existing hardware with more powerful components.
 
-The contribution of this work is threefold. First, we introduce models for both a traditional \gls{GGSN} as well as a virtual \gls{GGSN} using \gls{NFV}. Secondly, we provide distributions for \gls{GTP} tunnel interarrival times and durations, readily to be used in other studies. Finally, we study performance trade-offs when using a virtual \gls{GGSN}, discussing different options to consider when using a virtual \gls{GGSN}.
+The contribution of this work is threefold. First, we introduce models for both a traditional \gls{GGSN} as well as a virtual \gls{GGSN} using \gls{NFV}. Secondly, we provide distributions for \gls{gtp} tunnel interarrival times and durations, readily to be used in other studies. Finally, we study performance trade-offs when using a virtual \gls{GGSN}, discussing different options to consider when using a virtual \gls{GGSN}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -75,7 +75,7 @@ It is also entirely possible that the single queue approach is not the best way 
 
 
 %%
-\subsubsection{Monolithic GGSN}
+\subsubsection{Monolithic \texorpdfstring{\acrshort{GGSN}}{GGSN}}
 
 In this section we provide a model for a traditional \gls{GGSN} and discuss a model for a virtual \gls{GGSN} using \gls{NFV}. In \gls{NFV} \cite{nfv_whitepaper} static network middleboxes are replaced by commodity hardware. The tasks solved by the original middleboxes are then solved by dediciated software.
 
@@ -93,7 +93,7 @@ The queuing theory equivalent is displayed in Figure~\ref{fig:model_traditional_
 
 
 %%
-\subsubsection{GGSN using Network Function Virtualization}
+\subsubsection{\texorpdfstring{\acrshort{GGSN}}{GGSN} using Network Function Virtualization}
 \label{c4:sec:virtual_ggsn}
 
 \begin{figure}[htb]
@@ -149,7 +149,7 @@ In Figure~\ref{c4:fig:traditional_blocking} the maximum number of tunnels $n$, t
 
 
 %%
-\subsubsection{Virtual GGSN}
+\subsubsection{Virtual \texorpdfstring{\acrshort{GGSN}}{GGSN}}
 \label{c4:sec:eval_ideal_virtual_ggsn}
 
 In order to study the feasibility of the virtual \gls{GGSN} approach discussed in Sec.~\ref{c4:sec:virtual_ggsn}, we compare the performance indicators of the virtual \gls{GGSN} with that of a traditional \gls{GGSN}. To this end, the virtual \gls{GGSN} is simulated in varying configurations.
