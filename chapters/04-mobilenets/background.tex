@@ -50,8 +50,14 @@ The \gls{GGSN} represents the gateway to the public Internet and therefore typic
 
 In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and the \gls{gtp} signaling between them. Much of the control plane tasks of the \gls{SGSN} have now been offloaded to a new node, the \gls{MME}, which maintains its own logical connection to the radio network using the \gls{S1AP} signaling protocol~\cite{3gpp.36.413}. Instead of \gls{MAP} to retrieve user data from the central storage, Diameter~\cite{rfc6733} is now used to communicate with the \gls{HSS}. Of note is also a further addition to the \gls{EPS}: the \gls{PCRF} in conjunction with the \gls{PCEF} integrated into the \gls{PGW}. They act as a \gls{DPI} entity, inspecting all userplane traffic and enable arbitrary filtering of traffic and traffic-based billing~\cite{3gpp.23.203}. 
 
-	
 
+\begin{figure}[htbp]
+	\centering
+ 	\includegraphics[width=1.0\textwidth]{images/umts-userpath-stack.pdf}
+ 	\caption{Simplified control plane and user plane \gls{IP}-based protocol stacks on the user traffic path through the mobile network.}
+ 	\label{c4:fig:protocol stacks}
+\end{figure}
+	
 %%
 \subsection{Core Network Concepts and Protocol Details}
 
