@@ -35,10 +35,6 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Proposals}
-
-
-%%
 \section{Upcoming Protocols and Streaming Relationship}
 
 \begin{itemize}
@@ -65,8 +61,10 @@
  \end{itemize}
 
 
-%%
-\subsection{Influence of Layers}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Influence of Layers}
+\label{c5:crosslayerhinting}
+
 
 Wired Internet access has a very narrow choice of protocols on the \gls{ISO}/\gls{OSI} Layers 1 and 2. The typical use-case consists of a \gls{LAN} using Ethernet which is then tunneled through or translated into one of several access technologies, e.g., \gls{DSL}, \gls{DOCSIS}, or \gls{PON}. Applications often make assumptions that rely on the presence of these protocols and their specific characteristics.
 
@@ -83,28 +81,68 @@ Furthermore, traffic could be avoided during cell handover occurrences. This wou
 
 %%
 \subsection{Cross-Layer Mobility Hinting}
-\label{c5:crosslayerhinting}
+
+Today's mobile networks are all of a cellular design. A device that moves from one cell to the other has to perform a so-called handover. During this process the device is deregistered in one cell and registered in the new one. All network traffic currently in flight has to be rerouted or relayed to the device's new location. 
+Although seemingly transparent to the device's application, adverse side effects can occur during a handover, including an increase and variability of latency. 
+
+Mobility support today always means network assisted mobility. Typically, the network decides the best possible mobility strategy from its point of view and provides infrastructure to support seamless handovers in the form of mobility anchor nodes. However, the device is actually in a very unique position, as it knows a great deal more about its traffic mix, its currently running applications and its user than the network ever could and should.
+Unfortunately, most of this information remains unused, as today's network infrastructures and lower layer protocol stacks provide only very slim changes to exert control over decisions regarding the device.
+
+Nonetheless, a lot could still be done when providing the device's operating system and application ecosystem with a simple bidirectional pathway for vertical information and control flow across network protocol layers and to other low-level systems. This work aims to do just that by providing a generic interface and exchange protocol for any kind of information relevant to an application's decision making process. With this meaningful actions and reactions of individual layers can be defined and tested. Possible use cases are provided in the next section.
+
+Still, one has also to keep in mind, that layering and encapsulation is there for a reason and violating this is a rather risky undertaking. However, we do not think that our approach actually violates these basic principles and only extends on the ways one can communicate and interact with all individual layers without changing anything in them.
 
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=\textwidth]{images/crosslayer-http.pdf}
-\caption{Mock-up of http reordering with handover awareness.}
-\label{c5:fig:http-reorder}
-\end{figure}
+	% - Research objectives
+	% 	- Bidirectional vertical information and control flow on the performance of the individual layers
+	% 		- Definition of generic interfaces
+	% 		- Definition of a protocol (including information types, etc.)
+	% 	- Definition of meaningful actions/reactions on the individual layers (e.g. adaptation of real-time communication data sources or changes in resource allocation)
 
+		
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=\textwidth]{images/crosslayer-adaptive-streaming.pdf}
-\caption{Mockup of handover prediction and hinting for adaptive streaming and thus avoiding playback stalls.}
-\label{c5:fig:streaming-hinting}
-\end{figure}
+\subsubsection{Scenario Use Cases}
 
-i.e. Mobility without network support
+\begin{itemize}
+	\item Video/Voice calls that notify the other party, that interruptions are expected to occur.
 
-Why? Handovers mean very long application interruption, and redirecting tcp flows to the current base station isn't cheap either (also, induces \textbf{very} long latency)
+	\item Using current location data and movement patterns/predictions to improve cell selections and initiate horizontal and vertical handovers to a time suitable for the device and running applications.
 
+	\begin{figure}[htb]
+	\centering
+	\includegraphics[width=\textwidth]{images/crosslayer-adaptive-streaming.pdf}
+	\caption{Mockup of handover prediction and hinting for adaptive streaming and thus avoiding playback stalls.}
+	\label{c5:fig:streaming-hinting}
+	\end{figure}
+
+	\item An adaptive streaming video application increases its video buffer when a shortly upcoming handover is announced to survive the service outage. This can be achieved by an increased rate of segment retrieval and a reduction in segment quality. The goal is to avoid any possible playback stalls due to the handover. Figure~\ref{c5:fig:streaming-hinting} demonstrates this circumstance.
+
+	\begin{figure}[htb]
+	\centering
+	\includegraphics[width=\textwidth]{images/crosslayer-http.pdf}
+	\caption{Mock-up of \gls{HTTP} reordering with handover awareness.}
+	\label{c5:fig:http-reorder}
+	\end{figure}
+
+	\item Enable applications to adapt themselves to the conditions currently experienced by the networking stack and its sensors. For example, a Web browser could reorder its Website object requests to avoid sending any requests during handover periods and experience additional delay as seen in Figure~\ref{c5:fig:http-reorder}.
+
+	\item A cross-layer enabled device can also offer a wide range of policy choices to its applications or even directly to the user. An example rule could be: ``Do not handover to a stationary WiFi from 3G when moving faster than 50km/h, only to in-vehicle WiFi.'' or ``Avoid any vertical handover, which would interrupt my service for a long time, while this VoIP call is running.''
+
+\end{itemize}
+
+\subsubsection{Technical Implementation}
+
+The Implementation:
+\begin{itemize}
+	\item Userspace daemon that collects information from kernelspace protocol implementations and sensors and provides them to all applications.
+	\item shared bus control/information system, instead of explicit comm; signaling only to interested parties
+	\item provide common interface also to all available sensors and layer 1 and 2 network information and control (similar to Android)
+	\item IPC message bus, possibly D-Bus\footnote{\url{http://www.freedesktop.org/wiki/Software/dbus/}} based
+	\item Could extend NetworkManager\footnote{\url{https://wiki.gnome.org/Projects/NetworkManager}}, some functionality is already provided there
+
+\end{itemize}
+
+The process:
 \begin{itemize}
 \item Tell Transport/Application the expected time till handover / time of uninterrupted service
 \item Tell Transport/App expected connection parameters (latency, BW, ...)
@@ -115,19 +153,40 @@ Why? Handovers mean very long application interruption, and redirecting tcp flow
 \item Application selects (better: suggests) handover which fits best and reorders accordingly
 \end{itemize}
 
-Advantages/Disadvantages?
-
-Violation of Layering/encapsulation? No, only APIs get extended 
 
 
-relevant work
+
+\subsubsection{Planned Work and Methodology}
+
 \begin{itemize}
-	\item --> Cross-layer design optimizations in wireless protocol stacks \cite{Raisinghani2004720}
+	\item investigate how much information is exposed and what can already be done
+	\item Analysis of data traces and realistic simulations in order to capture in detail the unwanted phenomena
+	\item Verify the suitability of the State-of-the-Art algorithms and protocols which address this problem
+\end{itemize}
+
+
+\subsubsection{Related Work}
+
+\begin{itemize}
+	\item Cross-layer design optimizations in wireless protocol stacks \cite{Raisinghani2004720}
 	\item ECLAIR: An efficient cross layer architecture for wireless protocol stacks \cite{raisinghani2004eclair}
 	\item Still no implementation of ECLAIR: ``Cross-layer feedback architecture for mobile device protocol stacks'' \cite{1580937}
 	\item 802.21
 	\item A multi-layer mobility management architecture using cross-layer signalling interactions\cite{wang2003multi}
-	\item \gls{DLEP} \cite{ietf2013dlepdraft}
+	\item 
+		\begin{itemize}
+			\item \gls{DLEP} \cite{ietf2013dlepdraft}
+			\item running on routers for communication between routers and attached interfaces (wireless!)
+			\item interface/modem informs router about link characteristics
+			\item router acts upon this information
+			\item specific set of required and optional signals (message types / reason for messaging) and data items (information)
+			\item bandwidth, latency, connection status (loss)
+			\item information about specific neighbors
+			\item \gls{UDP}-based, discovery mechanism via multicast, session-based
+			\item requires/relies on lower layer auth/crypt
+			\item no data items specific for cell-type mobile nets and mobility
+			\item best suited for routers with external modems/interfaces (outside antennas)
+		\end{itemize}
 	\item Seamless Mobility in Heterogeneous Wireless Networks \cite{zarai2010seamless}
 	\item Radio resource management in emerging heterogeneous wireless networks \cite{Piamrat20111066}
 	\item Improved community network node design using a DLEP based radio-to-router interface \cite{6379143}
@@ -138,14 +197,22 @@ relevant work
 	\item Socketless \gls{TCP} -- an end to end handover solution \cite{1635680}
 	\item SATSIX cross-layer architecture \cite{4656786}
 	\item mostly routing protocol optimization oriented ``A cross layer based QoS model for wireless and mobile ad hoc networks'' \cite{krishna2007cross}
+	\item SmoothIT mechanisms; lower layer elements provide information to higher layers, overlays\footnote{\url{http://www.smoothit.org}}  \cite{oechsner2009pushing}
+	\item ``Mobility Awareness'' \cite{hummel2010mobilitaet} PMLAR (Predictive mobility and location-aware routing protocol in mobile ad hoc networks)
+	\item Automatic Multi-interface Management Through Profile Handling \cite{Bonnin:2009:AMM:1503496.1503498}
+	\item A ubiquitous mobile communication architecture for next-generation heterogeneous wireless systems \cite{1452832} (supposed to propose a function that determines the best handover initiation time in order to avoid early or late initiations)
+	\item Optimized video streaming over 802.11 by cross-layer signaling \cite{1580941}
+	\item LCP Link Control Protocol, PPP extension RFCs \cite{rfc1570,rfc1661}
+ 	\item Modem Link Properties Advertisement Protocol\footnote{\url{https://tools.ietf.org/html/draft-ivancic-mobopts-modemlpa-01}}
+	\item IEEE 802.21 cooperative handovers, but with required network support
+	\item LISP and other mobility approaches \cite{rfc6830}
+	\item Radio Resource Management RRM
+		\begin{itemize}
+			\item resource monitoring, decision making, decision enforcement
+			\item choose available wireless interfaces  best suited for a specific task
+			\item rudimentary implementations in mobile OSs
+		\end{itemize}
 \end{itemize}
-
-SmoothIT mechanisms; lower layer elements provide information to higher layers, overlays  \cite{oechsner2009pushing}
-
-
-Network Unassisted/Independent Mobility / Mobility Prediction API: When will the next handover occur, how much delay and bandwidth do i currently have? Can i complete outstanding transfers or should i reschedule them? Or, e.g., should i request a lower quality fragment? // Requirements: Stateless short to mid-termed ``Connections'', high granularity of data ``packets''
---> ``Mobility Awareness'' \cite{hummel2010mobilitaet} PMLAR (Predictive mobility and location-aware routing protocol in mobile ad hoc networks)
-
 
 
 
