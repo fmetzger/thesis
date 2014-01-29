@@ -57,66 +57,52 @@ In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW},
  	\caption{Simplified control plane and user plane \gls{IP}-based protocol stacks on the user traffic path through the mobile network.}
  	\label{c4:fig:protocol stacks}
 \end{figure}
+
+Figure~\ref{c4:fig:protocol stacks} overviews the complete protocol stack on the path of the user traffic through the whole network from the \gls{UE} to an external network.
+
 	
 %%
-\subsection{Core Network Concepts and Protocol Details}
+\subsection{Core Network Concepts}
 
+Most of the discussed upcoming research deals with the core network. Therefore, this next sections will explain in detail the concepts behind the \gls{3G} core network control plane at the \gls{gtp} protocol family.
 
-All core network signaling procedures and state machines are specified in TS 24.008~\cite{3gpp.24.008}
+As stated, there is a strict separation between control instances and instances that carry the actual user traffic. Looking at the control plane side of things, management is conducted in a completely stateful way. Nodes keep track of every \gls{UE} they are managing and need to locally store any state information they might need. Of particular interest is the state revolving around the \textit{\gls{PDP} Context}. For each open data connection a device has, both the \gls{GGSN} and \gls{SGSN} must keep such a \gls{PDP} Context, which identifies the connection as well as the device belonging to it.
 
-simple example procedure:
-	\gls{PDP} context activation procedure in \gls{UMTS}
-	invokes additional \gls{CAMEL} procedures defined in \cite{3gpp.23.078}
+Additionally, a number of state machines are maintained. State machine transitions then trigger a signaling message to specific neighbors. Any signaling interaction belongs to one or more larger control plane procedures. Most of the procedures that happen inside the core network\gls{PS} domain or affect it are defined in TS~24.008~\cite{3gpp.24.008} and TS~23.060\cite{3gpp.23.060}.
 
-	\begin{figure}[htb]
-		\centering
-		\includegraphics[width=0.7\textwidth]{images/pdp-context-activation-procedure.pdf}
-		\caption{PDP Context Activation procedure signaling interaction diagram for \gls{UMTS}, including involved signaling protocols.}
-		\label{c4:fig:pdpcontextactivationinteraction}
-	\end{figure}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/pdp-context-activation-procedure.pdf}
+	\caption{PDP Context Activation procedure signaling interaction diagram for \gls{UMTS}, including involved signaling protocols.}
+	\label{c4:fig:pdpcontextactivationinteraction}
+\end{figure}
 
-	29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
-	29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
-	29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
+A very simple example is demonstrated in Figure~\ref{c4:fig:pdpcontextactivationinteraction}. Initiated by the \gls{UE}'s session management state machine a data connection to the device is requested to be set up, triggering signaling with various protocols throughout the network. Additional secondary \gls{CAMEL} procedures, defined in \cite{3gpp.23.078}, are also triggered and conducted.
 
-%%
-\subsubsection{Mobile Network Control Plane}
-
-separation between control and user plane: tunneling concept
-state machines
-protocols
-procedures -> location of control inside the network vs at the edge
-comparison of explicit (3G) control networks vs implicit (IP)
-resulting complexity
-...
-
+The general motif of control in \gls{3G} networks is rather different to that of the typical \gls{TCP}/\gls{IP} Internet stack. Whereas plain \gls{IP} stacks rely on the end-to-end principle and put most of the control inside the devices at the edge, in \gls{3G} control procedures are spread across the network. Coordinating this requires the discussed control plane and all of the explicit signaling interactions. This results in a rather high complexity but also gives us the opportunity to investigate these mechanisms and implications the structures have on the performance.
 
 
 %%
-\subsubsection{State Keeping: \texorpdfstring{\acrshort{PDP}}{PDP} Context Concept}
-explain data structure/state
+\subsection{Tunneling Concept, Bearers, and \texorpdfstring{\acrshort{PDP}}{PDP} Contexts}
 
-
-
-%%
-\subsubsection{\texorpdfstring{\acrshort{gtp}}{GTP} and \texorpdfstring{\acrshort{gtp}}{GTP}-based Core Network Signaling}
-\label{c4:sec:gtp}
-
-
-
-
-
-
-
-
-
-%%
-\paragraph{Tunneling Concept and Bearers}
+To enact the aforementioned user and control plane separation, tunneling concepts are used.
 
 LTE: mention also \gls{PMIPv6} as \gls{gtp} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
 
+QoS 
+
+explain data structure/state
 
 One UE Can have a maximum of 3 \gls{PDN} connections and 11 bearers (one default per \gls{APN} and additional dedicated).
+
+%%
+\subsection{\texorpdfstring{\acrshort{gtp}}{GTP} and \texorpdfstring{\acrshort{gtp}}{GTP}-based Core Network Signaling}
+\label{c4:sec:gtp}
+
+29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
+29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
+29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
+
 
 
 
@@ -294,14 +280,9 @@ The focus of our work will be the three Tunnel Management message pairs involved
 \begin{itemize}
 \item The \textbf{Create Context Message}, which is part of several larger control procedures that activate the GTP tunnel for a mobile device. These can be initiated from the network as well as the device itself, again depending on the specific implementation of the architecture. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, lack of resource, or unrecoverable system failures.
 
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=0.8\columnwidth]{images/pdp-context-activation.pdf}
-	\caption{PDP Context Activation Procedure in a UMTS network.}
-	\label{c4:fig:pdpcontextactivation}
-\end{figure}
 
-Figure \ref{c4:fig:pdpcontextactivation} shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp.23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
+
+Figure c4:fig:pdpcontextactivation shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp.23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
 
 Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary PDP context Activation} procedure for every tunnel beyond the first. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
 
@@ -837,6 +818,12 @@ As discussed, most of the actions in the network as well as in the mobile device
 % \end{figure}
 
 
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=0.8\columnwidth]{images/pdp-context-activation.pdf}
+% 	\caption{PDP Context Activation Procedure in a UMTS network.}
+% 	\label{c4:fig:pdpcontextactivation}
+% \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{3gppdesc.tex}
