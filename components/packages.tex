@@ -9,19 +9,15 @@
   \usepackage{mathtools}
   \usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
   \usepackage{unicode-math} % fixes math
-  \setmathfont{Asana-Math.otf}
-  \RequirePackage{scrlfile} % provides preventpackagefromloading
-  \PreventPackageFromLoading{mathpazo} % classicthesis loads mathpazo, but this will break math with luatex
+  \setmathfont{texgyrepagellamath-regular.otf}
   \usepackage{polyglossia} % babel replacement for use with fontspec
   \setdefaultlanguage{english}
-  % \PassOptionsToPackage{eulerchapternumbers,listings,pdfspacing,beramono,parts,dottedtoc,floatperchapter,linedheaders}{classicthesis}
 \else
   \usepackage[utf8]{inputenc}                   
   \usepackage[T1]{fontenc}
   \usepackage[american]{babel}
+  \usepackage{amsmath}
   \usepackage{mathtools} % instead of amsmath; amssymb and amsthm not included
-
-  %\PassOptionsToPackage{eulerchapternumbers,listings,pdfspacing,beramono,eulermath,parts,dottedtoc,floatperchapter}{classicthesis}
 \fi
 
 \usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
@@ -37,6 +33,7 @@
 \usepackage{multirow} % tables spanning multiple rows
 \usepackage{longtable} %required for tabu with longtabu
 \usepackage{tabu} %supersedes tabularx, provides tables spanning multiple pages
+
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usepackage{marginnote} % ?
@@ -46,13 +43,12 @@
 \usepackage[colorlinks, unicode=true]{hyperref}
 \hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen}
 
-%\usepackage[acronym,toc,section=chapter]{glossaries}
 \usepackage[acronym, nomain, style=tree, hyperfirst=false, toc, section=chapter]{glossaries}
 %\glsdisablehyper   % enable this, if hyperref for glossaries breaks again
 
-\usepackage{scrpage2}
+
 %\usepackage{classicthesis} % https://code.google.com/p/classicthesis/
-\usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
+
 \usepackage{textcomp} % extra symbols; used for euro and copyright symbol
 \usepackage[load-configurations={abbreviations,binary}]{siunitx}
 \sisetup{load-configurations = abbreviations,binary-units}
@@ -61,3 +57,110 @@
 \usepackage{algorithm}
 
 \usepackage{gitinfo}
+
+
+%%%%%%%%%%%%%
+% classicthesis replacement
+\usepackage[automark]{scrpage2}
+
+% \toprule and other table stuff
+\usepackage{booktabs} 
+
+% font
+\usepackage{libertine}
+\usepackage[libertine]{newtxmath}
+\linespread{1.05} % a bit more for Palatino
+
+% microtype and pdfspacing
+\usepackage{microtype}
+\microtypesetup{expansion=false}%
+\DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}%
+\DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textls[80]{\scshape\MakeTextLowercase{#1}}}%
+
+
+% typearea
+\usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
+
+
+% Disable single lines at the start of a paragraph (Schusterjungen)
+\clubpenalty = 10000
+% Disable single lines at the end of a paragraph (Hurenkinder)
+\widowpenalty = 10000 
+\displaywidowpenalty = 10000 % formulas
+
+% Graffiti as in GKP's book "Concrete Mathematics"
+% thanks to Lorenzo Pantieri and Enrico Gregorio
+\def\graffito@setup{%
+   \slshape\footnotesize%
+   \parindent=0pt \lineskip=0pt \lineskiplimit=0pt %
+   \tolerance=2000 \hyphenpenalty=300 \exhyphenpenalty=300%
+   \doublehyphendemerits=100000%
+   \finalhyphendemerits=\doublehyphendemerits}
+%\DeclareRobustCommand{\graffito}[1]{\marginpar%
+% [\graffito@setup\raggedleft\hspace{0pt}{#1}]%
+% {\graffito@setup\raggedright\hspace{0pt}{#1}}}
+\let\oldmarginpar\marginpar
+\renewcommand{\marginpar}[1]{\oldmarginpar%
+ [\graffito@setup\raggedleft\hspace{0pt}{#1}]%
+ {\graffito@setup\raggedright\hspace{0pt}{#1}}}
+              
+
+
+% headlines
+    \clearscrheadings
+    \setheadsepline{0pt}
+    \renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\spacedlowsmallcaps{#1}}} 
+    \lehead{\mbox{\llap{\small\thepage\kern2em}\headmark\hfil}}
+    \rohead{\mbox{\hfil{\headmark}\rlap{\small\kern2em\thepage}}}
+    \renewcommand{\headfont}{\small}  
+  %    \DeclareRobustCommand{\fixBothHeadlines}[2]{} % <--- ToDo
+    % hack to get the content headlines right (thanks, Lorenzo!)
+    \def\toc@heading{%
+      \chapter*{\contentsname}
+      \@mkboth{\spacedlowsmallcaps{\contentsname}}{\spacedlowsmallcaps{\contentsname}}}
+
+
+
+% section heading styles     
+\usepackage{titlesec}
+\usepackage{textcase} % for \MakeTextUppercase
+\newfont{\chapterNumber}{eurb10 scaled 7000} % chapter number font
+%\AtBeginDocument{\addtocontents{toc}{\protect\vspace{-\cftbeforechapskip}}}
+
+\titleformat{\chapter}[display]%
+  {\relax}{\vspace*{-3\baselineskip}\makebox[\linewidth][r]{\color{halfgray}\chapterNumber\thechapter}}{0pt}%
+  {\raggedright\spacedallcaps}[\normalsize\vspace*{.8\baselineskip}\titlerule]%
+
+% sections
+\titleformat{\section}{\relax}{\textsc{\MakeTextLowercase{\thesection}}}{1em}{\spacedlowsmallcaps}
+% subsections
+\titleformat{\subsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsection}}}{1em}{\normalsize\itshape}
+% subsubsections
+\titleformat{\subsubsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}        
+% paragraphs
+\titleformat{\paragraph}[runin]{\normalfont\normalsize}{\theparagraph}{0pt}{\spacedlowsmallcaps}    
+% descriptionlabels
+    \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\spacedlowsmallcaps{#1}}   % spacedlowsmallcaps textit textsc                  
+% spacing
+\titlespacing*{\chapter}{0pt}{1\baselineskip}{1.2\baselineskip}
+\titlespacing*{\section}{0pt}{1.25\baselineskip}{1\baselineskip} 
+\titlespacing*{\subsection}{0pt}{1.25\baselineskip}{1\baselineskip}
+\titlespacing*{\paragraph}{0pt}{1\baselineskip}{1\baselineskip}
+
+
+% toc style
+\usepackage[titles]{tocloft}
+\renewcommand{\cftchappresnum}{\scshape\MakeTextLowercase}%
+\renewcommand{\cftchapfont}{\normalfont}%
+\renewcommand{\cftchappagefont}{\normalfont}%
+\let\oldchap=\chapter
+\renewcommand*{\chapter}{\secdef{\Chap}{\ChapS}}
+\newcommand\ChapS[1]{\oldchap*{#1}}%
+\newcommand\Chap[2][]{%
+       \ifpdf\oldchap[\texorpdfstring{\spacedlowsmallcaps{#1}}{#1}]{#2}%
+       \else\oldchap[\spacedlowsmallcaps{#1}]{#2}%
+       \fi%
+}%
+
+
+\deffootnote{0em}{0em}{\thefootnotemark\hspace*{.5em}}
