@@ -85,15 +85,13 @@ The general motif of control in \gls{3G} networks is rather different to that of
 %%
 \subsection{Tunneling Concept, Bearers, and \texorpdfstring{\acrshort{PDP}}{PDP} Contexts}
 
-To enact the aforementioned user and control plane separation, tunneling concepts are used.
+To enact the aforementioned user and control plane separation, a custom tunneling concept is used. Beginning at the \gls{UE}, the actual user \gls{IP} stack is never directly carried over the link's layer 1 and 2 protocols but always further encapsulated into so called \textit{Bearer}. The specifications distinguish between the \textit{Radio Bearer} on the air interface, the \gls{RAB} denominates the path between the \gls{UE} and the \gls{CN}, where it is called \gls{CN} bearer.
 
-LTE: mention also \gls{PMIPv6} as \gls{gtp} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
+Technically, different protocols with tunneling capability are used on each link. \gls{PDCP} is used on the radio link, between the \gls{RAN} and the \gls{CN} as well as in the core between \gls{SGSN} and \gls{GGSN} \gls{GTP-U} is employed. Closely related to the core network bearer are a number of information records stored and maintained at the two core nodes, the \gls{PDP} Context. For every active bearer a context is stored containing identification and management information about it. Amongst others this includes device identifiers, e.g. \gls{IMSI} and \gls{IMEI}, tunnel identifiers (\gls{TEID}), and information about the intended public network (the \gls{APN}) , charging, and \gls{QoS} \cite[Section~13]{3gpp.23.060}.
 
-QoS 
+Commonly, any device with an active data connection has at least one bearer and associated \gls{PDP} context, the \textit{default bearer}. In terms of \gls{QoS} this represents a best effort tunnel carrying all user traffic, that is not further differentiated. Additionally, the device can request a number of secondary tunnels - \textit{dedicated bearers} - with certain \gls{QoS} guarantees. Traffic matching a specified \gls{TFT} will then be carried over this dedicated bearer. However, this concept is scarcely used in \gls{3G} networks. All in all, one \gls{UE} can be associated with up to 11 bearers, one default bearer and additional dedicated bearers.
 
-explain data structure/state
-
-One UE Can have a maximum of 3 \gls{PDN} connections and 11 bearers (one default per \gls{APN} and additional dedicated).
+%LTE: mention also \gls{PMIPv6} as \gls{gtp} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
 
 %%
 \subsection{\texorpdfstring{\acrshort{gtp}}{GTP} and \texorpdfstring{\acrshort{gtp}}{GTP}-based Core Network Signaling}
@@ -105,31 +103,6 @@ One UE Can have a maximum of 3 \gls{PDN} connections and 11 bearers (one default
 
 
 
-
-\begin{itemize}
-\item 	Every bearer has a predefined QoS level between UE and P-GW.
-		==> Level of Granularity for QoS control.
-\item	Initial bearer QoS level assigned by network based on subscription data.
-\item	Guaranteed Bit Rate (GBR) bearers: dedicated network resources permanently allocated at est/mod. Otherwise Non-GBR.
-\item	The Traffic Flow Template (TFT) belonging to a bearer is a set of packet filters that assign traffic flows to the bearer.
-\item	UL-TFT at UE, DL-TFT at \gls{PCEF} (P-GW).
-\item 	default bearer: always-on IP connectivity for the UE to a PDN
-\item	dedicated bearer:   
-			\begin{itemize}
-				\item any additional bearer for the same PDN
-				\item \gls{TFT} associated with every ded. bearer
-				\item establishment/modification decision only by \gls{EPC}
-				\item QoS level assignment only by \gls{EPC}
-			\end{itemize}
-
-\item	default bearer may be used as {m,c}atch-all traffic bearer for everything that does not match any filter
-\item	Every bearer associated with QCI and ARP.
-
-QoS class identifier (QCI): standardized scalar as reference for node-specific QoS parameters
-Allocation and Retention Policy (ARP): priority level preemption capability, preemption vulnerability.
-
-\item	All simultaneously active bearers by one UE are provided are provided by the same P-GW.
-\end{itemize}
 
 
 
@@ -824,6 +797,34 @@ As discussed, most of the actions in the network as well as in the mobile device
 % 	\caption{PDP Context Activation Procedure in a UMTS network.}
 % 	\label{c4:fig:pdpcontextactivation}
 % \end{figure}
+
+
+
+% \begin{itemize}
+% \item 	Every bearer has a predefined QoS level between UE and P-GW.
+% 		==> Level of Granularity for QoS control.
+% \item	Initial bearer QoS level assigned by network based on subscription data.
+% \item	Guaranteed Bit Rate (GBR) bearers: dedicated network resources permanently allocated at est/mod. Otherwise Non-GBR.
+% \item	The Traffic Flow Template (TFT) belonging to a bearer is a set of packet filters that assign traffic flows to the bearer.
+% \item	UL-TFT at UE, DL-TFT at \gls{PCEF} (P-GW).
+% \item 	default bearer: always-on IP connectivity for the UE to a PDN
+% \item	dedicated bearer:   
+% 			\begin{itemize}
+% 				\item any additional bearer for the same PDN
+% 				\item \gls{TFT} associated with every ded. bearer
+% 				\item establishment/modification decision only by \gls{EPC}
+% 				\item QoS level assignment only by \gls{EPC}
+% 			\end{itemize}
+
+% \item	default bearer may be used as {m,c}atch-all traffic bearer for everything that does not match any filter
+% \item	Every bearer associated with QCI and ARP.
+
+% QoS class identifier (QCI): standardized scalar as reference for node-specific QoS parameters
+% Allocation and Retention Policy (ARP): priority level preemption capability, preemption vulnerability.
+
+% \item	All simultaneously active bearers by one UE are provided are provided by the same P-GW.
+% \end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{3gppdesc.tex}

@@ -2,9 +2,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % packages
 
-
-
-
 \usepackage{ifluatex}
 \ifluatex
   \usepackage{fontspec}
@@ -12,8 +9,6 @@
   \usepackage{mathtools}
   \usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
   \usepackage{unicode-math} % fixes math
-  %\newfontfeature{Microtype}{protrusion=default; expansion=default}
-  %\defaultfontfeatures{Microtype}
   \setmainfont[SmallCapsFont={Linux Libertine O},SmallCapsFeatures={Letters=SmallCaps}]{Linux Libertine O}
   \newfontfamily\scfont[Letters=SmallCaps]{Linux Libertine O}
   %\usepackage{tex-gyre-math}
@@ -35,7 +30,6 @@
 
 \linespread{1.05}
 \usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
-
 \usepackage{scrhack} % fix komascript floattolist issues
 \usepackage[defernumbers=true, style=alphabetic, firstinits=true, backend=biber, doi=true, url=true, block=ragged, maxnames=6]{biblatex} % 
 \usepackage{csquotes} % context sensitive quotations; especially for use with biblatex and biber
@@ -47,7 +41,6 @@
 \usepackage{multirow} % tables spanning multiple rows
 \usepackage{longtable} %required for tabu with longtabu
 \usepackage{tabu} %supersedes tabularx, provides tables spanning multiple pages
-
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usepackage{marginnote} % ?
@@ -74,21 +67,18 @@
 
 
 %%%%%%%%%%%%%
-% classicthesis replacement
+% classicthesis replacement code
 \usepackage[automark]{scrpage2}
 
 % \toprule and other table stuff
 \usepackage{booktabs} 
 
-
 % microtype and pdfspacing
 \DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}%
 \DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textls[80]{\scshape\MakeTextLowercase{#1}}}%
 
-
 % typearea
 \usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
-
 
 % Disable single lines at the start of a paragraph (Schusterjungen)
 \clubpenalty = 10000
@@ -112,8 +102,6 @@
  [\graffito@setup\raggedleft\hspace{0pt}{#1}]%
  {\graffito@setup\raggedright\hspace{0pt}{#1}}}
               
-
-
 % headlines
     \clearscrheadings
     \setheadsepline{0pt}
@@ -126,8 +114,6 @@
     \def\toc@heading{%
       \chapter*{\contentsname}
       \@mkboth{\spacedlowsmallcaps{\contentsname}}{\spacedlowsmallcaps{\contentsname}}}
-
-
 
 % section heading styles     
 \usepackage{titlesec}
