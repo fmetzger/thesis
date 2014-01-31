@@ -55,10 +55,10 @@ In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW},
 	\centering
  	\includegraphics[width=1.0\textwidth]{images/umts-userpath-stack.pdf}
  	\caption{Simplified control plane and user plane \gls{IP}-based protocol stacks on the user traffic path through the mobile network.}
- 	\label{c4:fig:protocol stacks}
+ 	\label{c4:fig:protocolstacks}
 \end{figure}
 
-Figure~\ref{c4:fig:protocol stacks} overviews the complete protocol stack on the path of the user traffic through the whole network from the \gls{UE} to an external network.
+Figure~\ref{c4:fig:protocolstacks} overviews the complete protocol stack on the path of the user traffic through the whole network from the \gls{UE} to an external network.
 
 	
 %%
@@ -102,39 +102,11 @@ Commonly, any device with an active data connection has at least one bearer and 
 29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
 
 
+ \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{gtp} flowing across the Gn and Gp interfaces which forms the foundation for our work.
 
+ The Gn interface connects the two main \gls{GPRS} nodes, the \gls{GGSN} and \gls{SGSN}, using the \gls{gtp} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure~\ref{c4:fig:protocolstacks}.
 
-
-
-%%
-\subsubsection{\texorpdfstring{\acrshort{GPRS}}{GPRS} Fundamentals}
-
-The packet switched domain of an \gls{UMTS} network is an evolution of \gls{GPRS} and thus closely related to it. First defined by the \gls{3GPP} in Release 99, it focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{gtp} flowing across the Gn and Gp interfaces which forms the foundation for our work.
-
-
-
-As shown in Figure \ref{c4:fig:psdomain}, user traffic originating at any \gls{MS} connected to the radio network flows through a Node B (also called base station), which provides radio connectivity. Multiple Node B are aggregated into a \gls{RNC}. The base stations and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
-
-One role of the \gls{SGSN} is to serve as mobility anchor for mobile devices. It is also the endpoint for \gls{RRC}-based signaling and the \gls{RAB}, the radio counterpart to the core network user traffic tunnel. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{gtp} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{gtp} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels in the core.
-
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=0.6\columnwidth]{images/signalling-stack.pdf}
-	\caption{Typical signaling protocol stack at the Gn interface between \gls{SGSN} and \gls{GGSN}.}
-	\label{c4:fig:signallingstack}
-\end{figure}
-
-
-Before diving into specifics of \gls{gtp} messaging, we give a short overview on the packet switched domain of an \gls{UMTS} network. This domain is closely related to the \gls{GPRS} part introduced for \acrshort{GSM}. \gls{UMTS}, first defined by the \gls{3GPP} in Release 99, focuses its improvements over \gls{GSM} mostly on the radio aspects, while keeping the core network \gls{GPRS} architecture intact at large. \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{gtp} flowing across the Gn and Gp interfaces which forms the basis for our work.
-
-As shown in Figure \ref{c4:fig:psdomain}, user traffic originating at any \gls{MS} connected to the radio network flows through one of the Node Bs, providing radio connectivity. Multiple Node Bs are aggregated by a \gls{RNC}. Node Bs and \glspl{RNC} form the \gls{UTRAN}, which is typically connected by back-haul fiber links to the core network part formed by the \gls{SGSN} and the \gls{GGSN}.
-
-One role of the \gls{SGSN} is as the mobility anchor for mobile devices, and it is the endpoint for \gls{RRC}-based signaling and the \gls{RAB}. The \gls{GGSN} provides the gateway to the public Internet. The Gn interface connects those two nodes, using the \gls{gtp} protocol to exchange user as well as control plane traffic as seen in the protocol stack in Figure \ref{c4:fig:signallingstack}. \gls{gtp} is further separated into GTP-C, facilitating control message exchange, and GTP-U for transporting user traffic through tunnels.
-
-
-
-
-
+ \gls{gtp} is further separated into \gls{GTP-C}, facilitating control message exchange, and \gls{GTP-U} for transporting user traffic through tunnels in the core.
 
 
 % \subsubsection{Information Element Concept}
@@ -142,50 +114,93 @@ One role of the \gls{SGSN} is as the mobility anchor for mobile devices, and it 
 % list all involved IEs their sizes and thus the imposed overhead
 % "The IMSI IE together with the NSAPI IE uniquely identifies the PDP context to be created"
 
-\begin{table}[htb]
-	\caption{GTP header format (TODO: which one exactly. This looks like v2-U but should actually better be v1!)}
-	\label{c4:tbl:gtpheader}
-	\begin{tabu}{c|c|c|c|c|c|c|c|c|}
-	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-	\cline{2-9} 1 & \multicolumn{3}{c|}{Version}  & P & T & Spare & Spare & Spare \\ 
-	\cline{2-9} 2 & \multicolumn{8}{c|}{Message Type}  \\ 
-	\cline{2-9} 3 & \multicolumn{8}{c|}{Message Length (1st Octet)}  \\ 
-	\cline{2-9} 4 & \multicolumn{8}{c|}{Message Length (2nd Octet)}  \\ 
-	\cline{2-9} m to & \multicolumn{8}{c|}{\multirow{2}{10cm}{If T flag is set to 1, then TEID shall be placed into octets 5-8. Otherwise, TEID field is not present at all.}} \\ 
-	 k(m+3) & \multicolumn{8}{c|}{} \\ 
-	\cline{2-9} n to (n+2) & \multicolumn{8}{c|}{Sequence Number} \\ 
-	\cline{2-9} (n+3) & \multicolumn{8}{c|}{Spare} \\ 
-	\cline{2-9} 
-	\end{tabu} 
-\end{table}
+The general header for \gls{gtp} messages is displayed in Figure~\ref{c4:tbl:gtpheader}.
 
 
-\begin{table}[htb]
-	\caption{12 Byte GTPv2-C header format.}
-	\label{c4:tbl:gtpv2cheader}
-	\begin{tabu}{c|c|c|c|c|c|c|c|c|}
+\begin{figure}[htb]
+	\begin{tabu}{X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|}
 	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
-	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
-	\cline{2-9} 1 & \multicolumn{3}{c|}{Version}  & P & T=1 & Spare & Spare & Spare \\ 
-	\cline{2-9} 2 & \multicolumn{8}{c|}{Message Type}  \\ 
-	\cline{2-9} 3 & \multicolumn{8}{c|}{Message Length (1st Octet)}  \\ 
-	\cline{2-9} 4 & \multicolumn{8}{c|}{Message Length (2nd Octet)}  \\ 
-	\cline{2-9} 5 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (1st Octet)} \\ 
-	\cline{2-9} 6 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (2nd Octet)} \\ 
-	\cline{2-9} 7 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (3rd Octet)} \\ 
-	\cline{2-9} 8 & \multicolumn{8}{c|}{Tunnel Endpoint Identifier (4th Octet)} \\ 
-	\cline{2-9} 9 & \multicolumn{8}{c|}{Sequence Number (1st Octet)} \\
-	\cline{2-9} 10 & \multicolumn{8}{c|}{Sequence Number (2nd Octet)} \\
-	\cline{2-9} 11 & \multicolumn{8}{c|}{Sequence Number (3rd Octet)} \\
-	\cline{2-9} 12 & \multicolumn{8}{c|}{Spare} \\
+	\textbf{Octets} & \textbf{8} & \textbf{7} & \textbf{6} & \textbf{5} & \textbf{4} & \textbf{3} & \textbf{2} & \textbf{1} \\ 
+	\cline{2-9} \textbf{1} & \multicolumn{3}{c|}{Version}  & 1 & 0 & E & S & PN \\ 
+	\cline{2-9} \textbf{2} & \multicolumn{8}{c|}{Message Type}  \\ 
+	\cline{2-9} \textbf{3} & \multicolumn{8}{c|}{\multirow{2}{*}{Message Length}}  \\ 
+				\textbf{4} & \multicolumn{8}{c|}{}  \\ 
+	\cline{2-9} \textbf{5} & \multicolumn{8}{c|}{\multirow{4}{*}{Tunnel Endpoint Identifier}} \\ 
+				\textbf{6} & \multicolumn{8}{c|}{} \\ 
+				\textbf{7} & \multicolumn{8}{c|}{} \\ 
+				\textbf{8} & \multicolumn{8}{c|}{} \\ 
+	\cline{2-9} \textbf{9} & \multicolumn{8}{c|}{\multirow{3}{*}{Sequence Number}} \\
+				\textbf{10} & \multicolumn{8}{c|}{} \\
+				\textbf{11} & \multicolumn{8}{c|}{} \\
+	\cline{2-9} \textbf{12} & \multicolumn{8}{c|}{Spare} \\
 	\cline{2-9}
 	\end{tabu} 
-\end{table}
+	\caption{General \SI{12}{\byte} \gls{gtp} header format.}
+	\label{c4:tbl:gtpheader}
+\end{figure}
+
+%%
+\subsubsection{\texorpdfstring{\acrshort{GTP-U}}{GTP-U}}
+
 
 Table~\ref{c4:tbl:gtpheader} lists the standard GTPv1 header format used in any GPRS and 3G network.
 
+
+
+
+%%
+\subsubsection{\texorpdfstring{\acrshort{GTP-C}}{GTP-C}}
+
 Table~\ref{c4:tbl:gtpv2cheader} lists the default header format for a GTPv2-C message used in \gls{LTE} networks.
+
+
+
+
+The GTP-C signaling, responsible for the context management interactions, contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. \gls{gtp} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE}, many of which are either optional or variable length through additional optional fields.
+
+The focus of our work will be the three Tunnel Management message pairs involved in the maintenance of PDP Contexts. These are:
+
+\begin{itemize}
+\item The \textbf{Create Context Message}, which is part of several larger control procedures that activate the GTP tunnel for a mobile device. These can be initiated from the network as well as the device itself, again depending on the specific implementation of the architecture. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, lack of resource, or unrecoverable system failures.
+
+
+
+Figure c4:fig:pdpcontextactivation shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp.23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
+
+Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary PDP context Activation} procedure for every tunnel beyond the first. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
+
+
+
+\item \textbf{Delete Context Message}; This indicates the immediate release of the Context involved. 
+Together with the Create event these mark the beginning and the end of every GTP tunnel, making them good candidates to determine tunnel durations for our load evaluations.
+
+The third type of Tunnel Management messages are the \textit{Delete Context Request} and \textit{Response}, indicating the immediate release of the Context involved. They are part of 
+
+\begin{itemize}
+	\item The \textit{GPRS Detach} procedure from the \gls{SGSN} to the \gls{GGSN}, when a device completely deactivates its data services.
+	\item The \textit{GPRS PDP Context Deactivation} procedure from the \gls{SGSN} to the \gls{GGSN}, if only one specific tunnel is to be removed.
+	\item The \textit{part of PDP Context Deactivation Initiated by GGSN} procedure signaled to the \gls{SGSN}.
+\end{itemize}
+%can also delete a set of contexts assigned to a single MS
+
+
+\item \textbf{Update Context Messages}; Several procedures also emit tunnel update messages, when some aspect of the tunnel has changed, e.g. occurring in mobility and load-balancing related procedures but also procedures involving secondary tunnels for a device.
+By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. 
+
+The possible causes for an \textit{Update Context Request} are as following.
+
+\begin{itemize}
+	\item The mobile devices moves between \glspl{SGSN}, causing a \textit{GPRS inter-SGSN Routing Area Update} procedure.
+	\item Parameters belonging to the context such as the assigned \gls{QoS} are altered using the the \textit{PDP Context Modification}.
+	\item As part of \textit{Context redistribution and load balancing} procedures.
+	\item The \gls{MS} switches between \gls{UMTS} and \gls{GPRS} access technologies, causing a \textit{Inter-system intra- \\SGSN Update} procedure. Note that the same tunnel can be used regardless of the radio technology.
+	\item As part of a direct \gls{RNC} to \gls{GGSN} GTP-U tunnel activation procedure, thereby circumventing the \gls{SGSN}. Or, finally, 
+	\item To activate secondary PDP contexts using the \textit{Secondary PDP Context Activation} as previously described. 
+\end{itemize}
+
+By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. Additionally, tunnels using \gls{UMTS} and \gls{GPRS} radio technology can be distinguished, which should in theory lead to wholly different pictures, as nowadays GSM/GPRS is either used in older models or feature phones, or in mobile scenarios in rural areas where the larger GSM cells are more prevalent. Both could indicate that the data session will be rather short  due to either clumsy devices or the low throughput rates of \gls{GPRS}.
+\end{itemize}
+
 
 
 request/response messaging
@@ -244,52 +259,8 @@ Total maximum signaling traffic with this calculation: 19.84GB
 Ratio: 0.02\%
 Total traffic: 122758578593993
 
-Tunnels state is held in the \gls{SGSN} and \gls{GGSN} as \gls{PDP} Context data structures. These contain various information, such as the device IP address, \gls{IMSI}, and a tunnel identifier. The concept is used to isolate user traffic from core network control plane signaling and to provide certain \gls{QoS} guarantees to the user traffic. Multiple \gls{QoS} profiles per device can also be established by setting up up to ten secondary contexts beyond the primary PDP context. However, \gls{QoS} secondary contexts are very rarely in use today, any user-plane IP traffic is typically transported within the primary ``best effort'' tunnel.
-
-The GTP-C signaling, responsible for the context management interactions, contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. \gls{gtp} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE}, many of which are either optional or variable length through additional optional fields.
-
-The focus of our work will be the three Tunnel Management message pairs involved in the maintenance of PDP Contexts. These are:
-
-\begin{itemize}
-\item The \textbf{Create Context Message}, which is part of several larger control procedures that activate the GTP tunnel for a mobile device. These can be initiated from the network as well as the device itself, again depending on the specific implementation of the architecture. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, lack of resource, or unrecoverable system failures.
 
 
-
-Figure c4:fig:pdpcontextactivation shows the \textit{PDP Context Activation Procedure} as defined in \cite{3gpp.23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} protocol \textit{Activate PDP Context Request} typically sent when establishing a mobile data connection.
-
-Generally speaking, any Create Request is part of a \textit{GPRS PDP Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary PDP context Activation} procedure for every tunnel beyond the first. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
-
-
-
-\item \textbf{Delete Context Message}; This indicates the immediate release of the Context involved. 
-Together with the Create event these mark the beginning and the end of every GTP tunnel, making them good candidates to determine tunnel durations for our load evaluations.
-
-The third type of Tunnel Management messages are the \textit{Delete Context Request} and \textit{Response}, indicating the immediate release of the Context involved. They are part of 
-
-\begin{itemize}
-	\item The \textit{GPRS Detach} procedure from the \gls{SGSN} to the \gls{GGSN}, when a device completely deactivates its data services.
-	\item The \textit{GPRS PDP Context Deactivation} procedure from the \gls{SGSN} to the \gls{GGSN}, if only one specific tunnel is to be removed.
-	\item The \textit{part of PDP Context Deactivation Initiated by GGSN} procedure signaled to the \gls{SGSN}.
-\end{itemize}
-%can also delete a set of contexts assigned to a single MS
-
-
-\item \textbf{Update Context Messages}; Several procedures also emit tunnel update messages, when some aspect of the tunnel has changed, e.g. occurring in mobility and load-balancing related procedures but also procedures involving secondary tunnels for a device.
-By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. 
-
-The possible causes for an \textit{Update Context Request} are as following.
-
-\begin{itemize}
-	\item The mobile devices moves between \glspl{SGSN}, causing a \textit{GPRS inter-SGSN Routing Area Update} procedure.
-	\item Parameters belonging to the context such as the assigned \gls{QoS} are altered using the the \textit{PDP Context Modification}.
-	\item As part of \textit{Context redistribution and load balancing} procedures.
-	\item The \gls{MS} switches between \gls{UMTS} and \gls{GPRS} access technologies, causing a \textit{Inter-system intra- \\SGSN Update} procedure. Note that the same tunnel can be used regardless of the radio technology.
-	\item As part of a direct \gls{RNC} to \gls{GGSN} GTP-U tunnel activation procedure, thereby circumventing the \gls{SGSN}. Or, finally, 
-	\item To activate secondary PDP contexts using the \textit{Secondary PDP Context Activation} as previously described. 
-\end{itemize}
-
-By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. Additionally, tunnels using \gls{UMTS} and \gls{GPRS} radio technology can be distinguished, which should in theory lead to wholly different pictures, as nowadays GSM/GPRS is either used in older models or feature phones, or in mobile scenarios in rural areas where the larger GSM cells are more prevalent. Both could indicate that the data session will be rather short  due to either clumsy devices or the low throughput rates of \gls{GPRS}.
-\end{itemize}
 
 The variable-length nature of these messages makes evaluating the imposed network signaling overhead rather difficult. For example, the Create Context Response consists of up to 36 \glspl{IE}, some of them mandatory, most either conditional or optional. Including the headers of both the packet and the individual elements, the minimum size (counting only the required bytes of variable length elements) is 52 bytes, while the lower bound for the message size with all \glspl{IE} present is 307 bytes.
 
@@ -825,6 +796,29 @@ As discussed, most of the actions in the network as well as in the mobile device
 % \item	All simultaneously active bearers by one UE are provided are provided by the same P-GW.
 % \end{itemize}
 
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=0.6\columnwidth]{images/signalling-stack.pdf}
+% 	\caption{Typical signaling protocol stack at the Gn interface between \gls{SGSN} and \gls{GGSN}.}
+% 	\label{c4:fig:signallingstack}
+% \end{figure}
 
+% \begin{table}[htb]
+% 	\caption{GTP header format (TODO: which one exactly. This looks like v2-U but should actually better be v1!)}
+% 	\label{c4:tbl:gtpheader}
+% 	\begin{tabu}{c|c|c|c|c|c|c|c|c|}
+% 	\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+% 	\cline{2-9} \textbf{Octets} & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ 
+% 	\cline{2-9} 1 & \multicolumn{3}{c|}{Version}  & P & T & Spare & Spare & Spare \\ 
+% 	\cline{2-9} 2 & \multicolumn{8}{c|}{Message Type}  \\ 
+% 	\cline{2-9} 3 & \multicolumn{8}{c|}{Message Length (1st Octet)}  \\ 
+% 	\cline{2-9} 4 & \multicolumn{8}{c|}{Message Length (2nd Octet)}  \\ 
+% 	\cline{2-9} m to & \multicolumn{8}{c|}{\multirow{2}{10cm}{If T flag is set to 1, then TEID shall be placed into octets 5-8. Otherwise, TEID field is not present at all.}} \\ 
+% 	 k(m+3) & \multicolumn{8}{c|}{} \\ 
+% 	\cline{2-9} n to (n+2) & \multicolumn{8}{c|}{Sequence Number} \\ 
+% 	\cline{2-9} (n+3) & \multicolumn{8}{c|}{Spare} \\ 
+% 	\cline{2-9} 
+% 	\end{tabu} 
+% \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{3gppdesc.tex}
