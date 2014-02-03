@@ -96,27 +96,9 @@ Commonly, any device with an active data connection has at least one bearer and 
 \subsection{\texorpdfstring{\acrshort{gtp}}{GTP} and \texorpdfstring{\acrshort{gtp}}{GTP}-based Core Network Signaling}
 \label{c4:sec:gtp}
 
-A large part of core network communication is conducted by \gls{gtp}
+A large part of core network communication is conducted by \gls{gtp}. In \gls{3G} networks version 1 of the protocol is used and defined in \gls{TS}~29.060~\cite{3gpp.29.060} and \gls{TS}~29.281~\cite{3gpp.29.281}.\footnote{For a more concise description of the protocol, one should actually read the \gls{gtp} implementation in the community \gls{FOSS} project OpenGGSN at \url{https://github.com/osmobuntu/openggsn}.} For \gls{EPC} some changes were made to \gls{gtp} bringing it to version 2 specified in \gls{TS}~29.274~\cite{3gpp.29.274}. The latter will not be further discussed as all presented evaluations will have a \gls{3G} network as basis.
 
-29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
-29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
-29.274 \cite{3gpp.29.274} GTPv2-C protocols and procedures (LTE only) on S5 (S-GW - P-GW) and S8 (P-GW - P-GW) interfaces
-
-
- \gls{3GPP} \gls{TS} 23.060 \cite{3gpp.23.060} defines the basic aspects involving \gls{GPRS} protocols and its system architecture. \gls{TS} 29.060 \cite{3gpp.29.060} describes the specifics of \gls{gtp} flowing across the Gn and Gp interfaces which forms the foundation for our work.
-
- The Gn interface connects the two main \gls{GPRS} nodes, the \gls{GGSN} and \gls{SGSN}, using the \gls{gtp} protocol to encapsulate user as well as control plane traffic as seen in the protocol stack in Figure~\ref{c4:fig:protocolstacks}.
-
- \gls{gtp} is further separated into \gls{GTP-C}, facilitating control message exchange, and \gls{GTP-U} for transporting user traffic through tunnels in the core.
-
-
-% \subsubsection{Information Element Concept}
-% Discuss the concept
-% list all involved IEs their sizes and thus the imposed overhead
-% "The IMSI IE together with the NSAPI IE uniquely identifies the PDP context to be created"
-
-The general header for \gls{gtp} messages is displayed in Figure~\ref{c4:fig:gtpheader}.
-
+\gls{gtp} is mainly used on the Gn interface that connects the two main \gls{GPRS} nodes, the \gls{GGSN} and \gls{SGSN}. Its functionality is split up between a user plane and a control plane part, named respectively \gls{GTP-U} and \gls{GTP-C}. \gls{gtp} can best be described as an application layer signaling protocol and is intended to be transported by \gls{UDP}.
 
 \begin{figure}[htb]
 	\begin{tabu}{X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|}
@@ -124,36 +106,82 @@ The general header for \gls{gtp} messages is displayed in Figure~\ref{c4:fig:gtp
 	\textbf{Octets} & \textbf{8} & \textbf{7} & \textbf{6} & \textbf{5} & \textbf{4} & \textbf{3} & \textbf{2} & \textbf{1} \\ 
 	\cline{2-9} \textbf{1} & \multicolumn{3}{c|}{Version}  & 1 & 0 & E & S & PN \\ 
 	\cline{2-9} \textbf{2} & \multicolumn{8}{c|}{Message Type}  \\ 
-	\cline{2-9} \textbf{3} & \multicolumn{8}{c|}{\multirow{2}{*}{Message Length}}  \\ 
+	\cline{2-9} \textbf{3} & \multicolumn{8}{c|}{\multirow{2}{*}{Length}}  \\ 
 				\textbf{4} & \multicolumn{8}{c|}{}  \\ 
 	\cline{2-9} \textbf{5} & \multicolumn{8}{c|}{\multirow{4}{*}{Tunnel Endpoint Identifier}} \\ 
 				\textbf{6} & \multicolumn{8}{c|}{} \\ 
 				\textbf{7} & \multicolumn{8}{c|}{} \\ 
 				\textbf{8} & \multicolumn{8}{c|}{} \\ 
-	\cline{2-9} \textbf{9} & \multicolumn{8}{c|}{\multirow{3}{*}{Sequence Number}} \\
+	\cline{2-9} \textbf{9} & \multicolumn{8}{c|}{\multirow{2}{*}{Sequence Number}} \\
 				\textbf{10} & \multicolumn{8}{c|}{} \\
-				\textbf{11} & \multicolumn{8}{c|}{} \\
-	\cline{2-9} \textbf{12} & \multicolumn{8}{c|}{Spare} \\
+	\cline{2-9}	\textbf{11} & \multicolumn{8}{c|}{N-PDU} \\
+	\cline{2-9} \textbf{12} & \multicolumn{8}{c|}{Next Extension Header Type} \\
 	\cline{2-9}
 	\end{tabu} 
-	\caption{General \SI{12}{\byte} \gls{gtp} header format.}
-	\label{c4:fig:gtpheader}
+	\caption{General \SI{12}{\byte} \gls{gtp} header format.}\label{c4:fig:gtpheader}
 \end{figure}
 
-%%
-\subsubsection{\texorpdfstring{\acrshort{GTP-U}}{GTP-U}}
+Conceptually, \gls{gtp} is structured through a base packet header, a number of extension headers and a message body consisting of a series of \gls{IE}. The base header is depicted in Figure~\ref{c4:fig:gtpheader} and has a total length of \SI{12}{\byte}. Essential to the header are the \gls{TEID} to identify the corresponding userplane tunnel and the \SI{8}{\bit} message type field. Each of the message types corresponds to a specific signaling interaction from the overarching control plane procedures.
 
 
-Figure~\ref{c4:fig:gtpheader} lists the standard GTPv1 header format used in any GPRS and 3G network.
+Message request/response pairs
 
 
 
 
-%%
-\subsubsection{\texorpdfstring{\acrshort{GTP-C}}{GTP-C}}
+\begin{table}[htb]
+\caption{All \gls{IE} in a Create \gls{PDP} Context request and size thereof, excluding the first message type Byte.}
+\label{c4:tab:createrequestelements}
+	\begin{tabu} to 0.5\textwidth{|X[3]|X[1]|X[1]|} \hline
+		\textbf{\gls{IE}} & \textbf{Presence} & \textbf{Typical Size}\\ \hline
+		\gls{IMSI} & cond. & 8 \\ \hline
+		\acrshort{RAI} & cond. & 6 \\ \hline
+		Recovery & opt. & 1 \\ \hline
+		Selection mode	& cond. & 1 \\ \hline
+		\gls{TEID} Data I & mand. & 4 \\ \hline
+		\gls{TEID} Control Plane & cond. & 4 \\ \hline
+		\gls{NSAPI} & mand. & 1 \\ \hline
+		Linked \gls{NSAPI} & cond. & 1 \\ \hline
+		Charging Characteristics & cond. & 2 \\ \hline
+		Trace Reference & opt. & 3\\ \hline
+		Trace Type & opt. & 3\\ \hline
+		End User Address & cond. & 9 (for IPv4)\\ \hline
+		\gls{APN} & cond. & 3 + Name\\ \hline
+		\acrshort{PCO} & opt. & min. 3\\ \hline
+		\gls{SGSN} signaling address & mand.  & 9 (for IPv4)\\ \hline
+		\gls{SGSN} user traffic address & mand. & 9 (for IPv4)\\ \hline
+		\gls{MSISDN} & cond. & 3 + MSISDN \\ \hline
+		\gls{QoS} Profile & mand. & min. 5\\ \hline
+		\gls{TFT} & cond. & min. 4\\ \hline
+	\end{tabu}%
+	\begin{tabu} to 0.5\textwidth{|X[3]|X[1]|X[1]|} \hline
+		\textbf{\gls{IE}} & \textbf{Presence} & \textbf{Typical Size} \\ \hline
+		 Trigger Id & opt. & min. 4 \\ \hline
+		 \acrshort{OMC} Identity & opt. & min. 4 \\ \hline
+		 Common Flags & opt. & 4\\ \hline
+		 \gls{APN} Restriction & opt. & 4\\ \hline
+		 \gls{RAT} & opt. & 4\\ \hline
+		 User Location Information & opt. & 11\\ \hline
+		 MS Time Zone & opt. & 5\\ \hline
+		 \gls{IMEI}(\acrshort{SV}) & cond. & 11\\ \hline
+		 \gls{CAMEL} Charging Information Container & opt. & min. 4\\ \hline
+		 Additional Trace Info & opt. & 12\\ \hline
+		 Correlation-ID & opt. & 4\\ \hline
+		 Evolved Allocation Retention Priority I & opt. & 4\\ \hline
+		 Extended Common Flags & opt. & min. 4 \\ \hline
+		 User \acrshort{CSG} Information & opt. & 11 \\ \hline
+		 \gls{APN}-\acrshort{AMBR} & opt.  & 11 \\ \hline
+		 Signaling Priority Indication & opt. & min. 4\\ \hline
+		 Max \acrshort{MBR}/\acrshort{APN}-\acrshort{AMBR} & opt. & ?min. 11 \\ \hline
+		 Private Extension & opt. & ?min 6\\ \hline
+	\end{tabu}
+\end{table}
 
-GTP-C uses the same basic header format as its GTP-U sibling depicted in Figure~\ref{c4:fig:gtpheader}.
 
+% \subsubsection{Information Element Concept}
+% Discuss the concept
+% list all involved IEs their sizes and thus the imposed overhead
+% "The IMSI IE together with the NSAPI IE uniquely identifies the PDP context to be created"
 
 
 The GTP-C signaling, responsible for the context management interactions, contains procedures for managing data paths, \gls{MS} locations, mobility, and, of course, tunnels. \gls{gtp} messages usually come as request-response pairs. Neither part has fixed size, but is rather constructed from a number of \glspl{IE}, many of which are either optional or variable length through additional optional fields.
@@ -217,33 +245,7 @@ Possible context response types and which request types they answer:
 \item 209: ``user authentication failed'' CREATE ONLY rejected for various reasons
 \end{itemize}
 
-\gls{IE} calculation basis
-\begin{table}[htb]
-\caption{Information Elements in a Create PDP Context Request (as peer TS 29.060, Section 7.3.1)}
-\label{tab:createrequestelements}
-\begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{4cm}|p{2cm}|p{2cm}|} \hline
-\textbf{Information Element} & \textbf{Presence Requirement} & \textbf{Typical Size} & \textbf{Information Element} & \textbf{Presence Requirement} & \textbf{Typical Size} \\ \hline
-IMSI & Conditional & 9 & TFT & Conditional & min. 4\\ \hline
-Routing Area Identity & Optional & 7 & Trigger Id & Optional & min. 4 \\ \hline
-Recovery & Optional & 2 & OMC Identity & Optional & min. 4 \\ \hline
-Selection mode	& Conditional & 2 & Common Flags & Optional & 4\\ \hline
-Tunnel Endpoint Identifier Data I & Mandatory & 5 & APN Restriction & Optional & 4\\ \hline
-Tunnel Endpoint Identifier Control Plane & Conditional & 5 & RAT Type & Optional & 4\\ \hline
-\gls{NSAPI} & Mandatory & 2 & User Location Information & Optional & 11\\ \hline
-Linked NSAPI & Conditional & 2 & MS Time Zone & Optional & 5\\ \hline
-Charging Characteristics & Conditional & 3 & IMEI(SV) & Conditional & 11\\ \hline
-Trace Reference & Optional & 3 & CAMEL Charging Information Container & Optional & min. 4\\ \hline
-Trace Type & Optional & 3 & Additional Trace Info & Optional & 12\\ \hline
-End User Address & Conditional & 9 (for IPv4) & Correlation-ID & Optional & 4\\ \hline
-Access Point Name & Conditional & 3 + Name & Evolved Allocation Retention Priority I & Optional & 4\\ \hline
-Protocol Configuration Options & Optional & min. 3 & Extended Common Flags & Optional & min. 4\\ \hline
-SGSN Address for signaling & Mandatory  & 9 (for IPv4) & User CSG Information & Optional & 11 \\ \hline
-SGSN Address for user traffic & Mandatory & 9 (for IPv4) & APN-ABMR & Optional  & 11 \\ \hline
-MSISDN & Conditional & 3 + MSISDN & Max MBR/APN-ABMR & Optional & min. 11 \\ \hline
-QoS Profile & Mandatory & min. 5 & Private Extension & Optional & min 6\\ \hline
-Signaling Priority Indication & Optional & min. 4 & & & \\ \hline
-\end{tabular}
-\end{table}
+
 
 GTP Header: 12 Byte
 IE header and footer: 2 Byte
