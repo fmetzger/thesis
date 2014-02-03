@@ -91,11 +91,12 @@ Technically, different protocols with tunneling capability are used on each link
 
 Commonly, any device with an active data connection has at least one bearer and associated \gls{PDP} context, the \textit{default bearer}. In terms of \gls{QoS} this represents a best effort tunnel carrying all user traffic, that is not further differentiated. Additionally, the device can request a number of secondary tunnels - \textit{dedicated bearers} - with certain \gls{QoS} guarantees. Traffic matching a specified \gls{TFT} will then be carried over this dedicated bearer. However, this concept is scarcely used in \gls{3G} networks. All in all, one \gls{UE} can be associated with up to 11 bearers, one default bearer and additional dedicated bearers.
 
-%LTE: mention also \gls{PMIPv6} as \gls{gtp} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
 
 %%
 \subsection{\texorpdfstring{\acrshort{gtp}}{GTP} and \texorpdfstring{\acrshort{gtp}}{GTP}-based Core Network Signaling}
 \label{c4:sec:gtp}
+
+A large part of core network communication is conducted by \gls{gtp}
 
 29.060 \cite{3gpp.29.060} GTPv1 description; GPRS/UMTS version; Gn (SGSN - GGSN) Gp interfaces
 29.281 \cite{3gpp.29.281} GTPv1-U user traffic tunnel description
@@ -114,7 +115,7 @@ Commonly, any device with an active data connection has at least one bearer and 
 % list all involved IEs their sizes and thus the imposed overhead
 % "The IMSI IE together with the NSAPI IE uniquely identifies the PDP context to be created"
 
-The general header for \gls{gtp} messages is displayed in Figure~\ref{c4:tbl:gtpheader}.
+The general header for \gls{gtp} messages is displayed in Figure~\ref{c4:fig:gtpheader}.
 
 
 \begin{figure}[htb]
@@ -136,14 +137,14 @@ The general header for \gls{gtp} messages is displayed in Figure~\ref{c4:tbl:gtp
 	\cline{2-9}
 	\end{tabu} 
 	\caption{General \SI{12}{\byte} \gls{gtp} header format.}
-	\label{c4:tbl:gtpheader}
+	\label{c4:fig:gtpheader}
 \end{figure}
 
 %%
 \subsubsection{\texorpdfstring{\acrshort{GTP-U}}{GTP-U}}
 
 
-Table~\ref{c4:tbl:gtpheader} lists the standard GTPv1 header format used in any GPRS and 3G network.
+Figure~\ref{c4:fig:gtpheader} lists the standard GTPv1 header format used in any GPRS and 3G network.
 
 
 
@@ -151,8 +152,7 @@ Table~\ref{c4:tbl:gtpheader} lists the standard GTPv1 header format used in any 
 %%
 \subsubsection{\texorpdfstring{\acrshort{GTP-C}}{GTP-C}}
 
-Table~\ref{c4:tbl:gtpv2cheader} lists the default header format for a GTPv2-C message used in \gls{LTE} networks.
-
+GTP-C uses the same basic header format as its GTP-U sibling depicted in Figure~\ref{c4:fig:gtpheader}.
 
 
 
@@ -820,5 +820,10 @@ As discussed, most of the actions in the network as well as in the mobile device
 % 	\cline{2-9} 
 % 	\end{tabu} 
 % \end{table}
+
+
+%LTE: mention also \gls{PMIPv6} as \gls{gtp} alternative, and the option to have a combined \gls{SGW} \gls{PGW}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{3gppdesc.tex}
