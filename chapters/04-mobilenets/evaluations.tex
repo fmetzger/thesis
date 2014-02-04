@@ -30,6 +30,32 @@ Based on these factors, it was decided to make a first categorization according 
 
 
 
+%%%
+Direct signaling traffic overhead in relation to user traffic and induced network load
+
+GTP Header: 12 Byte
+IE header and footer: 2 Byte
+Maximum minimum data size including all \glspl{IE}: 221 Byte + 12 Byte Header + 2*37 Extension Header = 307 Byte
+Minimum size of message with just mandatory \glspl{IE}: 12 + 30 + 2*5 = 52 Byte
+
+307 Bytes:
+calculation from our dataset
+Total maximum signaling traffic with this calculation: 117.15GB
+Ratio: 0.10\%
+52 Bytes:
+Total maximum signaling traffic with this calculation: 19.84GB
+Ratio: 0.02\%
+Total traffic: 122758578593993
+
+
+Taking the maximum size we arrive at a naive estimate of the maximum overhead on user traffic induced by tunnel management signaling in our dataset. The estimated ratio of (tunnel management) signaling traffic to total user plane traffic in our dataset is a minute $0.10\%$. Therefore, the volume of control plane traffic appears to be non-critical in this setup. Thus, we assume that the overload problems mentioned above arise rather in areas affected by signaling except for the pure transport of data, such as the memory profile of the states kept in the gateway nodes, the time required to process the large number of information held in the messages, or the imposed latency through several message round trips during transactions.
+
+Taking this maximum value we arrive at a naive estimate of the maximum overhead on user traffic imposed by tunnel management signaling in our dataset. The ratio of (tunnel management) signaling traffic to total user plane traffic is a minute $0.10\%$. Therefore, the sheer volume of control plane traffic appears to be non-critical in this setup. We assume thus that the overload problems mentioned above arise rather in areas affected by signaling except for the pure transport of data, such as the memory profile of the states kept in the gateway nodes, the time required to process the large number of information held in the messages, or the imposed latency through several message round trips during transactions. The detailed mechanics of system load could be a field of investigation for future work.
+
+% TODO: values have changed!
+The variable-length nature of these messages makes evaluating the imposed network signaling overhead rather difficult. For example, the Create Context Response consists of up to 36 \glspl{IE}, some of them mandatory, most either conditional or optional. Including the headers of both the packet and the individual elements, the minimum size (counting only the required bytes of variable length elements) is 52 bytes, while the lower bound for the message size with all \glspl{IE} present is 307 bytes.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{Correlations to User Traffic}
 % TODO, incl. measurements
