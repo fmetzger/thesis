@@ -183,50 +183,44 @@ One of our conducted investigations is that of core network load, which will be 
 
 The following sections detail the three \gls{gtp} Tunnel Management message pairs involved in the maintenance of \gls{PDP} Contexts. These are the \textit{Create, Update,} and \textit{Delete \gls{PDP} Context Requests} and \textit{Responses}. They represent the basis for the core network investigations.
 
-%%
-\subsubsection{Create Context Message}
-This message type is part of several larger control procedures that activate the \gls{gtp} tunnel for a mobile device. These can be initiated from the network as well as the device itself, again depending on the specific implementation of the architecture. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, lack of resource, or unrecoverable system failures.
-
-
-Figure c4:fig:pdpcontextactivation shows the \textit{\gls{PDP} Context Activation Procedure} as defined in \cite{3gpp.23.060}. Some additional \gls{CAMEL} procedures may be involved in the creation but are not of interest in the context of this paper as they are not required. Tunneling messages are usually triggered by other procedures on different interfaces. In the case depicted here, the procedure is initiated by the mobile device through a \gls{RANAP} \textit{Activate \gls{PDP} Context Request} typically sent when establishing a mobile data connection.
-
-Generally speaking, any Create Request is part of a \textit{\gls{GPRS} \gls{PDP} Context Activation} procedure, which can happen under several circumstances, the aforementioned one being the typical, but also during each \textit{Secondary \gls{PDP} context Activation} procedure for every tunnel beyond the first. When a \gls{GGSN} receives this request from an \gls{SGSN}, it attempts to complete the Context creation. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failure codes observed in our measurements were either due to incorrect information supplied by the device (``user authentication failed''), due to malformed messages (e.g. ``invalid message format''), or indicated problems or temporary overload in the network (``no resources available'' and ``system failure'').
-
 
 %%
-\subsubsection{Delete Context Message}
-This indicates the immediate release of the Context involved. 
-Together with the Create event these mark the beginning and the end of every \gls{gtp} tunnel, making them good candidates to determine tunnel durations for our load evaluations.
+\subsubsection{Create PDP Context Message}
 
-The third type of Tunnel Management messages are the \textit{Delete Context Request} and \textit{Response}, indicating the immediate release of the Context involved. They are part of 
+This message type is part of procedures that enable the \gls{PS} data connection and the \gls{gtp} tunnel for a mobile device. These are the \textbf{\gls{PDP} Context Activation Procedure} (already depicted in \ref{c4:fig:pdpcontextactivationinteraction}) and the \textbf{Secondary \gls{PDP} Context Activation} for additional \gls{gtp} tunnels to the device with specific \gls{QoS} levels set.  They are triggered by the mobile device through \gls{RRC}/\gls{RANAP} signaling during or following a \gls{GPRS} Attach procedure.
+
+When a \gls{GGSN} receives a create request from an \gls{SGSN}, it has to allocate the necessary resources for a \gls{PDP} context. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, a lack of resource, or unrecoverable system failures and malformed or corrupted request.
+
+
+%%
+\subsubsection{Delete PDP Context Message}
+
+Similar to to Create Context Messages, a \textbf{Delete \gls{PDP} Context Request} and \textbf{Response} always coincides with the termination of a \gls{gtp} tunnel and the removal of the associated \gls{PDP} Context. Together, these mark the beginning and the end of every user traffic tunnel, making them very interesting in determining tunnel properties and perfect candidates to indirectly identify tunnel durations in a core network investigation.
+
+Deletes are either created through explicit \gls{PDP} Context Deactivation Procedures or play a part in \gls{GPRS} Attach and Detach procedures. Contrary to creates, they can be initiated from the \gls{MS} as well as from a core network node, depending on the kind of procedure.
+
+
+%%
+\subsubsection{Update PDP Context Messages}
+
+Several procedures also emit \textbf{Update \gls{PDP} Context Requests} and \textbf{Responses}, usually in relation to some aspect of the tunnel or the device changing. 
+%Typically, these are mobility related (e.g. Routeing Area updates and handovers, a change in \gls{RAT}). 
+Possible causes for an \textit{Update Context Request} are:
 
 \begin{itemize}
-	\item The \textit{\gls{GPRS} Detach} procedure from the \gls{SGSN} to the \gls{GGSN}, when a device completely deactivates its data services.
-	\item The \textit{\gls{GPRS} \gls{PDP} Context Deactivation} procedure from the \gls{SGSN} to the \gls{GGSN}, if only one specific tunnel is to be removed.
-	\item The \textit{part of \gls{PDP} Context Deactivation Initiated by \gls{GGSN}} procedure signaled to the \gls{SGSN}.
-\end{itemize}
-%can also delete a set of contexts assigned to a single MS
-
-
-%%
-\subsubsection{Update Context Messages}
-Several procedures also emit tunnel update messages, when some aspect of the tunnel has changed, e.g. occurring in mobility and load-balancing related procedures but also procedures involving secondary tunnels for a device.
-By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. 
-
-The possible causes for an \textit{Update Context Request} are as following.
-
-\begin{itemize}
-	\item The mobile devices moves between \glspl{SGSN}, causing a \textit{\gls{GPRS} inter-\gls{SGSN} Routing Area Update} procedure.
+	\item The mobile devices moves between \glspl{SGSN}, causing a \textbf{\gls{GPRS} inter-\gls{SGSN} Routing Area Update} procedure.
 	\item Parameters belonging to the context such as the assigned \gls{QoS} are altered using the the \textit{\gls{PDP} Context Modification}.
-	\item As part of \textit{Context redistribution and load balancing} procedures.
+	\item As part of \textbf{Context redistribution and load balancing} procedures.
 	\item The \gls{MS} switches between \gls{UMTS} and \gls{GPRS} access technologies, causing a \textit{Inter-system intra-\gls{SGSN} Update} procedure. Note that the same tunnel can be used regardless of the radio technology.
 	\item As part of a direct \gls{RNC} to \gls{GGSN} \gls{GTP-U} tunnel activation procedure, thereby circumventing the \gls{SGSN}. Or, finally, 
-	\item To activate secondary \gls{PDP} contexts using the \textit{Secondary PDP Context Activation} as previously described. 
+	\item To activate secondary \gls{PDP} contexts using the \textbf{Secondary PDP Context Activation} as previously described. 
 \end{itemize}
 
-By observing Update Context message one could, for example, capture most forms of mobility happening in the network, and get a good picture of correlations between mobility and tunneling characteristics. Additionally, tunnels using \gls{UMTS} and \gls{GPRS} radio technology can be distinguished, which should in theory lead to wholly different pictures, as nowadays GSM/GPRS is either used in older models or feature phones, or in mobile scenarios in rural areas where the larger GSM cells are more prevalent. Both could indicate that the data session will be rather short  due to either clumsy devices or the low throughput rates of \gls{GPRS}.
+However, the appearance of update message signaling in some of these procedures is often conditional or even just optional. This often depends on the specific implementation and is not known without in-depth knowledge of it. An exception to this are mobility management procedures where updates are mandatory.
 
-
+By observing update messages one could capture most forms of mobility happening in the network, and get a good picture of potential correlation between mobility and tunneling characteristics. 
+By distinguishing portions of tunnels which were associated with a \gls{UMTS} \gls{RAB} from \gls{2G} radio access through the related update message, one could also study any influence thereof on the core.
+Nowadays \gls{GSM}/\gls{GPRS} is either used in older models or feature phones, or in mobile scenarios in rural areas where \gls{GSM} still is prevalent due to its lower frequency bands and thus wider ranger. Both could indicate that the data session will be rather short because of device limited device capabilities or low throughput rates of \gls{GPRS}.
 
 
 
@@ -240,10 +234,15 @@ Based on the state both procedures can enable and disable radio tunnels as well 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{images/rrc-simplified-state-model.pdf}
-	\caption{Simplified \gls{RRC} State Model.}
+	\includegraphics[width=0.8\columnwidth]{images/rrc-state-model.pdf}
+	\caption{\gls{RRC} State Model as per \gls{TS}~25.331~\cite[Section~7.1]{3gpp.25.331}.}
 	\label{c4:fig:rrcstatemodel}
 \end{figure}
+
+\gls{URAPCH}
+\gls{CELLPCH}
+\gls{CELLDCH}
+\gls{CELLFACH}
 
 
 As indicated before, most nodes in a cellular mobile network keep all sorts of states characterizing the data connection. For the tunnel management aspects, two state machines are of special note.
@@ -251,7 +250,7 @@ As indicated before, most nodes in a cellular mobile network keep all sorts of s
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{images/mm-state-model.pdf}
-	\caption{\gls{SGSN} \gls{MM} State Model.}
+	\caption{\gls{SGSN} \gls{MM} State Model in plain \gls{2G}~\cite[Section~6.1]{3gpp.23.060}.}
 	\label{c4:fig:mmstatemodel}
 \end{figure}
 
@@ -781,6 +780,48 @@ As discussed, most of the actions in the network as well as in the mobile device
 % 	\label{c4:fig:3gpp-uepdnreq}
 % \end{figure}
 
+
+%% creates
+%IPv6 Stateless Address Autoconfiguration Procedure
+%PDP Context Activation Procedure for A/Gb mode (additional (optional?) update pair)
+%PDP Context Activation Procedure for Iu mode (additional (optional?) update pair)
+%Secondary PDP Context Activation for Iu mode (additional (optional?) update pair)
+%Secondary PDP Context Activation for A/Gb mode (additional (optional?) update pair)
+
+%% deletes
+%MS Initiated PDP Context Deactivation Procedure for A/Gb mode
+%MS Initiated PDP Context Deactivation Procedure for Iu mode
+%SGSN-initiated PDP Context Deactivation Procedure
+%GGSN-initiated PDP Context Deactivation Procedure
+%Combined GPRS/IMSI Attach Procedure (2x request+response, 1 to old, 1 to new)
+%MS-Initiated Detach Procedure (1x request/response)
+%Network-Initiated Detach Procedures (SGSN or HLR)
+
+
+%% updates
+%Inter SGSN Routeing Area Update (1x)
+%Combined Inter SGSN RA/LA Update (1x)
+%Iu mode RA Update Procedure (1x)
+%SRNS Serving Radio Network Subsystem Relocation Procedure (1x)
+%Combined Hard Handover and SRNS Relocation Procedure
+%Combined Cell/URA (UTRAN Registration Area) Update and SRNS Relocation Procedure
+%Enhanced Serving RNS Relocation
+%Iu mode to A/Gb mode Intra SGSN Change
+%Iu mode to A/Gb mode Inter SGSN Change
+%A/Gb mode to Iu mode Inter SGSN Change
+%SGSN-Initiated PDP Context Modification Procedure, A/Gb mode (2x pair (1 optional?))
+%SGSN-Initiated PDP Context Modification Procedure, Iu mode (2x pair (1 optional?))
+%GGSN-Initiated PDP Context Modification Procedure, Iu mode
+%GGSN-Initiated PDP Context Modification Procedure, A/Gb mode
+%MS-Initiated PDP Context Modification Procedure, A/Gb mode (2x, 1 optional/conditional)
+%MS-Initiated PDP Context Modification Procedure, Iu mode (2x, 1 optional/conditional)
+%PDP Context Activation Procedure for A/Gb mode (additional (optional?) update pair)
+%PDP Context Activation Procedure for Iu mode (additional (optional?) update pair)
+%Secondary PDP Context Activation for Iu mode (additional (optional?) update pair)
+%Secondary PDP Context Activation for A/Gb mode (additional (optional?) update pair)
+%RAB Release Procedure Using Gn/Gp (conditional if direct tunnel and context to be preserved)
+%Iu Release Procedure Using Gn/Gp (conditional if direct tunnel and context to be preserved)
+%RAB Assignment Procedure Using Gn/Gp (conditional direct tunnel)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{3gppdesc.tex}
