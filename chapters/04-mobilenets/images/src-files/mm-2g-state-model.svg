@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="mm-3g-state-model.svg">
+   sodipodi:docname="mm-2g-state-model.svg">
   <defs
      id="defs4">
     <marker
@@ -134,7 +134,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.01"
-     inkscape:cx="462.5228"
+     inkscape:cx="481.61106"
      inkscape:cy="823.81792"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -161,73 +161,70 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       id="g3796"
-       transform="translate(6.5148239,4.9504991)">
+       id="g3032">
       <rect
          style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="126.47842"
-         x="240.45287"
+         y="131.42891"
+         x="246.96768"
          height="47.807133"
          width="138.89624"
          id="rect2987" />
       <text
          sodipodi:linespacing="125%"
          id="text3757"
-         y="160.40347"
-         x="278.21643"
+         y="162.21236"
+         x="293.68631"
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="160.40347"
-           x="278.21643"
+           y="162.21236"
+           x="293.68631"
            id="tspan3759"
            sodipodi:role="line"
-           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">IDLE</tspan></text>
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">IDLE</tspan></text>
     </g>
     <g
-       id="g3801"
-       transform="translate(175.82177,-145.54456)">
+       id="g3040">
       <rect
          style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="276.97348"
-         x="239.46277"
+         y="131.42892"
+         x="415.28455"
          height="47.807133"
          width="138.89624"
          id="rect2987-1" />
       <text
          sodipodi:linespacing="125%"
          id="text3757-7"
-         y="310.89853"
-         x="259.64429"
+         y="162.21237"
+         x="449.64966"
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="310.89853"
-           x="259.64429"
+           y="162.21237"
+           x="449.64966"
            id="tspan3759-4"
            sodipodi:role="line"
-           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">READY</tspan></text>
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">READY</tspan></text>
     </g>
     <g
-       id="g3806"
-       transform="translate(329.12874,-300.00001)">
+       id="g3048">
       <rect
          style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="431.42892"
-         x="254.47261"
+         y="131.42891"
+         x="583.60138"
          height="47.807133"
          width="138.89624"
          id="rect2987-0" />
       <text
          sodipodi:linespacing="125%"
          id="text3757-9"
-         y="465.35397"
-         x="257.21564"
+         y="162.21724"
+         x="605.53973"
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="465.35397"
-           x="257.21564"
+           y="162.21724"
+           x="605.53973"
            id="tspan3759-48"
            sodipodi:role="line"
-           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">STANDBY</tspan></text>
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">STANDBY</tspan></text>
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
@@ -246,7 +243,7 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 681.89532,182.86972 0,25.74258 -170.29702,0 0,-25.74258"
+       d="m 681.89531,182.86972 0,25.74258 -170.29702,0 0,-25.74258"
        id="path5937-4-1"
        inkscape:connector-curvature="0" />
     <path
@@ -257,82 +254,82 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="352.49738"
+       x="316.49738"
        y="99.926544"
        id="text6236"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6238"
-         x="352.49738"
+         x="316.49738"
          y="99.926544"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">GPRS Attach</tspan></text>
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">GPRS Attach</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="508.86172"
+       x="508.86169"
        y="59.926544"
        id="text6240"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6242"
-         x="508.86172"
+         x="508.86169"
          y="59.926544"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">READY timer expiry, </tspan><tspan
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">READY timer expiry, </tspan><tspan
          sodipodi:role="line"
-         x="508.86172"
+         x="508.86169"
          y="79.926544"
          id="tspan6244"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">force to STANDBY,</tspan><tspan
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">force to STANDBY,</tspan><tspan
          sodipodi:role="line"
-         x="508.86172"
+         x="508.86169"
          y="99.926544"
          id="tspan6246"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">abnormal RLC condition </tspan></text>
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">abnormal RLC condition </tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="542.70154"
+       x="507.77576"
        y="224.32529"
        id="text6248"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6250"
-         x="542.70154"
+         x="507.77576"
          y="224.32529"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">PDU reception</tspan></text>
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">PDU reception</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="342.72003"
+       x="316.49738"
        y="224.5206"
        id="text6252"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6254"
-         x="342.72003"
+         x="316.49738"
          y="224.5206"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">GPRS Detach,</tspan><tspan
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">GPRS Detach,</tspan><tspan
          sodipodi:role="line"
-         x="342.72003"
+         x="316.49738"
          y="244.5206"
          id="tspan6256"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Cancel Location</tspan></text>
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Cancel Location</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="431.79123"
+       x="427.4436"
        y="267.96616"
        id="text6258"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6260"
-         x="431.79123"
+         x="427.4436"
          y="267.96616"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Implicit Detach,</tspan><tspan
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Implicit Detach,</tspan><tspan
          sodipodi:role="line"
-         x="431.79123"
+         x="427.4436"
          y="287.96616"
          id="tspan6262"
-         style="font-size:16px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Cancel Location</tspan></text>
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Cancel Location</tspan></text>
   </g>
 </svg>
