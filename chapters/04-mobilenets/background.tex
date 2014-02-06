@@ -234,7 +234,7 @@ Based on the state both procedures can enable and disable radio tunnels as well 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{images/rrc-state-model.pdf}
+	\includegraphics[width=0.8\textwidth]{images/rrc-state-model.pdf}
 	\caption{\gls{RRC} State Model as per \gls{TS}~25.331~\cite[Section~7.1]{3gpp.25.331}.}
 	\label{c4:fig:rrcstatemodel}
 \end{figure}
@@ -247,12 +247,38 @@ Based on the state both procedures can enable and disable radio tunnels as well 
 
 As indicated before, most nodes in a cellular mobile network keep all sorts of states characterizing the data connection. For the tunnel management aspects, two state machines are of special note.
 
+
+\begin{figure}[htb]
+        \centering
+        \begin{subfigure}[b]{0.80\textwidth}
+            \centering
+			\includegraphics[width=\textwidth]{images/mm-2g-state-model.pdf}
+			\caption{State machine for \gls{2G} radio access.}
+			\label{c4:fig:2g-mmstatemodel}
+        \end{subfigure}%
+
+        \begin{subfigure}[b]{0.80\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/mm-3g-state-model.pdf}
+			\caption{State machine for \gls{3G} radio access.}
+			\label{c4:fig:3g-mmstatemodel}
+		   \end{subfigure}%
+ \caption{\gls{SGSN} \gls{MM} state models and machines \cite[Section~6.1]{3gpp.23.060}.}
+\label{c4:fig:mmstatemodel}
+\end{figure}
+
+
+\gls{MM} models, specific only to the \gls{PS} connection of the device, are different for every \gls{RAT}
+
+
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{images/mm-state-model.pdf}
-	\caption{\gls{SGSN} \gls{MM} State Model in plain \gls{2G}~\cite[Section~6.1]{3gpp.23.060}.}
-	\label{c4:fig:mmstatemodel}
+	\includegraphics[width=0.6\textwidth]{images/pdp-state-model.pdf}
+	\caption{\gls{PDP} State Model \cite[Section~9]{3gpp.23.060}.}
+	\label{c4:fig:pdpstatemodel}
 \end{figure}
+
+\cite[Section~9]{3gpp.23.060} in Figure~\ref{c4:fig:pdpstatemodel} defines \gls{PDP} states and state machine, interacts closely with the \gls{MM} state machine
 
 First, consider the \gls{MM} state machine depicted in Figure \ref{c4:fig:mmstatemodel}, defined in \cite{3gpp.23.060}, and held in both the \gls{SGSN} as well as the mobile device. It describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. Therefore, it also controls tunnel management, as the involved \gls{GPRS} Detach and Attach procedures involve deleting and creating contexts. We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
 
