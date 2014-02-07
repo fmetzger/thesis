@@ -228,25 +228,7 @@ Nowadays \gls{GSM}/\gls{GPRS} is either used in older models or feature phones, 
 \subsection{\texorpdfstring{\acrshort{gtp}}{GTP} Influencing State Machines}
 %\subsubsection{Mobility and Radio-related State Machines}
 
-As indicated, most nodes in a cellular mobile network keep all sorts of state characterizing the data connection. For the tunnel management aspects, two state machines are of special note, namely the \gls{MM} and \gls{RRC} state machines.
-The former, defined in \cite{3gpp.23.060}, describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. The \gls{RRC} state machine depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels. State changes happen again depending on user activity and inactivity.
-Based on the state both procedures can enable and disable radio tunnels as well as core network tunnels, making them a good example of user traffic dynamics directly influencing core network signaling, similar to the observations in \cite{lee2007detection}.
-
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/rrc-state-model.pdf}
-	\caption{\gls{RRC} State Model as per \gls{TS}~25.331~\cite[Section~7.1]{3gpp.25.331}.}
-	\label{c4:fig:rrcstatemodel}
-\end{figure}
-
-\gls{URAPCH}
-\gls{CELLPCH}
-\gls{CELLDCH}
-\gls{CELLFACH}
-
-
-As indicated before, most nodes in a cellular mobile network keep all sorts of states characterizing the data connection. For the tunnel management aspects, two state machines are of special note.
-
+To understand the occurrence of these signaling procedures one should look at the state machines that govern these. Involved in the tunnel management aspects are three distinct state models, namely the \gls{MM}, \gls{RRC} state machines and the actual \gls{PDP} state model. The \gls{MM} and \gls{RRC} describe the current state of the mobile device and its radio and data connection. They are both maintained at the \gls{MS} and mirrored at the\gls{SGSN}.
 
 \begin{figure}[htb]
         \centering
@@ -267,9 +249,18 @@ As indicated before, most nodes in a cellular mobile network keep all sorts of s
 \label{c4:fig:mmstatemodel}
 \end{figure}
 
+The \gls{MM} model \cite[Section~6.1]{3gpp.23.060} describes the general state of the data connection. and switches states based either on an idle timer, or when new packets arrive for the mobile device. The specific model depends on the currently used \gls{RAT} with only slight differences between \gls{GSM} (Figure~\ref{c4:fig:2g-mmstatemodel}) and \gls{UMTS} (Figure~\ref{c4:fig:3g-mmstatemodel}) access. The \gls{LTE} related model brings larger changes but is omitted here, as it will not be relevant for the investigation. With the transition to and from the \textbf{IDLE} state in the \gls{2G} model (or \textbf{DETACHED} in \gls{3G}) \textbf{GPRS Attach/Detach} procedures are triggered, also resulting in the transmission of \gls{PDP} Create and Delete Context messages. Likewise, other state transition procedures indicate mobility and location changes, which usually include update messages.
 
-\gls{MM} models, specific only to the \gls{PS} connection of the device, are different for every \gls{RAT}
+\begin{figure}[htb] 
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/rrc-state-model.pdf}
+	\caption{\gls{RRC} State Model as per \gls{TS}~25.331~\cite[Section~7.1]{3gpp.25.331}.}
+	\label{c4:fig:rrcstatemodel}
+\end{figure}
 
+ The \gls{RRC} state machine \cite[Section~7.1]{3gpp.25.331} depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels and therefore power states of the \gls{MS}. State changes happen depending on user and radio activity and inactivity determined by timers. Only in the \gls{CELLDCH} state is the \gls{MS} assigned a dedicated channel for its data connection and can transmit at full bidirectionally. But this consumes the most device power and radio resources, both of which are scarce. The goal of the state machine is to minimize their usage with intermediary states - \gls{CELLFACH}, \gls{URAPCH}, and \gls{CELLPCH}, and  - that successively require less power and radio channels, before completely turning of the \gls{RRC} connection by transitioning to the idle state. Coinciding with the \gls{RRC} the \gls{CN} \gls{gtp} tunnel can als be released or needs to be reestablished. However, this is somewhat implementation specific and not precisely specified.
+
+% http://3gppinterview.blogspot.co.at/p/why-is-cellfach-and-cellpch-not.html <- this may be easier to understand
 
 \begin{figure}[htb]
 	\centering
@@ -278,25 +269,21 @@ As indicated before, most nodes in a cellular mobile network keep all sorts of s
 	\label{c4:fig:pdpstatemodel}
 \end{figure}
 
-\cite[Section~9]{3gpp.23.060} in Figure~\ref{c4:fig:pdpstatemodel} defines \gls{PDP} states and state machine, interacts closely with the \gls{MM} state machine
-
-First, consider the \gls{MM} state machine depicted in Figure \ref{c4:fig:mmstatemodel}, defined in \cite{3gpp.23.060}, and held in both the \gls{SGSN} as well as the mobile device. It describes the general state of the data connection, and switches states based either on an idle timer, or when new packets arrive for the mobile device. Therefore, it also controls tunnel management, as the involved \gls{GPRS} Detach and Attach procedures involve deleting and creating contexts. We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
-
-
-The \gls{RRC} state machine shown in Figure \ref{c4:fig:rrcstatemodel} governs the usage of radio channels, i.e. spectral and temporal usage of the wireless interface. State changes happen depending on the inter-arrival time of user packets. In this case, if the state machine transitions to the IDLE state, the \gls{RAB} on the path between mobile device and \gls{SGSN} is not needed anymore and will be deleted, in most cases destroying the \gls{SGSN} and \gls{GGSN} \gls{PDP} Context as well.
+The final state machine of relevancy is the \textbf{\gls{PDP} State Model} \cite[Section~9]{3gpp.23.060} in Figure~\ref{c4:fig:pdpstatemodel}. It reflects the actual state of the \gls{PDP} context and associated tunnel and is synchronized with the \gls{MM} state machine.
 
 
 %%
-\subsection{Discussion of \texorpdfstring{\acrshort{gtp}}{GTP} Signaling}
+\subsection{Discussion and Critique}% of \texorpdfstring{\acrshort{gtp}}{GTP} Signaling}
 
-Looking at the Create, Update and Delete \gls{PDP} Context Request and Reply message pairs we can already directly deduce some possibly load-related information. The total tunnel duration originates from the time delta between corresponding Create and Delete events. The shorter those tunnels are the higher will be volume of signaling messages and the necessary processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \gls{PDP} Contexts. Large numbers of update messages, especially combined with frequent \gls{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. 
-The time between a request and its corresponding response could also be an indicator for the amount of processing involved for this message as well as the current general processing load at the \gls{GGSN}.
+This rather lengthy section on the basics of current mobile network architectures serves a critical purpose: In order to measure and evaluate network traffic one has to first understand its architecture and needs to understand how certain traffic patterns can occur. Unfortunately, the \gls{3GPP} do not make this task very easy. Typical \gls{IETF} protocols and architectures  strongly adhere to the fundamental principles of protocol layering, function separation and end-to-end. One can read a single \gls{RFC} and understand its function and directly implement it independent of the knowledge of any other specification. This is not the case in a \gls{3G} network. Functions are oft spread over several protocols or nodes, necessary details essential to an implementation are spread out over several specifications without direct reference or omitted completely. This circumstance makes it very hard to attribute certain observed phenomena to a specific feature in the specification.
 
-As discussed, most of the actions in the network as well as in the mobile devices are reflected in the presented tunnel management messaging. Therefore, taking a look at the dynamics of this control aspect in real networks gives valuable insights on the influence of many of the networks' aspects.
+These protocols are also very heavy in terms of state and signaling inside the network. This can be the cause of unintended and hard to predict load, which will be defined and discussed in Section~\ref{c4:loaddefinition}. For now, we can already directly deduce some possibly load-related information in relation to the Create, Update and Delete \gls{PDP} Context Request and Reply message pairs. Measuring the time delta between corresponding Create and Delete events obviously results in the total duration a tunnel was established. Having shorter tunnels often also means having a greater number of tunnels and therefore a higher volume of signaling messages and an increase in processing and state-keeping efforts due to the signaling. 
 
-Looking at the Create, Update and Delete \gls{PDP} Context Request and Reply message pairs we can already deduce a certain amount of information. Measuring the time delta between corresponding Create and Delete events obviously gives the total duration a tunnel was established. Given the amount of user plane \gls{IP} traffic transferred, when the tunnel durations are short, we can expect the number of tunnel creation and deletion events to go up instead, resulting in a higher volume of signaling messages and an increase in processing for these messages. Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \gls{PDP} Contexts. Large numbers of update messages, especially combined with frequent \gls{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. This mobility behavior could be investigated by evaluating the update messages.
+Conversely, longer tunnel durations cause an increased overall memory footprint in the involved nodes to store the \gls{PDP} Contexts. Large numbers of update messages, especially combined with frequent \gls{RAT} switches, are usually an indicator for highly mobile devices switching their routing area. The time between a request and its corresponding response could also be an indicator for the amount of processing involved for this message as well as the current general processing load at the \gls{GGSN}. Most of the actions in the network as well as in the mobile devices are reflected in the presented tunnel management messaging. Therefore, taking a look at the dynamics of this control aspect in real networks gives valuable insights on the influence of many of the networks' aspects.
 
-As discussed, most of the actions in the network as well as in the mobile devices are reflected in the presented tunnel management messaging. Therefore, taking a look at the dynamics of this control aspect in real networks gives valuable insights on the influence of many of the networks' aspects.
+
+
+
 
 
 
