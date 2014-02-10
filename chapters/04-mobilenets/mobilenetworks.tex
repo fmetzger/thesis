@@ -5,116 +5,42 @@
 
 The rise of reliable video streaming is not happening completely independent. Instead, it is deeply embedded into major shifts in Internet access. With more and more smartphones being used and even dial-up Internet access sometimes being replaced with stationary mobile \gls{3G} and \gls{LTE} modems. All these ``over-the-top'' streaming services are now being used within mobile networks.  
 
-These cellular mobile networks are usually based on \gls{3GPP} specifications which have evolved from the circuit switched \gls{GSM} network into the fully packet switched \gls{LTE} which is still in its unrolling phase. But being packet switched does not mean that it shares a lot of similarity with a typical wireline Internet protocol stack and network infrastructure, for example a \gls{VDSL} or \gls{DOCSIS} dial-up connected to an \gls{IP} network. A ``3G'' network (a term synonymous for the typical type of cellular network used today) is very distinct from typical wired networks as it provides, amongst others, mobility and authentication in its lower layers through the core specifications rather than being optional on-top services as is typically the case in the Internet.
+These cellular mobile networks are usually based on \gls{3GPP} specifications which have evolved from the circuit switched \gls{GSM} network into the fully packet switched \gls{LTE} which is still in its unrolling phase. But being packet switched does not mean that it shares a lot of similarity with a typical wireline Internet protocol stack and network access infrastructure, for example a \gls{VDSL} or \gls{DOCSIS} dial-up connected to an \gls{IP} network. 
 
-%% <-- WIP
-
-The TCP/IP stacks largely follows two principles: \gls{KISS} and the end-to-end principle\cite{saltzer1984end2end}, which essentially means to restrict the protocols to the necessary bare-minimum and keep state only in the end systems. 3G takes a different approach, keeps a large amount of state at the obligatory nodes in its ``core network'', which explicitly communicate by signaling procedures defined by the \gls{3GPP}.
-The adverse effects of state-keeping in network devices have been known to, e.g.,  Internet users running BitTorrent across low-end home routers as of the early 2000s. In \gls{UMTS} mobile networks, the networking hardware is vastly more powerful, but the control plane tasks are vastly more complex than port and network translation as well, namely carrying and routing IP and voice traffic, user mobility, \gls{AAA} and so on. Many specialized protocols are involved to communicate intents and states in the network. This causes processing overhead, additional traffic on network paths, and increases the number of states to be held in memory on the core network nodes. All of these attributes can be subsumed under the term network ``load'' which we plan to investigate in this work.
+A \gls{3G} network (a term synonymous for the typical combined \gls{GSM} and \gls{UMTS} cellular network in use today) is very distinct from typical wired networks as it provides, amongst others, mobility and authentication in its lower layers through the core specifications rather than being optional on-top services as is typically the case in the Internet.  Thus, large amounts of state have to be kept at and is explicitly communicated among the network nodes in its \gls{CN}. Also, the lines separating layers and functions are very blurred, making it very hard to grasp parts of the architecture without understanding the whole. Many specialized protocols are involved to communicate intents and states in the network. This causes processing overhead and signaling traffic on the network paths on top of the actually useful user traffic. It is a known fact, that radio spectral resources are a scarce resource that needs to be well managed. But it might not seem immediately obvious to think the same about control plane resources in the infrastructure of a mobile network. Yet, there have been situations where the core network has been flooded with signaling, despite only an negligible amount of actual user traffic being transported. \cite{huawei2011storm} \footnote{``Docomo Counts Cost of Signaling Storm'',\url{http://www.lightreading.com/d/d-id/693779}}\footnote{``Android Signaling Storm Rises in Japan'', \url{http://www.lightreading.com/a/d-id/693138}}\footnote{``Angry Birds + Android + ads = network overload'', \url{http://www.itwire.com/business-it-news/47823}} This resulted in ``signaling storm'' causing an unintentional \gls{DDoS} attack, disrupting user-plane connectivity on its way.
 
 
-Given its roots as a research network and its growing pervasiveness over the last forty years, it is understandable that research on the Internet covers all parts of the network from applications to access to the core, and has been going on ever since what could be considered prehistoric times of the Net. The state of research on mobile cellular networks such as 3G is lean in comparison. Mobile networks providing Internet access have not been around for too long, and still are not available in all parts of the world. Furthermore, most research focuses on user-oriented metrics such as traffic statistics and mobility patterns, or takes into account the radio part of the network only. Little has been published about activity within the core network, and yet less about signaling.
+The state of research on the architecture and especially the control plane behavior of \gls{3G} mobile cellular networks is lean in comparison to the huge volume of research conducted other wired Internet structures. Most of the available research focuses on user-oriented metrics such as traffic statistics and mobility patterns, or only investigates properties of the radio interface. Little has been published about activity within the core network, and yet less about core signaling. 
 
-Given how limited spectral resources on the radio interface are, it might not seem obvious to think about signaling load in the network. Yet, there have been situations where the core network unintentionally has been flooded with signaling, taking down user-plane connectivity on the way, despite small amounts of actual user traffic being transported \cite{lt2012docostorm, it2011birdandroid}. 
+Usually, conducting \gls{IP} traffic research at the network's edge, independent of the access technology, is relatively easy. Writing simple tests and measurement scripts, that record the user's traffic, is all that is needed. But mobile phones do not allow one to peek inside its layer 1 and 2 implementation and interaction, where the control plane resides. Any information on this black box can only be indirectly inferred from layers above --- by forcing behavior known from specification --- or below --- through spectrum analysis using \gls{SDN} approaches. 
 
-The adverse effects of state-keeping in network devices have been known to, e.g.,  Internet users running BitTorrent across low-end home routers as of the early 2000s. In \gls{UMTS} mobile networks, the networking hardware is vastly more powerful, but the control plane tasks are vastly more complex than port and network translation as well, namely carrying and routing IP and voice traffic, user mobility, \gls{AAA} and so on. Many specialized protocols are involved to communicate intents and states in the network. This causes processing overhead, additional traffic on network paths, and increases the number of states to be held in memory on the core network nodes. Therefore, in scenarios such as the ones mentioned above, radio access is not the bottleneck to connectivity any more, but signaling is.
+However, to directly investigate the core as well as the control plane, some kind of a measurement infrastructure inside the network is needed. With this, researchers can not just look into user traffic flowing through the network but also quite easily into the signaling heavy mobile network control plane. To gain this kind of access to the network requires the cooperation of a mobile network operator to gain access, which they grant very reluctantly due to privacy and competitive concerns.
 
-%% <-- END WIP
+Another important aspect related to signaling is network dimensioning. Operators mostly dimension their networks in accordance to the expected user traffic. But in such a signaling-dependent architecture this might not be the most fitting approach, as the mentioned signaling storms seem to demonstrate. 
 
-
-This chapter is structured as follows. As it is absolutely necessary to get a grasp of the finer details of the mobile network architecture under investigation
-
-\begin{itemize}
-	\item Technical Background. Standards and Specifications. Network Architecture. Protocol Details.
-	\item Dataset Description. Methodology.
-	\item Definition of Load etc
-	\item Evaluations. Dataset Analysis. Statistics. Traffic Characteristics. How does that user traffic fit in?
-	\item Fitting, Modeling and Simulation
-	\item Summary
-\end{itemize}
-
-
-%% <-- %% WIP
-%% <-- %% end WIP
-
-Core is usually neglected in communication investigations
-
-
-While other publications look at the near-edge interactions in these network, research on the core is scarce, the reason for it being simple: you cannot do research without data from the operator there. Research at the edge, beginning at the IP stack level and upwards, can be conducted relatively simple. Writing simple tests and measurement scripts, often involving tcpdump and other tools, is usually all you need. But a mobile phone doesn't let you peek inside its layer 1 and 2 interactions (or even the implementation). Any information on this black box must be indirectly inferred from above (forcing behavior known from the specifications through scripts) or below (spectrum analysis using software defined radio approaches). To take a look at the core's view of traffic and data, one needs access to a dedicated measurement and capturing infrastructure placed inside the network. With this, researchers can not just look into user traffic flowing through the network but also quite easily into the signaling heavy mobile network control plane. 
-
-Operators usually dimension their networks in relation to the occurring user traffic. But in such a signaling-dependent architecture this might not hold true anymore, as every user traffic has to be explicitly allowed, set up, and metered through all of the network's components. This has already led to some troubles in some mobile access networks, as heavy signaling for user traffic tunnels with very small amounts of traffic, that were however closed and reopened at a very high rate, caused an unintended \gls{DDoS} in the radio access network\cite{lt2012docostorm, it2011birdandroid}. 
-This inherent complexity of signaling in mobile cellular networks is easily missed by programmers who do not or cannot know that their applications will run over such wireless links, and probably would not expect it from a network that pretends to transparently carry IP.
-
-In this publication we attempt to give some insights into the mobile network control plane and its impact on dimensioning and load modeling. To do this, some important aspects of the \gls{3GPP} specifications have to be explained to give some basic vocabulary for the following exploratory research into signaling with a focus on \gls{PDP} Contexts and their management through \gls{gtp} tunnel management procedures. Using a week long data set from an Austrian mobile operator recorded at the Gn interface between the \gls{SGSN} and \gls{GGSN}, we attempt to find criteria influencing the signaling but we are also formulating hypotheses on the load impact of signaling, both backed by statistics gathered from the the data set.\\
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% CoNEXT Intro starts here
-
-The inherent complexity of signaling in mobile cellular networks is easily missed by programmers who do not or cannot know that their applications will run over such wireless links, and probably would not expect it from a network that pretends to transparently carry IP. What furthers this problem is the lack of literature on the theoretical and practical sides of these issues.
-
-This apparent lack is due to a number of reasons. First, gaining sufficiently intimate knowledge on the huge corpus of \gls{3GPP} Technical Specifications %\gls{TS}
-is a laborious task. Second, to come up with lower-layer measurements requires physical access to the core network infrastructure and suitable measurement equipment. Also, much of the data is commercially and privacy-sensitive, and cannot be published without extensive sanitizing.
-
-The purpose of this paper will therefore be to give a 3G tunnel management primer, introducing the relevant \acrshort{GPRS}/\acrshort{UMTS} network structure and the involved control plane protocols with a special focus on the \gls{gtp}, which is probably the most prevalent. % We discuss how much overhead is put on the network through \gls{gtp} in a typical user traffic scenario.
-Furthermore, we share our first insights into one practical aspect of the signaling process, the \gls{gtp} tunnel management procedures. Using a week long data set from an Austrian mobile operator recorded at the Gn interface between the \gls{SGSN} and \gls{GGSN}, % by the \gls{METAWIN} measurement infrastructure from the FTW, 
-we take a look at \gls{PDP} Context durations, i.e. the time a \gls{PDP} Context is established and held, argue how this influences the load on the network, and evaluate the data by device types and operating systems.
-
-Our measurement data backs up a number of straightforward assumptions on the behavior of different device and operating system types, but also reveals some remarkable differences in tunnel characteristics.\\
-
-
+This chapter attempts to remedy parts of the problem. Data from an existing mobile network measurement infrastructure is used to evaluate aspects of the control plane. 
+To begin, it is absolutely necessary to get a grasp of the finer details of the mobile network architecture under investigation which are given in Section~\ref{c4:3gpparchitecture} followed by a survey of existing literature in Section~\ref{c4:relwork}. Next, an attempt on defining and inferring control plane load in Section~\ref{c4:loaddefinition} is made. This is used to find interesting targets for the evaluation.
+Further methodology is given in Section~\ref{c4:methodology} with the  actual evaluation including a statistical analysis to follow in Section~\ref{c4:evaluations}. The measurement data backs up a number of assumptions on the behavior of different device and operating system types, but also reveals some remarkable differences in signaling characteristics. Afterwards, the evaluation results are used to construct load models for the current \gls{CN} in Section~\ref{c4:modeling}. This is extended with possible modifications to it and a numerical simulation to confirm the model viability.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{architecture.tex}
 
+%% <-- %% WIP
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{relwork.tex}
+
+%% <-- %% end WIP
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{methodology.tex}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Mobile Core Network Load Definition}
-\label{c4:loaddefinition}
-
-work in 23.843 \cite{3gpp.23.843} Study on Core Network (CN) overload solutions
-GTP-C retransmission of unacknowledged requests"
-currently: semi-static DNS based load balancing (does this apply only to LTE/SGW?)
-
-
-Before beginning the evaluation, the primary question driving this investigation was: ``How can load in a core network be defined and measured?'' A summary of our thoughts to this question follows here.
-
-With the basics of the architecture in mind, a top candidate for high load is the \gls{GGSN}. All traffic leaving or entering the packet switched domain must go through this element, and it is in control of the described GTP signaling procedures as well. Being an endpoint for the GTP tunnel makes it responsible to sort and encapsulate incoming traffic into the corresponding user tunnel. To accomplish this a lot of state has to be kept -- and processed when signaling occurs. Therefore, our working hypothesis is, that in order to determine load the \gls{GGSN} needs to be monitored closely and any traffic related to this node investigated for indications of the current load.
-
-For our definition of the term ``load'' we differentiate between signaling load and overhead on the one hand and processing load and memory consumption on the other hand. Both are measures of load at specific nodes. While the former mostly has an impact on the actual network traffic, the latter can only be grasped inside the network element. With our data we can directly investigate the signaling traffic but indirect measures for the processing load and memory usage have to be found. In the rest of this section we evaluate the results of several approaches to both of these definitions of load.
-
-While looking at the \gls{GGSN} may be the most obvious choice, it is by far not the only one. 
-In addition to GTP tunnels the \gls{SGSN} has to handle \gls{RAB} and mobility management as well. However, it is assumed, that there are more regionally distributed \gls{SGSN} nodes present in a typical mobile network. This means that a single element would have to handle less mobile devices and therefore load. One has also to bear in mind that the \gls{SGSN} can be completely circumvented by setting up a direct tunnel between \gls{GGSN} and \gls{RNC}.
-
-Apart from the two gateways directly inside the traffic path there are several other nodes essential to the control plane decision making, which may very well be also very load-sensitive. The \gls{HLR} for example is a central database storing all user related information which need to be retrieved any time a user needs to undergo initial authentication and authorization. Typically, the procedures the elements are involved in are fewer and they are also harder to investigate with the data available to us. Hence, it was decided to concentrate just on the case of the \gls{GGSN}.
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Load Influencing Factors}
-
-Having described our understanding of core network load we can now move to discuss some of the factors that could influence the load, making them targets for our evaluation.
-
-The first and arguably one of the most important factors are the mobile devices themselves. Specifically, this covers the behavior of the network layer 1 and 2 implementation (sometimes called ``'baseband'') as well as the \gls{os} and the running applications. The OS and baseband decide when the device should establish a mobile data connection, how long the connection is held, or which mobile technology takes preference. Depending on the access technology, be it \acrshort{GPRS}, \acrshort{EDGE}, \acrshort{UMTS}, \acrshort{HSPA}, or \acrshort{HSPA+}, we can expect subtle differences through their specifications, e.g. in the timing of the radio transmission intervals, which could influence our investigation. 
-
-Some specific tunnel duration properties could stem from the \gls{os}'s IP and transport protocol implementation. For example, TCP timeouts might be configured to different default values causing mobile connections and tunnels to be held either shorter or longer. Also, mobile network firewalls have been found to interfere with transport and application layer timeout and keep-alive or heartbeat mechanisms on mobile devices \cite{sigcomm11middleboxes}.
-
-The actual user-traffic patterns are generated by the applications running atop the OS. An example for how applications can influence network signaling is the aforementioned ``Angry Birds'' with its ad-retrieval strategy causing network traffic and possibly signaling in certain intervals. Since the application ecosystem for smartphones is extremely rich and ever growing we cannot pinpoint individual ones from our aggregate dataset.
-
-An additional factor in the picture is the user and her or his behavioral patterns. They express themselves both in the traffic dynamics and in the mobility pattern, but they are rather difficult to distinguish in such a dataset given the large amount of data and the difficulty of correctly correlating tunnel management messages. We leave this as potential future work.
-
-Easier to observe are the temporal effects of user behavior, which do not target individual users but the overall effects of a device's usage based on the time of day, the day of the week, or other time spans. In network user traffic analyses diurnal effects are typically very distinct with peak traffic some time during the day and the lowest traffic shortly after midnight. But these investigations are for user traffic only. We aim to find out, if the mobile network control plane shows similar patterns and can thusly be correlated to user traffic.
-
-We also expect the mobile network and its protocol implementations to express themselves in the measurements. For example, the \gls{RRC} idle timer is typically in the range of 10 to 30 minutes, which could mean there will be a large number of tunnels with a duration in this range. Such choices are usually made either by the mobile network operator or the device manufacturer and can vary from one implementation to another. It is therefore quite difficult to give any hard numbers in advance, and one has to correlate such aspects with certain events in the results.
-
+\input{loaddef.tex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

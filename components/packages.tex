@@ -11,12 +11,12 @@
   \usepackage{mathtools}
   \usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
   \usepackage{unicode-math} % fixes math
-  \setmainfont[SmallCapsFont={Linux Libertine O},SmallCapsFeatures={Letters=SmallCaps}]{Linux Libertine O}
-  \newfontfamily\scfont[Letters=SmallCaps]{Linux Libertine O}
+  \setmainfont[SmallCapsFont={Linux Libertine O},SmallCapsFeatures={Letters=SmallCaps},Ligatures=TeX]{Linux Libertine O}
+  \newfontfamily\scfont[Letters=SmallCaps, Ligatures=TeX]{Linux Libertine O}
   %\usepackage{tex-gyre-math}
   %\setmathfont{texgyrepagellamath-regular.otf} % math font for libertine
   %\setmathfont{texgyrepagella-math.otf} % math font for libertine
-  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TeX Gyre Pagella Math}
+  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX,Ligatures=TeX]{TeX Gyre Pagella Math}
   \usepackage{polyglossia} % babel replacement for use with fontspec
   \setdefaultlanguage{english}
 \else
