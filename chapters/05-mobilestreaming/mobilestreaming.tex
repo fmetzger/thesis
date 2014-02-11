@@ -109,18 +109,42 @@ Still, one has also to keep in mind, that layering and encapsulation is there fo
 	\item Using current location data and movement patterns/predictions to improve cell selections and initiate horizontal and vertical handovers to a time suitable for the device and running applications.
 
 	\begin{figure}[htb]
-	\centering
-	\includegraphics[width=\textwidth]{images/crosslayer-adaptive-streaming.pdf}
-	\caption{Mockup of handover prediction and hinting for adaptive streaming and thus avoiding playback stalls.}
+	        \centering
+	        \begin{subfigure}[b]{0.90\textwidth}
+	            \centering
+				\includegraphics[width=\textwidth]{images/adaptive-streaming-no-cl.pdf}
+				\caption{Stalling occurs without handover hinting.}
+				\label{c5:fig:streaming-hinting-no-cl}
+	        \end{subfigure}%
+
+	        \begin{subfigure}[b]{0.90\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{images/adaptive-streaming-cl.pdf}
+				\caption{Stalling can be prevented by hinting and proactively filling the playback buffer.}
+				\label{c5:fig:streaming-hinting-cl}
+			   \end{subfigure}%
+	 \caption{Mockup of handover prediction and hinting for adaptive streaming and thus avoiding playback stalls.}
 	\label{c5:fig:streaming-hinting}
 	\end{figure}
 
 	\item An adaptive streaming video application increases its video buffer when a shortly upcoming handover is announced to survive the service outage. This can be achieved by an increased rate of segment retrieval and a reduction in segment quality. The goal is to avoid any possible playback stalls due to the handover. Figure~\ref{c5:fig:streaming-hinting} demonstrates this circumstance.
 
 	\begin{figure}[htb]
-	\centering
-	\includegraphics[width=\textwidth]{images/crosslayer-http.pdf}
-	\caption{Mock-up of \gls{HTTP} reordering with handover awareness.}
+	        \centering
+	        \begin{subfigure}[b]{0.90\textwidth}
+	            \centering
+				\includegraphics[width=\textwidth]{images/http-reorder-no-cl.pdf}
+				\caption{The handover will block currently active object transmissions, page display will be delayed.}
+				\label{c5:fig:http-reorder-no-cl}
+	        \end{subfigure}%
+
+	        \begin{subfigure}[b]{0.90\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{images/http-reorder-cl.pdf}
+				\caption{The browser reorders the objects to be retrieved and avoids any transmissions during the indicated handover period.}
+				\label{c5:fig:http-reorder-cl}
+			   \end{subfigure}%
+	 \caption{Mock-up of \gls{HTTP} reordering with handover awareness.}
 	\label{c5:fig:http-reorder}
 	\end{figure}
 
@@ -261,7 +285,7 @@ Due to the layered architecture, it is very simple for contributors to add their
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=0.6\textwidth]{images/architecture.pdf}
+\includegraphics[width=0.6\textwidth]{images/sensorium-arch.pdf}
 \caption{Sensorium architecture with O3GM \textit{pickup}~and \textit{server}. Components described in this paper are shown dark gray.}
 \label{c5:fig:architecture}
 \end{figure}
