@@ -78,7 +78,7 @@
 
 % microtype and pdfspacing
 \DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}%
-\DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textls[80]{\scshape\MakeTextLowercase{#1}}}%
+%\DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textls[80]{\scshape\MakeTextLowercase{#1}}}%
 
 % typearea
 \usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
@@ -108,7 +108,7 @@
 % headlines
     \clearscrheadings
     \setheadsepline{0pt}
-    \renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\spacedlowsmallcaps{#1}}} 
+    \renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\textsc{#1}}} 
     \lehead{\mbox{\llap{\small\thepage\kern2em}\headmark\hfil}}
     \rohead{\mbox{\hfil{\headmark}\rlap{\small\kern2em\thepage}}}
     \renewcommand{\headfont}{\small}  
@@ -116,7 +116,7 @@
     % hack to get the content headlines right (thanks, Lorenzo!)
     \def\toc@heading{%
       \chapter*{\contentsname}
-      \@mkboth{\spacedlowsmallcaps{\contentsname}}{\spacedlowsmallcaps{\contentsname}}}
+      \@mkboth{\textsc{\contentsname}}{\textsc{\contentsname}}}
 
 % section heading styles     
 \usepackage{titlesec}
@@ -135,9 +135,9 @@
 % subsubsections
 \titleformat{\subsubsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}        
 % paragraphs
-\titleformat{\paragraph}[runin]{\normalfont\normalsize}{\theparagraph}{0pt}{\spacedlowsmallcaps}    
+\titleformat{\paragraph}[runin]{\normalfont\normalsize}{\theparagraph}{0pt}{\scshape}    
 % descriptionlabels
-    \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\spacedlowsmallcaps{#1}}   % spacedlowsmallcaps textit textsc                  
+    \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{#1}}   % spacedlowsmallcaps textit textsc                  
 % spacing
 \titlespacing*{\chapter}{0pt}{1\baselineskip}{1.2\baselineskip}
 \titlespacing*{\section}{0pt}{1.25\baselineskip}{1\baselineskip} 
