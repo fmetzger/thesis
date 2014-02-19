@@ -10,7 +10,7 @@ The amount of research conducted in the area of the mobile network control plane
 
 In the following sections we divide the related work into four distinct fields.
 
-Work in the first and second sections evaluate properties of the mobile network and its traffic. They are distinguished in their approach to the investigation, as the first group uses active measurements from mobile devices or conclude from other sources of traffic whereas to the other one has access to passive measurements from inside a \gls{3G} mobile network. Publications from the third category can be generally subsumed under the term ``traffic modeling'' and may not be specific to cellular networks. The final field concerns itself with the overall investigation of mobile network commonalities not falling into one of the previous specific categories.
+Work in the first and second sections evaluate properties of the mobile network and its traffic. They are distinguished in their approach to the investigation, as the first group uses active measurements from mobile devices or conclude from other sources of traffic whereas to the other one has access to passive measurements from inside a \gls{3G} mobile network. Publications from the third category can be generally subsumed under the term ``traffic modeling'' and may not be specific to cellular networks. The final field concerns itself with investigation work conducted by the \gls{3GPP} and \gls{GSMA} itself.
 
 The investigations conducted here do not strictly fall into either one of these but instead aims to provide diverse insights into the control plane from the perspective of the core network. We present a selection of publications from these fields and detail the interesting aspects for this work.
 
@@ -48,62 +48,35 @@ The authors of \cite{Shafiq:2012:FLC:2254756.2254767} limit their focus to a spe
 A 2012 publication~\cite{Zhang:2012:UCC:2377677.2377764} presents us with a more general look on the traffic composition of cellular access networks in comparison to wired access network. Much more and shorter flows are occurring in the case of cellular networks.
 It will be interesting to see if this shorter-but-more theme is also evident in signaling traffic. Additionally, even traffic pattern distinctions between types of applications are made showing a wide range of possible outcomes across the investigated applications.
 
-Both The authors of \cite{shafiq2011characterizing} and \cite{paul2011understanding} take the approach of looking at high-level user traffic characteristics in a mobile network, focusing on temporal and spatial variations of user traffic volume and peeking at the influence of different devices on this metric. 
+Both The authors of \cite{shafiq2011characterizing} and \cite{paul2011understanding} take the approach of looking at high-level user traffic characteristics in a mobile network, focusing on temporal and spatial variations of user traffic volume and peeking at the influence of different devices on this metric. Additionally, \cite{baer2011two} delivers a theoretical introduction on how to conduct large scale network measurements and compares some data evaluation approaches. The 2008 paper of \cite{4570772} takes a look at times scales and time of day deviations observed in aggregated user traffic in a mobile network.
 
+Up until now no trace-based investigation considered the control plane in their evaluation. The following publications include this at least to some degree.
 
-Two parallel approaches to network data analysis ; \cite{baer2011two} delivers a theoretical introduction on how to conduct large scale network measurements and compares some data evaluation approaches.
+In 2006, Svoboda et al. \cite{svoboda2006composition} conducted a core network measurement study of various user traffic related patterns, and also provided an initial insight into \gls{PDP} context activity and durations. Another paper \cite{lee2007detection} combines simulations based on WiFi and synthetic traces with prior knowledge of \gls{RRC} states and their effects to investigate detection methods for signaling \gls{DDoS} occurring on the radio interface. A possible magnitude of this type of attack is discussed. This also shows the correlation between user traffic patterns and radio signaling.
 
-%% <-
-
-Traffic analysis at short time-scales: an empirical case study from a 3G cellular network \cite{4570772} METAWIN based but not investigating signaling
-
-
-\gls{RRC} state machine:
-uses simulations based on wifi and synthetic traces
-Based on the state both procedures can enable and disable radio tunnels as well as core network tunnels, making them a good example of user traffic dynamics directly influencing core network signaling, similar to the observations in \cite{lee2007detection}. 
-We identify user traffic dynamics as one vector to influence core network signaling, similar to the observations in \cite{lee2007detection}.
-In \cite{lee2007detection}, mobile network traces are used to simulate a malicious signaling storm by transmitting low-volume user plane traffic with inter-departure times slightly larger than the transition timers in the \gls{RRC} state machines. This constantly causes signaling to occur. The authors propose tools to detect this, and discuss a possible magnitude of this type of \gls{DoS} attack.
-
-
-In 2006, Svoboda et al. \cite{svoboda2006composition} conducted a core network measurement study of various user traffic related patterns, and also provided an initial insight into \gls{PDP} context activity and durations.
-In 2006, a core network measurement study of various user traffic related patterns was conducted \cite{svoboda2006composition}, providing an initial insight into \gls{PDP} context activity and durations.
-
-
-Another recent publication at \cite{he2012panoramic} provides an investigation aimed at \gls{RRC} signaling on the \gls{RNC} to \gls{SGSN} link but not at \gls{gtp} signaling at the \gls{SGSN} to \gls{GGSN} path which we deem more important for our core network load characteristics research. The authors classify their evaluations based on device model and vendor and on the application type, and find that different devices have strongly different \gls{RRC} characteristics, which could possibly also have an impact on \gls{gtp} signaling. Here the \gls{RRC} evaluation was done in a direct manner using explicit logs from the \gls{RNC}. 
- \cite{he2012panoramic} provides an investigation aimed at radio network signaling. The authors find that different devices have also different signaling characteristics.
-
-
-A 2010 publication\cite{Qian:2010:CRR:1879141.1879159} however uses the indirect \gls{RRC} inferring method described earlier on a core network TCP trace data set and finds that the involved \gls{RRC} state machine is largely inefficient in terms of signaling overhead and energy consumption for typical traffic patterns seen in the data.
-A 2010 publication \cite{Qian:2010:CRR:1879141.1879159} indirectly infers radio signaling from TCP traces concluding that very commonly occurring traffic patterns cause large signaling overhead and high energy consumption.
+A 2010 publication\cite{Qian:2010:CRR:1879141.1879159} uses the indirect \gls{RRC} inferring method described earlier on a core network TCP trace data set and finds that the involved \gls{RRC} state machine is largely inefficient in terms of signaling overhead and the device's energy consumption for the traffic patterns seen in the data. 
+A more recent publication at \cite{he2012panoramic} performs a \gls{RRC} investigation at the \gls{RNC} to \gls{SGSN}. The authors classify their evaluations based on device model and vendor and on the application type, and find that different devices have strongly different \gls{RRC} characteristics, which could possibly also have an impact on \gls{gtp} signaling. Here the \gls{RRC} evaluation was done in a direct manner using explicit logs from the \gls{RNC}. A final paper \cite{Ricciato2010551} recaps some general attack scenarios on \gls{3G} networks that exploit the specific \gls{3GPP} system design. These are often closely related to the control plane.
 
 
 %%
 \subsection{Traffic Modeling}
 
-\begin{itemize}
-	\item Source traffic modeling of wireless applications \cite{staehle2000source}
-	\item Traffic modeling and characterization for UMTS networks \cite{965876}
-\end{itemize}
-
+Extracting viable models from mobile traffic measurements will also play a significant role. The first related work is a survey of source modeling approaches for \gls{GPRS} user traffic from the year 2000 \cite{staehle2000source}. Models for \gls{HTTP} traffic and user behavior are compared and a combined model is recommended. One has to keep in mind, though, that due to the rapid developments in the Web in recent years those models might no longer be valid. Similarly, the authors of \cite{965876} derive a synthetic \gls{UMTS} traffic model from wired dial-up traces. By using a batch Markovian arrival process they characterize session traffic in most cases with a lognormal distribution.
 
 
 %%
-\subsection{General Mobile Network (Infrastructure) Investigations}
-\begin{itemize}
-	\item Comparative Performance Study of LTE Downlink Schedulers \cite{biernacki2013ltescheduler}
-	
-	\item 22.801 \cite{3gpp.22.801} Study on non-MTC mobile data applications impacts; for angry birds // relwork important
-	\item 23.843 \cite{3gpp.23.843} Study on Core Network (CN) overload solutions
-	\item 24.826 \cite{3gpp.24.826} Study on impacts on signalling between User Equipment (UE) and core network from energy saving; deals mostly with switching off cells and moving over UEs, not actual core network efficiency
-	\item 29.807 \cite{3gpp.29.807} Study on GTP-C overload control mechanisms
-\end{itemize}
+\subsection{\texorpdfstring{\acrshort{3GPP}}{3GPP} and \texorpdfstring{\acrshort{GSMA}}{GSMA} Related Work}
 
-A final paper \cite{Ricciato2010551} presents some \gls{DoS} attack scenarios on these networks from a theoretical view. As a \gls{DoS} either needs to find a weak (performance-wise) link in an architecture or a good source for an amplification attack -- small information causes a large amount of information to be computed or transmitted -- this is also very helpful information in evaluating core network load and finding bottlenecks.
+The two associations related to the mobile network under scrutiny, the \gls{3GPP} as well as the \gls{GSMA} themselves have released some studies and recommendations concerning potential effects of and issues with the control plane. 
 
-Correlation to stories about carrier complaints over (radio) ``signalling storms''  and 3gpp R8 Fast Dormancy \cite{3gpp.25.331} and \cite{gsma2011fdbestpract}
+In reaction to the mentioned \gls{RRC} signaling \gls{DDoS} the \gls{GSMA} released some best practices \cite{gsma2011fdbestpract} intended to reduce the number of signaling messages in these circumstances. The cause of the \gls{DDoS} were in most cases mobile devices, that circumvented the \gls{RRC} state transition timers and explicitly switched the radio to the idle state after a transmission was finished and reenables it whenever needed. This can greatly reduce the power usage but increases the number of signaling messages to be sent and thus the load in the radio network and possibly also inside the \gls{CN}. With the presented ``Fast Dormancy'' mechanism, mobile devices are supposed to reduce the radio signaling amount while still saving energy. The implications of this mechanism on the core are not investigated.
+
+A \gls{3GPP}-released study \cite{3gpp.22.801} also describes the diverse traffic mix originating from modern smartphones and its associated signaling problems.
+
+The aim of the study in \gls{TS}~23.843~\cite{3gpp.23.843} is to document some of the control plane bottlenecks and attack vectors on the \gls{CN}. This also includes the interesting case of \gls{GTP-C} overload and causes for this scenario. Some approaches to alleviate the effects are also presented but mostly targeted at the \gls{EPC}. The final study is an extension to the last one \cite{3gpp.29.807} and focuses solely on \gls{GTP-C} overload control to be included in a future version of the \gls{3GPP} architecture. Therefore, the mostly unfinished document again targets just at a coming evolution \gls{LTE} and provides no investigation of the actual load situation in current \gls{3G} networks.
+
+All of the presented publications relate to some degree to this chapter. However, the combination of the aspects of \gls{CN} signaling with a statistical evaluation and load modeling of \gls{PDP} contexts should be a genuine contribution of this chapter.
 
 
 
-
-
-All of these touch to some degree parts of the areas tackled in this paper, but we think that the combination of the focus on core signaling, a statistical evaluation of PDP Contexts with an investigation of sources influencing these, and a simple load model are genuine contributions of our work.
+%24.826 \cite{3gpp.24.826} Study on impacts on signalling between User Equipment (UE) and core network from energy saving; deals mostly with switching off cells and moving over UEs, not actual core network efficiency
