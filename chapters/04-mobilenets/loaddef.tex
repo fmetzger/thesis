@@ -1,11 +1,31 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Mobile Core Network Load Definition}
+\section{Mobile Core Network Load}
 \label{c4:loaddefinition}
 
-work in 23.843 \cite{3gpp.23.843} Study on Core Network (CN) overload solutions
-GTP-C retransmission of unacknowledged requests"
-currently: semi-static DNS based load balancing (does this apply only to LTE/SGW?)
+Now that both the basic architecture and protocols are and introduced and related work is presented, it is time to discuss our specific perspective on the \gls{CN} control plane.
+
+Existing core network measurement studies looked at the control plane mostly in a rather incoherent manner. Some aspects were singled out and presented without forming an overarching motif. The driving question for this chapter was that of core network load. This section attempts to explain the understanding of load in this context. Following afterwards is a discussion on potential factors that could influence this load.
+
+
+\subsection{Load Definition}
+
+A traditional definition of link load $\rho_{l}$ is the ratio of the used versus the available bandwidth on a link
+
+\begin{equation}
+\rho_{l} = \frac{b_{u}}{b_{a}}\text{.}
+\end{equation}
+
+The network load $\rho_{l}$ can then simply be defined as the average load of all involved links
+
+\begin{equation}
+\rho_{n} = \frac{\sum_{i} \rho_{l,i}}{i}\text{.}
+\end{equation}
+
+The link itself is however not the only component, that has a limited capacity and thus can experience load.
+
+
+% <--
 
 This can be subsumed under the term network ``load'' which we plan to investigate in this work. Therefore, in scenarios such as the ones mentioned above, radio access is not the bottleneck to connectivity any more, but signaling is.
 
@@ -37,3 +57,8 @@ An additional factor in the picture is the user and her or his behavioral patter
 Easier to observe are the temporal effects of user behavior, which do not target individual users but the overall effects of a device's usage based on the time of day, the day of the week, or other time spans. In network user traffic analyses diurnal effects are typically very distinct with peak traffic some time during the day and the lowest traffic shortly after midnight. But these investigations are for user traffic only. We aim to find out, if the mobile network control plane shows similar patterns and can thusly be correlated to user traffic.
 
 We also expect the mobile network and its protocol implementations to express themselves in the measurements. For example, the \gls{RRC} idle timer is typically in the range of 10 to 30 minutes, which could mean there will be a large number of tunnels with a duration in this range. Such choices are usually made either by the mobile network operator or the device manufacturer and can vary from one implementation to another. It is therefore quite difficult to give any hard numbers in advance, and one has to correlate such aspects with certain events in the results.
+
+
+work in 23.843 \cite{3gpp.23.843} Study on Core Network (CN) overload solutions
+GTP-C retransmission of unacknowledged requests"
+currently: semi-static DNS based load balancing (does this apply only to LTE/SGW?)
