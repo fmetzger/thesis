@@ -10,6 +10,7 @@ While this chapter only employs passive measaurements, Chapter~\ref{chap:mobiles
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Network and Monitoring Setup}
 
+For our analysis, the \gls{METAWIN} monitoring system developed in a previous third-party research project and deployed in the network of an Austrian mobile operator is used. \cite{ricciato_2011,ricciato2006traffic}
 
 
 \begin{figure}[htb]
@@ -20,64 +21,20 @@ While this chapter only employs passive measaurements, Chapter~\ref{chap:mobiles
 \end{figure}
 
 
-%\begin{figure*}%[tbp]
-%\centering
-%\includegraphics[width=0.98\textwidth]{figures/network_setup_gtp_tun-crop.pdf}
-%\caption{Measurement setup.}
-%\label{fig:net_setup}
-%\end{figure*}
 
-Elaborate on DARWIN/METAWIN
+The measurement taps are located at the Gn interface at one \gls{GGSN} within the core network as depicted in Figure~\ref{c4:fig:umtsnetwork}. It gives access to a wide spectrum of core \gls{gtp} signaling, including the mobility and tunnel management. \cite{3gpp.29.060}. The system does not offer a complete packet trace, but aggregates every signaling transaction and user traffic flow down to a number of select fields. This includes \gls{gtp} \gls{IE} such as the \gls{RAT}  as well as the terminal types of the mobile clients. The latter is determinable by the \gls{TAC} part of the \gls{IMEI} (cf.~\cite{3gpp.23.003}) and will be discussed later in detail.
 
-	 nur in die darwin section: Traffic monitoring and analysis in 3G networks: lessons learned from the METAWIN project \cite{ricciato2006traffic}
+In the network under study, a direct tunnel setup might be used for \gls{UMTS}-using \glspl{UE} consisting of a direct link between \glspl{GGSN} and the \glspl{RNC} and circumventing the \gls{SGSN}. It is only used for transporting user-plane traffic, signaling procedures are carried out in the normal way between \glspl{SGSN} and \gls{GGSN}. Therefore, only the Gn interface at \gls{GGSN} is seeing the complete core network traffic, explaining the location of the tap.
 
 
-For our analysis, we use the \gls{METAWIN} monitoring system developed in a previous research project and deployed in the network of an Austrian mobile operator.  More in-depth information about \gls{METAWIN} is available in \cite{ricciato_2011}.
-
-The location of the measurement probe within the core network is highlighted in Figure~\ref{c4:fig:umtsnetwork}. 
-
- The location of the measurement probe at the Gn interface within the core network, marked in Figure~\ref{c4:fig:umtsnetwork}, gives access to both wide-area mobility signaling (not analyzed in this paper) and signaling related to user-plane IP traffic (which we want to scrutinize). The \gls{METAWIN} monitoring system extracts and correlates information from the lower layers of the \gls{3GPP} protocol stack, and specifically the \gls{gtp} protocol on the Gn interface \cite{3gpp.29.060}. This includes the \acrfull{RAT} identifier as well as the terminal types of the mobile clients. The latter is determinable by the \acrfull{TAC} part of the \acrfull{IMEI} (cf.~\cite{3gpp.23.003}) and will be discussed later in detail.
-
-To meet privacy requirements, the \gls{METAWIN} system anonymizes captured data on the fly at multiple layers: the application-level payload is removed and all user identifiers (e.g. \gls{IMSI}) are hashed with a one-way function before recording. That is, single \glspl{MS} in our dataset may be differentiated by means of an anonymized \gls{MS-ID}, but not traced back to the actual customer. The packet capturing hardware deployed within the \gls{METAWIN} monitoring system is synchronized using \gls{GPS}. Accordingly, the packet timestamps have an accuracy of $\pm100$ ns or better~\cite[p.97-98]{donnelly_high_2002}.
-
-
-
-
-As said before, the \gls{GGSN} acts as the IP-layer gateway for the user traffic. It is in charge of setting up,
-maintaining, and tearing down a logical connection to each active \gls{MS}. This logical connection, the \gls{PDP} context,
-is conceptually similar to a dial-up connection. During set up, an
-IP address is dynamically assigned to the \gls{MS}.
-%The \glspl{SGSN} and \glspl{GGSN} in the core network are interconnected by a wide-area IP network that
-%will be referred to as the ``G$_n$ network'' following the terminology of \gls{3GPP} specifications
-%(``Gn interface'').
-In the network under study, a so-called \textit{direct tunnel} setup might be used for \glspl{MS} connected
-via \gls{UMTS}/\gls{HSPA}. Such a setup consists of a direct link between \glspl{GGSN} and the
-\glspl{RNC} %(indicated by the upper dashed line in Fig.~\ref{fig:umtsnetwork}), % Dashing is indiscernible in the figure.
-which is used for
-transporting user-plane data traffic only. Since signaling procedures such
-as mobility management are carried out by the \glspl{SGSN}, a \gls{GGSN} always has to send signaling packets
-via the path involving the \glspl{SGSN}. Monitoring the Gn interface thus gives us access to both wide-area mobility signaling (not analyzed in this paper) % routing area updates
-and signaling related to user-plane IP traffic (which we want to scrutinize).
-For more information on the \gls{3G} network structure, please refer to~\cite{bannister_convergence_2004}.
-
-The METAWIN monitoring system extracts and correlates information from the lower
-layers of the \gls{3GPP} protocol stack, and specifically the \gls{gtp} protocol
-on the Gn interface \cite{3gpp.29.060}. This includes the \acrfull{RAT} identifier as well as the terminal types of the mobile clients. The
-latter is determinable by the \acrfull{TAC} part of the \acrfull{IMEI} (cf. \cite{3gpp.23.003}) and will be discussed later in detail.
-
-To meet privacy requirements, the METAWIN system anonymizes captured data on the fly at multiple
-layers: the application-level payload is removed and all user identifiers (e.g. \gls{IMSI}) are
-hashed with a one-way function before recording. That is, single
-\glspl{MS} in our dataset may be differentiated by means of an anonymized \gls{MS-ID}, but not traced back to the actual customer.
-The packet capturing hardware deployed within the METAWIN monitoring system is synchronized
-using \gls{GPS}. Accordingly, the packet timestamps
-have an accuracy of $\pm100$ ns or better~\cite[p.97-98]{donnelly_high_2002}.
-
+Recording data in a live network necessitates meeting strict privacy requirements regarding the handling of user-related data. \gls{METAWIN} complies with this by anonymizing all user-identifying. Application-level payload is removed and all user identifiers (e.g. \gls{IMSI}) are non-reversibly hashed before recording. \glspl{UE} in a dataset can still be differentiated by the hashes but not traced back to the actual user. The wiretaps deployed within the monitoring system are time-synchronized with \gls{GPS}. Accordingly, the packet timestamps have an accuracy of $\pm100$ ns or better.
+%~\cite[p.97-98]{donnelly_high_2002}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Dataset Description}
 
+%<--||
 
 The \gls{METAWIN}-recorded dataset used in our evaluation is a week-long trace from the third week of April 2011. It consists of 2.2 billion aggregated flows for the user traffic and 410 million \gls{gtp} Tunnel Management transactions, the latter representing the data base for this paper. It was tapped at one of the \glspl{GGSN} of the operator, and contains about half of the total traffic volume handled by the operator in this period. The \gls{gtp} data contains the response codes for each transactions. With these codes, failed interactions can be sorted out and treated separately.
 
@@ -87,7 +44,7 @@ We fed the records into a SQL database, and conducted further evaluations throug
 In order to evaluate our models, we use data gathered from a nation-wide mobile operator. This allows for precise core network evaluations and the creation statistical fits for the observed processes.
 In this section we first describe the dataset used for the evaluation and afterwards we derive the random variables required for our models.
 
-All data was collected by the \gls{METAWIN} monitoring system \cite{ricciato_2011} with measurement probes located at the Gn interface within the core network, enabling broad access to signaling. For this investigation we exclusively use \gls{gtp} protocol data gathered by \gls{METAWIN}. This includes the \gls{RAT} identifier as well as the terminal types of the mobile clients, by use of the \gls{TAC} part of the \gls{IMEI}. % \cite{etsi_3gpp_2008} for GTP on Gn
+ For this investigation we exclusively use \gls{gtp} protocol data gathered by \gls{METAWIN}. This includes the \gls{RAT} identifier as well as the terminal types of the mobile clients, by use of the \gls{TAC} part of the \gls{IMEI}. % \cite{etsi_3gpp_2008} for GTP on Gn
 To meet privacy requirements, \gls{METAWIN} anonymizes all captured data. The application-level payload is removed and all user identifiers are hashed with one-way functions before recording. Individual \glspl{MS} in our dataset can be differentiated by the hashed \gls{MS-ID}, but not traced back to the actual user.
 
 The dataset used in our evaluation is a week-long trace from the third week of April 2011. It consists of $2.2$ billion aggregated flows for the user traffic and $410$ million \gls{gtp} Tunnel Management transactions. It was tapped at one of the \glspl{GGSN} of the operator, and contains about half of the total traffic volume handled by the operator in this period.
