@@ -12,7 +12,6 @@ While this chapter only employs passive measaurements, Chapter~\ref{chap:mobiles
 
 For our analysis, the \gls{METAWIN} monitoring system developed in a previous third-party research project and deployed in the network of an Austrian mobile operator is used. \cite{ricciato_2011,ricciato2006traffic}
 
-
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/umts-network.pdf}
@@ -21,38 +20,24 @@ For our analysis, the \gls{METAWIN} monitoring system developed in a previous th
 \end{figure}
 
 
-
 The measurement taps are located at the Gn interface at one \gls{GGSN} within the core network as depicted in Figure~\ref{c4:fig:umtsnetwork}. It gives access to a wide spectrum of core \gls{gtp} signaling, including the mobility and tunnel management. \cite{3gpp.29.060}. The system does not offer a complete packet trace, but aggregates every signaling transaction and user traffic flow down to a number of select fields. This includes \gls{gtp} \gls{IE} such as the \gls{RAT}  as well as the terminal types of the mobile clients. The latter is determinable by the \gls{TAC} part of the \gls{IMEI} (cf.~\cite{3gpp.23.003}) and will be discussed later in detail.
 
-In the network under study, a direct tunnel setup might be used for \gls{UMTS}-using \glspl{UE} consisting of a direct link between \glspl{GGSN} and the \glspl{RNC} and circumventing the \gls{SGSN}. It is only used for transporting user-plane traffic, signaling procedures are carried out in the normal way between \glspl{SGSN} and \gls{GGSN}. Therefore, only the Gn interface at \gls{GGSN} is seeing the complete core network traffic, explaining the location of the tap.
+In the network under study, a direct tunnel setup might be used for \gls{UMTS}-using \glspl{UE} consisting of a direct link between \glspl{GGSN} and the \glspl{RNC} and circumventing the \gls{SGSN}. It is only used for transporting user-plane traffic, signaling procedures are carried out in the normal way between \glspl{SGSN} and \gls{GGSN}. Therefore, only the Gn interface at \gls{GGSN} is seeing the complete core network traffic, explaining the location of the tap. The network under study has more than one \gls{GGSN} at different physical locations. The tapped \gls{GGSN} manages about half of the operator's total traffic volume in this period. 
 
-
-Recording data in a live network necessitates meeting strict privacy requirements regarding the handling of user-related data. \gls{METAWIN} complies with this by anonymizing all user-identifying. Application-level payload is removed and all user identifiers (e.g. \gls{IMSI}) are non-reversibly hashed before recording. \glspl{UE} in a dataset can still be differentiated by the hashes but not traced back to the actual user. The wiretaps deployed within the monitoring system are time-synchronized with \gls{GPS}. Accordingly, the packet timestamps have an accuracy of $\pm100$ ns or better.
+Recording data in a live network necessitates meeting strict privacy requirements regarding the handling of user-related data. \gls{METAWIN} complies with this by anonymizing all user-identifying. Application-level payload is removed and all user identifiers (e.g. \gls{IMSI}) are non-reversibly hashed before recording. \glspl{UE} in a dataset can still be differentiated by the hashes but not traced back to the actual user. The wiretaps deployed within the monitoring system are time-synchronized with \gls{GPS}. Accordingly, the packet timestamps have an accuracy of least \SI{100}{\nano\second}.
 %~\cite[p.97-98]{donnelly_high_2002}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Dataset Description}
 
-%<--||
+Using \gls{METAWIN} a week-long core trace was acquired. It was recorded in April 2011, specifically begining at Monday, \yyyymmdddate\formatdate{10}{4}{2011}, \formattime{0}{0}{0} and ending Sunday, \formatdate{17}{4}{2011}, \formattime{23}{59}{59}.
 
-The \gls{METAWIN}-recorded dataset used in our evaluation is a week-long trace from the third week of April 2011. It consists of 2.2 billion aggregated flows for the user traffic and 410 million \gls{gtp} Tunnel Management transactions, the latter representing the data base for this paper. It was tapped at one of the \glspl{GGSN} of the operator, and contains about half of the total traffic volume handled by the operator in this period. The \gls{gtp} data contains the response codes for each transactions. With these codes, failed interactions can be sorted out and treated separately.
+The trace includes user plane as well as control plane traffic. User plane traffic is recorded in a traffic flow granularity with the trace containing data on \num{2.2e9} aggregated flows. No exact flow start time is given, instead it is rounded down to a \SI{2}{\hour} window with the timestamp at the beginning. A flow entry further consists of hashed identifiers for the gls{IMSI} and the remote server. Besides the usual protocol and port information, the transmitted data volume, in a number of packet as well as byte count, is given on in both link directions. Additional information is available on \gls{HTTP} traffic. This portion of the trace includes precise timestamps as well as the \acrshort{MIME}-type, result code, and size of the requested objected.
 
-We fed the records into a SQL database, and conducted further evaluations through scripted queries on the database. Any privacy-relevant data, e.g. the \gls{IMEI}, \gls{MS-ID} and any IP address involved, is only visible as hashes and is processed in a privacy-preserving manner.  Since the hashing of the \gls{IMEI} is consistent throughout the dataset, user traffic flows and the \gls{gtp} data can be cross-correlated despite anonymization, giving the opportunity for further research.
+The recorded control plane traffic consists of \num{4.1e8} \gls{gtp} tunnel management transactions, i.e. every create, update, and delete request and response. Not all of the \glspl{IE} data is included. But most importantly, it includes the \gls{TAC}, \gls{RAT} and hashed \gls{IMSI} for the purpose of device discrimination. Also present are several timestamps with \SI{64}{\bit} precision describing the time of the request, response and the tunnel's start time. Finally, the \gls{gtp} data contains the response codes for each request. With these codes, failed transactions can be distinguished from successful ones and examined separately. Since the hashed \gls{IMEI} is consistent across the user and control plane data, both can be cross-correlated.
 
-
-In order to evaluate our models, we use data gathered from a nation-wide mobile operator. This allows for precise core network evaluations and the creation statistical fits for the observed processes.
-In this section we first describe the dataset used for the evaluation and afterwards we derive the random variables required for our models.
-
- For this investigation we exclusively use \gls{gtp} protocol data gathered by \gls{METAWIN}. This includes the \gls{RAT} identifier as well as the terminal types of the mobile clients, by use of the \gls{TAC} part of the \gls{IMEI}. % \cite{etsi_3gpp_2008} for GTP on Gn
-To meet privacy requirements, \gls{METAWIN} anonymizes all captured data. The application-level payload is removed and all user identifiers are hashed with one-way functions before recording. Individual \glspl{MS} in our dataset can be differentiated by the hashed \gls{MS-ID}, but not traced back to the actual user.
-
-The dataset used in our evaluation is a week-long trace from the third week of April 2011. It consists of $2.2$ billion aggregated flows for the user traffic and $410$ million \gls{gtp} Tunnel Management transactions. It was tapped at one of the \glspl{GGSN} of the operator, and contains about half of the total traffic volume handled by the operator in this period.
-%The records were stored in a SQL database, with most of the statistical evaluation conducted using R.
-
-Our dataset, kindly provided by a nation-wide mobile operator and recorded using the \gls{METAWIN} monitoring system, was taken in the third week of April 2011. It consists of seven days of aggregated flow-level data for the user traffic and a summary entry for every \gls{gtp} Tunnel Management transaction, the latter representing the data base for this paper. It was tapped at one of the \glspl{GGSN} of the operator, and contains about half of the total traffic volume handled by the operator in this period. The \gls{gtp} data contain the response codes for each transactions. With these codes, failed interactions can be sorted out and treated separately.
-
-We fed the records into a SQL database, and conducted further evaluations through scripted queries on the database. Any privacy-relevant data, e.g. the \gls{IMEI}, \gls{MS-ID} and any IP address involved, is only visible as hashes and can only be processed in anonymized form. Individual device types can be identified in form of the unhashed \gls{TAC} on every entry. Since the hashing of the \gls{IMEI} is consistent, user traffic flows and the \gls{gtp} data can be cross-correlated despite anonymization, giving the opportunity for further research.
+All trace information was exported from \gls{METAWIN} as pure line-based text data. For this investigation all records were fed into a \acrshort{SQL} database. Evaluations were conducted through scripted queries on the database.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Device Identification}
