@@ -42,13 +42,45 @@ All trace information was exported from \gls{METAWIN} as pure line-based text da
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Device Identification}
 
-Individual device types can also still be identified in form of the \gls{TAC} on every entry. The \gls{TAC} is part of the \gls{IMEI}, uniquely identifying each device type \cite{3gpp.23.003}. The rest of the \gls{IMEI} constitutes the serial number of the involved devices, which is not present in the data.
+Individual device types can also be identified in the data througth the \gls{TAC} field on every entry.The \gls{TAC} represents the first eight decimal digits of the \gls{IMEI} and uniquely identifies each device type \cite{3gpp.23.003}. The following six digits of the \gls{IMEI} constitute the serial number of a specific device, which is of course omitted in the data. Due to the short length of this serial number, popular devices will often be assigned more than one \gls{TAC}, somewhat complicating the identification of certain device models.
 
-In our dataset, the \gls{TAC} field is provided in clear\-text, whereas the \gls{IMEI} is only available in hashed form to preserve the privacy of device owners. The \gls{TAC} is contained in the first eight decimal digits of the \gls{IMEI}, uniquely identifying each device type \cite{3gpp.23.003}. The rest of the \gls{IMEI} constitutes the serial number of the involved devices.
+\glspl{TAC} are assigned to individual device models by the regional members, or \gls{RBI}, of the \gls{GSMA}, distinguished by the first two digits of the \gls{TAC}. The full allocation information is not freely available, but only to members of the \gls{GSMA}, which is not a viable option for research institutions and other interested parties. Some independent efforts have been made to collect \glspl{TAC} from devices. Most of them allow just low-volume queries for specific \glspl{TAC} for non-commercial purposes. However, one \gls{TAC} dataset is publicly available and can be used freely. \footnote{Available at \url{http://www.mulliner.org/tacdb/}.}
 
-\glspl{TAC} are managed by the \gls{GSMA} which in turn assigns local organizations, distinguished by the first two digits of the \gls{TAC} as Reporting Body Identifier, to allocate \glspl{TAC} to manufacturers. However, this allocation information is not freely available. Commercial databases exist, but this is neither affordable for research institutions, nor is it conducive to our goal of providing information to the public. While there are some websites that allow one to query for specific \glspl{TAC} for non-commercial purposes, only very few efforts attempt to collect \gls{TAC} information into a publicly available database. We based our data-mining efforts on a publicly available set\footnote{\url{http://www.mulliner.org/tacdb/}, Mulliner, C.}, with some additional devices collected on our own. Since the unit identification part of the \gls{IMEI} is just six decimal digits long, popular devices will even be assigned more than one TAC, making the acquisition of all relevant \glspl{TAC} even more complicated.
+This evaluation is based uses this dataset, with some additional device identifiers collected during the course of the investigation. With this at hand, many of the devices associated with the flows and \gls{gtp} messages from the trace were iteratively identified and categorized.
+% we went through large portions of the \glspl{TAC} present in our dataset, and identified and categorized the most important entries. In this case, importance means various metrics like the traffic volume, the number of flows, and the number of \gls{gtp} signaling messages for each \gls{TAC}. 
 
-For our investigation, we went through large portions of the \glspl{TAC} present in our dataset, and identified and categorized the most important entries. In this case, importance means various metrics like the traffic volume, the number of flows, and the number of \gls{gtp} signaling messages for each \gls{TAC}. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\texorpdfstring{\acrshort{TAC}}{TAC} Evaluation Validity}
+
+It is important to know whether the available information in the \gls{TAC} dataset covers enough of the devices seen in the traces to provide sufficiently meaningful data and allows the creation of device discriminating statistics. After all it is a large albeit still very incomplete set.
+
+\begin{table}
+\centering
+\caption{Relative \acrshort{TAC} Statistics.}
+\label{c4:tbl:tacstats}
+\begin{tabu}{XX[r]}
+\toprule
+\textbf{Type} & \textbf{Portion of devices with entry in TAC DB}\\ 
+\midrule
+\# of Flows & 99.72\% \\
+Ratio of Traffic & 99.97\%\\
+\# of Tunnels & 87.57\% \\
+\# of GTP Signaling Msgs & 90.95\% \\
+\# of Distinct \glspl{MS-ID} & 80.93\%\\ 
+\bottomrule
+\end{tabu}
+\end{table}
+
+
+Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct devices active could be identified. Looking at the total number of \gls{gtp} signaling messages, we see that we can determine the device name of over 90 percent.
+The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
+
+
+
+As we are working with an incomplete \gls{TAC} database it is important to know whether our \gls{TAC} mappings provide sufficiently useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct and active devices could be identified. Looking at the total number of \gls{gtp} signaling messages, we see that we can determine the device name of over 90 percent. The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -71,17 +103,14 @@ After having available the device names for most \glspl{TAC}, we were able to ad
 
 \todo{extend this section}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{TAC Statistics and Evaluation Validity}
-
-It is important to know whether our \gls{TAC} mappings provide sufficient useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct devices active could be identified. Looking at the total number of \gls{gtp} signaling messages, we see that we can determine the device name of over 90 percent.
-The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
-
-
+\subsection{Preliminary Device Statistics}
 After applying the categorization to the \glspl{TAC} we evaluate the device composition in the network. The two largest portions of devices are smartphones  and 3G dongles, while classic cell phones do not seem to play a major role anymore. 
 %We see about twice as many Android as iOS devices, possibly attributed either to the contractual situation of the operator or the wider price range of Android devices.
 
 %Regular phones have negligible user traffic despite still making up one tenth of the device fraction. 
+
 
 Initially, one planned endeavor was to investigate possible peculiarities of business phone behavior, especially of those easily identifiable Blackberry OS phones, but the number of distinct Blackberry devices in the dataset is too low to draw conclusions of any significance.
 
@@ -89,26 +118,11 @@ One observation across all device types is that about 18 percent of all mobile d
 
 The difference between 3G dongles and smartphones is also noteworthy. While the former cause large amounts of user plane traffic (compared to the device numbers), they are responsible for but a low number of core network signaling events and tunnels. This picture is reversed for smartphones.
 
-
-
-\begin{table}
-\centering
-\caption{Relative \acrshort{TAC} Statistics.}
-\label{c4:tbl:tacstats}
-\begin{tabu}{|l|X[r]|}
-\hline
-& \textbf{Portion of devices with entry in TAC DB}\\ \hline
-\# of Flows & 99.72\% \\
-Ratio of Traffic & 99.97\%\\
-\# of Tunnels & 87.57\% \\
-\# of GTP Signaling Msgs & 90.95\% \\
-\# of Distinct \glspl{MS-ID} & 80.93\%\\ \hline
-\end{tabu}
-\end{table}
-
-As we are working with an incomplete \gls{TAC} database it is important to know whether our \gls{TAC} mappings provide sufficiently useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct and active devices could be identified. Looking at the total number of \gls{gtp} signaling messages, we see that we can determine the device name of over 90 percent. The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
-
 After applying the categorization to the \glspl{TAC} we evaluate the device composition in the network. The two largest portions of devices are smartphones and 3G dongles, while classic cell phones do not seem to play a major role in the packet-switched domain anymore. One observation across all device types is that about 14 percent of all mobile devices have activated their mobile data service and have signaling traffic, but do not cause any user plane traffic.
 
 The difference between 3G dongles and smartphones is also noteworthy. While the former cause large amounts of user plane traffic (compared to the device numbers), they are responsible for but a few core network signaling events and tunnels. This picture is reversed for smartphones.
+
+
+
+
 

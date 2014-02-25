@@ -175,12 +175,14 @@ This player used a single threshold strategy with different threshold values for
     \caption{Transmission Related Parameters from YouTube's Video URL Setup}
     \label{c3:tbl:yturl}
     \centering
-    \begin{tabu}{|X[l]|X[p]|}
-        \hline
-        URL Part & Description \\ \hline
+    \begin{tabu}{X[l]X}
+        \toprule
+        \textbf{\gls{URL} Part} & \textbf{Description} \\ 
+        \midrule
         \texttt{v$\alpha$.lscache$\beta$.c.youtube.com} &  Cache server involved in the delivery.\\
         \texttt{algorithm=throttle-factor} and \texttt{burst=40} and \texttt{factor=1.25} & Indicates initial burst plus block sending configuration. \\
-        \texttt{ratebypass=yes} & Parameter to indicate no rate limiting.\\ \hline
+        \texttt{ratebypass=yes} & Parameter to indicate no rate limiting.\\
+        \bottomrule
     \end{tabu}
 \end{table}
 

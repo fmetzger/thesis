@@ -168,12 +168,15 @@ Table~\ref{c3:tab:streamingclassification} attempts to summarize all the protoco
   \label{c3:tab:streamingclassification}
   \tabulinesep=1.2mm
   \centering
-  \begin{tabu}{|X|X|X|X|X|X|X|} 
+  \begin{tabu}{X[0.5]XXXXXX} 
+  \toprule
 
-  Protocol & \textbf{Vertical Location of Control} & \textbf{Horizontal Location of Control} & \textbf{Reliable Transport} & \textbf{Video Type} & \textbf{Adaptivity} & \textbf{Multicast} \\ \tabucline[1pt]-\everyrow{\tabucline[on 1.5pt off 2pt] - }
+  \textbf{Protocol} & \textbf{Vertical Location of Control} & \textbf{Horizontal Location of Control} & \textbf{Reliable Transport} & \textbf{Video Type} & \textbf{Adaptivity} & \textbf{Multicast} \\ 
+  \midrule %\tabucline[1pt]-\everyrow{\tabucline[on 1.5pt off 2pt] - }
   RTP & out-of-band application layer protocol & server-side and limited intermediary (translators and mixers) & unreliable (UDP) & low delay live streaming & server-side adaptation (transcoding) & yes, IGMP\\
   simple HTTP & in-band streaming application & client-side & reliable (TCP) & stored, not live & none & no, but emulated through CDN\\
   adaptive HTTP (DASH) & in-band streaming application & client-side & reliable (TCP) & stored and near-live & client-side with file segmentation & no, but emulated through CDN\\
+  \bottomrule
   \end{tabu}
 \end{table}
 

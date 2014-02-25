@@ -433,13 +433,15 @@ introducing artifacts which make it hard to fit any distribution against. Instea
   \label{tab:fits}
   \tabulinesep=1.2mm
   \centering
-\begin{tabu}{|[1.2pt]X[0.9,l]|[1.5pt]X[r]|X[r]|X[4.5,r]|X[r]|[1.5pt]} 
-  %\tabucline[1pt]-
-  \textbf{Time of Day} & $\boldsymbol{\lambda}$ & $\boldsymbol{R_{arrival}}$ & \textbf{Inverse Fitted Duration Function} & $\boldsymbol{R_{dur}}$\\ \tabucline[1pt]-\everyrow{\tabucline[on 1.5pt off 2pt] - }
+\begin{tabu}{X[0.9,l]X[r]X[r]X[4.5,r]X[r]} 
+  \toprule
+  \textbf{Time of Day} & $\mathbf{\lambda}$ & $\mathbf{R_{arrival}}$ & \textbf{Inverse Fitted Duration Function} & $\mathbf{R_{dur}}$\\ 
+  \midrule
   0h-5h & $10.67477$ & $0.99538$ & $0.919208 - 60.6136y - 3498.78y^3 - \frac{110.707y + 2289.94y^3}{y - 1.00469}$ &  $0.9999021$ \\
   6h-11h & $24.53298$ & $0.99216$ & $1 + 117.484y - 368.643y^2 - \frac{1720.13y^4}{y - 1.0041}$ & $0.9998909$ \\
   12h-17h & $29.2504$ & $0.99256$ & $0.952566 + 69.4907y + \frac{81146.1y^3 + 1.08572\times10^6y^5}{805 - 802.01y}$ & $0.9999027$ \\
-  18h-23h & $23.49983$ & $0.98617$ & $0.911924 + 82.0562y - \frac{2936.93y^4}{1.94468y - 1.9532}$ & $0.9998071$  %\everyrow{} \\ \tabucline[1.2pt]-
+  18h-23h & $23.49983$ & $0.98617$ & $0.911924 + 82.0562y - \frac{2936.93y^4}{1.94468y - 1.9532}$ & $0.9998071$ \\
+  \bottomrule
 \end{tabu}
 \end{table}
 
