@@ -62,7 +62,7 @@ It is important to know whether the information available in the \gls{TAC} datas
 \label{c4:tbl:tacstats}
 	\begin{tabu}{XX[r]}
 		\toprule
-		\textbf{Type} & \textbf{Portion of devices with entry in TAC DB}\\ 
+		\textbf{Type} & \textbf{Portion of devices with entry in \gls{TAC} data}\\ 
 		\midrule
 		Total number of flows & $99.72\%$ \\
 		Ratio of total traffic & $99.97\%$\\
@@ -73,20 +73,15 @@ It is important to know whether the information available in the \gls{TAC} datas
 	\end{tabu}
 \end{table}
 
-Table~\ref{c4:tbl:tacstats} provides statistics on identified knowledge of devices in the dataset. About $80\%$ of all distinct devices active could be identified. Looking at the total number of \gls{gtp} signaling messages, we see that we can determine the device name of over $90\%$.
-The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
+Table~\ref{c4:tbl:tacstats} provides statistics on the devices that could be identified in the trace. About $80\%$ of all unique \gls{TAC} present in the trace could be mapped to a known device. 
+More importantly, when looking at the total number of tunnels and \gls{gtp} messages during the week
+, even $90\%$ of the responsible device can be determined. Finally, The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
 
-
-
-As we are working with an incomplete \gls{TAC} database it is important to know whether our \gls{TAC} mappings provide sufficiently useful data to allow for the envisioned device discriminating statistics. Therefore, Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct and active devices could be identified. Looking at the total number of \gls{gtp} signaling messages, we see that we can determine the device name of over 90 percent. The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
-
+This is an interesting result in itself, as $19\%$ devices unknown, but these are the cause for only about $9\%$ of signaling and $3\textperthousand$ of the traffic, meaning there is a long tail of device types in this mobile network with very little impact on the load. With these results, one can be rather confident, that evaluations using device discrimination based on this \gls{TAC} mapping should give viable results.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Device Classification}
-
-For our investigation, we went through large portions of the \glspl{TAC} present in our dataset, and identified and categorized the most important entries. In this case, importance means various metrics like the traffic volume, the number of flows, and the number of \gls{gtp} signaling messages for each \gls{TAC}. 
-
 
 After having available the device names for most \glspl{TAC}, we were able to add meta-information and categorize the entries based on their device type and operating system. For the device type we partitioned the devices roughly into smartphones, regular mobile phones and 3G USB dongles or 3G/WiFi routers. The operating system includes most of the popular incarnations found in the network at measurement time, including Android, iOS, and Symbian. Note however that many devices, especially USB dongles cannot be linked to any specific OS.
 
