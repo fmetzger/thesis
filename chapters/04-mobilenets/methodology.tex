@@ -62,7 +62,7 @@ It is important to know whether the information available in the \gls{TAC} datas
 \label{c4:tbl:tacstats}
 	\begin{tabu}{XX[r]}
 		\toprule
-		\textbf{Type} & \textbf{Portion of devices with entry in \gls{TAC} data}\\ 
+		\textbf{Type} & \textbf{Relative number of devices with an entry in the \gls{TAC} dataset}\\ 
 		\midrule
 		Total number of flows & $99.72\%$ \\
 		Ratio of total traffic & $99.97\%$\\
@@ -83,40 +83,64 @@ This is an interesting result in itself, as $19\%$ devices unknown, but these ar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Device Classification}
 
-After having available the device names for most \glspl{TAC}, we were able to add meta-information and categorize the entries based on their device type and operating system. For the device type we partitioned the devices roughly into smartphones, regular mobile phones and 3G USB dongles or 3G/WiFi routers. The operating system includes most of the popular incarnations found in the network at measurement time, including Android, iOS, and Symbian. Note however that many devices, especially USB dongles cannot be linked to any specific OS.
+With these device-to-\glspl{TAC} mappings available, additional meta-information could now be added to it, intended to distinguish some of the described load influencing factors. Knowing the model gives also a good knowledge of the device's category and of \gls{os} it is running by default.
 
+The device's category represents a general classification of the device and should give some initial hints on the fields of use. We partitioned the devices into smartphones, feature phones, \gls{3G} USB dongles or \gls{3G}+WiFi routers, and all others. The term feature phone usually points at low-end mobile phones with at least some kind of data capability, often with a physical numerical keyboard. Phones, that could subjectively fall into either the smartphone or the feature phone category were generally attributed as smartphone. Not covered here are any kind of \gls{M2M} devices, because the \gls{TAC} mappings are very inconclusive and incomplete in this area.
 
-After having available the device names for most \glspl{TAC}, we were able to add meta-information to the entries in form of the following categories:
+The next classification variable is the \gls{os}. Most popular in the trace were the two dominant smartphone \glspl{os}, Android and iOS, and Symbian\footnote{While not completely accurate we also attributed phones running Series 40 to this category because of their close relationship.}, often found on feature phones. Other systems of note are Blackberry OS and Windows Phone or Windows Mobile, but they occur in such a low volume in the trace, that it was decided to completely neglect them and count them towards the other and unknown devices. It should also be noted, that USB dongles and routers cannot be linked to any specific \gls{os} solely by the knowledge of the \gls{TAC}. Also not distinguishable are the exact release versions of the \gls{os} on a specific device. This could diminish the evaluations, as the network behavior could change noticeably between two major versions.
 
-\begin{itemize}
-\item The device type. We distinguished between smartphones, regular mobile phones and feature phones, and 3G USB dongles or 3G/WiFi routers.
-
-\item The operating system of the device (if known), such as Android, iOS, Series 40, BlackBerry OS etc. This is especially interesting to identify potential differences in the core network signaling patterns of devices. Note however that we cannot link USB dongles and OS types from the \gls{TAC}.
-
-\end{itemize}
-
-\todo{extend this section}
+With this knowledge, one can even conjecture on the applications running on the device. Combining the \gls{os} with lists of the most popular applications for this platform can already give some very helpful hints on what can be expected from the traffic mix these types of devices are generating. One final possible \gls{TAC} classification could be a categorization by the phone vendor. However, this was not conducted because we believe that the impact is negligible when compared to the device type and \gls{os}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Preliminary Device Statistics}
-After applying the categorization to the \glspl{TAC} we evaluate the device composition in the network. The two largest portions of devices are smartphones  and 3G dongles, while classic cell phones do not seem to play a major role anymore. 
-%We see about twice as many Android as iOS devices, possibly attributed either to the contractual situation of the operator or the wider price range of Android devices.
 
-%Regular phones have negligible user traffic despite still making up one tenth of the device fraction. 
+After applying the categorization to the network dataset device composition was evaluated to get a first grasp of the network's makeup and to help understand the later investigations. Unfortunately, due to terms set by the operator, we can not give any hard numbers on this issue.
 
+As expected, the two largest observed portions of devices are smartphones and \gls{3G} dongles, while classic feature phones do not seem to play a major role anymore. About twice as many Android as iOS devices are present, possibly attributed either to the contractual situation of the operator or the wider price range of Android devices.
 
-Initially, one planned endeavor was to investigate possible peculiarities of business phone behavior, especially of those easily identifiable Blackberry OS phones, but the number of distinct Blackberry devices in the dataset is too low to draw conclusions of any significance.
+Regarding traffic, feature phones have negligible user traffic despite still making up one tenth of the device fraction. The difference between \gls{3G} dongles and smartphones is also noteworthy. While the former cause large amounts of user plane traffic (compared to the device numbers), they are responsible for but a few core network signaling events and tunnels. This picture is reversed for smartphones.
 
-One observation across all device types is that about 18 percent of all mobile devices have activated their mobile data service and have signaling traffic, but do not cause any use plane traffic.
-
-The difference between 3G dongles and smartphones is also noteworthy. While the former cause large amounts of user plane traffic (compared to the device numbers), they are responsible for but a low number of core network signaling events and tunnels. This picture is reversed for smartphones.
-
-After applying the categorization to the \glspl{TAC} we evaluate the device composition in the network. The two largest portions of devices are smartphones and 3G dongles, while classic cell phones do not seem to play a major role in the packet-switched domain anymore. One observation across all device types is that about 14 percent of all mobile devices have activated their mobile data service and have signaling traffic, but do not cause any user plane traffic.
-
-The difference between 3G dongles and smartphones is also noteworthy. While the former cause large amounts of user plane traffic (compared to the device numbers), they are responsible for but a few core network signaling events and tunnels. This picture is reversed for smartphones.
+One observation across all device types is that about $14\%$ of all mobile devices have activated their \gls{GPRS} data service and \gls{gtp} tunnel and cause signaling traffic, but do not initiate any user plane traffic at all.
 
 
 
 
+%\begin{table}
+%\centering
+%\caption{TAC Statistics}
+%
+%\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} \hline
+%& \textbf{\# of Flows} & Total Traffic (Bytes) & Upstream (Bytes) & Downstream (Bytes) & \textbf{\# of Tunnels} & \textbf{\# of GTP Signalling Msgs} & \textbf{\# of Distinct IMSIs}\\ \hline
+%Total 			& 2234659247 	& 122758578593993 (112TB) 	&  &  	& 16632094 	& 409733865	& 1255293 (from GTPdb) / 1030895 (from flow db) \\ \hline
+%Available in TAC DB 	& 2228315260 	& 122716712007150 (111.61TB) 	&  &  			& 14565430 	& 372662108	& 1015891 \\ \hline
+%Classified as smartphone& 459990512 	& 15721818747754 (14.30TB)	&  &  			& 10030734 	& 311342846 	& 476675 \\ \hline
+%as regular phone 	& 5705832 	& 448140315058 (0.41TB)		&  & 			& 897529 	& 3860162	& 116124 \\ \hline
+%as 3G dongle		& 1487230062 	& 92215931895630 (83.87TB) 	&  & 			& 2114756 	& 39053819 	& 315003 \\ \hline
+%Running on Android	& 241973565 	& 7953178401958	(7.2TB)		&  & 			& 2383255 	& 177537567 	& 175919\\ \hline
+%iOS			& 161408903 	& 5481693567152 (5TB)		&  & 	& 3145384 	& 83374590 	& 99679 \\ \hline
+%S40 / S60 / Symbian	& 22827418 	& 1332996529271 (1.21TB) 	&  & 			& 3520242 	& 18479002 	& 162790 \\ \hline
+% blackberry 128074907884 (0.12TB)
+%\end{tabular}
+%\end{table}
+
+
+%\begin{table*}
+%\centering
+%\caption{Relative \acs{TAC} Statistics.}
+%\label{tab:tacstats}
+%\begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} \hline
+%& \textbf{\# of Flows} & \textbf{Ratio of Traffic} & \textbf{\# of Tunnels} & \textbf{\# of GTP Signalling Msgs} & \textbf{\# of Distinct \acp{MS-ID}}%\\ \hline
+%Total          & 2234659247    & 122758578593993   & 16632094  & 409733865 & 1255293 (from GTPdb) / 1030895 (from flow db) \\ \hline
+%Have entry in TAC DB   & 99.72\%   & 99.97\%   & 87.57\%   & 90.95\%   & 80.93\% \\ \hline
+%Classified as smartphone& 20.58\%  & 12.81\%   & 60.31\%   & 75.99\%   & 37.97\% \\ \hline
+
+%as regular phone   & 0.26\%    & 0.37\%    & 5.40\%    & 0.94\%    & 9.25\% \\ \hline
+%as 3G dongle       & 66.55\%   & 75.12\%   & 12.71\%   & 9.53\%    & 25.10\% \\ \hline
+%Running on Android & 10.82\%   & 6.48\%    & 14.33\%   & 43.33\%   & 14.01\% \\ \hline
+%iOS            & 7.22\%    & 4.47\%    & 18.91\%   & 20.35\%   & 7.94\% \\ \hline
+%S40 / S60 / Symbian    & 1.02\%    & 1.09\%    & 21.17\%   & 4.51\%    & 12.97\% \\ \hline
+%Blackberry OS      & 0.07\%    & 0.10\%    & 2.17\%    & 2.60\%    & 1.48\% \\ \hline
+%\end{tabular}
+%\end{table*}
 
