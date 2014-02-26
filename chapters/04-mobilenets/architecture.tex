@@ -128,51 +128,58 @@ Each messages is defined as a specific set of \glspl{IE}, which are either manda
 \begin{table}[htb]
 \caption{All \gls{IE} in a Create \gls{PDP} Context request and size thereof for \gls{IPv4} network and user traffic only, excluding the first message type Byte.}
 \label{c4:tab:createrequestelements}
-	\begin{tabu} to 0.49\textwidth{|X[2.5]|X[1.2]|X[0.7]|} \hline
-		\textbf{\gls{IE}} & \textbf{Presence} & \textbf{Size}\\ \hline
-		\gls{IMSI} & cond. & \SI{8}{\byte} \\ \hline
-		\acrshort{RAI} & opt. & \SI{6}{\byte} \\ \hline
-		Recovery & opt. & \SI{1}{\byte} \\ \hline
-		Selection mode	& cond. & \SI{1}{\byte} \\ \hline
-		\gls{TEID} Data I & mand. & \SI{4}{\byte} \\ \hline
-		\gls{TEID} Control Plane & cond. & \SI{4}{\byte} \\ \hline
-		\gls{NSAPI} & mand. & \SI{1}{\byte} \\ \hline
-		Linked \gls{NSAPI} & cond. & \SI{1}{\byte} \\ \hline
-		Charging Characteristics & cond. & \SI{2}{\byte} \\ \hline
-		Trace Reference & opt. & \SI{2}{\byte} \\ \hline
-		Trace Type & opt. & \SI{2}{\byte} \\ \hline
-		End User Address & cond. & \SI{8}{\byte} \\ \hline
-		\gls{APN} & cond. & max \SI{102}{\byte} \\ \hline % APN format defined in 23.003 section 9
-		\acrshort{PCO} & opt. & max \SI{255}{\byte} \\ \hline % defined in 24.008 section 10.5.6.3
-		\gls{SGSN} signaling address & mand.  & \SI{6}{\byte} \\ \hline % defined in 23.003 section 5 (without address type and length fields)
-		\gls{SGSN} user traffic address & mand. & \SI{6}{\byte} \\ \hline % same as above
-		\gls{MSISDN} & cond. & max \SI{17}{\byte} \\ \hline % ITU-T E.164 msisdn format recommendation of max 15 chars
-		\gls{QoS} Profile & mand. & max \SI{257}{\byte} \\ \hline
-		\gls{TFT} & cond. & max \SI{257}{\byte} \\ \hline % defined in 24.008 section 10.5.6.12
+	\begin{tabu} to 0.49\textwidth{X[2.5]X[1.2]X[0.7]}
+		\toprule
+		\textbf{\gls{IE}} & \textbf{Presence} & \textbf{Size}\\
+		\midrule
+		\gls{IMSI} & cond. & \SI{8}{\byte} \\ 
+		\acrshort{RAI} & opt. & \SI{6}{\byte} \\
+		Recovery & opt. & \SI{1}{\byte} \\
+		Selection mode	& cond. & \SI{1}{\byte} \\
+		\gls{TEID} Data I & mand. & \SI{4}{\byte} \\
+		\gls{TEID} Control Plane & cond. & \SI{4}{\byte} \\
+		\gls{NSAPI} & mand. & \SI{1}{\byte} \\
+		Linked \gls{NSAPI} & cond. & \SI{1}{\byte} \\
+		Charging Characteristics & cond. & \SI{2}{\byte} \\
+		Trace Reference & opt. & \SI{2}{\byte} \\
+		Trace Type & opt. & \SI{2}{\byte} \\
+		End User Address & cond. & \SI{8}{\byte} \\
+		\gls{APN} & cond. & max \SI{102}{\byte} \\ % APN format defined in 23.003 section 9
+		\acrshort{PCO} & opt. & max \SI{255}{\byte} \\ % defined in 24.008 section 10.5.6.3
+		\gls{SGSN} signaling address & mand.  & \SI{6}{\byte} \\ % defined in 23.003 section 5 (without address type and length fields)
+		\gls{SGSN} user traffic address & mand. & \SI{6}{\byte} \\ % same as above
+		\gls{MSISDN} & cond. & max \SI{17}{\byte} \\ % ITU-T E.164 msisdn format recommendation of max 15 chars
+		\gls{QoS} Profile & mand. & max \SI{257}{\byte} \\
+		\bottomrule
 	\end{tabu}%
-	\begin{tabu} to 0.49\textwidth{|X[2.5]|X[1.2]|X[0.7]|} \hline
-		\textbf{\gls{IE}} & \textbf{Presence} & \textbf{Size} \\ \hline
-		 Trigger Id & opt. & var. \\ \hline % no definition found
-		 \acrshort{OMC} Identity & opt. & var. \\ \hline % maybe in MAP 29.002, however not further definition found
-		 Common Flags & opt. & \SI{3}{\byte} \\ \hline
-		 \gls{APN} Restriction & opt. & \SI{3}{\byte} \\ \hline
-		 \gls{RAT} & opt. & \SI{3}{\byte} \\ \hline
-		 User Location Information & opt. & \SI{10}{\byte} \\ \hline
-		 \gls{MS} Time Zone & opt. & \SI{4}{\byte} \\ \hline
-		 \gls{IMEI}(\acrshort{SV}) & cond. & \SI{10}{\byte} \\ \hline
-		 \gls{CAMEL} Charging Information Container & opt. & var. \\ \hline
-		 Additional Trace Info & opt. & \SI{11}{\byte} \\ \hline
-		 Correlation-ID & opt. & \SI{3}{\byte} \\ \hline
-		 Evolved Allocation Retention Priority I & opt. & \SI{3}{\byte} \\ \hline
-		 Extended Common Flags & opt. & \SI{3}{\byte} \\ \hline % might be more, but seems unused 
-		 User \acrshort{CSG} Information & opt. & \SI{10}{\byte} \\ \hline
-		 \gls{APN}-\acrshort{AMBR} & opt.  & \SI{11}{\byte} \\ \hline
-		 Signaling Priority Indication & opt. & \SI{3}{\byte} \\ \hline % might be more, but seems unused
-		 Private Extension & opt. & var. \\ \hline
-	\end{tabu}
+	\raisebox{0.95mm}{\begin{tabu} to 0.49\textwidth{X[2.5]X[1.2]X[0.7]}
+		\toprule
+		\textbf{\gls{IE}} & \textbf{Presence} & \textbf{Size} \\
+		\midrule
+		\gls{TFT} & cond. & max \SI{257}{\byte} \\ % defined in 24.008 section 10.5.6.12
+		 Trigger Id & opt. & var. \\ % no definition found
+		 \acrshort{OMC} Identity & opt. & var. \\ % maybe in MAP 29.002, however not further definition found
+		 Common Flags & opt. & \SI{3}{\byte} \\
+		 \gls{APN} Restriction & opt. & \SI{3}{\byte} \\
+		 \gls{RAT} & opt. & \SI{3}{\byte} \\
+		 User Location Information & opt. & \SI{10}{\byte} \\
+		 \gls{MS} Time Zone & opt. & \SI{4}{\byte} \\
+		 \gls{IMEI} (\acrshort{SV}) & cond. & \SI{10}{\byte} \\
+		 \gls{CAMEL} Charging Information Container & opt. & var. \\
+		 Additional Trace Info & opt. & \SI{11}{\byte} \\
+		 Correlation-ID & opt. & \SI{3}{\byte} \\
+		 Evolved Allocation Retention Priority I & opt. & \SI{3}{\byte} \\
+		 Extended Common Flags & opt. & \SI{3}{\byte} \\ % might be more, but seems unused 
+		 User \acrshort{CSG} Information & opt. & \SI{10}{\byte} \\
+		 \gls{APN}-\acrshort{AMBR} & opt.  & \SI{11}{\byte} \\
+		 Signaling Priority Indication & opt. & \SI{3}{\byte} \\ % might be more, but seems unused
+		 Private Extension & opt. & var. \\
+		 \bottomrule
+	\end{tabu}}
 	%\vfill
 	%\null
 \end{table}
+
 
 % calculation: 36 element lengths + 36 * 1 Byte IE type fields + 11 byte header with no extensions
 % 1012 + 36 + 11 = 1059B
@@ -838,3 +845,54 @@ Conversely, longer tunnel durations cause an increased overall memory footprint 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{3gppdesc.tex}
+
+
+% \begin{multicols}{2}
+% \setbox\ltmcbox\vbox{
+% \makeatletter\col@number\@ne
+% 	\begin{longtabu}{|X[2.5]|X[1.2]|X[0.7]|} \hline
+% 		\textbf{\gls{IE}} & \textbf{Presence} & \textbf{Size}\\ \hline
+% 		\gls{IMSI} & cond. & \SI{8}{\byte} \\ \hline
+% 		\acrshort{RAI} & opt. & \SI{6}{\byte} \\ \hline
+% 		Recovery & opt. & \SI{1}{\byte} \\ \hline
+% 		Selection mode	& cond. & \SI{1}{\byte} \\ \hline
+% 		\gls{TEID} Data I & mand. & \SI{4}{\byte} \\ \hline
+% 		\gls{TEID} Control Plane & cond. & \SI{4}{\byte} \\ \hline
+% 		\gls{NSAPI} & mand. & \SI{1}{\byte} \\ \hline
+% 		Linked \gls{NSAPI} & cond. & \SI{1}{\byte} \\ \hline
+% 		Charging Characteristics & cond. & \SI{2}{\byte} \\ \hline
+% 		Trace Reference & opt. & \SI{2}{\byte} \\ \hline
+% 		Trace Type & opt. & \SI{2}{\byte} \\ \hline
+% 		End User Address & cond. & \SI{8}{\byte} \\ \hline
+% 		\gls{APN} & cond. & max \SI{102}{\byte} \\ \hline % APN format defined in 23.003 section 9
+% 		\acrshort{PCO} & opt. & max \SI{255}{\byte} \\ \hline % defined in 24.008 section 10.5.6.3
+% 		\gls{SGSN} signaling address & mand.  & \SI{6}{\byte} \\ \hline % defined in 23.003 section 5 (without address type and length fields)
+% 		\gls{SGSN} user traffic address & mand. & \SI{6}{\byte} \\ \hline % same as above
+% 		\gls{MSISDN} & cond. & max \SI{17}{\byte} \\ \hline % ITU-T E.164 msisdn format recommendation of max 15 chars
+% 		\gls{QoS} Profile & mand. & max \SI{257}{\byte} \\ \hline
+% 		\gls{TFT} & cond. & max \SI{257}{\byte} \\ \hline % defined in 24.008 section 10.5.6.12
+% 		 Trigger Id & opt. & var. \\ \hline % no definition found
+% 		 \acrshort{OMC} Identity & opt. & var. \\ \hline % maybe in MAP 29.002, however not further definition found
+% 		 Common Flags & opt. & \SI{3}{\byte} \\ \hline
+% 		 \gls{APN} Restriction & opt. & \SI{3}{\byte} \\ \hline
+% 		 \gls{RAT} & opt. & \SI{3}{\byte} \\ \hline
+% 		 User Location Information & opt. & \SI{10}{\byte} \\ \hline
+% 		 \gls{MS} Time Zone & opt. & \SI{4}{\byte} \\ \hline
+% 		 \gls{IMEI}(\acrshort{SV}) & cond. & \SI{10}{\byte} \\ \hline
+% 		 \gls{CAMEL} Charging Information Container & opt. & var. \\ \hline
+% 		 Additional Trace Info & opt. & \SI{11}{\byte} \\ \hline
+% 		 Correlation-ID & opt. & \SI{3}{\byte} \\ \hline
+% 		 Evolved Allocation Retention Priority I & opt. & \SI{3}{\byte} \\ \hline
+% 		 Extended Common Flags & opt. & \SI{3}{\byte} \\ \hline % might be more, but seems unused 
+% 		 User \acrshort{CSG} Information & opt. & \SI{10}{\byte} \\ \hline
+% 		 \gls{APN}-\acrshort{AMBR} & opt.  & \SI{11}{\byte} \\ \hline
+% 		 Signaling Priority Indication & opt. & \SI{3}{\byte} \\ \hline % might be more, but seems unused
+% 		 Private Extension & opt. & var. \\ \hline
+% 	\end{longtabu}
+% \unskip
+% \unpenalty
+% \unpenalty}
+
+% \unvbox\ltmcbox
+
+% \end{multicols}

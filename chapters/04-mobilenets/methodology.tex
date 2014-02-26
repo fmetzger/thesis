@@ -54,27 +54,26 @@ This evaluation is based uses this dataset, with some additional device identifi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\texorpdfstring{\acrshort{TAC}}{TAC} Evaluation Validity}
 
-It is important to know whether the available information in the \gls{TAC} dataset covers enough of the devices seen in the traces to provide sufficiently meaningful data and allows the creation of device discriminating statistics. After all it is a large albeit still very incomplete set.
+It is important to know whether the information available in the \gls{TAC} dataset covers enough of the devices seen in the traces to conduct sufficiently meaningful evaluations. After all, the \gls{TAC} data is large albeit still very incomplete due to the sheer number of devices in existence.
 
 \begin{table}
 \centering
 \caption{Relative \acrshort{TAC} Statistics.}
 \label{c4:tbl:tacstats}
-\begin{tabu}{XX[r]}
-\toprule
-\textbf{Type} & \textbf{Portion of devices with entry in TAC DB}\\ 
-\midrule
-\# of Flows & 99.72\% \\
-Ratio of Traffic & 99.97\%\\
-\# of Tunnels & 87.57\% \\
-\# of GTP Signaling Msgs & 90.95\% \\
-\# of Distinct \glspl{MS-ID} & 80.93\%\\ 
-\bottomrule
-\end{tabu}
+	\begin{tabu}{XX[r]}
+		\toprule
+		\textbf{Type} & \textbf{Portion of devices with entry in TAC DB}\\ 
+		\midrule
+		Total number of flows & $99.72\%$ \\
+		Ratio of total traffic & $99.97\%$\\
+		Total number of tunnels & $87.57\%$ \\
+		Total number of \gls{gtp} signaling messages & $90.95\%$ \\
+		Number of distinct \glspl{UE} & $80.93\%$\\ 
+		\bottomrule
+	\end{tabu}
 \end{table}
 
-
-Table~\ref{c4:tbl:tacstats} provides some statistics on our knowledge of devices in the dataset. About 80 percent of all distinct devices active could be identified. Looking at the total number of \gls{gtp} signaling messages, we see that we can determine the device name of over 90 percent.
+Table~\ref{c4:tbl:tacstats} provides statistics on identified knowledge of devices in the dataset. About $80\%$ of all distinct devices active could be identified. Looking at the total number of \gls{gtp} signaling messages, we see that we can determine the device name of over $90\%$.
 The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
 
 
