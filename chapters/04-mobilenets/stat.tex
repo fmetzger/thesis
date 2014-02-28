@@ -2,52 +2,37 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Statistical Foundation}
 
-As a final preparation for the evaluation all the necessary statistical tools are briefly introduced in this section.
-
-\begin{itemize}
-\item The Art of Computer Programming Volume 2 (3rd ed.) random numbers and statistical tests\cite{Knuth:1997:ACP:270146}
-\item Probability Distributions
-\item Null / alternative hypotheses
-\item Statistical model
-\item probability distribution fitting
-		methods: moment matching, maximum likelihood
-\item tests: sum of squares, variance, chi-squared, kolmogorov-smirnov
-\item visual tools: histogram, density, ecdf
-
-\end{itemize}
+As a final preparation for the evaluation all the necessary statistical tools are briefly introduced in this section with material based on \cite{field2012discovering} and \cite{Knuth:1997:ACP:270146}.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Distribution Function}
+\subsection{Distribution Functions and Fitting}
+
+With a distribution function, also called \gls{CDF}, a monotonous mapping of continous values to a probability can be well represented. It is defined as the probability that a random variable $X$ is less than or equal to a value x, or
 
 \begin{equation}
-\phantom{.} F(x) = P(X\leq x) = \text{probabilty that } (X \leq x).
+\phantom{.} F(x) = P(X\leq x)\text{.}
 \end{equation}
 
-Properties: monotonous
+Mention some basic continous probability distributions relevant to the evaluation: exponential, Gamma, log-normal and Weibull
 
-empirical distribution function $F_n(x)$ for values $X_1, X_2, ... , X_n$
+Sample of real data are generally finite and not continous. Hence, the distribution can only be approximated by an \gls{ECDF} $F_n(x)$ for values $X_1, X_2, ... , X_n$ and 
 
 \begin{equation}
-F_n(x) = \frac{\text{number of }X_1, X_2, ... , X_n \leq x}{x}
+F_n(x) = \frac{\text{number of }X_1, X_2, ... , X_n \leq x}{x}\text{.}
 \end{equation}
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Distribution and Function Fitting}
-
-One of the analysis's goal is to break down the actual measured system to a simplified model. Usually this is conducted by finding matching random distributions using one of several readily available matching methods which rely either on closed formulas or numerical optimization.
+One of the analysis's goal is to break down the actual measured system to a simplified probability model. This can be conducted by finding probability distributions that match or at least resemble the data's \gls{ECDF}. This can be achieved by using one of several readily available matching methods which rely either on closed formulas or numerical optimization. Two of them are briefly introduced here.
 
 \paragraph{Matching Moments}
 Parameters for a selected distribution are estimated by calculating the first and higher moments of the given random variables and solving equations corresponding to the selected distribution.
 
 
-http://cran.r-project.org/web/packages/fitdistrplus/fitdistrplus.pdf
-Vose D (2000) Risk analysis, a quantitative guide. John Wiley \& Sons Ltd, Chischester, England,
-pp. 99-143.
+%http://cran.r-project.org/web/packages/fitdistrplus/fitdistrplus.pdf
+ Risk analysis, a quantitative guide \cite[pp.~99-143]{vose2000risk}
+
 
 \paragraph{Maximum Likelihood}
 A fit is found by calculating the log-likelihood of the given random variables for a selected distribution and maximizing the likelihood.
@@ -67,11 +52,22 @@ TODO: optimization, quoting, short desc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Statistical Tests}
 
+Null / alternative hypotheses
+tests: sum of squares, variance, chi-squared, kolmogorov-smirnov
+
+Variance as a simple test
+
 Generally, tests compare the values observed in an experiment (in our case data obtained from measurements) to expected values following a theoretical distribution. In this case, the tests are used to validate and estimate the quality of the discovered fits to the empirical data.
 
+secondary source for chi and kolmogorov: knuth \cite{Knuth:1997:ACP:270146}
 
 
+%%
+\subsubsection{Visual Inspection}
+visual tools: histogram, density, ecdf
 
+
+%%
 \subsubsection{$\chi^2$ Test}
 
 
@@ -85,6 +81,8 @@ This simply calculates the sum of the squared difference between the observed $o
 
 Most data collected in this thesis is typically continuous in nature on which this test cannot be used directly. However, data could still be split into a finite number of intervals, as is done when generating a histogram, and then using the intervals as categories for the chi-square test, albeit with a certain loss of precision.
 
+
+%%
 \subsubsection{Kolmogorov-Smirnov Test}
 
 This is where the Kolmogorov-Smirnov Test comes into play. First suggested by Kolmogorov in 1933 \cite{kolmogorov1933sulla} and expanded on by Smirnov in 1939 \cite{smirnov1939estimation} it is defined as
@@ -107,4 +105,3 @@ Nowadays, there are also much more powerful statistical tests available. But, as
 Taking randomly selected samples from measurement data does not only simplify handling large sets (working on a set with 2 billion entries is quite problematic) but can even improve statistical significance as long as one keeps in mind, that random sampling error can also be introduced using this.
 By selecting entries using a uniform distribution it is ensured that no unintentional sampling bias occurs. The intended evaluation is now applied onto multiple and independently drawn sample groups. If the results of every sample agree then it is also highly likely that the assumption holds for the whole data set.
 
-TODO: R statistics book ref and information VERIFY
