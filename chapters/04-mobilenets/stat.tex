@@ -1,6 +1,6 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Statistical Foundation}
+\section{Statistical Methods}
 
 As a final preparation for the evaluation all the necessary statistical tools are briefly introduced in this section with material based on \cite{field2012discovering} and \cite{Knuth:1997:ACP:270146}.
 
@@ -24,28 +24,16 @@ F_n(x) = \frac{\text{number of }X_1, X_2, ... , X_n \leq x}{x}\text{.}
 \end{equation}
 
 
-One of the analysis's goal is to break down the actual measured system to a simplified probability model. This can be conducted by finding probability distributions that match or at least resemble the data's \gls{ECDF}. This can be achieved by using one of several readily available matching methods which rely either on closed formulas or numerical optimization. Two of them are briefly introduced here.
+One of the analysis's goal is to break down the actual measured system to a simplified probability model. This can be conducted by finding probability distributions that match or at least resemble the data's \gls{ECDF}. This can be achieved by using one of several readily available matching methods which rely either on closed formulas or numerical optimization. Two simple methods are \textbf{Matching Moments} and \textbf{Maximum Likelihood}.
 
-\paragraph{Matching Moments}
-Parameters for a selected distribution are estimated by calculating the first and higher moments of the given random variables and solving equations corresponding to the selected distribution.
+The former estimates parameters for a preselected distribution functions by optimizing the target distribution function to converge its moments to that of the sample data  \cite[pp.~99-143]{vose2000risk}. The latter approach finds a fitting target probability function by calculating the log-likelihood of the data for a preselected distribution and maximizing the likelihood.
+
+In such cases where none of the basic probability distributions proved to be a good fit an attempt was made to converge rational functions to the sample \gls{ECDF} with an optimization tool specialized for this case, Eureqa \cite{eureqa_software, eureqa_paper}. While not as good as a simple model as a probability distribution, having a rational function as a description for a dataset has its benefits.
+
+%<--!!
 
 
 %http://cran.r-project.org/web/packages/fitdistrplus/fitdistrplus.pdf
- Risk analysis, a quantitative guide \cite[pp.~99-143]{vose2000risk}
-
-
-\paragraph{Maximum Likelihood}
-A fit is found by calculating the log-likelihood of the given random variables for a selected distribution and maximizing the likelihood.
-
-TODO: more details
-
-
-\paragraph{Eureqa}
-In cases where no ``simple'' distribution fit was plausible we attempted to match generic functions to the sample empirical distribution using tools specialized for this case.
-
-TODO: optimization, quoting, short desc
-
-
 
 
 
