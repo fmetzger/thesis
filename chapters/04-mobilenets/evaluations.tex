@@ -1,31 +1,53 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Evaluations}
+\section{Signaling Evaluation}
 \label{c4:evaluations}
 
+Finally, the core network control plane load evaluations are at hand. We evaluate the previously described dataset and iterate over several approaches to measure load and related factors.
+
+\subsection{Traffic Ratio Estimations}
 
 
-In this section we attempt to shed some light on the overall control plane dynamics in a mobile core network. We evaluate a dataset recorded in a live 3G network for PDP Context durations, and attempt to show the possible impact of certain device categories on the total tunnel durations. As discussed before, this can serve as a proxy metric for the signaling load on the system. 
+\begin{table}
+\centering
+\caption{Relative traffic statistics extracted from the dataset.}
+\label{tab:trafficstats}
+    \begin{tabu}{XX[r]X[r]X[r]X[r]X[r]}
+    \toprule
+    & \textbf{Flows} & \textbf{Traffic} & \textbf{Tunnels} & \textbf{\gls{gtp} pairs} & \textbf{Devices}\\ 
+    \midrule
+    \multicolumn{2}{c}{\textbf{By device type}}       &             &             &             &           \\
+%    In TAC DB      & $99.72\%$   & $99.97\%$   & $87.57\%$   & $90.95\%$   & $80.93\%$ \\
+    Smartphones      & $20.58\%$   & $12.81\%$   & $60.31\%$   & $75.99\%$   & $37.97\%$ \\
+    Regular phones   & $0.26\%$    & $0.37\%$    & $5.40\%$    & $0.94\%$    & $9.25\%$  \\
+    \gls{3G} dongles & $66.55\%$   & $75.12\%$   & $12.71\%$   & $9.53\%$    & $25.10\%$ \\
+    \midrule
+    \textbf{By \gls{os}}&          &             &             &             &           \\
+    Android          & $10.82\%$   & $6.48\%$    & $14.33\%$   & $43.33\%$   & $14.01\%$ \\
+    iOS              & $7.22\%$    & $4.47\%$    & $18.91\%$   & $20.35\%$   & $7.94\%$  \\
+    Symbian          & $1.02\%$    & $1.09\%$    & $21.17\%$   & $4.51\%$    & $12.97\%$ \\
+    Blackberry OS    & $0.07\%$    & $0.10\%$    & $2.17\%$    & $2.60\%$    & $1.48\%$  \\
+    \bottomrule
+    \end{tabu}
+\end{table}
+
+To get a first grasp of the dynamics in the dataset, Figure~\ref{tab:trafficstats} shows a small survey of the traffic composition split up by device type and \gls{os} categories. The majority of signaling messages originated from smartphones, which in turn generated only a small portion of user traffic when compared to \gls{3G} dongles
+
+% signaling calc:
+gtp signaling traffic volume estimation $v_s$ = (1059B gtp message + 8B udp header + 20B ipv4 header) = 1087B * 409733865 number of request/response pairs * 2 (2 messages per pair) = 8,9076142E11B
+ratio to total $r=\frac{v_s}{v_t}=0.72\%$  $v_t=122758578593993B$
+
+As the dataset does not contain the actual signaling messages or their size an estimation is made. For the purpose of an upper limit 
+\begin{align}
+\phantom{,}v_s &=& 2\left|S\right|(v_{gtp} + v_{udp} + v_{ip})\text{,}\\
+\phantom{.}t_r &=& \frac{v_s}{v_t} \approx 0.7\%\text{.}
+\end{align}
 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Factors Influencing Tunnel Durations}
 
-With such a dataset available and with the intent to evaluate core network signaling by looking at tunnel durations, let's first discuss some of the factors that influence this duration.
 
-One factor are the mobile devices themselves. The device decides when it should establish a mobile data connection, how long the connection is held, or which mobile technology takes preference. Devices can be further differentiated by their operating system and their firmware (sometimes called \textit{baseband}) which usually takes care of much of layers 1 and 2.
-
-Some specific tunnel durations could stem from the TCP/IP stack implementations in the operating systems of the devices. TCP timeouts might be configured to different default values in different releases of OSs. Also, mobile network firewalls have been found to interfere with transport and application-layer timeout and keep-alive or heartbeat mechanisms on mobile devices \cite{sigcomm11middleboxes}.
-
-Of course, the applications that run on top of the OS and generate the actual user-traffic patterns play a role as well. An example for how applications can influence network signaling is the casual game ``Angry Birds'' mentioned before. Since the application ecosystem for smartphones is extremely rich (and grows still), we cannot pinpoint individual ones from our aggregate dataset.
-
-An additional factor in the picture is the user and his or her behavioral patterns. They express themselves both in the traffic dynamics and in the mobility pattern, but they are rather difficult to distinguish in such a dataset given the large amount of data and the difficulty of correctly correlating tunnel management messages. We leave this as a potential future work.
-
-We also expect the mobile network and its protocol implementations to express themselves in the measurements. For example, the \gls{RRC} idle timer is typically in the range of 10 to 30 minutes, which could mean there will be a large number of tunnels with a duration in this range. Such choices are usually made either by the mobile network operator or the device manufacturer and can vary from one implementation to another. It is therefore quite difficult to give any hard numbers in advance, and one has to correlate such aspects with certain events in the results.
-
-Based on these factors, it was decided to make a first categorization according to the device type, be it either a smartphone, a regular or feature phone, or one of the many 3G dongles or mobile routers. Second, we also differentiate based on the device operating system, if known. Both differentiating aspects should prove valuable for example in deciding if currently some phone types put more signaling load on the network and to direct measures to improve this situation. Pitfalls in this differentiation are described in the next sections.
 
 
 
@@ -104,7 +126,7 @@ We differentiate all the tunnel events in our dataset based on two factors. Firs
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{images/tunnel-dur-class-cdf-mod.pdf}
+    \includegraphics[width=\textwidth]{images/R-tunnel-duration-device-type.pdf}
     \caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at 115s (Total), 31s (Regular), 82s (Smartphone), and 1207s (3G Dongle)}
     \label{c4:fig:cdf-duration-device-class}
 \end{figure}
@@ -122,7 +144,7 @@ Interestingly, the median duration of regular phones is higher than that of smar
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=1.0\textwidth]{images/tunnel-dur-os-cdf-mod.pdf}
+    \includegraphics[width=1.0\textwidth]{images/R-tunnel-duration-operating-system.pdf}
     \caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at 115s (Total), 15.5s (Symbian), 104s (iOS), and 765s (Android)}
     \label{c4:fig:cdf-duration-os}
 \end{figure}
@@ -422,3 +444,24 @@ introducing artifacts which make it hard to fit any distribution against. Instea
   \caption{Tunnel duration of all active tunnels by time of day.}
  \label{c4:fig:duration-timeofday-ecdf}
 \end{figure}
+
+
+
+
+
+% \begin{table}
+% \centering
+% \caption{TAC Statistics}
+% \begin{tabu}{|X|X|X[1.5]|X|X|X|} \hline
+% & \textbf{\# of Flows} & \textbf{Total Traffic (Bytes)} &  \textbf{\# of Tunnels} & \textbf{\# of GTP Signalling Msgs} & \textbf{\# of Distinct IMSIs}\\ \hline
+% Total          & 2234659247 & 122758578593993 (112TB)    & 16632094 & 409733865 & 1255293 (all) / 1030895 (with flows) \\ \hline
+% In TAC DB      & 2228315260 & 122716712007150 (111.61TB) & 14565430 & 372662108 & 1015891 \\ \hline
+% Smartphones    & 459990512  & 15721818747754 (14.30TB)   & 10030734 & 311342846 & 476675  \\ \hline
+% Regular phones & 5705832    & 448140315058 (0.41TB)      & 897529   & 3860162   & 116124  \\ \hline
+% 3G dongles     & 1487230062 & 92215931895630 (83.87TB)   & 2114756  & 39053819  & 315003  \\ \hline
+% Android        & 241973565  & 7953178401958 (7.2TB)      & 2383255  & 177537567 & 175919  \\ \hline
+% iOS            & 161408903  & 5481693567152 (5TB)        & 3145384  & 83374590  & 99679   \\ \hline
+% Symbian        & 22827418   & 1332996529271 (1.21TB)     & 3520242  & 18479002  & 162790  \\ \hline
+% Blackberry OS  &            & 128074907884 (0.12TB)      &          &           &         \\ \hline
+% \end{tabu}
+% \end{table}
