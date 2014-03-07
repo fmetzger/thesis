@@ -45,18 +45,17 @@ Unfortunately, the dataset does not contain any hard numbers on the volume of th
 
 with the signaling volume $v_s$, the set of signaling messages $S$, the estimated size of a \gls{gtp} message $v_s$, and the length of the \gls{UDP} and \gls{IP}headers. In this scenario, the traffic ratio $t_r$ of $v_s$ compared to the total traffic $v_t$ is calculated to be a minute $0.7\%$. Therefore, it can be safely assumed that the volume of control plane traffic appears to be a non-issue and not the bottleneck.The other load factors at the network nodes described earlier must play a more critical role, such as the memory profile of the states kept in the gateway nodes, the time required to process the large number of information held in the messages, or the imposed latency through several message round trips during transactions.
 
-
 This is why the following evaluations are all intended to find some indirect approach to measure the system's load.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\texorpdfstring{\acrshort{PDP}}{PDP} Context Durations}
 
+The duration of a \gls{gtp} tunnel is directly related to the amount of occurring tunnel management signaling between the \gls{SGSN} and \gls{GGSN}. In turn, each of these signaling interactions causes processing at the two involved nodes and changes the amount of state.
 
 
 
 
-
-Our measure of choice are the PDP Context Durations as they carry lots of meaning in being directly related to the signaling amount in the network. Therefore, we now direct our attention at the tunnel durations in the individual device and OS categories as identified via \gls{TAC} values.
+One measure of choice are the PDP Context Durations as they carry lots of meaning in being directly related to the signaling amount in the network. Therefore, we now direct our attention at the tunnel durations in the individual device and OS categories as identified via \gls{TAC} values.
 
 
 \subsubsection{Tunnel Durations by Category}
@@ -194,7 +193,8 @@ Figure~\ref{c4:fig:stacked-durations} shows another interesting influence the op
 
 
 %%
-% Influence of the Radio Access Type
+\paragraph{Influence of the Radio Access Type}
+Explain, why it is not here.
 %%
 %TODO: radio access type plots, if we have the data
 %
