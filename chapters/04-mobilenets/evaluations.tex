@@ -5,6 +5,9 @@
 
 Finally, the core network control plane load evaluations are at hand. We evaluate the previously described dataset and iterate over several approaches to measure load and related factors.
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Traffic Ratio Estimations}
 
 
@@ -31,62 +34,27 @@ Finally, the core network control plane load evaluations are at hand. We evaluat
     \end{tabu}
 \end{table}
 
-To get a first grasp of the dynamics in the dataset, Figure~\ref{tab:trafficstats} shows a small survey of the traffic composition split up by device type and \gls{os} categories. The majority of signaling messages originated from smartphones, which in turn generated only a small portion of user traffic when compared to \gls{3G} dongles
+To get a first grasp of the dynamics present in the dataset and the core network under investigation, Figure~\ref{tab:trafficstats} shows a small survey of the traffic composition split up by device type and \gls{os} categories. The majority of signaling messages originated from smartphones, which in turn generated only a small portion of user traffic when compared to \gls{3G} dongles.
 
-% signaling calc:
-gtp signaling traffic volume estimation $v_s$ = (1059B gtp message + 8B udp header + 20B ipv4 header) = 1087B * 409733865 number of request/response pairs * 2 (2 messages per pair) = 8,9076142E11B
-ratio to total $r=\frac{v_s}{v_t}=0.72\%$  $v_t=122758578593993B$
+Unfortunately, the dataset does not contain any hard numbers on the volume of the signaling messages, which could be a direct indicator of the network load the control plane imposes. But using the estimation of the upper limit of a \gls{gtp} message from Section~{c4:sec:gtp}, a rough upper limit on the total signaling traffic can also be derived. The following formula is used:
 
-As the dataset does not contain the actual signaling messages or their size an estimation is made. For the purpose of an upper limit 
 \begin{align}
 \phantom{,}v_s &=& 2\left|S\right|(v_{gtp} + v_{udp} + v_{ip})\text{,}\\
-\phantom{.}t_r &=& \frac{v_s}{v_t} \approx 0.7\%\text{.}
+\phantom{.}t_r &=& \frac{v_s}{v_t} \approx 0.7\%\text{,}
 \end{align}
 
+with the signaling volume $v_s$, the set of signaling messages $S$, the estimated size of a \gls{gtp} message $v_s$, and the length of the \gls{UDP} and \gls{IP}headers. In this scenario, the traffic ratio $t_r$ of $v_s$ compared to the total traffic $v_t$ is calculated to be a minute $0.7\%$. Therefore, it can be safely assumed that the volume of control plane traffic appears to be a non-issue and not the bottleneck.The other load factors at the network nodes described earlier must play a more critical role, such as the memory profile of the states kept in the gateway nodes, the time required to process the large number of information held in the messages, or the imposed latency through several message round trips during transactions.
 
 
-
-
-
-
-
-
-
-%%%
-Direct signaling traffic overhead in relation to user traffic and induced network load
-
-GTP Header: 12 Byte
-IE header and footer: 2 Byte
-Maximum minimum data size including all \glspl{IE}: 221 Byte + 12 Byte Header + 2*37 Extension Header = 307 Byte
-Minimum size of message with just mandatory \glspl{IE}: 12 + 30 + 2*5 = 52 Byte
-
-307 Bytes:
-calculation from our dataset
-Total maximum signaling traffic with this calculation: 117.15GB
-Ratio: 0.10\%
-52 Bytes:
-Total maximum signaling traffic with this calculation: 19.84GB
-Ratio: 0.02\%
-Total traffic: 122758578593993
-
-
-Taking the maximum size we arrive at a naive estimate of the maximum overhead on user traffic induced by tunnel management signaling in our dataset. The estimated ratio of (tunnel management) signaling traffic to total user plane traffic in our dataset is a minute $0.10\%$. Therefore, the volume of control plane traffic appears to be non-critical in this setup. Thus, we assume that the overload problems mentioned above arise rather in areas affected by signaling except for the pure transport of data, such as the memory profile of the states kept in the gateway nodes, the time required to process the large number of information held in the messages, or the imposed latency through several message round trips during transactions.
-
-Taking this maximum value we arrive at a naive estimate of the maximum overhead on user traffic imposed by tunnel management signaling in our dataset. The ratio of (tunnel management) signaling traffic to total user plane traffic is a minute $0.10\%$. Therefore, the sheer volume of control plane traffic appears to be non-critical in this setup. We assume thus that the overload problems mentioned above arise rather in areas affected by signaling except for the pure transport of data, such as the memory profile of the states kept in the gateway nodes, the time required to process the large number of information held in the messages, or the imposed latency through several message round trips during transactions. The detailed mechanics of system load could be a field of investigation for future work.
-
-% TODO: values have changed!
-The variable-length nature of these messages makes evaluating the imposed network signaling overhead rather difficult. For example, the Create Context Response consists of up to 36 \glspl{IE}, some of them mandatory, most either conditional or optional. Including the headers of both the packet and the individual elements, the minimum size (counting only the required bytes of variable length elements) is 52 bytes, while the lower bound for the message size with all \glspl{IE} present is 307 bytes.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{Correlations to User Traffic}
-% TODO, incl. measurements
-
-
-
+This is why the following evaluations are all intended to find some indirect approach to measure the system's load.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\texorpdfstring{\acrshort{PDP}}{PDP} Context Durations}
+
+
+
+
+
 
 Our measure of choice are the PDP Context Durations as they carry lots of meaning in being directly related to the signaling amount in the network. Therefore, we now direct our attention at the tunnel durations in the individual device and OS categories as identified via \gls{TAC} values.
 
@@ -465,3 +433,33 @@ introducing artifacts which make it hard to fit any distribution against. Instea
 % Blackberry OS  &            & 128074907884 (0.12TB)      &          &           &         \\ \hline
 % \end{tabu}
 % \end{table}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Correlations to User Traffic}
+% TODO, incl. measurements
+
+
+
+%%%
+% Direct signaling traffic overhead in relation to user traffic and induced network load
+
+% GTP Header: 12 Byte
+% IE header and footer: 2 Byte
+% Maximum minimum data size including all \glspl{IE}: 221 Byte + 12 Byte Header + 2*37 Extension Header = 307 Byte
+% Minimum size of message with just mandatory \glspl{IE}: 12 + 30 + 2*5 = 52 Byte
+
+% 307 Bytes:
+% calculation from our dataset
+% Total maximum signaling traffic with this calculation: 117.15GB
+% Ratio: 0.10\%
+% 52 Bytes:
+% Total maximum signaling traffic with this calculation: 19.84GB
+% Ratio: 0.02\%
+% Total traffic: 122758578593993
+
+
+% signaling calc:
+% gtp signaling traffic volume estimation $v_s$ = (1059B gtp message + 8B udp header + 20B ipv4 header) = 1087B * 409733865 number of request/response pairs * 2 (2 messages per pair) = 8,9076142E11B
+% ratio to total $r=\frac{v_s}{v_t}=0.72\%$  $v_t=122758578593993B$
