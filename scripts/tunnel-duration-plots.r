@@ -36,4 +36,5 @@ df <- rbind(df,x)
 p <- ggplot(df, aes(x=st, color=as.factor(type))) + stat_ecdf() +  scale_x_log10() + coord_cartesian(xlim = c(0.5, 100000))
 p + theme(text = element_text(size=20)) + ylab("cumulative probability") + xlab("tunnel duration (s)") + guides(color=guide_legend("", override.aes = list(size=4)))
 ggsave("R-tunnel-duration-device-type.pdf", width=12, height=10)
+ggsave("R-tunnel-duration-operating-system.pdf", width=12, height=10)
 
