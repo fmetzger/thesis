@@ -60,10 +60,7 @@ For the purpose of the evaluation the duration is defined as the interval betwee
 
 As a side note, while the trace itself is only one week long, information on tunnels longer than this period can still be obtain when they were closed during the period. The trace's record on delete messages also contains the timestamp of the initial tunnel creation.
 
-
-All the individual tunnel durations in the dataset are differentiated based on two factors based on the presented \gls{TAC} mechanics. The first part of the investigation looks at tunnels from different device types. After that,possible influences from the operating system are investigated. Both categorizations should prove valuable for example in deciding if currently some phone types put more signaling load on the network and to direct measures to improve this situation.
-
-
+All the individual tunnel durations in the dataset are differentiated based on two factors based on the presented \gls{TAC} mechanics. The first part of the investigation looks at tunnels from different device types. After that, possible influences from the operating system are investigated. 
 
 %%
 \paragraph{Influence of the Device Type}
@@ -73,22 +70,22 @@ All the individual tunnel durations in the dataset are differentiated based on t
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{images/R-tunnel-duration-device-type.pdf}
-    \caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at \SI{115}{\second} (Total), \SI{31}{\second} (Regular), \SI{82}{\second} (Smartphone), and \SI{1207}{\second} (\gls{3G} Dongle)}
+    \caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at \SI{115}{\second} (total), \SI{31}{\second} (regular), \SI{82}{\second} (smartphone), and \SI{1207}{\second} (dongle)}
     \label{c4:fig:cdf-duration-device-class}
 \end{figure}
 
-Figure~\ref{c4:fig:cdf-duration-device-class} shows the empirical cumulative distribution functions for the \gls{PDP} Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and \gls{3G} dongles. It can be observed that tunnel durations range between  seconds and more than one week.
+Figure~\ref{c4:fig:cdf-duration-device-class} shows the \gls{ECDF} for the user tunnels and their \gls{PDP} Context durations in our dataset. In this first graph, the duration of different device classes is distinguished and put in perspective to the overall duration distribution. The devices classes here are smartphones, regular phones, and \gls{3G} dongles. It can be observed that tunnel durations range between seconds and more than one week.
 
-The median differs between device types, being much longer for \gls{3G} dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also for the dongles, we observe less extremely long tunnels with durations above several hours. Again, we could hypothetically relate this to a usual laptop working environment, where the device is used for a few hours but then shut down. With this, the \gls{PDP} Context is deleted as well. Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that  smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, \gls{RSS} feeds, or email notifications. We also observe two distinct steps, one at \SI{6.8}{\second} for dongles, and one at \SI{30}{\minute} in the overall and smartphone distributions. While we do not have a plausible explanation for the former, the latter could be explained by a value chosen for the \gls{RRC} state machine transition to the IDLE state (cf. Figure \ref{c4:fig:rrcstatemodel}).
+The median is clearly different between device types, being much longer for \gls{3G} dongles than for mobile phones. This reflects expected user behavior very well and gives a first indicator on a possible influence of the user plane on the control plane.
 
-%%
+Typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also for the dongles, we observe less extremely long tunnels with durations above several hours. Again, we could hypothetically relate this to a usual laptop working environment, where the device is used for a few hours but then shut down. With this, the \gls{PDP} Context is deleted as well. 
 
-Figure~\ref{c4:fig:cdf-duration-device-class} shows the empirical cumulative distribution functions for the \gls{PDP} Context durations in our dataset. We distinguish the total duration distribution as well as the the distributions for smartphones, regular phones, and \gls{3G} dongles. It can be observed that tunnel durations range between mere seconds and more than one week\footnote{Although our dataset is just one week long, some tunnels started before the beginning of that week, and ended within it. Since the tunnel start dates were still available from the system, we chose to include the data.}.
+The shape of both the regular phone and the dongle empirical distribution is similar and more compactly centered around the median than the smartphone distribution.
 
-The median is clearly different between device types, being much longer for \gls{3G} dongles than for mobile phones. This can probably be expected, as typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also, for the dongles, we observe less extremely long tunnels. Again, we could relate this to a hypothetical laptop working environment, where the device is used for a few hours but then shut down. With this, the \gls{PDP} Context is deleted as well. 
+A relatively high number of tunnels with a duration shorter than \SI{10}{\second} can also be observed. Especially the peaks at \SI{6.8}{\second} for the dongle distribution and at about \SI{1.5}{\second} are of note.
+ This is even shorter than the default values for the \gls{RRC} idle state transitions which causes the tunnel to be destroyed. Therefore, these short tunnels must have been explicitly removed by the \gls{UE}. 
 
-Interestingly, the median duration of regular phones is higher than that of smartphones. This may indicate that smartphones regularly (and perhaps automatically) cause data traffic and therefore tunnels to occur. We conjecture this to be a first indication of the ``Angry Birds'' effect of automatically transferring small amounts of data, e.g. weather reports, stock exchange data, \gls{RSS} feeds, or email notifications. We also observe two distinct steps, one at \SI{6.8}{\second} for dongles, and one at \SI{30}{\minute} in the overall and smartphone distributions.
-
+We also observe another distinct step at \SI{30}{\minute} in total and smartphone distributions. While we do not have a plausible explanation for the former, the latter could be explained by a value chosen for the \gls{RRC} state machine transition to the IDLE state (cf. Figure \ref{c4:fig:rrcstatemodel}). <-- that makes not much sense!
 
 
 %%
