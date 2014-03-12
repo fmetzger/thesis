@@ -1,8 +1,6 @@
 library(ggplot2)
 library(grid) # needer for arrow
 
-setwd("/home/fm/git/thesis/scripts/")
-
 d <- read.csv("buffer.csv", header=T)
 
 p <- ggplot(d, aes(x=timestamp, y=size, color=type)) + geom_line(size = 1)
