@@ -65,7 +65,6 @@ All the individual tunnel durations in the dataset are differentiated based on t
 %%
 \paragraph{Influence of the Device Type}
 
-% ! <-- !
 
 \begin{figure}[htb]
     \centering
@@ -78,18 +77,21 @@ Figure~\ref{c4:fig:cdf-duration-device-class} shows the \gls{ECDF} for the user 
 
 The median is clearly different between device types, being much longer for \gls{3G} dongles than for mobile phones. This reflects expected user behavior very well and gives a first indicator on a possible influence of the user plane on the control plane.
 
-Typical dongle sessions might involve working at a laptop for periods longer than a few seconds or minutes. Also for the dongles, we observe less extremely long tunnels with durations above several hours. Again, we could hypothetically relate this to a usual laptop working environment, where the device is used for a few hours but then shut down. With this, the \gls{PDP} Context is deleted as well. 
+Dongles are usually used with laptops to be able to work while being mobile. Dongle sessions last therefore often for extended periods longer than a few minutes up to hours. Also, this type of device is usually put into a standby mode after the period, which completely disables any mobile connections --- and therefore any associated tunnel -- instead of switching to low power radio idle modes. This is reflected in the dongle tunnel duration here as well. When compared to the other device category, dongles are more compactly centered around their median of about \SI{20}{\minute}.
 
-The shape of both the regular phone and the dongle empirical distribution is similar and more compactly centered around the median than the smartphone distribution.
+A similar behavior can be observed in the regular phone distribution with values arranged tightly around the median of \SI{31}{\second}. COmpared to today's smartphones, data connections on regular phones are mostly initiated explicitly by user interaction, for example through starting a browser and viewing a web page. This could also explain the comparatively low durations here.
 
-A relatively high number of tunnels with a duration shorter than \SI{10}{\second} can also be observed. Especially the peaks at \SI{6.8}{\second} for the dongle distribution and at about \SI{1.5}{\second} are of note.
- This is even shorter than the default values for the \gls{RRC} idle state transitions which causes the tunnel to be destroyed. Therefore, these short tunnels must have been explicitly removed by the \gls{UE}. 
+The picture is rather different in the smartphone tunnel duration. Here, often background tasks are running over long periods of time and devices try to keep connectivity up as long as possible (while still attempting to conserve power). Overall, this could lead to the smoother distribution seen here with no clear center value.
 
-We also observe another distinct step at \SI{30}{\minute} in total and smartphone distributions. While we do not have a plausible explanation for the former, the latter could be explained by a value chosen for the \gls{RRC} state machine transition to the IDLE state (cf. Figure \ref{c4:fig:rrcstatemodel}). <-- that makes not much sense!
+Overall, a relatively high number of tunnels with a duration shorter than \SI{10}{\second} can also be observed. Especially the peak at about \SI{1.5}{\second} --- which is interestingly shifted to \SI{6.8}{\second} in the dongle distribution --- is of note. This is even shorter than the default values for the \gls{RRC} idle state transitions which causes the tunnel to be destroyed. It can be conjectured that these short tunnels have been explicitly removed by the \gls{UE} as no other involved state machine has timers this short.
+
+Another distinct step at \SI{30}{\minute} in the total and smartphone distributions can be observed. As it is only present in these to categories --- and the total distribution looks to be mostly governed by smartphones --- it is reasonable to assume that the cause for this is a specific behavior observable in some aspect of smartphone related influence factors.
 
 
 %%
 \paragraph{Influence of the \texorpdfstring{\acrshort{os}}{OS}}
+
+% ! <-- !
 
 \begin{figure}[htb]
     \centering
