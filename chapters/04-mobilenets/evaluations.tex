@@ -91,8 +91,6 @@ Another distinct step at \SI{30}{\minute} in the total and smartphone distributi
 %%
 \paragraph{Influence of the \texorpdfstring{\acrshort{os}}{OS}}
 
-% ! <-- !
-
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\textwidth]{images/R-tunnel-duration-operating-system.pdf}
@@ -100,28 +98,26 @@ Another distinct step at \SI{30}{\minute} in the total and smartphone distributi
     \label{c4:fig:cdf-duration-os}
 \end{figure}
 
-%iOS: over 20\% of tunnels shorter than two seconds. 
+Next, the two phone categories are further broken down by their \gls{OS}. Only the three major systems are identified here, the amount of other types was negligible. The smartphone category is almost exclusively represented by Android and iOS devices, while Symbian devices make up most of the regular phones but is also represented in a number of smartphone models.
 
-Taking an even closer look at the smartphone device fraction, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{c4:fig:cdf-duration-os}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{c4:fig:cdf-duration-device-class}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
+Figure~\ref{c4:fig:cdf-duration-os} depicts the \gls{ECDF} of the tunnel durations of these categories in relation to the total duration distribution.
 
-Again, a number of steps are visible in the distributions. %Steps at multiples of 10 seconds indicate that timer-induced transitions happen. 
-Those steps that are only visible in one operating system type point to a source involving the phone rather the network. This especially includes the \SI{30}{\second}, \SI{300}{\second}, and \SI{600}{\second} steps (i.e. accumulations of incidents) for Android, and the \SI{600}{\second} step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other factors, e.g. the device's firmware version and user traffic dynamics need also be observed. We leave this point for future work.
+The Symbian tunnel durations are similarly distributed to the previously depicted regular phone category. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
 
-A last artifact of note are the larger number of iOS devices with very short tunnel durations. Over $20\%$ of all tunnels established by these devices are shorter than two seconds. While the actual cause still remains unknown, it could be an interaction between short regular traffic burst and \gls{3GPP} Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement. Fast Dormancy is a technique to release radio resources more quickly. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent transition to the IDLE state, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the \gls{ECDF}.
+Again, a number of steps (i.e. accumulations of incidents) are visible in the distributions. 
+ %Steps at multiples of 10 seconds indicate that timer-induced transitions happen. 
+Those steps that are only visible in one operating system type point to a source involving the device rather than the network. This especially includes the \SI{30}{\second}, \SI{300}{\second}, and \SI{600}{\second} steps for Android, and the \SI{600}{\second} step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other factors, e.g. the device's firmware version and user traffic dynamics need also be observed. 
 
-%%
+A last artifact of note are the larger number of iOS devices with very short tunnel durations. Over $20\%$ of all tunnels established by these devices are shorter than two seconds. While the actual cause still remains unknown, it could be an interaction between short regular traffic burst and \gls{3GPP} Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement. Fast Dormancy is a technique to explicitly release radio resources more quickly by the device. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent transition to the IDLE state, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the \gls{ECDF}.
 
-Taking an even closer look at the smartphone device fraction, and differentiating the operating system to Symbian, Android, and iOS, we can still observe major differences as depicted in the empirical cumulative distribution functions of Figure~\ref{c4:fig:cdf-duration-os}. The tunnel duration distribution of the Symbian device fraction behaves much closer to the regular phones already depicted in Fig.~\ref{c4:fig:cdf-duration-device-class}. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
-
-Again, a number of steps (i.e. accumulations of incidents) are visible in the distributions. Those that are only visible in one operating system type point to a source involving the device rather the network. This especially includes the \SI{30}{\second}, \SI{300}{\second}, and\SI{600}{\second} steps for Android, and the \SI{600}{\second} step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other sources, e.g. the device's firmware version and user traffic dynamics need also be observed.
-
-A last artifact of note are the large number of iOS devices with very short tunnel durations. Over $20\%$ of all tunnels established by these devices are shorter than two seconds. Our working hypothesis is, that this is an interaction between short regular traffic burst and a form of Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement, a technique to explicitly release radio resources. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent radio state changes, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the \gls{CDF}.
-
-
-
+% ! <-- !
 
 %%
 \paragraph{Influence of \acrshort{RAT} and other factors}
+
+In theory other influence factors could also be investigated using the available data set.
+However
+
 Explain, why it is not here.
 %%
 %TODO: radio access type plots, if we have the data
