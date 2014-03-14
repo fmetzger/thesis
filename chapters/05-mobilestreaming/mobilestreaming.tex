@@ -7,10 +7,10 @@
 
 
 \begin{itemize}
-	\item LTE-EPC Network Simulator (LENA)\cite{ns3lte}
+	\item \gls{LTE}-\gls{EPC} Network Simulator (LENA)\cite{ns3lte}
 	\item Planetlab: an overlay testbed for broad-coverage services \cite{chun2003planetlab}
 	\item SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp}
-	\item An argument for increasing TCP's initial congestion window \cite{dukkipati2010argument}
+	\item An argument for increasing \gls{TCP}'s initial congestion window \cite{dukkipati2010argument}
 	\item Comparison of end-to-end and network-supported fast startup congestion control schemes \cite{scharf2011comparison}
 	\item Bufferbloat: Dark Buffers in the Internet \cite{gettys2011bufferbloat}
 	\item Detecting and quantifying bufferbloat in network paths \cite{groenewegen2011detecting}
@@ -20,7 +20,7 @@
 	\item Simulating LTE Cellular Systems: An Open-Source Framework \cite{5634134}
 	\item Controlling Queue Delay; Van Jacobson \cite{Nichols:2012:CQD:2209249.2209264}
 	\item TaintDroid: An Information-Flow Tracking System for Realtime Privacy Monitoring on Smartphones. \cite{enck2010taintdroid}
-	\item An evaluation of dynamic adaptive streaming over HTTP in vehicular environments \cite{Muller:2012:EDA:2151677.2151686}
+	\item An evaluation of dynamic adaptive streaming over \gls{HTTP} in vehicular environments \cite{Muller:2012:EDA:2151677.2151686}
 	\item Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
 	\item Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
 
@@ -38,8 +38,8 @@
 \section{Upcoming Protocols and Streaming Relationship}
 
 \begin{itemize}
-\item SPDY / HTTP/2.0 (multiplexing -> segmented streaming)
-\item TCP changes (Fast Open, IW10, ...; any relationship to streaming? maybe faster)
+\item SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming)
+\item \gls{TCP} changes (Fast Open, IW10, ...; any relationship to streaming? maybe faster)
 \item Alternate Transport Protocols (DCCP\cite{rfc4340}, LEDBAT\cite{rfc6817}/$\mu$tp\cite{bt2010utp}, QUIC, SCTP, DTLS), HTTP/2.0 draft TODO
 \end{itemize}
 
@@ -48,9 +48,9 @@
 \item Compensation mechanisms for reliable transport
 \item Model and quality estimations for improvements to adaptive streaming
 \item End-to-end encryption and Authentication mechanisms (e.g.IPSec, DNSSEC, CurveCP) %(Daniel J. Bernstein)
-\item Modifications to and issues with TCP
+\item Modifications to and issues with \gls{TCP}
  \begin{itemize}
- \item TCP buffer bloat
+ \item \gls{TCP} buffer bloat
  \item Initial window size (IW10, ...)
  \item WebSockets as streaming transport \cite{w3c2011websockets} \cite{heise2011websockets}
  \item WebRTC
@@ -68,7 +68,7 @@
 
 Wired Internet access has a very narrow choice of protocols on the \gls{ISO}/\gls{OSI} Layers 1 and 2. The typical use-case consists of a \gls{LAN} using Ethernet which is then tunneled through or translated into one of several access technologies, e.g., \gls{DSL}, \gls{DOCSIS}, or \gls{PON}. Applications often make assumptions that rely on the presence of these protocols and their specific characteristics.
 
-However, Internet access today is similarly often achieved using mobile cellular networks. The latest standardized iteration of these is \gls{LTE} and the accompanying \gls{EPS} core network infrastructure \cite{olsson2009sae}. This is the first evolution of standards that completely removes the classical circuit switched domain making room for more radio frequency bandwidth to be used with the all-IP services achieving shared transmission capacities --- comparable to today's 802.11n WiFi --- albeit on much larger cell sizes of 1 to 30 kilometres. The \gls{EPS} network acts as an intermediary between the radio access stations and the Internet enabling strong traffic control mechanisms as well as mobility anchored at the \gls{SGW}. Traffic is routed through the core by using tunneling over the \gls{SGW} and \gls{PGW} based on the traffic bearer concept defined either in the \gls{gtp} or the \gls{PMIPv6} protocols. For every mobile device connected to the network there is one default and up to ten dedicated bearers carrying traffic filtered by pre-set \gls{QoS} parameters. Control is enforced through a logically separate network control plane, that is also used to setup and tear down these bearers. Figure fig:ltestack displays the disparity between the Internet's protocol stack and that of an \gls{LTE} network encapsulating all user traffic in additional protocol layers by the tunneling process.
+However, Internet access today is similarly often achieved using mobile cellular networks. The latest standardized iteration of these is \gls{LTE} and the accompanying \gls{EPS} core network infrastructure \cite{olsson2009sae}. This is the first evolution of standards that completely removes the classical circuit switched domain making room for more radio frequency bandwidth to be used with the all-\gls{IP} services achieving shared transmission capacities --- comparable to today's 802.11n WiFi --- albeit on much larger cell sizes of \SI{1}{\kilo\meter} to \SI{3}{\kilo\meter}. The \gls{EPS} network acts as an intermediary between the radio access stations and the Internet enabling strong traffic control mechanisms as well as mobility anchored at the \gls{SGW}. Traffic is routed through the core by using tunneling over the \gls{SGW} and \gls{PGW} based on the traffic bearer concept defined either in the \gls{gtp} or the \gls{PMIPv6} protocols. For every mobile device connected to the network there is one default and up to ten dedicated bearers carrying traffic filtered by pre-set \gls{QoS} parameters. Control is enforced through a logically separate network control plane, that is also used to setup and tear down these bearers. Figure fig:ltestack displays the disparity between the Internet's protocol stack and that of an \gls{LTE} network encapsulating all user traffic in additional protocol layers by the tunneling process.
 
 Research work is ongoing how to best work with this complex network setup. It is expected, that with the rise of mobile access the core network comes under heavy traffic pressure with negative affects on the \gls{QoS} of best-effort traffic. Endeavors are required to study the loaded network's behavior. Also very little work has gone into exploring the control plane characteristics of these networks, including their performance. A novel approach could also be, to make mobile device applications, e.g. video streaming players, aware of the core networks capabilities and allow the request of tunnels tailored to their specific \gls{QoS} requirements resulting in a possible increase of perceived quality.
 
@@ -273,7 +273,7 @@ Obviously, other applications are possible. Since code and data are open-sourced
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\textwidth]{images/map-cells.png}
-\caption{The O3GM web page, displaying 3G coverage measurements extracted from Sensorium on top of OpenStreetMap.}
+\caption{The O3GM web page, displaying \gls{3G} coverage measurements extracted from Sensorium on top of OpenStreetMap.}
 \label{c5:fig:ogggm}
 \end{figure}
 
