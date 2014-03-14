@@ -94,43 +94,29 @@ Another distinct step at \SI{30}{\minute} in the total and smartphone distributi
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\textwidth]{images/R-tunnel-duration-operating-system.pdf}
-    \caption{Tunnel duration cumulative distribution function, separated for Android and iOS devices; Medians at \SI{115}{\second} (Total), \SI{15.5}{\second} (Symbian), \SI{104}{\second} (iOS), and \SI{765}{\second} (Android)}
+    \caption{Tunnel duration cumulative distribution function, separated for select \glspl{os}; Medians at \SI{115}{\second} (total), \SI{15.5}{\second} (symbian), \SI{104}{\second} (iOS), and \SI{765}{\second} (android)}
     \label{c4:fig:cdf-duration-os}
 \end{figure}
 
-Next, the two phone categories are further broken down by their \gls{os}. Only the three major systems are identified here, the amount of other types was negligible. The smartphone category is almost exclusively represented by Android and iOS devices, while Symbian devices make up most of the regular phones but is also represented in a number of smartphone models.
+Next, the two phone categories are further broken down by their \gls{os}. Only the three major systems, Android, iOS, and Symbian, are identified here, the amount of other types was negligible. The smartphone category is almost exclusively represented by Android and iOS devices, while Symbian devices make up most of the regular phones but is also represented in a number of smartphone models.
 
-Figure~\ref{c4:fig:cdf-duration-os} depicts the \gls{ECDF} of the tunnel durations of these categories in relation to the total duration distribution.
+Figure~\ref{c4:fig:cdf-duration-os} depicts the \gls{ECDF} of the tunnel durations of these categories in relation to the total duration distribution. They immediately exhibit a clear difference between individual \glspl{os}.
 
-The Symbian tunnel durations are similarly distributed to the previously depicted regular phone category. A possible explanation could be the user-base being more traditional, or the devices being feature phones whose behavior clearly differs from smartphones.
+The Symbian tunnel durations are similarly distributed to the previously depicted regular phone category, albeit with an even shorter duration median of about \SI{15}{\second}. This is an indicator of the large intersection between these two groups and the explicit user traffic property attributed to regular phones.
 
-Again, a number of steps (i.e. accumulations of incidents) are visible in the distributions. 
- %Steps at multiples of 10 seconds indicate that timer-induced transitions happen. 
-Those steps that are only visible in one operating system type point to a source involving the device rather than the network. This especially includes the \SI{30}{\second}, \SI{300}{\second}, and \SI{600}{\second} steps for Android, and the \SI{600}{\second} step for iOS devices. However, whether this behavior should be attributed to the operating systems themselves cannot be decided by only looking at these distribution. Other factors, e.g. the device's firmware version and user traffic dynamics need also be observed. 
+The two smartphone-exclusive \gls{os} have remarkably similar tunnel distributions with the exception of the Android tunnel distribution shifted to much longer tunnels. This is mostly due to the larger accumulation of iOS tunnels around the previously mentioned \SI{1.5}{\second} mark. Over \SI{20}{\percent} of all tunnels established by iOS devices are shorter than \SI{2}{\second}. A possible explanation is an interaction between the described implicit background traffic happening in intervals and the efforts of iOS phones to preserve as much energy as possible. 
+To this end, phones aggressively force their radio connection to the low power idle states or even completely shut off the radio immediately after transmission have ended, circumventing \gls{RRC} timers. To achieve this, iOS devices are known to implement a form of \gls{3GPP} Fast Dormancy \cite{gsma2011fdbestpract}. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. Due the more frequent state transitions it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the \gls{ECDF}.
 
-A last artifact of note are the larger number of iOS devices with very short tunnel durations. Over \SI{20}{\percent} of all tunnels established by these devices are shorter than two seconds. While the actual cause still remains unknown, it could be an interaction between short regular traffic burst and \gls{3GPP} Fast Dormancy \cite{gsma2011fdbestpract} which iOS devices are known to implement. Fast Dormancy is a technique to explicitly release radio resources more quickly by the device. It is deemed to improve device battery life, radio signaling and radio spectrum efficiency. However, due to the earlier and more frequent transition to the IDLE state, it also could cause an increase in core network tunnel management signaling, which is probably what happened in the iOS case depicted in the \gls{ECDF}.
+Another set of tunnel duration accumulations are also visible in the \gls{os} distributions. Two types of steps should be distinguished here. First are accumulations that occur across multiple or all categories. This points to an influence source outside of the specific category. If the artifact is present in every distribution it is even likely, that the source is a behavior of the network's state machines. The second type of accumulation is local to one or some categories, which places the root cause into the region of these categories and their related influence factors. 
 
-% ! <-- !
+In case of the \gls{os} category, additionally, peaks at \SI{30}{\second}, \SI{300}{\second}, and \SI{600}{\second} can be observed. However, whether this behavior can be attributed directly to the operating systems themselves cannot be decided just by looking at these distribution. Other factors, e.g. the device's baseband and user traffic dynamics, also play a role. 
+
 
 %%
-\paragraph{Influence of \acrshort{RAT} and other factors}
+\paragraph{Influence of Other Factors}
 
-In theory other influence factors could also be investigated using the available data set.
-However
-
-Explain, why it is not here.
-%%
-%TODO: radio access type plots, if we have the data
-%
-%\begin{figure}
-%\centering
-%\includegraphics[width=\columnwidth]{figures/tunnel-dur-radio-cdf-mod.pdf}
-%\caption{Tunnel duration distribution, separated for UMTS and GPRS radio access [NOTE: only in the last tunnel segment; and majority of radio types %is unknown anyway.}
-%\label{fig:cdf-duration-radio}
-%\end{figure}
-
-% 10/30m jumps can be seen on android, but not on iOS, why?
-%  maybe fast dormancy?
+Unfortunately, with the trace at hand other influence factors are hard to distinguish, sometimes even impossible. Some factors are unknown in a \gls{CN} perspective, as the mentioned device baseband, while others have not been recorded in the trace.
+Theoretically it is possible to investigate the \gls{RAT} as it is an \gls{IE} in the \gls{gtp} messages and also recorded in the trace. The radio access parts of \gls{GSM} and \gls{UMTS} are completely different --- including the \gls{RRC} state machines which were depicted in Figure~\ref{c4:fig:mmstatemodel} --- and therefore could also differ in their control plane load impact on the core. However, the \gls{RAT} \gls{IE} is optional and only set in less than \SI{1}{\percent} of the available records. As the radio access can change even during an existing tunnel --- in which case the \gls{GGSN} receives a \gls{gtp} update request informing the node about the change --- a complete picture without gaps is required to do any investigation on this.
 
 
 
@@ -179,7 +165,7 @@ Explain, why it is not here.
 \label{c4:fig:qq-plots}
 \end{figure}
 
-In an attempt to show which of the presented categories have an impact on the total duration (if at all), we present Q-Q plots of the various categorized durations against the total duration in Figure~\ref{c4:fig:qq-plots}. In theory, if both durations follow the same distribution, one expects a straight line through the origin at an angle of \SI{45}{\degree}. A steeper incline indicates less densely spaced values in the distribution at the y axis. Looking at igures~\ref{c4:fig:qq-total-vs-android} and \ref{c4:fig:qq-total-vs-ios} which compare different operating systems, both similar and dispersing parts can be observed. While tunnel durations on Android  are more similarly distributed for the shorter and longer durations, iOS device tunnel durations are most similar to the overall tunnel duration distribution in the middle range of values.
+In an attempt to show which of the presented categories have an impact on the total duration (if at all), we present Q-Q plots of the various categorized durations against the total duration in Figure~\ref{c4:fig:qq-plots}. In theory, if both durations follow the same distribution, one expects a straight line through the origin at an angle of \SI{45}{\degree}. A steeper incline indicates less densely spaced values in the distribution at the y axis. Looking at Figures~\ref{c4:fig:qq-total-vs-android} and \ref{c4:fig:qq-total-vs-ios} which compare different operating systems, both similar and dispersing parts can be observed. While tunnel durations on Android  are more similarly distributed for the shorter and longer durations, iOS device tunnel durations are most similar to the overall tunnel duration distribution in the middle range of values.
 
 Combining all types of smartphones together and comparing them to the other major player in any mobile network, the \gls{3G} dongles, we observe in Figure \ref{c4:fig:qq-total-vs-smartphones} that both the total and the smartphone durations are almost equally distributed (except for minor variations). On the other hand, \gls{3G} dongles follow a very different distribution, see Figure \ref{c4:fig:qq-total-vs-dongle}. Their effect on tunnel management signaling seems to be negligible despite the  large amount of traffic they are causing. Therefore, we conclude that planning and dimensioning of the control plane needs to keep smartphone behaviors more closely in mind than that of other device types.
 
@@ -407,3 +393,15 @@ introducing artifacts which make it hard to fit any distribution against. Instea
 % signaling calc:
 % gtp signaling traffic volume estimation $v_s$ = (1059B gtp message + 8B udp header + 20B ipv4 header) = 1087B * 409733865 number of request/response pairs * 2 (2 messages per pair) = 8,9076142E11B
 % ratio to total $r=\frac{v_s}{v_t}=0.72\%$  $v_t=122758578593993B$
+
+
+%%
+%TODO: radio access type plots, if we have the data
+% We do not.
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=\columnwidth]{figures/tunnel-dur-radio-cdf-mod.pdf}
+%\caption{Tunnel duration distribution, separated for UMTS and GPRS radio access [NOTE: only in the last tunnel segment; and majority of radio types %is unknown anyway.}
+%\label{fig:cdf-duration-radio}
+%\end{figure}
