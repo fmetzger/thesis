@@ -165,17 +165,20 @@ Theoretically it is possible to investigate the \gls{RAT} as it is an \gls{IE} i
 \label{c4:fig:qq-plots}
 \end{figure}
 
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/stacked-durations-2-fixed.pdf}
+    \caption{Stacked logscale bin plot of the number of tunnels with duration in this bin; classified by Android, iOS and 3G dongles.}
+    \label{c4:fig:stacked-durations}
+\end{figure}
+
+To ascertain, which of the investigated device categories influences the total duration distribution most --- any thus also the core network control plane load as conjectured --- Q-Q plots are created and investigated.
+
+% !<--!
+
 In an attempt to show which of the presented categories have an impact on the total duration (if at all), we present Q-Q plots of the various categorized durations against the total duration in Figure~\ref{c4:fig:qq-plots}. In theory, if both durations follow the same distribution, one expects a straight line through the origin at an angle of \SI{45}{\degree}. A steeper incline indicates less densely spaced values in the distribution at the y axis. Looking at Figures~\ref{c4:fig:qq-total-vs-android} and \ref{c4:fig:qq-total-vs-ios} which compare different operating systems, both similar and dispersing parts can be observed. While tunnel durations on Android  are more similarly distributed for the shorter and longer durations, iOS device tunnel durations are most similar to the overall tunnel duration distribution in the middle range of values.
 
 Combining all types of smartphones together and comparing them to the other major player in any mobile network, the \gls{3G} dongles, we observe in Figure \ref{c4:fig:qq-total-vs-smartphones} that both the total and the smartphone durations are almost equally distributed (except for minor variations). On the other hand, \gls{3G} dongles follow a very different distribution, see Figure \ref{c4:fig:qq-total-vs-dongle}. Their effect on tunnel management signaling seems to be negligible despite the  large amount of traffic they are causing. Therefore, we conclude that planning and dimensioning of the control plane needs to keep smartphone behaviors more closely in mind than that of other device types.
-
-
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=1.0\textwidth]{images/stacked-durations-2-fixed.pdf}
-	\caption{Stacked logscale bin plot of the number of tunnels with duration in this bin; classified by Android, iOS and 3G dongles.}
-	\label{c4:fig:stacked-durations}
-\end{figure}
 
 Figure~\ref{c4:fig:stacked-durations} shows another interesting influence the operating system has on signaling in the mobile core network. This plot shows the relative number of tunnels with a duration in one of $1000$ logarithmically scaled bins, stacked by \gls{os} category on top of each other. As with the separate distributions, we discover that the durations are not evenly distributed, but rather follow sharp spikes. The largest spike across all categories is the one at a duration of \SI{30}{\minute}, making up about \SI{1.8}{\percent} of all tunnels in the network. Since this spike happens across all device types, we think this makes a rather strong case for being network-induced, and an indication for the aforementioned possible idle state transition. On the other hand, the bulk in the short-to-medium ranges of tunnel duration is rather not governed by the two major smartphone operation systems but by other devices in the network, which do not show major spikes in other bins. We can also recognize a long-tail behavior in the distribution of tunnel durations.
 
