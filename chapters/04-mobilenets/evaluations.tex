@@ -195,8 +195,8 @@ In addition to describing the arrival process on the basis of the number of arri
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=\columnwidth]{images/create_freq.pdf}
-	\caption{Tunnel arrivals in one second intervals.}
+	\includegraphics[width=\textwidth]{images/create_freq.pdf}
+	\caption{Tunnel arrivals histogram overlaid with a density plot.}
 	\label{c4:fig:freq-arrivals}
 \end{figure}
 
@@ -205,7 +205,7 @@ If we again hypothesize that an increased number of arrivals means higher load i
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=\columnwidth]{images/R-createspersecond-1h-violin.pdf}
+	\includegraphics[width=\textwidth]{images/R-createspersecond-1h-violin.pdf}
 	\caption{Violin plot of tunnel arrivals in one second per time of day.}
 	\label{c4:fig:freq-arrivals-per-second-violin}
 \end{figure}
@@ -214,40 +214,36 @@ To find the cause of these two modes we take a peek at the diurnal arrival patte
 The nocturnal median from around midnight to \formattime{5}{0}{0} and the longer daytime median, \formattime{8}{0}{0} to \formattime{19}{0}{0}, closely resemble the two modes found in the histogram. In between are short transition phases. Notably, during daytime the arrivals and their densities are spread out on a much larger value range. This could be an indication of load fluctuations in the system.
 
 
-\begin{figure}[htbp]
-        \centering
-\makebox[\textwidth]{        
-        \begin{subfigure}[b]{0.45\paperwidth}    
+\begin{figure}[htb]
+        \centering    
+        \begin{subfigure}[b]{0.5\textwidth}    
                 \centering
                 \includegraphics[width=\textwidth]{images/R-IAT-all-2h-ecdfs.pdf}
                 \caption{All tunnel requests.}
                 \label{c4:fig:IAT-ecdf-2h-all}
         \end{subfigure}%
         ~
-        \begin{subfigure}[b]{0.45\paperwidth}
+        \begin{subfigure}[b]{0.5\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{images/R-IAT-fromflows-ecdfs-2h.pdf}
                 \caption{Only tunnels with data flows.}
                 \label{c4:fig:IAT-ecdf-2h-active}
         \end{subfigure}
-        }
 
- \makebox[\textwidth]{    
-        \begin{subfigure}[b]{0.45\paperwidth}
+        \begin{subfigure}[b]{0.5\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{images/R-IAT-fromflows-gprs-ecdfs-2h.pdf}
                 \caption{Tunnels with data flows initiated in \gls{GPRS}.}
                 \label{c4:fig:IAT-ecdf-2h-active-gprs}
         \end{subfigure}%
         ~
-        \begin{subfigure}[b]{0.45\paperwidth}
+        \begin{subfigure}[b]{0.5\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{images/R-IAT-fromflows-umts-ecdfs-2h.pdf}
                 \caption{Tunnels with data flows initiated in \gls{UMTS}.}
                 \label{c4:fig:IAT-ecdf-2h-active-umts}
         \end{subfigure}
-}
-        \caption{\glspl{ECDF} of the tunnel inter-arrival time in seconds by time of day for each day of one week.}
+        \caption{\glspl{ECDF} of the tunnel \gls{IAT} in seconds by time of day for each day of one week.}
         \label{c4:fig:IAT-ecdf-2h}
 \end{figure}
 
