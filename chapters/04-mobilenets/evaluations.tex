@@ -217,7 +217,7 @@ The nocturnal plateau of arrivals between midnight and \formattime{5}{0}{0} and 
                 \centering
                 \includegraphics[width=\textwidth]{images/R-IAT-successful-2h-ecdfs.pdf}
                 \caption{All tunnel requests.}
-                \label{c4:fig:IAT-ecdf-2h-all}
+                \label{c4:fig:IAT-ecdf-2h-successful}
         \end{subfigure}%
         ~
         \begin{subfigure}[b]{0.5\textwidth}
@@ -245,20 +245,24 @@ The nocturnal plateau of arrivals between midnight and \formattime{5}{0}{0} and 
 \end{figure}
 
 
-Complementing the arrival rate evaluation is the investigation of the \gls{IAT}.
-Figure~\ref{c4:fig:IAT-ecdf-2h}  
+Complementing the arrival rate evaluation is the investigation of the tunnel \gls{IAT}. This metric is more sensitive to short time fluctuations of arrivals and more suited to describe the arrival process for use in the proposed load model.
 
- This metric is more suited to describe the arrival process in the toy queuing model we propose. The empirical \glspl{CDF} are again broken down by time of day, the same diurnal load oscillation can be observed. The medians range between about \SI{20}{\milli\second} and \SI{60}{\milli\second}. Figure~\ref{c4:fig:IAT-ecdf-2h-all}, which represents all tunnel requests that the \gls{GGSN} received, shows wave-like steps in \SI{20}{\milli\second} intervals in the plot. As this is happening very regularly at every time of the day we believe, that this effect must be from a source inside the mobile network and not induced from the outside, .e.g. through mobile devices.
+The overall picture of all arrivals is given in the \gls{ECDF} of Figure~\ref{c4:fig:IAT-ecdf-2h-successful}, again broken down by time of day. Obviously the the same previously observed diurnal load oscillation can again be perceived. The median \glspl{IAT} fall in the range of \SI{20}{\milli\second} and \SI{60}{\milli\second}, enveloped by the \formattime{16}{0}{0} and \formattime{2}{0}{0}distributions on with the lowest and highest \gls{IAT} respectively. Additionally, tunnel arrivals are occurring at an increased frequency with an interval of multiples of \SI{20}{\milli\second}, which generates these wave-like steps in the \gls{ECDF} plot. As this is happening very regularly at every time of the day, a source inside the mobile network is indicated.
 
-This becomes even more peculiar when further breaking down the tunnel arrivals. We now distinguish between active tunnels, i.e. tunnels, that actually transported user traffic during their lifetime (cf. Fig.~\ref{c4:fig:IAT-ecdf-2h-active}), and active tunnels, which were created while having a \gls{GPRS} (Fig.~\ref{c4:fig:IAT-ecdf-2h-active-gprs}) or UMTS (Fig.~\ref{c4:fig:IAT-ecdf-2h-active-umts}) connectivity, respectively. Note that only about \SI{86}{\percent} of requested and created tunnels where actually used for user data transmissions afterwards. The \SI{20}{\milli\second}-steps occur strongest when observing all tunnel arrivals, in a weaker form it is also present in the active and \gls{UMTS} tunnel portion. 
+A hypothesis as to the origin of this effect is the value of the \gls{TTI}. This property determines the duration of a mobile network's radio transmission slot. In \gls{3GPP} standards up to \gls{UMTS} the default value of the \gls{TTI} is either \SI{10}{\milli\second} or \SI{20}{\milli\second}, newer versions of the specification set the value to \SI{2}{\milli\second} (in \gls{HSPA}) or even \SI{1}{\milli\second} (for \gls{LTE}). The absolute time of every transmission slot is also synchronized across every base station in the whole mobile network, which makes the \gls{TTI} noticeable even when not measuring directly at the radio link. 
 
-Our working hypothesis as to the origin of the effect is the \gls{TTI}. This time indicates the duration of a radio transmission and is usually either \SI{10}{\milli\second} or \SI{20}{\milli\second} milliseconds in length. It is also in sync for the whole network of base stations making the \gls{TTI} noticeable even when not measuring directly at the radio link. The observed step-width of \SI{20}{\milli\second} therefore indicates, that the signaling procedure the \gls{gtp} create is part of, includes at least one trip from the mobile device over the radio interface. This makes sense, as the tunnel is typically created during the \gls{GPRS} Attach procedure, which is indeed initiated at the user's device. Unfortunately, this also makes the tunnel arrivals come in somewhat batched, which could momentarily increase the load at the \gls{GGSN} that then would need to process more requests at once than if the arrivals followed a smooth stochastic distribution.
+The observed step-width of \SI{20}{\milli\second} therefore indicates, that the tunnel establishment signaling procedure includes at least one trip from the mobile device over the radio interface. This makes sense, as the tunnel is typically created during the \gls{GPRS} Attach procedure, which is indeed initiated at the user's device. Unfortunately, this gives the arrival process batch properties. As a result the load at the \gls{GGSN} increases momentarily when a batch arrives. The \gls{GGSN} would then need to process more requests simultaneously than if the arrivals followed a smooth stochastic distribution.
 
+This effect becomes more peculiar when the tunnel arrivals are further broken down. Figure~\ref{c4:fig:IAT-ecdf-2h-active} only displays arrivals of tunnels, that actually transported user traffic during their lifetime. Here, the influence of the effect is visually unnoticeable. This could be attributed, that most active data connections during the time of the trace recording were already using almost exclusively \gls{HSPA} or better, which sees the much lower \gls{TTI}. Only older, regular phones establish plain \gls{UMTS} connections and often do not even use it.
+
+The discrimination of the \gls{IAT} distribution by \gls{RAT} that was used during the creation of the tunnel reveals no further information. Due to the much lower number of connections the \gls{GPRS} distributions are shifted to much higher intervals than the \gls{UMTS} specific distributions.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\texorpdfstring{\acrshort{gtp}}{GTP} Tunnel Event Processing Time}
+
+% ! <-- !
 
 This brings us to another and potentially more direct measure of \gls{GGSN} load, namely the event processing time, meaning the time it takes for the \gls{GGSN} to fulfill a \gls{gtp} request. This is calculated from the requested and finished timestamps of every \gls{gtp} event in our dataset. As the measurement is conducted at the Gn interface these timestamps represent the time the \gls{gtp} signaling request moves to the \gls{GGSN} and the time the response transitions through the link.
 
@@ -272,7 +276,7 @@ As stated in the previous section, it would be of special interest to know if th
 \end{figure}
 
 
-However, we could investigate the processing time of \gls{gtp} update messages. The core network transmits roughly two orders of magnitude more update than either create or delete events and therefore the number of usable events exceeded the significance level. While no direct investigation of the setup and deletion procedures was possible with these events, a rough overall picture of load can still be attained through this. Figure \ref{c4:fig:update-time} depicts a band of empirical cumulative distribution functions for the processing time of update events broken down by time of day. The processing time is almost uniformly distributed between \SI{2}{\milli\second} and \SI{22}{\milli\second}, with a slightly longer duration during the evening, making for a continuous uniform distribution. This is rather unexpected as uniform distributions do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., scheduling or queuing artifacts. In the future we hope to investigate these features more closely, including a proper investigation of the tunnel setup and teardown processing time, if the dataset allows it.
+However, we could investigate the processing time of \gls{gtp} update messages. The core network transmits roughly two orders of magnitude more update than either create or delete events and therefore the number of usable events exceeded the significance level. While no direct investigation of the setup and deletion procedures was possible with these events, a rough overall picture of load can still be attained through this. Figure~\ref{c4:fig:update-time} depicts a band of empirical cumulative distribution functions for the processing time of update events broken down by time of day. The processing time is almost uniformly distributed between \SI{2}{\milli\second} and \SI{22}{\milli\second}, with a slightly longer duration during the evening, making for a continuous uniform distribution. This is rather unexpected as uniform distributions do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., scheduling or queuing artifacts. In the future we hope to investigate these features more closely, including a proper investigation of the tunnel setup and teardown processing time, if the dataset allows it.
 
 
 
@@ -295,7 +299,7 @@ Typically, a device will only hold one tunnel at a time, but this one tunnel can
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/timeslot-fits.pdf}
-  \caption{Empirical and fitted CDFs of the tunnel duration by time of day with fitted rational functions.}
+  \caption{Empirical and fitted \glspl{CDF} of the tunnel duration by time of day with fitted rational functions.}
   \label{c4:fig:fittedsdurationlots}
 \end{figure}
 
@@ -303,7 +307,7 @@ The second important tunnel property is the duration the \gls{PDP} Context state
 %Further properties of the tunnel duration, especially the correlation with device types and operating systems, were already investigated in detail in our previous work \cite{metzger2012research,metzger2013}.
 For the model, a distribution fit of the tunnel duration was also desired. However, none of the basic probability distributions (including exponential, gamma, and Weibull distributions) fit the tunnel duration well enough. One of the reasons for this probably being the correlation of the tunnel duration to a large number of factors, including user behavior and network-specific timers and procedures,
 %Tunnels are shut down by the network after specific events (e.g. a 30-minute idle timer), 
-introducing artifacts which make it hard to fit any distribution against. Instead, we fitted rational functions to the \gls{ECDF} using Eureqa \cite{eureqa_paper, eureqa_software}. This allowed for a much closer fitting while still smoothing out some of the artifacts. Table~\ref{tab:fits} also displays these functions fitted to the inverse \gls{CDF}, to be directly used for generating random numbers using the inversion method. Both the \gls{CDF} in Fig.~\ref{c4:fig:fittedsdurationlots} as well as the Pearson correlation coefficient confirm the goodness of the fitted functions.
+introducing artifacts which make it hard to fit any distribution against. Instead, we fitted rational functions to the \gls{ECDF} using Eureqa \cite{eureqa_paper, eureqa_software}. This allowed for a much closer fitting while still smoothing out some of the artifacts. Table~\ref{tab:fits} also displays these functions fitted to the inverse \gls{CDF}, to be directly used for generating random numbers using the inversion method. Both the \gls{CDF} in Figure~\ref{c4:fig:fittedsdurationlots} as well as the Pearson correlation coefficient confirm the goodness of the fitted functions.
 
 
 \begin{table}[htb]
