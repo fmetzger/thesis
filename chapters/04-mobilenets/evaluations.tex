@@ -187,7 +187,7 @@ The duration of \gls{gtp} tunnels is but one aspect of influence on control plan
 
 An arrival process can be described in two distinct ways. First by the number of arrivals in a given time interval. Second, by the \gls{IAT}, the time between two consecutive tunnel arrivals. Depending on the choice one has to deal with either a discrete or a continuous distribution.
 
-Here, the tunnel arrival process is investigated with both approaches. This also adds to the foundation of the load model constructed in the next chapter. Note, that the notion of classifying arrivals into influence categories is omitted here. An investigation of this process can not be realistically be conducted categorized and still relate to the total system load.
+Here, the tunnel arrival process is investigated with both approaches. This also adds to the foundation of the load model constructed in the next chapter. Note, that the notion of classifying arrivals into influence categories based on device specifics is omitted here. An investigation of this process can not be realistically be conducted categorized and still relate to the total system load.
 
 \begin{figure}[htb]
 	\centering
@@ -215,7 +215,7 @@ The nocturnal plateau of arrivals between midnight and \formattime{5}{0}{0} and 
         \centering    
         \begin{subfigure}[b]{0.5\textwidth}    
                 \centering
-                \includegraphics[width=\textwidth]{images/R-IAT-all-2h-ecdfs.pdf}
+                \includegraphics[width=\textwidth]{images/R-IAT-successful-2h-ecdfs.pdf}
                 \caption{All tunnel requests.}
                 \label{c4:fig:IAT-ecdf-2h-all}
         \end{subfigure}%
@@ -240,12 +240,15 @@ The nocturnal plateau of arrivals between midnight and \formattime{5}{0}{0} and 
                 \caption{Tunnels with data flows initiated in \gls{UMTS}.}
                 \label{c4:fig:IAT-ecdf-2h-active-umts}
         \end{subfigure}
-        \caption{\glspl{ECDF} of the tunnel \gls{IAT} in seconds by time of day for each day of one week.}
+        \caption{\glspl{ECDF} of the tunnel \gls{IAT} in seconds by time of day.}
         \label{c4:fig:IAT-ecdf-2h}
 \end{figure}
 
-% !<--!
-To investigate the arrivals from yet another angle we take a look at inter-arrival time of the tunnels in Figure~\ref{c4:fig:IAT-ecdf-2h}. This metric is more suited to describe the arrival process in the toy queuing model we propose. The empirical \glspl{CDF} are again broken down by time of day, the same diurnal load oscillation can be observed. The medians range between about \SI{20}{\milli\second} and \SI{60}{\milli\second}. Figure~\ref{c4:fig:IAT-ecdf-2h-all}, which represents all tunnel requests that the \gls{GGSN} received, shows wave-like steps in \SI{20}{\milli\second} intervals in the plot. As this is happening very regularly at every time of the day we believe, that this effect must be from a source inside the mobile network and not induced from the outside, .e.g. through mobile devices.
+
+Complementing the arrival rate evaluation is the investigation of the \gls{IAT}.
+Figure~\ref{c4:fig:IAT-ecdf-2h}  
+
+ This metric is more suited to describe the arrival process in the toy queuing model we propose. The empirical \glspl{CDF} are again broken down by time of day, the same diurnal load oscillation can be observed. The medians range between about \SI{20}{\milli\second} and \SI{60}{\milli\second}. Figure~\ref{c4:fig:IAT-ecdf-2h-all}, which represents all tunnel requests that the \gls{GGSN} received, shows wave-like steps in \SI{20}{\milli\second} intervals in the plot. As this is happening very regularly at every time of the day we believe, that this effect must be from a source inside the mobile network and not induced from the outside, .e.g. through mobile devices.
 
 This becomes even more peculiar when further breaking down the tunnel arrivals. We now distinguish between active tunnels, i.e. tunnels, that actually transported user traffic during their lifetime (cf. Fig.~\ref{c4:fig:IAT-ecdf-2h-active}), and active tunnels, which were created while having a \gls{GPRS} (Fig.~\ref{c4:fig:IAT-ecdf-2h-active-gprs}) or UMTS (Fig.~\ref{c4:fig:IAT-ecdf-2h-active-umts}) connectivity, respectively. Note that only about \SI{86}{\percent} of requested and created tunnels where actually used for user data transmissions afterwards. The \SI{20}{\milli\second}-steps occur strongest when observing all tunnel arrivals, in a weaker form it is also present in the active and \gls{UMTS} tunnel portion. 
 
