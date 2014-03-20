@@ -53,7 +53,7 @@ In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW},
 
 \begin{figure}[htbp]
 	\centering
- 	\includegraphics[width=1.0\textwidth]{images/umts-userpath-stack.pdf}
+ 	\includegraphics[width=0.9\textwidth]{images/umts-userpath-stack.pdf}
  	\caption{Simplified control plane and user plane \gls{IP}-based protocol stacks on the user traffic path through the mobile network.}
  	\label{c4:fig:protocolstacks}
 \end{figure}
@@ -70,7 +70,7 @@ As stated, there is a strict separation between control instances and instances 
 
 Additionally, a number of state machines are maintained. State machine transitions then trigger a signaling message to specific neighbors. Any signaling interaction belongs to one or more larger control plane procedures. Most of the procedures that happen inside the core network\gls{PS} domain or affect it are defined in TS~24.008~\cite{3gpp.24.008} and TS~23.060\cite{3gpp.23.060}.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.7\textwidth]{images/pdp-context-activation-procedure.pdf}
 	\caption{PDP Context Activation procedure signaling interaction diagram for \gls{UMTS}, including involved signaling protocols.}
@@ -125,7 +125,7 @@ Conceptually, \gls{gtp} is structured through a base packet header, a number of 
 
 Each messages is defined as a specific set of \glspl{IE}, which are either mandatory, conditional to some external factor, or optional. The \gls{IE}, depending on the type either of fixed or variable length, convey the actual state to be signaled and always relate to a specific \gls{UE} and tunnel, for example the device's \gls{IMSI} or the configured \gls{APN}.
 
-\begin{table}[htb]
+\begin{table}[htbp]
 \caption{All \gls{IE} in a Create \gls{PDP} Context request and size thereof for \gls{IPv4} network and user traffic only, excluding the first message type Byte.}
 \label{c4:tab:createrequestelements}
 	\begin{tabu} to 0.49\textwidth{X[2.5]X[1.2]X[0.7]}
