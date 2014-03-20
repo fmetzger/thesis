@@ -115,13 +115,16 @@ In case of the \gls{os} category, additionally, peaks at \SI{30}{\second}, \SI{3
 %%
 \paragraph{Influence of the Time of Day}
 
-%% to be integrated into evaluation
+
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-duration-timeofday-ecdf.pdf}
   \caption{Tunnel duration of all active tunnels by time of day.}
  \label{c4:fig:duration-timeofday-ecdf}
 \end{figure}
+
+In addition to device factors, diurnal effects could also play a role in the duration of tunnels. Figure~\ref{c4:fig:duration-timeofday-ecdf} depicts $24$ individual \glspl{ECDF} of the tunnel duration for each hour of a day. While no clear distinctions are visible, there is a trend of to shorter tunnels in the early morning hours. The early afternoon hours tend to produce tunnels more centered around the middle duration range. Even longer tunnels should be treated with reservation, as they exceed the length of their assigned time slot in the \gls{ECDF} and span a larger time frame. Only the tunnel creation point will be in the slot.
+
 
 %%
 \paragraph{Influence of Other Factors}
@@ -302,7 +305,7 @@ Still, the fact that a higher update processing time coincides with an increase 
 \subsection{Statistical Evaluation and Data Fitting}
 \label{c4:sec:statistical_evaluation}
 
-
+% ! <-- !
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
