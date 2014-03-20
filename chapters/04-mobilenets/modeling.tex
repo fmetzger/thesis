@@ -39,14 +39,7 @@ In this case ``servers'' correspond to available resources at one or more \gls{G
 
 For the purpose of creating a toy model we are further simplifying the $G/G/n-0$ to a $M/M/\infty$ queue. As stated, no actual limit to the number of virtual servers is known and the data also does not show any obvious limits. So we can safely assume an unlimited system and do not have to treat blocking or queuing explicitly.
 
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=\columnwidth]{images/R-IAT-ecdfs.pdf}
-	\caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
-	\label{c4:fig:IAT-cdfs}
-\end{figure}
 
-Furthermore, we fitted univariate distributions to the experimental data for the tunnel inter-arrivals and durations and tested the goodness of the fit both numerically, using Pearson's $\chi^2$ test, and visually for the density and CDF plots. No standard random distribution reaches the significance level for either process. We attribute this fact largely to the various artifacts in the data, e.g. the described wave effect every \SI{20}{\milli\second} in the inter-arrival time. Matching them visually (confer also the cumulative distribution function plot in Figure~\ref{c4:fig:IAT-cdfs}) we find that the exponential fit is reasonably close to the experimental data in both the arrival and duration cases. Again, these distribution fits are just for a toy model to lay the groundwork for future and improved modeling.
 
 
 \begin{figure}[htb]

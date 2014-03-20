@@ -113,6 +113,17 @@ In case of the \gls{os} category, additionally, peaks at \SI{30}{\second}, \SI{3
 
 
 %%
+\paragraph{Influence of the Time of Day}
+
+%% to be integrated into evaluation
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=1.0\textwidth]{images/R-duration-timeofday-ecdf.pdf}
+  \caption{Tunnel duration of all active tunnels by time of day.}
+ \label{c4:fig:duration-timeofday-ecdf}
+\end{figure}
+
+%%
 \paragraph{Influence of Other Factors}
 
 Unfortunately, with the trace at hand other influence factors are hard to distinguish, sometimes even impossible. Some factors are unknown in a \gls{CN} perspective, as the mentioned device baseband, while others have not been recorded in the trace.
@@ -260,23 +271,30 @@ The discrimination of the \gls{IAT} distribution by \gls{RAT} that was used duri
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\texorpdfstring{\acrshort{gtp}}{GTP} Tunnel Event Processing Time}
+\subsection{\texorpdfstring{\acrshort{gtp}}{GTP} Tunnel Message Processing Time}
 
-% ! <-- !
+Finally, the \gls{GGSN}'s processing time of \gls{gtp} tunnel management messages is investigated. Potentially, this can be a direct measure of the load at the node. In times of higher load one would expect a higher processing time of signaling messages.
 
-This brings us to another and potentially more direct measure of \gls{GGSN} load, namely the event processing time, meaning the time it takes for the \gls{GGSN} to fulfill a \gls{gtp} request. This is calculated from the requested and finished timestamps of every \gls{gtp} event in our dataset. As the measurement is conducted at the Gn interface these timestamps represent the time the \gls{gtp} signaling request moves to the \gls{GGSN} and the time the response transitions through the link.
+From the network trace the processing time can be calculated by two timestamps in each record.
+As the trace is recorded at the Gn interface these timestamps represent the points in time the \gls{gtp} signaling request and subsequent response pass on the link to and from the the \gls{GGSN}. Therefore, they can also be interpreted as the start and finish of the involved processing at the \gls{GGSN}.
 
-As stated in the previous section, it would be of special interest to know if the setup time of tunnels is influenced by anything, as this is one of the \gls{GGSN}'s most time-sensitive jobs and can impact the time a user has to wait before being able to actually transfer data. Unfortunately, some issues with the dataset did not allow the investigation of the processing time of either create and delete messages.
+Generally, the processing time of all three message types --- i.e. creates, deletes and updates --- could be calculated. It would be of special interest to know if the setup time of tunnels is influenced by anything, as this is one of the \gls{GGSN}'s most time-sensitive jobs and can impact the time a user has to wait before being able to actually transfer data. Unfortunately, due to issues with the dataset, the timestamps for both the create and delete messages records were completely unreliable did not allow for an investigation of the processing time. 
+
+Only \gls{gtp} update messages were unaffected and gave the opportunity for further investigation.
+The trace contains roughly two orders of magnitude more update messages than either creates or deletes, spread out almost evenly over the whole observation period. Therefore, a node load investigation should still be possible just with updates messages.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/R-update-time-cdfs.pdf}
-	\caption{\glspl{ECDF} of the time it takes a \gls{GGSN} to process a \gls{gtp} update event, plotted for each hour of the day.}
+	\caption{\glspl{ECDF} of the time in seconds it takes a \gls{GGSN} to process a \gls{gtp} update event, plotted for each hour of the day.}
 	\label{c4:fig:update-time}
 \end{figure}
 
 
-However, we could investigate the processing time of \gls{gtp} update messages. The core network transmits roughly two orders of magnitude more update than either create or delete events and therefore the number of usable events exceeded the significance level. While no direct investigation of the setup and deletion procedures was possible with these events, a rough overall picture of load can still be attained through this. Figure~\ref{c4:fig:update-time} depicts a band of empirical cumulative distribution functions for the processing time of update events broken down by time of day. The processing time is almost uniformly distributed between \SI{2}{\milli\second} and \SI{22}{\milli\second}, with a slightly longer duration during the evening, making for a continuous uniform distribution. This is rather unexpected as uniform distributions do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., scheduling or queuing artifacts. In the future we hope to investigate these features more closely, including a proper investigation of the tunnel setup and teardown processing time, if the dataset allows it.
+Figure~\ref{c4:fig:update-time} depicts a band of \glspl{ECDF} for the processing time of update messages by time of day. The processing time distribution almost perfectly follows a continous uniform distribution between \SI{2}{\milli\second} and \SI{22}{\milli\second}. Only the upper end displays a slight long-tail behavior. The impact of the time of day is very slim with slightly higher processing times during the evening, the same time frame which also experienced an elevated arrival rate.
+
+The occurrence of a continuous uniform distribution is rather unexpected as these do not usually occur in computing processes. According to the central limit theorem one would rather expect to see a normal distribution influenced by, e.g., process scheduling or other queuing artifacts. The source of this effect is still unknown and the current dataset does not allow for a more thorough investigation.
+Still, the fact that a higher update processing time coincides with an increase in the arrival rate points to an influence of tunnel messaging on the load of a \gls{GGSN}.
 
 
 
@@ -287,7 +305,7 @@ However, we could investigate the processing time of \gls{gtp} update messages. 
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.8\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
+  \includegraphics[width=1.0\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
   \caption{Empirical and exponentially fitted \glspl{CDF} of the tunnel interarrival duration by time of day. \glspl{CDF} are overlapping as the coefficient of determination is close to $1$.}
   \label{fig:pdparrivalsecdf}
 \end{figure}
@@ -298,7 +316,7 @@ Typically, a device will only hold one tunnel at a time, but this one tunnel can
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.8\textwidth]{images/timeslot-fits.pdf}
+  \includegraphics[width=1.0\textwidth]{images/timeslot-fits.pdf}
   \caption{Empirical and fitted \glspl{CDF} of the tunnel duration by time of day with fitted rational functions.}
   \label{c4:fig:fittedsdurationlots}
 \end{figure}
@@ -328,15 +346,17 @@ introducing artifacts which make it hard to fit any distribution against. Instea
 \end{table}
 
 
-
-
-%% to be integrated into evaluation
 \begin{figure}[htb]
-  \centering
-  \includegraphics[width=1.0\textwidth]{images/R-duration-activetunnels-hours-ecdf.pdf}
-  \caption{Tunnel duration of all active tunnels by time of day.}
- \label{c4:fig:duration-timeofday-ecdf}
+    \centering
+    \includegraphics[width=\columnwidth]{images/R-IAT-ecdfs.pdf}
+    \caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
+    \label{c4:fig:IAT-cdfs}
 \end{figure}
+
+Furthermore, we fitted univariate distributions to the experimental data for the tunnel inter-arrivals and durations and tested the goodness of the fit both numerically, using Pearson's $\chi^2$ test, and visually for the density and CDF plots. No standard random distribution reaches the significance level for either process. We attribute this fact largely to the various artifacts in the data, e.g. the described wave effect every \SI{20}{\milli\second} in the inter-arrival time. Matching them visually (confer also the cumulative distribution function plot in Figure~\ref{c4:fig:IAT-cdfs}) we find that the exponential fit is reasonably close to the experimental data in both the arrival and duration cases. Again, these distribution fits are just for a toy model to lay the groundwork for future and improved modeling.
+
+
+
 
 
 
