@@ -305,40 +305,43 @@ Still, the fact that a higher update processing time coincides with an increase 
 \subsection{Statistical Evaluation and Data Fitting}
 \label{c4:sec:statistical_evaluation}
 
-% ! <-- !
+The uncovered empirical distributions for both the tunnel duration and the tunnel \gls{IAT} are now to be matched against theoretical probability distributions. Therefore, a univariate distribution fit to the experimental data was conducted. Having a concise representation for the empirical data will help in creating a model of the core network, which is the task conducted in the sections following after this.
+
+
+%%
+\paragraph{\gls{IAT} Fitting}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{images/R-IAT-ecdfs.pdf}
+    \caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
+    \label{c4:fig:IAT-cdfs}
+\end{figure}
+
+At first, we take a look at the tunnel \gls{IAT} in Figure~\ref{c4:fig:IAT-cdfs} displaying the overall \gls{ECDF} with fits for various basic probability distributions. Each of the fits was generated through the method of moments matching.
+
+The goodness of these fits was checked both visually using the \glspl{CDF} plots and numerically with goodness of fit measures, using Pearson's correlation coefficient and Pearson's $\chi^2$ test. Unfortunately, none of the probability distributions reaches the significance level for $\chi^2$. This can probably be largely attributed to the various previously described artifacts in the data. Matching them visually, the exponential fit seems to be reasonably close to the experimental data.
+
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
   \caption{Empirical and exponentially fitted \glspl{CDF} of the tunnel interarrival duration by time of day. \glspl{CDF} are overlapping as the coefficient of determination is close to $1$.}
-  \label{fig:pdparrivalsecdf}
+  \label{c4:fig:pdparrivalsecdf}
 \end{figure}
 
-Using this dataset, we can obtain the distributions required for the models. At first, we take a look at the tunnel \gls{IAT} in Figure~\ref{fig:pdparrivalsecdf}.
-%This can be a good measure for the load a \gls{GGSN} experiences, as every incoming tunnel carries several signaling interactions, processing and state with it.
-Typically, a device will only hold one tunnel at a time, but this one tunnel can be initiated and shut down in rapid succession, thus causing the aforementioned issues in the radio network. The arrivals also show a strong diurnal effect, closely resembling patterns present in the actual user traffic: A decline of arrivals, i.e. longer interarrivals, late in the night and during the early morning hours with a peak rate in the afternoon and early evening. To represent this time-of-day dependence in the model, the measurement was split into the four time slots displayed in the figure. Each slot was then fitted with an exponential distribution by way of moments matching. This results in the cumulative distribution function $F(x) = 1- e^{-\lambda x}, x \geq 0$ with $\lambda$ given in Table~\ref{tab:fits} for the four time slots. The fitted functions match the empirical data quite well, with some deviation present at the left tail but overall with a positive correlation coefficient approaching $1$.
+To improve the fits, two modifications were made to the process. First, to remove the \SI{20}{\milli\second} steps, only the active tunnels were taken into consideration. Second, the overall \gls{IAT} distribution was once again split up into time of day slots. The overall distribution is just a superimposition of the individual slots anyway. Therefore this should greatly improve the fidelity of the fits. 
 
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=1.0\textwidth]{images/timeslot-fits.pdf}
-  \caption{Empirical and fitted \glspl{CDF} of the tunnel duration by time of day with fitted rational functions.}
-  \label{c4:fig:fittedsdurationlots}
-\end{figure}
-
-The second important tunnel property is the duration the \gls{PDP} Context state accompanying a \gls{gtp} tunnel is held at the \gls{GGSN}. Fig.~\ref{c4:fig:fittedsdurationlots} shows the tunnel durations split up for the time of day, as there is once again a slight diurnal effect present, albeit with shifted peaks. Longer tunnels tend to occur at night, shorter tunnels during midday.
-%Further properties of the tunnel duration, especially the correlation with device types and operating systems, were already investigated in detail in our previous work \cite{metzger2012research,metzger2013}.
-For the model, a distribution fit of the tunnel duration was also desired. However, none of the basic probability distributions (including exponential, gamma, and Weibull distributions) fit the tunnel duration well enough. One of the reasons for this probably being the correlation of the tunnel duration to a large number of factors, including user behavior and network-specific timers and procedures,
-%Tunnels are shut down by the network after specific events (e.g. a 30-minute idle timer), 
-introducing artifacts which make it hard to fit any distribution against. Instead, we fitted rational functions to the \gls{ECDF} using Eureqa \cite{eureqa_paper, eureqa_software}. This allowed for a much closer fitting while still smoothing out some of the artifacts. Table~\ref{tab:fits} also displays these functions fitted to the inverse \gls{CDF}, to be directly used for generating random numbers using the inversion method. Both the \gls{CDF} in Figure~\ref{c4:fig:fittedsdurationlots} as well as the Pearson correlation coefficient confirm the goodness of the fitted functions.
+The result is depicted in Figure~\ref{c4:fig:pdparrivalsecdf}. To improve plot visibility only four larger time slots are displayed here. Also only, the data is matched just against the empirical distribution. Parameters for the exponential distribution $F(x) = 1- e^{-\lambda x}, x \geq 0$ and the corresponding correlation coefficients to the original data for the four time slots are given in Table~\ref{c4:tab:fits}. The fitted functions match the empirical data quite well, with some deviation present at the left tail but an overall positive correlation coefficient approaching $1$.
 
 
 \begin{table}[htb]
   \caption{Parameters for the exponentially distributed inter-arrival times and corresponding Pearson correlation coefficients; also contains the inverse functions fitted to the empirical duration distribution and correlation coefficients of the fit.}
-  \label{tab:fits}
+  \label{c4:tab:fits}
   \tabulinesep=1.2mm
   \centering
 \begin{tabu}{X[0.9,l]X[r]X[r]X[4.5,r]X[r]} 
   \toprule
-  \textbf{Time of Day} & $\mathbf{\lambda}$ & $\mathbf{R_{arrival}}$ & \textbf{Inverse Fitted Duration Function} & $\mathbf{R_{dur}}$\\ 
+  \textbf{Time of Day} & $\mathbf{\lambda}$ & $\mathbf{R_{arrival}}$ & \textbf{Inverse \gls{CDF} Representation} & $\mathbf{R_{dur}}$\\ 
   \midrule
   0h-5h & $10.67477$ & $0.99538$ & $0.919208 - 60.6136y - 3498.78y^3 - \frac{110.707y + 2289.94y^3}{y - 1.00469}$ &  $0.9999021$ \\
   6h-11h & $24.53298$ & $0.99216$ & $1 + 117.484y - 368.643y^2 - \frac{1720.13y^4}{y - 1.0041}$ & $0.9998909$ \\
@@ -349,14 +352,26 @@ introducing artifacts which make it hard to fit any distribution against. Instea
 \end{table}
 
 
+
+%%
+\paragraph{Duration Fitting}
+
 \begin{figure}[htb]
-    \centering
-    \includegraphics[width=\columnwidth]{images/R-IAT-ecdfs.pdf}
-    \caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
-    \label{c4:fig:IAT-cdfs}
+  \centering
+  \includegraphics[width=1.0\textwidth]{images/timeslot-fits.pdf}
+  \caption{Empirical and fitted \glspl{CDF} of the tunnel duration by time of day with fitted rational functions.}
+  \label{c4:fig:fittedsdurationlots}
 \end{figure}
 
-Furthermore, we fitted univariate distributions to the experimental data for the tunnel inter-arrivals and durations and tested the goodness of the fit both numerically, using Pearson's $\chi^2$ test, and visually for the density and CDF plots. No standard random distribution reaches the significance level for either process. We attribute this fact largely to the various artifacts in the data, e.g. the described wave effect every \SI{20}{\milli\second} in the inter-arrival time. Matching them visually (confer also the cumulative distribution function plot in Figure~\ref{c4:fig:IAT-cdfs}) we find that the exponential fit is reasonably close to the experimental data in both the arrival and duration cases. Again, these distribution fits are just for a toy model to lay the groundwork for future and improved modeling.
+The second fitting effort surrounds the empirical data concerning the tunnel durations. However, none of the basic probability distributions (including exponential, gamma, and Weibull distributions) fit the tunnel duration even remotely. One of the reasons for this is probably, that the tunnel duration is influenced by an overwhelming amount of factors, which was previously described. This superposition, especially with user behavior, will result in unpredictable results not following basic probability distributions.
+
+Instead, rational functions are fitted to the \glspl{ECDF} using the proprietary tool  \textit{Eureqa} \cite{eureqa_paper, eureqa_software}. This allows for a much closer fit as seen in Figure~\ref{c4:fig:fittedsdurationlots}.
+
+Table~\ref{c4:tab:fits} contains the functions which were fitted to the \textit{inverse} \gls{CDF}. The inverse was chosen here to simplify the modeling and simulation process coming afterwards. The functions can be easily inverted again for other purposes. Both the \glspl{CDF} in the plot as well as the Pearson correlation coefficient, which again approach $1$, confirm the goodness of the fitted functions.
+
+
+
+
 
 
 
