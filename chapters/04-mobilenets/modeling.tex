@@ -3,24 +3,80 @@
 \section{Modeling Mobile Network Load}
 \label{c4:modeling}
 
-Drawing conclusions from statistical analysis alone is a difficult task. The next logical step lies therefore in the creation of models abstracting this real system, making them easier to calculate with the loss of some precision. This and future improved models should support network operators in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
+Drawing conclusions from statistical analysis alone is a strenuous task. The next logical step lies therefore in the creation of models abstracting this real system, making them easier to calculate with the loss of some precision. This and future improved models should support network operators in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
+
+On the basis of the tunnel distributions attained in Section~\ref{c4:evaluations}, models for both a traditional \gls{GGSN} as well as a virtualized \gls{GGSN} are introduced. The performance trade-offs when using a virtual \gls{GGSN} are further studied, discussing different options to consider when using the virtual node.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% intro part from MMB 2014
-%\section{Introduction}
+%\cite{trangia-lbvs}
 
-With the increased importance of smart phones, mobile networks are currently experiencing rapid growth.
-Compared to a fixed access provider additional aspects have to be taken into account when dimensioning a mobile network. 
-First and most prominent is the planning of radio access cells --- their coverage, frequency selection,  and backhaul, i.e. connection to the operator's network. Aside from substantial administrative and financial efforts this problem has been largely solved, radio network planning tools and research readily exists \cite{tutschku1998demand}.
-Albeit of equal importance, there is much less public knowledge and research on the second aspect in setting up the mobile network: dimensioning the core network. Consisting of a large number of specialized network nodes not available as of-the-shelf commodity hardware and in need of careful tuning to each other, correctly putting together the core is no small feat. Unlike fixed access, mobile access networks require much more state to be held, with the nodes having to signal any state-change throughout the network.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Queuing Theory Basics}
+
+To understand the modeling process some knowledge on queuing theory is required. The next few sections give a short overview on this.
+
+\subsubsection{Little's Law}
+
+A basic queuing system can be expressed as a stream of customers arriving at an arbitrary system with a rate $\lambda$. This system then processes the customers, taking an average time of $W$ on a number of processors until the customers depart again. On average $L$ customers will be in the system. The representation --- and queuing theory in general for that matter --- was originally devised for telephone networks by Erlang \cite{erlang1917solution}.
+
+From that, Little's~Law~\cite{little1961proof} can be formulated as
+
+\begin{equation}
+\phantom{,}L = \lambda W\text{,}
+\end{equation}
+
+which holds universally independent of any specific arrival or service time process.
+
+\subsubsection{Kendall's Notation}
+
+To distinguish the variations of a queuing system's parameter a simple convention and naming scheme was devised by Kendall in in 1953 \cite{kendall1953stochastic} and later extended on.
+
+In its simplest form the notation reads $A/S/s$ with $A$ denoting the arrival distribution, $S$ the service time, and $s$ the number of servers. Here, an extended notation will be used, 
+
+\begin{equation}
+A/S/s-q
+\end{equation}
+
+which additionally describes the queue length $q$. With this, a queuing system ($q=\infty$) can be easily distinguished from a blocking or loss system ($q=0$). The most commonly used arrival processes and service time distributions are summarized in Table~\ref{c4:tbl:kendalldistributions}.
+
+
+\begin{table}[htbp]
+	\caption{Typical abbreviation of processes in Kendall's notation.}
+	\label{c4:tbl:kendalldistributions}
+	\begin{tabu}{X[l]X[7]}
+	\toprule
+	\textbf{Symbol} & \textbf{Description} \\
+	\midrule
+	$M$ & Markovian, i.e. Poisson, arrival process or exponential service time distribution\\
+	$D$ & Deterministic arrival process or service time distribution\\
+	$G$ & General arrival process or service time distribution with no special assumptions\\
+	$GI$ & General arrival process with independent arrivals; also called regenerative \\ 
+	\bottomrule
+	\end{tabu} 
+\end{table}
+
+\subsubsection{Information Gain}
+
+Depending on the complexity of the specific queuing system model, much information can be gained. In simple cases the state probability can be mathematically determined, i.e. the probability, that exactly $m$ customers are in the system concurrently. If this number is higher than the number of processors, this also determines the queue length or the blocking probability $p_B$ if there is no queue. Other properties include for example the waiting time of customers.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=\columnwidth]{images/markovchain.pdf}
+	\caption{$M/M/n-\infty$ Markov chain model.}
+	\label{c4:fig:markovchain}
+\end{figure}
+
+One such basic queuing system is $M/M/1-\infty$ \cite[pp.~94-99]{Kleinrock:1975:TVQ:1096491}, on which stationary analysis can be applied upon. Both the one processor queue and $M/M/n-\infty$ can also be easily expressed as a Markov chain due to their memoryless property. Figure~\ref{c4:fig:markovchain} depicts the state transitions of a system with $i$ processors and a queue length of $n-i$.
+
+More complex models are often not tractable by stationary analysis or other mathematical tools anymore and no general solution is known. This is especially true for the class of $G/G/n$ systems, which can only be directly solved under certain conditions. A better approach can be the use of a queuing simulation. Hereby, both the arrival and the serving process are implemented in a \gls{DES} using random numbers of the desired distributions in order th ascertain the system load and blocking probability.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Model Rationale}
 
 One major metric to consider in the dimensioning is the number of supported tunnels, i.e. connections to the Internet, of the \gls{GGSN}.
 The performance requirements of the \gls{GGSN} depend on factors like customers to serve, applications in the network, user behavior and devices used. These factors are, during dimensioning, either unknown or subject to change as user behavior evolves.
-But these network components are sold as static middleboxes and cannot not be easily extended with of-the-shelf hardware in order to account for new requirements.
-The newly introduced concept of \gls{NFV} \cite{nfv_whitepaper} suggests to harness technologies from cloud computing in the network. This would allow network operators to scale out, i.e. using additional low performance machines, instead of scaling up, which requires them to replace existing hardware with more powerful components.
 
-The contribution of this work is threefold. First, we introduce models for both a traditional \gls{GGSN} as well as a virtual \gls{GGSN} using \gls{NFV}. Secondly, we provide distributions for \gls{gtp} tunnel interarrival times and durations, readily to be used in other studies. Finally, we study performance trade-offs when using a virtual \gls{GGSN}, discussing different options to consider when using a virtual \gls{GGSN}.
+The latter adheres to the concept of \gls{NFV} \cite{nfv_whitepaper} suggesting to use technologies from cloud computing in the network. This would allow network operators to scale the node out instead of up. This means using additional low performance machines instead of completely replacing the existing \gls{GGSN} with a more powerful version. Today, these network components are typically sold in a static and monolithic form and can not be easily extended with of-the-shelf hardware in order to accommodate to a changing environment.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,15 +97,7 @@ For the purpose of creating a toy model we are further simplifying the $G/G/n-0$
 
 
 
-
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=\columnwidth]{images/markovchain.pdf}
-	\caption{Markov chain model for the tunnel serving process.}
-	\label{c4:fig:markovchain}
-\end{figure}
-
-Now, assuming both a Poisson arrival and an exponential serving process, a Markov chain representing the queue can be set up (cf. Fig.~\ref{c4:fig:markovchain}) and stationary analysis can be conducted. From the measured data an arrival rate of $\lambda=25.64123$ and the parameter $\mu=0.0001586728$ for the exponential service time distribution are calculated. Using Little's Law this gives an estimate for the mean number of concurrent tunnels at the \gls{GGSN} of 
+Now, assuming both a Poisson arrival and an exponential serving process, a stationary analysis can be conducted. From the measured data an arrival rate of $\lambda=25.64123$ and the parameter $\mu=0.0001586728$ for the exponential service time distribution are calculated. Using Little's Law this gives an estimate for the mean number of concurrent tunnels at the \gls{GGSN} of 
 
 $$
 L=\frac{\lambda}{\mu}\approx 161\,599. %=161598.14.
