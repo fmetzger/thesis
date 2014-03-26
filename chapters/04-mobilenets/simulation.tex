@@ -7,7 +7,7 @@
 \subsection{Testing the Model Numerically}
 \label{c4:sec:model-numerical}
 
-We implement the models using a \gls{DES} with the SimPy \cite{simpy} package as foundation. Our implementation is also publicly available\footnote{\url{https://github.com/fmetzger/ggsn-simulation/}} as a reference for future publications. To be in line with the measurement data we consider a simulation time of 7 days for all simulation scenarios, with a transient phase of \SI{60}{\minute} accounted for. Ten replications of each scenario were performed. All error bars given in this section show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
+We implement the models using a \gls{DES} with the SimPy \cite{simpy} package as foundation. Our implementation is also publicly available\footnote{\url{https://github.com/fmetzger/ggsn-simulation/}} as a reference for future publications. To be in line with the measurement data we consider a simulation time of \SI{7}{\day} for all simulation scenarios, with a transient phase of \SI{60}{\minute} accounted for. Ten replications of each scenario were performed. All error bars given in this section show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
 
 
 We use the measurements in order to dimension a traditional \gls{GGSN} as a baseline for all further studies. Based on these results, we examine the effects of network function virtualization by scaling \emph{out} instead of up through a virtual \gls{GGSN} model. Finally, we arrive at a more realistic version of the virtual \gls{GGSN} by taking the start up and shut down times into account.
