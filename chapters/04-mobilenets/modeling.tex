@@ -116,12 +116,12 @@ The first describes a monolithic version of a \gls{GGSN}, closely resembling the
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/ggsn-monolithic.pdf}
 	\caption{Model of a Traditional GGSN}
-\label{fig:model_traditional_ggsn}
+\label{c4:fig:model-ggsn-monolithic}
 \end{figure}
 
 Traditionally, the \gls{GGSN} is considered to be one fixed entity, even if in reality it consists of multiple servers. The entire \gls{GGSN} is purchased from a vendor as a single entity, they do not integrate well with other existing network infrastructure. Nor can idle instances be deactivated or reused for other purposes.
 
-The queuing theoretic equivalent is displayed in Figure~\ref{fig:model_traditional_ggsn} and is very similar to the basic toy model.
+The queuing theoretic equivalent is displayed in Figure~\ref{c4:fig:model-ggsn-monolithic} and is very similar to the basic toy model.
 New tunnels requests arrive according to a Poisson distribution with a rate of $\lambda(t)$ at the \gls{GGSN}. The periodic time-of-day dependence of these exponentially distributed \gls{IAT} and the corresponding distribution fits were extrapolated from the trace data.
 
  will further have a maximum tunnel capacity of $c$. When this capacity is reached, blocking will occur and further incoming tunnels are rejected. The governing factors of the capacity are mostly the node's available memory and processing capabilities. Monolithic \glspl{GGSN} need to be preemptively dimensioned in such a way that blocking rarely happens, often resulting in gross overdimensioning as the node can not be easily scaled after it has been deployed.
@@ -146,37 +146,23 @@ With this model, high control plane load can be indirectly described as the syst
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/ggsn-virtualized.pdf}
 	\caption{Model of a GGSN using Network Function Virtualization}
-\label{c4:fig:model_nfv_ggsn}
+\label{c4:fig:model-ggsn-virtualized}
 \end{figure}
 
-The latter adheres to the concept of \gls{NFV} \cite{nfv_whitepaper} suggesting to use technologies from cloud computing in the network. This would allow network operators to scale the node out instead of up. This means using additional low performance machines instead of completely replacing the existing \gls{GGSN} with a more powerful version. Today, these network components are typically sold in a static and monolithic form and can not be easily extended with of-the-shelf hardware in order to accommodate to a changing environment.
+In the second model, virtualization concepts are introduced. The assumptions of the non-stationary Markov arrival process $\lambda(t)$ and the serving time distributions $x(t)$ are carried over. However, instead of one server processing every tunnel, the system is now partitioned into individual server instances coordinated by a load balancer in Figure~\ref{c4:fig:model-ggsn-virtualized}. One virtual \gls{GGSN} has up to $s$ servers instances $s_i$.  Each of the individual instances can be much smaller than the monolithic \gls{GGSN}, having a concurrent tunnel serving capacity of $c_i \ll c$ and a total system capacity of $c_{virt} = \sum_{i=1}^{s} c_i \text{ or } \| \overrightarrow{c}\|_1$. % Summennorm des Kapazitätsvektors
+The complete model now reads:
 
+\begin{equation}
+\phantom{.}M(t)/G(t)/\|\overrightarrow{c}\|_1/0\text{.}
+\end{equation}
 
-In the second model, we introduce concepts from \gls{NFV}, i.e. the idea to replace middleboxes with commodity hardware. This allows us to realize benefits from cloud computing, as we are now able to scale out, instead of up. The assumptions of the Markov arrival process $\lambda(t)$ and the serving time distributions $\mu(t)$ are carried over. However, instead of one server processing every tunnel, this model assumes that there are up to $s_{max}$ virtualized servers $s_i$. Each of these is much smaller than the traditional \gls{GGSN}, having a tunnel serving capacity of $c_i \ll c_c$ and a total system capacity of $c_{max} = s_{max} \times i$.
+The instances do not have a static uptime. Instead, their life cycle is managed by a \gls{VMM} and adjusted to the current load of the network. New tunnels are either placed on running instances or new ones are provisioned on demand. The \gls{VMM} can have multiple optimization goals. A prominent example is the minimization of server instance and energy usage.  Another set of example provisioning rules is discussed in the implementation of the model simulation in Section~\ref{c4:sec:eval_ideal_virtual_ggsn}. 
 
-In the second model, we introduce concepts from \gls{NFV}, i.e. the idea to replace middleboxes with commodity hardware.
-This allows us to realize benefits from cloud computing, as we are now able to scale out instead of up. The assumptions of the Markov arrival process $\lambda(t)$ and the serving time distributions $\mu(t)$ are carried over. However, instead of one server processing every tunnel, this model assumes that there are up to $s_{max}$ virtualized servers $s_i$. Each of these can be much smaller than the traditional GGSN, having a tunnel serving capacity of $c_i \ll c_c$ and a total system capacity of $c_{max} = s_{max} \times c_i$.
+A target criterion could be to keep the blockinb probability inside a certain target range. If the \gls{VMM} decision rules are not carefully selected additional blocking could occur. Despite not having reached its maximum capacity, this system will still reject tunnel requests during the provisioning phase when no tunnel slots are free. This could be remedied by a request queue. However, this makes the system more complex without providing real benefit, as failed tunnel requests are retransmitted by the network control plane or another attempt might also be made directly by the mobile device after a timeout.
 
+To place incoming tunnel state on one of the available servers and manage the servers a load balancer or hypervisor is required. To ensure, that the system can scale down to its actual needs, the balancer should place tunnels on servers, that are the fullest, keeping the reserve free. It may even migrate tunnel state from almost empty servers away so that these can be shut down, when certain conditions are fulfilled. Keeping instance close to their capacity should also have no impact on the performance a mobile device associated to a specific tunnel experiences. Adequate strategies for both load balancing and migration should be considered in subsequent research.
 
-In its initial state, for efficiency, all but a small portion of the server instances should be shut of. Only, when a certain condition is reached, a new one is provisioned. As a simple example, one could always hold one instance in reserve for upcoming requests and provision as soon as the reserver gets used. Similar rules should apply in the shutdown of servers and should form a hysteresis together with the boot condition. For example it would be possible to keep at least one server in reserve but never more than two.
+Through this virtualized model, which suggests to use technologies from cloud computing in the network and replace specialized nodes with commodity hardware, network operators can scale the \gls{GGSN} out instead of only up. Today, these network components are typically sold in a static and monolithic form and can not be easily extended with of-the-shelf hardware in order to accommodate to a changing environment. The system in this model can however be easily scaled out to additional low cost machines instead of completely replacing the existing \gls{GGSN} with a more powerful version. 
 
-To increase efficiency all but a small portion of the server instances can be shut of initially. Only when a certain condition is reached, a new one needs to be provisioned. For example, one could always hold one instance in reserve for upcoming requests and provision as soon as the reserver gets used. Similar rules should apply in the shutdown of servers and should form a hysteresis together with the boot condition. 
-%For example it would be possible to keep at least one server in reserve but never more than two.
+It is also entirely possible that the described single-arrival-process approaches might not the best way to describe control plane load. Several load influencing factors discussed earlier have direct influence on the tunnel arrivals and duration, e.g. the device type or the radio access technology. Therefore, amongst others, multidimensional queuing networks or fluid flow models could be more appropriate in subsequent research. But, the non-stationary Erlang loss model described here should be sufficient for basic core network control plane load estimations.
 
-
-
-If these conditions are not carefully selected and are in tune with the expected boot time of an instance, additional blocking can occur. Despite not having reached its maximum capacity, this system will still reject tunnel requests during the provisioning phase when no tunnel slots are free. This could be remedied by a request queue. However, this might just make the system more complex without providing real benefit, as mobile devices usually will repeat their attempts and would time out anyway when the request is taking too long. 
-
-If these conditions are not carefully selected and are in tune with the expected boot time of an instance, additional blocking could occur. Despite not having reached its maximum capacity, this system will still reject tunnel requests during the provisioning phase when no tunnel slots are free. This could be remedied by a request queue. However, this makes the system more complex without providing real benefit, as mobile devices usually just repeat their attempts when the request is taking too long. 
-
-
-To place incoming tunnel state on one of the available servers a load balancer is required. To ensure, that the system in run time can scale down to its actual needs, the balancer should place tunnels on servers, that are the fullest, keeping the reserve free. It may even migrate tunnel state from almost empty servers away so that these can be shut down, when the condition is fulfilled. Keeping instance close to their capacity should also have no impact on the performance a mobile device associated to a specific tunnel experiences. Adequate strategies for both load balancing and migration will be considered in future work.
-
-To place incoming tunnel state on one of the available servers and manage the servers a load balancer or hypervisor is required. To ensure, that the system can scale down to its actual needs, the balancer should place tunnels on servers, that are the fullest, keeping the reserve free. It may even migrate tunnel state from almost empty servers away so that these can be shut down, when certain conditions are fulfilled. Keeping instance close to their capacity should also have no impact on the performance a mobile device associated to a specific tunnel experiences. Adequate strategies for both load balancing and migration will be considered in future work.
-
-
-
-%%
-\subsubsection{Further Models}
-
-It is also entirely possible that the single queue approach is not the best way to describe control plane load. Several load influencing factors discussed earlier have direct influence on the tunnel arrivals and duration, e.g. the device type or the radio access technology. Therefore, amongst others multidimensional queuing networks or fluid flow could be a better fit. Our plan is to conduct further investigations into the modeling of mobile core network signaling. This also includes a rough simulative approach, which could also be used to validate our models against experimental data.

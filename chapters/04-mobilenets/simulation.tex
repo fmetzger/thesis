@@ -13,6 +13,9 @@ We implement the models using a \gls{DES} with the SimPy \cite{simpy} package as
 We use the measurements in order to dimension a traditional \gls{GGSN} as a baseline for all further studies. Based on these results, we examine the effects of network function virtualization by scaling \emph{out} instead of up through a virtual \gls{GGSN} model. Finally, we arrive at a more realistic version of the virtual \gls{GGSN} by taking the start up and shut down times into account.
 
 
+
+
+
 %%
 \subsection{Queuing Simulation Implementation}
 
@@ -36,6 +39,10 @@ In Figure~\ref{c4:fig:traditional_blocking} the maximum number of tunnels $n$, t
 %%
 \subsection{Virtual \texorpdfstring{\acrshort{GGSN}}{GGSN}}
 \label{c4:sec:eval_ideal_virtual_ggsn}
+
+\todo{hypervisor start/stop ruleset descripiton}
+For example, one could always hold one instance in reserve for upcoming requests and provision as soon as the reserve gets used. Similar rules should apply in the shutdown of servers and should form a hysteresis together with the boot condition. 
+For example it would be possible to keep at least one server in reserve but never more than two.
 
 In order to study the feasibility of the virtual \gls{GGSN} approach discussed in Sec.~\ref{c4:sec:virtual_ggsn}, we compare the performance indicators of the virtual \gls{GGSN} with that of a traditional \gls{GGSN}. To this end, the virtual \gls{GGSN} is simulated in varying configurations.
 The number of servers and supported tunnels per server is chosen in such a way that the results can be compared with those obtained from our study of the traditional \gls{GGSN}. Due to simulation time constraints, only a representative subset of scenarios is simulated.
@@ -161,8 +168,4 @@ Thus, it can be concluded, that if smaller instances are to be used, for example
  \label{c4:fig:res-instance-usage-mean}
 \end{figure}
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Modeling Discussion}
 
