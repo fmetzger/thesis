@@ -149,7 +149,7 @@ With this model, high control plane load can be indirectly described as the syst
 \label{c4:fig:model-ggsn-virtualized}
 \end{figure}
 
-In the second model, virtualization concepts are introduced. The assumptions of the non-stationary Markov arrival process $\lambda(t)$ and the serving time distributions $x(t)$ are carried over. However, instead of one server processing every tunnel, the system is now partitioned into individual server instances coordinated by a load balancer in Figure~\ref{c4:fig:model-ggsn-virtualized}. One virtual \gls{GGSN} has up to $s$ servers instances $s_i$.  Each of the individual instances can be much smaller than the monolithic \gls{GGSN}, having a concurrent tunnel serving capacity of $c_i \ll c$ and a total system capacity of $c_{virt} = \sum_{i=1}^{s} c_i \text{ or } \| \overrightarrow{c}\|_1$. % Summennorm des Kapazitätsvektors
+In the second model, virtualization concepts are introduced. The assumptions of the non-stationary Markov arrival process $\lambda(t)$ and the serving time distributions $x(t)$ are carried over. However, instead of one server processing every tunnel, the system is now partitioned into individual server instances coordinated by a load balancer in Figure~\ref{c4:fig:model-ggsn-virtualized}. One virtual \gls{GGSN} has up to $s$ servers instances $s_i$.  Each of the individual instances can be much smaller than the monolithic \gls{GGSN}, having a concurrent tunnel serving capacity of $c_i \ll c$ and a total system capacity of $c_{virt} = \sum_{i=1}^{s} c_i = \| \overrightarrow{c}\|_1 \text{ with } \overrightarrow{c} = \{c_1, c_2, ... ,c_i, ... ,c_s\}$. % 1-norm des Kapazitätsvektors
 The complete model now reads:
 
 \begin{equation}
