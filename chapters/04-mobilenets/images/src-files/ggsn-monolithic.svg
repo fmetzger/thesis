@@ -251,9 +251,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="75.503795"
-     inkscape:cy="949.05341"
+     inkscape:zoom="2"
+     inkscape:cx="92.73945"
+     inkscape:cy="924.38756"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -371,14 +371,14 @@
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="173.02043"
-       y="51.165119"
+       y="50.647537"
        id="text5836"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5838"
          x="173.02043"
-         y="51.165119"
-         style="font-size:20px">μ(t)</tspan></text>
+         y="50.647537"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">x(t)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -437,26 +437,26 @@
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="173.02043"
-       y="101.07311"
+       y="100.55554"
        id="text5836-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5838-7"
          x="173.02043"
-         y="101.07311"
-         style="font-size:20px">μ(t)</tspan></text>
+         y="100.55554"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">x(t)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="173.02043"
-       y="200.88911"
+       y="200.46921"
        id="text5836-4"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5838-0"
          x="173.02043"
-         y="200.88911"
-         style="font-size:20px">μ(t)</tspan></text>
+         y="200.46921"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">x(t)</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#marker5664-4)"
        d="m 106.04005,129.29037 c 0,0 -96.755768,0.56861 -96.755768,74.48857"
