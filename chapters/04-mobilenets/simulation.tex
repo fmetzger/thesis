@@ -1,23 +1,27 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Load Model Simulation} 
+\section{Load Model Queuing Simulation} 
 \label{c4:simulation}
 
-%%
-\subsection{Testing the Model Numerically}
-\label{c4:sec:model-numerical}
+As discussed, the solvability of a non-stationary Erlang loss system is very limited. To better tackle this, a simulative approach kann be taken. Depending on the level of detail, different types of simulations are available.
 
-We implement the models using a \gls{DES} with the SimPy \cite{simpy} package as foundation. Our implementation is also publicly available\footnote{\url{https://github.com/fmetzger/ggsn-simulation/}} as a reference for future publications. To be in line with the measurement data we consider a simulation time of \SI{7}{\day} for all simulation scenarios, with a transient phase of \SI{60}{\minute} accounted for. Ten replications of each scenario were performed. All error bars given in this section show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
-
-
-We use the measurements in order to dimension a traditional \gls{GGSN} as a baseline for all further studies. Based on these results, we examine the effects of network function virtualization by scaling \emph{out} instead of up through a virtual \gls{GGSN} model. Finally, we arrive at a more realistic version of the virtual \gls{GGSN} by taking the start up and shut down times into account.
-
-
-
+Here, a queuing simulation is used to ascertain the blocking probability and tunnel serving slot utilization from the model using the fitted distributions from the trace.
 
 
 %%
 \subsection{Queuing Simulation Implementation}
+
+The queuing simulation is implemented on the basis of a \gls{DES}. Instead of reproducing continuous time, this simulation is a series of discrete events. Time is advanced only at these events. 
+
+A queuing model can be easily represented in a \gls{DES}.  Each tunnel request arrival is a modeled as a discrete event. When such an event occurs, three processes are executed. The first process draws a random number from a \gls{PRNG} mapped to \gls{IAT} exponential distribution to schedule the next arrival event. Secondly, the serving units are checked for any free units. If one is found, it will now be occuppied. Else, this arrival will be marked as rejected and the third action skipped. This third process now determines the length of the tunnel using another \gls{PRNG} adjusted to the serving time distribution to schedule the event in which the tunnel exits the system.
+
+We implement the models using a \gls{DES} with the SimPy \cite{simpy} package as foundation. Our implementation is also publicly available\footnote{\url{https://github.com/fmetzger/ggsn-simulation/}} as a reference for future publications. 
+
+Base \gls{GGSN} class with specific clases for the traditional (i.e. monolithic) and virtualized (``multiserver'') nodes respectively.
+
+To be in line with the measurement data we consider a simulation time of \SI{7}{\day} for all simulation scenarios, with a transient phase of \SI{60}{\minute} accounted for. Ten replications of each scenario were performed. All error bars given in this section show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
+
+We use the measurements in order to dimension a traditional \gls{GGSN} as a baseline for all further studies. Based on these results, we examine the effects of network function virtualization by scaling \emph{out} instead of up through a virtual \gls{GGSN} model. Finally, we arrive at a more realistic version of the virtual \gls{GGSN} by taking the start up and shut down times into account.
 
 
 %%
@@ -26,7 +30,7 @@ We use the measurements in order to dimension a traditional \gls{GGSN} as a base
 
 With the help of the interarrival times and duration of tunnels we study the traditional \gls{GGSN} model previously introduced. Whilst our measurements provided us with information on the frequency of new tunnels and the duration they remain active, we have no reliable information on the number of active tunnels the \gls{GGSN} can support. Thus, in a first step, we dimension the \gls{GGSN} in such a way that a suitable blocking probability $p_B$ can be achieved.
 
-\begin{figure}[htp]
+\begin{figure}[htb]
   \centering
     \includegraphics[width=1.0\textwidth]{images/traditional-blocking.pdf}
   \caption{Impact of the number of supported parallel tunnels on the blocking probability for the traditional \gls{GGSN} model. For each scenario the mean of all simulated replications as well as \SI{5}{\percent} and \SI{95}{\percent} quantiles as error bars are shown.}
@@ -50,7 +54,7 @@ The number of servers and supported tunnels per server is chosen in such a way t
 In the virtual \gls{GGSN} model, servers are activated and deactivated on demand, while in the traditional \gls{GGSN} model, the single server is always on. For this investigation a conservative start up and shut down time of \SI{300}{\second} is chosen. Generally, deactivating server instances reduces energy consumption and frees up inactive servers for other use. For this reason, the number of active servers is a relevant performance metric in the virtual \gls{GGSN} model.
 
 
-\begin{table}[htp]
+\begin{table}[htb]
 	\caption{Manipulation check for the experimental factors based on one-way ANOVA.}
 	\centering
 	\label{c4:tab:manipulation2color}
