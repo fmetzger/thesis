@@ -15,9 +15,12 @@ The queuing simulation is implemented on the basis of a \gls{DES}. Instead of re
 
 A queuing model can be easily represented in a \gls{DES}.  Each tunnel request arrival is a modeled as a discrete event. When such an event occurs, three processes are executed. The first process draws a random number from a \gls{PRNG} mapped to \gls{IAT} exponential distribution to schedule the next arrival event. Secondly, the serving units are checked for any free units. If one is found, it will now be occuppied. Else, this arrival will be marked as rejected and the third action skipped. This third process now determines the length of the tunnel using another \gls{PRNG} adjusted to the serving time distribution to schedule the event in which the tunnel exits the system.
 
-We implement the models using a \gls{DES} with the SimPy \cite{simpy} package as foundation. Our implementation is also publicly available\footnote{\url{https://github.com/fmetzger/ggsn-simulation/}} as a reference for future publications. 
+This model was implemented on the basis of version 3.0 of the \textit{SimPy}~\cite{simpy} package, which is a Python \gls{DES} framework that provides the basic event and scheduling infrastructure. On top of this a base \gls{GGSN} class was constructed, managing the arrival of tunnel events and the scheduling of the service ending events. Specific clases for the traditional (i.e. monolithic) and virtualized (``multiserver'') nodes respectively exist.
 
-Base \gls{GGSN} class with specific clases for the traditional (i.e. monolithic) and virtualized (``multiserver'') nodes respectively.
+
+The implementation is also publicly available\footnote{\url{https://github.com/fmetzger/ggsn-simulation/}} as a reference for future publications. 
+
+
 
 To be in line with the measurement data we consider a simulation time of \SI{7}{\day} for all simulation scenarios, with a transient phase of \SI{60}{\minute} accounted for. Ten replications of each scenario were performed. All error bars given in this section show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
 
