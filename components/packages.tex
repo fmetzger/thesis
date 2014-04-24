@@ -55,7 +55,14 @@
 \usepackage[colorlinks, unicode=true]{hyperref}
 \hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen}
 
-
+\makeatletter
+\AtBeginDocument{
+  \hypersetup{
+    pdftitle = {\@title},
+    %pdfauthor = {\@author}
+  }
+}
+\makeatother
 
 %%%%
 % glossaries
