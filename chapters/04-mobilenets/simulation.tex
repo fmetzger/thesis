@@ -3,7 +3,7 @@
 \section{Load Model Queuing Simulation} 
 \label{c4:simulation}
 
-As discussed, the solvability of a non-stationary Erlang loss system is very limited. To better tackle this, a simulative approach kann be taken. Depending on the level of detail, different types of simulations are available.
+As discussed, the solvability of a non-stationary Erlang loss system is very limited. To better tackle this, a simulative approach can be taken. Depending on the level of detail, different types of simulations are available.
 
 Here, a queuing simulation is used to ascertain the blocking probability and tunnel serving slot utilization from the model using the fitted distributions from the trace.
 
@@ -18,18 +18,50 @@ A queuing model can be easily represented in a \gls{DES}.  Each tunnel request a
 This model was implemented on the basis of version 3.0 of the \textit{SimPy}~\cite{simpy} package, which is a Python \gls{DES} framework that provides the basic event and scheduling infrastructure. On top of this a base \gls{GGSN} class was constructed, managing the arrival of tunnel events and the scheduling of the service ending events. Specific classes for the traditional (i.e. monolithic) and virtualized (called ``multiserver'' in the code) nodes respectively exist. The implementation is also publicly available\footnote{\url{https://github.com/fmetzger/ggsn-simulation/}} as a reference. 
 
 
-To be in line with the measurement data the simulation time is set to be \SI{7}{\day} for all simulation scenarios. The initial \SI{60}{\minute} are considered to be the transient phase and are deducted from the results. Ten replications of each scenario were performed. All error bars given in this section show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
+\subsection{Description and Design of the Individual Experiments}
+
+To match the measurement data the simulation time is set to be \SI{7}{\day} for all simulation scenarios. The initial \SI{60}{\minute} are considered to be the transient phase and are deducted from the results. Ten replications of each scenario were performed. All depicted error bars show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
 
 The first round of simulations were conducted solely to find appropriate simulation parameters as a baseline for all further studies. Thereafter, further rounds using the monolithic \gls{GGSN} were conducted. With these, the scaling and load of the node in relation to the tunnel arrivals can be investigated.
 
-Based on these results, the virtualization and scaling out effects  through the second, virtualized \gls{GGSN} model are examined. In a final extended experiment the the startup and shutdown duration of virtual instances are taken into account to increase the realism.
+Based on these results, the virtualization and scaling out effects in the second, virtualized, \gls{GGSN} model are examined. In a final extended experiment the the startup and shutdown duration of virtual instances are taken into account to increase the realism.
 
 
-%%
-\subsection{Traditional GGSN}
+\subsubsection{Monolithic GGSN}
 \label{c4:sec:eval_traditional_ggsn}
 
-With the help of the interarrival times and duration of tunnels we study the traditional \gls{GGSN} model previously introduced. Whilst our measurements provided us with information on the frequency of new tunnels and the duration they remain active, we have no reliable information on the number of active tunnels the \gls{GGSN} can support. Thus, in a first step, we dimension the \gls{GGSN} in such a way that a suitable blocking probability $p_B$ can be achieved.
+
+This implements the model of the same name
+
+With the help of the inter-arrival times and duration of tunnels we study the traditional \gls{GGSN} model previously introduced. Whilst our measurements provided us with information on the frequency of new tunnels and the duration they remain active, we have no reliable information on the number of active tunnels the \gls{GGSN} can support. Thus, in a first step, we dimension the \gls{GGSN} in such a way that a suitable blocking probability $p_B$ can be achieved.
+
+
+
+\subsubsection{Virtual \texorpdfstring{\acrshort{GGSN}}{GGSN}}
+\label{c4:sec:eval_ideal_virtual_ggsn}
+
+\todo{hypervisor start/stop ruleset description}
+For example, one could always hold one instance in reserve for upcoming requests and provision as soon as the reserve gets used. Similar rules should apply in the shutdown of servers and should form a hysteresis together with the boot condition. 
+For example it would be possible to keep at least one server in reserve but never more than two.
+
+In order to study the feasibility of the virtual \gls{GGSN} approach discussed in Sec.~\ref{c4:sec:virtual_ggsn}, we compare the performance indicators of the virtual \gls{GGSN} with that of a traditional \gls{GGSN}. To this end, the virtual \gls{GGSN} is simulated in varying configurations.
+The number of servers and supported tunnels per server is chosen in such a way that the results can be compared with those obtained from our study of the traditional \gls{GGSN}. Due to simulation time constraints, only a representative subset of scenarios is simulated.
+
+In the virtual \gls{GGSN} model, servers are activated and deactivated on demand, while in the traditional \gls{GGSN} model, the single server is always on. For this investigation a conservative start up and shut down time of \SI{300}{\second} is chosen. Generally, deactivating server instances reduces energy consumption and frees up inactive servers for other use. For this reason, the number of active servers is a relevant performance metric in the virtual \gls{GGSN} model.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evaluation of the GGSN Models}
+
+The two implemented \gls{GGSN} models and their specifics will be described in the next few paragraphs.
+
+
+\subsubsection{General GGSN Load, Capacity, and Scaling}
+
+
+With the help of the inter-arrival times and duration of tunnels we study the traditional \gls{GGSN} model previously introduced. Whilst our measurements provided us with information on the frequency of new tunnels and the duration they remain active, we have no reliable information on the number of active tunnels the \gls{GGSN} can support. Thus, in a first step, we dimension the \gls{GGSN} in such a way that a suitable blocking probability $p_B$ can be achieved.
 
 \begin{figure}[htb]
   \centering
@@ -38,21 +70,10 @@ With the help of the interarrival times and duration of tunnels we study the tra
   \label{c4:fig:traditional_blocking}
 \end{figure}
 
-In Figure~\ref{c4:fig:traditional_blocking} the maximum number of tunnels $n$, that can be active simultaneously, is gradually increased to study the impact on the blocking probability $p_B$. We observe, that as the number of supported parallel tunnels increases, the blocking probability decreases. For the normalized interarrival no blocking is occurring if we allow for more than $5000$ parallel tunnels. Thus, we consider the range of $4000$ to $5000$ parallel tunnels to be of special interest for the remainder of the study.
+In Figure~\ref{c4:fig:traditional_blocking} the maximum number of tunnels $n$, that can be active simultaneously, is gradually increased to study the impact on the blocking probability $p_B$. We observe, that as the number of supported parallel tunnels increases, the blocking probability decreases. For the normalized inter-arrival no blocking is occurring if we allow for more than $5000$ parallel tunnels. Thus, we consider the range of $4000$ to $5000$ parallel tunnels to be of special interest for the remainder of the study.
 
 
 %%
-\subsection{Virtual \texorpdfstring{\acrshort{GGSN}}{GGSN}}
-\label{c4:sec:eval_ideal_virtual_ggsn}
-
-\todo{hypervisor start/stop ruleset descripiton}
-For example, one could always hold one instance in reserve for upcoming requests and provision as soon as the reserve gets used. Similar rules should apply in the shutdown of servers and should form a hysteresis together with the boot condition. 
-For example it would be possible to keep at least one server in reserve but never more than two.
-
-In order to study the feasibility of the virtual \gls{GGSN} approach discussed in Sec.~\ref{c4:sec:virtual_ggsn}, we compare the performance indicators of the virtual \gls{GGSN} with that of a traditional \gls{GGSN}. To this end, the virtual \gls{GGSN} is simulated in varying configurations.
-The number of servers and supported tunnels per server is chosen in such a way that the results can be compared with those obtained from our study of the traditional \gls{GGSN}. Due to simulation time constraints, only a representative subset of scenarios is simulated.
-
-In the virtual \gls{GGSN} model, servers are activated and deactivated on demand, while in the traditional \gls{GGSN} model, the single server is always on. For this investigation a conservative start up and shut down time of \SI{300}{\second} is chosen. Generally, deactivating server instances reduces energy consumption and frees up inactive servers for other use. For this reason, the number of active servers is a relevant performance metric in the virtual \gls{GGSN} model.
 
 
 \begin{table}[htb]
@@ -90,6 +111,9 @@ Therefore, we study these parameters first.
 In Figure~\ref{c4:fig:instance_use_virtual} the \gls{CDF} of the number of active servers for four different virtual \gls{GGSN} configurations is displayed. We observe, that increasing the number of supported tunnels per server allows a larger percentage of servers to be shutdown or used for other tasks. This demonstrates the scaling capability of the virtualized model quite well. Note, that both the scenario with $30$ servers and $150$ maximum tunnels per server as well as the scenario with $60$ servers and $75$ maximum tunnels per server share the same maximum amount of tunnels, $4500$, being right at the center of the interesting range of candidates.
 
 
+%%
+\subsubsection{Virtualization Impact}
+
 \begin{figure}[htb]
   \centering
   \includegraphics{images/blocking-comparison.pdf}
@@ -106,7 +130,7 @@ In the next section we study the impact of reduced start up and shut down times 
 
 
 %%
-\subsection{Impact of startup and shutdown times}
+\subsubsection{Impact of Startup and Shutdown Times}
 \label{c4:sec:real_virtual_ggsn}
 
 In this section, we first consider the impact of different boot and shut down times on resource utilization and blocking probabilities. We observe the impact of different start up and shut down times on both resource utilization and blocking probability. Afterwards, the influence of varying server start and stop times on a fixed combination of maximum tunnels and servers in the system is examined.
