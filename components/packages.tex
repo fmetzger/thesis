@@ -31,6 +31,8 @@
   \microtypesetup{expansion=false}%
 \fi
 
+\usepackage[hyphens]{url}
+
 \linespread{1.05}
 \usepackage[l2tabu,orthodox,abort]{nag} % old style latex & warnings as errors
 \usepackage{scrhack} % fix komascript floattolist issues
@@ -53,11 +55,28 @@
 \usepackage[colorlinks, unicode=true]{hyperref}
 \hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen}
 
-\usepackage[acronym, nomain, style=tree, hyperfirst=false, toc, section=chapter]{glossaries}
+
+
+%%%%
+% glossaries
+\usepackage[acronym, style=tree, toc, section=chapter, nogroupskip=true]{glossaries}
+% define a custom tree-based style with user1-key support for urls and other references
+% TODO indent the par!
+\newglossarystyle{treewithref}{%
+  \setglossarystyle{tree}% base this style on the list style
+  \renewcommand{\glossentry}[2]{%
+  \hangindent0pt\relax
+  \parindent0pt\relax
+  \glsentryitem{##1}\textbf{\glstarget{##1}{\glossentryname{##1}}}%
+  \ifglshassymbol{##1}{\space(\glossentrysymbol{##1})}{}%
+  \space\glossentrydesc{##1}\glspostdescription%
+  \ifglshasfield{user1}{##1}{\\\textit{\glsentryuseri{##1}\glspostdescription}}{}\space##2\par
+  }%
+}
+\setglossarystyle{treewithref}
 %\glsdisablehyper   % enable this, if hyperref for glossaries breaks again
+%%%%
 
-
-%\usepackage{classicthesis} % https://code.google.com/p/classicthesis/
 
 \usepackage{textcomp} % extra symbols; used for euro and copyright symbol
 \usepackage[load-configurations={abbreviations,binary}]{siunitx}

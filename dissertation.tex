@@ -5,9 +5,10 @@
 \input{components/packages}
 \input{components/settings}
 
-%% load and typeset acronyms
+%% load and typeset glossaries
 \makeglossaries%
 \renewcommand{\glsseeitemformat}[1]{\textsc{\glsentryname{#1}}}
+\loadglsentries{components/definitions}
 \loadglsentries{components/acronyms}
 
 \newcommand{\todo}[1]{{\small \color{red} [TODO: #1]}}
@@ -54,13 +55,16 @@
 \listofillustrations
 
 \newpage
-\begingroup
+ \begingroup % printglossar{y,ies} forces a cleardoublepage between glossaries and after it, we supress this here
 	\let\clearpage\relax
-	\let\cleardoublepage\relax
-	%\glsaddall
-	%\printglossaries
-	\printacronyms % works only with glossaries 4.0+
-\endgroup
+	\printglossaries
+
+	%\printglossary
+	%\newpage
+	%\printglossary[type=\acronymtype]
+	%\printacronyms % works only with glossaries 4.0+
+ \endgroup
+
 
 \newpage % or \cleardoublepage
 \include{components/quote}
