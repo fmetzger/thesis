@@ -32,55 +32,44 @@ In a final experiment the startup and shutdown duration of virtual instances and
 The experiment varies the boot delay and implements a very simple load balancer rule as baseline. The rule keeps at least one empty instance running in reserve at all times and deactivates instances, when two running instances are completely unused. As this is very generous, virtualization blocking should only occur in cases of very small instances or very rapid arrivals. Realistic provisioning rules can improve on this quite easily. but even this simplistic approach already serves to demonstrate potential benefits.
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Evaluation of the GGSN Models}
+\subsubsection{GGSN Load, Capacity, and Scaling}
 
-With the individual experiments set up, the results will now be discussed.
-
-
-\subsubsection{General GGSN Load, Capacity, and Scaling}
-%\label{c4:sec:eval_traditional_ggsn}
-
-
-With the help of the inter-arrival times and duration of tunnels we study the traditional \gls{GGSN} model previously introduced. Whilst our measurements provided us with information on the frequency of new tunnels and the duration they remain active, we have no reliable information on the number of active tunnels the \gls{GGSN} can support. Thus, in a first step, we dimension the \gls{GGSN} in such a way that a suitable blocking probability $p_B$ can be achieved.
+With the help of the \glspl{IAT} and duration of tunnels calculated in the dataset evaluation the monolithic \gls{GGSN} model is studied first.
+Whilst our measurements provided us with information on the frequency of new tunnels and the duration they remain active, we have no reliable information on the number of active tunnels the \gls{GGSN} can support. Thus, in a first step, we dimension the \gls{GGSN} in such a way that a suitable blocking probability $p_B$ can be achieved.
 
 \begin{figure}[htb]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/traditional-blocking.pdf}
+  \includegraphics[width=1.0\textwidth]{images/traditional-blocking.pdf}
   \caption{Impact of the number of supported parallel tunnels on the blocking probability for the traditional \gls{GGSN} model. For each scenario the mean of all simulated replications as well as \SI{5}{\percent} and \SI{95}{\percent} quantiles as error bars are shown.}
-  \label{c4:fig:traditional_blocking}
+\label{c4:fig:traditional_blocking}
 \end{figure}
 
 In Figure~\ref{c4:fig:traditional_blocking} the maximum number of tunnels $n$, that can be active simultaneously, is gradually increased to study the impact on the blocking probability $p_B$. We observe, that as the number of supported parallel tunnels increases, the blocking probability decreases. For the normalized inter-arrival no blocking is occurring if we allow for more than $5000$ parallel tunnels. Thus, we consider the range of $4000$ to $5000$ parallel tunnels to be of special interest for the remainder of the study.
 
-
-%%
-
-
 \begin{table}[htb]
-	\caption{Manipulation check for the experimental factors based on one-way ANOVA.}
-	\centering
-	\label{c4:tab:manipulation2color}
-	\begin{tabu}{X[l]X[r]X[r]X[r]XX}%{lrrrcc}
-	\toprule
-	& \multicolumn{1}{c}{$\mathbf{F(2,1275)}$} & \multicolumn{1}{c}{$\mathbf{\eta^2_p}$} & \multicolumn{1}{c}{$\mathbf{p}$} & \textbf{Cohen's} & \textbf{Cohen's}\\ 
-	&  & & & $\mathbf{f^2}$ & $\mathbf{\hat{\omega}^2}$ \\ 
-	\midrule
-	\emph{blocking probability}  & & & & &\\ 
-	maxTunnels &  $15601.534$ & $\color{red} 0.99$ & $<0.001$ & $\color{red} 26.739$ & $0.964$\\ 
-	maxInstances &  $10218.173$ & $\color{red} 0.986$ & $<0.001$ & $\color{red} 1.068$ & $0.516$\\ 
-	startstopDuration &  $0.868$ & $\color{black} 0.003$ & $0.482$ & $\color{black} 0.000$ & $0.000$\\ 
-	\midrule
-	\emph{mean number of tunnels}  & & & & &\\ 
-	maxTunnels &  $20448.347$ & $\color{red} 0.994$ & $<0.001$ & $\color{red} 27.712$ & $0.965$\\ 
-	maxInstances &  $13348.251$ & $\color{red} 0.989$ & $<0.001$ & $\color{red} 1.064$ & $0.515$\\ 
-	startstopDuration &  $2.872$ & $\color{black} 0.009$ & $0.022$ & $\color{black} 0.000$ & $0.000$\\ 
-	\bottomrule
-	\end{tabu}
+  \caption{Manipulation check for the experimental factors based on one-way \acrshort{ANOVA}.}
+  \centering
+  \label{c4:tab:manipulation2color}
+  \begin{tabu}{X[l]X[r]X[r]X[r]XX}%{lrrrcc}
+  \toprule
+  & \multicolumn{1}{c}{$\mathbf{F(2,1275)}$} & \multicolumn{1}{c}{$\mathbf{\eta^2_p}$} & \multicolumn{1}{c}{$\mathbf{p}$} & \textbf{Cohen's} & \textbf{Cohen's}\\ 
+  &  & & & $\mathbf{f^2}$ & $\mathbf{\hat{\omega}^2}$ \\ 
+  \midrule
+  \emph{blocking probability}  & & & & &\\ 
+  maxTunnels &  $15601.534$ & $\color{red} 0.99$ & $<0.001$ & $\color{red} 26.739$ & $0.964$\\ 
+  maxInstances &  $10218.173$ & $\color{red} 0.986$ & $<0.001$ & $\color{red} 1.068$ & $0.516$\\ 
+  startstopDuration &  $0.868$ & $\color{black} 0.003$ & $0.482$ & $\color{black} 0.000$ & $0.000$\\ 
+  \midrule
+  \emph{mean number of tunnels}  & & & & &\\ 
+  maxTunnels &  $20448.347$ & $\color{red} 0.994$ & $<0.001$ & $\color{red} 27.712$ & $0.965$\\ 
+  maxInstances &  $13348.251$ & $\color{red} 0.989$ & $<0.001$ & $\color{red} 1.064$ & $0.515$\\ 
+  startstopDuration &  $2.872$ & $\color{black} 0.009$ & $0.022$ & $\color{black} 0.000$ & $0.000$\\ 
+  \bottomrule
+  \end{tabu}
 \end{table}
 
-In order to analyze the influence of the different model parameters on the performance metrics, we perform a one-way ANOVA analysis with the results in Table~\ref{c4:tab:manipulation2color}. High values for $\eta_p^2$ and Cohen's $f^2$ \cite{stats} indicate that the main influence for both blocking probability and mean number of tunnels is the maximum number of tunnels $n$ and servers $S_{\max}$, i.e. the total number of possible concurrent tunnels in the system.
+In order to analyze the influence of the different model parameters on the performance metrics, we perform a one-way \gls{ANOVA} with the results in Table~\ref{c4:tab:manipulation2color}. High values for $\eta_p^2$ and Cohen's $f^2$ \cite{stats} indicate that the main influence for both blocking probability and mean number of tunnels is the maximum number of tunnels $n$ and servers $S_{\max}$, i.e. the total number of possible concurrent tunnels in the system.
 Therefore, we study these parameters first.
 
 \begin{figure}[htb]
@@ -93,9 +82,8 @@ Therefore, we study these parameters first.
 In Figure~\ref{c4:fig:instance_use_virtual} the \gls{CDF} of the number of active servers for four different virtual \gls{GGSN} configurations is displayed. We observe, that increasing the number of supported tunnels per server allows a larger percentage of servers to be shutdown or used for other tasks. This demonstrates the scaling capability of the virtualized model quite well. Note, that both the scenario with $30$ servers and $150$ maximum tunnels per server as well as the scenario with $60$ servers and $75$ maximum tunnels per server share the same maximum amount of tunnels, $4500$, being right at the center of the interesting range of candidates.
 
 
-%%
-\subsubsection{Virtualization Impact}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Virtualization Impact and Gain}
 
 \begin{figure}[htb]
   \centering
@@ -112,8 +100,8 @@ So far we have considered a conservative start up and shut down time of servers 
 In the next section we study the impact of reduced start up and shut down times with modern servers with fast storage (e.g. \glspl{SSD}) or virtual servers provisioned in the cloud.
 
 
-%%
-\subsubsection{Impact of Startup and Shutdown Times}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Virtual Instance Life Cycle Management Impact}
 
 In this section, we first consider the impact of different boot and shut down times on resource utilization and blocking probabilities. We observe the impact of different start up and shut down times on both resource utilization and blocking probability. Afterwards, the influence of varying server start and stop times on a fixed combination of maximum tunnels and servers in the system is examined.
 
@@ -136,7 +124,6 @@ Figure~\ref{c4:fig:compare_util_block} shows scenarios with $40$ and $100$ numbe
 In order to study this behavior in more detail, we focus on a specific scenario in Figure~\ref{c4:fig:compare_maxinstances_block}, where $5000$ total tunnels should be supported by the system. In order to achieve this goal, we consider three types of instances, with the server capacity varying between $50$ and $500$.  In each case we change the start up and shut down time between $1$ and $5$ minutes. It can be easily observed, that lower server capacities combined with higher start up and shut down times increase the blocking probability. This is due to the server start up threshold mechanism, used in the model, not taking the additional capacity gained by activating an additional server into account. If a low capacity server with a long boot time is activated, there is a high probability that the system will quickly expend its capacity again.
 
 Thus, it can be concluded, that if smaller instances are to be used, for example because they are cheaper than large instances, start up and shut down times should be kept minimal, for example by using virtual instances or \glspl{SSD}.
-
 
 
 
