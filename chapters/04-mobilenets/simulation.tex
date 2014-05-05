@@ -29,48 +29,51 @@ Based on these results, the virtualization and scaling out effects in the virtua
 
 In a final experiment the startup and shutdown duration of virtual instances and the life cycle management of these instances are additionally taken into account. Although the boot duration of modern \glspl{os} and \glspl{VM}, especially on current hardware with flash storage, is significantly lower than it has been in the past, there is still a delay. This could cause further blocking if the load balancer does not account for this. But the more generously the balancer starts instances in advance the smaller the virtualization efficiency gain, especially the energy consumption, will be become. For this reason, the number of active instance is a relevant performance metric in the virtual \gls{GGSN} model.
 
-The experiment varies the boot delay and implements a very simple load balancer rule as baseline. The rule keeps at least one empty instance running in reserve at all times and deactivates instances, when two running instances are completely unused. As this is very generous, virtualization blocking should only occur in cases of very small instances or very rapid arrivals. Realistic provisioning rules can improve on this quite easily. but even this simplistic approach already serves to demonstrate potential benefits.
+The experiment varies the boot delay and implements a very simple load balancer rule as baseline. The rule keeps at least one empty instance running in reserve at all times and deactivates instances, when two running instances are completely unused. As this is very generous, virtualization blocking should only occur in cases of very small instances or very rapid arrivals. Realistic provisioning rules can improve on this quite easily. But even this simplistic approach already serves to demonstrate potential benefits.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{GGSN Load, Capacity, and Scaling}
 
-With the help of the \glspl{IAT} and duration of tunnels calculated in the dataset evaluation the monolithic \gls{GGSN} model is studied first.
-Whilst our measurements provided us with information on the frequency of new tunnels and the duration they remain active, we have no reliable information on the number of active tunnels the \gls{GGSN} can support. Thus, in a first step, we dimension the \gls{GGSN} in such a way that a suitable blocking probability $p_B$ can be achieved.
+First, with the help of the \glspl{IAT} and duration of tunnels calculated in the dataset evaluation, the monolithic \gls{GGSN} model is studied. While these traces provided information on the frequency of new tunnels and the duration they remain active, no reliable information on the number of required supported concurrent tunnels for a given arrival rate could be deduced. 
+This experiment evaluates arbitrary values for the \gls{GGSN} tunnel capacity and determines the resulting blocking probability such that a suitable value can be found. This is a typical task in a dimensioning process.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=1.0\textwidth]{images/traditional-blocking.pdf}
+  \includegraphics[width=1.0\textwidth]{images/R-monolithic-blocking.pdf}
   \caption{Impact of the number of supported parallel tunnels on the blocking probability for the traditional \gls{GGSN} model. For each scenario the mean of all simulated replications as well as \SI{5}{\percent} and \SI{95}{\percent} quantiles as error bars are shown.}
 \label{c4:fig:traditional_blocking}
 \end{figure}
 
-In Figure~\ref{c4:fig:traditional_blocking} the maximum number of tunnels $n$, that can be active simultaneously, is gradually increased to study the impact on the blocking probability $p_B$. We observe, that as the number of supported parallel tunnels increases, the blocking probability decreases. For the normalized inter-arrival no blocking is occurring if we allow for more than $5000$ parallel tunnels. Thus, we consider the range of $4000$ to $5000$ parallel tunnels to be of special interest for the remainder of the study.
+Figure~\ref{c4:fig:traditional_blocking} studies this impact of the maximum supported number of concurrent tunnels $n$ on the blocking probability $p_B$. $n$ is incrementally increased in steps of \numprint{100} tunnels from \numprint{0} to \numprint{5500}. As expected, the blocking probability decreases with the number of supported tunnels.An almost linear correlation can be observed in the larger part of the graph with a small convergence phase shortly before reaching $p_B=0$. For the normalized inter-arrival no blocking is occurring if a capacity of \numprint{5000} concurrent tunnels is allocated to the \gls{GGSN}. The results are stable across all simulation runs as the error bars display. For the purpose of network dimensioning the results can be easily scaled up from the normalized arrival rates to the actual ones in the network in question.
 
 \begin{table}[htb]
   \caption{Manipulation check for the experimental factors based on one-way \acrshort{ANOVA}.}
   \centering
   \label{c4:tab:manipulation2color}
-  \begin{tabu}{X[l]X[r]X[r]X[r]XX}%{lrrrcc}
+  \begin{tabu}{X[1.6,l]X[r]X[r]X[r]X[1.1r]X[1.1,r]}
   \toprule
-  & \multicolumn{1}{c}{$\mathbf{F(2,1275)}$} & \multicolumn{1}{c}{$\mathbf{\eta^2_p}$} & \multicolumn{1}{c}{$\mathbf{p}$} & \textbf{Cohen's} & \textbf{Cohen's}\\ 
-  &  & & & $\mathbf{f^2}$ & $\mathbf{\hat{\omega}^2}$ \\ 
+  & $\mathbf{F(2,1275)}$ & $\mathbf{\eta^2_p}$ & $\mathbf{p}$ & \textbf{Cohen's} $\mathbf{f^2}$ & \textbf{Cohen's} $\mathbf{\hat{\omega}^2}$\\ 
   \midrule
-  \emph{blocking probability}  & & & & &\\ 
-  maxTunnels &  $15601.534$ & $\color{red} 0.99$ & $<0.001$ & $\color{red} 26.739$ & $0.964$\\ 
+  \multicolumn{2}{l}{\textit{blocking probability}} & & & &\\ 
+  maxTunnels &  $15601.534$ & $\color{red}0.99$ & $<0.001$ & $\color{red} 26.739$ & $0.964$\\ 
   maxInstances &  $10218.173$ & $\color{red} 0.986$ & $<0.001$ & $\color{red} 1.068$ & $0.516$\\ 
-  startstopDuration &  $0.868$ & $\color{black} 0.003$ & $0.482$ & $\color{black} 0.000$ & $0.000$\\ 
+  startstopDuration & $0.868$ & $\color{black} 0.003$ & $0.482$ & $\color{black} 0.000$ & $0.000$\\
   \midrule
-  \emph{mean number of tunnels}  & & & & &\\ 
-  maxTunnels &  $20448.347$ & $\color{red} 0.994$ & $<0.001$ & $\color{red} 27.712$ & $0.965$\\ 
-  maxInstances &  $13348.251$ & $\color{red} 0.989$ & $<0.001$ & $\color{red} 1.064$ & $0.515$\\ 
-  startstopDuration &  $2.872$ & $\color{black} 0.009$ & $0.022$ & $\color{black} 0.000$ & $0.000$\\ 
+  \multicolumn{2}{l}{\textit{mean number of tunnels}}& & & &\\ 
+  maxTunnels & $20448.347$ & $\color{red} 0.994$ & $<0.001$ & $\color{red} 27.712$ & $0.965$\\ 
+  maxInstances & $13348.251$ & $\color{red} 0.989$ & $<0.001$ & $\color{red} 1.064$ & $0.515$\\ 
+  startstopDuration & $2.872$ & $\color{black} 0.009$ & $0.022$ & $\color{black} 0.000$ & $0.000$\\
   \bottomrule
   \end{tabu}
 \end{table}
 
-In order to analyze the influence of the different model parameters on the performance metrics, we perform a one-way \gls{ANOVA} with the results in Table~\ref{c4:tab:manipulation2color}. High values for $\eta_p^2$ and Cohen's $f^2$ \cite{stats} indicate that the main influence for both blocking probability and mean number of tunnels is the maximum number of tunnels $n$ and servers $S_{\max}$, i.e. the total number of possible concurrent tunnels in the system.
+% <---!
+
+In order to analyze the influence of the different model parameters on the resulting metrics, a one-way \gls{ANOVA} is performed, with the results depicted in Table~\ref{c4:tab:manipulation2color}. High values for $\eta_p^2$ and Cohen's $f^2$ \cite{stats} indicate that the main influence for both blocking probability and mean number of tunnels is the maximum number of tunnels $n$ and servers $S_{\max}$, i.e. the total number of possible concurrent tunnels in the system.
 Therefore, we study these parameters first.
+
+\todo{Re-check the anova statistical stuff and update with own computations, mention and explain  all the used stats (cohens omega and f, p, F, and eta squared)}
 
 \begin{figure}[htb]
   \centering
@@ -79,7 +82,7 @@ Therefore, we study these parameters first.
  \label{c4:fig:instance_use_virtual}
 \end{figure}
 
-In Figure~\ref{c4:fig:instance_use_virtual} the \gls{CDF} of the number of active servers for four different virtual \gls{GGSN} configurations is displayed. We observe, that increasing the number of supported tunnels per server allows a larger percentage of servers to be shutdown or used for other tasks. This demonstrates the scaling capability of the virtualized model quite well. Note, that both the scenario with $30$ servers and $150$ maximum tunnels per server as well as the scenario with $60$ servers and $75$ maximum tunnels per server share the same maximum amount of tunnels, $4500$, being right at the center of the interesting range of candidates.
+In Figure~\ref{c4:fig:instance_use_virtual} the \gls{CDF} of the number of active servers for four different virtual \gls{GGSN} configurations is displayed. We observe, that increasing the number of supported tunnels per server allows a larger percentage of servers to be shutdown or used for other tasks. This demonstrates the scaling capability of the virtualized model quite well. Note, that both the scenario with \numprint{30} servers and \numprint{150} maximum tunnels per server as well as the scenario with \numprint{60} servers and \numprint{75} maximum tunnels per server share the same maximum amount of tunnels, \numprint{4500}, being right at the center of the interesting range of candidates.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,3 +170,4 @@ Thus, it can be concluded, that if smaller instances are to be used, for example
 \end{figure}
 
 
+%The range of \numprint{4000} to \numprint{5000} concurrent tunnels to be of special interest for the remainder of the study.

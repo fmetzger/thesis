@@ -18,7 +18,8 @@
   %\setmathfont{texgyrepagella-math.otf} % math font for libertine
   \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX,Ligatures=TeX]{TeX Gyre Pagella Math}
   \usepackage{polyglossia} % babel replacement for use with fontspec
-  \setdefaultlanguage{english}
+  \setdefaultlanguage[variant=american]{english}
+  \selectlanguage[variant=american]{english}
 \else
   \usepackage[utf8]{inputenc}                   
   \usepackage[T1]{fontenc}
@@ -91,6 +92,8 @@
 \usepackage{xspace} % ?
 \usepackage{algorithmic}
 \usepackage{algorithm}
+\usepackage{numprint}
+\npstyleenglish
 
 \usepackage[24hr,iso]{datetime}
 \usepackage{gitinfo}
