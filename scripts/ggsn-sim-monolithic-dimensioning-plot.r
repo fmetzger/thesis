@@ -1,6 +1,7 @@
+library(ggplot2)
+
 df <- data.frame()
 
-#path = "/Users/cschwartz/Documents/paper/ggsn-results/evaluateFeasibleDimensioning/traditional"
 path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional/"
 
 files <- list.files(path = path, pattern="metrics.*csv")
@@ -18,24 +19,13 @@ for (f in files){
   df <- rbind(df, data)
 }
 
-df$max.instances = factor(df$max.instances)
-
-acceptable.tunnel.count = df[with(df, order(max.tunnels)), ]
-
-p <- ggplot(df, aes(x=max.tunnels,
-                    y=block.prob.mean,
-                    ymin=block.prob.min,
-                    ymax=block.prob.max)) +
-            geom_line() +
-            geom_errorbar(width=100) +
-            coord_cartesian(xlim=c(0,5500), ylim = c(-0.1, 1.1)) +
-            xlab("Total supported tunnels") +
-            ylab("Blocking probability")
-
-#p <- p + theme(text = element_text(size=20)) + ylab("Blocking probability") + xlab("Total supported tunnels")
+#df$max.instances = factor(df$max.instances)
+#acceptable.tunnel.count = df[with(df, order(max.tunnels)), ]
 
 p <- ggplot(df, aes(x=max.tunnels,y=block.prob.mean,ymin=block.prob.min,ymax=block.prob.max)) +  geom_line() + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200), ylim = c(-0.1, 1.1))
 p + theme(text = element_text(size=20)) + xlab("total supported tunnels") + ylab("blocking probability")
 ggsave("R-monolithic-blocking.pdf", width=12, height=10)
 
-
+p <- ggplot(df, aes(x=max.tunnels,y=res.util.mean,ymin=res.util.min,ymax=res.util.max)) +  geom_line() + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
+p + theme(text = element_text(size=20)) + xlab("total supported tunnels") + ylab("average tunnel usage")
+ggsave("R-monolithic-blocking.pdf", width=12, height=10)
