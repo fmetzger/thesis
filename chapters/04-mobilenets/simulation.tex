@@ -21,7 +21,8 @@ This model was implemented on the basis of version 3.0 of the \textit{SimPy}~\ci
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Description and Design of the Individual Experiments}
 
-To match the measurement data the simulation time is set to be \SI{7}{\day} in all simulation scenarios. The initial \SI{60}{\minute} of each experiment are considered to be the transient phase and are afterwards deducted from the results. Ten replications of each scenario were performed. All depicted error bars show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
+To match the measurement data the simulation time is set to be \SI{7}{\day} in all simulation scenarios. The initial \SI{60}{\minute} of each experiment are considered to be the transient phase and are afterwards deducted from the results. Ten replications of each scenario were performed. All depicted error bars show the \SI{95}{\percent} confidence intervals across the experiments.
+%All depicted error bars show the \SI{5}{\percent} and \SI{95}{\percent} quantiles of all replications.
 
 The first experiment was conducted to investigate the normalized baseline load a monolithic \gls{GGSN} experiences using the presented model. Using this, a maximum to the number of concurrent tunnels and the correlation to the blocking probability and tunnel rejection rate can be established. The effects of scaling up, improving the hardware capabilities of the single node, can thus be investigated.
 
@@ -41,7 +42,7 @@ This experiment evaluates arbitrary values for the \gls{GGSN} tunnel capacity an
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-monolithic-blocking.pdf}
-  \caption{Impact of the number of supported parallel tunnels on the blocking probability for the traditional \gls{GGSN} model. For each scenario the mean of all simulated replications as well as \SI{5}{\percent} and \SI{95}{\percent} quantiles as error bars are shown.}
+  \caption{Impact of the number of supported parallel tunnels on the blocking probability for the traditional \gls{GGSN} model. For each scenario the mean and \SI{95}{\percent} confidence intervals of all simulation replications are shown.}
 \label{c4:fig:traditional_blocking}
 \end{figure}
 
@@ -50,7 +51,7 @@ Figure~\ref{c4:fig:traditional_blocking} studies this impact of the maximum supp
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-monolithic-tunnelusage.pdf}
-  \caption{Mean number of tunnels concurrently served by the \gls{GGSN} for incrementally increasing capacity. For each scenario the mean of all simulated replications as well as \SI{5}{\percent} and \SI{95}{\percent} quantiles as error bars are shown.}
+  \caption{Mean number of tunnels concurrently served by the \gls{GGSN} for incrementally increasing capacity. For each scenario the mean and \SI{95}{\percent} confidence intervals of all simulation replications are shown.}
 \label{c4:fig:traditional_tunnelusage}
 \end{figure}
 
