@@ -87,15 +87,13 @@ A similar experiment can be set up for the virtual \gls{GGSN} model. Learning fr
 
 In Figure~\ref{c4:fig:virtualized_instanceuse} the \gls{CDF} of the number of active servers for four different virtual \gls{GGSN} configurations is displayed. We observe, that increasing the number of supported tunnels per server allows a larger percentage of servers to be shutdown or used for other tasks. This demonstrates the scaling capability of the virtualized model quite well. Note, that both the scenario with \numprint{30} servers and \numprint{150} maximum tunnels per server as well as the scenario with \numprint{60} servers and \numprint{75} maximum tunnels per server share the same maximum amount of tunnels, \numprint{4500}, being right at the center of the interesting range of candidates.
 
-
-
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-virtualized-instanceuse-barplot.pdf}
-  \caption{(Excerpt) Resource usage from select maximum instances and tunnels combination, displaying the capability to scale.}
+  \caption{Resource usage from a select maximum virtual instances and tunnel capacity combination, displaying the capability to scale up and out.}
  \label{c4:fig:res-usage-barplot}
 \end{figure}
-%%%% TODO re-annotate!
+
 
 
 \begin{figure}[htb]
