@@ -40,16 +40,15 @@ for (f in files) {
 }
 
 
-dfsub <- subset(df, max.instances %in% c(30, 60))
-dfsub <- subset(dfsub, max.tunnels %in% c(150, 300))
-
+#dfsub <- subset(df, max.instances %in% c(30, 60))
+#dfsub <- subset(dfsub, max.tunnels %in% c(150, 300))
 #dfsub <- subset(df, max.instances %in% c(30, 60))
 #dfsub <- subset(dfsub, max.tunnels %in% c(75, 150))
-dfsub <- subset(dfsub, start.up %in% c(300))
+#dfsub <- subset(dfsub, start.up %in% c(300))
 
-dfsub1 <- subset(df, max.tunnels %in% c(150) & max.instances %in% c(30))
-dfsub2 <- subset(df, max.tunnels %in% c(150) & max.instances %in% c(60) & N < 34)
-dfsub3 <- subset(df, max.tunnels %in% c(300) & max.instances %in% c(30) & N < 18)
+dfsub1 <- subset(df, start.up %in% c(300) & max.tunnels %in% c(150) & max.instances %in% c(30))
+dfsub2 <- subset(df, start.up %in% c(300) & max.tunnels %in% c(150) & max.instances %in% c(60) & N < 34)
+dfsub3 <- subset(df, start.up %in% c(300) & max.tunnels %in% c(300) & max.instances %in% c(30) & N < 18)
 dfsub4 <-  subset(df, max.tunnels %in% c(300) & max.instances %in% c(60) & N < 18)
 
 dfsub <- rbind(dfsub1,dfsub2,dfsub3,dfsub4)
