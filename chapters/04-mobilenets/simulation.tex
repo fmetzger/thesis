@@ -98,7 +98,7 @@ In Figure~\ref{c4:fig:virtualized_instanceuse} the \gls{CDF} of the number of ac
 
 \begin{figure}[htb]
   \centering
-  \includegraphics{images/blocking-comparison.pdf}
+  \includegraphics[width=1.0\textwidth]{images/blocking-comparison.pdf}
   \caption{Relative increase of blocking probability on the number of servers compared to the traditional \gls{GGSN}; with the $4500$ maximum tunnels per server being on a single server, $150$ on $30$, and $75$ on $60$ servers.}
  \label{c4:fig:blocking-comparison}
 \end{figure}
@@ -112,11 +112,10 @@ In the next section we study the impact of reduced start up and shut down times 
 
 
 
-
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=1.0\textwidth]{images/instanceuse-mean.pdf}
-  \caption{Mean instance usage of various server configurations.}
+  \includegraphics[width=1.0\textwidth]{images/R-virtualized-mean-instanceusage.pdf}
+  \caption{Mean instance usage of various virtualization configurations. A higher number of total instances results in a finer granularity of scaling and energy efficiency as more instances can be kept shut down.}
  \label{c4:fig:res-instance-usage-mean}
 \end{figure}
 
@@ -126,29 +125,35 @@ In the next section we study the impact of reduced start up and shut down times 
 
 In this section, we first consider the impact of different boot and shut down times on resource utilization and blocking probabilities. We observe the impact of different start up and shut down times on both resource utilization and blocking probability. Afterwards, the influence of varying server start and stop times on a fixed combination of maximum tunnels and servers in the system is examined.
 
+
+
 \begin{figure}[htb]
   \centering
-  \includegraphics{images/compare-util-block.pdf}
+  \includegraphics[width=1.0\textwidth]{images/R-virtualized-startstop-blocking-barchart.pdf}
+  \caption{Influence of the boot and shutdown time on the blocking probability.}
+\label{c4:fig:blockprob-startstop-barchart}
+\end{figure}
+
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=1.0\textwidth]{images/R-virtualized-startstop-tunnelusage-blocking-comparison.pdf}
   \caption{Trade-off between blocking probability and mean resource utilization with regard to maximum number of servers, maximum number of tunnels per server, and start up and shut down time.}
  \label{c4:fig:compare_util_block}
 \end{figure}
 
 
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=1.0\textwidth]{images/startstopduration-blockingprobability-barchart.pdf}
-  \caption{Influence of the boot and shutdown time on the blocking probability.}
- \label{c4:fig:blockprob-startstop-barchart}
-\end{figure}
+
 
 Figure~\ref{c4:fig:compare_util_block} shows scenarios with $40$ and $100$ number of virtual \gls{GGSN} instances and  $1000$ to $5000$ total concurrent tunnels. For each scenario, we study the impact of selecting different maximum numbers of tunnel per server as well as start up and shut down times on blocking probability and mean resource utilization. The first observation is that by increasing the number of servers, i.e. scaling out, the blocking probability can be decreased, while maintaining a relatively low mean resource utilization. In addition to the previous effects, we notice that a higher start up and shut down time causes a slight increase in blocking probability for servers with low tunnel capacity.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics{images/compare-maxinstances-block.pdf}
+  \includegraphics[width=1.0\textwidth]{images/compare-maxinstances-block.pdf}
   \caption{Influence of start up and shut down time on blocking probability with regard to different numbers of servers.}
- \label{c4:fig:compare_maxinstances_block}
+\label{c4:fig:compare_maxinstances_block}
 \end{figure}
+
 
 In order to study this behavior in more detail, we focus on a specific scenario in Figure~\ref{c4:fig:compare_maxinstances_block}, where $5000$ total tunnels should be supported by the system. In order to achieve this goal, we consider three types of instances, with the server capacity varying between $50$ and $500$.  In each case we change the start up and shut down time between $1$ and $5$ minutes. It can be easily observed, that lower server capacities combined with higher start up and shut down times increase the blocking probability. This is due to the server start up threshold mechanism, used in the model, not taking the additional capacity gained by activating an additional server into account. If a low capacity server with a long boot time is activated, there is a high probability that the system will quickly expend its capacity again.
 
@@ -196,15 +201,6 @@ In order to analyze the influence of the different model parameters on the resul
 Therefore, we study these parameters first.
 
 \todo{Re-check the anova statistical stuff and update with own computations, mention and explain  all the used stats (cohens omega and f, p, F, and eta squared)}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% additional figures for simulation
-
-
-
-
 
 
 

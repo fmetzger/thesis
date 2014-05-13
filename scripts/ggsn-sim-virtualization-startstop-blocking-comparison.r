@@ -1,5 +1,4 @@
 library(ggplot2)
-library(stats)
 
 df <- data.frame()
 
@@ -100,30 +99,25 @@ for (f in files){
   df <- rbind(df, data)
 }
 
+data$max.tunnels = factor(data$max.tunnels)
+data$max.instances = factor(data$max.instances)
+data$startstop.duration = factor(data$startstop.duration)
 
+df$total.tunnels <- df$max.tunnels * df$max.instances
 
-dfsub1 = subset(df, max.instances == 1 & startstop.duration == 20 & total.tunnels == 4500)
-dfsub2 = subset(df, max.instances == 30 & startstop.duration == 20 & total.tunnels == 4500)
-dfsub3 = subset(df, max.instances == 60 & startstop.duration == 300 & total.tunnels == 4500)
-dfsub <- rbind(dfsub1, dfsub2, dfsub3)
+dfsub <- subset(df, total.tunnels <= 5000 & startstop.duration %in% c(60, 300) &  max.instances %in% c(40, 100))
 
+dfsub$startstop.levels <- factor(dfsub$startstop.duration, levels=c(60,300), ordered=T)
+levels(dfsub$startstop.levels)[1] <- "1min"
+levels(dfsub$startstop.levels)[2] <- "5min"
 
-dfsub$max.tunnels = factor(dfsub$max.tunnels, c(4500, 150, 75))
-dfsub$max.instances = factor(dfsub$max.instances)
-dfsub$relative.blocking.probability <- dfsub$block.prob.mean / subset(dfsub, max.instances == 1)$block.prob.mean
-dfsub$relative.blocking.probability.max <- dfsub$block.prob.max / subset(dfsub, max.instances == 1)$block.prob.mean
-dfsub$relative.blocking.probability.min <- dfsub$block.prob.min / subset(dfsub, max.instances == 1)$block.prob.mean
-dfsub$relative.blocking.probability.right <- dfsub$block.prob.right / subset(dfsub, max.instances == 1)$block.prob.mean
-dfsub$relative.blocking.probability.left <- dfsub$block.prob.left / subset(dfsub, max.instances == 1)$block.prob.mean
+label_full_name <- function(variable, values) {
+  sprintf("%s instances", as.character(values))
+}
 
-#or <-  order(dfsub$max.tunnels, decreasing=T)
-#dfsub <- dfsub[or, ]
-
-
-p <- ggplot(dfsub, aes(x=max.tunnels,y=relative.blocking.probability,ymin=relative.blocking.probability.left,ymax=relative.blocking.probability.right))
-p <- p + geom_point(stat = "identity", size=3) + geom_errorbar(width=1)
-p <- p + scale_x_discrete() + scale_y_continuous(limits = c(0, 2))
-p + theme(text = element_text(size=20)) + xlab("individual instance tunnel capacity") + ylab("relative increase of\nblocking probability")
-
-ggsave("blocking-comparison.pdf", width=12, height=10)
-
+p <- ggplot(dfsub, aes(x = res.util.mean,y = block.prob.mean,shape = as.factor(max.tunnels), color = startstop.levels))
+p <- p + geom_point(size=4) + facet_grid(~ max.instances, labeller = label_full_name)
+p <- p + scale_x_continuous(name = "concurrent tunnels served on average") + scale_y_log10(name = "blocking probability")
+p <- p + scale_shape(name = "individual instance\ntunnel capacity", solid=T, guide = guide_legend(nrow = 3))
+p + labs(colour = "start/stop duration") + theme(text = element_text(size=20)) 
+ggsave("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf", width=12, height=6)
