@@ -1,5 +1,6 @@
 library(ggplot2)
 library(stats)
+library(extrafont)
 
 df <- data.frame()
 
@@ -121,9 +122,8 @@ dfsub$relative.blocking.probability.left <- dfsub$block.prob.left / subset(dfsub
 
 
 p <- ggplot(dfsub, aes(x=max.tunnels,y=relative.blocking.probability,ymin=relative.blocking.probability.left,ymax=relative.blocking.probability.right))
-p <- p + geom_point(stat = "identity", size=3) + geom_errorbar(width=1)
+p <- p + geom_point(stat = "identity", size=2) + geom_errorbar(width=1)
 p <- p + scale_x_discrete() + scale_y_continuous(limits = c(0, 2))
-p + theme(text = element_text(size=20)) + xlab("individual instance tunnel capacity") + ylab("relative increase of\nblocking probability")
-
-ggsave("blocking-comparison.pdf", width=12, height=10)
+p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + xlab("individual instance tunnel capacity") + ylab("relative increase of\nblocking probability")
+ggsave("blocking-comparison.pdf", width=12, height=10, useDingbat=F)
 

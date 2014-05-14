@@ -1,4 +1,5 @@
 library(ggplot2)
+library(extrafont)
 
 df <- data.frame()
 
@@ -99,17 +100,13 @@ for (f in files){
   df <- rbind(df, data)
 }
 
-data$max.tunnels = factor(data$max.tunnels)
-data$max.instances = factor(data$max.instances)
-data$startstop.duration = factor(data$startstop.duration)
 
 df$total.tunnels <- df$max.tunnels * df$max.instances
 
 dfsub <- subset(df, total.tunnels <= 5000 & startstop.duration %in% c(60, 300) &  max.instances %in% c(40, 100))
 
 dfsub$startstop.levels <- factor(dfsub$startstop.duration, levels=c(60,300), ordered=T)
-levels(dfsub$startstop.levels)[1] <- "1min"
-levels(dfsub$startstop.levels)[2] <- "5min"
+levels(dfsub$startstop.levels)<- c("1min", "5min")
 
 label_full_name <- function(variable, values) {
   sprintf("%s instances", as.character(values))
@@ -119,5 +116,5 @@ p <- ggplot(dfsub, aes(x = res.util.mean,y = block.prob.mean,shape = as.factor(m
 p <- p + geom_point(size=4) + facet_grid(~ max.instances, labeller = label_full_name)
 p <- p + scale_x_continuous(name = "concurrent tunnels served on average") + scale_y_log10(name = "blocking probability")
 p <- p + scale_shape(name = "individual instance\ntunnel capacity", solid=T, guide = guide_legend(nrow = 3))
-p + labs(colour = "start/stop duration") + theme(text = element_text(size=20)) 
-ggsave("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf", width=12, height=6)
+p + labs(colour = "start/stop duration") + theme(text = element_text(family="Liberation Sans Narrow", size=20)) 
+ggsave("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf", width=12, height=6, useDingbats=F)

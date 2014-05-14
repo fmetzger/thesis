@@ -2,11 +2,11 @@ library(ggplot2)
 library(reshape2)
 library(plyr)
 
-path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined/"
-
-files <- list.files(path = path, pattern="instance_use_distribution.*csv")
 
 df <- data.frame()
+
+path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined/"
+files <- list.files(path = path, pattern="instance_use_distribution.*csv")
 for (f in files) {
   max.tunnels <- as.numeric(strsplit(f, "_")[[1]][4])
   max.instances <- as.numeric(strsplit(f, "_")[[1]][5])
@@ -67,12 +67,8 @@ facet.label = function(variable, value) {
   return(value)
 }
 
-## overall
-p <- ggplot(dfsub, aes(x=N, y=mean, ymin=left, ymax=right)) + geom_bar(stat="identity", position="dodge")  + geom_errorbar(position="dodge", width=0.25) + facet_grid(max.instances ~ max.tunnels, scales="free_x", space="free_x", labeller = facet.label)
-p + theme(text = element_text(size=20)) + ylab("relative duration") + xlab("number of active servers")
-ggsave("R-virtualized-instanceuse-barplot.pdf", width=12, height=10)
-#
-#
-### mostly broken
-#ggplot(df, aes(x=max.tunnels, y=N, fill=mean)) + geom_tile() + facet_wrap(~ max.instances)
-#ggsave("resourceusedistribution-tileplot.pdf")
+
+p <- ggplot(dfsub, aes(x=N, y=mean, ymin=left, ymax=right)) + geom_bar(stat="identity", position="dodge")
+p <- p + geom_errorbar(position="dodge", width=0.25) + facet_grid(max.instances ~ max.tunnels, scales="free_x", space="free_x", labeller = facet.label)
+p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("relative duration") + xlab("number of active instances")
+ggsave("R-virtualized-instanceuse-barplot.pdf", width=12, height=10, useDingbat=F)

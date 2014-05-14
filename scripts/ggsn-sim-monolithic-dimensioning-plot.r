@@ -1,8 +1,10 @@
 library(ggplot2)
+library(extrafont)
+#font_import()
+#font()
+loadfonts()
 
 df <- data.frame()
-
-
 path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional/"
 
 files <- list.files(path = path, pattern="metrics.*csv")
@@ -37,10 +39,14 @@ for (f in files){
 #df$max.instances = factor(df$max.instances)
 #acceptable.tunnel.count = df[with(df, order(max.tunnels)), ]
 
-p <- ggplot(df, aes(x=max.tunnels,y=block.prob.mean,ymin=block.prob.left,ymax=block.prob.right)) +  geom_line() + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200), ylim = c(-0.1, 1.1))
-p + theme(text = element_text(size=20)) + xlab("total supported tunnels") + ylab("blocking probability")
-ggsave("R-monolithic-blocking.pdf", width=12, height=10)
+p <- ggplot(df, aes(x=max.tunnels,y=block.prob.mean,ymin=block.prob.left,ymax=block.prob.right))
+p <- p + geom_line() + geom_point(size=2) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200), ylim = c(-0.1, 1.1))
+p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + xlab("total tunnel capacity") + ylab("blocking probability")
+ggsave("R-monolithic-blocking.pdf", width=12, height=10, useDingbats=F)
+#embed_fonts("R-monolithic-blocking.pdf")
 
-p <- ggplot(df, aes(x=max.tunnels,y=res.util.mean,ymin=res.util.left,ymax=res.util.right)) +  geom_line() + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
-p + theme(text = element_text(size=20)) + xlab("total supported tunnels") + ylab("concurrent tunnels served on average")
-ggsave("R-monolithic-tunnelusage.pdf", width=12, height=10)
+p <- ggplot(df, aes(x=max.tunnels,y=res.util.mean,ymin=res.util.left,ymax=res.util.right))
+p <- p +  geom_line() + geom_point(size=2) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
+p + theme(text = element_text(family="Liberation Sans Narrow",size=20)) + xlab("total tunnel capacity") + ylab("concurrent tunnels served on average")
+ggsave("R-monolithic-tunnelusage.pdf", width=12, height=10, useDingbats=F)
+#embed_fonts("R-monolithic-tunnelusage.pdf")

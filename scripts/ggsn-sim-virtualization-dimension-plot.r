@@ -1,4 +1,9 @@
 library(ggplot2)
+library(extrafontdb)
+library(extrafont)
+#font_import()
+#font()
+loadfonts()
 
 df <- data.frame()
 
@@ -65,11 +70,13 @@ for (f in files){
 #cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#CC79A7", "#CC79A7", "#CC79A7")
 #df2 <- df[order(-as.numeric(factor(df$max.instances))),]
 
-p <- ggplot(df, aes(x=max.tunnels * max.instances, y=block.prob.mean, ymin=block.prob.left, ymax=block.prob.right, color=as.factor(max.instances))) + geom_point(size=3) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
-p + theme(text = element_text(size=20)) + ylab("blocking probability") + xlab("total supported tunnels") + guides(colour=guide_legend("supported\nvirtual\ninstances")) + scale_colour_brewer(palette="Paired")
-ggsave("R-virtualized-blocking.pdf", width=12, height=10)
+p <- ggplot(df, aes(x=max.tunnels * max.instances, y=block.prob.mean, ymin=block.prob.left, ymax=block.prob.right, color=as.factor(max.instances)))
+p <- p + geom_point(size=2) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
+p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("blocking probability") + xlab("total tunnel capacity") + guides(colour=guide_legend("supported\nvirtual\ninstances")) + scale_colour_brewer(palette="Paired")
+ggsave("R-virtualized-blocking.pdf", width=12, height=10, useDingbats=F)
 
 
-p <- ggplot(df, aes(x=max.tunnels * max.instances, y=res.util.mean, ymax = res.util.right, ymin=res.util.left, color=as.factor(max.instances))) +  geom_point(size=3) + geom_errorbar(width=100)+ coord_cartesian(xlim=c(0,5200))
-p + theme(text = element_text(size=20)) + ylab("concurrent tunnels served on average") + xlab("total supported tunnels") + guides(colour=guide_legend("supported\nvirtual\ninstances")) + scale_colour_brewer(palette="Paired")
-ggsave("R-virtualized-tunnelusage.pdf", width=12, height=10)
+p <- ggplot(df, aes(x=max.tunnels * max.instances, y=res.util.mean, ymax = res.util.right, ymin=res.util.left, color=as.factor(max.instances)))
+p <- p +  geom_point(size=2) + geom_errorbar(width=100)+ coord_cartesian(xlim=c(0,5200))
+p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("concurrent tunnels served on average") + xlab("total tunnel capacity") + guides(colour=guide_legend("supported\nvirtual\ninstances")) + scale_colour_brewer(palette="Paired")
+ggsave("R-virtualized-tunnelusage.pdf", width=12, height=10, useDingbats=F)
