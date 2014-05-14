@@ -55,7 +55,8 @@ Figure~\ref{c4:fig:traditional_blocking} studies this impact of the maximum supp
 \label{c4:fig:traditional_tunnelusage}
 \end{figure}
 
-A similar picture is also evident in the number of tunnels served by this \gls{GGSN} in the same scenario as shown in Figure~\ref{c4:fig:traditional_tunnelusage}. For the complete first half of the experiments the \gls{GGSN} is on average used up to its limit. Only when the capacity reaches \numprint{4600} can the normalized arrival rate be fully served, which surmounts to about \numprint{3820} tunnels on average in the system. Both results are stable across all simulation runs as the error bars display. For the purpose of network dimensioning the results can be easily scaled up from the normalized arrival rates to the actual ones in the network in question.
+
+A similar picture is also evident in the number of tunnels served by this \gls{GGSN} in the same scenario as shown in Figure~\ref{c4:fig:traditional_tunnelusage}. For the first half of the experiments the \gls{GGSN} is loaded to its limit. Only when the capacity reaches \numprint{4600} can the normalized arrival rate be fully served, which surmounts to about \numprint{3820} tunnels on average in the system. Both results are stable across all simulation runs as the confidence intervals display. For the purpose of network dimensioning the results can be easily scaled up from the normalized arrival rates to the actual ones in the network in question.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -68,7 +69,7 @@ A similar picture is also evident in the number of tunnels served by this \gls{G
 \label{c4:fig:virtualized_blocking}
 \end{figure}
 
-A similar experiment can be set up for the virtual \gls{GGSN} model. Learning from the monolithic model, these follow-up simulations can be tuned to the same total tunnel capacity in advance. The only difference is that the capacity is now spread evenly 
+A similar experiment can be set up for the virtual \gls{GGSN} model. Learning from the monolithic model, these follow-up simulations can be tuned to the same total tunnel capacity in advance. The only difference is that the tunnel capacity is now spread out evenly between the virtual \gls{GGSN} instances. The experiment tests different amounts for the total number of virtual instances, ranging from \numprint{1}, the monolothic architecture, to \numprint{100}.
 
 \begin{figure}[htb]
   \centering
@@ -80,11 +81,11 @@ A similar experiment can be set up for the virtual \gls{GGSN} model. Learning fr
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-virtualized-instanceuse.pdf}
-  \caption{Impact of the maximum number of tunnels and number of servers on number of active servers in the virtual \gls{GGSN} model.}
+  \caption{Impact of the maximum number of tunnels and number of instances on the number of active instances in the virtual \gls{GGSN} model.}
 \label{c4:fig:virtualized_instanceuse}
 \end{figure}
 
-In Figure~\ref{c4:fig:virtualized_instanceuse} the \gls{CDF} of the number of active servers for four different virtual \gls{GGSN} configurations is displayed. We observe, that increasing the number of supported tunnels per server allows a larger percentage of servers to be shutdown or used for other tasks. This demonstrates the scaling capability of the virtualized model quite well. Note, that both the scenario with \numprint{30} servers and \numprint{150} maximum tunnels per server as well as the scenario with \numprint{60} servers and \numprint{75} maximum tunnels per server share the same maximum amount of tunnels, \numprint{4500}, being right at the center of the interesting range of candidates.
+In Figure~\ref{c4:fig:virtualized_instanceuse} the \gls{CDF} of the number of active instances for four different virtual \gls{GGSN} configurations is displayed. We observe, that increasing the number of supported tunnels per server allows a larger percentage of instances to be shutdown or used for other tasks. This demonstrates the scaling capability of the virtualized model quite well. Note, that both the scenario with \numprint{30} instances and \numprint{150} maximum tunnels per server as well as the scenario with \numprint{60} instances and \numprint{75} maximum tunnels per server share the same maximum amount of tunnels, \numprint{4500}, being right at the center of the interesting range of candidates.
 
 \begin{figure}[htb]
   \centering
