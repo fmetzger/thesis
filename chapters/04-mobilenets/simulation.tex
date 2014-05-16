@@ -96,9 +96,7 @@ But the possible effects of an increased number of instances need to be investig
 \label{c4:fig:virtualized_instanceuse}
 \end{figure}
 
-To get into more detail, Figure~\ref{c4:fig:virtualized_instanceuse} displays the \gls{CDF} of the portion of time a specific number of instances was active. Depicted are four configurations differing in the number of total instances and their tunnel capacity.
-Increasing the number of the individual instances' tunnel capacity allows a larger percentage of instances to be shutdown or used for other tasks. This demonstrates the scaling capability of the virtualized model quite well. Note, that both the scenario with \numprint{30} instances and \numprint{150} maximum tunnels per server as well as the scenario with \numprint{60} instances and \numprint{75} maximum tunnels per server share the same maximum amount of tunnels, \numprint{4500}, being right at the center of the interesting range of candidates.
-
+To get into more detail, Figure~\ref{c4:fig:virtualized_instanceuse} displays the distribution of the portion of time a specific number of instances was active. Depicted are four configurations differing in their total number of instances and their tunnel capacity. The setup with \numprint{30} instances with \numprint{100} capacity was clearly overwhelmed with the arrival rate and all 30 instances were active over \SI{70}{\percent} of the time. Only when \numprint{150} were allowed the virtualization benefits come into effect and more instances are able to sleep. Similar observations can be made in the \numprint{50} instance case.  Here, the \numprint{100} tunnel scenario is already equipped to handle the tunnel arrival rate and can scale back its active instances quite well, below \numprint{40} instances half the time. The final configuration with a \numprint{150} tunnel capacity is clearly overdimensioned here with no more than \numprint{33} of th \numprint{50} instances ever being active.
 
 \begin{figure}[htb]
   \centering
@@ -107,25 +105,7 @@ Increasing the number of the individual instances' tunnel capacity allows a larg
 \label{c4:fig:res-usage-barplot}
 \end{figure}
 
-
-
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=1.0\textwidth]{images/blocking-comparison.pdf}
-  \caption{Relative increase of blocking probability on the number of servers compared to the traditional \gls{GGSN}; with the $4500$ maximum tunnels per server being on a single server, $150$ on $30$, and $75$ on $60$ servers.}
-\label{c4:fig:blocking-comparison}
-\end{figure}
-
-Next, we take a look at the blocking probability of the virtual \gls{GGSN} system in Figure~\ref{c4:fig:blocking-comparison} and compare it to the results from the traditional \gls{GGSN} model. In Figure~\ref{c4:fig:blocking-comparison} we compare the blocking probability of the traditional \gls{GGSN} system dimensioned for $4500$ concurrent tunnels with the virtual \gls{GGSN}.
-
-We observe that, with the start up and shut down time of $5$ minutes in mind, the blocking probability increases by a factor of $1.48$ if the capacity of each server is set to $75$, i.e. $\frac{1}{60}$ of the original server capacity, while $27$ of all $60$ servers can be turned of or used for other purposes at \SI{50}{\percent} of the time. We conclude, that choosing more powerful servers decreases the blocking probability but reduces the potential to disable servers.
-
-So far we have considered a conservative start up and shut down time of servers of \SI{5}{\minute}, which can potentially occur if current generation physical servers are used.
-In the next section we study the impact of reduced start up and shut down times with modern servers with fast storage (e.g. \glspl{SSD}) or virtual servers provisioned in the cloud.
-
-
-
+Looking at these scenarios and additionally Figure~\ref{c4:fig:res-usage-barplot} from a network dimensioning perspective, one discovers two distinct pathways to scale in the virtualized \gls{GGSN} model. To reach the desired tunnel capacity either the number of instances or the instance's tunnel capacity can be increased. The latter represents the classical scaling up. But virtualization also opens up the new path of scaling out by increasing the number of instances. Through this, scaling can be become easier and cheaper, as existing machines need not be replaced.
 
 
 
@@ -164,6 +144,21 @@ Figure~\ref{c4:fig:compare_util_block} shows scenarios with $40$ and $100$ numbe
 
 
 In order to study this behavior in more detail, we focus on a specific scenario in Figure~\ref{c4:fig:compare_maxinstances_block}, where $5000$ total tunnels should be supported by the system. In order to achieve this goal, we consider three types of instances, with the server capacity varying between $50$ and $500$.  In each case we change the start up and shut down time between $1$ and $5$ minutes. It can be easily observed, that lower server capacities combined with higher start up and shut down times increase the blocking probability. This is due to the server start up threshold mechanism, used in the model, not taking the additional capacity gained by activating an additional server into account. If a low capacity server with a long boot time is activated, there is a high probability that the system will quickly expend its capacity again.
+
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=1.0\textwidth]{images/blocking-comparison.pdf}
+  \caption{Relative increase of blocking probability on the number of servers compared to the traditional \gls{GGSN}; with the $4500$ maximum tunnels per server being on a single server, $150$ on $30$, and $75$ on $60$ servers.}
+\label{c4:fig:blocking-comparison}
+\end{figure}
+
+Finally, Figure~\ref{c4:fig:blocking-comparison} takes one last closer look at a potential increase of the blocking probability in virtualized scenarios when compared to the monolithic basis. In theory, virtualization can incur additional overhead which would represent itself as an increase in $p_b$. In our model the overhead can only stem from the hypervisor and its simplistic scheduling  and lifecycle management strategies in conjunction with the instances' boot delay. The figure plots the blocking probability of the traditional \gls{GGSN} system dimensioned for $4500$ concurrent tunnels with the virtual \gls{GGSN}.
+
+We observe that, with the start up and shut down time of $5$ minutes in mind, the blocking probability increases by a factor of $1.48$ if the capacity of each server is set to $75$, i.e. $\frac{1}{60}$ of the original server capacity, while $27$ of all $60$ servers can be turned of or used for other purposes at \SI{50}{\percent} of the time. We conclude, that choosing more powerful servers decreases the blocking probability but reduces the potential to disable servers.
+
+So far we have considered a conservative start up and shut down time of servers of \SI{5}{\minute}, which can potentially occur if current generation physical servers are used.
+In the next section we study the impact of reduced start up and shut down times with modern servers with fast storage (e.g. \glspl{SSD}) or virtual servers provisioned in the cloud.
 
 Thus, it can be concluded, that if smaller instances are to be used, for example because they are cheaper than large instances, start up and shut down times should be kept minimal, for example by using virtual instances or \glspl{SSD}.
 
