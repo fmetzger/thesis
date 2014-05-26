@@ -129,42 +129,33 @@ Figure~\ref{c4:fig:blockprob-startstop-barchart} compares a number of instance a
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/compare-maxinstances-block.pdf}
-  \caption{Influence of start up and shut down time on blocking probability with regard to different numbers of servers.}
+  \caption{Influence of start up and shut down time on blocking probability with regard to different numbers of instances.}
 \label{c4:fig:compare_maxinstances_block}
 \end{figure}
 
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=1.0\textwidth]{images/blocking-comparison.pdf}
-  \caption{Relative increase of blocking probability on the number of servers compared to the traditional \gls{GGSN}; with the $4500$ maximum tunnels per server being on a single server, $150$ on $30$, and $75$ on $60$ servers.}
-\label{c4:fig:blocking-comparison}
-\end{figure}
+% \begin{figure}[htb]
+%   \centering
+%   \includegraphics[width=1.0\textwidth]{images/blocking-comparison.pdf}
+%   \caption{Relative increase of blocking probability on the number of servers compared to the traditional \gls{GGSN}; with the $4500$ maximum tunnels per server being on a single server, $150$ on $30$, and $75$ on $60$ servers.}
+% \label{c4:fig:blocking-comparison}
+% \end{figure}
 
-Figures~\ref{c4:fig:compare_maxinstances_block} and \ref{c4:fig:blocking-comparison} investigate this increase in more detail. Both show the blocking probability of some select instance tunnel capacities in more detail.
+Figures~\ref{c4:fig:compare_maxinstances_block}% and \ref{c4:fig:blocking-comparison} 
+investigates this increase in more detail and shows the blocking probability of one select scenario. Here, the system supports \numprint{5000} tunnels in total with differing individual instance capacity of \numprint{50}, \numprint{150}, and \numprint{500}. In each case the start and stop down duration is changed between \SI{1}{\minute} and \SI{5}{\minute}. The increase in blocking probability in relation to both the instance capacity as well as the start duration can be easily observed.
 
-% <- !
-
-
-
-In order to study this behavior in more detail, we focus on a specific scenario in Figure~\ref{c4:fig:compare_maxinstances_block}, where $5000$ total tunnels should be supported by the system. In order to achieve this goal, we consider three types of instances, with the server capacity varying between $50$ and $500$.  In each case we change the start up and shut down time between \SI{1}{\minute} and \SI{5}{\minute} minutes. It can be easily observed, that lower server capacities combined with higher start up and shut down times increase the blocking probability. This is due to the server start up threshold mechanism, used in the model, not taking the additional capacity gained by activating an additional server into account. If a low capacity server with a long boot time is activated, there is a high probability that the system will quickly expend its capacity again.
-
-
-
-
-Finally, Figure~\ref{c4:fig:blocking-comparison} takes one last closer look at a potential increase of the blocking probability in virtualized scenarios when compared to the monolithic basis. In theory, virtualization can incur additional overhead which would represent itself as an increase in $p_b$. In our model the overhead can only stem from the hypervisor and its simplistic scheduling  and lifecycle management strategies in conjunction with the instances' boot delay. The figure plots the blocking probability of the traditional \gls{GGSN} system dimensioned for $4500$ concurrent tunnels with the virtual \gls{GGSN}.
-
-We observe that, with the start up and shut down time of $5$ minutes in mind, the blocking probability increases by a factor of $1.48$ if the capacity of each server is set to $75$, i.e. $\frac{1}{60}$ of the original server capacity, while $27$ of all $60$ servers can be turned of or used for other purposes at \SI{50}{\percent} of the time. We conclude, that choosing more powerful servers decreases the blocking probability but reduces the potential to disable servers.
+This can be partially attributed to the hypervisor and its simplistic scheduling  and lifecycle management strategies in the simulation. If a low capacity instance with a long start time is activated, there is a high probability that the system will quickly expend its capacity again.
+A potential conclusion is that choosing larger instance capacities decreases the blocking probability at the cost of energy efficiency (less instances can stay disabled).
 
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-virtualized-startstop-tunnelusage-blocking-comparison.pdf}
-  \caption{Trade-off between blocking probability and mean resource utilization with regard to maximum number of servers, maximum number of tunnels per server, and start up and shut down time.}
+  \caption{Trade-off between blocking probability and mean resource utilization with regard to maximum number of instances, instance tunnel capacity, and start and stop time.}
 \label{c4:fig:compare_util_block}
 \end{figure}
 
 
-
+% <-- !!
 Figure~\ref{c4:fig:compare_util_block} shows scenarios with $40$ and $100$ number of virtual \gls{GGSN} instances and  $1000$ to $5000$ total concurrent tunnels. For each scenario, we study the impact of selecting different maximum numbers of tunnel per server as well as start up and shut down times on blocking probability and mean resource utilization. The first observation is that by increasing the number of servers, i.e. scaling out, the blocking probability can be decreased, while maintaining a relatively low mean resource utilization. In addition to the previous effects, we notice that a higher start up and shut down time causes a slight increase in blocking probability for servers with low tunnel capacity.
 
 
