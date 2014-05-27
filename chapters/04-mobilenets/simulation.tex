@@ -101,7 +101,7 @@ To get into more detail, Figure~\ref{c4:fig:virtualized_instanceuse} displays th
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\textwidth]{images/R-virtualized-instanceuse-barplot.pdf}
-  \caption{Resource usage from a select maximum virtual instances and tunnel capacity combination, displaying the capability to scale up and out.}
+  \caption{Resource usage from a select maximum instances and tunnel capacity combination, displaying the capability to scale up and out.}
 \label{c4:fig:res-usage-barplot}
 \end{figure}
 
@@ -156,11 +156,7 @@ A potential conclusion is that choosing larger instance capacities decreases the
 
 
 % <-- !!
-Figure~\ref{c4:fig:compare_util_block} shows scenarios with $40$ and $100$ number of virtual \gls{GGSN} instances and  $1000$ to $5000$ total concurrent tunnels. For each scenario, we study the impact of selecting different maximum numbers of tunnel per server as well as start up and shut down times on blocking probability and mean resource utilization. The first observation is that by increasing the number of servers, i.e. scaling out, the blocking probability can be decreased, while maintaining a relatively low mean resource utilization. In addition to the previous effects, we notice that a higher start up and shut down time causes a slight increase in blocking probability for servers with low tunnel capacity.
-
-
-
-Thus, it can be concluded, that if smaller instances are to be used, for example because they are cheaper than large instances, start up and shut down times should be kept minimal, for example by using virtual instances or \glspl{SSD}.
+Finally, Figure~\ref{c4:fig:compare_util_block} shows two scenarios with \numprint{40} and \numprint{100} virtual \gls{GGSN} instances respectively, and \numprint{1000} to \numprint{5000} total concurrent tunnels. For each scenario, the combined impact of different individual instance tunnel capacities as well as start up and shutdown time on blocking probability and mean resource utilization is studied. The first observation is that by increasing the number of instances, i.e., scaling out, the blocking probability can be decreased, while maintaining a relatively low mean resource utilization. In addition to the previous effects, it can be noticed that a higher start up and shut down time causes a slight increase in blocking probability for instances with low tunnel capacity. Therefore, if smaller instances are to be used, for example due to price considerations, both the start up and shut down duration should be kept at a minimum. This could be achieved by using purely virtual instances and fast flash storage.
 
 
 
