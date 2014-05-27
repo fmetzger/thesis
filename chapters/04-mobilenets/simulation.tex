@@ -159,33 +159,48 @@ A potential conclusion is that choosing larger instance capacities decreases the
 Finally, Figure~\ref{c4:fig:compare_util_block} shows two scenarios with \numprint{40} and \numprint{100} virtual \gls{GGSN} instances respectively, and \numprint{1000} to \numprint{5000} total concurrent tunnels. For each scenario, the combined impact of different individual instance tunnel capacities as well as start up and shutdown time on blocking probability and mean resource utilization is studied. The first observation is that by increasing the number of instances, i.e., scaling out, the blocking probability can be decreased, while maintaining a relatively low mean resource utilization. In addition to the previous effects, it can be noticed that a higher start up and shut down time causes a slight increase in blocking probability for instances with low tunnel capacity. Therefore, if smaller instances are to be used, for example due to price considerations, both the start up and shut down duration should be kept at a minimum. This could be achieved by using purely virtual instances and fast flash storage.
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Parameter Effect Sizes}
+\subsubsection{Significance and Effect Sizes}
+
+% <---!
+In order to analyze the influence of the different model parameters on the resulting metrics, a one-way \gls{ANOVA} is performed, with the results depicted in Table~\ref{c4:tab:anova}. High values for $\eta_p^2$ and Cohen's $f^2$ \cite{stats} indicate that the main influence for both blocking probability and mean number of tunnels is the maximum number of tunnels $n$ and servers $S_{\max}$, i.e. the total number of possible concurrent tunnels in the system.
+Therefore, we study these parameters first.
+
+The F-test and significance level $p$
+
+The $\eta^2$ value
+
+The $\omega^2$ value
+
+\todo{Re-check the anova statistical stuff and update with own computations, mention and explain  all the used stats (cohens omega and f, p, F, and eta squared)}
+
+
 
 \begin{table}[htb]
-  \caption{Effect sizes of the simulation parameters based on one-way \acrshort{ANOVA}.}
-  \centering
-  \label{c4:tab:manipulation2color}
-  \begin{tabu}{X[1.6,l]X[r]X[r]X[r]X[1.1r]X[1.1,r]}
+\caption{Effect sizes of the simulation parameters based on one-way \acrshort{ANOVA}.}
+\centering
+\label{c4:tab:anova}
+  \begin{tabu}{X[1.6,l]X[1.7,r]X[r]X[r]X[1.1r]}
   \toprule
-  & $\mathbf{F(2,1275)}$ & $\mathbf{\eta^2_p}$ & $\mathbf{p}$ & \textbf{Cohen's} $\mathbf{f^2}$ & \textbf{Cohen's} $\mathbf{\hat{\omega}^2}$\\ 
+  & $\mathbf{F-test}$ & $\mathbf{p-value}$ & $\mathbf{\eta^2}$ & \textbf{Cohen's} $\mathbf{{\omega}^2}$\\ 
   \midrule
-  \multicolumn{2}{l}{\textit{blocking probability}} & & & &\\ 
-  maxTunnels &  $15601.534$ & $\color{red}0.99$ & $<0.001$ & $\color{red} 26.739$ & $0.964$\\ 
-  maxInstances &  $10218.173$ & $\color{red} 0.986$ & $<0.001$ & $\color{red} 1.068$ & $0.516$\\ 
-  startstopDuration & $0.868$ & $\color{black} 0.003$ & $0.482$ & $\color{black} 0.000$ & $0.000$\\
+  \multicolumn{2}{l}{\textit{blocking probability}} & & & \\ 
+  maxTunnels & $F(12, 1417)=104$ & $<0.001$ & $\color{red}0.468$ & $0.463$\\ 
+  maxInstances & $F(9,1420)=9.29$ & $<0.001$ & $\color{red} 0.056$ & $0.050$\\ 
+  startstopDuration & $F(4,1425)=0.21$ & $0.931$ & $<0.001$ & $0.000$\\
   \midrule
-  \multicolumn{2}{l}{\textit{mean number of tunnels}}& & & &\\ 
-  maxTunnels & $20448.347$ & $\color{red} 0.994$ & $<0.001$ & $\color{red} 27.712$ & $0.965$\\ 
-  maxInstances & $13348.251$ & $\color{red} 0.989$ & $<0.001$ & $\color{red} 1.064$ & $0.515$\\ 
-  startstopDuration & $2.872$ & $\color{black} 0.009$ & $0.022$ & $\color{black} 0.000$ & $0.000$\\
+  \multicolumn{2}{l}{\textit{mean number of tunnels}}& & & \\ 
+  maxTunnels & $F(12,1417)=105.7$ & $<0.001$ & $\color{red} 0.472$ & $0.467$\\ 
+  maxInstances & $F(9,1420)=9.39$ & $<0.001$ & $\color{red} 0.056$ & $0.050$\\ 
+  startstopDuration & $F(4,1425)=0.25$ & $0.912$ & $<0.001$ & $0.000$\\
   \bottomrule
   \end{tabu}
 \end{table}
 
+%https://www.msu.edu/~levinet/eta%20squared%20hcr.pdf
+% https://en.wikipedia.org/wiki/F-test
 % F(2,1275): degrees of freedom (DF) for boh variables
+% F-ratio: ratio of the model to its error; Note F(x, y) denotes an F-distribution with x degrees of freedom in the numerator and y degrees of freedom in the denominator.
 % eta-squared, omega-squared, f-squared and effect sizes: https://en.wikiversity.org/wiki/Effect_size , https://en.wikipedia.org/wiki/Effect_size
 % see also: https://en.wikipedia.org/wiki/Manipulation_checks
 
@@ -193,16 +208,31 @@ Finally, Figure~\ref{c4:fig:compare_util_block} shows two scenarios with \numpri
 % It is a "pure number to index the degree of departure from no effect."  
 %The computation/use of f depends on the type of analysis used; fixed effects are an assumption (p. 273).  Cohen indeed gives f as f = (sqrt(eta^2 / (1 - eta^2)) for one-way fixed factor designs.  Since "there is no need to adjust one's conception of f for a set of k means when one moves from the one-way ANOVA to the case where additional bases of partitioning of the data exists," there doesn't seem to be any computational difference across the ANOVA designs. 
 
+% https://en.wikiversity.org/wiki/Eta-squared
 
-% <---!
-
-In order to analyze the influence of the different model parameters on the resulting metrics, a one-way \gls{ANOVA} is performed, with the results depicted in Table~\ref{c4:tab:manipulation2color}. High values for $\eta_p^2$ and Cohen's $f^2$ \cite{stats} indicate that the main influence for both blocking probability and mean number of tunnels is the maximum number of tunnels $n$ and servers $S_{\max}$, i.e. the total number of possible concurrent tunnels in the system.
-Therefore, we study these parameters first.
-
-\todo{Re-check the anova statistical stuff and update with own computations, mention and explain  all the used stats (cohens omega and f, p, F, and eta squared)}
+% https://stats.stackexchange.com/questions/15958/how-to-interpret-and-report-eta-squared-partial-eta-squared-in-statistically
 
 
 
 
+% \begin{table}[htb]
+%   \caption{Effect sizes of the simulation parameters based on one-way \acrshort{ANOVA}.}
+%   \centering
+%   \label{c4:tab:manipulation2color}
+%   \begin{tabu}{X[1.6,l]X[r]X[r]X[r]X[1.1r]X[1.1,r]}
+%   \toprule
+%   & $\mathbf{F(2,1275)}$ & $\mathbf{\eta^2_p}$ & $\mathbf{p}$ & \textbf{Cohen's} $\mathbf{f^2}$ & \textbf{Cohen's} $\mathbf{\hat{\omega}^2}$\\ 
+%   \midrule
+%   \multicolumn{2}{l}{\textit{blocking probability}} & & & &\\ 
+%   maxTunnels &  $15601.534$ & $\color{red}0.99$ & $<0.001$ & $\color{red} 26.739$ & $0.964$\\ 
+%   maxInstances &  $10218.173$ & $\color{red} 0.986$ & $<0.001$ & $\color{red} 1.068$ & $0.516$\\ 
+%   startstopDuration & $0.868$ & $\color{black} 0.003$ & $0.482$ & $\color{black} 0.000$ & $0.000$\\
+%   \midrule
+%   \multicolumn{2}{l}{\textit{mean number of tunnels}}& & & &\\ 
+%   maxTunnels & $20448.347$ & $\color{red} 0.994$ & $<0.001$ & $\color{red} 27.712$ & $0.965$\\ 
+%   maxInstances & $13348.251$ & $\color{red} 0.989$ & $<0.001$ & $\color{red} 1.064$ & $0.515$\\ 
+%   startstopDuration & $2.872$ & $\color{black} 0.009$ & $0.022$ & $\color{black} 0.000$ & $0.000$\\
+%   \bottomrule
+%   \end{tabu}
+% \end{table}
 
-%The range of \numprint{4000} to \numprint{5000} concurrent tunnels to be of special interest for the remainder of the study.
