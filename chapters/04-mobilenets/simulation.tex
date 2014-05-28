@@ -163,41 +163,35 @@ Finally, Figure~\ref{c4:fig:compare_util_block} shows two scenarios with \numpri
 \subsubsection{Significance and Effect Sizes}
 
 % <---!
-In order to analyze the influence of the different model parameters on the resulting metrics, a one-way \gls{ANOVA} is performed, with the results depicted in Table~\ref{c4:tab:anova}. High values for $\eta_p^2$ and Cohen's $f^2$ \cite{stats} indicate that the main influence for both blocking probability and mean number of tunnels is the maximum number of tunnels $n$ and servers $S_{\max}$, i.e. the total number of possible concurrent tunnels in the system.
-Therefore, we study these parameters first.
-
-The F-test and significance level $p$
-
-The $\eta^2$ value
-
-The $\omega^2$ value
-
-\todo{Re-check the anova statistical stuff and update with own computations, mention and explain  all the used stats (cohens omega and f, p, F, and eta squared)}
-
-
+In order to analyze the influence of the different model parameters on the resulting metrics a one-way \gls{ANOVA} is performed. The effect size measures calculated here are the F-test, $\eta^2$, as well as $\omega^2$ \cite{stats,field2012discovering}. All are applied pairwise to each independent and derived variable combination. The results are depicted in Table~\ref{c4:tab:anova}. The two derived values and simulation metrics are the blocking probability and the mean tunnel usage.
 
 \begin{table}[htb]
 \caption{Effect sizes of the simulation parameters based on one-way \acrshort{ANOVA}.}
 \centering
 \label{c4:tab:anova}
-  \begin{tabu}{X[1.6,l]X[1.7,r]X[0.6,r]X[0.6,r]X[1.1r]}
+  \begin{tabu}{X[2.5,l]X[1.0,r]X[0.6,r]X[0.6,r]X[0.6r]}
   \toprule
-  & $\mathbf{F-test}$ & $\mathbf{p-value}$ & $\mathbf{\eta^2}$ & \textbf{Cohen's} $\mathbf{{\omega}^2}$\\ 
+  & $\mathbf{F-ratio}$ & $\mathbf{p-value}$ & $\mathbf{\eta^2}$ & $\mathbf{{\omega}^2}$\\ 
   \midrule
   \multicolumn{2}{l}{\textit{blocking probability}} & & & \\ 
-  individual instance tunnel capacity & $F(12, 1417)=104$ & $<0.001$ & $0.468$ & $0.463$\\ 
-  number of instances & $F(9,1420)=9.29$ & $<0.001$ & $0.056$ & $0.050$\\ 
-  start/stop duration & $F(4,1425)=0.21$ & $0.931$ & $<0.001$ & $0.000$\\
-  total tunnel capacity & $F(12,1417=317257$ & $<0.001$ & $0.999$ & $0.999$ \\
+  individual instance tunnel capacity & $104$ & $<0.001$ & $0.468$ & $0.463$\\ %F(12, 1417)=
+  number of instances & $9.29$ & $<0.001$ & $0.056$ & $0.050$\\ %F(9,1420)=
+  start/stop duration & $0.21$ & $0.931$ & $<0.001$ & $0.002$\\ %F(4,1425)=
+  total tunnel capacity & $317257$ & $<0.001$ & $0.999$ & $0.999$ \\ %F(12,1417=
   \midrule
   \multicolumn{2}{l}{\textit{mean number of tunnels}}& & & \\ 
-  individual instance tunnel capacity & $F(12,1417)=105.7$ & $<0.001$ & $0.472$ & $0.467$\\ 
-  number of instances & $F(9,1420)=9.39$ & $<0.001$ & $0.056$ & $0.050$\\ 
-  start/stop duration & $F(4,1425)=0.25$ & $0.912$ & $<0.001$ & $0.000$\\
-  total tunnel capacity & $F(12,1417=365753$ & $<0.001$ & $0.999$ & $0.999$ \\
+  individual instance tunnel capacity & $105.7$ & $<0.001$ & $0.472$ & $0.467$\\ %F(12,1417)=
+  number of instances & $9.39$ & $<0.001$ & $0.056$ & $0.050$\\ %F(9,1420)=
+  start/stop duration & $0.25$ & $0.912$ & $<0.001$ & $0.002$\\ %F(4,1425)=
+  total tunnel capacity & $365753$ & $<0.001$ & $0.999$ & $0.999$ \\ %F(12,1417)=
   \bottomrule
   \end{tabu}
 \end{table}
+
+Both of these metrics yield very similar results as they are also --- by design --- strongly related to each other. The F-ratio computed by the F-test and the corresponding significance level $p$ indicate a large influence of the individual instance capacity on the metrics with a minor influence of the number of instances and no measurable impact of the start/stop duration. This is also confirmed by both $\eta^2$ and $\omega^2$. Interestingly, only the compound variable describing the total tunnel capacity, i.e., the product of the individual instance tunnel capacity and the number of instances, is an almost perfect match in its variance to the derived metrics.
+
+
+
 
 %https://www.msu.edu/~levinet/eta%20squared%20hcr.pdf
 % https://en.wikipedia.org/wiki/F-test
