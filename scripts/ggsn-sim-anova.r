@@ -65,6 +65,7 @@ df$total.tunnels <- df$max.instances*df$max.tunnels
 df$max.tunnels.levels <- factor(df$max.tunnels, levels=unique(df$max.tunnels), ordered=T)
 df$max.instances.levels <- factor(df$max.instances, levels=unique(df$max.instances), ordered=T)
 df$start.duration.levels <- factor(df$start.duration, levels=unique(df$start.duration), ordered=T)
+df$total.tunnels.levels <- factor(df$total.tunnels, levels=unique(df$total.tunnels), ordered=T)
 
 dfsub <- subset(df, total.tunnels <=5000)
 dfsub <- subset(dfsub, start.duration != 20)
@@ -84,6 +85,11 @@ pb.start.model <- aov(block.prob~start.duration.levels, data=dfsub)
 summary(pb.start.model)
 etaSquared(pb.start.model, anova=T)
 omega.squared(pb.start.model)
+
+pb.total.tunnels.model <- aov(block.prob~total.tunnels.levels, data=dfsub)
+summary(pb.total.tunnels.model)
+etaSquared(pb.total.tunnels.model, anova=T)
+omega.squared(pb.total.tunnels.model)
 ##
 
 util.tunnels.model <- aov(res.util~max.tunnels.levels, data=dfsub)
@@ -100,6 +106,11 @@ util.start.model <- aov(res.util~start.duration.levels, data=dfsub)
 summary(util.start.model)
 etaSquared(util.start.model, anova=T)
 omega.squared(util.start.model)
+
+util.total.tunnels.model <- aov(res.util~total.tunnels.levels, data=dfsub)
+summary(util.total.tunnels.model)
+etaSquared(util.total.tunnels.model, anova=T)
+omega.squared(util.total.tunnels.model)
 ##
 
 oneway.test(block.prob ~ max.tunnels.levels, data=dfsub)
@@ -107,6 +118,8 @@ oneway.test(block.prob ~ max.tunnels.levels, data=dfsub)
 cor(dfsub$max.tunnels, dfsub$block.prob, use="complete.obs", method="pearson")
 cor(dfsub$max.instances, dfsub$block.prob, use="complete.obs", method="pearson")
 cor(dfsub$start.duration, dfsub$block.prob, use="complete.obs", method="pearson")
+
+cor(dfsub$total.tunnels, dfsub$block.prob, use="complete.obs", method="pearson")
 
 cor(dfsub$max.tunnels, dfsub$res.util, use="complete.obs", method="pearson")
 cor(dfsub$max.instances, dfsub$res.util, use="complete.obs", method="pearson")
