@@ -104,13 +104,16 @@ omega.squared(util.start.model)
 
 oneway.test(block.prob ~ max.tunnels.levels, data=dfsub)
 
+cor(dfsub$max.tunnels, dfsub$block.prob, use="complete.obs", method="pearson")
+cor(dfsub$max.instances, dfsub$block.prob, use="complete.obs", method="pearson")
+cor(dfsub$start.duration, dfsub$block.prob, use="complete.obs", method="pearson")
 
+cor(dfsub$max.tunnels, dfsub$res.util, use="complete.obs", method="pearson")
+cor(dfsub$max.instances, dfsub$res.util, use="complete.obs", method="pearson")
+cor(dfsub$start.duration, dfsub$res.util, use="complete.obs", method="pearson")
 
-
-
-
-
-
+# omega squared calculation, adapted from:
+# http://www.estudiosfonicos.cchs.csic.es/metodolo/1/.Rprofile
 omega.squared <- function (model) {
   if (class(model)[1]=="aov") {
     df.factors=0
