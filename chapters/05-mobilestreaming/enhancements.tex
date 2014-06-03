@@ -1,19 +1,10 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Upcoming and Proposed Modifications to Mobile Stacks and their Streaming Relationship}
+\section{Recent Developments in the Mobile Network Stack}
 \label{c5:sec:stack-enhancements}
 
 
-
-
-
-
-
-
-
+Contrary to the popular scientific belief, that the Internet is unable to change and renew itself (so called Internet ``ossification'', compare, e.g., \cite{feldmann2010ossification}), protocols in the \gls{TCP}/\gls{IP} stack change all the time.
 
 
 
@@ -24,12 +15,19 @@
 
 Improvements to congestion control for mobile streaming?
 
- Alternative modes of transport (e.g. DCCP, ECN, ReECN, RED, Google's SPDY or new approaches)
+
 
  Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...)
 
 
-\subsubsection{Bufferbloat, Congestion Control, and AQM Effects on Reliable Mobile Streaming}
+using TLS or not
+
+Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
+
+%%
+Bufferbloat, Congestion Control, and AQM Effects on Reliable Mobile Streaming
+
+ECN
 
 Comparison of end-to-end and network-supported fast startup congestion control schemes \cite{scharf2011comparison}
 
@@ -45,46 +43,78 @@ Controlling Queue Delay; Van Jacobson \cite{Nichols:2012:CQD:2209249.2209264}
 Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
 
 
-
-\subsubsection{Mobile Network Architectures, end-to-end Protocol Stacks and their sensitivity to Middleboxes}
-
-\subsubsection{The TCP Case: Example of a Living, Ever-Evolving Protocol}
+%%
+Mobile Network Architectures, end-to-end Protocol Stacks and their sensitivity to Middleboxes
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Upcoming Protocols and Streaming Relationship}
 
-\begin{itemize}
-\item SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming)
-\item \gls{TCP} changes (Fast Open, IW10, ...; any relationship to streaming? maybe faster)
-\item Alternate Transport Protocols (DCCP\cite{rfc4340}, LEDBAT\cite{rfc6817}/$\mu$tp\cite{bt2010utp}, QUIC, SCTP, DTLS), 
+
+ Alternative modes of transport (e.g. DCCP, ECN, ReECN, RED, Google's SPDY or new approaches)
+
+
+\gls{QUIC}  Quick UDP Internet Connections; protocols without retransmission feature (lost packets are not relevant and cause head-of-line blocking) but still with the all-important congestion control + TLS
+http://www.ietf.org/proceedings/88/slides/slides-88-tsvarea-10.pdf
+http://lwn.net/Articles/558826/
+
+other approaches include $\mu$tp: buffer friendly
+
+
+but successful protocols develop de-facto; de jure much harder (see \gls{3G})
+
+
+ SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming)
+
+
+Alternate Transport Protocols (DCCP\cite{rfc4340}, LEDBAT\cite{rfc6817}/$\mu$tp\cite{bt2010utp}, QUIC, SCTP, DTLS)
+
+SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp} http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00
+
 HTTP/2.0 http://tools.ietf.org/html/draft-ietf-httpbis-http2 (links to latest)
-\item SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp} http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00
+
+
+
+
+End-to-end encryption and Authentication mechanisms (e.g.IPSec, DNSSEC, CurveCP) %(Daniel J. Bernstein)
+
+WebSockets as streaming transport \cite{w3c2011websockets} \cite{heise2011websockets}
+
+WebRTC
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The TCP Case: Prime Example of a Living, Ever-Evolving Protocol}
+
+\gls{TCP} changes (Fast Open, IW10, ...; any relationship to streaming? maybe faster)
 
 TCP modifications for short-lived connections (e.g. initially ignore congestion avoidance and push a lot of data at once (google.com approach, Increasing TCP's Initial Window)) 
 
 IW10: better response time, still fair  http://code.google.com/speed/protocols/tcpm-IW10.html
 An argument for increasing \gls{TCP}'s initial congestion window \cite{dukkipati2010argument}
 
-Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
+IW3, IW10  Initial window size (IW10, ...)
 
-\item Compensation mechanisms for reliable transport
-\item Model and quality estimations for improvements to adaptive streaming
-\item End-to-end encryption and Authentication mechanisms (e.g.IPSec, DNSSEC, CurveCP) %(Daniel J. Bernstein)
-\item Modifications to and issues with \gls{TCP}
- \begin{itemize}
- \item \gls{TCP} buffer bloat
- \item Initial window size (IW10, ...)
- \item WebSockets as streaming transport \cite{w3c2011websockets} \cite{heise2011websockets}
- \item WebRTC
- \item Relevance of multicasting or similar techniques for streaming transport (real-time live vs. stored)
- \item
- \end{itemize}
- \end{itemize}
+TCP Fast Open + TCP Snap Start http://tools.ietf.org/html/draft-agl-tls-snapstart-00
+
+1s / 3s Retransmission Timeout
+
+Proportional Rate Reduction PRR (vs. rfc 3517)
+
+TCP Early Retransmit \cite{rfc5827}
+
+Congestion Avoidance algorithm (Tahoe, (New Reno), Vegas, Compound, BIC, CUBIC; all w or w/o SACK)
+
+Slow Start, HyStart
+
+ECN, reECN
+
+Nagle's Algorithm
 
 
-
+OS-dependent receive window scaling behavior
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
