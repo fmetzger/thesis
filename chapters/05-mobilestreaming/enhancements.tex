@@ -39,6 +39,28 @@ Congestion avoidance and control \cite{jacobson1988congestion}
 
 Controlling Queue Delay; Van Jacobson \cite{Nichols:2012:CQD:2209249.2209264}
 
+CoDel http://tools.ietf.org/html/draft-nichols-tsvwg-codel
+ TCP needs congestion loss to determine bottleneck line speed
+	too much buffering hinders this
+ Memory is cheap, so why not put in some more megabytes
+ Home router buffer induced latency can be as high as several seconds
+CoDel:
+ Head drop not tail drop
+ Queues only as shock absorbers
+ What matters is the delay within a flow
+ CoDel measures minimal packet pass through time in the local device buffer during a defined interval
+ If minimum gets too high, too much buffering is happening
+ If delay value does not once fall below a target in the interval CoDel will start dropping packets
+	Signals congestion and hopefully reduces source rate
+	If stays above target, progressively more packets are dropped
+	Target: 5ms; interval: 100ms, based on simulation results
+ Can be enabled in Linux since 3.5, but many NIC drivers do not support it yet
+ Every buffer along the path influences transmission
+	Most impact on the node before the bottleneck
+	Cell towers, dsl/cable modems, ...
+
+
+
 
 Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
 
@@ -64,8 +86,75 @@ other approaches include $\mu$tp: buffer friendly
 
 but successful protocols develop de-facto; de jure much harder (see \gls{3G})
 
+WebSocket \cite{rfc6455}
+ IETF HyBi (Hypertext Bidirectional) Working group
+ W3C WebSocket API
+ Supported by every major browser and Web server
+ Provides full-duplex client-server communication
+	Upgrades from HTTP/1.1 through extension header
+	Barebones protocol atop TCP (or TLS), not HTTP
+	HTTP/1.1 only allows client-initiated polling (GET)
+	Asynchronous server push possible
+		In HTTP/1.1 only achievable through various hacks (e.g. ``long polling'')
+		Stateful instead of stateless (as HTTP)
+Lower overhead per transmission/frame
+Reduces number of open TCP connections and bandwidth overhead (no polling on additional TCP connection)
 
- SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming)
+
+SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming) http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft3-1
+ Google proposal and draft
+	Currently SPDY/3.1 
+	IETF httpbis working group basis for http/2.0
+ original Draft based on Chrome browser implementation
+ Widespread use and implementations
+	Chrome, Firefox; Apache, Nginx
+	Google, Twitter, Facebook, Akamai, Wordpress, ...
+	HTTP-requests are transparently upgraded through Next Protocol Negotiation
+ TLS mandatory
+ HTTP/1.1 syntax still viable as a layer on top of SPDY
+ Aim: Just one connection held per domain
+	Better server scaling (less concurrent connections, fewer packets sent)
+	Better latency
+Multiplexing/Streams:
+ Control and Data Frames, with header compression
+ Stream interleaving/multiplexing or cancellation
+ Server hint
+	Server informs client, what he might want to request in the near future
+ Server created streams / server push
+	Avoiding one additional RTT and polling
+	Only data pushed related to possible GET requests
+	Client-side throttles to prevent ``push attacks''
+ Stream priorities (8 levels)
+	Prefer essential resources over others (images)
+	Prefer data with earlier deadlines? (E.g. load next few video streams immediately while already requesting more)
+ Use with Scalable Video Coding (Base Layer vs Enhancement Layers)?
+ Per stream flow control
+multiplexing:
+ HTTP: One file request after another
+	Pipelining usually absent or disabled by default in browsers (Chrome, Firefox, IE)
+	High complexity/maintenance, low gain, head-of-line blocking issues
+ SPDY: File parts reordered according to timelines
+	Out of order and interleaved requests
+Evaluations:
+	Average reduction in page load time: ~29\%; 27\% - 60\%
+	Strongly dependent on connection, server environment
+	HTTP/1.1 optimization (resources split on multiple domains) prevents SPDY multiplexing gains
+ SPDY could be more susceptible to packet loss and TCP congestion window downscaling
+	Only one connection used compared to multiple HTTP/1.1
+ Possible operator benefits
+	Significant reduction in concurrent TCP sessions
+	Reduction in packets per second
+	$\rightarrow$ Reduced infrastructure load?
+spdy mobile page load times
+ Chrome on Android tests with several Websites
+ Emulated mobile conditions (constant 2Mbps, 150ms RTT)
+ ~23\% average load time reduction
+ Benefits can be higher for large RTT
+	Less request round trips and connection setups needed
+
+
+
+
 
 
 Alternate Transport Protocols (DCCP\cite{rfc4340}, LEDBAT\cite{rfc6817}/$\mu$tp\cite{bt2010utp}, QUIC, SCTP, DTLS)
@@ -73,6 +162,23 @@ Alternate Transport Protocols (DCCP\cite{rfc4340}, LEDBAT\cite{rfc6817}/$\mu$tp\
 SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp} http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00
 
 HTTP/2.0 http://tools.ietf.org/html/draft-ietf-httpbis-http2 (links to latest)
+ HTTP/1.0 defined in 1996, 1.1 in 1999
+	Since then no changes changes to the core protocol
+ Many long standing issues with HTTP/1.1, e.g.
+	Problems with ``long fat pipes''
+		Many parallel connections as workaround
+		Fairness issues
+	Large overhead for small requests
+ IETF Hypertext Transfer Protocol Bis Working Group
+ Initial call for proposals made in March 2012
+ Planned 2.0 standard proposal in 2014/2015
+ Using SPDY as a starting point
+ General aims
+	Tackle multiplexing, improve load times and experienced latency
+	But preserve the semantics of HTTP/1.1
+
+
+
 
 
 
@@ -93,17 +199,69 @@ WebRTC
 TCP modifications for short-lived connections (e.g. initially ignore congestion avoidance and push a lot of data at once (google.com approach, Increasing TCP's Initial Window)) 
 
 IW10: better response time, still fair  http://code.google.com/speed/protocols/tcpm-IW10.html
+\cite{rfc6928}
 An argument for increasing \gls{TCP}'s initial congestion window \cite{dukkipati2010argument}
-
 IW3, IW10  Initial window size (IW10, ...)
+ TCP Congestion Window
+	Maximal number of packets in flight
+–	Scaling through congestion control and avoidance algorithms
+ Initial Value
+	1 (RFC1122, RFC2001)
+	4000 Bytes (~ 3 packets) (RFC2414, RFC3390, ~2002)
+	IETF proposal: IW10 (Google Draft 2010-2012)
+ Rationale
+	HTTP request for small websites using new TCP connection
+	Transmit whole site in one RTT instead of multiple
+	Reduces average latency
+		Evaluation: ~10\% page load reduction on typical web pages
+	High IW values already used by many CDNs
 
-TCP Fast Open + TCP Snap Start http://tools.ietf.org/html/draft-agl-tls-snapstart-00
 
-1s / 3s Retransmission Timeout
+
+TCP Fast Open https://tools.ietf.org/html/draft-ietf-tcpm-fastopen + TCP Snap Start http://tools.ietf.org/html/draft-agl-tls-snapstart-00
+ IETF draft
+ Linux 3.6 client side implementation (September 2012)
+ Linux 3.7 server side (~ 2012)
+ Small server-side application adaptation required
+ Send data in the SYN and SYNACK packets
+	Deliver it immediately to the application
+	Only allowed for subsequent connections, requires additional security cookie (specific to client-server IP pair)
+ Saves one initial RTT
+ 4\% to 41\% popular web page load time improvement
+
+
+1s / 3s Retransmission Timeout \cite{rfc6298}
+ TCP retransmission timeout set through RTT measurement
+ Default value needed for timeouts during handshake: 3 seconds (now obsolete RFC1122, RFC2988)
+ RFC 6298, Linux 3.1 (October 2011)
+	Reduce TCP initial retransmission timeout to 1 second
+ Improves TCP handshake times for lossy networks
+ Benefits for short-lived (Web) transactions
+
 
 Proportional Rate Reduction PRR (vs. rfc 3517)
+ TCP behavior on packet loss in the past
+	RFC 3517: reduce CWND to half
+		Must first ACK large portion of the data still in flight before transmitting again
+	Linux: “Rate halving”; Reduce CWND by 1 on every ACK until CWND/2
+		Can still send data during recovery
+ Google IETF Proposal (Linux 3.2, January 2012): PRR
+	Reduce timeouts by avoiding excessive window reductions
+	Converge to cwnd chosen by congestion control by the end of recovery
+	Can improve packet loss recovery time and average latency
 
-TCP Early Retransmit \cite{rfc5827}
+
+
+TCP Early Retransmit \cite{rfc5827} Kernel 3.5 (July 2012)
+ TCP loss recovery (not using SACK) triggers on
+	Timeout (may be lengthy, ~RTT, min 1s)
+	Triple duplicate ACK (fast retransmit)
+		If CWND is small, TCP may not be able to get enough DUPACKs to trigger
+		Reduce DUPACK threshold for these connections
+ Reduce DUPACK threshold for these connections
+	Less robust to segment reordering
+ Reduces average latency for narrow and lossy connections
+
 
 Congestion Avoidance algorithm (Tahoe, (New Reno), Vegas, Compound, BIC, CUBIC; all w or w/o SACK)
 
