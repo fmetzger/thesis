@@ -4,17 +4,21 @@
 \label{c5:sec:stack-enhancements}
 
 
-Contrary to the popular scientific belief, that the Internet is unable to change and renew itself (so called Internet ``ossification'', compare, e.g., \cite{feldmann2010ossification}), protocols in the \gls{TCP}/\gls{IP} stack change all the time.
+Contrary to the popular scientific belief, that the Internet is unable to change and renew itself (so called Internet ``ossification'', compare, e.g., \cite{feldmann2010ossification}), protocols in the \gls{TCP}/\gls{IP} stack change all the time. Changes are more likely to occur in the end-to-end stack behavior and not in the packet format, as they are more difficult to change. New application requirements and changing network architectures always trigger adaptations in the stack in-between. 
+
+Superficially not much has changed, there is still \gls{IP}, \gls{TCP}, and \gls{HTTP} forming effectively the same protocol stack since 1991 with HTTP/0.9. And this seems hard to change, especially the transport layer is fixed to \gls{UDP} and \gls{TCP}, everything else will probably get rejected and dropped by one of the numerous middleboxes, such as \glspl{NAT} or firewalls.
+
+
+In this section
 
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Influence of the Existing Stack}
+\subsection{Influences of the Existing Stack}
 
 Improvements to congestion control for mobile streaming?
-
 
 
  Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...)
@@ -27,7 +31,7 @@ Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
 %%
 Bufferbloat, Congestion Control, and AQM Effects on Reliable Mobile Streaming
 
-ECN
+ ECN~\cite{rfc3168} (one of the earlier notions of cross-layer interactions; disabled by default almost everywhere)
 
 Comparison of end-to-end and network-supported fast startup congestion control schemes \cite{scharf2011comparison}
 
@@ -37,9 +41,7 @@ Detecting and quantifying bufferbloat in network paths \cite{groenewegen2011dete
 
 Congestion avoidance and control \cite{jacobson1988congestion}
 
-Controlling Queue Delay; Van Jacobson \cite{Nichols:2012:CQD:2209249.2209264}
-
-CoDel http://tools.ietf.org/html/draft-nichols-tsvwg-codel
+Controlling Queue Delay \cite{Nichols:2012:CQD:2209249.2209264} CoDel\cite{nichols2014codel}
  TCP needs congestion loss to determine bottleneck line speed
 	too much buffering hinders this
  Memory is cheap, so why not put in some more megabytes
@@ -74,25 +76,36 @@ Mobile Network Architectures, end-to-end Protocol Stacks and their sensitivity t
 \subsection{Upcoming Protocols and Streaming Relationship}
 
 
- Alternative modes of transport (e.g. DCCP, ECN, ReECN, RED, Google's SPDY or new approaches)
+ Alternative modes of transport (e.g. DCCP, , RED, Google's SPDY or new approaches)
 
-
-\gls{QUIC}  Quick UDP Internet Connections; protocols without retransmission feature (lost packets are not relevant and cause head-of-line blocking) but still with the all-important congestion control + TLS
-http://www.ietf.org/proceedings/88/slides/slides-88-tsvarea-10.pdf
-http://lwn.net/Articles/558826/
-
-other approaches include $\mu$tp: buffer friendly
-
+ Alternate Transport Protocols (DCCP\cite{rfc4340}, LEDBAT\cite{rfc6817}/$\mu$TP\cite{bt2010utp}, QUIC, SCTP~\cite{rfc4960}, DTLS~\cite{rfc6347})
 
 but successful protocols develop de-facto; de jure much harder (see \gls{3G})
 
+
+
+ End-to-end encryption and Authentication mechanisms (e.g.IPSec~\cite{rfc4301}, DNSSEC~\cite{rfc4033}, \gls{DANE}~\cite{rfc6698})
+
+
+\gls{QUIC}  Quick UDP Internet Connections; protocols without retransmission feature (lost packets are not relevant and cause head-of-line blocking) but still with the all-important congestion control + TLS
+%http://www.ietf.org/proceedings/88/slides/slides-88-tsvarea-10.pdf
+\footnote{\url{http://lwn.net/Articles/558826/}}
+UDP based for now, could very well end up as modifications to future TCP
+inherits new TCP features such as TFO, snap start, ...
+avoids most retransmissions through FEC
+congestion control not through CWND but through packet pacing
+includes stream multiplexing and TLS-like crypto by default
+
+
+
 WebSocket \cite{rfc6455}
+WebSockets as streaming transport \cite{w3c2011websockets} \cite{heise2011websockets}
  IETF HyBi (Hypertext Bidirectional) Working group
  W3C WebSocket API
  Supported by every major browser and Web server
  Provides full-duplex client-server communication
 	Upgrades from HTTP/1.1 through extension header
-	Barebones protocol atop TCP (or TLS), not HTTP
+	Barebone protocol atop TCP (or TLS), not HTTP
 	HTTP/1.1 only allows client-initiated polling (GET)
 	Asynchronous server push possible
 		In HTTP/1.1 only achievable through various hacks (e.g. ``long polling'')
@@ -101,7 +114,11 @@ Lower overhead per transmission/frame
 Reduces number of open TCP connections and bandwidth overhead (no polling on additional TCP connection)
 
 
-SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming) http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft3-1
+WebRTC \cite{webrtcdraft}
+
+
+SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp} 
+SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming)
  Google proposal and draft
 	Currently SPDY/3.1 
 	IETF httpbis working group basis for http/2.0
@@ -154,14 +171,7 @@ spdy mobile page load times
 
 
 
-
-
-
-Alternate Transport Protocols (DCCP\cite{rfc4340}, LEDBAT\cite{rfc6817}/$\mu$tp\cite{bt2010utp}, QUIC, SCTP, DTLS)
-
-SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp} http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00
-
-HTTP/2.0 http://tools.ietf.org/html/draft-ietf-httpbis-http2 (links to latest)
+HTTP/2.0~\cite{http20draft}
  HTTP/1.0 defined in 1996, 1.1 in 1999
 	Since then no changes changes to the core protocol
  Many long standing issues with HTTP/1.1, e.g.
@@ -176,6 +186,8 @@ HTTP/2.0 http://tools.ietf.org/html/draft-ietf-httpbis-http2 (links to latest)
  General aims
 	Tackle multiplexing, improve load times and experienced latency
 	But preserve the semantics of HTTP/1.1
+requires presence (but not usage) of TLS1.2
+	if used, emphemeral cipher suites >=2048 must be used (a.k.a. Perfect Forward Secrecy)
 
 
 
@@ -183,11 +195,8 @@ HTTP/2.0 http://tools.ietf.org/html/draft-ietf-httpbis-http2 (links to latest)
 
 
 
-End-to-end encryption and Authentication mechanisms (e.g.IPSec, DNSSEC, CurveCP) %(Daniel J. Bernstein)
 
-WebSockets as streaming transport \cite{w3c2011websockets} \cite{heise2011websockets}
 
-WebRTC
 
 
 
@@ -198,8 +207,7 @@ WebRTC
 
 TCP modifications for short-lived connections (e.g. initially ignore congestion avoidance and push a lot of data at once (google.com approach, Increasing TCP's Initial Window)) 
 
-IW10: better response time, still fair  http://code.google.com/speed/protocols/tcpm-IW10.html
-\cite{rfc6928}
+IW10: better response time, still fair \cite{rfc6928}
 An argument for increasing \gls{TCP}'s initial congestion window \cite{dukkipati2010argument}
 IW3, IW10  Initial window size (IW10, ...)
  TCP Congestion Window
@@ -218,7 +226,7 @@ IW3, IW10  Initial window size (IW10, ...)
 
 
 
-TCP Fast Open https://tools.ietf.org/html/draft-ietf-tcpm-fastopen + TCP Snap Start http://tools.ietf.org/html/draft-agl-tls-snapstart-00
+TCP Fast Open~\cite{cheng2014tcptfo}
  IETF draft
  Linux 3.6 client side implementation (September 2012)
  Linux 3.7 server side (~ 2012)
@@ -243,7 +251,7 @@ Proportional Rate Reduction PRR (vs. rfc 3517)
  TCP behavior on packet loss in the past
 	RFC 3517: reduce CWND to half
 		Must first ACK large portion of the data still in flight before transmitting again
-	Linux: “Rate halving”; Reduce CWND by 1 on every ACK until CWND/2
+	Linux: ``Rate halving''; Reduce CWND by 1 on every ACK until CWND/2
 		Can still send data during recovery
  Google IETF Proposal (Linux 3.2, January 2012): PRR
 	Reduce timeouts by avoiding excessive window reductions
@@ -262,17 +270,22 @@ TCP Early Retransmit \cite{rfc5827} Kernel 3.5 (July 2012)
 	Less robust to segment reordering
  Reduces average latency for narrow and lossy connections
 
+Multipath TCP MPTCP~\cite{rfc6824}!
 
-Congestion Avoidance algorithm (Tahoe, (New Reno), Vegas, Compound, BIC, CUBIC; all w or w/o SACK)
 
-Slow Start, HyStart
+Congestion Avoidance algorithm ((New Reno~\cite{rfc6582}, Vegas~\cite{Brakmo:1994:TVN:190809.190317}, Compound~\cite{song2006compound}, BIC, CUBIC~\cite{ha2008cubic}; all w or w/o SACK)
+general basic tcp congestion control in \cite{rfc5681}, describing Reno
 
-ECN, reECN
+Slow Start~\cite{rfc5681}
+ HyStart~\cite{Ha20112092}
 
-Nagle's Algorithm
+
+Nagle's Algorithm~\cite{rfc896} delaying and aggregating small data packets
 
 
 OS-dependent receive window scaling behavior
+
+OS-dependent choice of packet size
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
