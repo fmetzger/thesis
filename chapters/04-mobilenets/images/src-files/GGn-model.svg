@@ -61,7 +61,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4250685"
-     inkscape:cx="396.83187"
+     inkscape:cx="386.39631"
      inkscape:cy="709.43431"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -79,7 +79,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -106,19 +106,19 @@
          id="tspan2989"
          x="409.98962"
          y="244.12354"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G</tspan></text>
+         style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Oblique;font-size:20px">G</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="363.80417"
-       y="243.43506"
+       y="244.12354"
        id="text2987-5"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2989-6"
          x="363.80417"
-         y="243.43506"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G</tspan></text>
+         y="244.12354"
+         style="font-size:20px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Oblique">G</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -130,7 +130,7 @@
          id="tspan2989-8"
          x="504.3392"
          y="244.12354"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G</tspan></text>
+         style="font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Oblique;font-size:20px">G</tspan></text>
     <g
        id="g3831"
        transform="translate(-12,9.504951)">
@@ -245,7 +245,7 @@
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:1.69345808;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 188.29933,244.3489 142.96679,0"
+       d="m 188.29933,243.60994 142.96679,0"
        id="path3894"
        inkscape:connector-curvature="0" />
     <path
@@ -268,69 +268,69 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans;font-size:20px">Blocking</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 550.71905,245.09081 108.83632,0"
+       d="m 550.71905,243.61289 108.83632,0"
        id="path3894-5"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="190.32207"
-       y="263.31119"
+       y="263.35611"
        id="text4746"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          x="190.32207"
-         y="263.31119"
+         y="263.35611"
          id="tspan4762"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Arrival Process:</tspan><tspan
          sodipodi:role="line"
          x="190.32207"
-         y="288.31119"
+         y="288.35611"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
          id="tspan3986">Tunnel Setup</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="552.46777"
-       y="263.31119"
+       y="264.96744"
        id="text4750"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4752"
          x="552.46777"
-         y="263.31119"
+         y="264.96744"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Departures:</tspan><tspan
          sodipodi:role="line"
          x="552.46777"
-         y="288.31119"
+         y="289.96744"
          id="tspan4764"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Tunnel Deletion</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="252.94656"
+       x="250.46793"
        y="236.68442"
        id="text4758"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4760"
-         x="252.94656"
+         x="250.46793"
          y="236.68442"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G</tspan></text>
+         style="font-size:20px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Oblique">G</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="372.14359"
+       x="377.48431"
        y="314.94559"
        id="text4766"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4768"
-         x="372.14359"
+         x="377.48431"
          y="314.94559"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Serving Time:</tspan><tspan
          sodipodi:role="line"
-         x="372.14359"
+         x="377.48431"
          y="339.94559"
          id="tspan4770"
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Tunnel Length</tspan></text>

@@ -19,14 +19,6 @@
      id="defs4">
     <filter
        inkscape:collect="always"
-       id="filter5009">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="8.5318101"
-         id="feGaussianBlur5011" />
-    </filter>
-    <filter
-       inkscape:collect="always"
        id="filter5013">
       <feGaussianBlur
          inkscape:collect="always"
@@ -50,9 +42,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.48"
-     inkscape:cx="293.62632"
-     inkscape:cy="764.37196"
+     inkscape:zoom="0.87681241"
+     inkscape:cx="226.88459"
+     inkscape:cy="907.01589"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -69,7 +61,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -808,7 +800,7 @@
          x="694.88104"
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
          xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans;font-size:27.69675481px"
            y="87.043091"
            x="694.88104"
            id="tspan3786-8-57-1-6-2-4"

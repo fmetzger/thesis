@@ -13,7 +13,7 @@
    height="744.09448"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="lte-testbed.svg">
   <defs
      id="defs4" />
@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.87705101"
-     inkscape:cx="462.71902"
-     inkscape:cy="410.05959"
+     inkscape:zoom="1.2403374"
+     inkscape:cx="396.98779"
+     inkscape:cy="550.00647"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -63,321 +63,331 @@
          id="tspan4104"
          x="463.88889"
          y="235.69553" /></text>
-    <g
-       id="g5383"
-       transform="matrix(0.5,0,0,0.5,197.35978,137.8752)">
-      <rect
-         y="553.75208"
-         x="400.51077"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <rect
-         y="560.05865"
-         x="245.72182"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-2-0"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <rect
-         y="507.36456"
-         x="245.72182"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-4-6"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4131-3"
-         d="M 399.54753,579.8858 305.95214,526.3729"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7"
-         d="m 303.89811,581.8483 98.00874,-0.29283"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-2"
-         d="m 302.27103,636.85386 98.61379,-54.40605"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <rect
-         y="612.75275"
-         x="245.72182"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-2-0-8"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6"
-         y="683.77698"
-         x="385.56195"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="683.77698"
-           x="385.56195"
-           id="tspan3786-8-5-1"
-           sodipodi:role="line">eNodeB</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3"
-         y="688.5343"
-         x="248.09549"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="688.5343"
-           x="248.09549"
-           id="tspan3786-8-5-1-6"
-           sodipodi:role="line">UE</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2"
-         y="677.57733"
-         x="307.26501"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:20px"
-           y="677.57733"
-           x="307.26501"
-           id="tspan3786-8-5-1-6-8"
-           sodipodi:role="line">Radio</tspan><tspan
-           id="tspan4337"
-           style="font-size:20px"
-           y="702.57733"
-           x="307.26501"
-           sodipodi:role="line">Bearer</tspan></text>
-      <rect
-         y="560.75275"
-         x="86.010132"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-2-0-8-7"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-40"
-         d="m 143.95668,581.12951 100.90653,-0.29283"
-         style="fill:none;stroke:#000000;stroke-width:2.02935123;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-5"
-         y="680.57074"
-         x="187.88264"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4337-3"
-           style="font-size:20px"
-           y="680.57074"
-           x="187.88264"
-           sodipodi:role="line">IP</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-4"
-         y="676.8255"
-         x="75.686066"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="676.8255"
-           x="75.686066"
-           id="tspan3786-8-5-1-6-3"
-           sodipodi:role="line">tap/</tspan><tspan
-           id="tspan4435"
-           y="711.8255"
-           x="75.686066"
-           sodipodi:role="line">bridge</tspan></text>
-      <rect
-         y="553.75208"
-         x="609.10138"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9-8"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-1"
-         d="m 481.57074,578.11244 126.94688,-0.0332"
-         style="fill:none;stroke:#000000;stroke-width:2.0292542;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-5"
-         y="675.75238"
-         x="621.77966"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="675.75238"
-           x="621.77966"
-           id="tspan3786-8-5-1-5"
-           sodipodi:role="line">SGW/</tspan><tspan
-           id="tspan4494"
-           y="710.75238"
-           x="621.77966"
-           sodipodi:role="line">PGW</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-9"
-         y="679.06696"
-         x="514.95032"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:20px"
-           y="679.06696"
-           x="514.95032"
-           id="tspan3786-8-5-1-6-8-5"
-           sodipodi:role="line">EPS</tspan><tspan
-           id="tspan4337-9"
-           style="font-size:20px"
-           y="704.06696"
-           x="514.95032"
-           sodipodi:role="line">Bearer</tspan></text>
-      <rect
-         y="553.75208"
-         x="817.23492"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9-8-1"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-1-1"
-         d="m 689.70428,578.11244 126.94689,-0.0332"
-         style="fill:none;stroke:#000000;stroke-width:2.0292542;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-5-7"
-         y="672.29199"
-         x="820.55084"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4571"
-           y="672.29199"
-           x="820.55084"
-           sodipodi:role="line">tap/</tspan><tspan
-           id="tspan4575"
-           y="707.29199"
-           x="820.55084"
-           sodipodi:role="line">bridge</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-5-3"
-         y="677.86707"
-         x="755.41266"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4337-3-7"
-           style="font-size:20px"
-           y="677.86707"
-           x="755.41266"
-           sodipodi:role="line">IP</tspan></text>
-      <rect
-         y="553.75208"
-         x="1025.5056"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9-8-1-9"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-1-1-9"
-         d="m 897.97495,578.11244 126.94685,-0.0332"
-         style="fill:none;stroke:#000000;stroke-width:2.0292542;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-5-7-4"
-         y="675.40863"
-         x="1029.4976"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4645"
-           y="675.40863"
-           x="1029.4976"
-           sodipodi:role="line">lxc</tspan><tspan
-           id="tspan5007"
-           y="710.40863"
-           x="1029.4976"
-           sodipodi:role="line">shell</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-5-3-8"
-         y="674.10773"
-         x="950.90131"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4337-3-7-5"
-           style="font-size:20px"
-           y="674.10773"
-           x="950.90131"
-           sodipodi:role="line">IP</tspan></text>
-      <rect
-         y="561.72418"
-         x="-73.958084"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-2-0-8-7-5"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-40-6"
-         d="m -16.011545,582.10097 100.90654,-0.29283"
-         style="fill:none;stroke:#000000;stroke-width:2.02935123;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-4-6"
-         y="677.68683"
-         x="-84.78801"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4435-4"
-           y="677.68683"
-           x="-84.78801"
-           sodipodi:role="line">lxc</tspan><tspan
-           id="tspan5005"
-           y="712.68683"
-           x="-84.78801"
-           sodipodi:role="line">shell</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-5-0"
-         y="682.37836"
-         x="20.826176"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4337-3-3"
-           style="font-size:20px"
-           y="682.37836"
-           x="20.826176"
-           sodipodi:role="line">IP</tspan></text>
-      <rect
-         y="473.84052"
-         x="112.67768"
-         height="247.36588"
-         width="741.68005"
-         id="rect2987-5-3"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 8;stroke-dashoffset:0" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-1"
-         y="467.39328"
-         x="461.78735"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="467.39328"
-           x="461.78735"
-           id="tspan3786-8-57-15"
-           sodipodi:role="line">ns-3</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-8"
-         y="437.23615"
-         x="-287.41168"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan3052-3"
-           y="437.23615"
-           x="-287.41168"
-           sodipodi:role="line">Plan Step #1</tspan></text>
-    </g>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9"
+       width="39.38903"
+       height="24.34376"
+       x="397.61517"
+       y="414.75125" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-2-0"
+       width="28.525398"
+       height="19.035683"
+       x="320.2207"
+       y="417.90454" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-4-6"
+       width="28.525398"
+       height="19.035683"
+       x="320.2207"
+       y="391.5575" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 397.13355,427.8181 -46.7977,-26.75645"
+       id="path4131-3"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 349.30883,428.79935 49.00437,-0.14641"
+       id="path4133-7"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 348.49529,456.30213 49.3069,-27.20303"
+       id="path4133-7-2"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-2-0-8"
+       width="28.525398"
+       height="19.035683"
+       x="320.2207"
+       y="444.25159" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="390.14075"
+       y="479.7637"
+       id="text3784-1-9-6"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-5-1"
+         x="390.14075"
+         y="479.7637">eNodeB</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="321.40753"
+       y="482.14236"
+       id="text3784-1-9-6-3"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6"
+         x="321.40753"
+         y="482.14236">UE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="350.99228"
+       y="476.66388"
+       id="text3784-1-9-6-3-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6-8"
+         x="350.99228"
+         y="476.66388"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Radio</tspan><tspan
+         sodipodi:role="line"
+         x="350.99228"
+         y="489.16388"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337">Bearer</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-2-0-8-7"
+       width="28.525398"
+       height="19.035683"
+       x="240.36485"
+       y="418.25159" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.01467562;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 269.33812,428.43995 50.45326,-0.14641"
+       id="path4133-7-40"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="291.30112"
+       y="478.16058"
+       id="text3784-1-9-6-3-2-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="291.30112"
+         y="478.16058"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-3">IP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="235.20282"
+       y="476.28796"
+       id="text3784-1-9-6-3-4"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6-3"
+         x="235.20282"
+         y="476.28796">tap/</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="235.20282"
+         y="493.78796"
+         id="tspan4435">bridge</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9-8"
+       width="39.38903"
+       height="24.34376"
+       x="501.91046"
+       y="414.75125" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.0146271;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 438.14515,426.93142 63.47344,-0.0166"
+       id="path4133-7-1"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="508.2496"
+       y="475.7514"
+       id="text3784-1-9-6-5"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-5"
+         x="508.2496"
+         y="475.7514">SGW/</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="508.2496"
+         y="493.2514"
+         id="tspan4494">PGW</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="454.83493"
+       y="477.40869"
+       id="text3784-1-9-6-3-2-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6-8-5"
+         x="454.83493"
+         y="477.40869"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">EPS</tspan><tspan
+         sodipodi:role="line"
+         x="454.83493"
+         y="489.90869"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-9">Bearer</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9-8-1"
+       width="39.38903"
+       height="24.34376"
+       x="605.97723"
+       y="414.75125" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.0146271;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 542.21192,426.93142 63.47345,-0.0166"
+       id="path4133-7-1-1"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="607.63519"
+       y="474.02121"
+       id="text3784-1-9-6-5-7"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="607.63519"
+         y="474.02121"
+         id="tspan4571">tap/</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="607.63519"
+         y="491.52121"
+         id="tspan4575">bridge</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="575.0661"
+       y="476.80875"
+       id="text3784-1-9-6-3-2-5-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="575.0661"
+         y="476.80875"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-3-7">IP</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9-8-1-9"
+       width="39.38903"
+       height="24.34376"
+       x="710.11261"
+       y="414.75125" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.0146271;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 646.34726,426.93142 63.47342,-0.0166"
+       id="path4133-7-1-1-9"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="712.10858"
+       y="475.57953"
+       id="text3784-1-9-6-5-7-4"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="712.10858"
+         y="475.57953"
+         id="tspan4645">lxc</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="712.10858"
+         y="493.07953"
+         id="tspan5007">shell</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="672.81042"
+       y="474.92908"
+       id="text3784-1-9-6-3-2-5-3-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="672.81042"
+         y="474.92908"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-3-7-5">IP</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-2-0-8-7-5"
+       width="28.525398"
+       height="19.035683"
+       x="160.38074"
+       y="418.7373" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.01467562;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 189.35401,428.92568 50.45327,-0.14641"
+       id="path4133-7-40-6"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="154.96577"
+       y="476.71863"
+       id="text3784-1-9-6-3-4-6"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="154.96577"
+         y="476.71863"
+         id="tspan4435-4">lxc</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="154.96577"
+         y="494.21863"
+         id="tspan5005">shell</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="207.77287"
+       y="479.06439"
+       id="text3784-1-9-6-3-2-5-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="207.77287"
+         y="479.06439"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-3-3">IP</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2, 4;stroke-dashoffset:0"
+       id="rect2987-5-3"
+       width="370.84003"
+       height="123.68294"
+       x="253.69862"
+       y="374.79547" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="428.25345"
+       y="371.57184"
+       id="text3784-1-90-1"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-57-15"
+         x="428.25345"
+         y="371.57184">ns-3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="53.653938"
+       y="356.49329"
+       id="text3784-8"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="53.653938"
+         y="356.49329"
+         id="tspan3052-3">Plan Step #1</tspan></text>
     <g
        id="g5325"
        transform="matrix(0.5,0,0,0.5,196.10171,141.35059)">
@@ -434,7 +444,8 @@
            y="1029.1493"
            x="386.51587"
            id="tspan3786-8-5-1-7"
-           sodipodi:role="line">eNodeB</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">eNodeB</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3784-1-9-6-3-9"
@@ -445,7 +456,8 @@
            y="1033.9066"
            x="249.04941"
            id="tspan3786-8-5-1-6-1"
-           sodipodi:role="line">UE</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">UE</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3784-1-9-6-3-2-6"
@@ -453,13 +465,13 @@
          x="308.21893"
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
          xml:space="preserve"><tspan
-           style="font-size:20px"
+           style="font-size:20px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            y="1022.9496"
            x="308.21893"
            id="tspan3786-8-5-1-6-8-52"
            sodipodi:role="line">Radio</tspan><tspan
            id="tspan4337-4"
-           style="font-size:20px"
+           style="font-size:20px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            y="1047.9496"
            x="308.21893"
            sodipodi:role="line">Bearer</tspan></text>
@@ -483,7 +495,7 @@
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
          xml:space="preserve"><tspan
            id="tspan4337-3-0"
-           style="font-size:20px"
+           style="font-size:20px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            y="1025.943"
            x="188.83658"
            sodipodi:role="line">IP</tspan></text>
@@ -497,11 +509,13 @@
            y="1022.1978"
            x="76.639984"
            id="tspan3786-8-5-1-6-3-3"
-           sodipodi:role="line">tap/</tspan><tspan
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">tap/</tspan><tspan
            id="tspan4435-5"
            y="1057.1978"
            x="76.639984"
-           sodipodi:role="line">bridge</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">bridge</tspan></text>
       <rect
          y="899.12439"
          x="610.05536"
@@ -524,11 +538,13 @@
            y="1021.1247"
            x="622.73364"
            id="tspan3786-8-5-1-5-5"
-           sodipodi:role="line">SGW/</tspan><tspan
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">SGW/</tspan><tspan
            id="tspan4494-5"
            y="1056.1248"
            x="622.73364"
-           sodipodi:role="line">PGW</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">PGW</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3784-1-9-6-3-2-9-9"
@@ -536,13 +552,13 @@
          x="515.90424"
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
          xml:space="preserve"><tspan
-           style="font-size:20px"
+           style="font-size:20px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            y="1024.4392"
            x="515.90424"
            id="tspan3786-8-5-1-6-8-5-9"
            sodipodi:role="line">EPS</tspan><tspan
            id="tspan4337-9-3"
-           style="font-size:20px"
+           style="font-size:20px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            y="1049.4392"
            x="515.90424"
            sodipodi:role="line">Bearer</tspan></text>
@@ -568,11 +584,13 @@
            id="tspan4571-4"
            y="1017.6643"
            x="821.50482"
-           sodipodi:role="line">tap/</tspan><tspan
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">tap/</tspan><tspan
            id="tspan4575-7"
            y="1052.6643"
            x="821.50482"
-           sodipodi:role="line">bridge</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">bridge</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3784-1-9-6-3-2-5-3-4"
@@ -581,7 +599,7 @@
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
          xml:space="preserve"><tspan
            id="tspan4337-3-7-50"
-           style="font-size:20px"
+           style="font-size:20px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            y="1023.2394"
            x="756.36664"
            sodipodi:role="line">IP</tspan></text>
@@ -607,11 +625,13 @@
            id="tspan4575-2-8"
            y="1020.781"
            x="1030.4515"
-           sodipodi:role="line">Streaming</tspan><tspan
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Streaming</tspan><tspan
            id="tspan4645-2"
            y="1055.781"
            x="1030.4515"
-           sodipodi:role="line">Server</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Server</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3784-1-9-6-3-2-5-3-8-0"
@@ -620,7 +640,7 @@
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
          xml:space="preserve"><tspan
            id="tspan4337-3-7-5-8"
-           style="font-size:20px"
+           style="font-size:20px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            y="1019.4801"
            x="951.85529"
            sodipodi:role="line">IP</tspan></text>
@@ -646,15 +666,18 @@
            id="tspan4435-4-3"
            y="1023.0591"
            x="-129.83408"
-           sodipodi:role="line">emulated</tspan><tspan
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">emulated</tspan><tspan
            id="tspan5015"
            y="1058.0591"
            x="-129.83408"
-           sodipodi:role="line">streaming</tspan><tspan
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">streaming</tspan><tspan
            id="tspan5011"
            y="1093.0591"
            x="-129.83408"
-           sodipodi:role="line">client</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">client</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3784-1-9-6-3-2-5-0-2"
@@ -663,7 +686,7 @@
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
          xml:space="preserve"><tspan
            id="tspan4337-3-3-3"
-           style="font-size:20px"
+           style="font-size:20px;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            y="1027.7506"
            x="21.780123"
            sodipodi:role="line">IP</tspan></text>
@@ -684,7 +707,8 @@
            y="812.76562"
            x="462.74124"
            id="tspan3786-8-57-15-0"
-           sodipodi:role="line">ns-3</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">ns-3</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3784-0"
@@ -695,367 +719,379 @@
            id="tspan3052-1"
            y="819.4942"
            x="-284.89554"
-           sodipodi:role="line">Plan Step #2</tspan></text>
+           sodipodi:role="line"
+           style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Plan Step #2</tspan></text>
     </g>
-    <g
-       id="g5260"
-       transform="matrix(0.5,0,0,0.5,196.08616,137.87518)">
-      <rect
-         y="1286.6614"
-         x="401.49576"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9-6-9"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <rect
-         y="1292.9679"
-         x="246.70682"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-2-0-5-8"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <rect
-         y="1240.2738"
-         x="246.70682"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-4-6-2-0"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4131-3-7-9"
-         d="m 400.53253,1312.7951 -93.59539,-53.5129"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-403-0"
-         d="m 304.88311,1314.7576 98.00874,-0.2929"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-2-9-2"
-         d="m 303.25603,1369.7631 98.61379,-54.406"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <rect
-         y="1345.662"
-         x="246.70682"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-2-0-8-2-2"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-1-1"
-         y="1416.6863"
-         x="386.54691"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="1416.6863"
-           x="386.54691"
-           id="tspan3786-8-5-1-7-5"
-           sodipodi:role="line">eNodeB</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-9-4"
-         y="1421.4436"
-         x="249.08047"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="1421.4436"
-           x="249.08047"
-           id="tspan3786-8-5-1-6-1-9"
-           sodipodi:role="line">UE</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-6-3"
-         y="1410.4866"
-         x="308.25003"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:20px"
-           y="1410.4866"
-           x="308.25003"
-           id="tspan3786-8-5-1-6-8-52-8"
-           sodipodi:role="line">Radio</tspan><tspan
-           id="tspan4337-4-9"
-           style="font-size:20px"
-           y="1435.4866"
-           x="308.25003"
-           sodipodi:role="line">Bearer</tspan></text>
-      <rect
-         y="1293.662"
-         x="86.995148"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-2-0-8-7-8-9"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-40-4-6"
-         d="m 144.94168,1314.0388 100.90654,-0.2929"
-         style="fill:none;stroke:#000000;stroke-width:2.02935123;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-5-1-2"
-         y="1413.48"
-         x="188.86765"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4337-3-0-1"
-           style="font-size:20px"
-           y="1413.48"
-           x="188.86765"
-           sodipodi:role="line">IP</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-4-7-1"
-         y="1409.7347"
-         x="76.671051"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="1409.7347"
-           x="76.671051"
-           id="tspan3786-8-5-1-6-3-3-7"
-           sodipodi:role="line">tap/</tspan><tspan
-           id="tspan4435-5-2"
-           y="1444.7347"
-           x="76.671051"
-           sodipodi:role="line">bridge</tspan></text>
-      <rect
-         y="1286.6614"
-         x="610.08643"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9-8-7-1"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-1-6-5"
-         d="m 482.55574,1311.0217 126.94688,-0.033"
-         style="fill:none;stroke:#000000;stroke-width:2.0292542;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-5-74-1"
-         y="1408.6616"
-         x="622.76465"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4494-5-8"
-           y="1408.6616"
-           x="622.76465"
-           sodipodi:role="line">SGW</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-9-9-7"
-         y="1411.9762"
-         x="515.9353"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:20px"
-           y="1411.9762"
-           x="515.9353"
-           id="tspan3786-8-5-1-6-8-5-9-1"
-           sodipodi:role="line">EPS</tspan><tspan
-           id="tspan4337-9-3-9"
-           style="font-size:20px"
-           y="1436.9762"
-           x="515.9353"
-           sodipodi:role="line">Bearer</tspan></text>
-      <rect
-         y="1286.6614"
-         x="1030.22"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9-8-1-6-1"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-1-1-96-7"
-         d="m 690.68928,1311.0217 126.9469,-0.033"
-         style="fill:none;stroke:#000000;stroke-width:2.0292542;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-5-7-5-0"
-         y="1405.2013"
-         x="1033.5359"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4571-4-1"
-           y="1405.2013"
-           x="1033.5359"
-           sodipodi:role="line">tap/</tspan><tspan
-           id="tspan4575-7-9"
-           y="1440.2013"
-           x="1033.5359"
-           sodipodi:role="line">bridge</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-5-3-4-0"
-         y="1410.7764"
-         x="968.39783"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4337-3-7-50-3"
-           style="font-size:20px"
-           y="1410.7764"
-           x="968.39783"
-           sodipodi:role="line">IP</tspan></text>
-      <rect
-         y="1286.6614"
-         x="1238.4905"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9-8-1-9-2-2"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-1-1-9-0-4"
-         d="m 1110.96,1311.0217 126.9468,-0.033"
-         style="fill:none;stroke:#000000;stroke-width:2.0292542;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-5-7-4-2-4"
-         y="1408.318"
-         x="1242.4827"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4575-2-8-9"
-           y="1408.318"
-           x="1242.4827"
-           sodipodi:role="line">Streaming</tspan><tspan
-           id="tspan4645-2-0"
-           y="1443.318"
-           x="1242.4827"
-           sodipodi:role="line">Server</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-5-3-8-0-3"
-         y="1407.0171"
-         x="1163.8865"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4337-3-7-5-8-2"
-           style="font-size:20px"
-           y="1407.0171"
-           x="1163.8865"
-           sodipodi:role="line">IP</tspan></text>
-      <rect
-         y="1294.6334"
-         x="-72.973053"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-2-0-8-7-5-1-0"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-40-6-3-2"
-         d="M -15.02654,1315.0102 85.88,1314.7174"
-         style="fill:none;stroke:#000000;stroke-width:2.02935123;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-4-6-6-1"
-         y="1410.5961"
-         x="-129.80301"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4435-4-3-7"
-           y="1410.5961"
-           x="-129.80301"
-           sodipodi:role="line">emulated</tspan><tspan
-           id="tspan5015-7"
-           y="1445.5961"
-           x="-129.80301"
-           sodipodi:role="line">streaming</tspan><tspan
-           id="tspan5011-5"
-           y="1480.5961"
-           x="-129.80301"
-           sodipodi:role="line">client</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-5-0-2-8"
-         y="1415.2876"
-         x="21.811188"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4337-3-3-3-4"
-           style="font-size:20px"
-           y="1415.2876"
-           x="21.811188"
-           sodipodi:role="line">IP</tspan></text>
-      <rect
-         y="1206.7498"
-         x="116.64866"
-         height="247.36588"
-         width="951.72363"
-         id="rect2987-5-3-2-7"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 8;stroke-dashoffset:0" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-1-9-0"
-         y="1200.3026"
-         x="462.77231"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           y="1200.3026"
-           x="462.77231"
-           id="tspan3786-8-57-15-0-1"
-           sodipodi:role="line">ns-3</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-0-0"
-         y="1207.0311"
-         x="-284.86444"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan3052-1-2"
-           y="1207.0311"
-           x="-284.86444"
-           sodipodi:role="line">Plan Step #3</tspan></text>
-      <rect
-         y="1287.8002"
-         x="820.46027"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-9-8-7-1-0"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-5-74-1-3"
-         y="1409.8004"
-         x="833.13849"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           id="tspan4494-5-8-3"
-           y="1409.8004"
-           x="833.13849"
-           sodipodi:role="line">PGW</tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         id="path4133-7-1-1-96-7-1"
-         d="m 901.06308,1312.1605 126.94692,-0.033"
-         style="fill:none;stroke:#000000;stroke-width:2.0292542;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6-3-2-9-9-7-4"
-         y="1397.1425"
-         x="720.25348"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:20px"
-           y="1397.1425"
-           x="720.25348"
-           id="tspan3786-8-5-1-6-8-5-9-1-0"
-           sodipodi:role="line">EPS</tspan><tspan
-           id="tspan4337-9-3-9-3"
-           style="font-size:20px"
-           y="1422.1425"
-           x="720.25348"
-           sodipodi:role="line">Bearer</tspan><tspan
-           id="tspan5258"
-           style="font-size:20px"
-           y="1447.1425"
-           x="720.25348"
-           sodipodi:role="line">+ GTP-C</tspan></text>
-    </g>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9-6-9"
+       width="39.38903"
+       height="24.34376"
+       x="396.83405"
+       y="781.20587" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-2-0-5-8"
+       width="28.525398"
+       height="19.035683"
+       x="319.43958"
+       y="784.35913" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-4-6-2-0"
+       width="28.525398"
+       height="19.035683"
+       x="319.43958"
+       y="758.01208" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 396.35243,794.27273 -46.7977,-26.75645"
+       id="path4131-3-7-9"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 348.52771,795.25398 49.00437,-0.14645"
+       id="path4133-7-403-0"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 347.71417,822.75673 49.3069,-27.203"
+       id="path4133-7-2-9-2"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-2-0-8-2-2"
+       width="28.525398"
+       height="19.035683"
+       x="319.43958"
+       y="810.70618" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="389.35962"
+       y="846.21832"
+       id="text3784-1-9-6-1-1"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-7-5"
+         x="389.35962"
+         y="846.21832">eNodeB</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="320.6264"
+       y="848.59698"
+       id="text3784-1-9-6-3-9-4"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6-1-9"
+         x="320.6264"
+         y="848.59698">UE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="350.21118"
+       y="843.11847"
+       id="text3784-1-9-6-3-2-6-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6-8-52-8"
+         x="350.21118"
+         y="843.11847"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Radio</tspan><tspan
+         sodipodi:role="line"
+         x="350.21118"
+         y="855.61847"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-4-9">Bearer</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-2-0-8-7-8-9"
+       width="28.525398"
+       height="19.035683"
+       x="239.58374"
+       y="784.70618" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.01467562;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 268.557,794.89458 50.45327,-0.14645"
+       id="path4133-7-40-4-6"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="290.51999"
+       y="844.61517"
+       id="text3784-1-9-6-3-2-5-1-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="290.51999"
+         y="844.61517"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-3-0-1">IP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="234.42169"
+       y="842.74255"
+       id="text3784-1-9-6-3-4-7-1"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6-3-3-7"
+         x="234.42169"
+         y="842.74255">tap/</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="234.42169"
+         y="860.24255"
+         id="tspan4435-5-2">bridge</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9-8-7-1"
+       width="39.38903"
+       height="24.34376"
+       x="501.12936"
+       y="781.20587" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.0146271;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 437.36403,793.38603 63.47344,-0.0165"
+       id="path4133-7-1-6-5"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="507.46848"
+       y="842.20599"
+       id="text3784-1-9-6-5-74-1"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="507.46848"
+         y="842.20599"
+         id="tspan4494-5-8">SGW</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="454.0538"
+       y="843.86328"
+       id="text3784-1-9-6-3-2-9-9-7"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6-8-5-9-1"
+         x="454.0538"
+         y="843.86328"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">EPS</tspan><tspan
+         sodipodi:role="line"
+         x="454.0538"
+         y="856.36328"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-9-3-9">Bearer</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9-8-1-6-1"
+       width="39.38903"
+       height="24.34376"
+       x="711.19617"
+       y="781.20587" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.0146271;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 541.4308,793.38603 63.47345,-0.0165"
+       id="path4133-7-1-1-96-7"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="712.85413"
+       y="840.47583"
+       id="text3784-1-9-6-5-7-5-0"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="712.85413"
+         y="840.47583"
+         id="tspan4571-4-1">tap/</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="712.85413"
+         y="857.97583"
+         id="tspan4575-7-9">bridge</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="680.2851"
+       y="843.26337"
+       id="text3784-1-9-6-3-2-5-3-4-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="680.2851"
+         y="843.26337"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-3-7-50-3">IP</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9-8-1-9-2-2"
+       width="39.38903"
+       height="24.34376"
+       x="815.33142"
+       y="781.20587" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.0146271;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 751.56616,793.38603 63.4734,-0.0165"
+       id="path4133-7-1-1-9-0-4"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="817.32751"
+       y="842.03418"
+       id="text3784-1-9-6-5-7-4-2-4"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="817.32751"
+         y="842.03418"
+         id="tspan4575-2-8-9">Streaming</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="817.32751"
+         y="859.53418"
+         id="tspan4645-2-0">Server</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-2-0-8-7-5-1-0"
+       width="28.525398"
+       height="19.035683"
+       x="159.59964"
+       y="785.19189" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.01467562;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 188.57289,795.38028 50.45327,-0.1464"
+       id="path4133-7-40-6-3-2"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="131.18466"
+       y="843.17322"
+       id="text3784-1-9-6-3-4-6-6-1"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="131.18466"
+         y="843.17322"
+         id="tspan4435-4-3-7">emulated</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="131.18466"
+         y="860.67322"
+         id="tspan5015-7">streaming</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="131.18466"
+         y="878.17322"
+         id="tspan5011-5">client</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="206.99176"
+       y="845.51898"
+       id="text3784-1-9-6-3-2-5-0-2-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="206.99176"
+         y="845.51898"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-3-3-3-4">IP</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2, 4;stroke-dashoffset:0"
+       id="rect2987-5-3-2-7"
+       width="475.86182"
+       height="123.68294"
+       x="254.41049"
+       y="741.25006" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="427.47232"
+       y="738.02649"
+       id="text3784-1-90-1-9-0"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         id="tspan3786-8-57-15-0-1"
+         x="427.47232"
+         y="738.02649">ns-3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="53.653938"
+       y="741.39075"
+       id="text3784-0-0"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="53.653938"
+         y="741.39075"
+         id="tspan3052-1-2">Plan Step #3</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-9-8-7-1-0"
+       width="39.38903"
+       height="24.34376"
+       x="606.31628"
+       y="781.77527" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="612.6554"
+       y="842.77539"
+       id="text3784-1-9-6-5-74-1-3"
+       sodipodi:linespacing="125%"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         sodipodi:role="line"
+         x="612.6554"
+         y="842.77539"
+         id="tspan4494-5-8-3">PGW</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.0146271;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 646.6177,793.95543 63.47346,-0.0165"
+       id="path4133-7-1-1-96-7-1"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="556.21289"
+       y="836.44641"
+       id="text3784-1-9-6-3-2-9-9-7-4"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-5-1-6-8-5-9-1-0"
+         x="556.21289"
+         y="836.44641"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">EPS</tspan><tspan
+         sodipodi:role="line"
+         x="556.21289"
+         y="848.94641"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-9-3-9-3">Bearer</tspan><tspan
+         sodipodi:role="line"
+         x="556.21289"
+         y="861.44641"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan5258">+ GTP-C</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="777.93207"
+       y="842.95685"
+       id="text3784-1-9-6-3-2-5-3-4-0-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="777.93207"
+         y="842.95685"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4337-3-7-50-3-7">IP</tspan></text>
   </g>
 </svg>
