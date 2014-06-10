@@ -41,7 +41,7 @@ cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
 
 
 p <- ggplot(df, aes(x=year, y=traffic, fill =as.factor(type))) + geom_bar(stat="identity")
-p <- p + scale_x_continuous(breaks = year) + ylab("traffic (exabyte per month)")
+p <- p + scale_x_continuous(breaks = year) + ylab("traffic (exabytes per month)")
 p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans Narrow", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
