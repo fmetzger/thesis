@@ -113,8 +113,14 @@ label_full_name <- function(variable, values) {
   sprintf("%s instances", as.character(values))
 }
 
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
 p <- ggplot(dfsub, aes(x = as.factor(max.tunnels), y = block.prob.mean, ymin = block.prob.left, ymax = block.prob.right, color = startstop.levels, group = startstop.levels))
 p <- p + geom_point(size=2) + geom_line() + geom_errorbar(width=0.1) + geom_line()
 p <- p + scale_x_discrete(name = "individual instance tunnel capacity") + scale_y_continuous(name = "blocking probability")
-p +  theme(text = element_text(family="Liberation Sans Narrow", size=20)) + labs(colour = "start/stop\nduration") 
+p <- p + scale_color_manual(values=cbPalette)
+p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + labs(colour = "start/stop\nduration") 
+p
+
 ggsave("compare-maxinstances-block.pdf", width=12, height=10, useDingbats=F)
+

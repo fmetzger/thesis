@@ -68,7 +68,7 @@ All the individual tunnel durations in the dataset are differentiated based on t
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{images/R-tunnel-duration-device-type.pdf}
+    \includegraphics[width=0.9\textwidth]{images/R-tunnel-duration-device-type.pdf}
     \caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at \SI{115}{\second} (total), \SI{31}{\second} (regular), \SI{82}{\second} (smartphone), and \SI{1207}{\second} (dongle)}
     \label{c4:fig:cdf-duration-device-class}
 \end{figure}
@@ -93,7 +93,7 @@ Another distinct step at \SI{30}{\minute} in the total and smartphone distributi
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=1.0\textwidth]{images/R-tunnel-duration-operating-system.pdf}
+    \includegraphics[width=0.9\textwidth]{images/R-tunnel-duration-operating-system.pdf}
     \caption{Tunnel duration cumulative distribution function, separated for select \glspl{os}; Medians at \SI{115}{\second} (total), \SI{15.5}{\second} (symbian), \SI{104}{\second} (iOS), and \SI{765}{\second} (android)}
     \label{c4:fig:cdf-duration-os}
 \end{figure}
@@ -205,7 +205,7 @@ Here, the tunnel arrival process is investigated with both approaches. This also
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/create_freq.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-create-frequency.pdf}
 	\caption{Tunnel arrivals histogram overlaid with a density plot.}
 	\label{c4:fig:freq-arrivals}
 \end{figure}
@@ -272,7 +272,6 @@ This effect becomes more peculiar when the tunnel arrivals are further broken do
 The discrimination of the \gls{IAT} distribution by \gls{RAT} that was used during the creation of the tunnel reveals no further information. Due to the much lower number of connections the \gls{GPRS} distributions are shifted to much higher intervals than the \gls{UMTS} specific distributions.
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\texorpdfstring{\acrshort{gtp}}{GTP} Tunnel Message Processing Time}
 
@@ -288,7 +287,7 @@ The trace contains roughly two orders of magnitude more update messages than eit
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-update-time-cdfs.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-update-time-cdfs.pdf}
 	\caption{\glspl{ECDF} of the time in seconds it takes a \gls{GGSN} to process a \gls{gtp} update event, plotted for each hour of the day.}
 	\label{c4:fig:update-time}
 \end{figure}
@@ -313,7 +312,7 @@ The uncovered empirical distributions for both the tunnel duration and the tunne
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\columnwidth]{images/R-IAT-ecdfs.pdf}
+    \includegraphics[width=0.9\textwidth]{images/R-IAT-ecdfs.pdf}
     \caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
     \label{c4:fig:IAT-cdfs}
 \end{figure}
@@ -324,7 +323,7 @@ The goodness of these fits was checked both visually using the \glspl{CDF} plots
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=1.0\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
+  \includegraphics[width=0.9\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
   \caption{Empirical and exponentially fitted \glspl{CDF} of the tunnel interarrival duration by time of day. \glspl{CDF} are overlapping as the coefficient of determination is close to $1$.}
   \label{c4:fig:pdparrivalsecdf}
 \end{figure}
