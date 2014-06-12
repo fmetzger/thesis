@@ -180,17 +180,17 @@ Looking closer at the smartphone category, Q-Q plots of the two major \glspl{os}
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/stacked-durations-2-fixed.pdf}
-    \caption{Stacked logarithmic histogram of the number of tunnels with duration in this bin; classified by Android, iOS and 3G dongles.}
-    \label{c4:fig:stacked-durations}
+    \includegraphics[width=0.9\textwidth]{images/R-duration-classification-density.pdf}
+    \caption{Logscale density plot of the tunnel duration with all classifications.}
+    \label{c4:fig:durations-density}
 \end{figure}
 
 
-Figure~\ref{c4:fig:stacked-durations} attempts to depict where in their distributions the investigated device categories show the most impact on the total distribution. The plot shows a stacked histogram of the relative number of tunnels by device type with smartphones split up into Android and iOS.
+Figure~\ref{c4:fig:durations-density} attempts to depict where in their distributions the investigated device categories show the most impact on the total distribution. The plot shows the density of all previously investigated device influence categories.
 
-It is evident that the durations are not evenly distributed, but rather follow sharp spikes. The largest spike across all categories is the one at a duration of \SI{30}{\minute}, making up about \SI{1.8}{\percent} of all tunnels in the network. Since this spike happens across all device types, it makes a rather strong case for being induced by the network. On the other hand, the bulk of tunnel durations in the short-to-medium range does not seem to be governed by the two major smartphone operation systems but by other devices in the network, which do not show major spikes in other bins.
+It is evident that the durations are not evenly distributed, but rather follow sharp spikes. One of largest spike across all categories is the one at a duration of \SI{30}{\minute}, with about \SI{1.8}{\percent} of all tunnels in the network falling into that region. Since this spike happens across all device types, it makes a rather strong case for being induced by the network. On the other hand, the bulk of tunnel durations in the short-to-medium range does not seem to be governed by the two major smartphone operation systems but by other devices in the network, which do not show major spikes in other bins.
 
-Besides the long-tailed behavior in the upper tail of the tunnel durations another accumulation effect repeating itself every \SIrange{6}{7}{\day}, which was not visible in the \gls{ECDF} plots of the distributions. This phenomenon is as yet of unknown origin and does not coincide with any known timers of the \gls{3G} mobile network.
+Besides the long-tailed behavior in the upper tail of the tunnel durations another slight accumulation effect, repeating itself every \SIrange{6}{7}{\day}, is present in the upper tail. This phenomenon is as yet of unknown origin and does not coincide with any known timers of the \gls{3G} mobile network.
 
 It can be concluded that the planning and dimensioning of the control plane needs to watch the behavior of smartphones more carefully than that device types.
 
