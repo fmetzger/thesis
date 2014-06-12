@@ -105,11 +105,15 @@ levels(dfsub$startstop.levels) <- c("20s","1min","2min","3min","4min","5min")
 dfsub$instances.levels <- factor(dfsub$max.instances, levels=c(10,20,70,100), ordered=T)
 levels(dfsub$instances.levels) <- c("10 instances", "20 instances", "70 instances", "100 instances")
 
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
 
 ## blocking probability barchart
 p <- ggplot(dfsub, aes(x= max.tunnels, y= block.prob.mean, ymax = block.prob.right, ymin=block.prob.left, fill=startstop.levels))
 p <- p + geom_bar(stat="identity", position="dodge", width=10) + geom_errorbar(position="dodge", width=10)
 p <- p + facet_wrap(~ instances.levels, scales="free_x") + scale_y_continuous(limits=c(0,1))
-p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("blocking probability") + xlab("individual instance tunnel capacity") + guides(fill=guide_legend("start/stop\nduration"))
+p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("blocking probability") + xlab("individual instance tunnel capacity") + guides(fill=guide_legend("start/stop\nduration"))
+p <- p + scale_fill_manual(values=cbPalette)
+p
 ggsave("R-virtualized-startstop-blocking-barchart.pdf", width=12, height=10, useDingbats=F)
-
+embed_fonts("R-virtualized-startstop-blocking-barchart.pdf")

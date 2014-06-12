@@ -112,9 +112,16 @@ label_full_name <- function(variable, values) {
   sprintf("%s instances", as.character(values))
 }
 
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+
 p <- ggplot(dfsub, aes(x = res.util.mean,y = block.prob.mean,shape = as.factor(max.tunnels), color = startstop.levels))
 p <- p + geom_point(size=4) + facet_grid(~ max.instances, labeller = label_full_name)
 p <- p + scale_x_continuous(name = "concurrent tunnels served on average") + scale_y_log10(name = "blocking probability")
 p <- p + scale_shape(name = "individual instance\ntunnel capacity", solid=T, guide = guide_legend(nrow = 3))
-p + labs(colour = "start/stop duration") + theme(text = element_text(family="Liberation Sans Narrow", size=20)) 
+p <- p + scale_color_manual(values=cbPalette)
+p <- p + labs(colour = "start/stop duration") + theme(text = element_text(family="Liberation Sans Narrow", size=20)) 
+p
+
 ggsave("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf", width=12, height=6, useDingbats=F)
+embed_fonts("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf")

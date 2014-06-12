@@ -26,6 +26,7 @@ p <- p + scale_color_manual(values=cbPalette, name="playback strategies", breaks
 p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
 p
 ggsave("R-playbackemulation-stallduration-loss.pdf", width=12, height=10, useDingbat=F)
+embed_fonts("R-playbackemulation-stallduration-loss.pdf")
 
 
 p <- ggplot(dloss, aes(x=qosvalue, y=stall_count, color=as.factor(strat)))
@@ -35,6 +36,7 @@ p <- p + scale_color_manual(values=cbPalette, name="playback strategies", breaks
 p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
 p
 ggsave("R-playbackemulation-stallnumber-loss.pdf", width=12, height=10, useDingbat=F)
+embed_fonts("R-playbackemulation-stallnumber-loss.pdf")
 
 
 p <- ggplot(dlatency, aes(x=qosvalue, y=relativestall, color=as.factor(strat)))
@@ -44,6 +46,7 @@ p <- p + scale_color_manual(values=cbPalette, name="playback strategies", breaks
 p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
 p 
 ggsave("R-playbackemulation-stallduration-latency.pdf", width=12, height=10, useDingbat=F)
+embed_fonts("R-playbackemulation-stallduration-latency.pdf")
 
 p <- ggplot(dlatency, aes(x=qosvalue, y=stall_count, color=as.factor(strat)))
 p <- p+ stat_smooth(method="loess",  fullrange=T, size=1, se=T, lty=2) + stat_summary(fun.y = mean, geom="point", size=4) + stat_summary(fun.data="mean_cl_boot", geom="errorbar")
@@ -52,3 +55,4 @@ p <- p + scale_color_manual(values=cbPalette, name="playback strategies", breaks
 p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
 p 
 ggsave("R-playbackemulation-stallnumber-latency.pdf", width=12, height=10, useDingbat=F)
+embed_fonts("R-playbackemulation-stallnumber-latency.pdf")
