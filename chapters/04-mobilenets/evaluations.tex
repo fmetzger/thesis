@@ -129,54 +129,26 @@ In addition to device factors, diurnal effects could also play a role in the dur
 %%
 \paragraph{Influence of Other Factors}
 
-Unfortunately, with the trace at hand other influence factors are hard to distinguish, sometimes even impossible. Some factors are unknown in a \gls{CN} perspective, as the mentioned device baseband, while others have not been recorded in the trace.
+Unfortunately, with the trace at hand, other influence factors are hard to distinguish, sometimes even impossible. Some factors are unknown in a \gls{CN} perspective, as the mentioned device baseband, while others have not been recorded in the trace.
 Theoretically it is possible to investigate the \gls{RAT} as it is an \gls{IE} in the \gls{gtp} messages and also recorded in the trace. The radio access parts of \gls{GSM} and \gls{UMTS} are completely different --- including the \gls{RRC} state machines which were depicted in Figure~\ref{c4:fig:mmstatemodel} --- and therefore could also differ in their control plane load impact on the core. However, the \gls{RAT} \gls{IE} is optional and only set in less than \SI{1}{\percent} of the available records. As the radio access can change even during an existing tunnel --- in which case the \gls{GGSN} receives a \gls{gtp} update request informing the node about the change --- a complete picture without gaps is required to do any investigation on this.
-
 
 
 %%
 \paragraph{Influence Strength of the Categories}
 
 \begin{figure}[htb]
-        \centering
-        \begin{subfigure}[b]{0.50\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/qq-total-vs-dongle.pdf}
-            \caption{3G Dongle duratio over the total duration.}
-            \label{c4:fig:qq-total-vs-dongle}
-        \end{subfigure}%
-        ~
-        \begin{subfigure}[b]{0.50\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/qq-total-vs-smartphone.pdf}
-            \caption{Smartphone duration over the total duration.}
-            \label{c4:fig:qq-total-vs-smartphones}
-        \end{subfigure}
-
-        \begin{subfigure}[b]{0.50\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/qq-total-vs-android.pdf}
-            \caption{Android duration over the total duration.}
-            \label{c4:fig:qq-total-vs-android}
-        \end{subfigure}%
-        ~
-        \begin{subfigure}[b]{0.50\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/qq-total-vs-ios.pdf}
-            \caption{iOS duration over the total duration.}
-            \label{c4:fig:qq-total-vs-ios}
-        \end{subfigure}
- \caption{Q-Q Plots of the tunnel duration distributions per operating system, with highlighted deciles.}
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/R-duration-qq-category-comparison.pdf}
+    \caption{Q-Q Plots of the tunnel duration distributions in comparison to device classification categories.}
 \label{c4:fig:qq-plots}
 \end{figure}
 
 
 To ascertain which of the investigated device categories influences the total duration distribution most Q-Q plots are created and investigated. It is conjectured, that the amount of influence on the duration distribution is correlated to the influence on the control plane load. In theory, if both durations follow the same distribution, one expects a straight diagonal $y=x$ line through the origin. A steeper incline indicates more compact regions in the distribution plotted on the $x$ axis and vice verse.
 
-The first set of Q-Q plots compares the influence of device types on the total tunnel duration. Representing this category, smartphones and \gls{3G} dongles are selected and displayed in Figures~\ref{c4:fig:qq-total-vs-smartphones} and \ref{c4:fig:qq-total-vs-dongle}.
-It can be observed, that the smartphone duration distribution is almost equally distributed as the total except for minor variations. However, the \gls{3G} dongle tunnel durations follow a very different distribution. Their effect on the total duration distribution seems to be negligible despite the  large amount of traffic they are causing. This is also a first indicator, that smartphones might have a larger impact on signaling than other device types.
+The Q-Q plots in Figure~\ref{c4:fig:qq-plots} compare the total tunnel duration distribution to the duration distribution of the dongle, smartphone, Android, and iOS classification cateogries. It can be observed, that the smartphone duration distribution is distributed almost equally to the total except for minor variations. However, the \gls{3G} dongle tunnel durations follow a very different distribution. Their effect on the total duration distribution seems to be negligible despite the  large amount of traffic they are causing. This is also a first indicator, that smartphones might have a larger impact on signaling than other device types.
 
-Looking closer at the smartphone category, Q-Q plots of the two major \glspl{os} are investigated. While Figure~\ref{c4:fig:qq-total-vs-android} depicts the Q-Q plot of Android tunnel durations against the total tunnel duration distribution,  Figure~\ref{c4:fig:qq-total-vs-ios} displays the iOS comparison. With the exception of the large below \SI{2}{\second} peak in the lower tail of the distribution, iOS device tunnel durations are very similar to the overall tunnel duration distribution. The same can not be said about the Android distribution, which deviates somewhat in the distribution's center but is similar to the total distribution in the upper tail. Even devices with just a different \glspl{os} seem to strongly differ in their influence on duration distribution and therefore on signaling.
+Looking closer at the smartphone category, Q-Q plots of the two major \glspl{os} are investigated. With the exception of the large below \SI{2}{\second} peak in the lower tail of the distribution, iOS device tunnel durations are very similar to the overall tunnel duration distribution. The same can not be said about the Android distribution, which deviates somewhat in the distribution's center but is similar to the total distribution in the upper tail. Even devices with just a different \glspl{os} seem to strongly differ in their influence on duration distribution and therefore on signaling.
 
 \begin{figure}[htb]
     \centering

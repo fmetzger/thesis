@@ -10,6 +10,9 @@ st_ios <- scan("/home/fm/svn/ursa/out/duration_ios", dec=".")
 st_android <- scan("/home/fm/svn/ursa/out/duration_android", dec=".")
 
 
+
+
+
 # take 1% samples for easier handling
 servingtimes_sampled <- sample(servingtimes, length(servingtimes)*0.005) # take a sample to not need to work with the whole dataset
 st_dongle_sampled <- sample(st_dongle, length(st_dongle)*0.005)
