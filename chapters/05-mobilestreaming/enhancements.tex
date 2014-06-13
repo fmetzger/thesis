@@ -15,67 +15,39 @@ Superficially not much has changed in the Web's protocol stack. There is still \
 
 Each protocol, representing a layer in the stack, characteristically contributes to influencing data transmissions and varies in its degree of impact on the network as well as the intended goal of the transmission (e.g., streaming and watching a video).
 
-Time scales
-
-
 
 %%%% NSN insert
-Associated with each layer, and with the actual application running on top of the stack as well, are different timing constraints or time constants of control. Figure~\ref{c5:fig:timescales} overviews the approximate time scales on which activities take place, spanning a remarkable range of twelve orders of magnitude.
-To appraise the complexity introduced by stacking multiple layers on top of one another, consider that many layers introduce their own notion of control. Multiple layers might implement the same or similar functionality, e.g. flow control in the application and on transport layer, leading to nested control loops, which might be coupled due to the timing constraints. As such, the aim of this deliverable is to provide a methodology that identifies influencing factors on the user experience, and quantifies the relative impact of these factors.
-
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/layer-timescales.pdf}
+	\includegraphics[width=1.0\textwidth]{images/layer-timescales.pdf}
 	\caption{Approximate discernible time scales the network layer protocols operate on.}
 \label{c5:fig:timescales}
 \end{figure}
 
+
+Associated with each layer, and with the actual application running on top of the stack as well, are different timing constraints or time constants of control. Figure~\ref{c5:fig:timescales} overviews the approximate time scales on which activities take place, spanning a remarkable range of twelve orders of magnitude.
+To appraise the complexity introduced by stacking multiple layers on top of one another, consider that many layers introduce their own notion of control. Multiple layers might implement the same or similar functionality, e.g., flow control in the application and on transport layer, leading to nested control loops, which might be coupled due to the timing constraints.
+
+
 %Mobile Network Influences
-From the perspective of end-user \gls{IP}, \gls{LTE} represents yet another host-to-network technology that transports packets. Still, there are effects of wireless technology and mobile network specific behavior that differ from the wireline notion of a ``dumb'' underlying bit pipe.
+From the top layer end-to-end perspective, the mobile network protocols simply represent more protocol layers in the data path. Still, there are effects of wireless technology and mobile network specific behavior that differ from the wired notion of a ``dumb'' underlying bit pipe.
 On one side, there are typical effects of wireless connectivity relating to physical phenomena like fading and interference. Flaky radio connectivity is a major source of packet loss and excessive delay. Then, the technological progress enables both handsets and the network to become faster: Comparing the delay budgets given by for \gls{HSDPA} respectively, it is seen that the delay caused by processing on the mobile terminals decreased by a factor of 30, and that the core network has become faster by an order of magnitude as well. \cite{laner2011dissecting3gdelay} has additional information on the delay budgets per network entity, varying the packet size as the parameter.
-\gls{LTE} also makes heavy use of the concept of bearers, a type of tunnel through the mobile network associated with quality levels and policy control. Although the bearer concept already exists in \gls{UMTS}, operators seem cautious to configure other bearers than the default one, and support by handsets is not widespread either. The \gls{LTE} bearer setup procedure is sufficiently lengthy to be measurable and influence packet delay on initiating connections \cite{arlos2010packetsizedelayinfluence}. 
-For reasons of radio spectrum efficiency, applications with long patterns of inactivity may be scheduled to not use \gls{HSDPA}. This also causes measurable additional delay for applications.
-There are lots of controls for mobile operators to engineer traffic flows in their networks. In \cite{sigcomm11middleboxes}, the authors show artifacts relating to port and network address translation (commonly subsumed under ``NAT''), firewalling, IP address assignment etc. Operators can also employ traffic engineering on backhaul links, and use policies to better support (or regulate) specific services for specific users or user groups, schedule traffic at different times of the day, etc.
+The \gls{3G} bearer and user traffic tunnel setup procedure is sufficiently lengthy to be measurable and influence packet delay on initiating connections \cite{arlos2010packetsizedelayinfluence}. 
 
-%Transport Protocol Influences
-The application and associated application-layer protocols dictate certain requirements on the transport protocol to be used. The two most widely used transport protocols are \gls{TCP} and \gls{UDP}.
-\gls{TCP} implements a number of elaborate mechanisms to establish and tear down connections, deliver data to the application in sequential order, conceal loss on the network layer, adapt its bandwidth usage to the capabilities of the other endpoint (flow control) and the network (congestion control), and share bandwidth fairly through a distributed control algorithm. Furthermore, its notion of ports adds a layer of addresses on top of the network layer.
-\gls{UDP} also supports port numbers, but does not include any of the other mechanisms \gls{TCP} has. This spurs the common misconception that \gls{UDP} is the ``faster'' transport protocol. In fact, all packet types are subject to the same round-trip time, independent of the transport protocol used. Delays in the delivery of data to the upper layer occur in \gls{TCP} when segments are considered lost in transmission. \gls{TCP} retransmits the lost segments, causing the round-trip time to spike temporarily. In the case of \gls{UDP}, the application layer handles (or ignores) packet loss. If loss is treated, the same performance limitations like for \gls{TCP} apply.
-\gls{TCP}'s method of detecting loss deserves description as well. Segments are considered lost if either ACKs for the preceding and succeeding segments were received (SACKs), or the ACK for the segment is overdue, causing a timeout. Thus, \gls{TCP} cannot discriminate loss of ACK segments from actual packet loss, nor does its assumption of loss hold in the face of highly varying delays, i.e. jitter, as typically found in mobile networks.
-
-%Application Layer Protocols
-There exists a diversity of streaming applications and associated application-layer protocols, each supporting to differing degrees certain types of streaming, and each having its own set of requirements:
-\begin{itemize}
-\item Content type --- Pre-generated (as for example in case of video sharing web sites) or live (e.g. televised sports events, news feeds)
-\item Codec --- adaptive, variable, or constant media bitrate
-\item Playback control and quality feedback --- client/server-side, implicit/explicit
-\end{itemize}
-Adhering to the design space limits present on the Internet, most innovation takes place on the application layer.
-
-%Application Behavior
-As indicated in Figure~\ref{c5:fig:timescales}, the time scale on which streaming applications buffer content lie in the range of seconds. This is a necessity in a best-effort network, as the available network bitrate might drop unexpectedly and could drain a shallower buffer quickly. On the other hand, given sufficient bandwidth or even bandwidth guarantees as demanded in \gls{LTE}, buffer sizes could be reduced, improving interactivity of the stream and enabling closer-to-realtime live streaming or conferencing.
-Buffering and playback strategies in current applications are such a pivotal point in the operation of video streaming in mobile networks. The application behavior represents a trade-off between different types of perceivable artifacts --- initial startup delay, stalls, (partial) media skips (e.g. continuous audio, but skipping video), and quality adaption.
-
-%Cross-Layer Influences
-Layered network models often assume the functional separation of network layers. The timescales shown in Figure~\ref{c5:fig:timescales} partly support this notion, but also show that there are conflicts in the speed of control loops that can be implemented. Indeed, actual protocols and hardware need to be aware of and often explicitly exploit cross-layer influences and information flow.
-\gls{TCP} is an example for this: Its tracking of a congestion window reflects not the state of the transport, but of the network and lower layers. Congestion is assumed by \gls{TCP} if segments are lost (or unduly delayed) below the transport layer. Consequently, if loss happens on the lower layers for reasons other than congestion, \gls{TCP} reacts in an inappropriate way. As indicated in the previous section, loss and delay spikes may have many root causes in a wireless network, and loss might be concealed altogether through lower-layer retransmission methods.
-Another example concerning \gls{TCP} is the \gls{PMTU} discovery. Here, \gls{TCP} probes the largest segment size that can be transmitted by the host-to-network layer in one transmission, e.g., Ethernet frame, using \gls{IP}'s ``Don't Fragment'' signaling. Again, a mobile network does not behave the same way an \gls{IP}/Ethernet-based network would work, as it conceals its actual \gls{MTU} and reports it can transport full Ethernet frames.
-In addition to (probably inadvertent) behavioral differences between ``classical'' wireline / Ethernet-based and cellular mobile Internet, an \gls{LTE} mobile network typically lies within the administrative domain of one single operator, and thus offers significantly more control over data flows. Through appropriate policies tailored to the user, their subscription model, and other factors such as the overall network status, bearers in the network can be configured for all types of services. Depending on the bearers' quality settings, the operator can support (or, to the contrary, penalize) streaming traffic.
-
-The problem of protocols drawing wrong conclusions due to wireline assumptions has been described for \gls{TCP} above. It is foreseeable that a similar set of problems will appear when operators enforce different policies on Internet-based services without checking first the applicability of their traffic engineering methods. The methodology presented in this deliverable will help to understand beforehand the effects on the user that bearer quality settings have. Similarly, the methodology will present a set of tools to judge before engineering new hardware the capability of certain controls envisioned by the standards bodies, and if an implementation would turn out useful for a set of streaming services.
-%%% end insert
-
-
-
-
+For reasons of radio spectrum efficiency, devices are usually aggressively preempted and free their time slots very quickly, causing measurable additional delay for applications.
+There are lots of controls for mobile operators to engineer traffic flows in their networks. In \cite{sigcomm11middleboxes}, the authors show artifacts relating to port and network address translation, firewalling, \gls{IP} address assignment etc. Operators can also employ traffic engineering on backhaul links, and use policies and specific services for specific users or user groups.
 
  Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...)
 
+Mobile Network Architectures, end-to-end Protocol Stacks and their sensitivity to Middleboxes
 
-using TLS or not
+%Transport Protocol Influences
+The application and associated application-layer protocols dictate certain requirements on the transport protocol to be used. \gls{TCP} implements mechanisms for connection management, reliable data delivery as well as flow and congestion control.
+\gls{UDP} does not include any of \gls{TCP}'s' reliability mechanisms of \gls{TCP}. This spurs the common misconception that \gls{UDP} is the ``faster'' transport protocol. In fact, all packet types are subject to the same round-trip time, independent of the transport protocol used (assuming a protocol neutral transport).
+However, delays in the delivery of data to the upper layer occur due to \gls{TCP} retransmission which conceals any loss from the lower layers. This causes the round-trip time to spike temporarily. In the case of \gls{UDP}, the application layer handles (or ignores) packet loss. If loss is treated, the same performance limitations like for \gls{TCP} apply.
+\gls{TCP}'s method of detecting loss deserves description as well. Segments are considered lost if either duplicate acknowledgments for the preceding and succeeding segments were received, or the acknowledgment for the segment is overdue, thereby causing a timeout. Thus, \gls{TCP} cannot discriminate the loss of acknowledgments from actual packet loss, nor does its assumption of loss hold in the face of high delay jitter as often found in mobile networks during mobility and handovers.
 
-Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
-
+Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
 
 
 Another undesirable side-effect of middleboxes, but also of any other network node on the path are overdimensioned packet buffers and the bufferbloat effect caused by them.
@@ -113,14 +85,41 @@ CoDel:
 	Most impact on the node before the bottleneck
 	Cell towers, dsl/cable modems, ...
 
+%Application Layer Protocols
+
+using TLS or not
+
+Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
+
+There exists a diversity of streaming applications and associated application-layer protocols, each supporting to differing degrees certain types of streaming, and each having its own set of requirements:
+\begin{itemize}
+\item Content type --- Pre-generated (as for example in case of video sharing web sites) or live (e.g. televised sports events, news feeds)
+\item Codec --- adaptive, variable, or constant media bitrate
+\item Playback control and quality feedback --- client/server-side, implicit/explicit
+\end{itemize}
+Adhering to the design space limits present on the Internet, most innovation takes place on the application layer.
+With each streaming protocol come slightly different time scales and feedback loops. Looking at reliable streaming...
+
+
+%Application Behavior
+As indicated in Figure~\ref{c5:fig:timescales}, the time scale on which streaming applications buffer content lie in the range of seconds. This is a necessity in a best-effort network, as the available network bitrate might drop unexpectedly and could drain a shallower buffer quickly. On the other hand, given sufficient bandwidth, buffer sizes could be reduced, improving interactivity of the stream and enabling closer-to-realtime live streaming or conferencing.
+Buffering and playback strategies in current applications are such a pivotal point in the operation of video streaming in mobile networks as discussion in Chapter~\ref{chap:streaming}.
+
+%Cross-Layer Influences
+Layered network models often assume the functional separation of network layers. The timescales shown in Figure~\ref{c5:fig:timescales} partly support this notion, but also show that there are conflicts in the speed of control loops that can be implemented. Indeed, actual protocols and hardware need to be aware of and often explicitly exploit cross-layer influences and information flow.
+\gls{TCP} is an example for this: Its tracking of a congestion window reflects not the state of the transport, but of the network and lower layers. Congestion is assumed by \gls{TCP} if segments are lost (or unduly delayed) below the transport layer. Consequently, if loss happens on the lower layers for reasons other than congestion, \gls{TCP} reacts in an inappropriate way. As indicated in the previous section, loss and delay spikes may have many root causes in a wireless network, and loss might be concealed altogether through lower-layer retransmission methods.
+Another example concerning \gls{TCP} is the \gls{PMTU} discovery. Here, \gls{TCP} probes the largest segment size that can be transmitted by the host-to-network layer in one transmission, e.g., Ethernet frame, using \gls{IP}'s ``Don't Fragment'' signaling. Again, a mobile network does not behave the same way an \gls{IP}/Ethernet-based network would work, as it conceals its actual \gls{MTU} and reports it can transport full Ethernet frames.
+In addition to (probably inadvertent) behavioral differences between ``classical'' wireline / Ethernet-based and cellular mobile Internet, an \gls{LTE} mobile network typically lies within the administrative domain of one single operator, and thus offers significantly more control over data flows. Through appropriate policies tailored to the user, their subscription model, and other factors such as the overall network status, bearers in the network can be configured for all types of services. Depending on the bearers' quality settings, the operator can support (or, to the contrary, penalize) streaming traffic.
+
+The problem of protocols drawing wrong conclusions due to wireline assumptions has been described for \gls{TCP} above. It is foreseeable that a similar set of problems will appear when operators enforce different policies on Internet-based services without checking first the applicability of their traffic engineering methods. The methodology presented in this deliverable will help to understand beforehand the effects on the user that bearer quality settings have. Similarly, the methodology will present a set of tools to judge before engineering new hardware the capability of certain controls envisioned by the standards bodies, and if an implementation would turn out useful for a set of streaming services.
+%%% end insert
 
 
 
-Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
 
 
-%%
-Mobile Network Architectures, end-to-end Protocol Stacks and their sensitivity to Middleboxes
+
+
 
 
 
