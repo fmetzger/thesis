@@ -3,7 +3,7 @@ library(grid) # needed for arrow
 library(extrafont)
 
 # used dataset: hPUGNCIozp0_delay_2500, subset 1
-# commandline: /ytresults_commandline.py hPUGNCIozp0_delay_2500 1 {nnbs,stbs,ytfa,ffh5} plotcumdata
+# commandline: python ytresults_commandline.py hPUGNCIozp0_delay_2500 1 {nnbs,stbs,ytfa,ffh5} plotcumdata
 
 
 plotbuffer <- function(csvfilestring){
@@ -53,6 +53,18 @@ embed_fonts("R-bufferlevel-stall.pdf")
 
 p <- plotbuffer("streaming-eval-flash-strategy.csv")
 p
-ggsave("R-bufferlevel-stall.pdf", width=12, height=10, useDingbat=F)
-embed_fonts("R-bufferlevel-stall.pdf")
+ggsave("R-bufferlevel-flash.pdf", width=12, height=10, useDingbat=F)
+embed_fonts("R-bufferlevel-flash.pdf")
+
+
+p <- plotbuffer("streaming-eval-startdelay-strategy.csv")
+p
+ggsave("R-bufferlevel-startdelay.pdf", width=12, height=10, useDingbat=F)
+embed_fonts("R-bufferlevel-startdelay.pdf")
+
+
+p <- plotbuffer("streaming-eval-firefox-strategy.csv")
+p
+ggsave("R-bufferlevel-firefox.pdf", width=12, height=10, useDingbat=F)
+embed_fonts("R-bufferlevel-firefox.pdf")
 
