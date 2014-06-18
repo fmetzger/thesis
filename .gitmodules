@@ -1,0 +1,3 @@
+[submodule "scripts/py-playbackemulation"]
+	path = scripts/py-playbackemulation
+	url = git@github.com:fmetzger/thesis-bufferemulation.git
