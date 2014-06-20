@@ -258,6 +258,46 @@ requires presence (but not usage) of TLS1.2
 
 \gls{TCP} changes (Fast Open, IW10, ...; any relationship to streaming? maybe faster)
 
+SACK or no SACK, CUBIC, ...
+
+% most data from kernelnewbies.org
+\begin{table}[htb]
+	\begin{tabu}{X[1.4]XX[0.4]X[0.7]}
+	\toprule
+	\textbf{Change} & \textbf{Related Standard} & \textbf{Kernel} & \textbf{Date} \\
+	\midrule
+	BIC as default congestion avoidance algorithm (from Reno) & & 2.6.8 & August 2004 \\
+	CUBIC as default congestion avoidance algorithm & \cite{ha2008cubic} & 2.6.19 & November 2006 \\
+	New TCP Slow Start: HyStart & \cite{Ha20112092} & 2.6.29 & March 2009 \\
+	TCP User Timeout & RFC5482~\cite{rfc5482} & 2.6.37 & January 2011 \\
+	Initial Receive Window \SI{10}{MSS} & \cite{rfc6928} & 2.6.38 & March 2011 \\
+	Initial Congestion Window \SI{10}{MSS} & RFC6928~\cite{rfc6928} & 2.6.39 & May 2011 \\
+	\SI{1}{\second} initial RTO (from \SI{3}{\second}) & RFC6298 & 3.1 & October 2011 \\
+	Changes to sstresh and CWND bevahior & RFC5681~\cite{rfc5681} & 3.1 & October 2011 \\ % details: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=9ad7c049f0f79c418e293b1b68cf10d68f54fcdb
+	TCP Proportional Rate Reduction & RFC6937~\cite{rfc6937} & 3.2 & January 2012 \\
+	Byte queue limits and TCP buffer limits &  & 3.3 & March 2012 \\ % https://lwn.net/Articles/454390/
+	CoDel AQM & \cite{nichols2014codel} & 3.5 & July 2012 \\
+	TCP Early Retransmit & RFC5827~\cite{rfc5827} & 3.5 & July 2012 \\
+	TCP small queues & & 3.6 & September 2012 \\ %http://lwn.net/Articles/507065/
+	TCP Fast Open (client side) & \cite{cheng2014tcptfo} & 3.6 & September 2012 \\
+	TCP Fast Open (server side) & & 3.7 & December 2012 \\
+	TCP tail loss probe & & 3.10 & June 2013 \\ % http://tools.ietf.org/html/draft-dukkipati-tcpm-tcp-loss-probe-01
+	TCP Forward RTO-Recovery & RFC5682~\cite{rfc5682} & 3.10 & June 2013 \\
+	Low latency network polling & & 3.11 & September 2013 \\ %http://lwn.net/Articles/551284/ and http://www.linuxplumbersconf.org/2012/wp-content/uploads/2012/09/2012-lpc-Low-Latency-Sockets-slides-brandeburg.pdf
+	Improved RTO calculation and handling of reordering & & 3.12 & November 2013 \\ % https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=0f7cc9a3c2bd89b15720dbf358e9b9e62af27126 and https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=ed08495c31bb991de636d2488abaa50b39f2ff4a
+	TCP Fast Open enabled by default & & 3.13 & January 2014 \\
+	TCP auto corking & & 3.14 & March 2014 \\ % https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=f54b311142a92ea2e42598e347b84e1655caf8e3
+	PIE AQM & & 3.14 & March 2014 \\ % http://tools.ietf.org/html/draft-pan-aqm-pie-01 and https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=d4b36210c2e6ecef0ce52fb6c18c51144f5c2d88
+
+
+	\bottomrule
+	\end{tabu}
+	\caption{Assorted list of some select network stack changes in the Linux kernel, that alter \gls{TCP}'s transmission bevahior.}
+\label{c5:tab:linux-stack-changes}
+\end{table}
+
+Also look at ``An in-depth study of LTE: effect of network protocol and application behavior on performance'' \cite{Huang:2013:ISL:2486001.2486006}
+
 TCP modifications for short-lived connections (e.g. initially ignore congestion avoidance and push a lot of data at once (google.com approach, Increasing TCP's Initial Window)) 
 
 IW10: better response time, still fair \cite{rfc6928}
@@ -300,7 +340,7 @@ TCP Fast Open~\cite{cheng2014tcptfo}
  Benefits for short-lived (Web) transactions
 
 
-Proportional Rate Reduction PRR (vs. rfc 3517)
+Proportional Rate Reduction PRR (RFC 6937 \cite{rfc6937} vs. rfc 3517)
  TCP behavior on packet loss in the past
 	RFC 3517: reduce CWND to half
 		Must first ACK large portion of the data still in flight before transmitting again
