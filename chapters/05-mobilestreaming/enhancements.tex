@@ -20,26 +20,24 @@ Each protocol, representing a layer in the stack, characteristically contributes
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/layer-timescales.pdf}
-	\caption{Approximate discernible time scales the network layer protocols operate on.}
+	\caption{Approximate discernible time scales the networking stack protocols operate on in each layer.}
 \label{c5:fig:timescales}
 \end{figure}
 
 
-Associated with each layer, and with the actual application running on top of the stack as well, are different timing constraints or time constants of control. Figure~\ref{c5:fig:timescales} overviews the approximate time scales on which activities take place, spanning a remarkable range of twelve orders of magnitude.
-To appraise the complexity introduced by stacking multiple layers on top of one another, consider that many layers introduce their own notion of control. Multiple layers might implement the same or similar functionality, e.g., flow control in the application and on transport layer, leading to nested control loops, which might be coupled due to the timing constraints.
+Associated with each layer, and with the actual application running on top of the stack as well, are different timing constraints or time constants of control. Figure~\ref{c5:fig:timescales} overviews the approximate time scales on which activities take place, spanning a remarkable range of twelve orders of magnitude. Complexity is introduced by stacking multiple layers on top of each another, with many layers bringing along their own notion of control and feedback loops. Functionality might be duplicated across different layers, e.g., flow control in the application and on transport layer, leading to nested control loops, which might be coupled due to the timing constraints.
 
+From the application layer end-to-end perspective the mobile network protocols seem to simply increase the depths of the protocol stack. Still, there are effects present that are specific to wireless access and mobile networks differ from the notion of an underlying wired ``dumb'' bit pipe.
 
-%Mobile Network Influences
-From the top layer end-to-end perspective, the mobile network protocols simply represent more protocol layers in the data path. Still, there are effects of wireless technology and mobile network specific behavior that differ from the wired notion of a ``dumb'' underlying bit pipe.
-On one side, there are typical effects of wireless connectivity relating to physical phenomena like fading and interference. Flaky radio connectivity is a major source of packet loss and excessive delay. Then, the technological progress enables both handsets and the network to become faster: Comparing the delay budgets given by for \gls{HSDPA} respectively, it is seen that the delay caused by processing on the mobile terminals decreased by a factor of 30, and that the core network has become faster by an order of magnitude as well. \cite{laner2011dissecting3gdelay} has additional information on the delay budgets per network entity, varying the packet size as the parameter.
-The \gls{3G} bearer and user traffic tunnel setup procedure is sufficiently lengthy to be measurable and influence packet delay on initiating connections \cite{arlos2010packetsizedelayinfluence}. 
+First, typical effects of wireless connectivity relating to physical phenomena like fading and interference can be observed. Interruptions in the radio link are a major source of packet loss and spiking delay.
+The overall delay in a mobile network is also strongly dependent on the mobile network technology used and has considerably decreased over the last few specification evolutions, even the core network. This was investigated in  \cite{laner2011dissecting3gdelay}. But even with the latest version is the \gls{RAB} and \gls{gtp} tunnel setup --- as previously described in \ref{c4:3gpparchitecture} --- sufficiently lengthy to be measurable and influence packet delay on initiating connections \cite{arlos2010packetsizedelayinfluence}.
 
-For reasons of radio spectrum efficiency, devices are usually aggressively preempted and free their time slots very quickly, causing measurable additional delay for applications.
-There are lots of controls for mobile operators to engineer traffic flows in their networks. In \cite{sigcomm11middleboxes}, the authors show artifacts relating to port and network address translation, firewalling, \gls{IP} address assignment etc. Operators can also employ traffic engineering on backhaul links, and use policies and specific services for specific users or user groups.
+To save radio and network resources devices usually have to quickly release their alloted slots causing additional delay for applications during connection reestablishment. Moreover, mobile networks offer many control options and parameters that can further influence any of the upper layers. Mobile devices have the tendency to be somewhat sensitive to some of these changes. For example, the authors of \cite{sigcomm11middleboxes} show the impact from protocol manipulations conducted by middleboxes. 
+
+Comparing all these factors to wired protocols such as 802.3 Ethernet it is clear, that much more can happen in the mobile stack. Today Ethernet is a point to point protocol, transmission delay depends only on very few predictable factors, such as the distance.
 
  Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...)
 
-Mobile Network Architectures, end-to-end Protocol Stacks and their sensitivity to Middleboxes
 
 %Transport Protocol Influences
 The application and associated application-layer protocols dictate certain requirements on the transport protocol to be used. \gls{TCP} implements mechanisms for connection management, reliable data delivery as well as flow and congestion control.
@@ -288,6 +286,7 @@ SACK or no SACK, CUBIC, ...
 	TCP Fast Open enabled by default & & 3.13 & January 2014 \\
 	TCP auto corking & & 3.14 & March 2014 \\ % https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=f54b311142a92ea2e42598e347b84e1655caf8e3
 	PIE AQM & & 3.14 & March 2014 \\ % http://tools.ietf.org/html/draft-pan-aqm-pie-01 and https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=d4b36210c2e6ecef0ce52fb6c18c51144f5c2d88
+	TCP Fast Open over IPv6 & & 3.16 & 2014 \\
 
 
 	\bottomrule
