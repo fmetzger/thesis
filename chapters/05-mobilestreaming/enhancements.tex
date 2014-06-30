@@ -31,21 +31,21 @@ The overall delay in a mobile network is also strongly dependent on the mobile n
 
 To save radio and network resources devices usually have to quickly release their alloted slots causing additional delay for applications during connection reestablishment. Moreover, mobile networks offer many control options and parameters that can further influence any of the upper layers. Mobile devices have the tendency to be somewhat sensitive to some of these changes. For example, the authors of \cite{sigcomm11middleboxes} show the impact from protocol manipulations conducted by middleboxes. 
 
-Comparing all these factors to wired protocols such as 802.3 Ethernet it is clear, that much more can happen in the mobile stack. Today Ethernet is a point to point protocol, transmission delay depends only on very few predictable factors, such as the distance.
+Comparing all these factors to wired protocols such as 802.3 Ethernet it is clear, that much more can happen in the mobile stack. Today Ethernet is a point to point protocol, transmission delay depends only on very few predictable factors, such as the distance. Wired access is typically not conducted solely through Ethernet, but with access technologies such as \gls{DSL} using \gls{PPPoE} or cable with \gls{DOCSIS}. While they also add more layers to wired access, they should be by far less influencing than the mobile stack. The latter has to additionally manage mobility and the shared wireless radio medium with protocols such as \gls{RLC} and \gls{RRC}.
 
- Influence of L1/2/3 layer protocols and mechanisms (IPv4/6, tunneling, ethernet vs RLC/RRC/NAS, ...)
+A further details is the interaction between mobile network frame sizes and the \gls{IP} \gls{MTU}. Usually \gls{IP} adapts its packet size to the shortest frame size of all the link layer links in the path using \gls{PMTU} discovery as described in \cite{rfc1191}. Unfortunately, this can not work in \gls{3G} mobile networks, user packets are transparently fragmented by the radio protocols to fit into the transmission slots alloted to the device. For example, a \gls{GPRS} transmission slot has a length of only \SI{576.9}{\micro\second} carrying just \SI{114}{\bit}. And in \gls{UMTS} \SI{40}{\byte} of payload are typically carried in each \gls{RLC} frame (with optional header compression in the \gls{PDCP} layer).
+
+% http://etutorials.org/Mobile+devices/gprs+mobile+internet/Chapter+1+Introduction+to+the+GSM+System/Radio+Interface/
+% http://books.google.at/books?id=Vk9AmYz7TfoC&pg=PA184&lpg=PA184&dq=umts+pdu+size&source=bl&ots=jeO-rpM8HK&sig=NB2FAB37YcdyujYUt_kaHYwLEOE&hl=en&sa=X&ei=KjCxU6C-FKip0AXh94GQDw&redir_esc=y#v=onepage&q=umts%20pdu%20size&f=false
+
+This fragmentation is another source of an undesired interaction between \gls{3G}'s link layer and everything above and including the network layer, potentially fragmenting packets over a long period and thereby causing delay.
+
+In a neutral network, all packets are treated the same and should be subject to the same \gls{RTT} influencing sources.
+However, delays in the delivery of data to the upper layers can occur due to certain protocol features, such as \gls{TCP} retransmissions. After being detected through timers or duplicate acknowledgments any lost packet is automatically retransmitted by the sender. Therefore, loss from the lower layers is hidden from the application layer at the cost of delay variations and probably increased overall delay. The increase in delay is especially noteworthy in any \gls{3G} cellular network with its notion of link layer \gls{ARQ} and mobility. With the latter concept, transmissions originally running through one radio tower are redirected to a new tower after a handover, even if the handover period was lengthy. These two combined can be the source of very high delay, reaching seconds to even hundreds of seconds, when moving quickly between coverage areas (e.g., in a car or train). 
+This also causes bad interactions with \gls{TCP}, as these long-delayed segments are thought to be lost and subsequently retransmitted, resulting in an even further increase of delay and delay jitter.
+
 
 % ! <-- !
-
-
-%Transport Protocol Influences
-The application and associated application-layer protocols dictate certain requirements on the transport protocol to be used. \gls{TCP} implements mechanisms for connection management, reliable data delivery as well as flow and congestion control.
-\gls{UDP} does not include any of \gls{TCP}'s' reliability mechanisms of \gls{TCP}. This spurs the common misconception that \gls{UDP} is the ``faster'' transport protocol. In fact, all packet types are subject to the same round-trip time, independent of the transport protocol used (assuming a protocol neutral transport).
-However, delays in the delivery of data to the upper layer occur due to \gls{TCP} retransmission which conceals any loss from the lower layers. This causes the round-trip time to spike temporarily. In the case of \gls{UDP}, the application layer handles (or ignores) packet loss. If loss is treated, the same performance limitations like for \gls{TCP} apply.
-\gls{TCP}'s method of detecting loss deserves description as well. Segments are considered lost if either duplicate acknowledgments for the preceding and succeeding segments were received, or the acknowledgment for the segment is overdue, thereby causing a timeout. Thus, \gls{TCP} cannot discriminate the loss of acknowledgments from actual packet loss, nor does its assumption of loss hold in the face of high delay jitter as often found in mobile networks during mobility and handovers.
-
-Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
-
 
 Another undesirable side-effect of middleboxes, but also of any other network node on the path are overdimensioned packet buffers and the bufferbloat effect caused by them.
 
@@ -547,6 +547,21 @@ The process:
 \end{itemize}
 
 
+\subsubsection{Example Benefits}
+
+Put into relation:
+
+\begin{itemize}
+	\item frequency of handovers / distance/density of radio towers vs scenario traveling speed
+	\item bit-length of streaming segments, typical transmission speed
+	\item typical video length and number of segments
+	\item derive number of interruptions in segments due to handovers
+	\item estimate typical handover/mobility duration and service interruption time per event
+	\item sum it up and compare to crosslayer information or even application layer handover decision
+
+\end{itemize}
+
+
 \subsubsection{Planned Work and Methodology}
 
 \begin{itemize}
@@ -554,3 +569,13 @@ The process:
 	\item Analysis of data traces and realistic simulations in order to capture in detail the unwanted phenomena
 	\item Verify the suitability of the State-of-the-Art algorithms and protocols which address this problem
 \end{itemize}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%
+%% unused
+
+%Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
