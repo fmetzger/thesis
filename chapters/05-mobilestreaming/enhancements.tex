@@ -44,49 +44,19 @@ In a neutral network, all packets are treated the same and should be subject to 
 However, delays in the delivery of data to the upper layers can occur due to certain protocol features, such as \gls{TCP} retransmissions. After being detected through timers or duplicate acknowledgments any lost packet is automatically retransmitted by the sender. Therefore, loss from the lower layers is hidden from the application layer at the cost of delay variations and probably increased overall delay. The increase in delay is especially noteworthy in any \gls{3G} cellular network with its notion of link layer \gls{ARQ} and mobility. With the latter concept, transmissions originally running through one radio tower are redirected to a new tower after a handover, even if the handover period was lengthy. These two combined can be the source of very high delay, reaching seconds to even hundreds of seconds, when moving quickly between coverage areas (e.g., in a car or train). 
 This also causes bad interactions with \gls{TCP}, as these long-delayed segments are thought to be lost and subsequently retransmitted, resulting in an even further increase of delay and delay jitter.
 
+´
+Another undesirable influence factor is caused by each packet buffer in the transmission's path. The effect occurs if the size of the buffer is not chosen carefully and the following link is a bottleneck link. Additionally, memory is very cheap, so hardware vendors tend to plug in as much as they can and advertise it as a feature. Packets may be kept unnecessarily long in these buffers, heavily increasing packet delay and diminishing \gls{TCP}'s ability to adapt itself to its fair share with the congestion control mechanisms~\cite{jacobson1988congestion,scharf2011comparison}. These mechanisms rely on feedback from the network by inducing packet loss which does not happen in a timely manner in case of large buffers. This phenomenon is called \textit{Bufferbloat}, and can induce latency as high as several seconds~\cite{gettys2011bufferbloat,groenewegen2011detecting}. And this is in addition to the latency in mobile networks, that is already high and unreliable to begin with.
+
+Buffers are necessary to compensate for short-term variations in the traffic load and avoid loss in these situations. A popular countermeasure are \gls{AQM} methods, that control the size of the buffer and selectively drop packets if necessary. Although, most of these are never widely used because of configuration issues. One particular algorithm stands out, that is becoming increasingly popular: CoDel~\cite{Nichols:2012:CQD:2209249.2209264, nichols2014codel}.
+
+CoDel measures the time it takes for a packet to pass through a buffer and begins dropping packets once a certain limit has been surpassed in a predefined interval. This and other similar mechanisms that control queue delay and not its size have begun to appear and be used in several places, e.g. in the Linux Kernel.
+
+
+
+Up to the point of the transport layer the layers are pretty well defined, with only a few select protocols to choose from, all with well known influence factors on the mobile network. The application layer comes with a different notion, though. Even when only considering video streaming applications
 
 % ! <-- !
 
-Another undesirable side-effect of middleboxes, but also of any other network node on the path are overdimensioned packet buffers and the bufferbloat effect caused by them.
-
-%%
-Bufferbloat, Congestion Control, and AQM Effects on Reliable Mobile Streaming
-
- ECN~\cite{rfc3168} (one of the earlier notions of cross-layer interactions; disabled by default almost everywhere)
-
-Comparison of end-to-end and network-supported fast startup congestion control schemes \cite{scharf2011comparison}
-
-Bufferbloat: Dark Buffers in the Internet \cite{gettys2011bufferbloat}
-
-Detecting and quantifying bufferbloat in network paths \cite{groenewegen2011detecting}
-
-Congestion avoidance and control \cite{jacobson1988congestion}
-
-Controlling Queue Delay \cite{Nichols:2012:CQD:2209249.2209264} CoDel\cite{nichols2014codel}
- TCP needs congestion loss to determine bottleneck line speed
-	too much buffering hinders this
- Memory is cheap, so why not put in some more megabytes
- Home router buffer induced latency can be as high as several seconds
-CoDel:
- Head drop not tail drop
- Queues only as shock absorbers
- What matters is the delay within a flow
- CoDel measures minimal packet pass through time in the local device buffer during a defined interval
- If minimum gets too high, too much buffering is happening
- If delay value does not once fall below a target in the interval CoDel will start dropping packets
-	Signals congestion and hopefully reduces source rate
-	If stays above target, progressively more packets are dropped
-	Target: 5ms; interval: 100ms, based on simulation results
- Can be enabled in Linux since 3.5, but many NIC drivers do not support it yet
- Every buffer along the path influences transmission
-	Most impact on the node before the bottleneck
-	Cell towers, dsl/cable modems, ...
-
-%Application Layer Protocols
-
-using TLS or not
-
-Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
 
 There exists a diversity of streaming applications and associated application-layer protocols, each supporting to differing degrees certain types of streaming, and each having its own set of requirements:
 \begin{itemize}
@@ -96,6 +66,10 @@ There exists a diversity of streaming applications and associated application-la
 \end{itemize}
 Adhering to the design space limits present on the Internet, most innovation takes place on the application layer.
 With each streaming protocol come slightly different time scales and feedback loops. Looking at reliable streaming...
+
+%Application Layer Protocols
+%using TLS or not
+%Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
 
 
 %Application Behavior
@@ -406,6 +380,8 @@ Furthermore, traffic could be avoided during cell handover occurrences. This wou
 
 \subsubsection{Related Work}
 
+ ECN~\cite{rfc3168} (one of the earlier notions of cross-layer interactions; disabled by default almost everywhere)
+
 \begin{itemize}
 	\item Cross-layer design optimizations in wireless protocol stacks \cite{Raisinghani2004720}
 	\item ECLAIR: An efficient cross layer architecture for wireless protocol stacks \cite{raisinghani2004eclair}
@@ -587,3 +563,19 @@ Put into relation:
 %% unused
 
 %Characteristics of UDP packet loss: Effect of tcp traffic \cite{sawashima97characteristics}
+
+
+% CoDel:
+%  Head drop not tail drop
+%  Queues only as shock absorbers
+%  What matters is the delay within a flow
+%  CoDel measures minimal packet pass through time in the local device buffer during a defined interval
+%  If minimum gets too high, too much buffering is happening
+%  If delay value does not once fall below a target in the interval CoDel will start dropping packets
+% 	Signals congestion and hopefully reduces source rate
+% 	If stays above target, progressively more packets are dropped
+% 	Target: 5ms; interval: 100ms, based on simulation results
+%  Can be enabled in Linux since 3.5, but many NIC drivers do not support it yet
+%  Every buffer along the path influences transmission
+% 	Most impact on the node before the bottleneck
+% 	Cell towers, dsl/cable modems, ...
