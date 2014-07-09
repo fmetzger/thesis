@@ -44,7 +44,6 @@ In a neutral network, all packets are treated the same and should be subject to 
 However, delays in the delivery of data to the upper layers can occur due to certain protocol features, such as \gls{TCP} retransmissions. After being detected through timers or duplicate acknowledgments any lost packet is automatically retransmitted by the sender. Therefore, loss from the lower layers is hidden from the application layer at the cost of delay variations and probably increased overall delay. The increase in delay is especially noteworthy in any \gls{3G} cellular network with its notion of link layer \gls{ARQ} and mobility. With the latter concept, transmissions originally running through one radio tower are redirected to a new tower after a handover, even if the handover period was lengthy. These two combined can be the source of very high delay, reaching seconds to even hundreds of seconds, when moving quickly between coverage areas (e.g., in a car or train). 
 This also causes bad interactions with \gls{TCP}, as these long-delayed segments are thought to be lost and subsequently retransmitted, resulting in an even further increase of delay and delay jitter.
 
-´
 Another undesirable influence factor is caused by each packet buffer in the transmission's path. The effect occurs if the size of the buffer is not chosen carefully and the following link is a bottleneck link. Additionally, memory is very cheap, so hardware vendors tend to plug in as much as they can and advertise it as a feature. Packets may be kept unnecessarily long in these buffers, heavily increasing packet delay and diminishing \gls{TCP}'s ability to adapt itself to its fair share with the congestion control mechanisms~\cite{jacobson1988congestion,scharf2011comparison}. These mechanisms rely on feedback from the network by inducing packet loss which does not happen in a timely manner in case of large buffers. This phenomenon is called \textit{Bufferbloat}, and can induce latency as high as several seconds~\cite{gettys2011bufferbloat,groenewegen2011detecting}. And this is in addition to the latency in mobile networks, that is already high and unreliable to begin with.
 
 Buffers are necessary to compensate for short-term variations in the traffic load and avoid loss in these situations. A popular countermeasure are \gls{AQM} methods, that control the size of the buffer and selectively drop packets if necessary. Although, most of these are never widely used because of configuration issues. One particular algorithm stands out, that is becoming increasingly popular: CoDel~\cite{Nichols:2012:CQD:2209249.2209264, nichols2014codel}.
@@ -53,41 +52,27 @@ CoDel measures the time it takes for a packet to pass through a buffer and begin
 
 
 
-Up to the point of the transport layer the layers are pretty well defined, with only a few select protocols to choose from, all with well known influence factors on the mobile network. The application layer comes with a different notion, though. Even when only considering video streaming applications
+Up to the point of the transport layer the layers are pretty well defined, with only a few select protocols to choose from, all with well known influence factors on the mobile network. The application layer has a different notion, though. Adhering to the end-to-end design principles most innovation (and therefore change) will take place at the utmost ends, i.e., the application layer. Even when only considering video streaming applications the protocol variations are countless as the overview and classification in Section~\ref{c3:background} demonstrated. 
+
+
+In streaming over mobile networks the video buffer size has to be in the range of seconds to compensate for most eventualities as seen in Figure~\ref{c5:fig:timescales}. And every streaming protocol has slightly different time scales and feedback loops.
+
+
+As is the case in any best-effort network no bandwidth, latency, or loss guarantees can be given. The available bandwidth might get unexpectedly smaller resulting in a quickly draining video buffer if it was chosen too small. Then again, given sufficient bandwidth stability or at least predictability, buffer sizes could also be kept at a bare minimum, thereby enabling or improving real-time interactivity. In addition to a fitting choice of the buffering and playback strategies the choice of segment length and quality levels in adaptive streaming also plays an influential role in mobile networks. Most of these factors were discussed in Chapter~\ref{chap:streaming}.
+
 
 % ! <-- !
 
+In layered network models individual functions are strictly separation and stacked on top of each other with well-defined \glspl{API} connecting them.
 
-There exists a diversity of streaming applications and associated application-layer protocols, each supporting to differing degrees certain types of streaming, and each having its own set of requirements:
-\begin{itemize}
-\item Content type --- Pre-generated (as for example in case of video sharing web sites) or live (e.g. televised sports events, news feeds)
-\item Codec --- adaptive, variable, or constant media bitrate
-\item Playback control and quality feedback --- client/server-side, implicit/explicit
-\end{itemize}
-Adhering to the design space limits present on the Internet, most innovation takes place on the application layer.
-With each streaming protocol come slightly different time scales and feedback loops. Looking at reliable streaming...
-
-%Application Layer Protocols
-%using TLS or not
-%Firefox Patch: Sort Idle HTTP Connections by CWND \cite{ffSortCWND}
+The timescales shown in Figure~\ref{c5:fig:timescales} partly support this notion, but also show that there are conflicts in the speed of control loops that can be implemented. 
+Indeed, actual protocols and hardware need to be aware of and often explicitly exploit cross-layer influences and information flow.
 
 
-%Application Behavior
-As indicated in Figure~\ref{c5:fig:timescales}, the time scale on which streaming applications buffer content lie in the range of seconds. This is a necessity in a best-effort network, as the available network bitrate might drop unexpectedly and could drain a shallower buffer quickly. On the other hand, given sufficient bandwidth, buffer sizes could be reduced, improving interactivity of the stream and enabling closer-to-realtime live streaming or conferencing.
-Buffering and playback strategies in current applications are such a pivotal point in the operation of video streaming in mobile networks as discussion in Chapter~\ref{chap:streaming}.
-
-%Cross-Layer Influences
-Layered network models often assume the functional separation of network layers. The timescales shown in Figure~\ref{c5:fig:timescales} partly support this notion, but also show that there are conflicts in the speed of control loops that can be implemented. Indeed, actual protocols and hardware need to be aware of and often explicitly exploit cross-layer influences and information flow.
-\gls{TCP} is an example for this: Its tracking of a congestion window reflects not the state of the transport, but of the network and lower layers. Congestion is assumed by \gls{TCP} if segments are lost (or unduly delayed) below the transport layer. Consequently, if loss happens on the lower layers for reasons other than congestion, \gls{TCP} reacts in an inappropriate way. As indicated in the previous section, loss and delay spikes may have many root causes in a wireless network, and loss might be concealed altogether through lower-layer retransmission methods.
-Another example concerning \gls{TCP} is the \gls{PMTU} discovery. Here, \gls{TCP} probes the largest segment size that can be transmitted by the host-to-network layer in one transmission, e.g., Ethernet frame, using \gls{IP}'s ``Don't Fragment'' signaling. Again, a mobile network does not behave the same way an \gls{IP}/Ethernet-based network would work, as it conceals its actual \gls{MTU} and reports it can transport full Ethernet frames.
 In addition to (probably inadvertent) behavioral differences between ``classical'' wireline / Ethernet-based and cellular mobile Internet, an \gls{LTE} mobile network typically lies within the administrative domain of one single operator, and thus offers significantly more control over data flows. Through appropriate policies tailored to the user, their subscription model, and other factors such as the overall network status, bearers in the network can be configured for all types of services. Depending on the bearers' quality settings, the operator can support (or, to the contrary, penalize) streaming traffic.
 
 The problem of protocols drawing wrong conclusions due to wireline assumptions has been described for \gls{TCP} above. It is foreseeable that a similar set of problems will appear when operators enforce different policies on Internet-based services without checking first the applicability of their traffic engineering methods. The methodology presented in this deliverable will help to understand beforehand the effects on the user that bearer quality settings have. Similarly, the methodology will present a set of tools to judge before engineering new hardware the capability of certain controls envisioned by the standards bodies, and if an implementation would turn out useful for a set of streaming services.
 %%% end insert
-
-
-
-
 
 
 
