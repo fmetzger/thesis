@@ -62,25 +62,20 @@ Looking again at Figure~\ref{c5:fig:timescales}, it can be seen that this notion
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Upcoming Protocols and Streaming Relationship}
+\subsection{Recent and Upcoming Protocols}
 
-In recent years
+Protocol development has not stopped in recent years. On the contrary, some interesting changes are occurring especially in the application and transport layers. The following paragraph highlight some of the changes and their potential influence on mobile streaming.
 
-% ! <-- !
-
-
-Improvements to congestion control for mobile streaming?
+Beginning at the transport layer
 
 
- Alternative modes of transport (e.g. DCCP, , RED, Google's SPDY or new approaches)
+DCCP\cite{rfc4340}
 
- Alternate Transport Protocols (DCCP\cite{rfc4340}, LEDBAT\cite{rfc6817}/$\mu$TP\cite{bt2010utp}, QUIC, SCTP~\cite{rfc4960}, DTLS~\cite{rfc6347})
+LEDBAT\cite{rfc6817}/$\mu$TP\cite{bt2010utp}
 
-but successful protocols develop de-facto; de jure much harder (see \gls{3G})
+SCTP~\cite{rfc4960}
 
-
-
- End-to-end encryption and Authentication mechanisms (e.g.IPSec~\cite{rfc4301}, DNSSEC~\cite{rfc4033}, \gls{DANE}~\cite{rfc6698})
+DTLS~\cite{rfc6347}
 
 
 \gls{QUIC}  Quick UDP Internet Connections; protocols without retransmission feature (lost packets are not relevant and cause head-of-line blocking) but still with the all-important congestion control + TLS
@@ -91,6 +86,24 @@ inherits new TCP features such as TFO, snap start, ...
 avoids most retransmissions through FEC
 congestion control not through CWND but through packet pacing
 includes stream multiplexing and TLS-like crypto by default
+
+
+but successful protocols develop de-facto; de jure much harder (see \gls{3G})
+
+
+
+Furthermore, in the wake of Edward Snoweden's surveillance and man-in-the-middle reveals \todo{citation needed}
+the \gls{IETF} announced its position on these issues in \gls{RFC}~6973~\cite{rfc6973} suggesting, that all future standardized protocols should consider surveillance issues and minimize or prevent any attempt. Ultimately, this might lead to a end-to-end \textit{crypto-by-default} Internet, with every protocol providing at least opportunistic encryption. The first signs are already visible in today's traffic mix, with many Websites only available through \acrshort{HTTPS} --- using \gls{TLS}~\cite{rfc5246} -- any more. Similarly most e-mail providers have moved to \acrshort{IMAPS} and \acrshort{SMTPS}, even using new authentication and key exchange techniques like \gls{DANE}~\cite{rfc6698} which in turn relies on \gls{DNSSEC}~\cite{rfc4033} to authenticate the validity of \gls{DNS} entries. For example, the current draft version of HTTP2 --- which will be described in more detail shortly --- mandates the presence, albeit not the usage, of \gls{TLS} capability in both client and server. And even the connectionless \gls{UDP} can be secured using \gls{DTLS}~\cite{rfc6347}.
+
+Usually, an additional (virtual) layer is added through the encryption process, adding more timing interdependencies to the other layers. However, end-to-end encryption also diminishes the influence of most middleboxes as they are not able to alter the contents of the --- now encrypted --- segment any more.
+
+
+% ! <-- !
+
+
+
+
+
 
 
 
