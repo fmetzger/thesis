@@ -50,37 +50,24 @@ Buffers are necessary to compensate for short-term variations in the traffic loa
 
 CoDel measures the time it takes for a packet to pass through a buffer and begins dropping packets once a certain limit has been surpassed in a predefined interval. This and other similar mechanisms that control queue delay and not its size have begun to appear and be used in several places, e.g. in the Linux Kernel.
 
-
-
 Up to the point of the transport layer the layers are pretty well defined, with only a few select protocols to choose from, all with well known influence factors on the mobile network. The application layer has a different notion, though. Adhering to the end-to-end design principles most innovation (and therefore change) will take place at the utmost ends, i.e., the application layer. Even when only considering video streaming applications the protocol variations are countless as the overview and classification in Section~\ref{c3:background} demonstrated. 
-
 
 In streaming over mobile networks the video buffer size has to be in the range of seconds to compensate for most eventualities as seen in Figure~\ref{c5:fig:timescales}. And every streaming protocol has slightly different time scales and feedback loops.
 
-
 As is the case in any best-effort network no bandwidth, latency, or loss guarantees can be given. The available bandwidth might get unexpectedly smaller resulting in a quickly draining video buffer if it was chosen too small. Then again, given sufficient bandwidth stability or at least predictability, buffer sizes could also be kept at a bare minimum, thereby enabling or improving real-time interactivity. In addition to a fitting choice of the buffering and playback strategies the choice of segment length and quality levels in adaptive streaming also plays an influential role in mobile networks. Most of these factors were discussed in Chapter~\ref{chap:streaming}.
 
+In layered network models individual functions are strictly separated and stacked on top of each other with well-defined \glspl{API} connecting them. To achieve complete separation without cross-influences, the feedback and control loops of each layer also would need to operate on completely disjoint time scales.
 
-% ! <-- !
-
-In layered network models individual functions are strictly separation and stacked on top of each other with well-defined \glspl{API} connecting them.
-
-The timescales shown in Figure~\ref{c5:fig:timescales} partly support this notion, but also show that there are conflicts in the speed of control loops that can be implemented. 
-Indeed, actual protocols and hardware need to be aware of and often explicitly exploit cross-layer influences and information flow.
-
-
-In addition to (probably inadvertent) behavioral differences between ``classical'' wireline / Ethernet-based and cellular mobile Internet, an \gls{LTE} mobile network typically lies within the administrative domain of one single operator, and thus offers significantly more control over data flows. Through appropriate policies tailored to the user, their subscription model, and other factors such as the overall network status, bearers in the network can be configured for all types of services. Depending on the bearers' quality settings, the operator can support (or, to the contrary, penalize) streaming traffic.
-
-The problem of protocols drawing wrong conclusions due to wireline assumptions has been described for \gls{TCP} above. It is foreseeable that a similar set of problems will appear when operators enforce different policies on Internet-based services without checking first the applicability of their traffic engineering methods. The methodology presented in this deliverable will help to understand beforehand the effects on the user that bearer quality settings have. Similarly, the methodology will present a set of tools to judge before engineering new hardware the capability of certain controls envisioned by the standards bodies, and if an implementation would turn out useful for a set of streaming services.
-%%% end insert
-
-
-
-
+Looking again at Figure~\ref{c5:fig:timescales}, it can be seen that this notion is only partly supported and the loops of adjacent layers typically overlap somewhat. Protocols and implementations need to be aware of this circumstance and able to handle cross-layer influences.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Upcoming Protocols and Streaming Relationship}
+
+In recent years
+
+% ! <-- !
+
 
 Improvements to congestion control for mobile streaming?
 
@@ -198,17 +185,6 @@ HTTP/2.0~\cite{http20draft}
 requires presence (but not usage) of TLS1.2
 	if used, emphemeral cipher suites >=2048 must be used (a.k.a. Perfect Forward Secrecy)
 
-
-
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The TCP Case: Prime Example of a Living, Ever-Evolving Protocol}
 
@@ -217,10 +193,10 @@ requires presence (but not usage) of TLS1.2
 SACK or no SACK, CUBIC, ...
 
 % most data from kernelnewbies.org
-\begin{table}[htb]
+\begin{table}[htbp]
 	\begin{tabu}{X[1.4]XX[0.4]X[0.7]}
 	\toprule
-	\textbf{Change} & \textbf{Related Standard} & \textbf{Kernel} & \textbf{Date} \\
+	\textbf{Change} & \textbf{Related Work} & \textbf{Kernel} & \textbf{Date} \\
 	\midrule
 	BIC as default congestion avoidance algorithm (from Reno) & & 2.6.8 & August 2004 \\
 	CUBIC as default congestion avoidance algorithm & \cite{ha2008cubic} & 2.6.19 & November 2006 \\
