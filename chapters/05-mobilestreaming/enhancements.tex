@@ -78,19 +78,25 @@ These following three are examples of transport protocols each created with diff
 \item \gls{QUIC}\footnote{\url{http://lwn.net/Articles/558826/} and \url{http://www.ietf.org/proceedings/88/slides/slides-88-tsvarea-10.pdf}} is a further experimental approach aimed at reducing sources of latency spikes which would occur in \gls{TCP}, such as retransmissions or the initial handshake. Some reliability is achieved through \gls{FEC} schemes if desired. Furthermore, a novel congestion control mechanism based on packet pacing, not through a traditional congestion window, and encryption by default are implemented. However, it is not intended as a production protocol but is rather a testbed for future mechanisms and modifications to existing protocols.
 \end{itemize}
 
-In the wake of Edward Snowden's surveillance and man-in-the-middle reveals, uncovering programs such as  \todo{citation needed}
-the \gls{IETF} announced its position on these issues in \gls{RFC}~6973~\cite{rfc6973} suggesting, that all future standardized protocols should consider surveillance issues and minimize or prevent any attempt. Ultimately, this might lead to a end-to-end \textit{crypto-by-default} Internet, with every protocol providing at least opportunistic encryption. The first signs are already visible in today's traffic mix, with many Websites only available through \acrshort{HTTPS} --- using \gls{TLS}~\cite{rfc5246} -- any more. Similarly most e-mail providers have moved to \acrshort{IMAPS} and \acrshort{SMTPS}, even using new authentication and key exchange techniques like \gls{DANE}~\cite{rfc6698} which in turn relies on \gls{DNSSEC}~\cite{rfc4033} to authenticate the validity of \gls{DNS} entries. For example, the current draft version of HTTP2 --- which will be described in more detail shortly --- mandates the presence, albeit not the usage, of \gls{TLS} capability in both client and server. And even the connectionless \gls{UDP} can be secured using \gls{DTLS}~\cite{rfc6347}.
+In the wake of Edward Snowden's surveillance and man-in-the-middle reveals, uncovering programs such as \todo{citation needed} the \gls{IETF} announced its position on these issues in \gls{RFC}~6973~\cite{rfc6973} suggesting, that all future standardized protocols should consider surveillance issues and minimize or prevent any attempt. Ultimately, this might lead to a end-to-end \textit{crypto-by-default} Internet, with every protocol providing at least opportunistic encryption. The first signs are already visible in today's traffic mix, with many Websites only available through \acrshort{HTTPS} --- using \gls{TLS}~\cite{rfc5246} --- any more. Similarly most e-mail providers have moved to \acrshort{IMAPS} and \acrshort{SMTPS}, even using new authentication and key exchange techniques like \gls{DANE}~\cite{rfc6698} which in turn relies on \gls{DNSSEC}~\cite{rfc4033} to authenticate the validity of \gls{DNS} entries. For example, the current draft version of HTTP2 --- which will be described in more detail shortly --- mandates the presence, albeit not the usage, of \gls{TLS} capability in both client and server. And even the connectionless \gls{UDP} can be secured using \gls{DTLS}~\cite{rfc6347}.
 
 Usually, an additional intermediate layer is added through the encryption process, adding more timing interdependencies to the other layers. However, end-to-end encryption also diminishes the influence of most middleboxes as they are not able to alter the contents of the --- now encrypted --- segment any more.
 
 
+
+
+Moving on to the application layer, some interesting developments have occured in the Web's stack and in its use of \gls{HTTP} which almost all reliable streaming methods facilitate.
+
+The original HTTP/1.0 specification is from the year 1996 with only one update to HTTP/1.1 in 1999 thereafter. Since then, no changes have been made to the core protocol. The number of use cases facilitating \gls{HTTP} has increased significantly, bringing with them a lot of long-standing issues that were not though of initially.
+
+
+ Many long standing issues with HTTP/1.1, e.g.
+	Problems with ``long fat pipes''
+		Many parallel connections as workaround
+		Fairness issues
+	Large overhead for small requests
+
 % ! <-- !
-
-
-
-
-
-
 
 
 WebSocket \cite{rfc6455}
@@ -109,18 +115,17 @@ Lower overhead per transmission/frame
 Reduces number of open TCP connections and bandwidth overhead (no polling on additional TCP connection)
 
 
-WebRTC \cite{webrtcdraft}
+WebRTC~\cite{webrtcdraft}
 
 
-SPDY: An experimental protocol for a faster web \cite{google2011SPDYdef} and \cite{google2010SPDYwp} 
+SPDY~\cite{google2011SPDYdef, google2010SPDYwp} 
 SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming)
  Google proposal and draft
 	Currently SPDY/3.1 
 	IETF httpbis working group basis for http/2.0
  original Draft based on Chrome browser implementation
- Widespread use and implementations
-	Chrome, Firefox; Apache, Nginx
-	Google, Twitter, Facebook, Akamai, Wordpress, ...
+ Widespread use and implementations in almost every browser and \gls{HTTP} server and all major cloud providers.
+
 	HTTP-requests are transparently upgraded through Next Protocol Negotiation
  TLS mandatory
  HTTP/1.1 syntax still viable as a layer on top of SPDY
@@ -164,16 +169,11 @@ spdy mobile page load times
  Benefits can be higher for large RTT
 	Less request round trips and connection setups needed
 
-
+	% Chrome, Firefox; Apache, Nginx
+	% Google, Twitter, Facebook, Akamai, Wordpress, ...
 
 HTTP/2.0~\cite{http20draft}
- HTTP/1.0 defined in 1996, 1.1 in 1999
-	Since then no changes changes to the core protocol
- Many long standing issues with HTTP/1.1, e.g.
-	Problems with ``long fat pipes''
-		Many parallel connections as workaround
-		Fairness issues
-	Large overhead for small requests
+
  IETF Hypertext Transfer Protocol Bis Working Group
  Initial call for proposals made in March 2012
  Planned 2.0 standard proposal in 2014/2015
