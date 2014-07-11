@@ -66,36 +66,22 @@ Looking again at Figure~\ref{c5:fig:timescales}, it can be seen that this notion
 
 Protocol development has not stopped in recent years. On the contrary, some interesting changes are occurring especially in the application and transport layers. The following paragraph highlight some of the changes and their potential influence on mobile streaming.
 
-Beginning at the transport layer
+Beginning at the transport layer some alternative approaches to \gls{TCP} are available, as especially the retransmission reliability has proven to be problematic in mobile networks as discussed. Typically, \gls{TCP} is used nonetheless because of two reasons: First, having congestion control is an absolute necessity to achieve an equal fair share and avoid congestive collapse and would otherwise have to be implemented in the application layer when using just \gls{UDP}. This generates additional implementation work and simultaneously reduces portability and compatibility to other congestion control variants --- the term \textit{TCP friendliness} has been used here. Second, due to many middleboxes simply dropping any unrecognized protocol --- exempting \gls{UDP} and \gls{TCP} --- the transport layer protocol often can not be changed at will and new transport protocol approaches would need to layer themselves atop \gls{UDP} incurring additional overhead.
 
+These following three are examples of transport protocols each created with different goals in mind:
 
-DCCP\cite{rfc4340}
+\begin{itemize}
+\item \gls{DCCP}~\cite{rfc4340} extends \gls{UDP} with data flows and \gls{TCP}-compatible congestion control omitting the strict retransmission feature.
 
-LEDBAT\cite{rfc6817}/$\mu$TP\cite{bt2010utp}
+\item The \gls{LEDBAT}~\cite{rfc6817} congestion control algorithm which is implemented, amongst others, in \gls{uTP}~\cite{bt2010utp} used in file-sharing. Traffic using \gls{LEDBAT} is of high volume, high elasticity, and low priority. Data handled by this congestion control approach gets displaced by any other data if the algorithm detects an increase in the transmission buffer delay.
 
-SCTP~\cite{rfc4960}
+\item \gls{QUIC}\footnote{\url{http://lwn.net/Articles/558826/} and \url{http://www.ietf.org/proceedings/88/slides/slides-88-tsvarea-10.pdf}} is a further experimental approach aimed at reducing sources of latency spikes which would occur in \gls{TCP}, such as retransmissions or the initial handshake. Some reliability is achieved through \gls{FEC} schemes if desired. Furthermore, a novel congestion control mechanism based on packet pacing, not through a traditional congestion window, and encryption by default are implemented. However, it is not intended as a production protocol but is rather a testbed for future mechanisms and modifications to existing protocols.
+\end{itemize}
 
-DTLS~\cite{rfc6347}
-
-
-\gls{QUIC}  Quick UDP Internet Connections; protocols without retransmission feature (lost packets are not relevant and cause head-of-line blocking) but still with the all-important congestion control + TLS
-%http://www.ietf.org/proceedings/88/slides/slides-88-tsvarea-10.pdf
-\footnote{\url{http://lwn.net/Articles/558826/}}
-UDP based for now, could very well end up as modifications to future TCP
-inherits new TCP features such as TFO, snap start, ...
-avoids most retransmissions through FEC
-congestion control not through CWND but through packet pacing
-includes stream multiplexing and TLS-like crypto by default
-
-
-but successful protocols develop de-facto; de jure much harder (see \gls{3G})
-
-
-
-Furthermore, in the wake of Edward Snoweden's surveillance and man-in-the-middle reveals \todo{citation needed}
+In the wake of Edward Snowden's surveillance and man-in-the-middle reveals, uncovering programs such as  \todo{citation needed}
 the \gls{IETF} announced its position on these issues in \gls{RFC}~6973~\cite{rfc6973} suggesting, that all future standardized protocols should consider surveillance issues and minimize or prevent any attempt. Ultimately, this might lead to a end-to-end \textit{crypto-by-default} Internet, with every protocol providing at least opportunistic encryption. The first signs are already visible in today's traffic mix, with many Websites only available through \acrshort{HTTPS} --- using \gls{TLS}~\cite{rfc5246} -- any more. Similarly most e-mail providers have moved to \acrshort{IMAPS} and \acrshort{SMTPS}, even using new authentication and key exchange techniques like \gls{DANE}~\cite{rfc6698} which in turn relies on \gls{DNSSEC}~\cite{rfc4033} to authenticate the validity of \gls{DNS} entries. For example, the current draft version of HTTP2 --- which will be described in more detail shortly --- mandates the presence, albeit not the usage, of \gls{TLS} capability in both client and server. And even the connectionless \gls{UDP} can be secured using \gls{DTLS}~\cite{rfc6347}.
 
-Usually, an additional (virtual) layer is added through the encryption process, adding more timing interdependencies to the other layers. However, end-to-end encryption also diminishes the influence of most middleboxes as they are not able to alter the contents of the --- now encrypted --- segment any more.
+Usually, an additional intermediate layer is added through the encryption process, adding more timing interdependencies to the other layers. However, end-to-end encryption also diminishes the influence of most middleboxes as they are not able to alter the contents of the --- now encrypted --- segment any more.
 
 
 % ! <-- !
@@ -553,3 +539,11 @@ Put into relation:
 %  Every buffer along the path influences transmission
 % 	Most impact on the node before the bottleneck
 % 	Cell towers, dsl/cable modems, ...
+
+%but successful protocols develop de-facto; de jure much harder (see \gls{3G})
+
+
+%protocols without retransmission feature (lost packets are not relevant and cause head-of-line blocking) but still with the all-important congestion control + TLS
+%inherits new TCP features such as TFO, snap start, ...
+%congestion control not through CWND but through packet pacing
+%includes stream multiplexing and TLS-like crypto by default
