@@ -83,18 +83,16 @@ In the wake of Edward Snowden's surveillance and man-in-the-middle reveals, unco
 Usually, an additional intermediate layer is added through the encryption process, adding more timing interdependencies to the other layers. However, end-to-end encryption also diminishes the influence of most middleboxes as they are not able to alter the contents of the --- now encrypted --- segment any more.
 
 
-
-
-Moving on to the application layer, some interesting developments have occured in the Web's stack and in its use of \gls{HTTP} which almost all reliable streaming methods facilitate.
+Moving on to the application layer, some interesting developments have occurred in the Web's stack and in its use of \gls{HTTP} which almost all reliable streaming methods facilitate.
 
 The original HTTP/1.0 specification is from the year 1996 with only one update to HTTP/1.1 in 1999 thereafter. Since then, no changes have been made to the core protocol. The number of use cases facilitating \gls{HTTP} has increased significantly, bringing with them a lot of long-standing issues that were not though of initially.
 
+The typical number of individual \gls{HTTP} requests for one Web page has steadily increased, reaching today over \numprint{100} objects.\footnote{\url{http://www.websiteoptimization.com/speed/tweak/average-web-page/} and \url{http://www.httparchive.org/trends.php?s=All&minlabel=Nov+15+2010&maxlabel=Jul+1+2014} and \url{https://developers.google.com/speed/articles/web-metrics}} \gls{HTTP} deals with this through persistent connections and pipelining to avoid unnecessary connection establishment and request delays. Pipelining is however disabled in many implementations as it suffers from head-of-line blocking. To circumvent this problem and increase retrieval speed, browsers have begun to open many parallel \gls{TCP} connections per site, invoking significant overhead and general fairness issues due to the large number of \gls{TCP} connections displacing other traffic.
+\footnote{\url{http://www.websiteoptimization.com/speed/tweak/average-web-page/}}
+\footnote{\url{http://www.httparchive.org/trends.php?s=All&minlabel=Nov+15+2010&maxlabel=Jul+1+2014}}
 
- Many long standing issues with HTTP/1.1, e.g.
-	Problems with ``long fat pipes''
-		Many parallel connections as workaround
-		Fairness issues
-	Large overhead for small requests
+
+To combat the situation and also increase the interactivity 
 
 % ! <-- !
 
