@@ -87,109 +87,32 @@ Moving on to the application layer, some interesting developments have occurred 
 
 The original HTTP/1.0 specification is from the year 1996 with only one update to HTTP/1.1 in 1999 thereafter. Since then, no changes have been made to the core protocol. The number of use cases facilitating \gls{HTTP} has increased significantly, bringing with them a lot of long-standing issues that were not though of initially.
 
-The typical number of individual \gls{HTTP} requests for one Web page has steadily increased, reaching today over \numprint{100} objects.\footnote{\url{http://www.websiteoptimization.com/speed/tweak/average-web-page/} and \url{http://www.httparchive.org/trends.php?s=All&minlabel=Nov+15+2010&maxlabel=Jul+1+2014} and \url{https://developers.google.com/speed/articles/web-metrics}} \gls{HTTP} deals with this through persistent connections and pipelining to avoid unnecessary connection establishment and request delays. Pipelining is however disabled in many implementations as it suffers from head-of-line blocking. To circumvent this problem and increase retrieval speed, browsers have begun to open many parallel \gls{TCP} connections per site, invoking significant overhead and general fairness issues due to the large number of \gls{TCP} connections displacing other traffic.
-\footnote{\url{http://www.websiteoptimization.com/speed/tweak/average-web-page/}}
-\footnote{\url{http://www.httparchive.org/trends.php?s=All&minlabel=Nov+15+2010&maxlabel=Jul+1+2014}}
+The typical number of individual \gls{HTTP} requests for one Web page has steadily increased, reaching today over \numprint{100} objects.\footnote{\url{http://www.websiteoptimization.com/speed/tweak/average-web-page/} and \url{http://www.httparchive.org/trends.php?s=All&minlabel=Nov+15+2010&maxlabel=Jul+1+2014} and \url{https://developers.google.com/speed/articles/web-metrics}} \gls{HTTP} deals with this through persistent connections and pipelining to avoid unnecessary connection establishment and request delays. Pipelining is however disabled in almost every client implementation as it suffers from head-of-line blocking. To circumvent this problem and increase retrieval speed, browsers have begun to open many parallel \gls{TCP} connections per site, invoking significant overhead and general fairness issues due to the large number of \gls{TCP} connections displacing other traffic.
+
+Moreover, the Web's structure has changed in such a way, that it is now common to push data to the clients to increase a Web page's interactivity. However, \gls{HTTP} is a simple client-initiated request-response protocol and pushing can only be emulated using techniques such as \textit{long polling} which imposes several restrictions and state overhead. Both these issues also affect reliable streaming with \gls{HTTP} to a certain degree. Streaming can benefit from a reduction of request latency as well as servers pushing adequate video segments at the correct time without the need for further requests.
+
+To combat the situation and increase the protocol's interactivity along with it, several approaches are being developed. The first, WebSocket~\cite{rfc6455}, is a transport protocol on top of \gls{TCP} (or \gls{TLS}) that can be established through a regular \gls{HTTP} connection. It enables full-duplex communication between the two communication nodes. An additional \gls{W3C} \gls{API}~\cite{w3c2011websockets} enables simple usage in browsers with higher interactivity than plain \gls{HTTP}. It is also used to stream content to a browser.
+
+The \acrshort{WebRTC} protocol suite\footnote{\url{http://www.webrtc.org/}}~\cite{webrtcdraft} even goes a step further and provides a complete stack for multimedia communication. It is intended to be used --- through the provided \gls{API} --- for direct browser-to-browser communication initiated by a central server-side Web page.
+
+Both these techniques aim to enhance or sidestep \gls{HTTP}. But it is also desirable to improve the protocol itself for the aforementioned reasons. Therefore, in 2010 Google implemented a new experimental application protocol called SPDY as an alternative to \gls{HTTP} in its browser Chrome accompanied by a draft specification~\cite{google2011SPDYdef, google2010SPDYwp}. Every major browser and most Web servers support SPDY, many Cloud and \gls{CDN} providers have it enabled.
+
+SPDY uses the same port as \acrshort{HTTPS} (443) and mandates the use of \gls{TLS} as it also serves to negotiate the choice between \gls{HTTP} and SPDY. Compared to \gls{HTTP} pipelining, SPDY provides full-duplex time-division multiplexing. After an initial request of a Web page, the server can anticipate any follow-up requests, push objects on additional streams with assigned priorities and therefore avoid additional request round trips.
+
+All of the SPDY changes are aimed at reducing the number of established \gls{TCP} connections for a Web site retrieval, ideally down to one, and reduce the overall latency of the object transmissions. Evaluations in \cite{google2010SPDYwp} suggest an average Web page load time reduction of \SI{29}{\percent}. The gains for networks with high latency, e.g., mobile networks, the gain could be even higher as several round trips are avoided.
+
+Some of the benefits are also applicable to reliable streaming, with video segments being able to be pushed from the server. Conjoined with \gls{SVC}, SPDY could multiplex the different video layers in one connection, with the highest priority assigned to the base layer.
+
+The SPDY draft was later picked up by the \gls{IETF} Httpbis working group as an initial basis basis for the \gls{HTTP} 2.0 specification~\cite{http20draft} currently being finalized as of mid 2014. It follows the SPDY specs rather closely, with the only major difference being the use of \gls{TLS}. Its usage is not mandated anymore, merely its presence and, if used, the application of strong and ephemeral cipher suites.
 
 
-To combat the situation and also increase the interactivity 
-
-% ! <-- !
-
-
-WebSocket \cite{rfc6455}
-WebSockets as streaming transport \cite{w3c2011websockets} \cite{heise2011websockets}
- IETF HyBi (Hypertext Bidirectional) Working group
- W3C WebSocket API
- Supported by every major browser and Web server
- Provides full-duplex client-server communication
-	Upgrades from HTTP/1.1 through extension header
-	Barebone protocol atop TCP (or TLS), not HTTP
-	HTTP/1.1 only allows client-initiated polling (GET)
-	Asynchronous server push possible
-		In HTTP/1.1 only achievable through various hacks (e.g. ``long polling'')
-		Stateful instead of stateless (as HTTP)
-Lower overhead per transmission/frame
-Reduces number of open TCP connections and bandwidth overhead (no polling on additional TCP connection)
-
-
-WebRTC~\cite{webrtcdraft}
-
-
-SPDY~\cite{google2011SPDYdef, google2010SPDYwp} 
-SPDY / \gls{HTTP}/2.0 (multiplexing -> segmented streaming)
- Google proposal and draft
-	Currently SPDY/3.1 
-	IETF httpbis working group basis for http/2.0
- original Draft based on Chrome browser implementation
- Widespread use and implementations in almost every browser and \gls{HTTP} server and all major cloud providers.
-
-	HTTP-requests are transparently upgraded through Next Protocol Negotiation
- TLS mandatory
- HTTP/1.1 syntax still viable as a layer on top of SPDY
- Aim: Just one connection held per domain
-	Better server scaling (less concurrent connections, fewer packets sent)
-	Better latency
-Multiplexing/Streams:
- Control and Data Frames, with header compression
- Stream interleaving/multiplexing or cancellation
- Server hint
-	Server informs client, what he might want to request in the near future
- Server created streams / server push
-	Avoiding one additional RTT and polling
-	Only data pushed related to possible GET requests
-	Client-side throttles to prevent ``push attacks''
- Stream priorities (8 levels)
-	Prefer essential resources over others (images)
-	Prefer data with earlier deadlines? (E.g. load next few video streams immediately while already requesting more)
- Use with Scalable Video Coding (Base Layer vs Enhancement Layers)?
- Per stream flow control
-multiplexing:
- HTTP: One file request after another
-	Pipelining usually absent or disabled by default in browsers (Chrome, Firefox, IE)
-	High complexity/maintenance, low gain, head-of-line blocking issues
- SPDY: File parts reordered according to timelines
-	Out of order and interleaved requests
-Evaluations:
-	Average reduction in page load time: ~29\%; 27\% - 60\%
-	Strongly dependent on connection, server environment
-	HTTP/1.1 optimization (resources split on multiple domains) prevents SPDY multiplexing gains
- SPDY could be more susceptible to packet loss and TCP congestion window downscaling
-	Only one connection used compared to multiple HTTP/1.1
- Possible operator benefits
-	Significant reduction in concurrent TCP sessions
-	Reduction in packets per second
-	$\rightarrow$ Reduced infrastructure load?
-spdy mobile page load times
- Chrome on Android tests with several Websites
- Emulated mobile conditions (constant 2Mbps, 150ms RTT)
- ~23\% average load time reduction
- Benefits can be higher for large RTT
-	Less request round trips and connection setups needed
-
-	% Chrome, Firefox; Apache, Nginx
-	% Google, Twitter, Facebook, Akamai, Wordpress, ...
-
-HTTP/2.0~\cite{http20draft}
-
- IETF Hypertext Transfer Protocol Bis Working Group
- Initial call for proposals made in March 2012
- Planned 2.0 standard proposal in 2014/2015
- Using SPDY as a starting point
- General aims
-	Tackle multiplexing, improve load times and experienced latency
-	But preserve the semantics of HTTP/1.1
-requires presence (but not usage) of TLS1.2
-	if used, emphemeral cipher suites >=2048 must be used (a.k.a. Perfect Forward Secrecy)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The TCP Case: Prime Example of a Living, Ever-Evolving Protocol}
+\subsection{Additional TCP Changes}
 
-\gls{TCP} changes (Fast Open, IW10, ...; any relationship to streaming? maybe faster)
+In addition to the previously described new transport protocols under development aiming to replace and surpass \gls{TCP}, \gls{TCP} itself is not as static as it may seem. While the basic wire frame and data interchange format has already been defined in 1981 in RFC~793~\cite{rfc793}, much of the specific behavior is free to be experimented with by further specifications and implementations. The most prominent example is the congestion control mechanism where every operating system takes different approaches.
 
-SACK or no SACK, CUBIC, ...
 
-% most data from kernelnewbies.org
 \begin{table}[htbp]
 	\begin{tabu}{X[1.4]XX[0.4]X[0.7]}
 	\toprule
@@ -225,6 +148,16 @@ SACK or no SACK, CUBIC, ...
 	\caption{Assorted list of some select network stack changes in the Linux kernel, that alter \gls{TCP}'s transmission bevahior.}
 \label{c5:tab:linux-stack-changes}
 \end{table}
+
+
+Every one of these changes can have unforeseen repercussions or great benefits for the application layer. The following paragraphs investigate some of the changes in the last few years and their implications.  Instead of implicitly exploring specific mechanism choices of closed source \glspl{os} and tracking their changes over the years, which would be extremely difficult, the \gls{TCP} implementation in the Linux kernel is taken as an example. The changes can be easily tracked by crawling through the patch sets and their commit logs of every kernel version. Sites like \url{http://kernelnewbies.org/} and \url{http://lwn.net/} simplify this process even more. Table~\ref{c5:tab:linux-stack-changes} depicts such an attempt to track the major changes affecting \gls{TCP} in the kernel.
+
+% ! <-- !
+
+
+\gls{TCP} changes (Fast Open, IW10, ...; any relationship to streaming? maybe faster)
+
+SACK or no SACK, CUBIC, ...
 
 Also look at ``An in-depth study of LTE: effect of network protocol and application behavior on performance'' \cite{Huang:2013:ISL:2486001.2486006}
 
@@ -545,3 +478,22 @@ Put into relation:
 %inherits new TCP features such as TFO, snap start, ...
 %congestion control not through CWND but through packet pacing
 %includes stream multiplexing and TLS-like crypto by default
+
+
+% Multiplexing/Streams:
+%  Control and Data Frames, with header compression
+%  Stream interleaving/multiplexing or cancellation
+
+%  Stream priorities (8 levels)
+% 	Prefer essential resources over others (images)
+% 	Prefer data with earlier deadlines? (E.g. load next few video streams immediately while already requesting more)
+
+%  HTTP/1.1 syntax still viable as a layer on top of SPDY
+
+
+% Evaluations:
+% 	Average reduction in page load time: ~29\%; 27\% - 60\%
+% 	Strongly dependent on connection, server environment
+% 	HTTP/1.1 optimization (resources split on multiple domains) prevents SPDY multiplexing gains
+%  SPDY could be more susceptible to packet loss and TCP congestion window downscaling
+% 	Only one connection used compared to multiple HTTP/1.1
