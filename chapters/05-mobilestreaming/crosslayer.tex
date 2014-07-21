@@ -1,20 +1,31 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposal for Cross-Layer Enhancements}
-\label{c5:crosslayerhinting}
+\subsection{Cross-Layer Information Exchange}
+\label{c5:sec:crosslayerhinting}
+
+Historically, the Internet has its roots deep in wired networks with a slim and well-defined network stack represented by the \gls{ISO}/\gls{OSI} or \gls{TCP}/gls{IP} model. These layers are isolated against each other, with only pre-defined information exchange points, or \gls{osiSAP}, at the layer borders allowing for vertical communication.
+
+A very typical wired Internet environment consists of either an Ethernet or other access technologies, e.g., \gls{DSL} or \gls{DOCSIS}, at the physical and link layers or \gls{PON} with TCP/IP following atop.
+
+Application layer protocols often implicitly rely on the presence and specific characteristics of these protocols. Through the layer isolation no application can precisely know or even control the current state of the lower layers. They can just make assumptions on the composition and behavior of the lower layers and plan their work accordingly. 
+
+But the access technology diversity has strongly increased through the advent of wireless technologies, and past behavioral patterns may not be applicable any more today.
 
 
-Wired Internet access has a very narrow choice of protocols on the \gls{ISO}/\gls{OSI} Layers 1 and 2. The typical use-case consists of a \gls{LAN} using Ethernet which is then tunneled through or translated into one of several access technologies, e.g., \gls{DSL}, \gls{DOCSIS}, or \gls{PON}. Applications often make assumptions that rely on the presence of these protocols and their specific characteristics.
-
-However, Internet access today is similarly often achieved using mobile cellular networks. The latest standardized iteration of these is \gls{LTE} and the accompanying \gls{EPS} core network infrastructure \cite{olsson2009sae}. This is the first evolution of standards that completely removes the classical circuit switched domain making room for more radio frequency bandwidth to be used with the all-\gls{IP} services achieving shared transmission capacities --- comparable to today's 802.11n WiFi --- albeit on much larger cell sizes of \SI{1}{\kilo\meter} to \SI{3}{\kilo\meter}. The \gls{EPS} network acts as an intermediary between the radio access stations and the Internet enabling strong traffic control mechanisms as well as mobility anchored at the \gls{SGW}. Traffic is routed through the core by using tunneling over the \gls{SGW} and \gls{PGW} based on the traffic bearer concept defined either in the \gls{gtp} or the \gls{PMIPv6} protocols. For every mobile device connected to the network there is one default and up to ten dedicated bearers carrying traffic filtered by pre-set \gls{QoS} parameters. Control is enforced through a logically separate network control plane, that is also used to setup and tear down these bearers. Figure fig:ltestack displays the disparity between the Internet's protocol stack and that of an \gls{LTE} network encapsulating all user traffic in additional protocol layers by the tunneling process.
-
-Research work is ongoing how to best work with this complex network setup. It is expected, that with the rise of mobile access the core network comes under heavy traffic pressure with negative affects on the \gls{QoS} of best-effort traffic. Endeavors are required to study the loaded network's behavior. Also very little work has gone into exploring the control plane characteristics of these networks, including their performance. A novel approach could also be, to make mobile device applications, e.g. video streaming players, aware of the core networks capabilities and allow the request of tunnels tailored to their specific \gls{QoS} requirements resulting in a possible increase of perceived quality.
 
 % influence of signaling plane and core network elements - scaling
 
 The protocols used for the radio transmissions behave very differently when compared to Ethernet and assumptions made by higher layers may not hold any more. This can apply to, e.g., reliability, frame sizing and fragmenting, and latency amounting to undesired effects on higher-layer traffic. For example, loss in \gls{GSM} and \gls{UMTS} networks is often caught transparently on layer 2 and a retransmission is conducted. However, in the time the retransmission takes the transport layer may have already run into a timeout and re-requested the missing segment on its own, resulting in additional delay and a waste of bandwidth. This is especially detrimental for time-critical applications like video streaming, possibly resulting in buffer underruns and degraded quality. Transport and application layer mechanisms need to be able to understand this and cope with the effects. E.g., \gls{TCP} retransmissions and congestion control could be adjusted in the course of understanding this.
 
 Furthermore, traffic could be avoided during cell handover occurrences. This would require cross-layer cooperation and an awareness of the application when an handover is supposed to occur. The application then could schedule its traffic accordingly. Traffic falling into a handover is subject to especially high latency and loss because the mobile network acts as a mobility anchor which needs to internally reroute incoming traffic to the mobile device's new position. \gls{HTTP} traffic is especially suited to this scheduling behavior because of its statelessness and consistence of small objects that can be requested and transferred independently.
+
+
+
+% ! <-- !
+
+The work in this section is based on a proposal for a FWF~\footnote{Fonds zur Förderung der wissenschaftlichen Forschung, \url{http://www.fwf.ac.at/}} stand-alone project submitted in September 2014 \todo{replace with actual date}. Thus, only initial ideas and planned future work is described.
+
+%%
 
 \begin{figure}[htb]
 	\centering
@@ -23,8 +34,6 @@ Furthermore, traffic could be avoided during cell handover occurrences. This wou
 \label{c5:fig:crosslayer-model}
 \end{figure}
 
-
-\subsubsection{Related Work}
 
  ECN~\cite{rfc3168} (one of the earlier notions of cross-layer interactions; disabled by default almost everywhere)
 
@@ -100,7 +109,7 @@ Still, one has also to keep in mind, that layering and encapsulation is there fo
 
 		
 
-\subsubsection{Scenario Use Cases}
+\subsubsection{Use Cases and Benefits}
 
 \begin{itemize}
 	\item Video/Voice calls that notify the other party, that interruptions are expected to occur.
@@ -153,7 +162,22 @@ Still, one has also to keep in mind, that layering and encapsulation is there fo
 
 \end{itemize}
 
-\subsubsection{Technical Implementation}
+Example Benefits
+
+Put into relation:
+
+\begin{itemize}
+	\item frequency of handovers / distance/density of radio towers vs scenario traveling speed
+	\item bit-length of streaming segments, typical transmission speed
+	\item typical video length and number of segments
+	\item derive number of interruptions in segments due to handovers
+	\item estimate typical handover/mobility duration and service interruption time per event
+	\item sum it up and compare to crosslayer information or even application layer handover decision
+
+\end{itemize}
+
+
+\subsubsection{Methodology}
 
 The Implementation:
 \begin{itemize}
@@ -177,22 +201,9 @@ The process:
 \end{itemize}
 
 
-\subsubsection{Example Benefits}
-
-Put into relation:
-
-\begin{itemize}
-	\item frequency of handovers / distance/density of radio towers vs scenario traveling speed
-	\item bit-length of streaming segments, typical transmission speed
-	\item typical video length and number of segments
-	\item derive number of interruptions in segments due to handovers
-	\item estimate typical handover/mobility duration and service interruption time per event
-	\item sum it up and compare to crosslayer information or even application layer handover decision
-
-\end{itemize}
 
 
-\subsubsection{Planned Work and Methodology}
+\subsubsection{Planned Work}
 
 \begin{itemize}
 	\item investigate how much information is exposed and what can already be done
