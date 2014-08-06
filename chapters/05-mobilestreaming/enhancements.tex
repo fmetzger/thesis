@@ -10,6 +10,7 @@ This section briefly covers the existing protocol stacks in relation to mobile n
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Influences of the Existing Stack}
+\label{c5:sec:stack-influences}
 
 Superficially not much has changed in the Web's protocol stack. There is still \gls{IP}, \gls{TCP}, and \gls{HTTP} forming effectively the same protocol stack since 1991 with HTTP/0.9. And this seems hard to change, especially the transport layer is fixed to \gls{UDP} and \gls{TCP}, everything else will probably get rejected, altered or even dropped by one of the numerous middleboxes, such as \glspl{NAT}, or forced ``traffic optimization'' transparent proxies, all of which are especially prevalent in mobile networks \cite{sigcomm11middleboxes}. As a side note, this adds another layer of state kept in the network. A fact that was already discussed as being highly problematic and capable of inducing load in the core network in Chapter~\ref{chap:mobilenets}.
 
