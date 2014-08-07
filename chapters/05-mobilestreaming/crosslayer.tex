@@ -7,23 +7,9 @@ The Internet has its historic roots deep in wired networks with a slim and well-
 
 Application layer protocols often implicitly rely on the presence and characteristics of specific lower layer protocols. Through the layer isolation no application can precisely know or even control the current state of the lower layers. Nonetheless, they make assumptions on the composition and behavior of the lower layers and plan their work accordingly. 
 
-But the access technology diversity has strongly increased through the advent of wireless technologies, and past behavioral patterns may not be applicable any more today. The protocols used for the radio transmissions behave very differently when compared to Ethernet and assumptions made by higher layers may not hold any more. Examples for this were given in the in the discussion of the stack's influences in Section~\ref{c5:sec:stack-influences}
+But the access technology diversity has strongly increased through the advent of wireless technologies, and past behavioral patterns may not be applicable any more today. The protocols used for the radio transmissions behave very differently when compared to Ethernet and assumptions made by higher layers may not hold any more. Examples for this were given in the in the discussion of the stack's influences in Section~\ref{c5:sec:stack-influences}.
 
-
-
-% influence of signaling plane and core network elements - scaling
-
- This can apply to, e.g., reliability, frame sizing and fragmenting, and latency amounting to undesired effects on higher-layer traffic. For example, loss in \gls{GSM} and \gls{UMTS} networks is often caught transparently on layer 2 and a retransmission is conducted. However, in the time the retransmission takes the transport layer may have already run into a timeout and re-requested the missing segment on its own, resulting in additional delay and a waste of bandwidth. This is especially detrimental for time-critical applications like video streaming, possibly resulting in buffer underruns and degraded quality. Transport and application layer mechanisms need to be able to understand this and cope with the effects. E.g., \gls{TCP} retransmissions and congestion control could be adjusted in the course of understanding this.
-
-Furthermore, traffic could be avoided during cell handover occurrences. This would require cross-layer cooperation and an awareness of the application when an handover is supposed to occur. The application then could schedule its traffic accordingly. Traffic falling into a handover is subject to especially high latency and loss because the mobile network acts as a mobility anchor which needs to internally reroute incoming traffic to the mobile device's new position. \gls{HTTP} traffic is especially suited to this scheduling behavior because of its statelessness and consistence of small objects that can be requested and transferred independently.
-
-
-
-% ! <-- !
-
-The work in this section is based on a proposal for a FWF~\footnote{Fonds zur FÃ¶rderung der wissenschaftlichen Forschung, \url{http://www.fwf.ac.at/}} stand-alone project submitted in September 2014 \todo{replace with actual date}. Thus, only initial ideas and planned future work is described.
-
-%%
+It would be very desirable for transport and application layer mechanisms to be able to understand this and cope with these effects. The term \textit{cross-layer interactions} or \texit{information exchange} subsumes these approaches. Specific information from one layer is made available to other interested layers and can even skip intermediate layers.
 
 \begin{figure}[htb]
 	\centering
@@ -32,8 +18,51 @@ The work in this section is based on a proposal for a FWF~\footnote{Fonds zur FÃ
 \label{c5:fig:crosslayer-model}
 \end{figure}
 
+Figure~\ref{c5:fig:crosslayer-model} illustrates this concept with the example of a mobile device. In a fully isolated model, no information would be passed from the baseband to the \gls{os} and the applications. In the cross-layer model certain information would be permitted to pass through. A broker would be responsible to collect information from several sources and layers and make it available to any interested application in a concise manner.
+
+Especially the \gls{3G} mobile layers keep a lot of information, that could be potentially interesting and used in benefit for applications and the user experience.This could include:
+
+\begin{itemize}
+	\item Information on the occurrence of a horizontal handover.
+	\item Information on neighboring cells and predictions when a handover is most probable to occur.
+	\item Information on the occurrence of a vertical handover and thereby changes in the active network stack, e.g., to the WiFi layers.
+	\item Information on the current signal strength, bit error rate, and throughput.
+	\item More detailed mobility information, including current location and travel speed in relation to base station positioning and availability.
+\end{itemize}
+
+In addition to information flow, a path for control flow could also be envisioned. Herein, applications could directly influence the decision making and policies of the lower layers and adapt them to their personal needs.
+
+The impact of a simple unidirectional information flow on the layering mechanisms is suggested to be rather low. Only explicit and specific information is revealed keeping most of the isolation intact. A bidirectional control flow could soften up the isolation and have adverse side-effects. Either way, when implementing any kind of cross-layer exchange, one always has to keep a close look on the resulting consequences. Breaches in the isolation could unintentionally leak network state that could be exploited by malicious parties in any number of unforeseeable ways. Therefore, handling this plays an important role in cross-layer research.
+
+The next sections describe related and similar approaches in the literature and then give some concrete examples on how cross-layer information can be facilitated to the benefit of applications. The cross-layer work is based on a proposal for a FWF~\footnote{Fonds zur FÃ¶rderung der wissenschaftlichen Forschung, \url{http://www.fwf.ac.at/}} stand-alone project submitted in October 2014 \todo{replace with actual date}. Thus, only initial ideas and planned future work is described.
+
+%%
+% ! <-- !
+\subsubsection{Related Cross-Layer Approaches}
+
+The idea of exchanging information between layers is not a particularly new one. Some specific ideas have been implemented a long time ago.
 
  ECN~\cite{rfc3168} (one of the earlier notions of cross-layer interactions; disabled by default almost everywhere)
+
+LCP Link Control Protocol, PPP extension RFCs \cite{rfc1570,rfc1661}
+
+But most cross-layer approaches did not leave the proposal stage. 
+
+
+Cross-Layer for other stacks: 
+SATSIX cross-layer architecture \cite{4656786}
+
+
+network-assisted versus standalone approaches (centralized/managed vs distributed)
+
+	Radio Resource Management RRM
+		\begin{itemize}
+			\item resource monitoring, decision making, decision enforcement
+			\item choose available wireless interfaces  best suited for a specific task
+			\item rudimentary implementations in mobile OSs
+		\end{itemize}
+	IEEE 802.21 cooperative handovers, but with required network support
+
 
 \begin{itemize}
 	\item Cross-layer design optimizations in wireless protocol stacks \cite{Raisinghani2004720}
@@ -63,30 +92,29 @@ The work in this section is based on a proposal for a FWF~\footnote{Fonds zur FÃ
 	\item A cautionary perspective on cross-layer design \cite{1404568}
 	\item User-centric mobility management for multimedia content access \cite{bolla2011usercentric}
 	\item Socketless \gls{TCP} --- an end to end handover solution \cite{1635680}
-	\item SATSIX cross-layer architecture \cite{4656786}
 	\item mostly routing protocol optimization oriented ``A cross layer based QoS model for wireless and mobile ad hoc networks'' \cite{krishna2007cross}
 	\item SmoothIT mechanisms; lower layer elements provide information to higher layers, overlays\footnote{\url{http://www.smoothit.org}}  \cite{oechsner2009pushing}
 	\item ``Mobility Awareness'' \cite{hummel2010mobilitaet} PMLAR (Predictive mobility and location-aware routing protocol in mobile ad hoc networks)
 	\item Automatic Multi-interface Management Through Profile Handling \cite{Bonnin:2009:AMM:1503496.1503498}
 	\item A ubiquitous mobile communication architecture for next-generation heterogeneous wireless systems \cite{1452832} (supposed to propose a function that determines the best handover initiation time in order to avoid early or late initiations)
 	\item Optimized video streaming over 802.11 by cross-layer signaling \cite{1580941}
-	\item LCP Link Control Protocol, PPP extension RFCs \cite{rfc1570,rfc1661}
+
  	\item Modem Link Properties Advertisement Protocol\footnote{\url{https://tools.ietf.org/html/draft-ivancic-mobopts-modemlpa-01}}
-	\item IEEE 802.21 cooperative handovers, but with required network support
+
 	\item LISP and other mobility approaches \cite{rfc6830}
-	\item Radio Resource Management RRM
-		\begin{itemize}
-			\item resource monitoring, decision making, decision enforcement
-			\item choose available wireless interfaces  best suited for a specific task
-			\item rudimentary implementations in mobile OSs
-		\end{itemize}
+
 \end{itemize}
 
 
 
 
 %%
-\subsubsection{Cross-Layer Mobility Hinting}
+\subsubsection{Application Usage and Adaptation Scenarios}
+
+
+ E.g., \gls{TCP} retransmissions and congestion control could be adjusted in the course of understanding this.
+
+Furthermore, traffic could be avoided during cell handover occurrences. This would require cross-layer cooperation and an awareness of the application when an handover is supposed to occur. The application then could schedule its traffic accordingly. Traffic falling into a handover is subject to especially high latency and loss because the mobile network acts as a mobility anchor which needs to internally reroute incoming traffic to the mobile device's new position. \gls{HTTP} traffic is especially suited to this scheduling behavior because of its statelessness and consistence of small objects that can be requested and transferred independently.
 
 Today's mobile networks are all of a cellular design. A device that moves from one cell to the other has to perform a so-called handover. During this process the device is deregistered in one cell and registered in the new one. All network traffic currently in flight has to be rerouted or relayed to the device's new location. 
 Although seemingly transparent to the device's application, adverse side effects can occur during a handover, including an increase and variability of latency. 
@@ -107,7 +135,6 @@ Still, one has also to keep in mind, that layering and encapsulation is there fo
 
 		
 
-\subsubsection{Use Cases and Benefits}
 
 \begin{itemize}
 	\item Video/Voice calls that notify the other party, that interruptions are expected to occur.
@@ -171,11 +198,10 @@ Put into relation:
 	\item derive number of interruptions in segments due to handovers
 	\item estimate typical handover/mobility duration and service interruption time per event
 	\item sum it up and compare to crosslayer information or even application layer handover decision
-
 \end{itemize}
 
 
-\subsubsection{Methodology}
+\subsubsection{Proposal}
 
 The Implementation:
 \begin{itemize}
@@ -199,10 +225,6 @@ The process:
 \end{itemize}
 
 
-
-
-\subsubsection{Planned Work}
-
 \begin{itemize}
 	\item investigate how much information is exposed and what can already be done
 	\item Analysis of data traces and realistic simulations in order to capture in detail the unwanted phenomena
@@ -210,3 +232,5 @@ The process:
 \end{itemize}
 
 
+% influence of signaling plane and core network elements - scaling
+%This can apply to, e.g., reliability, frame sizing and fragmenting, and latency amounting to undesired effects on higher-layer traffic. 
