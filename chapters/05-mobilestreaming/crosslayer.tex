@@ -9,7 +9,7 @@ Application layer protocols often implicitly rely on the presence and characteri
 
 But the access technology diversity has strongly increased through the advent of wireless technologies, and past behavioral patterns may not be applicable any more today. The protocols used for the radio transmissions behave very differently when compared to Ethernet and assumptions made by higher layers may not hold any more. Examples for this were given in the in the discussion of the stack's influences in Section~\ref{c5:sec:stack-influences}.
 
-It would be very desirable for transport and application layer mechanisms to be able to understand this and cope with these effects. The term \textit{cross-layer interactions} or \texit{information exchange} subsumes these approaches. Specific information from one layer is made available to other interested layers and can even skip intermediate layers.
+It would be very desirable for transport and application layer mechanisms to be able to understand this and cope with these effects. The term \textit{cross-layer interactions} or \textit{information exchange} subsumes these approaches. Specific information from one layer is made available to other interested layers and can even skip intermediate layers.
 
 \begin{figure}[htb]
 	\centering
@@ -42,48 +42,31 @@ The next sections describe related and similar approaches in the literature and 
 
 The idea of exchanging information between layers is not a particularly new one. Some specific ideas have been implemented a long time ago.
 
- ECN~\cite{rfc3168} (one of the earlier notions of cross-layer interactions; disabled by default almost everywhere)
+Most well known is probably \gls{ECN}~\cite{rfc3168}. Here, the \gls{IP} layer of intermediate hops can signal the end nodes' \gls{TCP} layer that congestion is occurring and \gls{TCP} does not need to wait for implicit congestion signals, e.g., duplicate acknowledgments or timeouts. However, \gls{ECN} is disabled in almost every implementation as it lead to numerous problems and triggered bugs\footnote{\url{http://lkml.iu.edu//hypermail/linux/kernel/0009.1/0329.html}}. This is a risk that many cross-layer attempts may face.
 
-LCP Link Control Protocol, PPP extension RFCs \cite{rfc1570,rfc1661}
+While cross-layer typically implies a solely \textit{vertical} exchange flow there can also be \textit{horizontal} components present.
+\gls{DLEP}~\cite{ietf2013dlepdraft} is such an example of a \textit{diagonal} flow, providing information of a lower layer of one entity to a higher layer at another node.
+The \gls{DLEP}~\cite{ietf2013dlepdraft} protocol provides information available only to the (external) wireless modem or other interfaces to the routing entity of a node upon which it can act. Link characteristics such as bandwidth, latency, connection status, or information regarding neighbors can be requested.
+
+
+Though, horizontal information flow is more than often an indication of \textit{centralization} (also called \textit{network-assisted} or \textit{managed}) as apposed to purely vertical \textit{distributed} approaches.
+
+
+
 
 But most cross-layer approaches did not leave the proposal stage. 
+
 
 
 Cross-Layer for other stacks: 
 SATSIX cross-layer architecture \cite{4656786}
 
 
-network-assisted versus standalone approaches (centralized/managed vs distributed)
-
-	Radio Resource Management RRM
-		\begin{itemize}
-			\item resource monitoring, decision making, decision enforcement
-			\item choose available wireless interfaces  best suited for a specific task
-			\item rudimentary implementations in mobile OSs
-		\end{itemize}
-	IEEE 802.21 cooperative handovers, but with required network support
-
-
 \begin{itemize}
 	\item Cross-layer design optimizations in wireless protocol stacks \cite{Raisinghani2004720}
 	\item ECLAIR: An efficient cross layer architecture for wireless protocol stacks \cite{raisinghani2004eclair}
 	\item Still no implementation of ECLAIR: ``Cross-layer feedback architecture for mobile device protocol stacks'' \cite{1580937}
-	\item 802.21
 	\item A multi-layer mobility management architecture using cross-layer signalling interactions\cite{wang2003multi}
-	\item 
-		\begin{itemize}
-			\item \gls{DLEP} \cite{ietf2013dlepdraft}
-			\item running on routers for communication between routers and attached interfaces (wireless!)
-			\item interface/modem informs router about link characteristics
-			\item router acts upon this information
-			\item specific set of required and optional signals (message types / reason for messaging) and data items (information)
-			\item bandwidth, latency, connection status (loss)
-			\item information about specific neighbors
-			\item \gls{UDP}-based, discovery mechanism via multicast, session-based
-			\item requires/relies on lower layer auth/crypt
-			\item no data items specific for cell-type mobile nets and mobility
-			\item best suited for routers with external modems/interfaces (outside antennas)
-		\end{itemize}
 	\item Seamless Mobility in Heterogeneous Wireless Networks \cite{zarai2010seamless}
 	\item Radio resource management in emerging heterogeneous wireless networks \cite{Piamrat20111066}
 	\item Improved community network node design using a DLEP based radio-to-router interface \cite{6379143}
@@ -101,12 +84,20 @@ network-assisted versus standalone approaches (centralized/managed vs distribute
 
  	\item Modem Link Properties Advertisement Protocol\footnote{\url{https://tools.ietf.org/html/draft-ivancic-mobopts-modemlpa-01}}
 
-	\item LISP and other mobility approaches \cite{rfc6830}
-
 \end{itemize}
 
 
+%LCP Link Control Protocol, PPP extension RFCs \cite{rfc1570,rfc1661}
+%LISP and other mobility approaches \cite{rfc6830}
 
+% Conceptually similar to cross-layer interactions is the family of dynamic radio resource management techniques. These control many properties concerning radio resources. 
+% Radio Resource Management RRM
+% 		\begin{itemize}
+% 			\item resource monitoring, decision making, decision enforcement
+% 			\item choose available wireless interfaces  best suited for a specific task
+% 			\item rudimentary implementations in mobile OSs
+% 		\end{itemize}
+%	IEEE 802.21 cooperative handovers, but with required network support
 
 %%
 \subsubsection{Application Usage and Adaptation Scenarios}
