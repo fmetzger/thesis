@@ -32,76 +32,41 @@ Especially the \gls{3G} mobile layers keep a lot of information, that could be p
 
 In addition to information flow, a path for control flow could also be envisioned. Herein, applications could directly influence the decision making and policies of the lower layers and adapt them to their personal needs.
 
-The impact of a simple unidirectional information flow on the layering mechanisms is suggested to be rather low. Only explicit and specific information is revealed keeping most of the isolation intact. A bidirectional control flow could soften up the isolation and have adverse side-effects. Either way, when implementing any kind of cross-layer exchange, one always has to keep a close look on the resulting consequences. Breaches in the isolation could unintentionally leak network state that could be exploited by malicious parties in any number of unforeseeable ways. Therefore, handling this plays an important role in cross-layer research.
+The impact of a simple unidirectional information flow on the layering mechanisms is suggested to be rather low. Only explicit and specific information is revealed keeping most of the isolation intact. A bidirectional control flow could soften up the isolation and have adverse side-effects. Either way, when implementing any kind of cross-layer exchange, one always has to keep a close look on the resulting consequences. Breaches in the isolation could unintentionally leak network state that could be exploited by malicious parties in any number of unforeseeable ways. Therefore, handling this plays an important role in cross-layer research. In \cite{1404568} some of these issues are presented and discussed.
 
 The next sections describe related and similar approaches in the literature and then give some concrete examples on how cross-layer information can be facilitated to the benefit of applications. The cross-layer work is based on a proposal for a FWF~\footnote{Fonds zur Förderung der wissenschaftlichen Forschung, \url{http://www.fwf.ac.at/}} stand-alone project submitted in October 2014 \todo{replace with actual date}. Thus, only initial ideas and planned future work is described.
 
 %%
 % ! <-- !
-\subsubsection{Related Cross-Layer Approaches}
+\subsubsection{Related Cross-Layer Approaches and Classifications}
 
-The idea of exchanging information between layers is not a particularly new one. Some specific ideas have been implemented a long time ago.
+The idea of exchanging information between layers is not a particularly new one. Some specific ideas have been implemented a long time ago. The authors \cite{Raisinghani2004720} list a number of scenarios in which cross-layer information could be used and also talk about the type of information to be shared between layers.
 
-Most well known is probably \gls{ECN}~\cite{rfc3168}. Here, the \gls{IP} layer of intermediate hops can signal the end nodes' \gls{TCP} layer that congestion is occurring and \gls{TCP} does not need to wait for implicit congestion signals, e.g., duplicate acknowledgments or timeouts. However, \gls{ECN} is disabled in almost every implementation as it lead to numerous problems and triggered bugs\footnote{\url{http://lkml.iu.edu//hypermail/linux/kernel/0009.1/0329.html}}. This is a risk that many cross-layer attempts may face.
+One of the oldest and most well known cross-layer approaches is probably \gls{ECN}~\cite{rfc3168}. Here, the \gls{IP} layer of intermediate hops can signal the end nodes' \gls{TCP} layer that congestion is occurring and \gls{TCP} does not need to wait for implicit congestion signals, e.g., duplicate acknowledgments or timeouts. However, \gls{ECN} is disabled in almost every implementation as it lead to numerous problems and triggered bugs\footnote{\url{http://lkml.iu.edu//hypermail/linux/kernel/0009.1/0329.html}}. This is a risk that many cross-layer attempts may face.
 
-While cross-layer typically implies a solely \textit{vertical} exchange flow there can also be \textit{horizontal} components present.
-\gls{DLEP}~\cite{ietf2013dlepdraft} is such an example of a \textit{diagonal} flow, providing information of a lower layer of one entity to a higher layer at another node.
-The \gls{DLEP}~\cite{ietf2013dlepdraft} protocol provides information available only to the (external) wireless modem or other interfaces to the routing entity of a node upon which it can act. Link characteristics such as bandwidth, latency, connection status, or information regarding neighbors can be requested.
+A significant amount of publications is dealing with cross-layer information in wireless and mobile protocol stacks. A number of architectures have been proposed, e.g., \cite{raisinghani2004eclair, 1580937}, \cite{wang2003multi}, \cite{1200522}, and \cite{krishna2007cross}, but no actual solution seems to have been implemented in any of these.
 
+While cross-layer typically implies a solely \textbf{vertical} exchange flow there can also be \textbf{horizontal} components present. \gls{DLEP}~\cite{ietf2013dlepdraft} is such an example of a \textbf{diagonal} flow, providing information of a lower layer of one entity to a higher layer at another node.
+The \gls{DLEP}~\cite{ietf2013dlepdraft,6379143} protocol provides information available only to the (external) wireless modem or other interfaces to the routing entity of a node upon which it can act. Link characteristics such as bandwidth, latency, connection status, or information regarding neighbors can be requested.
 
-Though, horizontal information flow is more than often an indication of \textit{centralization} (also called \textit{network-assisted} or \textit{managed}) as apposed to purely vertical \textit{distributed} approaches.
+Though, horizontal information flow is more than often an indication of \textbf{centralization} (also called \textbf{network-assisted} or \textbf{managed}) as apposed to purely vertical \textbf{distributed} approaches. Concerning network-assisted cross-layer exchange there are a number of approaches, that aim to integrate layer cooperation into the design of new mobile network infrastructures, including \cite{zarai2010seamless} and \cite{Piamrat20111066}. Generally, information is retrieved from the clients and collected at a central manager to be used in any policy decision like mobility and radio resource management.
 
+Going back to purely distributed approaches, in \cite{hummel2010mobilitaet} the concept of mobility awareness is discussed. The goal is to predict motion and mobility based on available information and adapt the individual network layers to react accordingly. 
 
+One of the easiest to implement uses of cross-layer information is the selection of the active network interface. Current mobile devices have a wide range of interfaces available, all with specific characteristics. The management architecture proposed in  \cite{Bonnin:2009:AMM:1503496.1503498} switches the currently used interface based on pre-configured profiles. Information from multiple layers is used to support the decision-making process.
 
+To optimize unreliable video streaming in a WiFi network, the authors of \cite{1580941} create a control loop between the video encoder and the 802.11 \gls{MAC} layer to conduct WiFi rate control fitted to the output of the encoder. This is an example of a tight cross-layer control loop for one particular application, which has very likely adverse affects on other applications using this node.
 
-But most cross-layer approaches did not leave the proposal stage. 
-
-
-
-Cross-Layer for other stacks: 
-SATSIX cross-layer architecture \cite{4656786}
+The notion of cross-layer can also be applied to non-traditional network stacks. For example, the authors of \cite{4656786} present a cross-layer model for satellite communication stacks. They additionally distinguish between two general flavors of cross-layer architectures, one with \textbf{direct} and the other with \textbf{indirect} communication. Direct exchange implements new interfaces in the layers and exchanges information directly between them.  The indirect alternative uses an external information broker that handles all communication in parallel to the existing layers. Similar information can be offered to peer-to-peer overlay networks, as was for example researched in the SmoothIT project\footnote{\url{http://www.smoothit.org}}, where routing and topology information was collected and made available to interested peers~\cite{oechsner2009pushing}.
 
 
-\begin{itemize}
-	\item Cross-layer design optimizations in wireless protocol stacks \cite{Raisinghani2004720}
-	\item ECLAIR: An efficient cross layer architecture for wireless protocol stacks \cite{raisinghani2004eclair}
-	\item Still no implementation of ECLAIR: ``Cross-layer feedback architecture for mobile device protocol stacks'' \cite{1580937}
-	\item A multi-layer mobility management architecture using cross-layer signalling interactions\cite{wang2003multi}
-	\item Seamless Mobility in Heterogeneous Wireless Networks \cite{zarai2010seamless}
-	\item Radio resource management in emerging heterogeneous wireless networks \cite{Piamrat20111066}
-	\item Improved community network node design using a DLEP based radio-to-router interface \cite{6379143}
-	\item Cross-layer signalling for next-generation wireless systems \cite{1200522}
-	\item Cross-layer design for wireless networks \cite{1235598}
-	\item A cautionary perspective on cross-layer design \cite{1404568}
-	\item User-centric mobility management for multimedia content access \cite{bolla2011usercentric}
-	\item Socketless \gls{TCP} --- an end to end handover solution \cite{1635680}
-	\item mostly routing protocol optimization oriented ``A cross layer based QoS model for wireless and mobile ad hoc networks'' \cite{krishna2007cross}
-	\item SmoothIT mechanisms; lower layer elements provide information to higher layers, overlays\footnote{\url{http://www.smoothit.org}}  \cite{oechsner2009pushing}
-	\item ``Mobility Awareness'' \cite{hummel2010mobilitaet} PMLAR (Predictive mobility and location-aware routing protocol in mobile ad hoc networks)
-	\item Automatic Multi-interface Management Through Profile Handling \cite{Bonnin:2009:AMM:1503496.1503498}
-	\item A ubiquitous mobile communication architecture for next-generation heterogeneous wireless systems \cite{1452832} (supposed to propose a function that determines the best handover initiation time in order to avoid early or late initiations)
-	\item Optimized video streaming over 802.11 by cross-layer signaling \cite{1580941}
 
- 	\item Modem Link Properties Advertisement Protocol\footnote{\url{https://tools.ietf.org/html/draft-ivancic-mobopts-modemlpa-01}}
-
-\end{itemize}
-
-
-%LCP Link Control Protocol, PPP extension RFCs \cite{rfc1570,rfc1661}
-%LISP and other mobility approaches \cite{rfc6830}
-
-% Conceptually similar to cross-layer interactions is the family of dynamic radio resource management techniques. These control many properties concerning radio resources. 
-% Radio Resource Management RRM
-% 		\begin{itemize}
-% 			\item resource monitoring, decision making, decision enforcement
-% 			\item choose available wireless interfaces  best suited for a specific task
-% 			\item rudimentary implementations in mobile OSs
-% 		\end{itemize}
-%	IEEE 802.21 cooperative handovers, but with required network support
 
 %%
 %\subsubsection{Application Usage and Adaptation Scenarios}
 \subsubsection{Optimizing Adaptive Reliable Video Streaming for Mobile Networks with Cross-Layer Information}
+
+approach classification (as learned from previous section): purely vertical, distributed, indirect comm (with broker)
 
 part 1: general mobile network and http case
 
@@ -231,3 +196,24 @@ The process:
 
 % influence of signaling plane and core network elements - scaling
 %This can apply to, e.g., reliability, frame sizing and fragmenting, and latency amounting to undesired effects on higher-layer traffic. 
+
+ %Modem Link Properties Advertisement Protocol\footnote{\url{https://tools.ietf.org/html/draft-ivancic-mobopts-modemlpa-01}}
+
+%LCP Link Control Protocol, PPP extension RFCs \cite{rfc1570,rfc1661}
+%LISP and other mobility approaches \cite{rfc6830}
+
+% Conceptually similar to cross-layer interactions is the family of dynamic radio resource management techniques. These control many properties concerning radio resources. 
+% Radio Resource Management RRM
+% 		\begin{itemize}
+% 			\item resource monitoring, decision making, decision enforcement
+% 			\item choose available wireless interfaces  best suited for a specific task
+% 			\item rudimentary implementations in mobile OSs
+% 		\end{itemize}
+%	IEEE 802.21 cooperative handovers, but with required network support
+%  Cross-layer design for wireless networks \cite{1235598} keine wirkliche aussage zu cross-layer
+
+% User-centric mobility management for multimedia content access \cite{bolla2011usercentric} (not really cross-layer, uses something similar to LISP: an additional identifier shim and session migration for rtsp/sip) oddly mixed with user questionnaires
+
+% Socketless \gls{TCP} --- an end to end handover solution \cite{1635680} % mobility scheme, not actually cross-layer information
+
+%A ubiquitous mobile communication architecture for next-generation heterogeneous wireless systems \cite{1452832} (supposed to propose a function that determines the best handover initiation time in order to avoid early or late initiations)
