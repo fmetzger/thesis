@@ -506,7 +506,7 @@
          sodipodi:role="line"
          id="tspan3400-1"
          x="2.3542361"
-         y="43.999828">w/o crosslayer information</tspan></text>
+         y="43.999828">with crosslayer information</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
@@ -554,7 +554,7 @@
            height="37.857143"
            x="273.57144"
            y="218.79076" /></flowRegion><flowPara
-         id="flowPara4242"></flowPara></flowRoot>    <path
+         id="flowPara4242" /></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 383.63377,102.97341 50.44675,0 0,20.45946 -50.44675,0 z"
        id="rect5002-2-6-2-7-1-2-7"
