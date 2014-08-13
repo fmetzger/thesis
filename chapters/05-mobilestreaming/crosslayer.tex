@@ -58,35 +58,21 @@ This architecture is intended to pass data from the physical and link layer dire
 	\item Information on neighboring cells and predictions when a handover is most probable to occur.
 	\item Information on the prediction of the occurrence of a vertical handover and thereby changes in the active network stack, e.g., to the WiFi layers.
 	\item Information on the current signal strength, bit error rate, and throughput.
-	\item More detailed mobility information, including current location and travel speed in relation to base station positioning and availability.
+	\item Detailed mobility information, including current location and travel speed in relation to base station positioning and availability.
 \end{itemize}
 
-% ! <-- !
+Today, most of this information is only available inside the link layer or even just known to the mobile network's control plane. The impact of this ignorance can be significant for applications. For example, traffic scheduled during a handover period can be subject to especially high latency and loss due to the lengthy control plane interactions and traffic rerouting processes in a mobile network. If a cross-layer exchange would be provided and the application is made aware when an handover is supposed to occur, traffic could be schedule around the event. 
 
-%Most of this information remains unused today, as network infrastructures and lower layer protocol stacks provide only very slim chances to exert control over decisions regarding the device.
+Generally speaking, the goal of the cross-layer approach would be to find meaningful reactions for every type of state the lower layers report through the broker. The pool of recipients is also not necessarily limited to certain applications. Especially the transport layer could be interested into explicit connectivity information and be modified to react accordingly. In addition to information flow, a path for control flow could also be envisioned. Herein, applications could directly influence the decision making and policies of the lower layers and adapt them to their personal needs.
 
-Most of this information is only available inside the link layer or even just known to the mobile network's control plane.
+All in all, the cross-layer data needs as well as the recipient's reactions need to be well defined and thoroughly tested to avoid any conflicts and layer separation issues. The impact of a simple unidirectional information flow on the layering mechanisms is suggested to be rather low. Only explicit and specific information is revealed keeping most of the isolation intact. However, a bidirectional control flow could soften up the isolation and have adverse side-effects. 
 
-In addition to information flow, a path for control flow could also be envisioned. Herein, applications could directly influence the decision making and policies of the lower layers and adapt them to their personal needs.
+Either way, when implementing any kind of cross-layer exchange, one always has to keep a close look on the resulting consequences. One side effect can be the creation of an unintentional feedback loop between the control mechanisms of protocols of different layers. Moreover, breaches in the isolation could leak network state that could be exploited by malicious parties in any number of unforeseeable ways. Therefore, handling these plays an important role in cross-layer research. In \cite{1404568} some of these issues are presented and discussed.
 
-The impact of a simple unidirectional information flow on the layering mechanisms is suggested to be rather low. Only explicit and specific information is revealed keeping most of the isolation intact. However, a bidirectional control flow could soften up the isolation and have adverse side-effects. Either way, when implementing any kind of cross-layer exchange, one always has to keep a close look on the resulting consequences. Breaches in the isolation could unintentionally leak network state that could be exploited by malicious parties in any number of unforeseeable ways. Therefore, handling this plays an important role in cross-layer research. In \cite{1404568} some of these issues are presented and discussed.
-
-
-Still, one has also to keep in mind, that layering and encapsulation is there for a reason and violating this is a rather risky undertaking.
-
-
-Traffic falling into a handover is subject to especially high latency and loss because the mobile network acts as a mobility anchor which needs to internally reroute incoming traffic to the mobile device's new position. 
-
-With this meaningful actions and reactions of individual layers can be defined and tested.
-
-Furthermore, traffic could be avoided during cell handover occurrences. 
-This would require cross-layer cooperation and an awareness of the application when an handover is supposed to occur.
-The application then could schedule its traffic accordingly. 
-
-\gls{HTTP} traffic is especially suited to this scheduling behavior because of its statelessness and consistence of small objects that can be requested and transferred independently.
 
 \paragraph{Scenario: Reliable Streaming}
 
+\gls{HTTP} traffic is especially suited to this scheduling behavior because of its statelessness and consistence of small objects that can be requested and transferred independently.
 
 part 2: adaptive reliable streaming case
 
@@ -94,7 +80,7 @@ part 3: other beneficiary use cases: notifications in interactive communication
 
  E.g., \gls{TCP} retransmissions and congestion control could be adjusted in the course of understanding this.
 
-
+% ! <-- !
 
 
 \paragraph{Scenario: User Hinting}
@@ -107,8 +93,6 @@ part 3: other beneficiary use cases: notifications in interactive communication
 
 
 
-
-		
 
 
 \begin{itemize}
