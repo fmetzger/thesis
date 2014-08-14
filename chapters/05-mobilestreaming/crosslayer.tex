@@ -95,49 +95,20 @@ Cross-layer information can be fed into the adaptivity model of the streaming pl
 \label{c5:fig:streaming-hinting}
 \end{figure}
 
-One of the easiest events to improve upon is the timely knowledge (or prediction) of upcoming handover procedures. Consider the scenario given in Figure~\ref{c5:fig:streaming-hinting-no-cl}.
+One of the easiest events to improve upon is the timely knowledge (or prediction) of upcoming handover procedures, horizontal as well as vertical handovers.
 
-An adaptive streaming video application increases its video buffer when a shortly upcoming handover is announced to survive the service outage. This can be achieved by an increased rate of segment retrieval and a reduction in segment quality. The goal is to avoid any possible playback stalls due to the handover. Figure~\ref{c5:fig:streaming-hinting} demonstrates this circumstance.
+Consider the scenario given in Figure~\ref{c5:fig:streaming-hinting-no-cl}. The streaming player consistently retrieves video segments at the highest quality, maintaining a moderate buffer size but oblivious to the upcoming handover. This handover interrupts any transmission for a certain time, during which the buffer is fully drained and the video playback begins to stall. Only after this phase ended, the remaining portion of the segment can be received. But the buffered amount is now still below the safety margin and the player is forced to request several segments in the lowest quality to quickly refill the buffer. Only after that, the player's state normalizes and normal quality playback is restored. In summary, one unexpected service interruption causes one complete stall and a long period of reduced quality in this exemplary scenario.
 
+Figure~\ref{c5:fig:streaming-hinting-cl} shows the same scenario but with cross-layer hinting present. As soon as the notice of a predicted upcoming handover is received, the streaming player can react, switching to segments with medium quality to increase the buffer size before the event. After the handover has completed one more medium segment is transmitted to get the buffer level back to normal before returning to full quality. Both the video stalling period and the drop to the lowest quality could be avoided here.
 
+The general goal in the streaming process is to both stop the buffer from ever completely emptying and also maintaining the highest possible video quality. To achieve this, early knowledge of future network conditions is highly desirable for the streaming controller to correctly adjust the segment retrieval rate and quality.
 
-% ! <-- !
-
-
-The same notion is present in vertical handover...
-
-
- E.g., \gls{TCP} retransmissions and congestion control could be adjusted in the course of understanding this.
-
-Example Benefits
-
-Put into relation:
-
-\begin{itemize}
-	\item frequency of handovers / distance/density of radio towers vs scenario traveling speed
-	\item bit-length of streaming segments, typical transmission speed
-	\item typical video length and number of segments
-	\item derive number of interruptions in segments due to handovers
-	\item estimate typical handover/mobility duration and service interruption time per event
-	\item sum it up and compare to crosslayer information or even application layer handover decision
-\end{itemize}
-
-
-The process:
-	\begin{itemize}
-	\item Tell Transport/Application the expected time till handover / time of uninterrupted service
-	\item Tell Transport/App expected connection parameters (latency, BW, ...)
-	\item Application selects \gls{DASH} stream appropriate to parameters
-	\item Application reorders \gls{HTTP} GETs so that large GETs are not interrupted
-	\item Application stops transfers when handover is about to occur
-	\item Layer 1/2 gives a list of possible handovers to Application
-	\item Application selects (better: suggests) handover which fits best and reorders accordingly
-\end{itemize}
-
-
+The end-to-end concept can be applied to cross-layer architectures as well. While cross-layer information can still be made available to intermediate layers, the achievable effects might either not be as large as in the highest layer or more complicated to attain. For example, it requires much more effort to correctly adjust \gls{TCP} retransmissions and congestion control to accommodate the cross-layer broker without side-effects to other applications. Nonetheless, benefits can still be attained at the transport layer to some degree if the adjustments are being kept application-neutral. This can be especially helpful for applications that have not yet been adapted to handle cross-layer information.
 
 
 \subsubsection{Utilizing  Cross-Layer for Improved User Hinting and User Interaction}
+
+% ! <-- !
 
  other beneficiary use cases: notifications in interactive communication
 
@@ -152,6 +123,18 @@ Enable applications to adapt themselves to the conditions currently experienced 
 %%
 
 \subsubsection{Implementation Outlook and Approaches}
+
+
+The process:
+	\begin{itemize}
+	\item Tell Transport/Application the expected time till handover / time of uninterrupted service
+	\item Tell Transport/App expected connection parameters (latency, BW, ...)
+	\item Application selects \gls{DASH} stream appropriate to parameters
+	\item Application reorders \gls{HTTP} GETs so that large GETs are not interrupted
+	\item Application stops transfers when handover is about to occur
+	\item Layer 1/2 gives a list of possible handovers to Application
+	\item Application selects (better: suggests) handover which fits best and reorders accordingly
+\end{itemize}
 
 While the cross-layer model is still in its proposal stage, some thoughts have already been given to its possible method of implementation.
 
@@ -232,3 +215,15 @@ The Implementation:
 % 	 \caption{Mock-up of \gls{HTTP} reordering with handover awareness.}
 % 	\label{c5:fig:http-reorder}
 % 	\end{figure}
+
+
+
+%Put into relation:
+% \begin{itemize}
+% 	\item frequency of handovers / distance/density of radio towers vs scenario traveling speed
+% 	\item bit-length of streaming segments, typical transmission speed
+% 	\item typical video length and number of segments
+% 	\item derive number of interruptions in segments due to handovers
+% 	\item estimate typical handover/mobility duration and service interruption time per event
+% 	\item sum it up and compare to crosslayer information or even application layer handover decision
+% \end{itemize}
