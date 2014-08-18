@@ -7,6 +7,10 @@
 \label{c5:sec:mobilestreaming-measurements}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Survey of 2G/3G/4G Evaluation and Simulation Frameworks}
+
 \gls{LTE}-\gls{EPC} Network Simulator (LENA)\cite{ns3lte}
 
 Planetlab: an overlay testbed for broad-coverage services \cite{chun2003planetlab}
@@ -66,27 +70,27 @@ There exist problems for the practical viability of collection data though: Diff
 Sensorium can access all the information a device provides and makes them available to other applications. Up until now, it has been a challenging task for software developers (especially scientists and experimenters) to implement specialized sensor applications. This task is simplified by providing a generic framework for interfacing sensors. In our current implementation, available for Android, most of the typical sensors are already implemented. Since giving access to sensor data also exposes the user's privacy, the user can disable or set privacy levels for each sensor individually, and all sensor readings that would be shared are displayed. %Setting higher privacy levels reduces the amount of data a sensor shares. %E.g., location data accuracy could be rounded, or just hashes of data shared.
 \\
 
-O3GM\footnote{\url{http://homepage.univie.ac.at/albert.rafetseder/o3gm}} showcases the sensors framework. It comprises a web service displaying cellular access technology data points at their \gls{GPS} locations collected by devices running Sensorium (see Figure~\ref{c5:fig:ogggm}). This solves a real-world problem: Currently, this kind of data is only available to mobile operators, which however  are hindered by commercial interests to make them publicly available --- at least in raw, unadorned form. Other projects such as OpenSignalMaps\footnote{\url{http://opensignal.com/}} and Sensorly\footnote{\url{http://www.sensorly.com/}}, as well as corporations like Google and Apple collect these data, but are very restrictive regarding usage by other parties. This is not true for O3GM:\@ We make the data points collected available as Open Data under an open content license.
+O3GM\footnote{\url{https://o3gm.cs.univie.ac.at/o3gm/}} showcases the sensors framework. It comprises a web service displaying cellular access technology data points at their \gls{GPS} locations collected by devices running Sensorium (see Figure~\ref{c5:fig:ogggm}). This solves a real-world problem: Currently, this kind of data is only available to mobile operators, which however  are hindered by commercial interests to make them publicly available --- at least in raw, unadorned form. Other projects such as OpenSignalMaps\footnote{\url{http://opensignal.com/}} and Sensorly\footnote{\url{http://www.sensorly.com/}}, as well as corporations like Google and Apple collect these data, but are very restrictive regarding usage by other parties. This is not true for O3GM:\@ We make the data points collected available as Open Data under an open content license.
 
 Obviously, other applications are possible. Since code and data are open-sourced, everyone can implement their great ideas, port Sensorium to other platforms or reimplement our interface there, etc.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\textwidth]{images/map-cells.png}
-\caption{The O3GM web page, displaying \gls{3G} coverage measurements extracted from Sensorium on top of OpenStreetMap.}
+\includegraphics[width=\textwidth]{images/o3gm.png}
+\caption{The O3GM web page, displaying a \gls{3G} coverage measurements layer with data collected by Sensorium on top of the OpenStreetMap base layer.}
 \label{c5:fig:ogggm}
 \end{figure}
 
 \subsubsection{Architecture}
 
-Figure~\ref{c5:fig:architecture} overviews Sensorium's architecture components, and its interplay with the data collecting parts of O3GM. \textit{Sensor drivers} are implemented on top of the operating system taking care of reading sensor values from platform-specific interfaces and pushing them upwards into the \textit{registry}. Here, sensor data is timestamped and collected. On one side, data are prepared for local display, e.g. in a \gls{GUI} or status widget. On the other side, a user-configurable \textit{privacy layer} might allow for full sensor access from above or reduce the precision of values (e.g. round \gls{GPS} coordinates); it could salt and hash sensor values for improved privacy, or completely deny access to individual (or all) sensors. Finally, other applications running on the same device are free to connect to Sensorium's \textit{outbound interfaces} to register for sensor updates or poll data. Access from sources other than localhost is not allowed for obvious privacy reasons.
+Figure~\ref{c5:fig:architecture} overviews Sensorium's architecture components, and its interplay with the data collecting parts of O3GM. \textit{Sensor drivers} are implemented on top of the operating system taking care of reading sensor values from platform-specific interfaces and pushing them upwards into the \textit{registry}. Here, sensor data is timestamped and collected. On one side, data are prepared for local display, e.g., in a \gls{GUI} or status widget. On the other side, a user-configurable \textit{privacy layer} might allow for full sensor access from above or reduce the precision of values (e.g., round \gls{GPS} coordinates); it could salt and hash sensor values for improved privacy, or completely deny access to individual (or all) sensors. Finally, other applications running on the same device are free to connect to Sensorium's \textit{outbound interfaces} to register for sensor updates or poll data. Access from sources other than localhost is not allowed for obvious privacy reasons.
 
 Due to the layered architecture, it is very simple for contributors to add their own implementations of layers or swap them out for their own altogether. Consider a scenario when a contributor wishes to include a sensor we do not yet provide a driver for. All that needs to be implemented is code interfacing the actual sensor, and the lightweight API into our sensor registry. Similarly, additional local display methods, privacy enhancements, and outbound interfaces might be implemented.
 
 \begin{figure}[htb]
-\centering
-\includegraphics[width=0.9\textwidth]{images/sensorium-arch.pdf}
-\caption{Sensorium architecture with O3GM \textit{pickup}~and \textit{server}. Components described in this paper are shown dark gray.}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/sensorium-arch.pdf}
+	\caption{Sensorium architecture with O3GM \textit{pickup}~and \textit{server}. Previously existing components are marked with a dotted line.}
 \label{c5:fig:architecture}
 \end{figure}
 
@@ -95,9 +99,9 @@ Due to the layered architecture, it is very simple for contributors to add their
 Our current implementation of Sensorium\footnote{\url{https://github.com/fmetzger/android-sensorium}} runs on the Android platform. To provide a unified interface for accessing the sensor data we incorporated an \acrshort{XML}-\acrshort{RPC} library\footnote{\url{https://code.google.com/p/android-xmlrpc/}} that listens for connections on localhost, meaning that only applications running on the same device can access it. The pickup code\footnote{\url{https://homepage.univie.ac.at/albert.rafetseder/o3gm_pickup.repy}} to collect sensor values runs on top of the renowned Seattle\footnote{\url{https://seattle.cs.washington.edu/}} platform, which is also available for Android, and allows us to remotely and securely access the collected data, and easily experiment with energy and cost efficient data upload/download strategies. The example application we implemented to make use of Sensorium, O3GM\footnote{\url{https://github.com/lukpueh/Open3GMap}}, is based on JavaScript and the OpenLayers\footnote{\url{http://openlayers.org/}} library. All of our code is dual-licensed under \gls{GPLv3} and the \acrshort{BSD} license.
 
 \begin{figure}[htb]
-\centering
-\includegraphics[width=0.45\textwidth]{images/sesescreenshot.png}
-\caption{Sensorium screenshot.}
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/sensorium.png}
+	\caption{Sensorium screenshot.}
 \label{c5:fig:screenshot}
 \end{figure}
 

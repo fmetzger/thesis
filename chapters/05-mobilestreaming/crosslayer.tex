@@ -114,48 +114,48 @@ First, cross-layer information could be utilized to directly improve the user in
 
 In general any application that can locally exert over its traffic and does not have to rely on server-side control. Also, the traffic should be ideally composed of smaller objects available in multiple versions and free to be reordered. A good candidate would be Web browsers with stateless \gls{HTTP} requests of a Web site which is comprised of many small objects that can be, to a certain degree, requested in any order. Those objects could be requested in such an order to better accommodate network events announced by the lower layers. On the other hand, \gls{rtp}-style streaming traffic might not be able to beneficially utilize cross-layer information as just a stream of continuous data is pushed to onto the client.
 
-Directly involving the user itself are a further category of cross-layer interactions that are only available if there is a downward control flow through the broker to the radio layer protocols. This would require the additional presence of a user-space policy manager. The manager would offer the user a series of preferences and a configuration interface for a rule-based cross-layer control engine. With this the user could create complex policies such as: ``Do not handover to a stationary WiFi from \gls{3G} when moving faster than \SI{50}{\kilo\meter\per\hour}, only to in-vehicle WiFi if available.'' or ``Avoid any vertical handover, which would interrupt my service for a long time, while a VoIP call is running.''
-
-% ! <-- !
+Directly involving the user itself are a further category of cross-layer interactions that are only available if there is a downward control flow through the broker to the radio layer protocols. This would require the additional presence of a user-space policy manager. The manager would offer the user a series of preferences and a configuration interface for a rule-based cross-layer control engine. With this the user could create complex compound policies such as: ``Do not handover to a stationary WiFi from \gls{3G} when moving faster than \SI{50}{\kilo\meter\per\hour}, only to in-vehicle WiFi if available.'' or ``Avoid any vertical handover, which would interrupt my service for a long time, while a VoIP call is running.''
 
 
-%%
 
 \subsubsection{Implementation Outlook and Approaches}
 
-
-The process:
-	\begin{itemize}
-	\item Tell Transport/Application the expected time till handover / time of uninterrupted service
-	\item Tell Transport/App expected connection parameters (latency, BW, ...)
-	\item Application selects \gls{DASH} stream appropriate to parameters
-	\item Application reorders \gls{HTTP} GETs so that large GETs are not interrupted
-	\item Application stops transfers when handover is about to occur
-	\item Layer 1/2 gives a list of possible handovers to Application
-	\item Application selects (better: suggests) handover which fits best and reorders accordingly
-\end{itemize}
-
 While the cross-layer model is still in its proposal stage, some thoughts have already been given to its possible method of implementation.
 
-The Implementation:
-\begin{itemize}
-	\item Userspace daemon that collects information from kernelspace protocol implementations and sensors and provides them to all applications.
-	\item shared bus control/information system, instead of explicit comm; signaling only to interested parties
-	\item provide common interface also to all available sensors and layer 1 and 2 network information and control (similar to Android)
-	\item IPC message bus, possibly D-Bus\footnote{\url{http://www.freedesktop.org/wiki/Software/dbus/}} based
-	\item Could extend NetworkManager\footnote{\url{https://wiki.gnome.org/Projects/NetworkManager}}, some functionality is already provided there
-\end{itemize}
 
+do not directly integrate information retrieval into apps (also not as library)
+instead user space broker/daemon  that collects information from kernel space protocol implementations and provides them to all applications.
+only reactions in app 
+Application selects (better: suggests) handover which fits best and reorders accordingly
+broker: collect list of data from layer 1/2 
+	provide this raw data itself with self-defined API (latency, BW, ...)
+	compute derived and predicted values from this data and again provide through API (e.g. expected time till handover / time of uninterrupted service)
+	should also integrate data from outside network stack (i.e. sensor data, location, battery state, ...)
+
+
+
+The actual implementation:
+shared bus control/information system, instead of explicit comm; signaling only to interested parties
+provide common interface also to all available sensors and layer 1 and 2 network information and control (similar to Android)
+IPC message bus, possibly D-Bus\footnote{\url{http://www.freedesktop.org/wiki/Software/dbus/}} based
+Could extend NetworkManager\footnote{\url{https://wiki.gnome.org/Projects/NetworkManager}}, some functionality is already provided there
+
+
+
+evaluation/validation:
 \begin{itemize}
 	\item investigate how much information is exposed and what can already be done
-	\item Analysis of data traces and realistic simulations in order to capture in detail the unwanted phenomena
+	\item Analysis of data traces and realistic simulations in order to capture in detail the unwanted phenomena of breaking layer isolation
 	\item Verify the suitability of the State-of-the-Art algorithms and protocols which address this problem
 \end{itemize}
 
 
+%% ! <-- !
+%%
 
 
-%\subsubsection{Application Usage and Adaptation Scenarios}
+
+
 
 
 
