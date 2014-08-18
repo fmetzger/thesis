@@ -122,33 +122,15 @@ Directly involving the user itself are a further category of cross-layer interac
 
 While the cross-layer model is still in its proposal stage, some thoughts have already been given to its possible method of implementation.
 
+As the model displayed, the target applications should not be directly (or indirectly through the inclusion of a third-party software library) responsible to retrieve cross-layer information. Instead, the broker was suggested. This daemon --- located in the user space --- collects information from the lower layer network protocols which usually reside entirely in kernel space. The kernel typically exposes only some data publicly with a stable \gls{API} and \gls{ABI}. Other data can often be derived from internal data structures which usually change with every version. The task of adapting to this changes and collecting concise data is handled by the daemon. Only the actual reactions to these information points must be implemented in the application itself.
 
-do not directly integrate information retrieval into apps (also not as library)
-instead user space broker/daemon  that collects information from kernel space protocol implementations and provides them to all applications.
-only reactions in app 
-Application selects (better: suggests) handover which fits best and reorders accordingly
-broker: collect list of data from layer 1/2 
-	provide this raw data itself with self-defined API (latency, BW, ...)
-	compute derived and predicted values from this data and again provide through API (e.g. expected time till handover / time of uninterrupted service)
-	should also integrate data from outside network stack (i.e. sensor data, location, battery state, ...)
+The daemon provides all information through a pre-defined user space interface to interested parties. This includes the raw data itself, e.g., current latency or bandwidth information, as well as derived and predicted data points. Examples for the latter are the discussed early handover warning or mobility predictions. To further improve predicted values the daemon also integrates data from other device sensors outside the classical network stack, amongst others location and movement data and as well as system and battery state.
 
+To further decouple the applications from the broker, the information will be provided through a shared \gls{IPC} bus. Current, candidates for the reference implementation are Android, using the provided Intent\footnote{\url{https://developer.android.com/reference/android/content/Intent.html}} \gls{IPC} mechanism, as well as Linux distributions using D-Bus\footnote{\url{http://www.freedesktop.org/wiki/Software/dbus/}}. An even higher level implementation might be possible for the latter case, as the D-Bus-based NetworkManager\footnote{\url{https://wiki.gnome.org/Projects/NetworkManager}} framework already provides some of the network-related functionality.
 
+Through this, the broker's implementation and binary package can be completely swapped with another and all applications still work, as long as the bus interface stays the same. Therefore, the user and her chosen applications is not bound to a specific cross-layer broker provider with predictions conducted by certain algorithms. Rather, she can easily supplant the existing provider with a better one. The planned broker is therefore only meant as a reference implementation. Additionally multiple brokers could even be simultaneously active as long as as long as their provided data does not intersect.
 
-The actual implementation:
-shared bus control/information system, instead of explicit comm; signaling only to interested parties
-provide common interface also to all available sensors and layer 1 and 2 network information and control (similar to Android)
-IPC message bus, possibly D-Bus\footnote{\url{http://www.freedesktop.org/wiki/Software/dbus/}} based
-Could extend NetworkManager\footnote{\url{https://wiki.gnome.org/Projects/NetworkManager}}, some functionality is already provided there
-
-
-
-evaluation/validation:
-\begin{itemize}
-	\item investigate how much information is exposed and what can already be done
-	\item Analysis of data traces and realistic simulations in order to capture in detail the unwanted phenomena of breaking layer isolation
-	\item Verify the suitability of the State-of-the-Art algorithms and protocols which address this problem
-\end{itemize}
-
+The viability of cross-layer information can be evaluated in several ways. A pure network-level simulation can give initial hints on performance gains and issues. But only the evaluation of data traces and packet level captures of an actual reference implementation might give good insights into the implications of diminishing the network stack's layer encapsulation properties. A further comparative statistical analysis of several different approaches to cross-layer data predictions algorithms as well as the specific application's reactions could also prove to be of significant interest.
 
 %% ! <-- !
 %%
