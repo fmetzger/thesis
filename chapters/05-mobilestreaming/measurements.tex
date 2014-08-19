@@ -1,37 +1,55 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Enhanced Mobile Measurement Approaches}
+\section{Further Evaluating Mobile Networks, Mobile Stacks, and Streaming}
 \label{c5:sec:mobilestreaming-measurements}
 
-Testing and evaluation plays a crucial role not just in correctly utilizing cross-layer data but generally in mobile networks.
+Testing and evaluation plays a crucial role not just in correctly utilizing cross-layer data but also for mobile networks in general. All of the discussed layer influences, interactions and other unintentional side-effects need to be thoroughly understood for the intended goal of optimizing video streaming in mobile networks.
 
-Because of the many, many layer influences, interactions, unintended side-effects, ... which were discussed in the previous part of this chapter.
+The core network trace evaluations undertaken in Chapter~\ref{chap:mobilenets} were already able to highlight the load influencing dynamics of the core network control plane. But, many more aspects remain uninvestigated, some of which may not even be covered by this kind of investigation.
+
+
+%% ! <-- !
+%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Survey of 2G/3G/4G Evaluation and Simulation Frameworks}
+\subsection{Active Measurements, Testbeds and Mobile Device Metadata}
 
-\gls{LTE}-\gls{EPC} Network Simulator (LENA)\cite{ns3lte}
+Looking for large testbeds that can target mobile devices, not just stationary nodes.
+
+Large as in, e.g., PlanetLab, GENI / GpENI(?)
 
 Planetlab: an overlay testbed for broad-coverage services \cite{chun2003planetlab}
 
+Seattle Testbed
+
+SmartLab http://smartlab.cs.ucy.ac.cy/
+
+HomeLab: A Platform For Conducting Experiments With Connected Devices In The Home
+http://conferences.sigcomm.org/sigcomm/2013/papers/sigcomm/p493.pdf
+
+Lessons Learned from the NetSense Smartphone Study
+http://conferences.sigcomm.org/sigcomm/2013/papers/hotplanet/p51.pdf
+
+M-Lab http://www.measurementlab.net/
+
 OsmocomBB project \cite{osmocombbwww}
 
-Simulating LTE Cellular Systems: An Open-Source Framework \cite{5634134}
+http://www.wisebed.eu/
 
+http://www.emulab.net/index.php3
 
+No true mobile testbed, mostly wireless and sensor oriented (also mesh-networks), radio-focused
 
 An evaluation of dynamic adaptive streaming over \gls{HTTP} in vehicular environments \cite{Muller:2012:EDA:2151677.2151686}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Enriching Mobile Measurements with Additional Metadata}
+\subsubsection{Enriching Mobile Measurements with Additional Metadata}
 \label{c5:sensorium}
 
-Seattle Testbed
 
-Sensibility Testbed (https://sensibilitytestbed.com/projects/project): Followup-Project to Sensorium, building entirely on Seattle/Python
+
+Sensibility Testbed (https://sensibilitytestbed.com/projects/project): ``Followup''-Project to Sensorium, building entirely on Seattle/Python
 
 
 \subsubsection{Preserving Privacy}
@@ -47,6 +65,7 @@ CyanogenMod Privacy Guard (https://plus.google.com/+CyanogenMod/posts/gk7X3HjNvn
 Software abstractions for trusted sensors \cite{Liu:2012:SAT:2307636.2307670}
 
 BlurSense: Dynamic fine-grained access control for smartphone privacy~\cite{6798970}
+https://blursense.poly.edu/projects/project
 
 TaintDroid: An Information-Flow Tracking System for Realtime Privacy Monitoring on Smartphones. \cite{enck2010taintdroid}
 
@@ -98,55 +117,103 @@ Due to the layered architecture, it is very simple for contributors to add their
 
 Our current implementation of Sensorium\footnote{\url{https://github.com/fmetzger/android-sensorium}} runs on the Android platform. To provide a unified interface for accessing the sensor data we incorporated an \acrshort{XML}-\acrshort{RPC} library\footnote{\url{https://code.google.com/p/android-xmlrpc/}} that listens for connections on localhost, meaning that only applications running on the same device can access it. The pickup code\footnote{\url{https://homepage.univie.ac.at/albert.rafetseder/o3gm_pickup.repy}} to collect sensor values runs on top of the renowned Seattle\footnote{\url{https://seattle.cs.washington.edu/}} platform, which is also available for Android, and allows us to remotely and securely access the collected data, and easily experiment with energy and cost efficient data upload/download strategies. The example application we implemented to make use of Sensorium, O3GM\footnote{\url{https://github.com/lukpueh/Open3GMap}}, is based on JavaScript and the OpenLayers\footnote{\url{http://openlayers.org/}} library. All of our code is dual-licensed under \gls{GPLv3} and the \acrshort{BSD} license.
 
+
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width=0.5\textwidth]{images/sensorium.png}
-	\caption{Sensorium screenshot.}
-\label{c5:fig:screenshot}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+			\includegraphics[width=\textwidth]{images/sensorium.png}
+			%\caption{Stalling occurs without handover hinting.}
+			%\label{c5:fig:streaming-hinting-no-cl}
+        \end{subfigure}%
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/sensorium-settings.png}
+			%\caption{Stalling can be prevented by hinting and proactively filling the playback buffer.}
+			%\label{c5:fig:streaming-hinting-cl}
+		   \end{subfigure}%
+	\caption{Sensorium sensor values display and settings screenshots.}
+\label{c5:fig:sensorium}
 \end{figure}
 
-Sensorium consists of a base registry service with a common interface which each sensor implementation can easily be plugged into. All values are also displayed for the user as seen in Figure~\ref{c5:fig:screenshot}. The privacy layer automatically anonymizes all gathered values before making them available through XML-RPC in accordance with the user's current privacy settings.
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=0.5\textwidth]{images/sensorium.png}
+% 	\caption{Sensorium screenshot.}
+% \label{c5:fig:screenshot}
+% \end{figure}
+
+Sensorium consists of a base registry service with a common interface which each sensor implementation can easily be plugged into. All values are also displayed for the user as seen in Figure~\ref{c5:fig:sensorium}. The privacy layer automatically anonymizes all gathered values before making them available through XML-RPC in accordance with the user's current privacy settings.
 
 We currently provide sensor implementations for generic device information, e.g. device name and battery status; mobile radio data such as current access technology and cell information; location data provided by the mobile network and \gls{GPS}; and  WiFi and Bluetooth information, including recent scan results.
 
 Sensorium attempts to bring the sensing capabilities of current generation devices to a broader range of developers and experimenters. Directly using Sensorium, which is freely available from the Google Play store, or adopting the available source code gives everyone the chance to build projects like the mobile coverage Web service we presented.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Hybrid Mobile Streaming Simulation Test Platform}
-
-Use introduced streaming evaluation approaches in a mobile network environment
-
-But do not want to use real network, as conditions are hard to manage and reproduce. Additionally, LTE still hard to come by.
-
-Therefore, use an emulated network provided by the ns-3 network simulator. But transmit real traffic through it, i.e. use it as an emulator and bridges. \ref{c5:fig:streaming-simulation} \ref{c5:fig:streaming-hybrid}
-
-
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.6\textwidth]{images/streaming-simulation.pdf}
-\caption{\gls{LTE} reliable streaming simulation testebd.}
-\label{c5:fig:streaming-simulation}
-\end{figure}
-
-\begin{figure}[htb]
-\centering
-\includegraphics[width=\textwidth]{images/streaming-hybrid.pdf}
-\caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
-\label{c5:fig:streaming-hybrid}
-\end{figure}
-
-% \begin{figure}[htb]
-% \centering
-% \includegraphics[width=\textwidth]{images/lte-testbed.pdf}
-% \caption{\gls{LTE} Streaming Evaluation Setup and Action Plan}
-% \label{fig:lte-testbed}
-% \end{figure}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Combined Simulating Streaming Traffic Characteristics in ns-3}
+\subsection{Survey of 3G/4G Evaluation and Simulation Frameworks}
+
+Simulation frameworks are especially important for mobile networks, as acquiring packet-level traces and information about every node in an actual commercially operating cellular network is nigh impossible due to the users' privacy and the provider's business concerns.
+
+Therefore, it would be very desirable to find an existing framework, that covers all important aspect in 3G or 4G mobile networks.
+
+Most 3G/4G simulators only concern themselves with he physical radio link, completely neglect all other network paths, especially the core and all control plane signaling interactions.
+
+Interestingly, the situation is even worse for \gls{UMTS} despite being significantly older.
+
+The following list summarizes a number of simulators.
+
+\begin{itemize}
+
+	\item Radio system level UMTS for ns-2
+\url{http://net.infocom.uniroma1.it/reti_files/reti_downloads.htm}
+outdated, not up-to-date to newest standards
+
+	\item \url{http://www.valid8.com/UMTS_Core_Network_Simulator.html} Not publicly available and commercial
+also seems to focus on the circuit switched domain
+
+	\item \url{http://seacorn.cs.ucy.ac.cy/eumtssim/}
+\cite{vranjevs2011use}
+Seacorn UMTS simulator (rather patches to ns-2), no public access
+does not include any of the core network's protocols or procedures
+but is also based on outdated specs and not actively maintained
+
+	\item Only commercial: UMTS model in OPNET (now: Riverbed Modeler)
+\url{http://www.riverbed.com/products/performance-management-control/network-performance-management/network-simulation.html}
+again radio and user plane focused 
+
+	\item Matlab-based radio link system-level sim
+\url{http://www.nt.tuwien.ac.at/research/mobile-communications/lte-simulators/}
+
+	\item LTE-Sim
+Simulating LTE Cellular Systems: An Open-Source Framework \cite{5634134}
+\url{http://telematics.poliba.it/index.php/en/lte-sim}
+simulates some nodes (UE, eNB, MME) and only a limited selection of involved protocols (PDCP, RLC, very basic RRC)
+very limited for network/transport layer protocols (only basic ip, tcp not even implemented), rudimentary implementation not even close to reality
+
+	\item Omnet++ \url{http://www.omnetpp.org/}
+with SimuLTE framework https://github.com/inet-framework/simulte
+only user plane (but also user plane core nodes SGW/PGW)
+comparable level to ns-3
+
+	\item ns-3
+\gls{LTE}-\gls{EPC} Network Simulator (LENA)\cite{Baldo:2013:OSM:2507924.2507940} 
+\url{http://networks.cttc.es/mobile-networks/software-tools/lena/}
+\url{http://www.nsnam.org/docs/release/3.20/doxygen/group__lte.html}
+\url{http://www.nsnam.org/docs/release/3.20/models/html/lte.html}
+Most complete of all open source simulation approaches, but still only very rudimentary in the core and signaling
+but combined with ns-3 offers almost complete representation of a vanilla network and transport level network stack
+
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Combined Simulating Streaming Traffic Characteristics in ns-3}
 \label{c5:mobilestreamingtestbed}
+
 
 Different Approaches
 
@@ -165,6 +232,50 @@ Describe ns-3/LENA implementation
 
  test case 2a (future): influence of mobility effects on reliable streaming
  test case 2b (future): effect of cross-layer information in mobility case
+
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.6\textwidth]{images/streaming-simulation.pdf}
+\caption{\gls{LTE} reliable streaming simulation testebd.}
+\label{c5:fig:streaming-simulation}
+\end{figure}
+
+
+%%
+\subsubsection{Simulation/Emulation Hybrid}
+
+
+Use introduced streaming evaluation approaches in a mobile network environment
+
+But do not want to use real network, as conditions are hard to manage and reproduce.
+
+Therefore, use an emulated network provided by the ns-3 network simulator. But transmit real traffic through it, i.e., use it as an emulator and bridges. \ref{c5:fig:streaming-simulation} \ref{c5:fig:streaming-hybrid}
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{images/streaming-hybrid.pdf}
+\caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
+\label{c5:fig:streaming-hybrid}
+\end{figure}
+
+
+
+
+
+
+% \begin{figure}[htb]
+% \centering
+% \includegraphics[width=\textwidth]{images/lte-testbed.pdf}
+% \caption{\gls{LTE} Streaming Evaluation Setup and Action Plan}
+% \label{fig:lte-testbed}
+% \end{figure}
+
+
+
+
 
 
 
