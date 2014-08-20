@@ -25,6 +25,7 @@
 
 
 %%% text
+\linespread{1.05}
 \setlist[description]{labelindent=\parindent}
 \hfuzz=1.36pt
 
@@ -36,7 +37,7 @@
 \ofoot{\pagemark}
 
 
-
+%% load bibs
 \addbibresource{bibliography/common.bib}
 \addbibresource{bibliography/rfc.bib}
 \addbibresource{bibliography/3gpp.bib}
@@ -53,4 +54,134 @@
 %\setlength{\cftbeforesecskip}{0.1em}
 
 
+%% load and typeset glossaries
+\makeglossaries%
+\renewcommand{\glsseeitemformat}[1]{\textsc{\glsentryname{#1}}}
+\loadglsentries{components/definitions}
+\loadglsentries{components/acronyms}
+
+\makeatletter
+\providecommand\phantomsection{}% for hyperref
+\newcommand\listofillustrations{%
+	\begingroup
+		\let\clearpage\relax
+		\let\cleardoublepage\relax
+	    \chapter*{Figures}%
+	    \phantomsection
+	    \addcontentsline{toc}{chapter}{Figures}%
+	    \@starttoc{lof}%
+	    \bigskip
+	    \chapter*{Tables}%
+	    \phantomsection
+	    \addcontentsline{toc}{chapter}{Tables}%
+	    \@starttoc{lot}
+    \endgroup}
+\makeatother
+
+%% set pdf parameters (title, ...)
+\makeatletter
+\AtBeginDocument{
+  \hypersetup{
+    pdftitle = {\@title},
+    %pdfauthor = {\@author}
+  }
+}
+\makeatother
+
+
+%% glossaries: define a custom tree-based style with user1-key support for urls and other references
+% TODO indent the par!
+\newglossarystyle{treewithref}{%
+  \setglossarystyle{tree}% base this style on the list style
+  \renewcommand{\glossentry}[2]{%
+  \hangindent0pt\relax
+  \parindent0pt\relax
+  \glsentryitem{##1}\textbf{\glstarget{##1}{\glossentryname{##1}}}%
+  \ifglshassymbol{##1}{\space(\glossentrysymbol{##1})}{}%
+  \space\glossentrydesc{##1}\glspostdescription%
+  \ifglshasfield{user1}{##1}{\\\textit{\glsentryuseri{##1}\glspostdescription}}{}\space##2\par
+  }%
+}
+\setglossarystyle{treewithref}
+
+
+%% settings imported and adapted from classicthesis
+\DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}%
+%\usepackage[maxfloats=48]{morefloats} % enable this if too many unprocessed floats are happening
+\clubpenalty = 10000 % Disable single lines at the start of a paragraph (Schusterjungen)
+\widowpenalty = 10000 % Disable single lines at the end of a paragraph (Hurenkinder)
+\displaywidowpenalty = 10000 % formulas
+
+% Graffiti as in GKP's book "Concrete Mathematics"
+% thanks to Lorenzo Pantieri and Enrico Gregorio
+\def\graffito@setup{%
+   \slshape\footnotesize%
+   \parindent=0pt \lineskip=0pt \lineskiplimit=0pt %
+   \tolerance=2000 \hyphenpenalty=300 \exhyphenpenalty=300%
+   \doublehyphendemerits=100000%
+   \finalhyphendemerits=\doublehyphendemerits}
+%\DeclareRobustCommand{\graffito}[1]{\marginpar%
+% [\graffito@setup\raggedleft\hspace{0pt}{#1}]%
+% {\graffito@setup\raggedright\hspace{0pt}{#1}}}
+\let\oldmarginpar\marginpar
+\renewcommand{\marginpar}[1]{\oldmarginpar%
+ [\graffito@setup\raggedleft\hspace{0pt}{#1}]%
+ {\graffito@setup\raggedright\hspace{0pt}{#1}}}
+              
+% headlines
+    \clearscrheadings
+    \setheadsepline{0pt}
+    \renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\textsc{#1}}} 
+    \lehead{\mbox{\llap{\small\thepage\kern2em}\headmark\hfil}}
+    \rohead{\mbox{\hfil{\headmark}\rlap{\small\kern2em\thepage}}}
+    \renewcommand{\headfont}{\small}  
+  %    \DeclareRobustCommand{\fixBothHeadlines}[2]{} % <--- ToDo
+    % hack to get the content headlines right (thanks, Lorenzo!)
+    \def\toc@heading{%
+      \chapter*{\contentsname}
+      \@mkboth{\textsc{\contentsname}}{\textsc{\contentsname}}}
+
+
+%% titlesec settings
+% section heading styles     
+\newfont{\chapterNumber}{eurb10 scaled 7000} % chapter number font
+%\AtBeginDocument{\addtocontents{toc}{\protect\vspace{-\cftbeforechapskip}}}
+
+\titleformat{\chapter}[display]%
+  {\relax}{\vspace*{-3\baselineskip}\makebox[\linewidth][r]{\color{halfgray}\chapterNumber\thechapter}}{0pt}%
+  {\raggedright\spacedallcaps}[\normalsize\vspace*{.8\baselineskip}\titlerule]%
+
+% sections
+\titleformat{\section}{\relax}{\textsc{\thesection}}{1em}{\scshape}
+% subsections
+\titleformat{\subsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsection}}}{1em}{\normalsize\itshape}
+% subsubsections
+\titleformat{\subsubsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}        
+% paragraphs
+\titleformat{\paragraph}[runin]{\normalfont\normalsize}{\theparagraph}{0pt}{\scshape}    
+% descriptionlabels
+    \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{#1}}   % spacedlowsmallcaps textit textsc                  
+% spacing
+\titlespacing*{\chapter}{0pt}{1\baselineskip}{1.2\baselineskip}
+\titlespacing*{\section}{0pt}{1.25\baselineskip}{1\baselineskip} 
+\titlespacing*{\subsection}{0pt}{1.25\baselineskip}{1\baselineskip}
+\titlespacing*{\paragraph}{0pt}{1\baselineskip}{1\baselineskip}
+
+
+%% toc style with tocloft package
+\renewcommand{\cftchappresnum}{\scshape\MakeTextLowercase}%
+\renewcommand{\cftchapfont}{\normalfont}%
+\renewcommand{\cftchappagefont}{\normalfont}%
+\let\oldchap=\chapter
+\renewcommand*{\chapter}{\secdef{\Chap}{\ChapS}}
+\newcommand\ChapS[1]{\oldchap*{#1}}%
+% \newcommand\Chap[2][]{%
+%        \ifpdf\oldchap[\texorpdfstring{\spacedlowsmallcaps{#1}}{#1}]{#2}%
+%        \else\oldchap[\spacedlowsmallcaps{#1}]{#2}%
+%        \fi%
+% }%
+\newcommand\Chap[2][]{\oldchap[\textsc{#1}]{#2}}%
+%\textsc{foo} {\scshape bar}
+
+\deffootnote{0em}{0em}{\thefootnotemark\hspace*{.5em}}
 

@@ -1,42 +1,39 @@
 %!TEX root = ../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% packages
+%% packages
 
+%% detect and set proper values for lualatex
 \usepackage{ifluatex}
 \ifluatex
-  \usepackage{fontspec}
-  \usepackage{microtype}
-  %\usepackage{amsmath}
-  \usepackage{amssymb}
-  \usepackage{mathtools}
-  \usepackage{unicode-math} % fixes math
-  \usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
-  \setmainfont[SmallCapsFont={Linux Libertine O},SmallCapsFeatures={Letters=SmallCaps},Ligatures=TeX]{Linux Libertine O}
-  \newfontfamily\scfont[Letters=SmallCaps, Ligatures=TeX]{Linux Libertine O}
-  %\usepackage{tex-gyre-math}
-  %\setmathfont{texgyrepagellamath-regular.otf} % math font for libertine
-  %\setmathfont{texgyrepagella-math.otf} % math font for libertine
-  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX,Ligatures=TeX]{TeX Gyre Pagella Math}
-  \usepackage{polyglossia} % babel replacement for use with fontspec
-  \setdefaultlanguage[variant=american]{english}
-  \selectlanguage[variant=american]{english}
+	\usepackage{fontspec}
+	\usepackage{microtype}
+	%\usepackage{amsmath}
+	\usepackage{amssymb}
+	\usepackage{mathtools}
+	\usepackage{unicode-math} % fixes math
+	\usepackage{lualatex-math} % fixes amsmath/mathtools ... for luatex
+	\setmainfont[SmallCapsFont={Linux Libertine O},SmallCapsFeatures={Letters=SmallCaps},Ligatures=TeX]{Linux Libertine O}
+	\newfontfamily\scfont[Letters=SmallCaps, Ligatures=TeX]{Linux Libertine O}
+	%\usepackage{tex-gyre-math}
+	%\setmathfont{texgyrepagellamath-regular.otf} % math font for libertine
+	%\setmathfont{texgyrepagella-math.otf} % math font for libertine
+	\setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX,Ligatures=TeX]{TeX Gyre Pagella Math}
+	\usepackage{polyglossia} % babel replacement for use with fontspec
+	\setdefaultlanguage[variant=american]{english}
+	\selectlanguage[variant=american]{english}
 \else
-  \usepackage[utf8]{inputenc}                   
-  \usepackage[T1]{fontenc}
-  \usepackage[american]{babel}
-  \usepackage{amsmath}
-  \usepackage{mathtools} % instead of amsmath; amssymb and amsthm not included
-  \usepackage{libertine}
-  \usepackage[libertine]{newtxmath} % math font for libertine
-  \usepackage{microtype}
-  \microtypesetup{expansion=false}%
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc}
+	\usepackage[american]{babel}
+	\usepackage{amsmath}
+	\usepackage{mathtools} % instead of amsmath; amssymb and amsthm not included
+	\usepackage{libertine}
+	\usepackage[libertine]{newtxmath} % math font for libertine
+	\usepackage{microtype}
+	\microtypesetup{expansion=false}%
 \fi
 
 \usepackage[hyphens]{url}
-
-
-
-\linespread{1.05}
 %\usepackage[l2tabu,orthodox]{nag} % old style latex & warnings as errors
 \usepackage{scrhack} % fix komascript floattolist issues
 \usepackage[defernumbers=true, style=alphabetic, citestyle=alphabetic, firstinits=true, backend=biber, doi=true, url=true, block=ragged, maxnames=6]{biblatex} % 
@@ -52,152 +49,28 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usepackage{marginnote} % ?
-\usepackage{enumitem} % ?
+\usepackage{enumitem} % inline lists, etc.
 \usepackage{array} % ?
 \usepackage{styles/tangocolors}
 \usepackage[colorlinks, unicode=true]{hyperref}
 \hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen}
-
-\makeatletter
-\AtBeginDocument{
-  \hypersetup{
-    pdftitle = {\@title},
-    %pdfauthor = {\@author}
-  }
-}
-\makeatother
-
-%%%%
-% glossaries
 \usepackage[acronym, style=tree, toc, section=chapter, nogroupskip=true]{glossaries}
-% define a custom tree-based style with user1-key support for urls and other references
-% TODO indent the par!
-\newglossarystyle{treewithref}{%
-  \setglossarystyle{tree}% base this style on the list style
-  \renewcommand{\glossentry}[2]{%
-  \hangindent0pt\relax
-  \parindent0pt\relax
-  \glsentryitem{##1}\textbf{\glstarget{##1}{\glossentryname{##1}}}%
-  \ifglshassymbol{##1}{\space(\glossentrysymbol{##1})}{}%
-  \space\glossentrydesc{##1}\glspostdescription%
-  \ifglshasfield{user1}{##1}{\\\textit{\glsentryuseri{##1}\glspostdescription}}{}\space##2\par
-  }%
-}
-\setglossarystyle{treewithref}
-%\glsdisablehyper   % enable this, if hyperref for glossaries breaks again
-%%%%
-
-
 \usepackage{textcomp} % extra symbols; used for euro and copyright symbol
 \usepackage[load-configurations={abbreviations,binary}]{siunitx}
 \sisetup{load-configurations = abbreviations,binary-units}
 \usepackage{xspace} % ?
 \usepackage{algorithmic}
 \usepackage{algorithm}
-\usepackage{numprint}
-\npstyleenglish
-
+\usepackage{numprint} % fancy numbers
+\npstyleenglish % numprint style, fraction and 1.000 separation
 \usepackage[24hr,iso]{datetime}
 \usepackage{gitinfo}
-
-
-%%%%%%%%%%%%%
-% classicthesis replacement code
 \usepackage[automark]{scrpage2}
-
-% \toprule and other table stuff
-\usepackage{booktabs} 
-
-% microtype and pdfspacing
-\DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}%
-%\DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textls[80]{\scshape\MakeTextLowercase{#1}}}%
-
-% typearea
-%\usepackage[top=2.5cm, bottom=3.5cm, left=3.5cm, right=2.5cm]{geometry} % redefine page margins
-\usepackage[a4paper]{geometry} % redefine page margins
-%\usepackage[maxfloats=48]{morefloats} % enable this if too many unprocessed floats are happening
-
-% Disable single lines at the start of a paragraph (Schusterjungen)
-\clubpenalty = 10000
-% Disable single lines at the end of a paragraph (Hurenkinder)
-\widowpenalty = 10000 
-\displaywidowpenalty = 10000 % formulas
-
-% Graffiti as in GKP's book "Concrete Mathematics"
-% thanks to Lorenzo Pantieri and Enrico Gregorio
-\def\graffito@setup{%
-   \slshape\footnotesize%
-   \parindent=0pt \lineskip=0pt \lineskiplimit=0pt %
-   \tolerance=2000 \hyphenpenalty=300 \exhyphenpenalty=300%
-   \doublehyphendemerits=100000%
-   \finalhyphendemerits=\doublehyphendemerits}
-%\DeclareRobustCommand{\graffito}[1]{\marginpar%
-% [\graffito@setup\raggedleft\hspace{0pt}{#1}]%
-% {\graffito@setup\raggedright\hspace{0pt}{#1}}}
-\let\oldmarginpar\marginpar
-\renewcommand{\marginpar}[1]{\oldmarginpar%
- [\graffito@setup\raggedleft\hspace{0pt}{#1}]%
- {\graffito@setup\raggedright\hspace{0pt}{#1}}}
-              
-% headlines
-    \clearscrheadings
-    \setheadsepline{0pt}
-    \renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\textsc{#1}}} 
-    \lehead{\mbox{\llap{\small\thepage\kern2em}\headmark\hfil}}
-    \rohead{\mbox{\hfil{\headmark}\rlap{\small\kern2em\thepage}}}
-    \renewcommand{\headfont}{\small}  
-  %    \DeclareRobustCommand{\fixBothHeadlines}[2]{} % <--- ToDo
-    % hack to get the content headlines right (thanks, Lorenzo!)
-    \def\toc@heading{%
-      \chapter*{\contentsname}
-      \@mkboth{\textsc{\contentsname}}{\textsc{\contentsname}}}
-
-% section heading styles     
+\usepackage{booktabs} % \toprule and other table stuff
+\usepackage[titles]{tocloft} % toc style
+\usepackage{easy-todo} % load after tocloft to avoid option clash, option [disable] to disable!
+\usepackage[a4paper]{geometry} % page margins
 \usepackage{titlesec}
 \usepackage{textcase} % for \MakeTextUppercase
-\newfont{\chapterNumber}{eurb10 scaled 7000} % chapter number font
-%\AtBeginDocument{\addtocontents{toc}{\protect\vspace{-\cftbeforechapskip}}}
-
-\titleformat{\chapter}[display]%
-  {\relax}{\vspace*{-3\baselineskip}\makebox[\linewidth][r]{\color{halfgray}\chapterNumber\thechapter}}{0pt}%
-  {\raggedright\spacedallcaps}[\normalsize\vspace*{.8\baselineskip}\titlerule]%
-
-% sections
-\titleformat{\section}{\relax}{\textsc{\thesection}}{1em}{\scshape}
-% subsections
-\titleformat{\subsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsection}}}{1em}{\normalsize\itshape}
-% subsubsections
-\titleformat{\subsubsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}        
-% paragraphs
-\titleformat{\paragraph}[runin]{\normalfont\normalsize}{\theparagraph}{0pt}{\scshape}    
-% descriptionlabels
-    \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{#1}}   % spacedlowsmallcaps textit textsc                  
-% spacing
-\titlespacing*{\chapter}{0pt}{1\baselineskip}{1.2\baselineskip}
-\titlespacing*{\section}{0pt}{1.25\baselineskip}{1\baselineskip} 
-\titlespacing*{\subsection}{0pt}{1.25\baselineskip}{1\baselineskip}
-\titlespacing*{\paragraph}{0pt}{1\baselineskip}{1\baselineskip}
 
 
-% toc style
-\usepackage[titles]{tocloft}
-\renewcommand{\cftchappresnum}{\scshape\MakeTextLowercase}%
-\renewcommand{\cftchapfont}{\normalfont}%
-\renewcommand{\cftchappagefont}{\normalfont}%
-\let\oldchap=\chapter
-\renewcommand*{\chapter}{\secdef{\Chap}{\ChapS}}
-\newcommand\ChapS[1]{\oldchap*{#1}}%
-% \newcommand\Chap[2][]{%
-%        \ifpdf\oldchap[\texorpdfstring{\spacedlowsmallcaps{#1}}{#1}]{#2}%
-%        \else\oldchap[\spacedlowsmallcaps{#1}]{#2}%
-%        \fi%
-% }%
-\newcommand\Chap[2][]{\oldchap[\textsc{#1}]{#2}}%
-%\textsc{foo} {\scshape bar}
-
-\deffootnote{0em}{0em}{\thefootnotemark\hspace*{.5em}}
-
-
-
-%\newcommand{\todo}[1]{{\small \color{red} [TODO: #1]}}
-\usepackage{easy-todo} % option [disable] to disable!

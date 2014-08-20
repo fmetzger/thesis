@@ -5,84 +5,25 @@
 \input{components/packages}
 \input{components/settings}
 
-%% load and typeset glossaries
-\makeglossaries%
-\renewcommand{\glsseeitemformat}[1]{\textsc{\glsentryname{#1}}}
-\loadglsentries{components/definitions}
-\loadglsentries{components/acronyms}
-
-
-
-\makeatletter
-\providecommand\phantomsection{}% for hyperref
-\newcommand\listofillustrations{%
-	\begingroup
-		\let\clearpage\relax
-		\let\cleardoublepage\relax
-	    \chapter*{Figures}%
-	    \phantomsection
-	    \addcontentsline{toc}{chapter}{Figures}%
-	    \@starttoc{lof}%
-	    \bigskip
-	    \chapter*{Tables}%
-	    \phantomsection
-	    \addcontentsline{toc}{chapter}{Tables}%
-	    \@starttoc{lot}
-    \endgroup}
-\makeatother
-
-%\newsavebox\ltmcbox
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
 \input{components/cover.tex}
 \input{components/license.tex}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% TOC
-\newpage 
-\pagenumbering{roman}
-\phantomsection
-\addcontentsline{toc}{chapter}{Contents}%
-\tableofcontents
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% lists
-\newpage
-\listofillustrations
+\input{components/toc.tex}
+\input{components/indizes.tex}
+\input{components/quote.tex}
+\input{components/abstract.tex}
+\input{components/acknowledgments.tex}
 
 \newpage
- \begingroup % printglossar{y,ies} forces a cleardoublepage between glossaries and after it, we supress this here
-	\let\clearpage\relax
-	\printglossaries
-
-	%\printglossary
-	%\newpage
-	%\printglossary[type=\acronymtype]
-	%\printacronyms % works only with glossaries 4.0+
- \endgroup
-
-\newpage % or \cleardoublepage
-\include{components/quote}
-
-\newpage % or \cleardoublepage
-\include{components/abstract}
-
-\newtheorem{mydef}{Definition}
-\newpage % or \cleardoublepage
-\chapter*{Acknowledgments}
-
-
 \listoftodos
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cleardoublepage
 \pagenumbering{arabic}
-
 
 \subimport{chapters/01-intro/}{introduction}
 %\subimport{chapters/02-background/}{background}
@@ -94,14 +35,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \input{components/vita.tex}
 \nocite{oechsner2009pushing,metzger2014lossmodel,raf2013sensorium,cs3516} % temporary import of otherwise unreferences own publications
 \printbibliography[title=Own Publications, keyword=ownpub, heading=bibintoc]
 \input{components/sourcecode.tex}
-
-
-
 \printbibliography[notkeyword=ownpub, heading=bibintoc]
 
 \end{document}
