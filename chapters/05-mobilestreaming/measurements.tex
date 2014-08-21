@@ -5,7 +5,9 @@
 
 Testing and evaluation plays a crucial role not just in correctly utilizing cross-layer data but also for mobile networks in general. All of the discussed layer influences, interactions and other unintentional side-effects need to be thoroughly understood for the intended goal of optimizing video streaming in mobile networks.
 
-The core network trace evaluations undertaken in Chapter~\ref{chap:mobilenets} were already able to highlight the load influencing dynamics of the core network control plane. But, many more aspects remain uninvestigated, some of which may not even be covered by this kind of investigation.
+The core network trace evaluations undertaken in Chapter~\ref{chap:mobilenets} were already able to highlight the load influencing dynamics of the core network control plane. But many more aspects remain uninvestigated, some of which may not even be covered by this kind of investigation.
+
+To further the understanding of the behavior of reliable streaming in mobile networks and investigate influence sources, several approaches can be taken.
 
 
 %% ! <-- !
@@ -249,6 +251,10 @@ comparable level to ns-3
 \url{http://www.nsnam.org/docs/release/3.20/models/html/lte.html}
 Most complete of all open source simulation approaches, but still only very rudimentary in the core and signaling
 but combined with ns-3 offers almost complete representation of a vanilla network and transport level network stack
+Can also use Network Simulation Cradle (NSC) \url{http://research.wand.net.nz/software/nsc.php}
+to incorporate the actual Linux TCP/IP stack
+however: only 2.6.26 (very old!)
+and less instrumentation/logging available for this stack
 
 \end{itemize}
 
@@ -295,6 +301,9 @@ Use introduced streaming evaluation approaches in a mobile network environment
 
 But do not want to use real network, as conditions are hard to manage and reproduce.
 
+comparable to the initial (simple) network emulation used in the measurement framework in Section~\ref{c3:measurements} using static values
+here it acts as a dynamic network emulator, delaying packets based on its pass-through time through the network, while also adding packet loss.
+
 Therefore, use an emulated network provided by the ns-3 network simulator. But transmit real traffic through it, i.e., use it as an emulator and bridges. \ref{c5:fig:streaming-simulation} \ref{c5:fig:streaming-hybrid}
 
 
@@ -308,6 +317,33 @@ Therefore, use an emulated network provided by the ns-3 network simulator. But t
 
 
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.0\textwidth]{images/R-ltesim-bwseries-numstalls.pdf}
+\caption{R-ltesim-bwseries-numstalls.pdf}
+\label{c5:fig:ltesim-bwseries-numstalls}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.0\textwidth]{images/R-ltesim-bwseries-stallduration.pdf}
+\caption{R-ltesim-bwseries-stallduration.pdf}
+\label{c5:fig:ltesim-bwseries-stallduration}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-numstalls.pdf}
+\caption{R-ltesim-latencyseries-numstalls.pdf}
+\label{c5:fig:ltesim-latencyseries-numstalls}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-stallduration.pdf}
+\caption{R-ltesim-latencyseries-stallduration.pdf}
+\label{c5:fig:ltesim-latencyseries-stallduration}
+\end{figure}
 
 
 % \begin{figure}[htb]
