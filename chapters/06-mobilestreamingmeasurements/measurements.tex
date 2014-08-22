@@ -1,41 +1,51 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Evaluating Mobile Networks, Mobile Stacks, and Streaming}
+\chapter{Evaluating Mobile Networks, Stacks, and Streaming}
 \label{chap:mobilestreaming-measurements}
 
 Testing and evaluation plays a crucial role not just in correctly utilizing cross-layer data but also for mobile networks in general. All of the discussed layer influences, interactions and other unintentional side-effects need to be thoroughly understood for the intended goal of optimizing video streaming in mobile networks.
 
 The core network trace evaluations undertaken in Chapter~\ref{chap:mobilenets} were already able to highlight the load influencing dynamics of the core network control plane. But many more aspects remain uninvestigated, some of which may not even be covered by this kind of passive network-wide measurement type.
 
-To further the understanding of the behavior of reliable streaming in mobile networks and investigate influence sources, usually either active measurements or simulations are conducted.
-
-
-%% ! <-- !
-%%
+To further the understanding of the behavior of reliable streaming in mobile networks and investigate influence sources, usually either active measurements or simulations are conducted. Both methods are discussed here, with their drawbacks and benefits, and a working implementation --- tailored to the needs of measuring reliable mobile streaming --- is presented for each.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Active Measurements, Testbeds and Mobile Device Metadata}
 
-If no production networks are available, network protocols are usually best tested in large-scale network testbeds.
+Active measurements includes any kind of approach that generates its own network traffic and bases the evaluation on it. Therefore, they are usually conducted on an end-to-end base, with at lest one side under the control of the experimenter.
+
+Apart from researchers writing their own specialized application for a singular study, active measurements are most often conducted with the help of existing network testbeds, thereby reducing the overall effort.
+Any new or an alteration to existing network protocols are usually best tested in large-scale network testbeds to collect performance data and find side-effects. The presence of background traffic and a large device heterogeneity and diversity are often considered an advantage to a testbed as it better resembles real networks.
+
+Testbeds can be either physically constructed by setting up a number of dedicated machines in a lab or form a virtual overlay spanning over an existing computer network. Both of these principles work well for wired network and there are a lot of examples of successful testbeds constructed with these principles.
+
+Currently one of the largest installations is PlanetLab~\cite{chun2003planetlab}, consisting of dedicated machines located at a number of University sites. An experimenter can instantiate a \textit{slice} --- a portion of the overlay network made up of number of interconnected \glspl{VM} hosted on the various machines --- and conduct her studies. Thus, many experiments can run concurrently.
+
+A purely virtual approach is the Seattle Testbed\footnote{\url{https://seattle.poly.edu/html/}}~\cite{Cappos:2009:SPE:1508865.1508905}. Again, 
+real people
+guarantees through sandbox, not review boards
+
+
 
 Looking for large testbeds that can target mobile devices, not just stationary nodes.
 
-General Testbeds in contrast to devices setup for the purpose of only one study
-
-Interesting aspects and requirements to a testbed, to best resemble reality:
-Large device heterogeneity and diversity
 Mobility
+
+
+As reliable streaming is usually a fully pull-based approach, control over the server containing the streaming files is not required. 
+
+
+
+few true mobile testbed, mostly wireless and sensor oriented (also mesh-networks), radio-focused
+
+
+%% ! <-- !
+%%
 
 Lessons Learned from the NetSense Smartphone Study \cite{Striegel:2013:LLN:2491159.2491171}
 provided smartphones, subsidized by sprint
 just specific study, not a testbed
-
-Large as in, e.g., PlanetLab, GENI / GpENI(?)
-
-PlanetLab: an overlay testbed for broad-coverage services \cite{chun2003planetlab}
-
-
 
 SmartLab \url{http://smartlab.cs.ucy.ac.cy/}
 
@@ -52,11 +62,6 @@ relies on Androids privacy mechanisms (imho: do not work for this type of projec
 real people (as opposed to emulab, planetlab,...)!
 interesting study for wifi->3g vertical handover locations -> could extend wifi coverage studies and wifi planning
 
-
-Seattle Testbed \url{https://seattle.poly.edu/html/} \cite{Cappos:2009:SPE:1508865.1508905}
-real people
-guarantees through sandbox, not review boards
-
 M-Lab \url{http://www.measurementlab.net/}
 
 OsmocomBB project \cite{osmocombbwww}
@@ -66,7 +71,7 @@ OsmocomBB project \cite{osmocombbwww}
 EmuLab \url{http://www.emulab.net/index.php3}
 
 
-No true mobile testbed, mostly wireless and sensor oriented (also mesh-networks), radio-focused
+
 
 An evaluation of dynamic adaptive streaming over \gls{HTTP} in vehicular environments \cite{Muller:2012:EDA:2151677.2151686}
 
