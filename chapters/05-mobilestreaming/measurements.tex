@@ -5,9 +5,9 @@
 
 Testing and evaluation plays a crucial role not just in correctly utilizing cross-layer data but also for mobile networks in general. All of the discussed layer influences, interactions and other unintentional side-effects need to be thoroughly understood for the intended goal of optimizing video streaming in mobile networks.
 
-The core network trace evaluations undertaken in Chapter~\ref{chap:mobilenets} were already able to highlight the load influencing dynamics of the core network control plane. But many more aspects remain uninvestigated, some of which may not even be covered by this kind of investigation.
+The core network trace evaluations undertaken in Chapter~\ref{chap:mobilenets} were already able to highlight the load influencing dynamics of the core network control plane. But many more aspects remain uninvestigated, some of which may not even be covered by this kind of passive network-wide measurement type.
 
-To further the understanding of the behavior of reliable streaming in mobile networks and investigate influence sources, several approaches can be taken.
+To further the understanding of the behavior of reliable streaming in mobile networks and investigate influence sources, usually either active measurements or simulations are conducted.
 
 
 %% ! <-- !
@@ -101,6 +101,9 @@ TaintDroid: An Information-Flow Tracking System for Realtime Privacy Monitoring 
 Dr. Android and Mr. Hide: Fine-grained Permissions in Android Applications \cite{Jeon:2012:DAM:2381934.2381938}
 
 Improving wireless network performance using sensor hints \cite{ravindranath2011improving}
+
+NativeWrap \url{http://research.csc.ncsu.edu/security/nativewrap} \cite{Nadkarni:2014:NAH:2627393.2627412}
+Use website as app instead of native app, thus reducing permissions
 
 http://campar.in.tum.de/Chair/KalmanFilter
 
@@ -315,6 +318,13 @@ Therefore, use an emulated network provided by the ns-3 network simulator. But t
 \end{figure}
 
 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.0\textwidth]{images/R-ltesim-plotbuffer-time.pdf}
+\caption{R-ltesim-plotbuffer-time.pdf}
+\label{c5:fig:ltesim-plotbuffer-time}
+\end{figure}
 
 
 \begin{figure}[htb]
