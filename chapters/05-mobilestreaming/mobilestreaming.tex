@@ -1,26 +1,39 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Reliable Video Streaming in Mobile Networks: Improving and Analyzing}
+\chapter{Reliable Video Streaming in Mobile Networks}
 \label{chap:mobilestreaming}
 
 The analyses of the previous chapter were entirely based on having access to mobile core network measurements. Most research groups will in most likelihood not have this access and have to rely on active end-to-end device measurements or other approaches.
 
 Furthermore, the notion of the importance of reliable video streaming in mobile networks was also not picked up in the previous chapter. Both the measurements of mobile networks as well as reliable streaming were treated as entirely separate aspects up until now. But, as data from mobile Internet traffic analyses and forecasts suggests \cite{cisco2014VNI}, video is already occupying a large portion from mobile traffic and might rise to an even higher ratio in the near future.
 
-This chapter aims to rectify this split of approaches with two further lines of discussions. 
+The next two chapters aim to rectify this split of approaches with two further lines of discussions. 
 
-First, the existing higher layer protocols of a mobile device's reliable video network stack and the influences of lower layer mobile layers on them are analyzed. This focuses especially on new and upcoming protocols and changes to existing ones. This also ties in with the mobile network load influencing factors discussed in Section~\ref{c4:loaddefinition}. Any behavior exhibited in the device's stick could also have positive or negative effects on the network's control plane and signaling procedures. The section concludes with a theoretic cross-layer information exchange model that has the potential to improve 
+First, the existing higher layer protocols of a mobile device's reliable video network stack and the influences of lower layer mobile layers on them are analyzed. Contrary to the popular scientific belief, that the Internet is unable to change and renew itself (so called Internet ``ossification'', compare, e.g., \cite{feldmann2010ossification}), protocols in the \gls{TCP}/\gls{IP} stack change all the time. Changes are more likely to occur in the end-to-end stack behavior and not in the packet format, as they are more difficult to change. New application requirements and changing network architectures always trigger adaptations in the stack in-between. Therefore, new and upcoming protocols are presented with an additional focus on the rapid changes to the existing network stack that occured in the past years.
 
-Second, now that the stack has been discussed fully, several approaches to monitor and measure end-to-end mobile network traffic, and video in particular, are demonstrated and executed. No access to in-network measurement probes limits the level of detail one can deduce from influence sources inside the network. But it also opens up a wide range of other device-based information sources, some of which are crucial in mobile devices, especially regarding mobility. These methods are also not limited to particular mobile network architectures and can thus be used to rapidly compare new architecture evolutions or specific core network implementations to each other. 
+This also ties in with the mobile network load influencing factors discussed in Section~\ref{c4:loaddefinition}. Any behavior exhibited in the device's stick could also have positive or negative effects on the network's control plane and signaling procedures. The section concludes with a theoretic cross-layer information exchange model that has the potential to improve 
+
+Second, in Chapter~\ref{chap:mobilestreaming-measurements} now that the stack has been discussed fully, several approaches to monitor and measure end-to-end mobile network traffic, and video in particular, are demonstrated and executed. No access to in-network measurement probes limits the level of detail one can deduce from influence sources inside the network. But it also opens up a wide range of other device-based information sources, some of which are crucial in mobile devices, especially regarding mobility. These methods are also not limited to particular mobile network architectures and can thus be used to rapidly compare new architecture evolutions or specific core network implementations to each other. 
 
 Finally, a full video streaming mobile network simulation model is also presented with some initial results.
 
 
+
+%\section{Recent Developments in the Mobile Network Stack}
+%\label{c5:sec:stack-enhancements}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{enhancements.tex}
+\input{crosslayer.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{measurements.tex}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mobile Streaming Summary}
 
 

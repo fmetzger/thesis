@@ -1,7 +1,7 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Evaluating Mobile Networks, Mobile Stacks, and Streaming}
-\label{c5:sec:mobilestreaming-measurements}
+\chapter{Evaluating Mobile Networks, Mobile Stacks, and Streaming}
+\label{chap:mobilestreaming-measurements}
 
 Testing and evaluation plays a crucial role not just in correctly utilizing cross-layer data but also for mobile networks in general. All of the discussed layer influences, interactions and other unintentional side-effects need to be thoroughly understood for the intended goal of optimizing video streaming in mobile networks.
 
@@ -15,7 +15,7 @@ To further the understanding of the behavior of reliable streaming in mobile net
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Active Measurements, Testbeds and Mobile Device Metadata}
+\section{Active Measurements, Testbeds and Mobile Device Metadata}
 
 If no production networks are available, network protocols are usually best tested in large-scale network testbeds.
 
@@ -70,9 +70,10 @@ No true mobile testbed, mostly wireless and sensor oriented (also mesh-networks)
 
 An evaluation of dynamic adaptive streaming over \gls{HTTP} in vehicular environments \cite{Muller:2012:EDA:2151677.2151686}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Enriching Mobile Measurements with Additional Metadata}
-\label{c5:sensorium}
+\subsection{Enriching Mobile Measurements with Additional Metadata}
+\label{c6:sensorium}
 
 
 
@@ -202,7 +203,7 @@ Sensorium attempts to bring the sensing capabilities of current generation devic
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Survey of 3G/4G Evaluation and Simulation Frameworks}
+\section{Survey of 3G/4G Evaluation and Simulation Frameworks}
 
 Simulation frameworks are especially important for mobile networks, as acquiring packet-level traces and information about every node in an actual commercially operating cellular network is nigh impossible due to the users' privacy and the provider's business concerns.
 
@@ -264,8 +265,8 @@ and less instrumentation/logging available for this stack
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Combined Simulating Streaming Traffic Characteristics in ns-3}
-\label{c5:mobilestreamingtestbed}
+\section{Combined Simulating Streaming Traffic Characteristics in ns-3}
+\label{c6:mobilestreamingtestbed}
 
 
 Different Approaches
@@ -297,7 +298,7 @@ Describe ns-3/LENA implementation
 
 
 %%
-\subsubsection{Simulation/Emulation Hybrid}
+\subsection{Simulation/Emulation Hybrid}
 
 
 Use introduced streaming evaluation approaches in a mobile network environment
@@ -369,3 +370,5 @@ Therefore, use an emulated network provided by the ns-3 network simulator. But t
 
 
 
+
+\section{Mobile Streaming Measurement Summary}

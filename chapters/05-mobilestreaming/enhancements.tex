@@ -1,16 +1,9 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Recent Developments in the Mobile Network Stack}
-\label{c5:sec:stack-enhancements}
-
-
-Contrary to the popular scientific belief, that the Internet is unable to change and renew itself (so called Internet ``ossification'', compare, e.g., \cite{feldmann2010ossification}), protocols in the \gls{TCP}/\gls{IP} stack change all the time. Changes are more likely to occur in the end-to-end stack behavior and not in the packet format, as they are more difficult to change. New application requirements and changing network architectures always trigger adaptations in the stack in-between. 
+\section{Influences of the Existing Stack}
+\label{c5:sec:stack-influences}
 
 This section briefly covers the existing protocol stacks in relation to mobile networks and streaming, new protocols and how they might influence the stack, and also discusses \gls{TCP} more closely as an example. Beneficial interactions between the stack's layers are presented in a final part.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Influences of the Existing Stack}
-\label{c5:sec:stack-influences}
 
 Superficially not much has changed in the Web's protocol stack. There is still \gls{IP}, \gls{TCP}, and \gls{HTTP} forming effectively the same protocol stack since 1991 with HTTP/0.9. And this seems hard to change, especially the transport layer is fixed to \gls{UDP} and \gls{TCP}, everything else will probably get rejected, altered or even dropped by one of the numerous middleboxes, such as \glspl{NAT}, or forced ``traffic optimization'' transparent proxies, all of which are especially prevalent in mobile networks \cite{sigcomm11middleboxes}. As a side note, this adds another layer of state kept in the network. A fact that was already discussed as being highly problematic and capable of inducing load in the core network in Chapter~\ref{chap:mobilenets}.
 
@@ -63,7 +56,7 @@ Looking again at Figure~\ref{c5:fig:timescales}, it can be seen that this notion
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Recent and Upcoming Protocols}
+\section{Recent and Upcoming Protocols}
 
 Protocol development has not stopped in recent years. On the contrary, some interesting changes are occurring especially in the application and transport layers. The following paragraph highlight some of the changes and their potential influence on mobile streaming.
 
@@ -109,7 +102,7 @@ The SPDY draft was later picked up by the \gls{IETF} Httpbis working group as an
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Additional TCP Changes}
+\section{Additional TCP Changes}
 
 In addition to the previously described new transport protocols under development aiming to replace and surpass \gls{TCP}, \gls{TCP} itself is not as static as it may seem. While the basic wire frame and data interchange format has already been defined in 1981 in RFC~793~\cite{rfc793}, much of the specific behavior is free to be experimented with by further specifications and implementations. The most prominent example is the congestion control mechanism where every operating system takes hugely different approaches.
 
@@ -190,10 +183,6 @@ This is contrary to the popular scientific claim that the Internet is ``ossified
 
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{crosslayer.tex}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 

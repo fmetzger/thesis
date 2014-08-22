@@ -1,6 +1,6 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Cross-Layer Information Exchange}
+\section{Cross-Layer Information Exchange}
 \label{c5:sec:crosslayerhinting}
 
 The Internet has its historic roots deep in wired networks with a slim and well-defined network stack represented by the \gls{ISO}/\gls{OSI} or \gls{TCP}/gls{IP} model. These layers are isolated against each other. Only predefined information exchange points, or \gls{osiSAP}, at the layer borders allow for vertical communication. A typical wired Internet environment consists of either an Ethernet or other access technologies, e.g., \gls{DSL} or \gls{DOCSIS}, at the physical and link layers or \gls{PON} with \gls{TCP}/\gls{IP} following atop.
@@ -14,7 +14,8 @@ It would be very desirable for transport and application layer mechanisms to be 
 The next sections describe related mechanisms in the literature, classifications and then proceed to describe a new cross-layer approach that facilitates cross-layer information to the benefit of mobile streaming. The cross-layer work is based on a proposal for a FWF~\footnote{Fonds zur Förderung der wissenschaftlichen Forschung, \url{http://www.fwf.ac.at/}} stand-alone project submitted in October 2014 \todo{replace with actual date}. Thus, only initial ideas and planned future work is described.
 
 
-\subsubsection{Related Cross-Layer Approaches and Classifications}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Related Cross-Layer Approaches and Classifications}
 
 The idea of exchanging information between layers is not a particularly new one. Some specific ideas have been implemented a long time ago. The authors \cite{Raisinghani2004720} list a number of scenarios in which cross-layer information could be used and also talk about the type of information to be shared between layers.
 
@@ -36,7 +37,8 @@ To optimize unreliable video streaming in a WiFi network, the authors of \cite{1
 The notion of cross-layer can also be applied to non-traditional network stacks. For example, the authors of \cite{4656786} present a cross-layer model for satellite communication stacks. They additionally distinguish between two general flavors of cross-layer architectures, one with \textbf{direct} and the other with \textbf{indirect} communication. Direct exchange implements new interfaces in the layers and exchanges information directly between them.  The indirect alternative uses an external information broker that handles all communication in parallel to the existing layers. Similar information can be offered to peer-to-peer overlay networks, as was for example researched in the SmoothIT project\footnote{\url{http://www.smoothit.org}}, where routing and topology information was collected and made available to interested peers~\cite{oechsner2009pushing}.
 
 
-\subsubsection{Cross-Layer Model and Implications}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cross-Layer Model and Implications}
 
 With the past approaches and classifications at hand, a cross-layer model suitable for video streaming in mobile networks can now be defined and the exchanged information specified.
 
@@ -70,7 +72,8 @@ All in all, the cross-layer data needs as well as the recipient's reactions need
 Either way, when implementing any kind of cross-layer exchange, one always has to keep a close look on the resulting consequences. One side effect can be the creation of an unintentional feedback loop between the control mechanisms of protocols of different layers. Moreover, breaches in the isolation could leak network state that could be exploited by malicious parties in any number of unforeseeable ways. Therefore, handling these plays an important role in cross-layer research. In \cite{1404568} some of these issues are presented and discussed.
 
 
-\subsubsection{Utilizing Cross-Layer for Adaptive Reliable Streaming in Mobile Networks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Utilizing Cross-Layer for Adaptive Reliable Streaming in Mobile Networks}
 
 Looking at the model it can be an obvious fit for adaptive reliable streaming. As introduced in Section~\ref{c3:background}, adaptive streaming usually facilitates a segment-based pull approach on top of \gls{HTTP}. A local video buffer is maintained and attempted to be kept between predefined thresholds. The goal is to never run out of buffered video while still providing the best possible quality, which could be difficult to achieve in a highly variable mobile network.
 
@@ -106,7 +109,8 @@ The general goal in the streaming process is to both stop the buffer from ever c
 The end-to-end concept can be applied to cross-layer architectures as well. While cross-layer information can still be made available to intermediate layers, the achievable effects might either not be as large as in the highest layer or more complicated to attain. For example, it requires much more effort to correctly adjust \gls{TCP} retransmissions and congestion control to accommodate the cross-layer broker without side-effects to other applications. Nonetheless, benefits can still be attained at the transport layer to some degree if the adjustments are being kept application-neutral. This can be especially helpful for applications that have not yet been adapted to handle cross-layer information.
 
 
-\subsubsection{Benefits for Other Applications}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Benefits for Other Applications}
 
 Besides this work's central motifs of reliable streaming, other applications could benefit as well which some examples in this section might show.
 
@@ -117,8 +121,8 @@ In general any application that can locally exert over its traffic and does not 
 Directly involving the user itself are a further category of cross-layer interactions that are only available if there is a downward control flow through the broker to the radio layer protocols. This would require the additional presence of a user-space policy manager. The manager would offer the user a series of preferences and a configuration interface for a rule-based cross-layer control engine. With this the user could create complex compound policies such as: ``Do not handover to a stationary WiFi from \gls{3G} when moving faster than \SI{50}{\kilo\meter\per\hour}, only to in-vehicle WiFi if available.'' or ``Avoid any vertical handover, which would interrupt my service for a long time, while a VoIP call is running.''
 
 
-
-\subsubsection{Implementation Outlook and Approaches}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Implementation Outlook and Approaches}
 
 While the cross-layer model is still in its proposal stage, some thoughts have already been given to its possible method of implementation.
 
