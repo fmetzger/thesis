@@ -11,7 +11,7 @@ To further the understanding of the behavior of reliable streaming in mobile net
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Active Measurements, Testbeds and Mobile Device Metadata}
+\section{Active Measurements and Testbeds}
 
 Active measurements includes any kind of approach that generates its own network traffic and bases the evaluation on it. Therefore, they are usually conducted on an end-to-end base, with at lest one side under the control of the experimenter.
 
@@ -22,37 +22,39 @@ Testbeds can be either physically constructed by setting up a number of dedicate
 
 Currently one of the largest installations is PlanetLab~\cite{chun2003planetlab}, consisting of dedicated machines located at a number of University sites. An experimenter can instantiate a \textit{slice} --- a portion of the overlay network made up of number of interconnected \glspl{VM} hosted on the various machines --- and conduct her studies. Thus, many experiments can run concurrently.
 
-A purely virtual approach is the Seattle Testbed\footnote{\url{https://seattle.poly.edu/html/}}~\cite{Cappos:2009:SPE:1508865.1508905}. Again, 
-real people
-guarantees through sandbox, not review boards
+Several testbeds devote themselves to wireless and mobile networks. These are usually either put together in a clean lab environment, SmartLab\footnote{\url{http://smartlab.cs.ucy.ac.cy/}} or 
+EmuLab\footnote{\url{http://www.emulab.net/}} come to mind, or hand out subsidized mobile devices prepared with custom firmwares to volunteers which need to allow running network experiments on them. The approach is taken, e.g., by NetSense~\cite{Striegel:2013:LLN:2491159.2491171} and PhoneLab\footnote{\url{https://www.phone-lab.org/}}~\cite{Nandugudi:2013:PLP:2536714.2536718}. The latter approach raises some interesting issues concerning the volunteers' privacy which will be covered in the next section.
+
+All of these testbeds consist of rather uniform nodes and access to it still requires some amount of administrative effort, alternative approaches are also available, for example in the form of the Seattle Testbed\footnote{\url{https://seattle.poly.edu/html/}}~\cite{Cappos:2009:SPE:1508865.1508905}. Its overlay network comprises of small software sandboxes installable on a wide range of device types. Experimenters gain automatic access to a portion of the overlay through a clearing house and are resource-restricted to their slice by a hypervisor. As Seattle is available to both conventional PCs as well as Android smartphones, the overlay composition very heterogeneous. Therefore, the node stability and availability can vary substantially over time, caused amongst other things by the individual uptime of the computers following typical diurnal cycles and mobility-related connectivity issues.
+While this forms a much more realistic picture of a network, it simultaneously makes the execution of the actual study more difficult as these churning issues have to be dealt with.
+
+The requirements for conducting reliable streaming experiments are low. As it is usually a fully pull-based approach, full control over the server containing the streaming files is not necessary. It is also generally not necessary to display the actual video on the client in reliable streaming as it always will be a pixel-perfect representation. Therefore, the buffer-emulation measurement approach presented in \ref{c3:measurements} can be employed here. The measurement devices only have to record the transmission traces of the streaming process and make them available to the emulation process. The latter can for example also be performed in a centralized and asynchronous matter when dealing with non-adaptive streaming.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Enriching Mobile Measurements with Additional Metadata}
+\label{c6:sensorium}
+
+While transmission traces might be the bare minimum to conduct reliable streaming measurements, meaningful mobile measurement can include much more metadata, giving insightful indication of the device's current state.
+
+Mobile devices have access to a vast array of data. On the one hand does the networking stack itself much information on its state, as discussed in the previous Chapter. The current radio and mobility state is especially relevant to mobile streaming measurements as it directly influences the link's \gls{QoS} parameters. But modern mobile devices additionally contain an ever-growing number of sensors, including \gls{GPS}, accelerometers, temperature, pressure, luminosity, humidity, fingerprint, and several cameras and microphones. They each can help to quantify the physical position, orientation and state of the device and even quantify the state of its user.
 
 
 
-Looking for large testbeds that can target mobile devices, not just stationary nodes.
+(active) measurements in mobile networks should make use of the device's current state and environment. i.e., read its sensor data and put measurements in context with it. Alternatively, use anonymized sensor data for new kinds of evaluations (can this device watch video at all at the current location?)
 
-Mobility
-
-
-As reliable streaming is usually a fully pull-based approach, control over the server containing the streaming files is not required. 
-
-
-
-few true mobile testbed, mostly wireless and sensor oriented (also mesh-networks), radio-focused
-
+Modern computing devices such as smartphones, laptops, and tablet computers are equipped with an increasing number of sensors: \gls{GPS}, tilt, and acceleration meters quantify the physical position and orientation of the device; 3G, WiFi, and other  interfaces gather data on the availability and signal quality of wireless networks; temperature and ambient light sensors deliver additional insight into a user's work and home environments.
 
 %% ! <-- !
 %%
 
-Lessons Learned from the NetSense Smartphone Study \cite{Striegel:2013:LLN:2491159.2491171}
-provided smartphones, subsidized by sprint
-just specific study, not a testbed
-
-SmartLab \url{http://smartlab.cs.ucy.ac.cy/}
-
 HomeLab: A Platform For Conducting Experiments With Connected Devices In The Home \cite{Singh:2013:HPC:2486001.2491701}
 authentication-based privacy, fully up to the experimenter
 
-PhoneLab \url{https://www.phone-lab.org/} \cite{Nandugudi:2013:PLP:2536714.2536718}
+Sensibility Testbed (https://sensibilitytestbed.com/projects/project): ``Followup''-Project to Sensorium, building entirely on Seattle/Python
+
+
+phonelab privacy approach:
 Large (288 devices) smartphone testbed
 each participant can choose to participate in individual experiments
 open for experimenters upon approval, centralized experiment execution by the review board
@@ -61,29 +63,6 @@ bureaucratic apprach to experimentation and privacy, not automatized
 relies on Androids privacy mechanisms (imho: do not work for this type of project)
 real people (as opposed to emulab, planetlab,...)!
 interesting study for wifi->3g vertical handover locations -> could extend wifi coverage studies and wifi planning
-
-M-Lab \url{http://www.measurementlab.net/}
-
-OsmocomBB project \cite{osmocombbwww}
-
-\url{http://www.wisebed.eu/}
-
-EmuLab \url{http://www.emulab.net/index.php3}
-
-
-
-
-An evaluation of dynamic adaptive streaming over \gls{HTTP} in vehicular environments \cite{Muller:2012:EDA:2151677.2151686}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Enriching Mobile Measurements with Additional Metadata}
-\label{c6:sensorium}
-
-
-
-Sensibility Testbed (https://sensibilitytestbed.com/projects/project): ``Followup''-Project to Sensorium, building entirely on Seattle/Python
-
 
 \subsubsection{Preserving Privacy}
 
@@ -135,13 +114,9 @@ total installs: 475 as of august 2014
 on various types of devices (including tablets)
 across several countries (top: US, DE, AT, India, Turkey)
 and all carriers
-
 with not particular advertisement (demo presentation at one national conference)
 
-(active) measurements in mobile networks should make use of the device's current state and environment. i.e., read its sensor data and put measurements in context with it. Alternatively, use anonymized sensor data for new kinds of evaluations (can this device watch video at all at the current location?)
 
-
-Modern computing devices such as smartphones, laptops, and tablet computers are equipped with an increasing number of sensors: \gls{GPS}, tilt, and acceleration meters quantify the physical position and orientation of the device; 3G, WiFi, and other  interfaces gather data on the availability and signal quality of wireless networks; temperature and ambient light sensors deliver additional insight into a user's work and home environments.
 
 There exist problems for the practical viability of collection data though: Different devices and platforms such as Android and iOS use very different interfaces into their sensors; privacy is another issue hardly tackled on any platform other than in a crude binary (allow/deny access) way. Therefore, in this demo we introduce Sensorium, a generic sensor reading framework that funnels data from actual sensor drivers, implements fine-grained privacy control for the user, and provides generic outbound interfaces such as \acrshort{XML}-\acrshort{RPC}. We also show an application using it, \gls{O3GM}, which visualizes mobile coverage data coming from Sensorium.
 
@@ -209,6 +184,9 @@ Sensorium attempts to bring the sensing capabilities of current generation devic
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Survey of 3G/4G Evaluation and Simulation Frameworks}
+
+While there are some active measurement studies specifically targeted at reliable streaming in mobile networks, e.g., \cite{Muller:2012:EDA:2151677.2151686}, most rely either on fixed networks or simulations.
+
 
 Simulation frameworks are especially important for mobile networks, as acquiring packet-level traces and information about every node in an actual commercially operating cellular network is nigh impossible due to the users' privacy and the provider's business concerns.
 
@@ -376,4 +354,21 @@ Therefore, use an emulated network provided by the ns-3 network simulator. But t
 
 
 
-\section{Mobile Streaming Measurement Summary}
+\section{Mobile Streaming and Measurement Summary}
+
+Cover both this and the previous Chapter?
+
+
+
+
+%\url{http://www.wisebed.eu/}
+%M-Lab \url{http://www.measurementlab.net/}
+
+%Lessons Learned from the NetSense Smartphone Study 
+%provided smartphones, subsidized by sprint
+%just specific study, not a testbed
+
+%OsmocomBB project \cite{osmocombbwww}
+
+
+%An evaluation of dynamic adaptive streaming over \gls{HTTP} in vehicular environments \cite{Muller:2012:EDA:2151677.2151686}
