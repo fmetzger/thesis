@@ -33,10 +33,10 @@ which holds universally independent of any specific arrival or service time proc
 
 To distinguish the variations of a queuing system's parameter a simple convention and naming scheme was devised by Kendall in 1953~\cite{kendall1953stochastic} and later extended on.
 
-In its simplest form the notation reads $A/S/s$ with $A$ denoting the arrival distribution, $S$ the service time, and $s$ the number of servers. Here, an extended notation will be used, 
+In its simplest form the notation reads $A/S/s$ with $A$ denoting the arrival distribution, $S$ the service time distribution, and $s$ the number of servers. Here, an extended notation will be used, 
 
 \begin{equation}
-A/S/s-q
+A/S/s/q
 \end{equation}
 
 which additionally describes the queue length $q$. With this, a queuing system ($q=\infty$) can be easily distinguished from a blocking or loss system ($q=0$). The most commonly used arrival processes and service time distributions are summarized in Table~\ref{c4:tbl:kendalldistributions}.
@@ -59,18 +59,18 @@ which additionally describes the queue length $q$. With this, a queuing system (
 
 \subsubsection{Information Gain}
 
-Depending on the complexity of the specific queuing system model, much information can be gained. In simple cases the state probability can be mathematically determined, i.e. the probability, that exactly $m$ customers are in the system concurrently. If this number is higher than the number of processors, this also determines the queue length or the blocking probability $p_B$ if there is no queue. Other properties include for example the waiting time of customers.
+Depending on the complexity of the specific queuing system model, much information can be gained. In simple cases the state probability can be mathematically determined, i.e., the probability, that exactly $m$ customers are in the system concurrently. If this number is higher than the number of processors, this also determines the queue length or the blocking probability $p_B$ if there is no queue. Other properties include for example the waiting time of customers.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=\textwidth]{images/markovchain.pdf}
-	\caption{$M/M/n-\infty$ Markov chain model.}
+	\caption{$M/M/c/\infty$ Markov chain model.\todo{something is wrong with the figure (this is not a$ M/M/c/\infty$ model)}}
 \label{c4:fig:markovchain}
 \end{figure}
 
-One such basic queuing system is $M/M/1-\infty$ \cite[pp.~94-99]{Kleinrock:1975:TVQ:1096491}, on which stationary analysis can be applied upon. Both the one processor queue and $M/M/n-\infty$ can also be easily expressed as a Markov chain due to their memoryless property. Figure~\ref{c4:fig:markovchain} depicts the state transitions of a system with $i$ processors and a queue length of $n-i$.
+One such basic queuing system is $M/M/1/\infty$ \cite[pp.~94-99]{Kleinrock:1975:TVQ:1096491}, on which stationary analysis can be applied upon. Both the one processor queue and $M/M/c/\infty$ can also be easily expressed as a Markov chain due to their memoryless property. Figure~\ref{c4:fig:markovchain} depicts the state transitions of a system with $i$ processors and a queue length of $c-i$.
 
-More complex models are often not tractable by stationary analysis or other mathematical tools any more and no general solution is known. This is especially true for the class of $G/G/n$ systems, which can only be directly solved under certain conditions. A better approach can be the use of a queuing simulation. Hereby, both the arrival and the serving process are implemented in a \gls{DES} using random numbers of the desired distributions in order to ascertain the system load and blocking probability.
+More complex models are often not tractable by stationary analysis or other mathematical tools any more and no general solution is known. This is especially true for the class of $G/G/c$ systems, which can only be directly solved under certain conditions. A better approach can be the use of a queuing simulation. Hereby, both the arrival and the serving process are implemented in a \gls{DES} using random numbers of the desired distributions in order to ascertain the system load and blocking probability.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,11 +87,11 @@ The \gls{GGSN} was already determined to be critical to the \gls{CN}'s load. The
 \end{figure}
 
 
-Figure~\ref{c4:fig:ggn-model} shows this model for the proposed tunnel load metric and is in its generic form a $G/G/c-0$ system. Tunnels enter the system governed by a general random distribution and are served at the \gls{GGSN} for the duration of their existence. This duration also follows a general distribution. Afterwards, tunnels leave the system again through the reception of a \gls{gtp} tunnel delete message. If all $c$ serving units are filled, blocking occurs and arriving tunnel requests are rejected.
+Figure~\ref{c4:fig:ggn-model} shows this model for the proposed tunnel load metric and is in its generic form a $G/G/c/0$ system. Tunnels enter the system governed by a general random distribution and are served at the \gls{GGSN} for the duration of their existence. This duration also follows a general distribution. Afterwards, tunnels leave the system again through the reception of a \gls{gtp} tunnel delete message. If all $c$ serving units are filled, blocking occurs and arriving tunnel requests are rejected.
 
 The number of serving units correspond to available resources at the \gls{GGSN}. The maximum supported number of concurrent tunnels is hard to estimate as it depends on a number of factors, most of which are unknown for this modeling process. This could include soft-limits like the specific configuration, and hard-limits, e.g. the \gls{GGSN}'s processing and memory constraints. 
 
-For the purpose of creating an initial toy model the generic $G/G/c-0$ is simplified to a $M/M/\infty$ system. As stated, no actual limit to the number of virtual servers is known and the data also does not show any obvious limits. Thus, an unlimited system with neither blocking or queuing is assumed for this simple model.
+For the purpose of creating an initial toy model the generic $G/G/c/0$ is simplified to a $M/M/\infty$ system. As stated, no actual limit to the number of virtual servers is known and the data also does not show any obvious limits. Thus, an unlimited system with neither blocking or queuing is assumed for this simple model.
 
 Now, assuming both a Poisson arrival and an exponential serving process, a stationary analysis can be conducted. As seen in the statistical evaluation, the former condition may hold, but the serving time is definitely not exponentially distributed. However, for the toy model this assumption is still made to get an initial grasp of the model.
 
