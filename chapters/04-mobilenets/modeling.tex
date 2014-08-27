@@ -64,11 +64,13 @@ Depending on the complexity of the specific queuing system model, much informati
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=\textwidth]{images/markovchain.pdf}
-	\caption{$M/M/c/\infty$ Markov chain model.\todo{something is wrong with the figure (this is not a$ M/M/c/\infty$ model)}}
+	\caption{$M/M/c/\infty$ Markov chain model.}
 \label{c4:fig:markovchain}
 \end{figure}
 
-One such basic queuing system is $M/M/1/\infty$ \cite[pp.~94-99]{Kleinrock:1975:TVQ:1096491}, on which stationary analysis can be applied upon. Both the one processor queue and $M/M/c/\infty$ can also be easily expressed as a Markov chain due to their memoryless property. Figure~\ref{c4:fig:markovchain} depicts the state transitions of a system with $i$ processors and a queue length of $c-i$.
+\todo{something is wrong with the figure c4:fig:markovchain (this is not a M/M/c/infty model)}
+
+One such basic queuing system is $M/M/1/\infty$~\cite[pp.~94-99]{Kleinrock:1975:TVQ:1096491}, on which stationary analysis can be applied upon. Both the one processor queue and $M/M/c/\infty$ can also be easily expressed as a Markov chain due to their memoryless property. Figure~\ref{c4:fig:markovchain} depicts the state transitions of a system with $i$ processors and a queue length of $c-i$.
 
 More complex models are often not tractable by stationary analysis or other mathematical tools any more and no general solution is known. This is especially true for the class of $G/G/c$ systems, which can only be directly solved under certain conditions. A better approach can be the use of a queuing simulation. Hereby, both the arrival and the serving process are implemented in a \gls{DES} using random numbers of the desired distributions in order to ascertain the system load and blocking probability.
 
@@ -151,7 +153,7 @@ With this model, high control plane load can be indirectly described as the syst
 \label{c4:fig:model-ggsn-virtualized}
 \end{figure}
 
-In the second model, virtualization concepts are introduced. The assumptions of the non-stationary Markov arrival process $\lambda(t)$ and the serving time distributions $x(t)$ are carried over. However, instead of one server processing every tunnel, the system is now partitioned into individual server instances coordinated by a load balancer in Figure~\ref{c4:fig:model-ggsn-virtualized}. One virtual \gls{GGSN} has up to $s$ servers instances $s_i$.  Each of the individual instances can be much smaller than the monolithic \gls{GGSN}, having a concurrent tunnel serving capacity of $c_i \ll c$ and a total system capacity of $c_{virt} = \sum_{i=1}^{s} c_i = \| \overrightarrow{c}\|_1 \text{ with } \overrightarrow{c} = \{c_1, c_2, ... ,c_i, ... ,c_s\}$. % 1-norm des Kapazitätsvektors
+In the second model, virtualization concepts are introduced. The assumptions of the non-stationary Markov arrival process $\lambda(t)$ and the serving time distributions $x(t)$ are carried over. However, instead of one server processing every tunnel, the system is now partitioned into individual server instances coordinated by a load balancer in Figure~\ref{c4:fig:model-ggsn-virtualized}. One virtual \gls{GGSN} has up to $s$ servers instances $s_i$. Each of the individual instances can be much smaller than the monolithic \gls{GGSN}, having a concurrent tunnel serving capacity of $c_i \ll c$ and a total system capacity of $c_{virt} = \sum_{i=1}^{s} c_i = \| \overrightarrow{c}\|_1 \text{ with } \overrightarrow{c} = \{c_1, c_2, \ldots ,c_i, \ldots ,c_s\}$. % 1-norm des Kapazitätsvektors
 The complete model now reads:
 
 \begin{equation}
