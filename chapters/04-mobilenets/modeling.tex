@@ -70,7 +70,7 @@ Depending on the complexity of the specific queuing system model, much informati
 
 \todo{something is wrong with the figure c4:fig:markovchain (this is not a M/M/c/infty model)}
 
-One such basic queuing system is $M/M/1/\infty$~\cite[pp.~94-99]{Kleinrock:1975:TVQ:1096491}, on which stationary analysis can be applied upon. Both the one processor queue and $M/M/c/\infty$ can also be easily expressed as a Markov chain due to their memoryless property. Figure~\ref{c4:fig:markovchain} depicts the state transitions of a system with $i$ processors and a queue length of $c-i$.
+One such basic queuing system is $M/M/1/\infty$~\cite[pp.~94-99]{Kleinrock:1975:TVQ:1096491}, on which stationary analysis can be applied upon. Both the one processor queue and $M/M/c/\infty$ can also be easily expressed as a Markov chain due to their memoryless property. Figure~\ref{c4:fig:markovchain} depicts the state transitions of a system with $c$ processors and a queue length of $i-c$.
 
 More complex models are often not tractable by stationary analysis or other mathematical tools any more and no general solution is known. This is especially true for the class of $G/G/c$ systems, which can only be directly solved under certain conditions. A better approach can be the use of a queuing simulation. Hereby, both the arrival and the serving process are implemented in a \gls{DES} using random numbers of the desired distributions in order to ascertain the system load and blocking probability.
 
