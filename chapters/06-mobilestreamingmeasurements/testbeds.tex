@@ -65,68 +65,37 @@ Other approaches include increasing the permission granularity~\cite{Jeon:2012:D
 %%
 \subsubsection{Preserving Testbed User Privacy with Sensorium}
 
+Even with these approaches at hand, the privacy issue should be mitigated further beyond the binary allow/deny access approach. Also, it usually is a complicated task for experimenters to access all the various sensors,each answering to a different \gls{API}. Sensorium~\cite{raf2013sensorium} was created to remedy both of these issues. Sensorium is a generic unified sensor reading framework that interfaces with other applications as well as network nodes and provides the sensor readout to them. More importantly, a fine-grained multi-level privacy control model is implemented.
 
-%% ! <-- !
+
 %%
-
-
-
-
-no root rights required (e.g. compared to PhoneLab)
-installable (apk, play, fdroid) on any Android device
-can be metadata companion App to almost any smartphone-compatible testbed
-leaves privacy choices with the user (decentralized)
-drawback: experimenters have to cope with varying granularity of data
-but: its real devices anyway, data will never be perfect, experiments always have to cope with this anyway
-real people
-guarantees through sandbox, not review boards
-
-Sensorium play store stats:
-usage peak: 51 concurrent device installs August 2014
-total installs: 475 as of august 2014
-on various types of devices (including tablets)
-across several countries (top: US, DE, AT, India, Turkey)
-and all carriers
-with not particular advertisement (demo presentation at one national conference)
-
-
-
-There exist problems for the practical viability of collection data though: Different devices and platforms such as Android and iOS use very different interfaces into their sensors; privacy is another issue hardly tackled on any platform other than in a crude binary (allow/deny access) way. Therefore, in this demo we introduce Sensorium, a generic sensor reading framework that funnels data from actual sensor drivers, implements fine-grained privacy control for the user, and provides generic outbound interfaces such as \acrshort{XML}-\acrshort{RPC}. We also show an application using it, \gls{O3GM}, which visualizes mobile coverage data coming from Sensorium.
-
-%Sensor interfaces differ -> difficult to do generic stuff with them
-Sensorium can access all the information a device provides and makes them available to other applications. Up until now, it has been a challenging task for software developers (especially scientists and experimenters) to implement specialized sensor applications. This task is simplified by providing a generic framework for interfacing sensors. In our current implementation, available for Android, most of the typical sensors are already implemented. Since giving access to sensor data also exposes the user's privacy, the user can disable or set privacy levels for each sensor individually, and all sensor readings that would be shared are displayed. %Setting higher privacy levels reduces the amount of data a sensor shares. %E.g., location data accuracy could be rounded, or just hashes of data shared.
-\\
-
-\gls{O3GM}\footnote{\url{https://o3gm.cs.univie.ac.at/o3gm/}} showcases the sensors framework. It comprises a web service displaying cellular access technology data points at their \gls{GPS} locations collected by devices running Sensorium (see Figure~\ref{c5:fig:ogggm}). This solves a real-world problem: Currently, this kind of data is only available to mobile operators, which however  are hindered by commercial interests to make them publicly available --- at least in raw, unadorned form. Other projects such as OpenSignalMaps\footnote{\url{http://opensignal.com/}} and Sensorly\footnote{\url{http://www.sensorly.com/}}, as well as corporations like Google and Apple collect these data, but are very restrictive regarding usage by other parties. This is not true for \gls{O3GM}: We make the data points collected available as Open Data under an open content license.
-
-Obviously, other applications are possible. Since code and data are open-sourced, everyone can implement their great ideas, port Sensorium to other platforms or reimplement our interface there, etc.
-
-\begin{figure}[htb]
-\centering
-\includegraphics[width=\textwidth]{images/o3gm.png}
-\caption{The \gls{O3GM} web page, displaying a \gls{3G} coverage measurements layer with data collected by Sensorium on top of the OpenStreetMap base layer.}
-\label{c5:fig:ogggm}
-\end{figure}
-
-%\subsubsection{Architecture}
-
-Figure~\ref{c5:fig:architecture} overviews Sensorium's architecture components, and its interplay with the data collecting parts of \gls{O3GM}. \textit{Sensor drivers} are implemented on top of the operating system taking care of reading sensor values from platform-specific interfaces and pushing them upwards into the \textit{registry}. Here, sensor data is timestamped and collected. On one side, data are prepared for local display, e.g., in a \gls{GUI} or status widget. On the other side, a user-configurable \textit{privacy layer} might allow for full sensor access from above or reduce the precision of values (e.g., round \gls{GPS} coordinates); it could salt and hash sensor values for improved privacy, or completely deny access to individual (or all) sensors. Finally, other applications running on the same device are free to connect to Sensorium's \textit{outbound interfaces} to register for sensor updates or poll data. Access from sources other than localhost is not allowed for obvious privacy reasons.
-
-Due to the layered architecture, it is very simple for contributors to add their own implementations of layers or swap them out for their own altogether. Consider a scenario when a contributor wishes to include a sensor we do not yet provide a driver for. All that needs to be implemented is code interfacing the actual sensor, and the lightweight \gls{API} into our sensor registry. Similarly, additional local display methods, privacy enhancements, and outbound interfaces might be implemented.
+\paragraph{Architecture}
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/sensorium-arch.pdf}
-	\caption{Sensorium architecture with \gls{O3GM} \textit{pickup}~and \textit{server}. Previously existing components are marked with a dotted line.}
+	\caption{Sensorium architecture interfacing with other applications. Previously existing components are marked with a dotted line.}
 \label{c5:fig:architecture}
 \end{figure}
 
-%\subsubsection{Implementation}
 
-Our current implementation of Sensorium\footnote{\url{https://github.com/fmetzger/android-sensorium}} runs on the Android platform. To provide a unified interface for accessing the sensor data we incorporated an \acrshort{XML}-\acrshort{RPC} library\footnote{\url{https://code.google.com/p/android-xmlrpc/}} that listens for connections on localhost, meaning that only applications running on the same device can access it. 
-The pickup code to collect sensor values runs on top of the renowned Seattle\footnote{\url{https://seattle.poly.edu/html/}} platform, which is also available for Android, and allows us to remotely and securely access the collected data, and easily experiment with energy and cost efficient data upload/download strategies. 
-The example application we implemented to make use of Sensorium, O3GM\footnote{\url{https://github.com/lukpueh/Open3GMap}}, is based on JavaScript and the OpenLayers\footnote{\url{http://openlayers.org/}} library. All of our code is dual-licensed under \gls{GPLv3} and the \acrshort{BSD} license.
+Figure~\ref{c5:fig:architecture} overviews the components of Sensorium's architecture The individual \textit{sensor drivers} are placed on top of the operating system and take care of reading sensor values from platform-specific interfaces and pushing them upwards into a common registry to be read by the \textit{sensor reading \gls{API}}. All sensor data is relayed both to a local display as well as to all \textit{outbound interfaces}. Due to the layered architecture, contributors can simply extend or substitute the existing layers. For example, new drivers or outbound interfaces can be easily implemented. 
 
+The outbound interfaces include an \gls{HTTPS} client, that pushes \acrshort{JSON} data to any active network experiment server where the data can be further processed. To connect to programs running locally on the same device, the \acrshort{XML}-\acrshort{RPC} interface can be polled. Pull-based access from sources other than the local host is not allowed for security reasons. However, any data leaving Sensorium must first pass through the \textit{privacy layer}, which filters the data based on the user's preferences.
+
+%%
+\paragraph{Privacy Model}
+
+This privacy layer allows for a fine-grained control over the amount and precision of data that the system is sharing. A settings \gls{GUI} provides the user full control over his privacy. Here, she can choose the amount of information she is willing to reveal for each sensor. Based on this preference, the privacy layer then either outright prevents access to specific values or reduces their impact by anonymizing them.
+
+This anonymization task can work in several levels. Apart from completely replacing it with a running number, the value could also be hashed. In many cases context-sensitive anonymization approaches are available. For example, the precision of a geo-location could simply be reduced down to a city-level or even country-level.
+
+As the user is always in firm control of the process, she should be more accepting of actual network experiments that use this kind of data. However, such studies need also cope with the fact, that they might get incomplete or partially anonymized data.
+
+%%
+\paragraph{Implementation}
+
+Sensorium is currently targeted at and implemented on the Android platform.\footnote{\url{https://github.com/fmetzger/android-sensorium}} It can be installed on any Android without any modification. Screenshots of the sensor display and settings menu of the application are depicted in \ref{c5:fig:sensorium}. Drivers for most of the typically available sensors are implemented.
 
 \begin{figure}[htb]
         \centering
@@ -147,17 +116,38 @@ The example application we implemented to make use of Sensorium, O3GM\footnote{\
 \label{c5:fig:sensorium}
 \end{figure}
 
-Sensorium consists of a base registry service with a common interface which each sensor implementation can easily be plugged into. All values are also displayed for the user as seen in Figure~\ref{c5:fig:sensorium}. The privacy layer automatically anonymizes all gathered values before making them available through XML-RPC in accordance with the user's current privacy settings.
+Sensorium was demoed at the NetSys 2013 conference and has since then been available in various app stores. Data from the Google Play Store suggests at least \numprint{50} concurrently running device installations across several countries, carriers and device types. Albeit a still low number, as there was no real advertisement conducted, this could indicate its feasibility as a companion application to a network testbed.
 
-We currently provide sensor implementations for generic device information, e.g. device name and battery status; mobile radio data such as current access technology and cell information; location data provided by the mobile network and \gls{GPS}; and  WiFi and Bluetooth information, including recent scan results.
+Of note are also two related applications, that intend to follow up on Sensorium's approach in the future: The Sensibility Testbed\footnote{\url{https://sensibilitytestbed.com/}}, which tightly couples itself to the aforementioned Seattle platform, and BlurSense\footnote{\url{https://blursense.poly.edu/}}~\cite{6798970}, aiming to improve the sensor value anonymization efforts. 
 
-Sensorium attempts to bring the sensing capabilities of current generation devices to a broader range of developers and experimenters. Directly using Sensorium, which is freely available from the Google Play store, or adopting the available source code gives everyone the chance to build projects like the mobile coverage Web service we p
-resented.
+%% ! <-- !
+%%
+
+%%
+\paragraph{Sensorium Usage}
 
 
-Follow-up: BlurSense\footnote{\url{https://blursense.poly.edu/projects/project}}~\cite{6798970}
+Open3G Map and Seattle!
 
-Sensibility Testbed (https://sensibilitytestbed.com/projects/project): ``Followup''-Project to Sensorium, building entirely on Seattle/Python
+The pickup code to collect sensor values runs on top of the renowned Seattle\footnote{\url{https://seattle.poly.edu/html/}} platform, which is also available for Android, and allows us to remotely and securely access the collected data, and easily experiment with energy and cost efficient data upload/download strategies. 
+
+
+We also show an application using it, \gls{O3GM}, which visualizes mobile coverage data coming from Sensorium.
+
+\gls{O3GM}\footnote{\url{https://o3gm.cs.univie.ac.at/o3gm/}} showcases the sensors framework. It comprises a web service displaying cellular access technology data points at their \gls{GPS} locations collected by devices running Sensorium (see Figure~\ref{c5:fig:ogggm}). This solves a real-world problem: Currently, this kind of data is only available to mobile operators, which however  are hindered by commercial interests to make them publicly available --- at least in raw, unadorned form. Other projects such as OpenSignalMaps\footnote{\url{http://opensignal.com/}} and Sensorly\footnote{\url{http://www.sensorly.com/}}, as well as corporations like Google and Apple collect these data, but are very restrictive regarding usage by other parties. This is not true for \gls{O3GM}: We make the data points collected available as Open Data under an open content license.
+
+Obviously, other applications are possible. Since code and data are open-sourced, everyone can implement their great ideas, port Sensorium to other platforms or reimplement our interface there, etc.
+
+The example application we implemented to make use of Sensorium, O3GM\footnote{\url{https://github.com/lukpueh/Open3GMap}}, is based on JavaScript and the OpenLayers\footnote{\url{http://openlayers.org/}} library. All of our code is dual-licensed under \gls{GPLv3} and the \acrshort{BSD} license.
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{images/o3gm.png}
+\caption{The \gls{O3GM} web page, displaying a \gls{3G} coverage measurements layer with data collected by Sensorium on top of the OpenStreetMap base layer.}
+\label{c5:fig:ogggm}
+\end{figure}
+
 
 
 
@@ -183,3 +173,13 @@ Sensibility Testbed (https://sensibilitytestbed.com/projects/project): ``Followu
 
 % NativeWrap \url{http://research.csc.ncsu.edu/security/nativewrap} \cite{Nadkarni:2014:NAH:2627393.2627412}
 % Use website as app instead of native app, thus reducing permissions
+
+
+% Sensorium play store stats:
+% usage peak: 51 concurrent device installs August 2014
+% total installs: 475 as of august 2014
+% on various types of devices (including tablets)
+% across several countries (top: US, DE, AT, India, Turkey)
+% and all carriers
+% with not particular advertisement (demo presentation at one national conference NetSys 2013)
+
