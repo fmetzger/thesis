@@ -120,26 +120,13 @@ Sensorium was demoed at the NetSys 2013 conference and has since then been avail
 
 Of note are also two related applications, that intend to follow up on Sensorium's approach in the future: The Sensibility Testbed\footnote{\url{https://sensibilitytestbed.com/}}, which tightly couples itself to the aforementioned Seattle platform, and BlurSense\footnote{\url{https://blursense.poly.edu/}}~\cite{6798970}, aiming to improve the sensor value anonymization efforts. 
 
-%% ! <-- !
-%%
 
 %%
 \paragraph{Sensorium Usage}
 
+Sensorium was originally written for two specific targets.
 
-Open3G Map and Seattle!
-
-The pickup code to collect sensor values runs on top of the renowned Seattle\footnote{\url{https://seattle.poly.edu/html/}} platform, which is also available for Android, and allows us to remotely and securely access the collected data, and easily experiment with energy and cost efficient data upload/download strategies. 
-
-
-We also show an application using it, \gls{O3GM}, which visualizes mobile coverage data coming from Sensorium.
-
-\gls{O3GM}\footnote{\url{https://o3gm.cs.univie.ac.at/o3gm/}} showcases the sensors framework. It comprises a web service displaying cellular access technology data points at their \gls{GPS} locations collected by devices running Sensorium (see Figure~\ref{c5:fig:ogggm}). This solves a real-world problem: Currently, this kind of data is only available to mobile operators, which however  are hindered by commercial interests to make them publicly available --- at least in raw, unadorned form. Other projects such as OpenSignalMaps\footnote{\url{http://opensignal.com/}} and Sensorly\footnote{\url{http://www.sensorly.com/}}, as well as corporations like Google and Apple collect these data, but are very restrictive regarding usage by other parties. This is not true for \gls{O3GM}: We make the data points collected available as Open Data under an open content license.
-
-Obviously, other applications are possible. Since code and data are open-sourced, everyone can implement their great ideas, port Sensorium to other platforms or reimplement our interface there, etc.
-
-The example application we implemented to make use of Sensorium, O3GM\footnote{\url{https://github.com/lukpueh/Open3GMap}}, is based on JavaScript and the OpenLayers\footnote{\url{http://openlayers.org/}} library. All of our code is dual-licensed under \gls{GPLv3} and the \acrshort{BSD} license.
-
+First, it was intended as a prototype sensor extension to the Seattle testbed. Pre-anonymized data was to be delivered through the \acrshort{XML}-\acrshort{RPC} interface to a locally running Seattle installation. Any experiment running in this sandbox could then facilitate this sensor data.
 
 \begin{figure}[htb]
 \centering
@@ -147,6 +134,12 @@ The example application we implemented to make use of Sensorium, O3GM\footnote{\
 \caption{The \gls{O3GM} web page, displaying a \gls{3G} coverage measurements layer with data collected by Sensorium on top of the OpenStreetMap base layer.}
 \label{c5:fig:ogggm}
 \end{figure}
+
+Second, to present what actually can be done with smartphone sensing data, \gls{O3GM}\footnote{\url{https://o3gm.cs.univie.ac.at/o3gm/}}\footnote{\url{https://github.com/lukpueh/Open3GMap}} was created, which visualizes mobile coverage data. \gls{O3GM} is a Web service, that makes use of Sensorium's \acrshort{JSON} upload feature, displaying geo-located \gls{3G} radio access quality information in an OpenStreetMap overlay (using OpenLayers\footnote{\url{http://openlayers.org/}}) as can be seen in Figure~\ref{c5:fig:ogggm}
+
+Coverage data is usually only available to mobile operators, which have not interest to share this information. Other projects such as OpenSignalMaps\footnote{\url{http://opensignal.com/}} and Sensorly\footnote{\url{http://www.sensorly.com/}}, as well as corporations like Google and Apple collect these data, but are very restrictive regarding usage by third parties. \gls{O3GM} data is freely available under an open content license.
+
+Coverage data can again also be helpful to determine the viability of mobile reliable streaming. For example, knowing the \gls{RAT} and signal strength of a specific path can help make informed decisions on which stream quality to choose at which time for adaptive streaming.
 
 
 

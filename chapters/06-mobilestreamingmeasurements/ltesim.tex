@@ -1,72 +1,63 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Survey of 3G/4G Evaluation and Simulation Frameworks}
+\section{Mobile Reliable Streaming Simulations}
+\label{c6:mobilestreamingtestbed}
 
-While there are some active measurement studies specifically targeted at reliable streaming in mobile networks, e.g., \cite{Muller:2012:EDA:2151677.2151686}, most rely either on fixed networks or simulations.
+However, some experiments can not be easily conducted in active measurement testbeds, for example due to the necessary scale to achieve meaningful results. Especially, new protocols or adaptations to existing ones are preferentially first tested in a network simulation. Simulation frameworks are especially important for mobile networks, as acquiring packet-level traces and information about every node in an actual commercially operating cellular network is nigh impossible due to the users' privacy and the provider's business concerns.
 
+While there are some active measurement studies specifically targeted at reliable streaming in mobile networks, e.g., \cite{Muller:2012:EDA:2151677.2151686}, most are conducted either in fixed networks or using simulation frameworks. Therefore, to better evaluate reliable streaming, it would be very desirable to find an existing framework, that covers all important aspect in 3G or 4G mobile networks.
 
-Simulation frameworks are especially important for mobile networks, as acquiring packet-level traces and information about every node in an actual commercially operating cellular network is nigh impossible due to the users' privacy and the provider's business concerns.
+There are a number of network simulators readily available for use, both commercial as well as \gls{FOSS}. But only a small subset of them has the capability (or can be extended) to simulate \gls{3G} or LTE networks. Even further, most radio network capable simulators only concern themselves with the physical radio link and completely neglect all other network paths, especially the core and all control plane signaling interactions. 
 
-Therefore, it would be very desirable to find an existing framework, that covers all important aspect in 3G or 4G mobile networks.
-
-Most 3G/4G simulators only concern themselves with he physical radio link, completely neglect all other network paths, especially the core and all control plane signaling interactions.
-
-Interestingly, the situation is even worse for \gls{UMTS} despite being significantly older.
-
-The following list summarizes a number of simulators.
+The following list overviews current publicly available simulation frameworks with \gls{3G}/\gls{LTE} support:
 
 \begin{itemize}
 
-	\item Radio system level UMTS for ns-2
-\url{http://net.infocom.uniroma1.it/reti_files/reti_downloads.htm}
-outdated, not up-to-date to newest standards
+	\item Radio system level UMTS for ns-2\footnote{\url{http://net.infocom.uniroma1.it/reti_files/reti_downloads.htm}}
+	outdated, not up-to-date to newest standards
 
-	\item \url{http://www.valid8.com/UMTS_Core_Network_Simulator.html} Not publicly available and commercial
-also seems to focus on the circuit switched domain
+	also ns-2: 
+	Seacorn\footnote{\url{http://seacorn.cs.ucy.ac.cy/eumtssim/}} UMTS simulator~\cite{vranjevs2011use} (rather patches to ns-2), no public access
+	does not include any of the core network's protocols or procedures
+	but is also based on outdated specs and not actively maintained
 
-	\item \url{http://seacorn.cs.ucy.ac.cy/eumtssim/}
-\cite{vranjevs2011use}
-Seacorn UMTS simulator (rather patches to ns-2), no public access
-does not include any of the core network's protocols or procedures
-but is also based on outdated specs and not actively maintained
+	\item Only commercial: UMTS model in OPNET (which was renamed to Riverbed Modeler)\footnote{\url{http://www.riverbed.com/products/performance-management-control/network-performance-management/network-simulation.html}} 
+	again radio and user plane focused
 
-	\item Only commercial: UMTS model in OPNET (now: Riverbed Modeler)
-\url{http://www.riverbed.com/products/performance-management-control/network-performance-management/network-simulation.html}
-again radio and user plane focused 
+	\item Matlab-based radio link system-level sim\footnote{\url{http://www.nt.tuwien.ac.at/research/mobile-communications/lte-simulators/}}~\cite{mehlfuhrer2011vienna}
 
-	\item Matlab-based radio link system-level sim
-\url{http://www.nt.tuwien.ac.at/research/mobile-communications/lte-simulators/}
+	\item LTE-Sim\footnote{\url{http://telematics.poliba.it/index.php/en/lte-sim}}~\cite{5634134}
+	
+	simulates some nodes (UE, eNB, MME) and only a limited selection of involved protocols (PDCP, RLC, very basic RRC)
+	very limited for network/transport layer protocols (only basic ip, tcp not even implemented), rudimentary implementation not even close to reality
 
-	\item LTE-Sim
-Simulating LTE Cellular Systems: An Open-Source Framework \cite{5634134}
-\url{http://telematics.poliba.it/index.php/en/lte-sim}
-simulates some nodes (UE, eNB, MME) and only a limited selection of involved protocols (PDCP, RLC, very basic RRC)
-very limited for network/transport layer protocols (only basic ip, tcp not even implemented), rudimentary implementation not even close to reality
+	\item Omnet++\footnote{\url{http://www.omnetpp.org/}}
+	with SimuLTE framework\footnote{\url{https://github.com/inet-framework/simulte}}
+	only user plane (but also user plane core nodes SGW/PGW)
+	comparable level to ns-3
 
-	\item Omnet++ \url{http://www.omnetpp.org/}
-with SimuLTE framework https://github.com/inet-framework/simulte
-only user plane (but also user plane core nodes SGW/PGW)
-comparable level to ns-3
+	\item ns-3\footnote{\url{http://www.nsnam.org}} with \gls{LTE}-\gls{EPC} Network Simulator (LENA)\footnote{\url{http://networks.cttc.es/mobile-networks/software-tools/lena/}}~\cite{Baldo:2013:OSM:2507924.2507940} 
 
-	\item ns-3
-\gls{LTE}-\gls{EPC} Network Simulator (LENA)\cite{Baldo:2013:OSM:2507924.2507940} 
-\url{http://networks.cttc.es/mobile-networks/software-tools/lena/}
-\url{http://www.nsnam.org/docs/release/3.20/doxygen/group__lte.html}
-\url{http://www.nsnam.org/docs/release/3.20/models/html/lte.html}
-Most complete of all open source simulation approaches, but still only very rudimentary in the core and signaling
-but combined with ns-3 offers almost complete representation of a vanilla network and transport level network stack
-Can also use Network Simulation Cradle (NSC) \url{http://research.wand.net.nz/software/nsc.php}
-to incorporate the actual Linux TCP/IP stack
-however: only 2.6.26 (very old!)
-and less instrumentation/logging available for this stack
+	Most complete of all open source simulation approaches, but still only very rudimentary in the core and signaling
+	but combined with ns-3 offers almost complete representation of a vanilla network and transport level network stack
+	Can also use Network Simulation Cradle (NSC) \footnote{\url{http://research.wand.net.nz/software/nsc.php}} to incorporate the actual Linux TCP/IP stack
+	however: only 2.6.26 (very old!) and less instrumentation/logging available for this stack
+
+%\url{http://www.nsnam.org/docs/release/3.20/doxygen/group__lte.html}
+%\url{http://www.nsnam.org/docs/release/3.20/models/html/lte.html}
+
 
 \end{itemize}
 
 
+%% ! <-- !
+%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Combined Simulating Streaming Traffic Characteristics in ns-3}
-\label{c6:mobilestreamingtestbed}
+\subsection{Combined Simulating Streaming Traffic Characteristics in ns-3}
+
+ns-3 chosen, omnet++ the other choice
+neither really complete, but ns-3 has the added benefit of being able to act as a network emulator, which could be helpful.
 
 
 Different Approaches
@@ -165,3 +156,6 @@ Therefore, use an emulated network provided by the ns-3 network simulator. But t
 % \end{figure}
 
 
+
+% \url{http://www.valid8.com/UMTS_Core_Network_Simulator.html} Not publicly available and commercial
+% also seems to focus on the circuit switched domain
