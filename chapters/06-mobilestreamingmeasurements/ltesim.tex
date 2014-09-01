@@ -12,57 +12,57 @@ There are a number of network simulators readily available for use, both commerc
 The following list overviews current publicly available simulation frameworks with \gls{3G}/\gls{LTE} support:
 
 \begin{itemize}
+	\item An external \gls{UMTS} module\footnote{\url{http://net.infocom.uniroma1.it/reti_files/reti_downloads.htm}} is available for the no longer maintained \textbf{ns-2} simulation framework. A further separate collection of patches\footnote{\url{http://seacorn.cs.ucy.ac.cy/eumtssim/}} also extends ns-2 with \gls{UMTS} radio link capabilities~\cite{vranjevs2011use} but it is not publicly available.
 
-	\item Radio system level UMTS for ns-2\footnote{\url{http://net.infocom.uniroma1.it/reti_files/reti_downloads.htm}}
-	outdated, not up-to-date to newest standards
+	Both are as of August 2014 no longer being developed and not up-to-date to the newest specifications. They also focus solely on the user plane radio physical and link layer of \gls{UMTS}.
 
-	also ns-2: 
-	Seacorn\footnote{\url{http://seacorn.cs.ucy.ac.cy/eumtssim/}} UMTS simulator~\cite{vranjevs2011use} (rather patches to ns-2), no public access
-	does not include any of the core network's protocols or procedures
-	but is also based on outdated specs and not actively maintained
+	\item Another third-party radio link layer simulation model is available for \textbf{MATLAB}\footnote{\url{http://www.nt.tuwien.ac.at/research/mobile-communications/lte-simulators/}}~\cite{mehlfuhrer2011vienna}.
 
-	\item Only commercial: UMTS model in OPNET (which was renamed to Riverbed Modeler)\footnote{\url{http://www.riverbed.com/products/performance-management-control/network-performance-management/network-simulation.html}} 
-	again radio and user plane focused
+	\item A standalone \gls{LTE} simulation\footnote{\url{http://telematics.poliba.it/index.php/en/lte-sim}}~\cite{5634134} includes models for some \gls{LTE} nodes, including the \gls{eNB} and \gls{MME} and implements a selection of protocols (\gls{PDCP}, \gls{RLC}, and \gls{RRC}).
 
-	\item Matlab-based radio link system-level sim\footnote{\url{http://www.nt.tuwien.ac.at/research/mobile-communications/lte-simulators/}}~\cite{mehlfuhrer2011vienna}
+	However, the implementation of these nodes and protocols is rudimentary at best and is not even close to the actual specification. Additionally, the simulator lacks a \gls{TCP}/\gls{IP} stack as \gls{IP} is reduced to its basic functionality and \gls{TCP} is completely absent.
 
-	\item LTE-Sim\footnote{\url{http://telematics.poliba.it/index.php/en/lte-sim}}~\cite{5634134}
-	
-	simulates some nodes (UE, eNB, MME) and only a limited selection of involved protocols (PDCP, RLC, very basic RRC)
-	very limited for network/transport layer protocols (only basic ip, tcp not even implemented), rudimentary implementation not even close to reality
+	\item A framework dubbed SimuLTE\footnote{\url{https://github.com/inet-framework/simulte}} is available for \textbf{Omnet++}\footnote{\url{http://www.omnetpp.org/}}. Included are the user plane aspects of the radio link and some basic \gls{SGW} and \gls{PGW} functionality.
 
-	\item Omnet++\footnote{\url{http://www.omnetpp.org/}}
-	with SimuLTE framework\footnote{\url{https://github.com/inet-framework/simulte}}
-	only user plane (but also user plane core nodes SGW/PGW)
-	comparable level to ns-3
-
-	\item ns-3\footnote{\url{http://www.nsnam.org}} with \gls{LTE}-\gls{EPC} Network Simulator (LENA)\footnote{\url{http://networks.cttc.es/mobile-networks/software-tools/lena/}}~\cite{Baldo:2013:OSM:2507924.2507940} 
-
-	Most complete of all open source simulation approaches, but still only very rudimentary in the core and signaling
-	but combined with ns-3 offers almost complete representation of a vanilla network and transport level network stack
-	Can also use Network Simulation Cradle (NSC) \footnote{\url{http://research.wand.net.nz/software/nsc.php}} to incorporate the actual Linux TCP/IP stack
-	however: only 2.6.26 (very old!) and less instrumentation/logging available for this stack
-
-%\url{http://www.nsnam.org/docs/release/3.20/doxygen/group__lte.html}
-%\url{http://www.nsnam.org/docs/release/3.20/models/html/lte.html}
-
-
+	\item The \textbf{ns-3}\footnote{\url{http://www.nsnam.org}} simulator already contains an \gls{LTE}/\gls{EPC} module called LENA\footnote{\url{http://networks.cttc.es/mobile-networks/software-tools/lena/}}~\cite{Baldo:2013:OSM:2507924.2507940} with features similar to SimuLTE. Again, only user plane \gls{SGW}/\gls{PGW} functionality is present with an initial \gls{GTP-U} implementation.
 \end{itemize}
 
+The goal here is to simulate reliable streaming in a realistic mobile environment. That includes both a complete horizontal network path --- both the radio link as well as the core network --- as well as a vertical network stack --- comprising both user plane and control plane.
 
-%% ! <-- !
-%%
+Unfortunately, none of the above feature a complete representation, which can be at least partially attributed to the complexity of the \gls{3GPP} specifications. Nonetheless, the simulators could still provide a viable basis for a mobile streaming framework while keeping the limitations in mind.Between these a decision needs to be made as to the basis of the mobile streaming simulation framework. 
+
+Ultimately, the choice fell on ns-3 with the LENA module. Alongside with SimuLTE it has the most complete \gls{LTE} representation. And targeting \gls{LTE} networks seems to be the more future-proof path in the the long term. With the exception of Omnet++, which has comparable capabilities, ns-3's \gls{TCP}/\gls{IP} is much more complete and realistic than that of the other frameworks. Additionally, it can also incorporate the actual \gls{TCP}/\gls{IP} of older Linux kernels with NSC\footnote{\url{http://research.wand.net.nz/software/nsc.php}}. As an additional feature, ns-3 can also act as a network emulator for real network traffic. This will be exploited in the upcoming model.
+
+In the long run, to better represent actual mobile networks the base radio framework in ns-3 would need to be extended with more control plane aspects and adapted to 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Combined Simulating Streaming Traffic Characteristics in ns-3}
+\subsection{Simulating Mobile Reliable Streaming in ns-3}
 
-ns-3 chosen, omnet++ the other choice
-neither really complete, but ns-3 has the added benefit of being able to act as a network emulator, which could be helpful.
+With ns-3 chosen and the core network model set, the task is now to define and simulate reliable streaming on top of the \gls{LTE} network.
 
 
+
+%%
+Reliable streaming type implemented:
+
+Model 1:
+
+4 threshold segmented streaming
+
+directly on top of TCP
+pull-based with request per segment; could also use HTTP here, but should not make much difference, only slightly more overhead through http header
+
+
+Model 2:
+
+planned not fully implemented 
+6 threshold adaptive reliable streaming
+
+
+
+%%
 Different Approaches
-
-
 
 Implement a Reliable Streaming Traffic Generator ns-3 Application and a streaming receiver client application.
 
@@ -73,12 +73,17 @@ Describe ns-3/LENA implementation
  Use LENA to transport streams
 
 
+%%
+Evaluated Scenarios (and scenarios that are worthy of evaluation in the fture)
+
  test case 1: adaptability of diverse reliable video streaming to LTE and mobile networks, by altering latency, loss, bandwidth
 
  test case 2a (future): influence of mobility effects on reliable streaming
  test case 2b (future): effect of cross-layer information in mobility case
 
 
+%% ! <-- !
+%%
 
 \begin{figure}[htb]
 \centering
@@ -159,3 +164,13 @@ Therefore, use an emulated network provided by the ns-3 network simulator. But t
 
 % \url{http://www.valid8.com/UMTS_Core_Network_Simulator.html} Not publicly available and commercial
 % also seems to focus on the circuit switched domain
+
+
+% Only commercial: UMTS model in OPNET (which was renamed to Riverbed Modeler)\footnote{\url{http://www.riverbed.com/products/performance-management-control/network-performance-management/network-simulation.html}} 
+% again radio and user plane focused
+
+%\url{http://www.nsnam.org/docs/release/3.20/doxygen/group__lte.html}
+%\url{http://www.nsnam.org/docs/release/3.20/models/html/lte.html}
+
+%Reasoning why ns-3/LENA will be used here.
+%but combined with ns-3 offers almost complete representation of a vanilla network and transport level network stack
