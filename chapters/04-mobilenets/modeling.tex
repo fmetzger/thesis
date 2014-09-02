@@ -1,11 +1,11 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Modeling Mobile Network Load}
-\label{c4:modeling}
+\label{c4:sec:modeling}
 
 Drawing conclusions from statistical analysis alone is a strenuous task. The next logical step lies therefore in the creation of models abstracting this real system, making them easier to calculate with the loss of some precision. This and future improved models should support network operators in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
 
-On the basis of the tunnel distributions attained in Section~\ref{c4:evaluations}, models for both a traditional \gls{GGSN} as well as a virtualized \gls{GGSN} are introduced. The performance trade-offs when using a virtual \gls{GGSN} are further studied, discussing different options to consider when using the virtual node.
+On the basis of the tunnel distributions attained in Section~\ref{c4:sec:evaluations}, models for both a traditional \gls{GGSN} as well as a virtualized \gls{GGSN} are introduced. The performance trade-offs when using a virtual \gls{GGSN} are further studied, discussing different options to consider when using the virtual node.
 
 \todo{Christian + modellierung kooperation herausheben}
 
@@ -139,7 +139,7 @@ Together, this results in a \textbf{non-stationary Erlang loss model}, or more p
 \phantom{.}M(t)/G(t)/c/0\text{.}
 \end{equation}
 
-With this model, high control plane load can be indirectly described as the system's blocking probability $p_B$. The peak load can be ascertained by looking at the busy hour period where the arrival rate is the highest. No exact solution is known for this type of model. Only if the service time distribution can be confined to certain specific distributions, e.g. Phase-type distributions, some approximations can be made \cite{davis1995nonstationaryerlang}. This confinement could not yet be made for the trace data. Instead, a simulative approach is taken in Section~\ref{c4:simulation}.
+With this model, high control plane load can be indirectly described as the system's blocking probability $p_B$. The peak load can be ascertained by looking at the busy hour period where the arrival rate is the highest. No exact solution is known for this type of model. Only if the service time distribution can be confined to certain specific distributions, e.g. Phase-type distributions, some approximations can be made \cite{davis1995nonstationaryerlang}. This confinement could not yet be made for the trace data. Instead, a simulative approach is taken in Section~\ref{c4:sec:simulation}.
 
 
 %%
@@ -160,7 +160,7 @@ The complete model now reads:
 \phantom{.}M(t)/G(t)/\|\overrightarrow{c}\|_1/0\text{.}
 \end{equation}
 
-The instances do not have a static uptime. Instead, their life cycle is managed by a \gls{VMM} and adjusted to the current load of the network. New tunnels are either placed on running instances or new ones are provisioned on demand. The \gls{VMM} can have multiple optimization goals. A prominent example is the minimization of server instance and energy usage.  Another set of example provisioning rules is discussed in the implementation of the model simulation in Section~\ref{c4:simulation}. 
+The instances do not have a static uptime. Instead, their life cycle is managed by a \gls{VMM} and adjusted to the current load of the network. New tunnels are either placed on running instances or new ones are provisioned on demand. The \gls{VMM} can have multiple optimization goals. A prominent example is the minimization of server instance and energy usage.  Another set of example provisioning rules is discussed in the implementation of the model simulation in Section~\ref{c4:sec:simulation}. 
 
 A target criterion could be to keep the blocking probability inside a certain target range. If the \gls{VMM} decision rules are not carefully selected additional blocking could occur. Despite not having reached its maximum capacity, this system will still reject tunnel requests during the provisioning phase when no tunnel slots are free. This could be remedied by a request queue. However, this makes the system more complex without providing real benefit, as failed tunnel requests are retransmitted by the network control plane or another attempt might also be made directly by the mobile device after a timeout.
 

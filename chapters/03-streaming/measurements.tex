@@ -1,7 +1,7 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Measurements}
-\label{c3:measurements}
+\label{c3:sec:measurements}
 
 With these playback models at hand, this section demonstrates how to conduct actual evaluations of reliable streaming protocols with it.
 
@@ -51,7 +51,7 @@ Up to this point, the measurement framework is only suitable for progressive str
 
 Figure~\ref{c3:fig:framework-feedback} shows the adapted framework. The playback emulation process is now directly fed with the stream transmission without recording it first. The emulation is now an online process and has to be conducted in realtime. This enables the emulator to react on the current streaming state and request an alteration from the server. The adaptation spectrum ranges from the timing of stream segment retrieval to the chosen quality level of future segments. 
 
-While allow for a wider range of playback strategies, this approach is also inherently slower as it does not allow a speed-up beyond realtime, limiting its usability somewhat. Therefore, a transition to a full simulative approach is suggested. This is path is further explored and discussed in Section~\ref{c6:mobilestreamingtestbed}.
+While allow for a wider range of playback strategies, this approach is also inherently slower as it does not allow a speed-up beyond realtime, limiting its usability somewhat. Therefore, a transition to a full simulative approach is suggested. This is path is further explored and discussed in Section~\ref{c6:sec:mobilestreamingtestbed}.
 
 \todo{check simulation approach ref or further explain simulation}
 

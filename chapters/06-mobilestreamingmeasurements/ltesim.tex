@@ -1,7 +1,7 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mobile Reliable Streaming Simulations}
-\label{c6:mobilestreamingtestbed}
+\label{c6:sec:mobilestreamingtestbed}
 
 However, some experiments can not be easily conducted in active measurement testbeds, for example due to the necessary scale to achieve meaningful results. Especially, new protocols or adaptations to existing ones are preferentially first tested in a network simulation. Simulation frameworks are especially important for mobile networks, as acquiring packet-level traces and information about every node in an actual commercially operating cellular network is nigh impossible due to the users' privacy and the provider's business concerns.
 
@@ -44,11 +44,20 @@ With ns-3 chosen and the core network model set, the task is now to define and s
 
 
 %%
+
+\subsubsection{Simulated Streaming Model}
 Reliable streaming type implemented:
+
+According to the classification and playback modeling from Sections~\ref{c3:sec:background} and \ref{c3:sec:model} the simulated model is a pull-based segmented video streaming system using \gls{TCP}.
 
 Model 1:
 
 4 threshold segmented streaming
+	Playback stop if below threshold 1 default \SI{0.5}{\second}
+	Transmission start if below threshold 2 (request new segments), default \SI{2.5}{\second}
+	Playback start if above threshold 3, default \SI{5}{\second}
+	Transmission stop if above threshold 4 (request no new segments)
+
 
 directly on top of TCP
 pull-based with request per segment; could also use HTTP here, but should not make much difference, only slightly more overhead through http header
@@ -60,9 +69,21 @@ planned not fully implemented
 6 threshold adaptive reliable streaming
 
 
+%% ! <-- !
+%%
+
 
 %%
+\subsubsection{Simulation and Emulation Setups}
 Different Approaches
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.6\textwidth]{images/streaming-simulation.pdf}
+\caption{\gls{LTE} reliable streaming simulation testebd.}
+\label{c5:fig:streaming-simulation}
+\end{figure}
+
 
 Implement a Reliable Streaming Traffic Generator ns-3 Application and a streaming receiver client application.
 
@@ -73,35 +94,13 @@ Describe ns-3/LENA implementation
  Use LENA to transport streams
 
 
-%%
-Evaluated Scenarios (and scenarios that are worthy of evaluation in the fture)
-
- test case 1: adaptability of diverse reliable video streaming to LTE and mobile networks, by altering latency, loss, bandwidth
-
- test case 2a (future): influence of mobility effects on reliable streaming
- test case 2b (future): effect of cross-layer information in mobility case
-
-
-%% ! <-- !
-%%
-
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.6\textwidth]{images/streaming-simulation.pdf}
-\caption{\gls{LTE} reliable streaming simulation testebd.}
-\label{c5:fig:streaming-simulation}
-\end{figure}
-
-
-%%
-\subsection{Simulation/Emulation Hybrid}
-
+%% emu
 
 Use introduced streaming evaluation approaches in a mobile network environment
 
 But do not want to use real network, as conditions are hard to manage and reproduce.
 
-comparable to the initial (simple) network emulation used in the measurement framework in Section~\ref{c3:measurements} using static values
+comparable to the initial (simple) network emulation used in the measurement framework in Section~\ref{c3:sec:measurements} using static values
 here it acts as a dynamic network emulator, delaying packets based on its pass-through time through the network, while also adding packet loss.
 
 Therefore, use an emulated network provided by the ns-3 network simulator. But transmit real traffic through it, i.e., use it as an emulator and bridges. \ref{c5:fig:streaming-simulation} \ref{c5:fig:streaming-hybrid}
@@ -113,6 +112,19 @@ Therefore, use an emulated network provided by the ns-3 network simulator. But t
 \caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
 \label{c5:fig:streaming-hybrid}
 \end{figure}
+
+
+
+%%
+\subsubsection{Scenario Evaluation}
+Evaluated Scenarios (and scenarios that are worthy of evaluation in the fture)
+
+ test case 1: adaptability of diverse reliable video streaming to LTE and mobile networks, by altering latency, loss, bandwidth
+
+ test case 2a (future): influence of mobility effects on reliable streaming
+ test case 2b (future): effect of cross-layer information in mobility case
+
+
 
 
 
@@ -151,6 +163,12 @@ Therefore, use an emulated network provided by the ns-3 network simulator. But t
 \caption{R-ltesim-latencyseries-stallduration.pdf}
 \label{c5:fig:ltesim-latencyseries-stallduration}
 \end{figure}
+
+
+
+
+
+
 
 
 % \begin{figure}[htb]
