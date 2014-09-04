@@ -127,7 +127,7 @@ While general quality changing support is present in the simulation model, this 
 %%
 \subsubsection{Scenario Evaluation}
 
-To test the basic viability of the streaming simulation model (the \gls{LTE} model is taken as-is and covered by other research \cite{Baldo:2013:OSM:2507924.2507940}) two test scenarios are defined and subsequently evaluated.
+To test the basic viability of the streaming simulation model (the \gls{LTE} model is taken as-is and covered by other research~\cite{Baldo:2013:OSM:2507924.2507940}) two test scenarios are defined and subsequently evaluated.
 
 Common to both is the configuration of the video streaming simulation module. In both cases the simpler four threshold strategy is facilitated and tested with the three videos described in Table~\ref{c6:tbl:simulationvideos}.
 
@@ -135,110 +135,65 @@ Common to both is the configuration of the video streaming simulation module. In
     \centering
     \caption{Test Video Parameters}
     \label{c6:tbl:simulationvideos}
-    \begin{tabu}{X[l]X[r]}
+    \begin{tabu}{X[1.5,l]X[r]X[r]X[r]}
         \toprule
-        \textbf{Parameter} & \textbf{Value} \\
+        \textbf{Parameter} & \textbf{Low Quality} & \textbf{Standard Quality} & \textbf{High Quality} \\
         \midrule
-        Video Duration  & \SI{92.536}{\second}\\
-        Size & \SI{9.61}{\mebi\byte} \\
-        Framerate & \SI{23.976}{\per\second} \\
-        Average Video Bitrate & \SI{871}{\kilo\bit\per\second} \\
-        Codecs & AVC+AAC \\
+        Video Duration  & \SI{318}{\second} & \SI{602}{\second} & \SI{596}{\second} \\
+        Size & \SI{19.2}{\mebi\byte} & \SI{258}{\mebi\byte} & \SI{853}{\mebi\byte}\\
+        Frame rate & \SI{29.97}{\per\second} & \SI{29.97}{\per\second} & \SI{24}{\per\second}\\
+        Average Video Bit rate & \SI{504}{\kilo\bit\per\second} & \SI{3596}{\kilo\bit\per\second} & \SI{12}{\mega\bit\per\second} \\
+        Codec & H.263 & MPEG-4 & MPEG-4 \\
         \bottomrule
     \end{tabu}
 \end{table}
 
 
-For the future, it is envisioned to test further, more realistic scenarios. Namely, ....
-But this is out of scope for these first impressions.
+\paragraph{Congested Server Link}
 
+This first series of evaluations exclusively looks at the \gls{QoS} of the streaming server's link and leaves the \gls{LTE} configuration unaltered.
 
-Evaluated Scenarios (and scenarios that are worthy of evaluation in the future)
+The radio subsystem is configured to have a stationary \gls{UE} in close vicinity of the single \gls{eNB}. It should therefore reach the maximum attainable performance of radio link as it will be undisturbed by other users and fading effects. Therefore, it also represents the best case scenario for mobile streaming. If the streaming strategies and the associated video files reveal issues under these conditions they will surely also fail in an environment with a more degraded radio link.
 
- test case 1: adaptability of diverse reliable video streaming to LTE and mobile networks, by altering latency, loss, bandwidth
+The \gls{QoS} variables altered here are the link's bandwidth and delay. Loss will remain unchanged and at zero, as it will also result in just another source of delay for the reliable streaming process due to retransmission. 
 
- test case 2a (future): influence of mobility effects on reliable streaming
- test case 2b (future): effect of cross-layer information in mobility case
-
-
-%% ! <-- !
-%%
-
-test videos:
-
-video 1:
-MP4 container
-\SI{318}{\second} duration
-\SI{20.2}{\mebi\byte}
-H.263 video 352x288
-29.97 fps
-\SI{504}{\kilo\bit\per\second} video bitrate
-((we dont emulate audio, dont we?)
-AAC audio, 11KHz
-\SI{24.0}{\kilo\bit\per\second} audio bitrate)
-
-\SI{531.0}{\kilo\bit\per\second} overall bitrate
-
-video 2:
-AVI container
-\SI{596}{\second}
-MPEG-4 Simple Profile, 1920x1080
-24.00 fps
-\SI{12}{\mega\bit\per\second} video bitrate
-AC-3 audio, 48Khz
-\SI{448}{\kilo\bit\per\second} audio bitrate
-
-\SI{12.5}{\mega\bit\per\second} overall bitrate
-
-video 3:
-DivX container
-\SI{602}{\second}
-MPEG-4 (nicht AVC), 720x400
-29.97 fps
-\SI{3596}{\kilo\bit\per\second} video bitrate
-MP3 audio, 44.1Khz
-\SI{128}{\kilo\bit\per\second} audio bitrate
-
-\SI{3735}{\kilo\bit\per\second} overall bitrate
-
-
-
-\paragraph{Congested Server Downlink}
-
-
-
-
-%%
-Series 1: Limited bandwidth on the fixed network path
-
-
-
-\begin{figure}[htb]
-	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-ltesim-bwseries-numstalls.pdf}
-	\caption{R-ltesim-bwseries-numstalls.pdf}
-\label{c5:fig:ltesim-bwseries-numstalls}
-\end{figure}
+Similar to the evaluations with the measurement framework of Section~\ref{c3:sec:measurements} no complex \gls{QoE} metrics will be computed. Rather, only the directly affected quality measures of a reliable streaming process will be observed: The total duration of the stalling phases in relation to the video's duration and the number of stalling phases.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/R-ltesim-bwseries-stallduration.pdf}
-	\caption{R-ltesim-bwseries-stallduration.pdf}
-\label{c5:fig:ltesim-bwseries-stallduration}
+	\caption{Relative stalling duration of the simulated reliable streaming player under limited Internet bandwidth.}
+\label{c6:fig:ltesim-bwseries-stallduration}
 \end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-ltesim-bwseries-numstalls.pdf}
+	\caption{Number of stalling events of the simulated reliable streaming player under limited Internet bandwidth.}
+\label{c6:fig:ltesim-bwseries-numstalls}
+\end{figure}
+
+
+The first series solely alters the bandwidth of the streaming server's link up to a maximum of \SI{1000}{\mega\bit\per\second}. The results are depicted in the Figures~\ref{c6:fig:ltesim-bwseries-stallduration} and \ref{c6:fig:ltesim-bwseries-numstalls}.
+
+As soon as the link's bandwidth exceeds the video's bit rate, the number and duration of stalls are reduced. Stall events and duration in both the low and standard quality videos drop to zero. Only the high quality video does not show the same results. As its bit rate of \SI{12}{\mega\bit\per\second} should be perfectly manageable for the radio link some other explanation is required. 
+
+A possible hypothesis are issues with the approach to requesting subsequent segments. As these need to be requested in a timely manner while other segments are still being transmitted, they could be requested to late and do not saturate the link anymore. However, this effect is somewhat contrary to the additional effect observed at link speeds of \SI{100}{\mega\bit\per\second} and above.
+
+Remember: LTE 80-90 mbit max, increase in stalling at or above this value, LTE is black box for user ip stack here, LTE conceal congestion but does not want to drop data; server overwhelms lte/epc does not trigger tcp congestion avoidance and cant scale down correctly to path bottleneck due to mobility buffers involved (essentially a form of bufferbloat?), throughput reduced to ~5mbit?; could also be related to issues of the actual lte simulation network but implementation can not fully responsible for this
 
 
 %%
 Series 2: Deterministically increased latency on the fixed network path
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-numstalls.pdf}
 	\caption{R-ltesim-latencyseries-numstalls.pdf}
 \label{c5:fig:ltesim-latencyseries-numstalls}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-stallduration.pdf}
 	\caption{R-ltesim-latencyseries-stallduration.pdf}
@@ -246,11 +201,14 @@ Series 2: Deterministically increased latency on the fixed network path
 \end{figure}
 
 %%
-Series 3: Packet loss on the fixed network path
+% Series 3: Packet loss on the fixed network path
 
 
 
 \paragraph{Device Mobility}
+
+ test case 2a (future): influence of mobility effects on reliable streaming
+
 
 WayPointMobilityModel
 
@@ -261,12 +219,24 @@ handover events will be marked in the figures
 
 what will happen?
 
-% \begin{figure}[htb]
-% \centering
-% \includegraphics[width=\textwidth]{images/lte-testbed.pdf}
-% \caption{\gls{LTE} Streaming Evaluation Setup and Action Plan}
-% \label{fig:lte-testbed}
-% \end{figure}
+%%
+paragraph{Further Scenarios}
+Other Scenarios:
+ test case 2b (future): effect of cross-layer information in mobility case
+For the future, it is envisioned to test further, more realistic scenarios. Namely, ....
+But this is out of scope for these first impressions.
+
+Alter the playback strategy completely or adapt the threshold variables
+
+More signaling, not possible yet
+at least in-path signaling related to gtp tunnel establishment would be nice (the procedures that were discussed in \ref{c4:sec:3gpparchitecture})
+
+
+%% ! <-- !
+%%
+
+
+
 
 
 
@@ -286,3 +256,24 @@ what will happen?
 
 %performance: eNB has 25 resource block each up/down; suggests 5Mhz BW
 %https://groups.google.com/forum/#!searchin/ns-3-users/lte/ns-3-users/dwMjWwJBdBw/wfWCcRctN4EJ
+
+
+
+% LQ
+% MP4 container
+% 352x288
+% AAC audio, 11KHz
+% \SI{24.0}{\kilo\bit\per\second} audio bitrate)
+% \SI{531.0}{\kilo\bit\per\second} overall bitrate
+% SD
+% DivX container
+% 720x400
+% MP3 audio, 44.1Khz
+% \SI{128}{\kilo\bit\per\second} audio bitrate
+% \SI{3735}{\kilo\bit\per\second} overall bitrate
+% HQ
+% AVI container
+% 1920x1080
+% AC-3 audio, 48Khz
+% \SI{448}{\kilo\bit\per\second} audio bitrate
+% \SI{12.5}{\mega\bit\per\second} overall bitrate
