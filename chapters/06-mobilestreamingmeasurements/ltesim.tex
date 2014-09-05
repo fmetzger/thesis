@@ -70,10 +70,10 @@ During transmission, the \gls{LTE} framework sets up the lower layer protocols, 
 \centering
 \includegraphics[width=\textwidth]{images/streaming-hybrid.pdf}
 \caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
-\label{c5:fig:streaming-hybrid}
+\label{c6:fig:streaming-hybrid}
 \end{figure}
 
-Beyond its application as a pure simulation, a simulated ns-3 \gls{LTE} network could additionally be facilitated as a network emulator. Figure~\ref{c5:fig:streaming-hybrid} demonstrates such a setup. To be able to use it for a streaming emulation in the style of the measurements conducted in Section~\ref{c3:sec:measurements} a bridging device would need to be added on each side of the network, that interfaces with a real testbed network. The only effect of the simulated part is then to alter the \gls{QoS} parameters of the link according to its model. This approach is ideally suited to quickly test existing and already implemented streaming solutions for use with a mobile network and saves the effort of reimplementing them as a simulation model.
+Beyond its application as a pure simulation, a simulated ns-3 \gls{LTE} network could additionally be facilitated as a network emulator. Figure~\ref{c6:fig:streaming-hybrid} demonstrates such a setup. To be able to use it for a streaming emulation in the style of the measurements conducted in Section~\ref{c3:sec:measurements} a bridging device would need to be added on each side of the network, that interfaces with a real testbed network. The only effect of the simulated part is then to alter the \gls{QoS} parameters of the link according to its model. This approach is ideally suited to quickly test existing and already implemented streaming solutions for use with a mobile network and saves the effort of reimplementing them as a simulation model.
 
 
 %%
@@ -131,6 +131,8 @@ To test the basic viability of the streaming simulation model (the \gls{LTE} mod
 
 Common to both is the configuration of the video streaming simulation module. In both cases the simpler four threshold strategy is facilitated and tested with the three videos described in Table~\ref{c6:tbl:simulationvideos}.
 
+Only one simulation run was conducted for each parameter setting as there are no known random factors involved that would merit running with different random seeds.
+
 \begin{table}[htbp]
     \centering
     \caption{Test Video Parameters}
@@ -178,55 +180,55 @@ The first series solely alters the bandwidth of the streaming server's link up t
 
 As soon as the link's bandwidth exceeds the video's bit rate, the number and duration of stalls are reduced. Stall events and duration in both the low and standard quality videos drop to zero. Only the high quality video does not show the same results. As its bit rate of \SI{12}{\mega\bit\per\second} should be perfectly manageable for the radio link some other explanation is required. 
 
-A possible hypothesis are issues with the approach to requesting subsequent segments. As these need to be requested in a timely manner while other segments are still being transmitted, they could be requested to late and do not saturate the link anymore. However, this effect is somewhat contrary to the additional effect observed at link speeds of \SI{100}{\mega\bit\per\second} and above.
+A possible hypothesis are issues with the approach to requesting subsequent segments. As these need to be requested in a timely manner while other segments are still being transmitted, they could be requested to late and do not saturate the link anymore. 
 
-Remember: LTE 80-90 mbit max, increase in stalling at or above this value, LTE is black box for user ip stack here, LTE conceal congestion but does not want to drop data; server overwhelms lte/epc does not trigger tcp congestion avoidance and cant scale down correctly to path bottleneck due to mobility buffers involved (essentially a form of bufferbloat?), throughput reduced to ~5mbit?; could also be related to issues of the actual lte simulation network but implementation can not fully responsible for this
+However, this effect is somewhat contrary to the additional effect observed at link speeds of \SI{100}{\mega\bit\per\second} and above, where the stalling phases suddenly see an unexpected increase. As this happens exactly when the transmission speed exceeds the radio links capacity of about \SI{80}{\mega\bit\per\second} it might be an indication of the negative interaction of \gls{LTE}'s loss and congestion concealment with \gls{TCP}'s congestion avoidance mechanisms, related to the previously discussed bufferbloat issues. \gls{TCP} can not properly detect the bottleneck capacity in a timely manner as \gls{LTE} attempts to buffer and retransmit any packet exceeding the radio capacity below the user \gls{IP} layer. Through this issue, the effective goodput seems to get reduced to about \SI{5}{\mega\bit\per\second}, which is not enough for the high quality video to stream without interruption.
 
-
-%%
-Series 2: Deterministically increased latency on the fixed network path
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-numstalls.pdf}
-	\caption{R-ltesim-latencyseries-numstalls.pdf}
-\label{c5:fig:ltesim-latencyseries-numstalls}
-\end{figure}
+\todo{check pcaps for >=100mbit experiments; could also be related to issues of the actual lte simulation network but implementation can not fully responsible for this?}
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-stallduration.pdf}
-	\caption{R-ltesim-latencyseries-stallduration.pdf}
-\label{c5:fig:ltesim-latencyseries-stallduration}
+	\caption{Relative stalling duration of the simulated reliable streaming player under increased Internet latency.}
+\label{c6:fig:ltesim-latencyseries-stallduration}
 \end{figure}
 
-%%
-% Series 3: Packet loss on the fixed network path
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-numstalls.pdf}
+	\caption{Number of stalling events of the simulated reliable streaming player under increased Internet latency.}
+\label{c6:fig:ltesim-latencyseries-numstalls}
+\end{figure}
 
 
+
+In a second series of simulation runs the latency of the server's link was increased incrementally up to an additional latency of \SI{1000}{\milli\second}. The values were set deterministically with no probability distribution. Figures~\ref{c6:fig:ltesim-latencyseries-stallduration} and \ref{c6:fig:ltesim-latencyseries-numstalls} again show the results in terms of the relative duration and number of stalling phases. The playback simulation seems to be excessively sensitive to latency increases. Even a small \SI{100}{\milli\second} increase makes the high and standard quality videos completely unwatchable as the stalling duration is more than ten times longer than the actual video.
+
+This behavior can possibly be attributed to the simplistic segment request strategy, that only requests a new segment when the previous one has fully arrived. The higher the latency the longer it takes to receive new data. With improvements to the retrieval strategy, this specific issue should be eliminated. \todo{Another series with a changed retrieval method in Figures x and y shows that the strong correlation to the latency is now greatly reduced}
+
+But this just shows the many pitfalls and influences of various layers. A simple implementation detail may have large implications on the streaming quality the user expierence.
 
 \paragraph{Device Mobility}
 
- test case 2a (future): influence of mobility effects on reliable streaming
+Besides altering the server link, the effects of the simulated \gls{LTE} network can also be investigated through various means. Here, mobility will be under scrutiny. For this, a second \gls{eNB} will be added to the network. Both are connected through the X2 interface, which will be used for the \gls{eNB}-anchored mobility provided by LENA. Instead of having a constant position relative to the \gls{eNB}, the \gls{UE} will no move back and forth between two waypoints on a two-dimensional plane in parallel to the two base stations. A handover is triggered each time the device leaves the range of one station and enters the other. \todo{add another figure describing this?}
 
+\todo{Figure Z shows the relative stalling occurring during this scenario, the handover points are highlighted...}
 
-WayPointMobilityModel
-
-2 \gls{eNB}, 1 \gls{UE}
-device constantly moves between a point inside eNB 1s range to eNB 2 (with a handover over X2 interface occurring) and back
-
-handover events will be marked in the figures 
-
-what will happen?
 
 %%
-paragraph{Further Scenarios}
-Other Scenarios:
- test case 2b (future): effect of cross-layer information in mobility case
-For the future, it is envisioned to test further, more realistic scenarios. Namely, ....
-But this is out of scope for these first impressions.
+\paragraph{Further Scenarios}
+
+Apart from the experiments conducted here, some others are also worth investigating but the scope of this work.
+
+And depend on the party conducting the experiments
+streaming implementors might want to test playback strategy and transmission mechanics (and influences as seen above)
+and optimize for mobile
 
 Alter the playback strategy completely or adapt the threshold variables
+operators optimze their network settings for streaming, ...
+
+effect of cross-layer information in mobility case
+
 
 More signaling, not possible yet
 at least in-path signaling related to gtp tunnel establishment would be nice (the procedures that were discussed in \ref{c4:sec:3gpparchitecture})
