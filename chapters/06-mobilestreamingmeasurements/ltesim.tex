@@ -186,14 +186,14 @@ However, this effect is somewhat contrary to the additional effect observed at l
 
 \todo{check pcaps for >=100mbit experiments; could also be related to issues of the actual lte simulation network but implementation can not fully responsible for this?}
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-stallduration.pdf}
 	\caption{Relative stalling duration of the simulated reliable streaming player under increased Internet latency.}
 \label{c6:fig:ltesim-latencyseries-stallduration}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-numstalls.pdf}
 	\caption{Number of stalling events of the simulated reliable streaming player under increased Internet latency.}
@@ -218,21 +218,17 @@ Besides altering the server link, the effects of the simulated \gls{LTE} network
 %%
 \paragraph{Further Scenarios}
 
-Apart from the experiments conducted here, some others are also worth investigating but the scope of this work.
+Apart from the experiments conducted here, some others are also worth investigating but out of scope for this work.
 
-And depend on the party conducting the experiments
-streaming implementors might want to test playback strategy and transmission mechanics (and influences as seen above)
-and optimize for mobile
+If one plans to implement a reliable streaming solution, the simulation can be utilized to test any kind of playback strategy and transmission mechanics and attune it to mobile networks. 
 
-Alter the playback strategy completely or adapt the threshold variables
-operators optimze their network settings for streaming, ...
+Besides developing entirely new playback strategies, the default thresholds of the four and six threshold strategies should also be optimized through iterative simulation of value combinations.
 
-effect of cross-layer information in mobility case
+The opposite approach would also be possible for mobile network operators: Map the operator's mobile network infrastructure onto the simulation and test the performance of existing streaming strategies with it. If any issues or performance bottlenecks are discovered, the operator can make adjustments to the infrastructure and implement these changes afterwards outside of the simulation.
 
+It would also be worthwhile to see the impact of the cross-layer model described in Section~\ref{c5:sec:crosslayerhinting} as they are specifically intended to reduce the influence this kind of mobile network architecture has on user applications. An implementation of cross-layer hinting would be relatively simple here, as the layer isolation boundaries are much easier to circumvent in a network simulator.
 
-More signaling, not possible yet
-at least in-path signaling related to gtp tunnel establishment would be nice (the procedures that were discussed in \ref{c4:sec:3gpparchitecture})
-
+As mentioned earlier, ns-3's \gls{LTE} framework does only implemented a limited subset of the \gls{3GPP} specifications, mainly related to the user plane and the radio link stack. Almost no control plane procedures are implemented. This may have only a negligible impact as soon as a connection is established and remains stable and only a very small number of users are connected to the system. But this is not the norm for an actual mobile network in operation with its mobility features and high churn, both in terms of data flows as well as mobile users, generating a large amount of signaling traffic as was discussed before in Section~\ref{c4:sec:3gpparchitecture}. To best mimic the dataset evaluations related to \gls{PDP} context and \gls{gtp} tunnel life cycle management conducted in Section~\ref{c4:sec:evaluations}, the simulator would need to at least be able to reproduce these tunnel management and the related \gls{RRC} \gls{PDP} context procedures happening on the user traffic path. Therefore, it is worth reconducting the above experiments as soon as the framework has made any progress in this direction.
 
 %% ! <-- !
 %%
