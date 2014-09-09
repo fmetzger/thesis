@@ -7,10 +7,21 @@ Reliable streaming deviates from the established ways in a number of significant
 
 But many video streaming solutions deployed in the past few years have shifted to using simple client-side players better suited for the Web's ecosystem. Today, any Web browser can pull video data and display it directly inside a video element without the help of any additional software. The popularity of reliable video streaming services has increased in such a way, that they are now one of the largest source of the Internet's traffic and are predicted to rise even further. But all these reliable streaming --- so-called due to them operating on top of the reliable \gls{TCP} transport protocol --- players have in common that modeling, optimization, and measurement techniques used for unreliable streaming can not be applied to them any more due to their different approaches.
 
+A second development in recent years is the increasing prevalence of cellular mobile networks, taking the form of \gls{UMTS} and \gls{LTE}. Smartphones have become omnipresent and traffic originating from these devices makes up an increasing portion of the Internet's total traffic. While the user plane traffic is still rather low when compared to wired Internet access, mobile networks have a much more intricate control plane and any user plane traffic causes a number of related control plane interactions which were discussed in \ref{c4:sec:3gpparchitecture}. The actual volume of these signaling messages might be low, but they cause secondary load effects in the nodes that need to process the control plane data and store its state. And these effects are barely investigated or even factored into any network dimensioning and planning tasks.
 
-A second development in recent years is the increasing prevalence of cellular mobile networks, taking the form of \gls{UMTS} and \gls{LTE}. Smartphones have become omnipresent and traffic originating from these devices makes up an increasing portion of the Internet's total traffic.
+When work on this dissertation thesis had started, both of these fields began to grow together. Smartphones developed to a state where watching video streams on their displays was not a hassle any more and there was sufficient capacity in the mobile access to transport video streams of relatively high quality in a timely fashion.
 
+But again both also seemed to lack proper measurement and evaluation methods and models. This is what was tackled in this work: 
 
+One one side, a categorization approach and measurement model for reliable progressive video streaming, that bases itself on emulating the streaming client's video playback and strategies, was introduced. With this at hand, a number of different strategies, cloned from previously existing real streaming solutions, were tested in a network emulation testbed and found an interaction of the connection's latency and loss properties with the video streaming stalling characteristics. This measurement model can be utilized to test new playback strategies for real applications.
+
+On the other side, light was shed on the control plane interactions of a typical \gls{3G} core network.G
+
+lessons learned
+
+impact or lasting benefits for others
+
+vision for the future with this work
 
 Again make the Internet stack vs. mobile stack comparison
 
@@ -23,3 +34,48 @@ compare on basis of core networking principles: KISS, E2E, layering/encapsulatio
 
 
 \section{Future Work}
+
+pure streaming modeling:
+
+	keep up to date with playback strategies, especially adaptive
+
+	derive objective computed \gls{QoE} \gls{MOS}-based from the model basic resulting values of stalling duration and number of phases
+
+	develop specialized streaming strategies for specific network conditions
+
+	for this, all layer influences have to be perfectly understood and mapped out
+	therefore, keep on investigating new protocol developments
+	especially interesting with some features of HTTP/2, namely multiplexing and focus and encryption
+
+
+for pure mobile core investigations:
+
+	if anyone has access to mobile core network traces: reverify the results
+
+	even better if more detailed traces, e.g. with the actual \gls{gtp} \glspl{IE}
+
+	traces from more vantage points
+
+	traces from \gls{LTE}/\gls{EPC} nets, investigate them using similar techniques
+	still LTE: highlight the control plane differences and observe their impact on load
+	make suggestion and draw conclusions / learn for future iterations of mobile networks
+
+	combine core traces with active streaming measurements and correlate them
+
+	better queuing theory models when more load influencing factors are investigated
+	especially with off-user-traffic path elements (HSS/MME/PCRF)
+
+
+combining things:
+
+	work on a 3g/4g simulator with better control plane representation
+	alternatively, wait for LENA to get there, or patch it, or switch to a different sim
+	streaming model itself should be portable enough
+
+	set up the simulator to investigate influences of further sources on mobile streaming:
+	TCP variants; hard to do every simulation is lacking behind
+
+
+	actually implement and test the cross-layer model stuff
+	put it into the lte streaming simulator and observe its effects
+	then put together a NetworkManager based prototype for laptops

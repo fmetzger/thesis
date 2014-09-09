@@ -68,7 +68,7 @@ All the individual tunnel durations in the dataset are differentiated based on t
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/R-tunnel-duration-device-type.pdf}
+    \includegraphics[width=1.0\textwidth]{images/R-tunnel-duration-device-type.pdf}
     \caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at \SI{115}{\second} (total), \SI{31}{\second} (regular), \SI{82}{\second} (smartphone), and \SI{1207}{\second} (dongle)}
     \label{c4:fig:cdf-duration-device-class}
 \end{figure}
@@ -93,7 +93,7 @@ Another distinct step at \SI{30}{\minute} in the total and smartphone distributi
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/R-tunnel-duration-operating-system.pdf}
+    \includegraphics[width=1.0\textwidth]{images/R-tunnel-duration-operating-system.pdf}
     \caption{Tunnel duration cumulative distribution function, separated for select \glspl{os}; Medians at \SI{115}{\second} (total), \SI{15.5}{\second} (symbian), \SI{104}{\second} (iOS), and \SI{765}{\second} (android)}
     \label{c4:fig:cdf-duration-os}
 \end{figure}
@@ -152,7 +152,7 @@ Looking closer at the smartphone category, Q-Q plots of the two major \glspl{os}
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/R-duration-classification-density.pdf}
+    \includegraphics[width=1.0\textwidth]{images/R-duration-classification-density.pdf}
     \caption{Logscale density plot of the tunnel duration with all classifications.}
     \label{c4:fig:durations-density}
 \end{figure}
@@ -177,7 +177,7 @@ Here, the tunnel arrival process is investigated with both approaches. This also
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/R-create-frequency.pdf}
+	\includegraphics[width=1.0\textwidth]{images/R-create-frequency.pdf}
 	\caption{Tunnel arrivals histogram overlaid with a density plot.}
 	\label{c4:fig:freq-arrivals}
 \end{figure}
@@ -187,7 +187,7 @@ If the hypothesis of the correlation between signaling load and number of arriva
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/R-createspersecond-1h-violin.pdf}
+	\includegraphics[width=1.0\textwidth]{images/R-createspersecond-1h-violin.pdf}
 	\caption{Violin plot of tunnel arrivals in one second per time of day.}
 	\label{c4:fig:freq-arrivals-per-second-violin}
 \end{figure}
@@ -259,7 +259,7 @@ The trace contains roughly two orders of magnitude more update messages than eit
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/R-update-time-cdfs.pdf}
+	\includegraphics[width=1.0\textwidth]{images/R-update-time-cdfs.pdf}
 	\caption{\glspl{ECDF} of the time in seconds it takes a \gls{GGSN} to process a \gls{gtp} update event, plotted for each hour of the day.}
 	\label{c4:fig:update-time}
 \end{figure}
@@ -283,10 +283,10 @@ The uncovered empirical distributions for both the tunnel duration and the tunne
 \paragraph{\gls{IAT} Fitting}
 
 \begin{figure}[htb]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/R-IAT-ecdfs.pdf}
-    \caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
-    \label{c4:fig:IAT-cdfs}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-IAT-ecdfs.pdf}
+	\caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
+\label{c4:fig:IAT-cdfs}
 \end{figure}
 
 At first, we take a look at the tunnel \gls{IAT} in Figure~\ref{c4:fig:IAT-cdfs} displaying the overall \gls{ECDF} with fits for various basic probability distributions. Each of the fits was generated through the method of moments matching.
@@ -294,10 +294,10 @@ At first, we take a look at the tunnel \gls{IAT} in Figure~\ref{c4:fig:IAT-cdfs}
 The goodness of these fits was checked both visually using the \glspl{CDF} plots and numerically with goodness of fit measures, using Pearson's correlation coefficient and Pearson's $\chi^2$ test. Unfortunately, none of the probability distributions reaches the significance level for $\chi^2$. This can probably be largely attributed to the various previously described artifacts in the data. Matching them visually, the exponential fit seems to be reasonably close to the experimental data.
 
 \begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.9\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
-  \caption{Empirical and exponentially fitted \glspl{CDF} of the tunnel interarrival duration by time of day. \glspl{CDF} are overlapping as the coefficient of determination is close to $1$.}
-  \label{c4:fig:pdparrivalsecdf}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
+	\caption{Empirical and exponentially fitted \glspl{CDF} of the tunnel interarrival duration by time of day. \glspl{CDF} are overlapping as the coefficient of determination is close to $1$.}
+\label{c4:fig:pdparrivalsecdf}
 \end{figure}
 
 To improve the fits, two modifications were made to the process. First, to remove the \SI{20}{\milli\second} steps, only the active tunnels were taken into consideration. Second, the overall \gls{IAT} distribution was once again split up into time of day slots. The overall distribution is just a superimposition of the individual slots anyway. Therefore this should greatly improve the fidelity of the fits. 
@@ -328,10 +328,10 @@ The result is depicted in Figure~\ref{c4:fig:pdparrivalsecdf}. To improve plot v
 \paragraph{Duration Fitting}
 
 \begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.9\textwidth]{images/R-duration-fit-cdf-facets.pdf}
-  \caption{Empirical and fitted \glspl{CDF} of the tunnel duration by time of day with fitted rational functions.}
-  \label{c4:fig:fittedsdurationlots}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-duration-fit-cdf-facets.pdf}
+	\caption{Empirical and fitted \glspl{CDF} of the tunnel duration by time of day with fitted rational functions.}
+\label{c4:fig:fittedsdurationlots}
 \end{figure}
 
 The second fitting effort surrounds the empirical data concerning the tunnel durations. However, none of the basic probability distributions (including exponential, gamma, and Weibull distributions) fit the tunnel duration even remotely. One of the reasons for this is probably, that the tunnel duration is influenced by an overwhelming amount of factors, which was previously described. This superposition, especially with user behavior, will result in unpredictable results not following basic probability distributions.

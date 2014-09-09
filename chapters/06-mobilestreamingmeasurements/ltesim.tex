@@ -49,9 +49,9 @@ Through this simulation testbed, arbitrary reliable streaming playback models ca
 To simplify things, the model behind the progressive streaming measurement framework based on the playback buffer employed in Section~\ref{c3:sec:measurements} can be reused in the simulator. But instead of being an off-line analysis algorithm for network traces it is used as an actual emulated streaming client here. The code can be found at \todo{link to ns-3 streaming sim repo}.
 
 \begin{figure}[htb]
-\centering
-\includegraphics[width=0.6\textwidth]{images/streaming-simulation.pdf}
-\caption{\gls{LTE} reliable streaming simulation testbed.}
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/streaming-simulation.pdf}
+	\caption{\gls{LTE} reliable streaming simulation testbed.}
 \label{c5:fig:streaming-simulation}
 \end{figure}
 
@@ -206,7 +206,7 @@ In a second series of simulation runs the latency of the server's link was incre
 
 This behavior can possibly be attributed to the simplistic segment request strategy, that only requests a new segment when the previous one has fully arrived. The higher the latency the longer it takes to receive new data. With improvements to the retrieval strategy, this specific issue should be eliminated. \todo{Another series with a changed retrieval method in Figures x and y shows that the strong correlation to the latency is now greatly reduced}
 
-But this just shows the many pitfalls and influences of various layers. A simple implementation detail may have large implications on the streaming quality the user expierence.
+But this just shows the many pitfalls and influences of various layers. A simple implementation detail may have large implications on the streaming quality the user experience.
 
 \paragraph{Device Mobility}
 

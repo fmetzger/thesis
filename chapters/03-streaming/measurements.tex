@@ -16,7 +16,7 @@ The problem lies in comparing these protocols to each other. Each of them is usu
 To enable quick evaluations for progressive streaming the framework follows a two phase approach, separating the active online recording phase from the passive playback emulation. Recording data is very time intensive and cannot be sped up when conducting investigation of a real world process, and not relying on simulated data. It still replicates the steps a user would perform to consume a media stream on a playback device. Through appropriate configuration different scenarios can be modeled, e.g. network conditions, behavior and specifics of the user device.
  
 \begin{figure}[htb]
-    \includegraphics[width=\textwidth]{images/measurement-model.pdf}
+    \includegraphics[width=1.0\textwidth]{images/measurement-model.pdf}
     \caption{Measurement framework for progressive streaming playback strategies overview.}
     \label{c3:fig:framework}
 \end{figure}
@@ -44,7 +44,7 @@ One of the drawbacks of this model-based emulation approach is of course the rel
 Up to this point, the measurement framework is only suitable for progressive streaming omitting any adaptive strategy. This second framework modifies this and additionally allows for the testing of adaptive playback strategies. However, to achieve this, the advantageous two phase setup cannot be employed anymore.
 
 \begin{figure}[htb]
-    \includegraphics[width=\textwidth]{images/feedback-measurement-model.pdf}
+    \includegraphics[width=1.0\textwidth]{images/feedback-measurement-model.pdf}
     \caption{Measurement framework for adaptive streaming playback strategies overview.}
     \label{c3:fig:framework-feedback}
 \end{figure}
@@ -104,7 +104,7 @@ In the latency measurement series, the emulator delays forwarding the packets fo
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
+    \includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
     \caption{Stalling duration in relation to transmission latency with local polynomial least-squares fit.}
     \label{c3:fig:eval-latency-stallingtime}
 \end{figure}
@@ -116,7 +116,7 @@ Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the a
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
+    \includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
     \caption{Number of stalls in relation to transmission latency with local polynomial least-squares fit.}
     \label{c3:fig:eval-latency-numstalls}
 \end{figure}
@@ -129,9 +129,9 @@ Overall, it can be said, that in this specific latency scenario the real world p
 In the loss measurement series, uncorrelated and uniformly distributed loss was added in both the uplink and the downlink direction. The loss was incrementally increased in \SI{2}{\percent} steps up to a total additional loss of \SI{12.5}{\percent}. About \SI{4}{\percent} of the individual experiments did not finish correctly, and the video was not completely transmitted. This was caused by the \gls{TCP} stack, which at some point terminated the connection after to many packets were lost back to back, and curl giving up after several retries. This unpredictability and failure rate also leads to the high variability seen in the results of the loss measurement series. Nonetheless, a certain trend can still be derived from the results.
 
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallduration-loss.pdf}
+    \includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallduration-loss.pdf}
     \caption{Stalling duration in relation to packet loss with local polynomial least-squares fit.}
     \label{c3:fig:eval-loss-stallingtime}
 \end{figure}
@@ -140,9 +140,9 @@ In the loss measurement series, uncorrelated and uniformly distributed loss was 
 Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling duration in the packet loss measurement series. Loss of up to\SI{4}{\percent} seems to have no discernible impact on the streaming process. Anything beyond this point sees a large increase in the stalling duration. With a relative stalling duration of almost four times the actual video length at \SI{12}{\percent} packet loss any streaming attempt is practically rendered unusable. This behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission takes time and leads to a bursty increase in latency offering a possible reason of the increased stalling time.
 
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
+    \includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
     \caption{Number of playback stalls in relation to packet loss with local polynomial least-squares fit.}
     \label{c3:fig:eval-loss-numstalls}
 \end{figure}
