@@ -15,17 +15,33 @@ But again both also seemed to lack proper measurement and evaluation methods and
 
 One one side, a categorization approach and measurement model for reliable progressive video streaming, that bases itself on emulating the streaming client's video playback and strategies, was introduced. With this at hand, a number of different strategies, cloned from previously existing real streaming solutions, were tested in a network emulation testbed and found an interaction of the connection's latency and loss properties with the video streaming stalling characteristics. This measurement model can be utilized to test new playback strategies for real applications.
 
-On the other side, light was shed on the control plane interactions of a typical \gls{3G} core network.G
+On the other side, light was shed on the control plane interactions of a typical \gls{3G} core network. The mobile networks' overly strong focus on signaling procedures and statefulness can be the source of numerous scalability issues as was previously explored for the radio interface. Here, through the analysis of network traces of a large operational mobile core network a novel definition of load in the core network was created. This load was put in relation to \gls{gtp} tunnel management signaling between the two central core nodes \gls{SGSN} and \gls{GGSN}. 
 
-lessons learned
+Diurnal variations and dependencies on the user's device and its user traffic characteristics could be observed in the trace. A queuing theory model that describes the load at a \gls{GGSN} the load properties was derived from these findings and takes the form of a non-stationary Erlang loss model. With the help of this model a new spin on the \gls{GGSN}'s makeup using virtualization was introduced and tested in simulations to provide better load scaling options.
 
-impact or lasting benefits for others
+Testing reliable video streaming in a mobile network and understanding its apparent behavior might be a very interesting combination of the two seemingly independent fields. But it also became clear during the evaluation of the mobile dataset, that specific user traffic patterns can have a direct influence on the core's control plane. Segmented reliable streaming can show a certain ON-OFF style traffic pattern, that may interact badly with the timers governing the control plane state and increase the core load.
+
+This kind of negative interaction could neither be verified nor refuted during the course of this thesis due to the lack of data. However, valuable approaches on how to test for this were still shown in the form of active measurements enhanced with smartphone metadata and a streaming simulation framework on top of a ns-3-based \gls{LTE} network.
+
+Once issues or non-optimal situations have been discovered through these means, they can be mitigated and improved upon. For example, this can happen by adapting the playback strategies and protocols that are already being utilized --- \gls{TCP} is the best example of being constantly modified --- by employing new protocols, such as \gls{DASH} or \gls{HTTP}/2 or utilizing cross-layer information to its fullest.
+
+And these are also the lessons learned during the course of this thesis's work. Understanding and optimizing a certain item begins by investigating, evaluating and modeling existing iterations of it and mapping out the limits and possibilities. As reliable streaming in a mobile network is a relatively new application and not very well investigated, a lot of groundwork had to be done. 
+
+% <-- !!
+
+This may not seem like much, but may still have a lasting benefit for future work using the work conducted here as a foundation.
+
+It would be great to see, if the work spawns a number of scientific offsprings that attempt to answer some of the questions and issues, concerning influences on the performance of mobile streaming, raised here. 
+
+
+Generally, the thesis also attempted to uphold the core principles of computer networking. This includes \gls{KISS}, the focus on end-to-end systems and not network intelligence, and also keeping the layer isolation and encapsulation intact (more?)
+
+impact?
 
 vision for the future with this work
 
 Again make the Internet stack vs. mobile stack comparison
 
-mention scalability issues of control plane in general and that there is no actual need for this
 
 compare on basis of core networking principles: KISS, E2E, layering/encapsulation, 
 
@@ -34,6 +50,8 @@ compare on basis of core networking principles: KISS, E2E, layering/encapsulatio
 
 
 \section{Future Work}
+
+But, alas, work on all these individual items discussed here is certainly not done, and probably never will be, as is always the case in scientific work which always progresses in small iterative steps.
 
 pure streaming modeling:
 
