@@ -25,54 +25,39 @@ This kind of negative interaction could neither be verified nor refuted during t
 
 Once issues or non-optimal situations have been discovered through these means, they can be mitigated and improved upon. For example, this can happen by adapting the playback strategies and protocols that are already being utilized --- \gls{TCP} is the best example of being constantly modified --- by employing new protocols, such as \gls{DASH} or \gls{HTTP}/2 or utilizing cross-layer information to its fullest.
 
-And these are also the lessons learned during the course of this thesis's work. Understanding and optimizing a certain item begins by investigating, evaluating and modeling existing iterations of it and mapping out the limits and possibilities. As reliable streaming in a mobile network is a relatively new application and not very well investigated, a lot of groundwork had to be done. 
+And these are also the lessons learned during the course of this thesis's work. Understanding and optimizing a certain item begins by investigating, evaluating and modeling existing iterations of it and mapping out the limits and possibilities. As reliable streaming in a mobile network is a relatively new application displaying very complex interactions and was generally not very well investigated, a lot of groundwork had to be done. And the measurement models provided here attempt to do just that.
 
-% <-- !!
+Superficially, this may not seem like much, but may still have an impact for future work that use the work conducted here as a foundation. It would be great to see, if the work spawns a number of scientific offsprings that try to answer some of the questions and issues raised here. concerning the influences on the performance of mobile streaming. Even without further studies, a lasting benefit may already be present for both video streaming implementers and mobile network operators. They have now access to more tools to optimize their products for specific scenarios.
 
-This may not seem like much, but may still have a lasting benefit for future work using the work conducted here as a foundation.
+It was also shown, that optimization in general does not automatically constitute making networks and applications more complex or putting more intelligence into the network. On the contrary, it is often better to uphold some core principles that have driven computer networking and the Internet thus far. This includes \gls{KISS}, the focus on end-to-end systems, and also keeping a layered network stack. 
 
-It would be great to see, if the work spawns a number of scientific offsprings that attempt to answer some of the questions and issues, concerning influences on the performance of mobile streaming, raised here. 
-
-
-Generally, the thesis also attempted to uphold the core principles of computer networking. This includes \gls{KISS}, the focus on end-to-end systems and not network intelligence, and also keeping the layer isolation and encapsulation intact (more?)
-
-impact?
-
-vision for the future with this work
-
-Again make the Internet stack vs. mobile stack comparison
+Many of the issues with streaming in mobile networks discussed in this work have arisen by not adhering to these principles. The \gls{UMTS} control plane is so tremendous, spanning many network nodes and merging many protocol layers into one big specification, that many undesirable interactions occur. The original developers could not have foreseen all future use cases and what side effects they might bright with them. On the flip side, this thesis would not even have been possible without the many peculiarities found in these \gls{3G} specifications.
 
 
-compare on basis of core networking principles: KISS, E2E, layering/encapsulation, 
-
-
-
-
-
+%%
 \section{Future Work}
 
-But, alas, work on all these individual items discussed here is certainly not done, and probably never will be, as is always the case in scientific work which always progresses in small iterative steps.
+Alas, work on all these individual items discussed here is certainly not done. As usual in scientific work, progress will be made in small iterative steps. Therefore, this final section collects some planned work and ideas that follow up on the thesis's research angles in the future.
 
-pure streaming modeling:
+Concerning the modeling and measurement of reliable streaming it is important to keep up with the current flavors of playback strategies. Now that adaptive streaming is being used more widespread adaptive strategies should also be taken more into consideration. In addition, the changes on other protocol layers have to be constantly monitored for their potential influence on streaming. New protocols should be tested if they are viable for reliable streaming. 
 
-	keep up to date with playback strategies, especially adaptive
+For example, \gls{HTTP}/2's improved multiplexing features could be worthwhile for the simultaneous transport of multiple streaming segments. This is especially helpful when \gls{SVC} is employed to provide the various quality levels in adaptive streaming. Multiplexing would allow multiple layers to be transported with differing priority simultaneously using just one connection.
 
-	derive objective computed \gls{QoE} \gls{MOS}-based from the model basic resulting values of stalling duration and number of phases
+The more strategies are known and understood the more candidates are available in the search for the best strategy fitting a given scenario or applicable to most cases. A good candidate here is probably an adaptive threshold strategy which observes its buffer fill rate in a sliding window.
 
-	develop specialized streaming strategies for specific network conditions
+When the base effects of the stalling characteristics are well understood, more complex metrics could also be derived from this to better represent the \gls{QoE}. A potential objective \gls{MOS} computation could relate these basic statistics to subjective quality impressions gained from user studies.
 
-	for this, all layer influences have to be perfectly understood and mapped out
-	therefore, keep on investigating new protocol developments
-	especially interesting with some features of HTTP/2, namely multiplexing and focus and encryption
+%% 
+Moving on to mobile core networks, most of the deductions were made on the basis of a single core network trace from one network and need to be verified with additional and more recent traces from other networks. This could simultaneously observe if there have happened any changes in the time after the original trace was recorded.
+
+That trace did also lack some particular interesting details regarding the actual \gls{gtp} \gls{IE} data from the messages and control plane procedures on off-user-traffic-path links (e.g. to the \gls{HLR}). Any subsequent recording should therefore factor in more information and should provide measurements at several synchronized vantage points inside the network to better correlate the individual message. An additional probe at the radio link or the backhaul could prove especially fruitful in this endeavor. 
 
 
-for pure mobile core investigations:
 
-	if anyone has access to mobile core network traces: reverify the results
-
-	even better if more detailed traces, e.g. with the actual \gls{gtp} \glspl{IE}
-
-	traces from more vantage points
+%for pure mobile core investigations:
+%	if anyone has access to mobile core network traces: reverify the results
+%	even better if more detailed traces, e.g. with the actual \gls{gtp} \glspl{IE}
+%	traces from more vantage points
 
 	traces from \gls{LTE}/\gls{EPC} nets, investigate them using similar techniques
 	still LTE: highlight the control plane differences and observe their impact on load
@@ -83,6 +68,8 @@ for pure mobile core investigations:
 	better queuing theory models when more load influencing factors are investigated
 	especially with off-user-traffic path elements (HSS/MME/PCRF)
 
+
+% <-- !!
 
 combining things:
 
@@ -97,3 +84,23 @@ combining things:
 	actually implement and test the cross-layer model stuff
 	put it into the lte streaming simulator and observe its effects
 	then put together a NetworkManager based prototype for laptops
+
+
+
+%impact?
+%vision for the future with this work
+%Again make the Internet stack vs. mobile stack comparison
+%compare on basis of core networking principles: KISS, E2E, layering/encapsulation, 
+
+
+
+%pure streaming modeling:
+
+%	keep up to date with playback strategies, especially adaptive
+%	develop specialized streaming strategies for specific network conditions
+
+%	for this, all layer influences have to be perfectly understood and mapped out
+%	therefore, keep on investigating new protocol developments
+%	especially interesting with some features of HTTP/2, namely multiplexing and focus and encryption
+
+%	derive objective computed \gls{QoE} \gls{MOS}-based from the model basic resulting values of stalling duration and number of phases
