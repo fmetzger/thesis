@@ -50,40 +50,20 @@ When the base effects of the stalling characteristics are well understood, more 
 %% 
 Moving on to mobile core networks, most of the deductions were made on the basis of a single core network trace from one network and need to be verified with additional and more recent traces from other networks. This could simultaneously observe if there have happened any changes in the time after the original trace was recorded.
 
-That trace did also lack some particular interesting details regarding the actual \gls{gtp} \gls{IE} data from the messages and control plane procedures on off-user-traffic-path links (e.g. to the \gls{HLR}). Any subsequent recording should therefore factor in more information and should provide measurements at several synchronized vantage points inside the network to better correlate the individual message. An additional probe at the radio link or the backhaul could prove especially fruitful in this endeavor. 
+That trace did also lack some particular interesting details regarding the actual \gls{gtp} \gls{IE} data from the messages and control plane procedures on off-user-traffic-path links (e.g. to the \gls{HLR}). Any subsequent recording should therefore factor in more information and should provide measurements at several synchronized vantage points inside the network to better correlate the individual message. Additional probes at the radio or backhaul links could prove especially fruitful in this endeavor. 
+
+But as the usage \gls{UMTS} is declining in favor of \gls{LTE} or even \gls{LTE}-Advanced, the core control plane in these networks also needs to be put under close scrutiny, and not just in a simulator as in this work. A multi-vantage point measurement campaign in an actual \gls{EPC} can make an informed comparison to the existing \gls{3G} trace and find improvements or regressions. As the combination of \gls{SGSN} and \gls{GGSN} is replaced by \gls{SGW}/\gls{PGW} with a slightly different subset of functionalities a new core load queuing model should also be created in the course of the trace's statistical evaluation with these differences in mind. This can also lead to better load models once more core network elements --- especially the off-user-traffic path elements, including the \gls{HSS}, \gls{MME}, or \gls{PCRF} --- are evaluated and factored into the queuing model.
+
+Through this process, suggestions for future further iterations of the mobile network control plane specifications can be derived and taken into consideration. Any upcoming measurement campaign should also consider running a concurrent reliable video streaming active measurement experiment in the observed network. A correlation between streaming traffic and occurring control plane signaling could be drawn much more easily.
 
 
+%%
+To better observe these interactions between streaming and mobile networks a lot of work still has to be done to bring mobile network simulators up to parity with actual networks. A better control plane representation in, for example, ns-3 or OMNeT++ would go a long way in increasing the validity of the results derived from these simulations. If a new, more fitting simulation platform arises, the reliable streaming model can also be reimplemented there as it is kept portable.
 
-%for pure mobile core investigations:
-%	if anyone has access to mobile core network traces: reverify the results
-%	even better if more detailed traces, e.g. with the actual \gls{gtp} \glspl{IE}
-%	traces from more vantage points
+Similarly, simulators are also lacking behind in their representation of current higher layer protocols, especially \gls{TCP}. Solutions need to be explored to remedy this and make the simulated stacks more comparable to the fast changing stacks of current \glspl{os}. Small changes here can have a noticeable impact on the application layer and can also falsify simulation results, as they are not applicable to any actual network.
 
-	traces from \gls{LTE}/\gls{EPC} nets, investigate them using similar techniques
-	still LTE: highlight the control plane differences and observe their impact on load
-	make suggestion and draw conclusions / learn for future iterations of mobile networks
+Finally, regarding the ideas for a cross-layer information exchange, the general cross-layer information broker should be implemented on different architectures (e.g., an Android smartphone and a Linux laptop) to test different protocol stacks and different amounts of cross-layer information sources and sensory input. An actual implementation of the handover-aware adaptive playback strategy should also be relatively easy to achieve as a prototype to test the broker in a practical situation.
 
-	combine core traces with active streaming measurements and correlate them
-
-	better queuing theory models when more load influencing factors are investigated
-	especially with off-user-traffic path elements (HSS/MME/PCRF)
-
-
-% <-- !!
-
-combining things:
-
-	work on a 3g/4g simulator with better control plane representation
-	alternatively, wait for LENA to get there, or patch it, or switch to a different sim
-	streaming model itself should be portable enough
-
-	set up the simulator to investigate influences of further sources on mobile streaming:
-	TCP variants; hard to do every simulation is lacking behind
-
-
-	actually implement and test the cross-layer model stuff
-	put it into the lte streaming simulator and observe its effects
-	then put together a NetworkManager based prototype for laptops
 
 
 
@@ -91,16 +71,3 @@ combining things:
 %vision for the future with this work
 %Again make the Internet stack vs. mobile stack comparison
 %compare on basis of core networking principles: KISS, E2E, layering/encapsulation, 
-
-
-
-%pure streaming modeling:
-
-%	keep up to date with playback strategies, especially adaptive
-%	develop specialized streaming strategies for specific network conditions
-
-%	for this, all layer influences have to be perfectly understood and mapped out
-%	therefore, keep on investigating new protocol developments
-%	especially interesting with some features of HTTP/2, namely multiplexing and focus and encryption
-
-%	derive objective computed \gls{QoE} \gls{MOS}-based from the model basic resulting values of stalling duration and number of phases
