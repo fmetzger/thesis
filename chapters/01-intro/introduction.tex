@@ -4,32 +4,29 @@
 \label{chap:intro}
 
 %% new thesis stuff
-Packet Switching, the process of chunking information into smaller bits, labeling it and transmitting it independently, was first described by Paul Baran in the 1960s\cite{baran1964distributed}. This changed communication a lot and provided one of the foundations for the emergence of the Internet. 
+Packet Switching, the process of chunking information into smaller bits, labeling it and transmitting it independently, was first described by Paul Baran in the 1960s~\cite{baran1964distributed}. This changed communication a lot and provided one of the foundations for the emergence of the Internet. 
 
-The original usage intent was mostly limited to remotely logging into and communicating with mainframe computers and transferring files supported by the emergence of new multiuser and multitasking operating systems, especially including the release of UNIX in 1969.\todo{needs references}
+The original usage intent was mostly limited to remotely logging into and communicating with mainframe computers and transferring files supported by the emergence of new multiuser and multitasking \gls{os}, especially including the release of UNIX in the early seventies.
 
-From these early times countless other services and applications emerged. Today, the Internet is by used hundreds of millions of people, touching almost every aspect of daily life. The creation of the World Wide Web --- begun by Tim Berners-Lee in 1989\todo{reference} --- brought an easily accessible ``user interface'' to the Internet and made adoption for the masses much easier. Today, almost any form of application is available through the Web as a combination of \gls{HTML}, \gls{CSS}, and JavaScript and can be accessed by just opening a Web browser.
+From these early times countless other services and applications emerged. Today, the Internet is used by hundreds of millions of people and is involved in almost every aspect of daily life. The creation of the World Wide Web --- initiated by Tim Berners-Lee in 1989 --- brought an easily accessible ``user interface'' to the Internet and made adoption for the masses much easier. Today, almost any form of application is available through the Web as a combination of \gls{HTML}, \gls{CSS}, and JavaScript and can be accessed by just opening a Web browser.
 
-But as is the case with many technological fields, the Internet's development was also closely entangled with other advancements. Take the huge Internet music wave beginning in 1999 as an example. It may have been started by the creation of Napster, the first peer-to-peer file sharing service. However, without the large improvements in audio compression --- namely MP3 --- a few years before, including computers that could handle decompression as well as compression and increasing Internet access bandwidth (and fixed service fees) , this would not have been possible. Similarly, YouTube could not have existed without a wide spread of digital camcorders and many other devices with recording capability, good video compression codes, and an even further increase in access bandwidths.
- For every leap in bandwidth new services sprung to life fueling the users' demand for further capacity increases. 
+But as is the case with many technological fields, the Internet's development was also closely entangled with other advancements. Take the huge Internet music wave beginning in 1999 as an example. It may have been started by the creation of Napster, one of the first peer-to-peer file sharing services. However, without the large improvements in audio compression --- the MP3 audio format in this case --- a few years earlier, computers that could handle decompression as well as compression, and increasing Internet access bandwidth (and fixed service fees), this would not have been possible. 
 
-% content agnosticism: we do not know what applications the future will bring, so we do not make any assumptions
+Similarly, video streaming and sharing sites like YouTube could not have existed without a wide spread availability of digital camcorders and other devices with recording capability, good video compression codes, and an even further increase in access bandwidths. For every advance in access bandwidth new services sprung to life fueling the users' demand for further capacity increases. 
 
-Several factors contributed to the quick acceptance of the Internet. First and foremost no assumptions are made on the transported content, or content agnosticism. The original idea is to treat every packet, every participating node the same and do not make any assumptions on specific applications. This provides a level playing field for every contender wanting to offer services. This is upheld by the second driving concept, the ``End-to-End Principle'', \cite{saltzer1984end2end} stating:
+One of the driving factors in this rapid adoption of the Internet and the Web is its content agnosticism, i.e., that no assumptions are made on the transported data. The original idea is to treat every packet and participating node the same and not make any assumptions on specific applications. This provides a level playing field for every contender wanting to offer services. A further concept, called ``End-to-End Principle'', was originally stated as:
 
 \begin{quote}
-``The function in question can completely and correctly be implemented only with the knowledge and help of the application standing at the endpoints of the communications system. Therefore, providing that questioned function as a feature of the communication system itself is not possible. [...]''
+``The function in question can completely and correctly be implemented only with the knowledge and help of the application standing at the endpoints of the communications system. Therefore, providing that questioned function as a feature of the communication system itself is not possible. [\ldots]''~\cite{saltzer1984end2end}
 \end{quote}
 
-End-to-End means that any functionality, meaning services or applications, should only be implemented at the two endpoints of a transmission not somewhere in between. Tuning the network to specific applications and implementing functions inside the network, will always only be valid for existing and narrow use cases and cannot support future developments.
+This means that any functionality, for example services or applications, or traffic differentiation should only be implemented at the two endpoints of a transmission and not inside the network. Tuning the network to specific applications and implementing functions inside the network, will always only be valid for existing and narrow use cases and could hamper any future future development.
 
-During the past decades this has often been discussed \cite{bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} but is still being upheld for the most part for good reason. \todo{probably should clarify the good reason}. This is in contrast to the way telephone networks and their operating companies historically worked. These networks are based on circuit switching and access as well as content (namely voice calls) and procedures are tightly controlled by the operator.
-%\\
+During the past decades these principles have often been discussed~\cite{bhattacharjee1997active, blumenthal2001rethinking, isenberg1997rise, lemley2000end} but are mostly still being upheld in the current Internet topology. Interestingly, this is contrasted by the way \gls{CS} public telephone networks but also mobile networks operate. Here, much effort and intelligence is put into the network, which enables only a very specific set of services, determined solely by the operator, to work, albeit with a relatively high quality.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Video and the Internet}
-
-
 
 \begin{figure}[htb]
     \centering
@@ -38,6 +35,7 @@ During the past decades this has often been discussed \cite{bhattacharjee1997act
 \label{c1:fig:traffic-cisco}
 \end{figure}
 
+The total volume of Internet traffic has been rising exponentially for many years as many traffic studies suggest, for example in a Cisco study of ``consumer'' traffic in Figure~\ref{c1:fig:traffic-cisco}. One of the largest contributing factors to today's traffic composition is arguably video traffic. It can be most dominantly observed in the mix of North America's fixed access depicted in Figure~\ref{c1:fig:traffic-netvine-fixed}. The two main sources for this video traffic are typically streaming services like YouTube\footnote{\url{https://www.youtube.com}} and Netflix\footnote{\url{https://www.netflix.com}}, or live streaming and casting sites like Twitch\footnote{\url{http://twitch.tv}}. 
 
 \begin{figure}[htb]
     \centering
@@ -46,6 +44,25 @@ During the past decades this has often been discussed \cite{bhattacharjee1997act
 \label{c1:fig:traffic-netvine-fixed}
 \end{figure}
 
+Studies predicting the development of the Internet's traffic also tell of the large influence of video traffic in the near future. As the video traffic volume has become so predominant, it is very important to understand its dynamics from a modeling and performance evaluation point of view, as specific behaviors of video traffic might significantly influence the underlying network and vice versa. 
+
+Protocols specifically created for the purpose of video streaming --- defined as ``watching the video while it's still being transmitted'' --- have existed for a long time and their behavior is well researched. The most prominent is \gls{rtp}, which has been specified as early as 1996~\cite{rfc1889}. And yet they are not responsible for the gross of the Internet's video traffic seen today.
+
+Instead, a new class of \gls{TCP}-based and not standardized streaming approaches has arisen, which integrate themselves much better into the current Web ecosystem. And they are using completely different modes of transportation and control. Finding ways to investigate these new streaming protocols, including their categorization, measurement, and modeling, will be the first task of this thesis.
+
+Streaming, and media transport in general, is also not just relevant for the purpose of watching videos, there are many more fields of use with similar requirements. For example, so-called ``cloud gaming'' applications have become more popular in recent years. Here, video games are run on large virtualization clusters with the input and video output being streamed from and to the actual game client, putting a huge emphasis on achieving low latency. Refer to, e.g., \cite{4795441}, \cite{wang2009modeling}, \cite{jarschel2011cloudevaluation}, or \cite{ct2010wolken} for further information on this topic.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Network Below}
+
+Much of today's Web interactions are today carried out over mobile networks using smartphones. Despite their rapid evolution, mobile networks still carry much heritage from their circuit switching roots.\footnote{For an historical overview of mobile phone standards refer to \url{https://en.wikipedia.org/wiki/History_of_mobile_phones}.}
+Starting in the 1950s with early analog predecessors like the German ``A-Netz'' and first generation cellular structured networks in the eighties, mobile telephony entered the fully digital world with the European \gls{GSM} and competing \gls{CDMA}-based technologies around the year 1991. This was similar to the development in the \gls{POTS} with its shift away from the analog roots to digital circuit switching technologies like \gls{ISDN}.
+
+Because of the huge success of \gls{GSM} and its packet-switching extension \gls{GPRS} it was used as a blueprint for the following mobile network standard evolutions \gls{UMTS} (including \gls{HSPA} and \gls{HSPA+}), \gls{LTE} and also the upcoming \gls{LTE} Advanced. 
+
+Through this heritage, many mobile network elements and protocol have undergone only minor changes since their \gls{GSM} versions. Due to the hereditary roots in \gls{CS} networks \gls{CS}, a large amount of state is kept inside the network a explicitly managed through a high volume of signaling interactions. This can create a wide range of problems, creating unwanted interactions of specific traffic patterns with the control plane and overwhelming the network's control plane structures. 
+
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\textwidth]{images/r-netvine-phenomena-mobile.pdf}
@@ -53,37 +70,17 @@ During the past decades this has often been discussed \cite{bhattacharjee1997act
 \label{c1:fig:traffic-netvine-mobile}
 \end{figure}
 
+These issues have only begun to show up in recent years due to the large influx of new user and usage scenarios. Traffic in cellular networks follows a development similar to that of the Internet as a whole. Through the advent of affordable high performance smartphones, a thriving mobile application ecosystems, and faster access technologies many are now using their phones as the primary device for interacting with the Internet. Video, too, has here become one of the largest contributors of cellular traffic as Figure~\ref{c1:fig:traffic-netvine-mobile} depicts.
 
-The total volume of Internet traffic has been rising exponentially for many years. The composition of today's traffic is manifold, but one of the largest contributing factors is arguably video (take a look at Figures~\ref{c1:fig:traffic-netvine-fixed}, \ref{c1:fig:traffic-netvine-mobile}, and \ref{c1:fig:traffic-cisco}). Studies predicting the development of the Internet's traffic also tell of the large influence of video in the near future. The two main sources for this video are YouTube\footnote{\url{https://www.youtube.com}} and, in countries where its available, Netflix\footnote{\url{https://www.netflix.com}}, and even newer services like the live-streaming site Twitch\footnote{\url{http://twitch.tv}} acting as runner-up.
+However, heavy traffic on a stateful network poses unique challenges to the performance, the architectural design, and dimensioning of network protocols. This becomes even more pronounced by the circumstance, that operators and vendors usually regard any details on mobile networks equipment as closely kept trade secrets Thus, little is known of the exact make-up of these networks as they are closely guarded secrets of the operator.
 
-Despite not wanting to tune the network to video, it is still very important to understand the dynamics happening around this type of traffic there. With a traffic portion this large any events or behavior specific to this portion will also have a huge impact on the total network.
-Transporting this video --- or rather ``streaming'' as in watching the video while it's still being transmitted --- integrating themselves much better into the current Web ecosystem ---  in the Internet has again become a topic of hot discussions. There are long-standing application layer protocols for exactly this use case. \gls{rtp}, as the most prominent, has been described as early as 1996 \cite{rfc1889}. It is well described in standard educational literature and specifics to it are still being researched and improved on. Interestingly however, it is practically not being used at all in the current updraft of video traffic. \todo{explain the reason (Web-relationship, tcp basis, firewalls, walled gardens, ...)either here or in a later chapter}
-Instead, new approaches have been thought out, integrating themselves much better into the current Web ecosystem.
-And they are using completely different modes of transportation and control. Streaming, and media transport in general, is also not only relevant for the purpose of watching videos, there are many more fields of use with similar requirements. Becoming popular in the last years is the so-called Cloud Gaming: Running virtualized video games on large racks and streaming just the video output to the clients with all the user input handled by the server, putting a huge emphasize on achieving low latency.\footnote{Select works overviewing this thematic complex are, e.g.,~\cite{4795441,wang2009modeling,jarschel2011cloudevaluation,ct2010wolken}.}
-Investigating the implications coming with these new streaming protocols will be the first task of this thesis.
-%\\
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Network Below}
-
-Looking back to the actual networks, we also see lots of progress in the past. Despite their rapid evolution, mobile networks, however, still carry much heritage from their circuit switching roots. \footnote{For an historical overview refer to \url{https://en.wikipedia.org/wiki/History_of_mobile_phones}. \todo{should remove wikipedia}}
-Starting in the 1950s with early analog predecessors like the German ``A-Netz'' and first generation cellular structured networks in the eighties, mobile telephony entered the fully digital world with the European \gls{GSM} and competing \gls{CDMA}-based technologies around the year 1991. This was similar to the development in the \gls{POTS} with its shift away from the analog roots to digital circuit switching technologies like \gls{ISDN}.
-
-Because of its huge success \gls{GSM} and its packet-switching extension \gls{GPRS} was used as a blueprint for the following mobile network standard evolutions resulting in \gls{UMTS} (including \gls{HSPA} and \gls{HSPA+}), today's \gls{LTE} and even the upcoming \gls{LTE} Advanced. Through this heritage, many network elements and protocol have hardly changed since the beginning and are still strongly connection orientated with a strong tendency to signaling and statefulness.
-This creates a wide range of problems which have only begun to show up in recent years due to the large influx of new user and usage scenarios, creating traffic patterns unheard of a few years ago and overwhelming the network's control plane structures. 
-
-Traffic in cellular networks follows a development similar to that of the Internet as a whole. Through the advent of affordable high performance smartphones, a thriving mobile application ecosystems, and (relatively) fast access technologies many are now using their phones as the primary device for interacting with the Internet. Video, too, has here become one of the largest contributors of cellular traffic. 
-
-However, heavy traffic on a stateful network poses unique challenges to the performance, the design, and dimensioning of network protocols. This gets even more complicated by the circumstance, that operators and vendors usually regard any details on mobile networks equipment as closely kept trade secrets Thus, little is known of the exact make-up of these networks as they are closely guarded secrets of the operator.
-
-This presents us with the second task of this thesis.
-
+The investigation of the signaling structures in the core of today's mobile networks represents the second task of this thesis. It is also closely interlocked with the evaluation of video streaming traffic as they are nowadays often seen together.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Research Methods and Approaches}
 
-As is the case with any scientific endeavor, this work is based on a specific set of tools and knowledge of many years of prior research. Measuring, evaluating and modeling is standard practice in many fields. Therefore, many tools  are available to tackle problems, but one still has to choose the most fitting ones for a given problem.
+As is the case with any scientific endeavor, this work is based on a specific set of tools and knowledge of many years of prior research. Measuring, evaluating and modeling is standard practice in many fields. Therefore, tools are available to tackle any kind of problem, but one still has to choose the most fitting ones for a given specific issue.
 
 \begin{figure}[htb]
     \centering
@@ -96,44 +93,55 @@ Figure~\ref{c1:fig:appcomp} attempts to categorize all tools available to a perf
 
 The most precise results will always be achieved through actual measurements of the actual system under scrutiny. This will give a point of reference and can be used to validate the accuracy of other methods. But it also comes with a hefty price of huge amounts of data to process and understand. With such measurements at hand, one can now start to make sense of this data and extract the relevant features observed in this process.
 
-Aside from measurements on implementations there are three further possible approaches to widen the scope: emulation, simulation, and mathematical analysis or analytical models.  An emulation tries to resemble implemented functionality as closely as possible with the cost of high complexity. While there are many forms of emulation, relevant to our research interests is just the so-called network emulator. Instead of having a real network, parts of it are substituted with emulating hardware or software that treats transmissions according to properties from the actual network. Most typically these properties are the transmission bandwidth, loss, and latency (and variation over time thereof).
-But emulations always just replace parts of the actual system and therefore its capability to scale is limited.
+Aside from measurements on implementations there are three further possible approaches to widen the scope: emulation, simulation, and mathematical analysis or analytical models. An emulation tries to resemble implemented functionality as closely as possible with the cost of high complexity. While there are many forms of emulation, most relevant to this type of research is the network emulator. Instead of having a real network, parts of it are substituted with emulating hardware or software that alters the \gls{QoS} parameters of transmissions. But emulations always just replace parts of the actual system and therefore its capability to scale is limited.
 
-This is where simulations come into play, implementing all internal and external functionality, including the physical nodes and the network in software. A typical \gls{DES} can have subtle functional differences but can be scaled almost indefinitely limited only by the available processing time. 
+This is where simulations come into play, implementing all internal and external functionality, including the physical nodes and the network in software. A typical \gls{DES} can have subtle functional differences but can be scaled almost boundless, limited only by the available processing time. 
 
 Prior to any simulation or emulation and following every measurement on a system is of course the mathematical analysis of existing data. Through this models are built abstracting the system the data is gathered from. With every iteration the model can be refined and new hypotheses formed.
-A mathematical analysis, for example using queuing theory and stochastic models, can then further broaden the understanding of the system.
-
-
-\todo{mention here? Application of queuing theory, modeling the system through arrival processes, service time distributions and a number of servers and waiting places.}
+A mathematical analysis, for example using queuing theory and stochastic models, can then further broaden the understanding of the system. A proper queuing theory model can already give great insights into the load dynamics of the modeled system and serve as a tool in future planning processes.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Research Questions and Lines of Research and Goals}
 
-%First and most prominent is the planning of radio access cells --- their coverage, frequency selection,  and backhaul, i.e. connection to the operator's network. Aside from substantial administrative and financial efforts this problem has been largely solved, radio network planning tools and research readily exists \cite{tutschku1998demand}.
+With these tools at hand, this thesis will follow the two previously mentioned somewhat independent lines of research.
 
-With these tools at hand, this thesis will follow in most parts two mostly independent lines of research.
+The first line will be a thorough investigation of current video streaming mechanisms and services facilitating them. All of the investigated streaming ``protocols'' are comparatively young and similar. Protocol is put in quotation marks for a reason here. Many of the approaches are not protocols in the classical sense. They do not follow a specification of any standards body, be it \gls{ISO}, \gls{ITU} or the \gls{IETF}. 
 
-The first line will be a thorough investigation of current video streaming mechanisms and services facilitating them. All of the investigated streaming ``protocols'' are comparatively young and similar. 
+Also, their main distinction does lie in the usage of the network and the video transport due to the reliance on typical Web protocols. Rather, much of the differences stems from the behavior of the actual application. Specifically, the way data is requested and retrieved and the video displayed, including its reaction to undesirable circumstances, e.g., having insufficient data in the playback buffer. Surprisingly, even just with these simple rules, applications can easily distinguish themselves from one another. Making the correct decisions to events can greatly influence the quality of the video playback. 
 
-Protocol is put in quotation marks for a reason here. Many of the approaches are not protocols in the classical sense. They do not follow a specification of any standards body, be it \gls{ISO}, \gls{ITU} or the \gls{IETF}. Neither do they show much distinction in the way the use the network and transport video as they simply rely on normal Web protocols. Rather, much of their differences stems just from the behavior of the actual application. The way how it requests and retrieve the data and displays the video, including its reaction to unwanted events, e.g., having insufficient data in the playback buffer. 
-Surprisingly, even just with these rather simple rules, applications can still distinguish themselves from one another. Making the right decisions to events can greatly influence the quality of the video playback. 
+During the investigation a model will be created that describes all the common elements in the streaming process. With such a model at hand and with knowledge of the structure and similarities of the applications, one can do many things. Through a performance analysis they can be compared to each other. Interrelations to the network's transport layer and other influences of the network on streaming could be uncovered. 
 
-During the investigation we created a model describing all the common elements in the streaming process. With such a model at hand and in knowledge of the structure and similarities of the applications, one can do many things. Through a performance analysis they can be compared to each other. Interrelations to the network's transport layer and other influences of the network on streaming could be uncovered. This especially includes mobile networks where many assumptions made for wired networks do not hold anymore. One quick example is the circumstance, that the network layer and all layers above generally do not experience any packet loss in a cellular network. Any loss is treated by the mobile layers, albeit with other side effects on the upper layers. For example, they will experience intermittent times of extremely high latency.
+This especially refers to influences of mobile networks, where many assumptions targeted at wired networks do not hold anymore. One quick example is the circumstance, that the mobile network stack typically conceals any packet loss from its users. Loss will therefore only be experienced as  intermittent times of extremely high latency, which can go as high as several seconds and preventing transport protocols from correctly determining the link conditions and causes erroneous scaling.
 This leads to the question, on which kind of information from the network a streaming application could and should depend, or even if there are any actual requirements for streaming.
 
 Gathering this kind of information can result in a better understanding of the quantitative attributes related to these new forms of streaming. The results can be used as an analytical and testing tool for improving the protocols or even lead to different approaches. Furthermore, the thesis aims to provide methods for helping all parties involved in media streaming decide which protocols and methods to choose and which are best suited for specific scenarios.
-\\
 
-The second line of research will deal mostly with the described oddities of cellular networks. Through exploration of currently existing networks and architectural specifications data is gathered. This data allows to draw some very interesting conclusion regarding states and signaling in these cellular nets and possible load caused by it. Those conclusions and further evaluations also lead to a model for the core network, abstractly describing the control plane. This will ultimately help to improve the planning and dimensioning of networks, even influence future specification iterations to reduce their fixation on signaling.
+%% <--!! 
+
+The second line of research will deal mostly with the control plane of mobile core networks. Through exploration of currently existing networks and architectural specifications data is gathered. This data allows to draw some very interesting conclusion regarding states and signaling in these cellular nets and possible load caused by it. Those conclusions and further evaluations also lead to a load model for the core network, abstractly describing the control plane. 
+
+evaluation of core traces
+
+statistical evalation
+
+gtp signaling
+
+load queuing model
+
+virtualized model to better scale to load
+
+This will ultimately help to improve the planning and dimensioning of networks, even influence future specification iterations to reduce their fixation on signaling.
+
 
 
 For the third and final field of research an attempt is made to bridge both of these lines. With the increasing prevalence of video streaming in mobile networks, it is important to understand the relationship between these two. Here, this will follow mostly a theoretical approach, with descriptions to protocol drafts dealing with these kinds of issues. 
 
 Measuring mobile networks is always rather complicated, with a vast number of variables to keep track of and control. To give an example, just think of the movement patterns of mobile devices and the impact this has on handovers between cells as well as the signal strength, and therefore also on packet loss, and, e.g., the video quality.
- To improve this situation, two methods are explored. Reducing the number of variables --- but thus also the level of detail --- can be easily achieved using network simulation or emulation. This has also the added advantage of having easy access to all nodes in the (simulated) network. The simulator can then be combined with either traffic from real applications, or the applications under scrutiny can also be simulated.
- If simulating is out of the question and real-world mobile phone measurements are to be conducted, maybe even as part of a measurement testbed spanning many devices, the phone's state needs to be recorded as precisely as possible. Thankfully, today's mobile phone have a multitude of sensors and information sources available, which will be exploited in the measurement approach present second.
+
+To improve this situation, two methods are explored. Reducing the number of variables --- but thus also the level of detail --- can be easily achieved using network simulation or emulation. This has also the added advantage of having easy access to all nodes in the (simulated) network. The simulator can then be combined with either traffic from real applications, or the applications under scrutiny can also be simulated.
+
+If simulating is out of the question and real-world mobile phone measurements are to be conducted, maybe even as part of a measurement testbed spanning many devices, the phone's state needs to be recorded as precisely as possible. Thankfully, today's mobile phone have a multitude of sensors and information sources available, which will be exploited in the measurement approach present second.
  Lastly, with the knowledge from all of the investigations, a proposal for a new paradigm managing networking application traffic --- especially in cellular networks where mobility matters --- is given.
 
 
@@ -155,6 +163,15 @@ Finally, some thoughts and approaches to study and improve traffic --- especiall
 As mobile devices depend on a lot more variables (with mobility being the most prominent) than devices with fixed Internet access, any measurement needs to keep track of these. Section~\ref{c6:sec:sensorium} presents our approach to tackling this. Finally, Section~\ref{c6:sec:mobilestreamingtestbed} adapts the earlier described streaming measurement model to work with a mobile network simulation and emulation.
 And finally,
 \todo{add the chapter specifics, when they are fleshed out}
+
+
+%However, it is practically not being used at all in the current updraft of video traffic. \todo{explain the reason (Web-relationship, tcp basis, firewalls, walled gardens, ...)either here or in a later chapter}
+
+
+% content agnosticism: we do not know what applications the future will bring, so we do not make any assumptions
+
+
+%First and most prominent is the planning of radio access cells --- their coverage, frequency selection,  and backhaul, i.e. connection to the operator's network. Aside from substantial administrative and financial efforts this problem has been largely solved, radio network planning tools and research readily exists \cite{tutschku1998demand}.
 
 
 %The methods can all be used to define and explore solution spaces and are therefore important tools in understanding the problem. A fitting combination of these tools has to be found to advance the research. Our initial approach is to investigate existing streaming services, YouTube \cite{metzger2011delivery,mokmeasuring} and, e.g., video libraries of broadcast stations for simple HTTP streaming. A suitable candidate for measuring adaptive streaming still needs to be found as some candidate services apply regional restrictions. There are several reference applications available that implement different standardization approaches. These can be used to either directly measure the performance or to setup an emulation model based on their specifications.
