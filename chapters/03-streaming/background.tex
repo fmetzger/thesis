@@ -1,122 +1,111 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Background}
+\section{Streaming Definition and Classification}
 \label{c3:sec:background}
-%% reliable streaming
-	%Web-based video streaming in general
-	%Web, Flash, HTML5
-	%relevance for mobile and future Internet
-	%Drawbacks (no streaming, scaling, signaling, etc)
-	%Internet Load and Video delivery performing with load
-	%Example of YouTube
-	%applicable quality metrics (normal metrics don't apply, no video quality scaling, observable only initial buffering time, stalls during playback, number, length, frequency thereof)
 
+Before diving into the model some technical groundwork has to be laid. The protocols commonly used in the past and present are described and a classification scheme is set up. This is followed by a summary of other work related to this approach.
 
-Before diving into the model some technical groundwork has to be laid. We describe protocols commonly used in the past and present and how to classify them. This is followed by other work related to this approach.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Definition} 
+\subsection{Video Streaming Definition} 
 
-Any digitally stored video consists of a number of frames, organized into variable-sized groups, and audio samples which are played in sequence. Frames, single images of the video, do not only make use of typical spatial image compression mechanisms but encompass also temporal motion compensation, creating a dependence between frames. Videos can be encoded with a bit rate that is constant or variable over time. Typically, a variable bit rate encoding is chosen as these schemes offer a higher compression rate. To correctly display a frame, all previous frames in a block need to be present. 
+Any digitally stored \textbf{video} consists of a number of frames, organized into variable-sized groups, and audio samples which are played in sequence. Frames, single images of the video, do not only make use of typical spatial image compression mechanisms but encompass also temporal motion compensation, creating a dependency between frames. Videos can be encoded with a bit rate that is constant or variable over time. Typically, a variable bit rate encoding is chosen as these schemes offer a much higher compression rate. To correctly display a frame, all previous frames in a block need to be present. 
 
-Streaming, or to be more precise video streaming, is the process of playing a video while it is still being transmitted over a medium. As there is no need to have a file stored locally, received frames are typically put in a buffer to be played at the correct time. The amount of buffered video depends on the allocated buffer size as well as the video bit rate, and the transmission bit rate. It can also be controlled by the time offset between receiving the first frame of a video and actually playing it.
+\textbf{Streaming}, or to be more precise video streaming, is the process of playing a video while it is still being transmitted over a medium. As there is no need to have a file stored locally, received frames are typically put in a buffer to be played at the correct time. The amount of buffered video depends on the allocated buffer size as well as the video bit rate, and the transmission bit rate. It can also be controlled by the time offset between receiving the first frame of a video and actually playing it.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Streaming Classification}
 
-Video streaming is a broad term covering a wide spectrum of applications as well as possible implementations. To break down and classify this field we define the following criteria to make a distinction.
+Video streaming is a broad term covering a wide spectrum of applications as well as possible implementations. The following distinction criteria can serve to break down and classify this field.
 
 \paragraph{Video Source}
-The first criterion is the source of the video with the two major sources being a file stored on a remote server or a live source. Stored video can be streamed and played at any point in time. Live sources, on the other hand, are transmitting only at a fixed point in time. Depending on the type of content the timeliness of playback may also be important (imagine you are watching a game that is played right now).
+The first criterion is the source of the video transmission, with the two major sources being a file stored on a remote server or a live source. Stored video can be streamed and played at any point in time. Live sources, on the other hand, are transmitting only at a fixed point in time. Depending on the type of content the timeliness of playback may also be important (imagine you are watching a game that is being played right now).
 
 
 \paragraph{Adaptivity of Content}
 Video streaming can also be distinguished based on its adaptivity. In the simplest case there is no adaptivity present and the video is available in only one bit rate (which may still be a variable bit rate). 
-But there are cases where an adaptation of the bit rate would be helpful. For example to accommodate for a clients needs in matters of the screen size. Usually, adaptation is used to tune the video stream to the currently available connection bandwidth. Adaptation can be achieved in two ways. Either to prepare and store several encoding levels beforehand or by encoding on-the-fly to a specific target. While the latter approach can adapt much more specific to certain goals it cannot be precomputed and will require more compute time when the number of clients becomes larger.
 
-Adaptation also increases the amount of necessary control and information exchange. In the simplest case, streaming would only require a single command to start the streaming while any single adaptation adds another set of commands.
+But there are cases where an adaptation of the bit rate would be helpful. For example to accommodate for a clients needs in matters of the screen size. Usually, adaptation is used to tune the video stream to the currently available connection bandwidth. Adaptation can be achieved in two ways. Either by preparing and storing several encoding levels beforehand or by encoding the video on-the-fly for a specific target. While the latter approach has a much higher adaptation capability it cannot be precomputed and scales linearly with the number of  number of clients (as opposed to a constant compute time effort for stored quality levels).
 
-
-\paragraph{Location of Control} % Push-based (stateful) vs pull-based (stateless) vs network-controlled
-Another matter is the location of control for a stream, with several possible ways to choose from. We distinguish between horizontal and vertical control.
-
-In a horizontal direction control can be placed either at the streaming server, the streaming client or possibly somewhere in the network path in between.
-
-A controller at the client typically just means that the video player itself is in control of the streaming process. The player starts the streaming and adjusts its requests to the server based on the player's needs. In this situation the server can be very lightweight as no decision logic needs to be present there. This is also called \textbf{pull-based} streaming.
-
-Control can also be placed at the server with a stronger emphasis on the information available at the server side, making it easier to coordinate and adapt to a larger number of streaming clients. Similarly, this is called a \textbf{push-based} approach as video data is pushed to the recipient. 
-For control to work properly state has to be kept imposing a certain memory overhead. This can become significant and a limiting factor for large streaming servers. Contrary, pull-based streaming usually does not require much or any state at all at the server.
-
-Control information may need to be exchanged to communicate the state between the two endpoints. This can happen either explicitly through the exchange of signaling messages, or implicitly by drawing conclusions on another participants resources and behavior, for example through other protocols in the stack.
-
-While not being able to control everything about streaming, the network may still be able to influence or manipulate an ongoing video stream. (Non-)Transparent proxies come to mind, which could intercept streaming requests and redirect them to another server located in the proximity of the requesting client.  A network can explicitly expose network's quality of service data to applications or these application can make reservation requests to the network.
-
-Additionally control can be distributed vertically at different positions in the protocol stack. While usually streaming is conducted through a dedicated application layer protocol or even directly through an applications behavior, portions of control functions can also be offloaded to deeper layers. A typical example would be the use of \gls{TCP} for reliable streaming.
-
-\paragraph{Reliability of Underlying Transport Protocol} % reliable vs unreliable
-A major differentiation can also be made based on the reliability of streaming. Streaming can either act similar to a simple file download and just progressively download the video file in question while already playing it. This is conducted by using \gls{TCP} as a transport protocol, guaranteeing that no packet is lost in the process. \gls{TCP} does this by retransmitting packets it thinks are lost with the price of added latency and reduced throughput during retransmission. This reliability can however also cause the progress of the whole video stream to stall, If video data does not reach the client in time before its playback buffer is depleted, and therefore a perceptible loss of quality. This situation can be alleviated or even avoided by carefully planning the playback process and the buffering behavior.
-
-On the other side stand streaming protocols that base themselves on \gls{UDP}, which offers no reliability features as \gls{TCP} and just sends out packets as-is. When packets are lost, the video can still progress but parts of the video output may be distorted or lost. Additionally, unreliable streaming protocols must take over other control features, that would otherwise have been taken care of \gls{TCP}. The adherence to an alloted or fair share bandwidth and congestion control come to mind, or else a high usage of this protocol could again lead to another congestion collapse \cite{rfc896}.
-
-Transport protocols that offers congestion control but no reliable delivery might be a desirable middle ground between these two extremes. \gls{DCCP} \cite{kohler2006designing} is an example for such a compromise and might prove beneficial for the streaming process.
+Adaptation also increases the necessary amount of control and information exchange. In a non-adaptive context, streaming would only require a single interaction to start the streaming while any single adaptation adds another set of interactions to change between quality levels.
 
 
-\paragraph{Multiplexing of Delivery} % multicast vs unicast vs maybe even broadcast
-Finally, the number of targets of a single video stream can also differ. A stream is unicast if the control loop is exactly between one sender and one recipient. Servers can still support multiple unicast streams at once, they are just completely independent of each other. A multicast, or even a broadcast, stream is simultaneously sent to a group of recipients, stream control is established at the sender for the whole group. Therefore, multicasting is always using a push-based approach to control.
+\paragraph{Location of Control}
+Another matter is the location of control for a stream, with several possible ways to choose from. Between horizontal and vertical control can be distinguished.
+
+In a horizontal direction control can be placed either at the streaming server, the streaming client, or possibly somewhere in the network path in between.
+
+A controller located at the client side typically means that the video player itself is in control of the streaming process. The player starts the streaming and adjusts its requests to the server based on the player's needs. In this situation the server can be very lightweight as no decision logic needs to be present there. This is called \textbf{pull-based} streaming.
+
+Control can also be placed in the server. This is called a \textbf{push-based} approach as video data is pushed to the recipient. For this kind of control to work properly, state has to be kept imposing a certain memory overhead. This can become significant and a limiting factor for large streaming servers. Contrary, pull-based streaming usually does not require much or any state at all at the server.
+
+Control information may also need to be exchanged to communicate the state between the two endpoints. This can happen either explicitly through the exchange of signaling messages, or implicitly by drawing conclusions on another participants resources and behavior, for example through other protocols in the stack.
+
+While not being able to control everything about streaming, the network may still be able to influence or manipulate an ongoing video stream. (Non-)transparent proxies come to mind, which could intercept streaming requests and redirect them to another server located in the proximity of the requesting client.  A network could explicitly expose its \gls{QoS} metrics to applications or these application can make reservation requests to the network.
+
+Additionally, control can be distributed vertically to different positions in the protocol stack. While usually streaming is conducted through a dedicated application layer protocol or even directly through an applications behavior, portions of control functions can also be offloaded to deeper layers. A typical example would be the use of \gls{TCP} for reliable streaming.
+
+
+\paragraph{Reliability of the Underlying Transport Protocol}
+A major differentiation can also be made based on the reliability of streaming. Streaming can either act similar to a simple file download and just progressively download the video file in question while already playing it. This is conducted by using \gls{TCP} as a transport protocol, guaranteeing that no packet is lost in the process. \gls{TCP} does this by retransmitting packets it thinks are lost at the cost of added latency and reduced throughput during retransmission. This reliability can however also cause the progress of the whole video stream to stall, If video data does not reach the client in time before its playback buffer is depleted, and therefore a perceptible loss of quality. This situation can be alleviated or even avoided by carefully planning the playback process and the buffering behavior.
+
+On the other side stand streaming protocols that base themselves on \gls{UDP}, which offers no reliability features like \gls{TCP} and just sends out packets as-is. When packets are lost, the video can still progress but parts of the video output may be distorted or lost. Additionally, unreliable streaming protocols must take over other control features, that would otherwise have been taken care of \gls{TCP}. The adherence to an alloted or fair share bandwidth and congestion control come to mind. Otherwise, a high usage of this protocol could again lead to a scenario of congestion collapse \cite{rfc896}.
+
+Transport protocols that offers congestion control but no reliable delivery might be a desirable middle ground between these two extremes. \gls{DCCP}~\cite{kohler2006designing} is an example for such a compromise and might prove beneficial for the streaming process.
+
+
+\paragraph{Multiplexing of Delivery}
+Finally, the number of targets of individual video streams can also differ. A stream is unicast if the control loop is exactly between one sender and one recipient. Servers can still support multiple unicast streams at once, they are just completely independent of each other. A multicast, or even a broadcast, stream is simultaneously sent to a group of recipients, stream control is established at the sender for the whole group. Therefore, multicasting is always using a push-based approach to control.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Survey of Protocols}
 
-With these classification criteria at hand, we can now start looking at actual protocols, and find out, which motifs they are following. The section largely describe \gls{rtp} and compare it with \gls{HTTP}-based approaches including \gls{DASH} while also mentioning some other, proprietary, streaming protocols.
+With these classification criteria at hand, existing protocols can now be investigated for the motifs they are following. The section largely describes \gls{rtp} and compares it with \gls{HTTP}-based approaches, including \gls{DASH}, while also mentioning some other, proprietary, streaming protocols.
 
 
 %%
 \subsubsection{\texorpdfstring{\acrshort{rtp}}{rtp} and Related Protocols}
 
-\gls{rtp} \cite{rfc3550} is always used in conjunction with its sister-protocol \gls{rtcp} and often also employs \gls{RTSP} \cite{rfc2326}. According to literature, they are the classic approach to video streaming (for example compare \cite[p.~589ff]{kurose2008computer} and \cite[p.~426ff]{peterson2007computer}).
-The protocol suite employs a \textit{push-based approach}, the \gls{rtp} server application has full control of the streaming process. Control and information exchange is also out of band through \gls{RTSP} and \gls{rtcp}. Therefore, multicast is also easily possible with \gls{rtp} but not mandatory.
+\gls{rtp}~\cite{rfc3550} is always used in conjunction with its sister-protocol \gls{rtcp} and often also employs \gls{RTSP}~\cite{rfc2326}. According to literature, they are the classic approach to video streaming\footnote{For example, refer to \cite[p.~589ff]{kurose2008computer} or \cite[p.~426ff]{peterson2007computer}}.
+The protocol suite employs a \textit{push-based approach} with the \gls{rtp} server application in full control of the streaming process. Control and information exchange is conducted out of band through \gls{RTSP} and \gls{rtcp}. Therefore, multicast is also easily possible with \gls{rtp} but not mandatory.
 
-\gls{rtp} has also no inherent adaptivity nor reliability mechanisms, neither does it conduct congestion control on its own. Moreover, \gls{rtp} generally runs on top of \gls{UDP}, which also does not provide congestion control. All must be provided by the server-side application implementation if necessary. In case of multicasting the potential to conduct transport adaptations is very limited, as the server has to take all the recipients into consideration for its decisions.
+\gls{rtp} has also no inherent adaptivity nor reliability mechanisms. Neither does it conduct congestion control on its own. Moreover, \gls{rtp} generally runs on top of \gls{UDP}, which also does not provide congestion control. All must be provided by the server-side application implementation if necessary. In case of multicasting the potential to conduct transport adaptations is very limited, as the server has to take all the recipients into consideration for its decisions.
 
 
 \paragraph{\gls{rtp}}
 
 \gls{rtp} itself provides just the packet format and header for the transport of the actual multimedia data. Any stream type is transported in a separate session. This includes the presence of both video and audio, which must then be synchronized to each other. Each session uses its own \gls{UDP} source-destination port pair.
 
-The \gls{rtp} specification itself defines only the most basic packet header, with several additional specs describing dedicated profiles for various content types. For today's prevalent MPEG-4 protocols, including H.264, multiple profiles, defined in \cite{rfc3640,rfc6184,rfc6416} , and with this many ways to embed video into RTP packets, are available. Common to all is the variable-size \gls{rtp} header of at least \SI{16}{\byte}. Video codecs may embed their own organizational structure inside the packet. For example, if dealing with an MPEG-4 \gls{ES}, the payload may contain one or more \gls{AU}.
+The \gls{rtp} specification itself defines only the most basic packet header, with several additional specs describing dedicated profiles for various content types. For today's prevalent MPEG-4 protocols, including H.264, multiple profiles, defined in \cite{rfc3640,rfc6184,rfc6416} , and with this many ways to embed video into \gls{rtp} packets, are available. Common to all is the variable-size \gls{rtp} header of at least \SI{16}{\byte}. Video codecs may embed their own organizational structure inside the packet. For example, if dealing with an MPEG-4 \gls{ES}, the payload may contain one or more \gls{AU}.
 
 
 \paragraph{\texorpdfstring{\acrshort{rtcp}}{rtcp}}
 
-\gls{rtcp} is used to exchange feedback and control information between receivers and sender and vice versa. These sender and receiver reports are transmitted on a separate \gls{UDP} connection at small intervals scaled in such a way, that the bandwidth should not exceed 5\% of the stream's bandwidth. The reports will include statistics related to lost packets and the packet delay and variation. Based on these, a sender can adjust its streams to fit the current conditions. Likewise, a receiver may tune its video buffering behavior or may even switch stream sources.
+\gls{rtcp} is used to exchange feedback and control information between receivers and sender and vice versa. These sender and receiver reports are transmitted on a separate \gls{UDP} connection at small intervals scaled in such a way, that the bandwidth should not exceed \SI{5}{\percent} of the stream's bandwidth. The reports will include statistics related to lost packets and the packet delay and variation. Based on these, a sender can adjust its streams to fit the current conditions. Likewise, a receiver may tune its video buffering behavior or may even switch stream sources.
 
 
 \paragraph{Stream Initiation}
 
-RTP/RTCP itself provides no means to discover, initiate, and control the streaming process and has to rely on additional protocols. \gls{RTSP} is on of these, sitting atop of either \gls{UDP} or \gls{TCP}. It provides a set of commands the client can issue to a streaming server to control a stream and the streaming state at the server.
+\gls{rtp} and \gls{rtcp} on its own provide no means to discover, initiate, and control the streaming process and have to rely on additional protocols. \gls{RTSP} is on of these, sitting atop of either \gls{UDP} or \gls{TCP}. It provides a set of commands the client can issue to a streaming server to control a stream and the streaming state at the server.
 
-In case of multicasting, stream management can also be conducted directly by joining predetermined multicast groups through the use of \gls{IGMP} \cite{rfc4604} without the need for \gls{RTSP}.
-This requires the cooperation of all intermediary routers. Therefore, it is usually only seen in closed networks (``walled gardens''), where the whole network infrastructure is owned by a single instance. For example, Telekom Austria's A1TV employs this scheme. \todo{reference, bernhard?}
+In case of multicasting, stream management can also be conducted directly by joining predetermined multicast groups through the use of \gls{IGMP}~\cite{rfc4604} without the need for \gls{RTSP}.
+This requires the cooperation of all intermediary routers. Therefore, it is usually only seen in closed networks (``walled gardens''), where the whole network infrastructure is owned by a single instance. This scheme is often employed by \gls{IPTV} providers in their own network.
 
 
-\gls{rtp} is also used extensively in conjunction with a lot of other protocol suites, including \gls{SDP} \cite{rfc2327} and \gls{SAP} \cite{rfc2974} for stream discovery or in realtime communication protocols such as \gls{SIP} \cite{rfc3261} and \gls{XMPP} \cite{rfc6120,rfc6121} with the Jingle extension.
+\gls{rtp} is also used extensively in conjunction with a lot of other protocol suites, including \gls{SDP}~\cite{rfc2327} and \gls{SAP}~\cite{rfc2974} for stream discovery or in realtime communication protocols such as \gls{SIP}~\cite{rfc3261} and \gls{XMPP}~\cite{rfc6120,rfc6121} with the Jingle extension.
 
-However, the requirement of several open \gls{UDP} sockets has issues with the presence of middleboxes, especially \gls{NAT} nodes, because of the difficulty to forward incoming \gls{UDP} packets to the destined host. This can be, sometimes though unreliably, circumvented by using \gls{NAT} traversal techniques like \gls{STUN} \cite{rfc5389} or \gls{ICE} \cite{rfc5245}.
-
-%\gls{WebRTC} ZRTP, Secure RTP
+However, the requirement of several open \gls{UDP} sockets has issues with the presence of middleboxes, especially \gls{NAT} nodes, because of the difficulty to forward incoming \gls{UDP} packets to the destined host. This can be circumvented by using \gls{NAT} traversal techniques like \gls{STUN}~\cite{rfc5389} or \gls{ICE}~\cite{rfc5245}, sometimes though unreliably.
 
 
 %%
 \subsubsection{\texorpdfstring{\acrshort{HTTP}}{HTTP} Streaming}
 
-When compared to \gls{rtp}, streaming based on \gls{HTTP} uses a much less intricate approach and only reuses existing protocols. HTTP/1.1 \cite{rfc2616} is the basis of the Web and is a request/response protocol mainly to retrieve and pull files from and to a remote location.\footnote{The original RFC has been obsoleted and replaced with a new set of specifications in June of 2014 and in preparation for HTTP/2. The specifications are: \cite{rfc7230,rfc7231,rfc7232,rfc7233,rfc7234,rfc7235,rfc7236,rfc7237,rfc7238,rfc7239}} The protocol is stateless for the server, any request is treated as standalone and will be responded to only with the provided metadata.\footnote{State can still be achieved through other paths, like cookies, but this is out of scope.} This holds true even when more than one request is sent over the same TCP connection, which can be done with persistent \gls{HTTP} connections. Additionally, requests can be sent over one connection without waiting for the answer of the previous request. This is called pipelining and can reduce the round-trip time delay between two consecutive requests.
+When compared to \gls{rtp}, streaming based on \gls{HTTP} uses a much less intricate approach and only reuses existing protocols. HTTP/1.1~\cite{rfc2616} is the basis of the Web and is a request/response protocol mainly to retrieve and pull files from and to a remote location.\footnote{The original RFC has been obsoleted and replaced with a new set of specifications in June of 2014 and in preparation for HTTP/2. The specifications are: \cite{rfc7230,rfc7231,rfc7232,rfc7233,rfc7234,rfc7235,rfc7236,rfc7237,rfc7238,rfc7239}} The protocol is stateless for the server, any request is treated as standalone and will be responded to only with the provided metadata.\footnote{State can still be achieved through other paths, like cookies, but this is out of scope.} This holds true even when more than one request is sent over the same \gls{TCP} connection, which can be done with persistent \gls{HTTP} connections. Additionally, requests can be sent over one connection without waiting for the answer of the previous request. This is called pipelining and can reduce the round-trip time delay between two consecutive requests.
 
 
-But \gls{HTTP} can also be easily exploited for media streaming. The file to be retrieved should of course contain video and all frames have to be stored sequentially. If there are separate streams present in file, most commonly at least video and audio, they must be interwoven.
-Necessary video metadata, which includes information on the codec and the streams, needs to be at the beginning of the file or at least before the position in the file where its needed. 
-Alternatively, streams can also be stored in separate files, potentially simplifying the file structure. However, this increases the complexity of synchronizing both streams at the video player.
+But \gls{HTTP} can also be easily exploited for media streaming. The file to be retrieved should of course contain video and all frames have to be stored sequentially. If there are separate streams present in file, most commonly at least video and audio, they must be interwoven. Necessary video metadata, which includes information on the codec and the streams, needs to be positioned at the beginning of the file or at least before the position in the file where its needed. Alternatively, streams can also be stored in separate files, potentially simplifying the file structure. However, this increases the complexity of synchronizing both streams at the video player.
 
 The actual streaming is controlled completely by the player application at the client. This player simply has to issue a \gls{HTTP} `GET'-request to a video file located at a Web server. The file can already be read during the transmission process and extracted video data will be put in the player's buffer. If there is enough video in the buffer, playback can be started. The complexity in this process comes from the need to keep track of the amount of video in the buffer and avoid to it run out at any point during playback. Approaches to this task will be explained in detail in Section~\ref{c3:sec:modeling}. \gls{HTTP} also allows so-called Range Requests, which allows to download only certain portions of a file, indicated by the Byte position. Streaming players can exploit this to enable skipping to certain positions. This again needs metadata to correctly infer the byte position in a file from the video playback position. Else, the Range Requests have to be guessed. 
 
@@ -180,6 +169,15 @@ Table~\ref{c3:tab:streamingclassification} attempts to summarize all the protoco
   \end{tabu}
 \end{table}
 
+
+%% reliable streaming
+	%Web-based video streaming in general
+	%Web, Flash, HTML5
+	%relevance for mobile and future Internet
+	%Drawbacks (no streaming, scaling, signaling, etc)
+	%Internet Load and Video delivery performing with load
+	%Example of YouTube
+	%applicable quality metrics (normal metrics don't apply, no video quality scaling, observable only initial buffering time, stalls during playback, number, length, frequency thereof)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
