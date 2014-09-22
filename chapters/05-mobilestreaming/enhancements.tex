@@ -72,7 +72,7 @@ These following three are examples of transport protocols each created with diff
 \item \gls{QUIC}\footnote{\url{http://lwn.net/Articles/558826/} and \url{http://www.ietf.org/proceedings/88/slides/slides-88-tsvarea-10.pdf}} is a further experimental approach aimed at reducing sources of latency spikes which would occur in \gls{TCP}, such as retransmissions or the initial handshake. Some reliability is achieved through \gls{FEC} schemes if desired. Furthermore, a novel congestion control mechanism based on packet pacing, not through a traditional congestion window, and encryption by default are implemented. However, it is not intended as a production protocol but is rather a testbed for future mechanisms and modifications to existing protocols.
 \end{itemize}
 
-In the wake of Edward Snowden's surveillance and man-in-the-middle reveals, uncovering programs such as \todo{citation needed} the \gls{IETF} announced its position on these issues in \gls{RFC}~6973~\cite{rfc6973} suggesting, that all future standardized protocols should consider surveillance issues and minimize or prevent any attempt. Ultimately, this might lead to a end-to-end \textit{crypto-by-default} Internet, with every protocol providing at least opportunistic encryption. The first signs are already visible in today's traffic mix, with many Websites only available through \acrshort{HTTPS} --- using \gls{TLS}~\cite{rfc5246} --- any more. Similarly most e-mail providers have moved to \acrshort{IMAPS} and \acrshort{SMTPS}, even using new authentication and key exchange techniques like \gls{DANE}~\cite{rfc6698} which in turn relies on \gls{DNSSEC}~\cite{rfc4033} to authenticate the validity of \gls{DNS} entries. For example, the current draft version of \gls{HTTP}/2 --- which will be described in more detail shortly --- mandates the presence, albeit not the usage, of \gls{TLS} capability in both client and server. And even the connectionless \gls{UDP} can be secured using \gls{DTLS}~\cite{rfc6347}.
+In the wake of Edward Snowden's surveillance and man-in-the-middle reveals, uncovering programs such as \todo{citation needed} the \gls{IETF} announced its position on these issues in \cite{rfc6973} suggesting, that all future standardized protocols should consider surveillance issues and minimize or prevent any attempt. Ultimately, this might lead to a end-to-end \textit{crypto-by-default} Internet, with every protocol providing at least opportunistic encryption. The first signs are already visible in today's traffic mix, with many Websites only available through \acrshort{HTTPS} --- using \gls{TLS}~\cite{rfc5246} --- any more. Similarly most e-mail providers have moved to \acrshort{IMAPS} and \acrshort{SMTPS}, even using new authentication and key exchange techniques like \gls{DANE}~\cite{rfc6698} which in turn relies on \gls{DNSSEC}~\cite{rfc4033} to authenticate the validity of \gls{DNS} entries. For example, the current draft version of \gls{HTTP}/2 --- which will be described in more detail shortly --- mandates the presence, albeit not the usage, of \gls{TLS} capability in both client and server. And even the connectionless \gls{UDP} can be secured using \gls{DTLS}~\cite{rfc6347}.
 
 Usually, an additional intermediate layer is added through the encryption process, adding more timing interdependencies to the other layers. However, end-to-end encryption also diminishes the influence of most middleboxes as they are not able to alter the contents of the --- now encrypted --- segment any more.
 
@@ -106,7 +106,7 @@ In fact, Netflix, one of the largest commercial video streaming providers, alrea
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Additional TCP Changes}
 
-In addition to the previously described new transport protocols under development aiming to replace and surpass \gls{TCP}, \gls{TCP} itself is not as static as it may seem. While the basic wire frame and data interchange format has already been defined in 1981 in RFC~793~\cite{rfc793}, much of the specific behavior is free to be experimented with by further specifications and implementations. The most prominent example is the congestion control mechanism where every operating system takes hugely different approaches.
+In addition to the previously described new transport protocols under development aiming to replace and surpass \gls{TCP}, \gls{TCP} itself is not as static as it may seem. While the basic wire frame and data interchange format has already been defined in 1981 in \cite{rfc793}, much of the specific behavior is free to be experimented with by further specifications and implementations. The most prominent example is the congestion control mechanism where every operating system takes hugely different approaches.
 
 
 \begin{table}[htbp]
@@ -117,28 +117,28 @@ In addition to the previously described new transport protocols under developmen
 	BIC as default congestion avoidance algorithm (from Reno) & & 2.6.8 & August 2004 \\
 	CUBIC as default congestion avoidance algorithm & \cite{ha2008cubic} & 2.6.19 & November 2006 \\
 	New TCP Slow Start: HyStart & \cite{Ha20112092} & 2.6.29 & March 2009 \\
-	Multipath TCP & RFC6824 & external & 2011 \\
-	TCP User Timeout & RFC5482~\cite{rfc5482} & 2.6.37 & January 2011 \\
+	Multipath TCP & \cite{rfc6824} & external & 2011 \\
+	TCP User Timeout & \cite{rfc5482} & 2.6.37 & January 2011 \\
 	Initial Receive Window \SI{10}{MSS} & \cite{rfc6928} & 2.6.38 & March 2011 \\
-	Initial Congestion Window \SI{10}{MSS} & RFC6928~\cite{rfc6928} & 2.6.39 & May 2011 \\
-	\SI{1}{\second} initial RTO (from \SI{3}{\second}) & RFC6298 & 3.1 & October 2011 \\
-	Changes to sstresh and CWND bevahior & RFC5681~\cite{rfc5681} & 3.1 & October 2011 \\ % details: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=9ad7c049f0f79c418e293b1b68cf10d68f54fcdb
-	TCP Proportional Rate Reduction & RFC6937~\cite{rfc6937} & 3.2 & January 2012 \\
+	Initial Congestion Window \SI{10}{MSS} & \cite{rfc6928} & 2.6.39 & May 2011 \\
+	\SI{1}{\second} initial RTO (from \SI{3}{\second}) & \cite{rfc6298} & 3.1 & October 2011 \\
+	Changes to sstresh and CWND bevahior & \cite{rfc5681} & 3.1 & October 2011 \\ % details: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=9ad7c049f0f79c418e293b1b68cf10d68f54fcdb
+	TCP Proportional Rate Reduction & \cite{rfc6937} & 3.2 & January 2012 \\
 	Byte queue limits and TCP buffer limits &  & 3.3 & March 2012 \\ % https://lwn.net/Articles/454390/
 	CoDel AQM & \cite{nichols2014codel} & 3.5 & July 2012 \\
-	TCP Early Retransmit & RFC5827~\cite{rfc5827} & 3.5 & July 2012 \\
+	TCP Early Retransmit & \cite{rfc5827} & 3.5 & July 2012 \\
 	TCP small queues & & 3.6 & September 2012 \\ %http://lwn.net/Articles/507065/
 	TCP Fast Open (client side) & \cite{cheng2014tcptfo} & 3.6 & September 2012 \\
 	TCP Fast Open (server side) & & 3.7 & December 2012 \\
 	TCP tail loss probe & & 3.10 & June 2013 \\ % http://tools.ietf.org/html/draft-dukkipati-tcpm-tcp-loss-probe-01
-	TCP Forward RTO-Recovery & RFC5682~\cite{rfc5682} & 3.10 & June 2013 \\
+	TCP Forward RTO-Recovery & \cite{rfc5682} & 3.10 & June 2013 \\
 	Low latency network polling & & 3.11 & September 2013 \\ %http://lwn.net/Articles/551284/ and http://www.linuxplumbersconf.org/2012/wp-content/uploads/2012/09/2012-lpc-Low-Latency-Sockets-slides-brandeburg.pdf
 	Improved RTO calculation and handling of reordering & & 3.12 & November 2013 \\ % https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=0f7cc9a3c2bd89b15720dbf358e9b9e62af27126 and https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=ed08495c31bb991de636d2488abaa50b39f2ff4a
 	TCP Fast Open enabled by default & & 3.13 & January 2014 \\
 	TCP auto corking & & 3.14 & March 2014 \\ % https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=f54b311142a92ea2e42598e347b84e1655caf8e3
 	PIE AQM & & 3.14 & March 2014 \\ % http://tools.ietf.org/html/draft-pan-aqm-pie-01 and https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=d4b36210c2e6ecef0ce52fb6c18c51144f5c2d88
 	TCP Fast Open over IPv6 & & 3.16 & 2014 \\
-	LISP & RFC6830~\cite{rfc6830} & 3.16 & 2014 \\
+	LISP & \cite{rfc6830} & 3.16 & 2014 \\
 	\bottomrule
 	\end{tabu}
 	\caption{Assorted list of some select network stack changes in the Linux kernel, that alter \gls{TCP}'s transmission bevahior.}
