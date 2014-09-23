@@ -3,57 +3,57 @@
 \section{Measurements}
 \label{c3:sec:measurements}
 
-With these playback models at hand, this section demonstrates how to conduct actual evaluations of reliable streaming protocols with it.
+With the buffer-based playback model and strategies at hand, this section demonstrates how to conduct actual evaluations of reliable streaming protocols with it.
 
 As discussed, there are numerous incarnations of reliable streaming protocols in use. Almost all of them follow the same basic approach but with slight variations in execution and choice of playback strategies and corresponding parameters. But it is exactly these choices that can have a large impact on the streaming process and resulting quality. 
 
-The problem lies in comparing these protocols to each other. Each of them is usually tied to a specific --- and most often proprietary closed source --- streaming player. Setting up all these players in one testbed is a huge effort and requires very specific software environments to be used on the client machines. Moreover, these players are built with user interaction and not automation and directly measuring the outcome in mind. This can still be achieved through extensive workarounds, but must be tailored to every player application. The presented approach avoids this hassle and provides a concise way to test any conceivable playback strategy in one single test setup.
+The problem lies in comparing these protocols to each other. Each of them is usually tied to a specific --- and most often proprietary closed source --- streaming player. Setting up all these players in one testbed is a huge effort and requires very specific software environments to be used on the client computers. Moreover, these players are built with user interaction and not automation in mind, hampering efforts of directly measuring the outcome. This can still be achieved through extensive workarounds, but those must be tailored to every individual player application. 
+
+The approach presented here avoids this hassle and provides a concise way to test any conceivable playback strategy in one single test setup.
 
 
 %%
 \subsection{Progressive Streaming Measurement Framework}
 
-To enable quick evaluations for progressive streaming the framework follows a two phase approach, separating the active online recording phase from the passive playback emulation. Recording data is very time intensive and cannot be sped up when conducting investigation of a real world process, and not relying on simulated data. It still replicates the steps a user would perform to consume a media stream on a playback device. Through appropriate configuration different scenarios can be modeled, e.g. network conditions, behavior and specifics of the user device.
+To enable quick evaluations for reliable streaming the framework follows a two-phase approach, separating the active online recording phase from the passive playback emulation. Recording network data is very time intensive and cannot be sped up when conducting an investigation of a real world process, and not relying on simulated data. The framework still replicates the steps a user would perform to consume a media stream on a playback device, but simply separates them. Through appropriate configuration different scenarios can be modeled, e.g., network conditions, behavior and specifics of the user device.
  
 \begin{figure}[htb]
-    \includegraphics[width=1.0\textwidth]{images/measurement-model.pdf}
-    \caption{Measurement framework for progressive streaming playback strategies overview.}
-    \label{c3:fig:framework}
+	\includegraphics[width=1.0\textwidth]{images/measurement-model.pdf}
+	\caption{Measurement framework for progressive streaming playback strategies overview.}
+\label{c3:fig:framework}
 \end{figure}
 
-Figure \ref{c3:fig:framework} depicts the framework for a streaming evaluation testbed. In phase one the stream's transmission is conducted and recorded on a per-packet level. Stream data is transmitted to the client from a server which can be any actual streaming service on the Internet or a local server under the testbed's control, eliminating undesired side effects caused by the Internet connection. 
+Figure~\ref{c3:fig:framework} depicts the usage of the framework for a streaming evaluation testbed. In phase one the actual transmission of the stream is conducted and recorded as a packet level network trace. These traces should at least consist of the size and timestamp of every incoming packet.
 
-The traffic is directed through a network emulation node capable of altering the network \gls{QoS} parameters, i.e. latency, jitter, and packet loss. The parameters can be set according to stochastic models derived from actual network architectures. Instead of network emulation, any preexisting architecture can also be placed here to achieve more accurate results for the intended target. This is especially helpful for complex infrastructures hard to model or with no good and concise models available yet, for example mobile and mobile core networks with the influence of encapsulating traffic into bearers.
+Stream data is transmitted to the client from a server which can be any actual streaming service on the Internet or a local server under the testbed's control, eliminating undesired side effects caused by the Internet connection. The traffic is further directed through a network emulation node capable of altering the network \gls{QoS} parameters, i.e., latency, jitter, and packet loss. The parameters can be set according to stochastic models derived from actual network architectures. 
 
-The measurement host downloads and records the video stream as a network trace. For progressive \gls{HTTP} streaming, a single request on the video file is issued and the \gls{TCP} connection maintained until the file has fully arrived.
-This process is recorded as basis for the second phase. These traces should consist of the size and timestamp of every incoming packet. More detailed traces can be used to scrutinize other layers of the connection, e.g. the dynamics of TCP receive window size. Additionally the received file is decoded yielding a trace of all video frame sizes and playout timestamps.
+Instead of network emulation, any preexisting architecture can also be placed here to achieve more accurate results for the intended target. This is especially helpful for complex infrastructures hard to model or with no good and concise models available yet. Of special note for this work are mobile networks, which encapsulate the user traffic into tunnels and exhibit complex control plane interactions, that can influence the streaming process. This will be discussed in more detail further on.
 
-In the second pass, these two traces are then used to feed the actual reliable streaming playback model described before. This conducted by a closed-loop emulation process calculating the current buffer fill level based on the collected transmission and video frame traces for every point in time. 
+Additionally the received video file is decoded yielding a trace of all video frame sizes and playback timestamps. All data gained in the process is stored as basis for the second phase. More detailed traces can additionally be used to scrutinize other layers of the connection, e.g., the dynamics of \gls{TCP} receive window size. 
 
-All of the progressive streaming --- i.e. non-adaptive --- strategies can be tested on the same trace set.
-In simple \gls{HTTP} streaming, the transmission is not controlled by the streaming application and no rate control is conducted. Therefore, recording the packet trace and simulating playback are completely decoupled, as the latter cannot influence the former.  This enables fast and efficient comparison of non-feedback protocols subject to the same network conditions.
+In the second pass, both the network as well as the video data are then used to feed the actual reliable streaming playback model described before. This conducted by a closed-loop emulation process calculating the current buffer fill level based on the collected transmission and video frame traces for every point in time. 
+
+All of the non-adaptive reliable streaming strategies can be tested on the same trace set. In simple \gls{HTTP} streaming, the transmission is not controlled by the streaming application and no rate control is conducted. Therefore, recording the packet trace and simulating playback are completely decoupled, as the latter cannot influence the former. This enables fast and efficient comparison of non-feedback protocols subject to the same network conditions.
 
 The emulator then generates playback stalling statistics, specifically their number and duration, to compare the effect of the different strategies on the same trace. With these results, parameter settings for playback strategies can also be iteratively tested and improved leading to an empirical calibration of playback strategies instead of relying on best practices.
 
-One of the drawbacks of this model-based emulation approach is of course the reliance on suitable models and playback strategies for the stream protocols under scrutiny. Obtaining these from proprietary streaming clients, can be a difficult reverse-engineering process.
+One of the drawbacks of this model-based emulation approach is of course the reliance on suitable models and playback strategies for the stream protocols under scrutiny. Obtaining these from proprietary closed source streaming clients can be a difficult and time consuming reverse-engineering process.
 
 
 %%
 \subsection{Adaptive Streaming Measurement Framework}
 
-Up to this point, the measurement framework is only suitable for progressive streaming omitting any adaptive strategy. This second framework modifies this and additionally allows for the testing of adaptive playback strategies. However, to achieve this, the advantageous two phase setup cannot be employed anymore.
+Up to this point, the measurement framework is only suitable for simple reliable streaming strategies but omits any adaptive strategy. This second iteration of the framework modifies the base framework and allows for the testing of adaptive playback strategies. However, to achieve this, the advantageous two-phase setup cannot be employed anymore.
 
 \begin{figure}[htb]
-    \includegraphics[width=1.0\textwidth]{images/feedback-measurement-model.pdf}
-    \caption{Measurement framework for adaptive streaming playback strategies overview.}
-    \label{c3:fig:framework-feedback}
+	\includegraphics[width=1.0\textwidth]{images/feedback-measurement-model.pdf}
+	\caption{Measurement framework for adaptive streaming playback strategies overview.}
+\label{c3:fig:framework-feedback}
 \end{figure}
 
 Figure~\ref{c3:fig:framework-feedback} shows the adapted framework. The playback emulation process is now directly fed with the stream transmission without recording it first. The emulation is now an online process and has to be conducted in realtime. This enables the emulator to react on the current streaming state and request an alteration from the server. The adaptation spectrum ranges from the timing of stream segment retrieval to the chosen quality level of future segments. 
 
-While allow for a wider range of playback strategies, this approach is also inherently slower as it does not allow a speed-up beyond realtime, limiting its usability somewhat. Therefore, a transition to a full simulative approach is suggested. This is path is further explored and discussed in Section~\ref{c6:sec:mobilestreamingtestbed}.
-
-\todo{check simulation approach ref or further explain simulation}
+While allowing for a wider range of playback strategies, this approach is also inherently slower as it does not allow a speed-up beyond realtime, limiting its usability somewhat. Therefore, a transition to a full simulative approach is suggested. This is path is further explored and discussed in Section~\ref{c6:sec:mobilestreamingtestbed}.
 
 
 %%
@@ -61,11 +61,11 @@ While allow for a wider range of playback strategies, this approach is also inhe
 
 To conduct measurements, the described two phase progressive streaming measurement framework was implemented in a testbed. This testbed consists of three interconnected physical nodes running Linux. 
 
-The optional streaming server houses an Apache httpd\footnote{\url{https://httpd.apache.org/}} Web server, hosting the files that are to be streamed. Alternatively, Internet streaming service traffic can also be directly routed through the network emulation node.
+The optional streaming server houses an Apache httpd Web server\footnote{\url{https://httpd.apache.org/}}, hosting the files that are to be streamed. Alternatively, traffic from any viable Internet streaming service can also be directly routed through the network emulation node.
 
-The network emulation node uses the existing \gls{QoS} capabilities of the Linux kernel, dubbed NetEm \cite{hemminger2005network}, to add latency and packet loss to the transmission as well as to act as a bandwidth bottleneck. The additional delay is set deterministically, the loss follows a uniform distribution without any correlation in the transmission.
+The network emulation node uses the existing \gls{QoS} capabilities of the Linux kernel, dubbed NetEm~\cite{hemminger2005network}, to add latency and packet loss to the transmission as well as to act as a bandwidth bottleneck. The additional delay is set deterministically, the loss follows a uniform distribution without any correlation in the transmission.
 
-To both retrieve the streaming file and record the transmission process at the client, curl\footnote{\url{http://curl.haxx.se/}} is used. If so desired, tcpdump\footnote{\url{http://www.tcpdump.org/}} can also be facilitated to achieve a higher recording precision. The video file is then parsed for its frames and sizes using mplayer\footnote{\url{http://www.mplayerhq.hu/}} with libav\footnote{\url{https://libav.org/}}. The traces are then put into the actual playback emulation, implemented by custom Python-based code and statistically evaluated with Python as well as R.
+To both retrieve the streaming file and record the transmission process at the client, curl\footnote{\url{http://curl.haxx.se/}} is used. If so desired, tcpdump\footnote{\url{http://www.tcpdump.org/}} can also be facilitated to achieve a higher recording precision. The video file is then parsed for its frames and sizes using mplayer\footnote{\url{http://www.mplayerhq.hu/}} with FFmpeg\footnote{\url{https://www.ffmpeg.org/}}. The traces are then put into the actual playback emulation, implemented by custom Python-based code and statistically evaluated with Python as well as R. The code can be found...
 
 
 
