@@ -59,101 +59,105 @@ While allowing for a wider range of playback strategies, this approach is also i
 %%
 \subsection{Technical Implementation}
 
-To conduct measurements, the described two phase progressive streaming measurement framework was implemented in a testbed. This testbed consists of three interconnected physical nodes running Linux. 
+To conduct actual measurements, the described two phase progressive streaming measurement framework has been implemented as a network testbed. The three individual components of the framework in Figure~\ref{c3:fig:framework} are represented by three interconnected physical nodes running Linux. 
 
-The optional streaming server houses an Apache httpd Web server\footnote{\url{https://httpd.apache.org/}}, hosting the files that are to be streamed. Alternatively, traffic from any viable Internet streaming service can also be directly routed through the network emulation node.
+The streaming server houses an Apache httpd Web server\footnote{\url{https://httpd.apache.org/}}, hosting the files that are to be streamed. Alternatively, traffic from any viable Internet streaming service can also be directly routed through the network emulation node, making the local streaming server superfluous.
 
-The network emulation node uses the existing \gls{QoS} capabilities of the Linux kernel, dubbed NetEm~\cite{hemminger2005network}, to add latency and packet loss to the transmission as well as to act as a bandwidth bottleneck. The additional delay is set deterministically, the loss follows a uniform distribution without any correlation in the transmission.
+The network emulation node uses existing \gls{QoS} capabilities of the Linux kernel, dubbed NetEm~\cite{hemminger2005network}, to add latency and packet loss to the transmission as well as to act as a bandwidth bottleneck. The additional delay will be set deterministically for the following experiments. The loss follows a uniform distribution without any correlation in the transmission.
 
-To both retrieve the streaming file and record the transmission process at the client, curl\footnote{\url{http://curl.haxx.se/}} is used. If so desired, tcpdump\footnote{\url{http://www.tcpdump.org/}} can also be facilitated to achieve a higher recording precision. The video file is then parsed for its frames and sizes using mplayer\footnote{\url{http://www.mplayerhq.hu/}} with FFmpeg\footnote{\url{https://www.ffmpeg.org/}}. The traces are then put into the actual playback emulation, implemented by custom Python-based code and statistically evaluated with Python as well as R. The code can be found...
+Curl\footnote{\url{http://curl.haxx.se/}} is used to both retrieve the streaming file and record the transmission process at the client node. If so desired, tcpdump\footnote{\url{http://www.tcpdump.org/}} can also be facilitated to achieve a higher recording precision. The video file is then parsed for its frames and sizes using mplayer\footnote{\url{http://www.mplayerhq.hu/}} with FFmpeg\footnote{\url{https://www.ffmpeg.org/}}. 
 
+The traces are then put into the actual playback emulation, which can be run on any computer. It is implemented by custom Python-based code and statistically evaluated with Python\footnote{The emulation code is publicly available at \url{https://github.com/fmetzger/thesis-bufferemulation}.} as well as R.
 
 
 %%
 \subsection{Measurement Series and Evaluations with the Framework}
 
-This implementation has been used to conduct a comparative study of two theoretical and two real world playback strategies. They are tested for their susceptibility to worsening network \gls{QoS}, latency and loss in this case. The evaluated strategies are the described YouTube and Firefox strategies as well as the null strategy and the predictive strategy with perfect knowledge and just the initial stalling period.
-
-The video used in the experiment was streamed from the YouTube web site providing a realistic foundation for the experiments. This also enables a server side pacing mechanism adjusted to the video bitrate for free.
-Details on the video used in the experiment are available in Table~\ref{c3:tbl:videoparams}. Two measurement series are performed with this video, both only differ in the network emulator setting. The first series increasingly adds packet loss to the stream, with the second series altering the packet delay. In both scenarios, the link bandwidth was limited to a typical dialup value of \SI{16}{\mega\bit\per\second} in the downlink direction and \SI{1}{\mega\bit\per\second} up.
-
-It can be stated, that all playback strategies will generally work very similar under good network conditions as long as the \gls{TCP} goodput, i.e. the rate the payload is transported by \gls{TCP}, is higher than the video bitrate. With sufficient goodput video streams will start with almost no delay or intermediate buffering. 
-If, however, the achievable \gls{TCP} goodput is close to the average video bitrate, the buffer can be quickly drained by short deviations from the average transmission and video bit rates. The \gls{TCP} goodput can be limited by high latency and loss. Many \gls{TCP} congestion control algorithms depend on the round trip time. If the \gls{RTT} is high, the congestion window will increase much slower. High latency triggers \gls{TCP} timeouts and retransmissions, and in turn decrease the congestion window reducing the goodput. Packet loss affects \gls{TCP} goodput even more. A lost packet results in duplicate acknowledgments followed by retransmissions and a decrease of the congestion window. The problem is worsened if the acknowledgments are also lost. The connection could stalls on missing old segments without which the playback cannot proceed. In addition to the reduction of goodput this results in a delay burst and high jitter for the streaming application.
-
+This testbed has been used to conduct a comparative study of two theoretical and two real world playback strategies. They are tested for their susceptibility to worsening network \gls{QoS}, specifically latency and loss. The evaluated strategies are the described YouTube and Firefox strategies as well as the null strategy and the predictive strategy with perfect knowledge and just the initial stalling period.
 
 \begin{table}[htbp]
-    \centering
-    \caption{Test Video Parameters}
-    \label{c3:tbl:videoparams}
-    \begin{tabu}{X[l]X[r]}
-        \toprule
-        \textbf{Parameter} & \textbf{Value} \\
-        \midrule
-        Video Duration  & \SI{92.536}{\second}\\
-        Size & \SI{9.61}{\mebi\byte} \\
-        Frame rate & \SI{23.976}{\per\second} \\
-        Average Video Bitrate & \SI{871}{\kilo\bit\per\second} \\
-        Codecs & AVC+AAC \\
-        \bottomrule
-    \end{tabu}
+\centering
+\caption{Test Video Parameters}
+\label{c3:tbl:videoparams}
+	\begin{tabu}{X[l]X[r]}
+		\toprule
+		\textbf{Parameter} & \textbf{Value} \\
+		\midrule
+		Video duration  & \SI{92.5}{\second}\\
+		Size & \SI{9.61}{\mebi\byte} \\
+		Frame rate & \SI{23.976}{\per\second} \\
+		Average video bitrate & \SI{871}{\kilo\bit\per\second} \\
+		Codec & \acrshort{AVC} \\
+		\bottomrule
+	\end{tabu}
 \end{table}
 
+The video used in the experiment was streamed from the YouTube web site providing a realistic foundation for the experiments. This also enables a server side pacing mechanism adjusted to the video bitrate for free. Details on the video used in the experiment are available in Table~\ref{c3:tbl:videoparams}. 
 
-%% latency
-In the latency measurement series, the emulator delays forwarding the packets for a constant amount of time. The latency was increased in \SI{100}{\milli\second} steps, up to a total of \SI{5000}{\milli\second}. The added latency is split up evenly between the uplink and the downlink.
+Two measurement series are performed with this video, both only differ in the network emulator settings. The first series increasingly adds packet loss to the stream, with the second series altering the packet delay. In both scenarios, the link bandwidth was limited to a typical \gls{DSL} value of \SI{16}{\mega\bit\per\second} in the downlink direction and \SI{1}{\mega\bit\per\second} up.
+
+It can be stated, that all playback strategies will generally work similarly well under good network conditions as long as the \gls{TCP} ``goodput'', i.e., the rate the payload is transported by \gls{TCP}, is higher than the video bitrate. With sufficient goodput video streams will start with almost no delay or intermediate buffering. 
+
+However, if the achievable throughput is close to the average video bitrate, the buffer can be quickly drained by short deviations from the average rates. High latency and loss are the typical limiting factors for \gls{TCP} as many congestion control algorithms depend on the round trip time. If the \gls{RTT} is high, the congestion window will increase much slower. High latency can also trigger  timeouts and retransmissions, which in turn decrease the congestion window again. 
+
+Packet loss can affect \gls{TCP} goodput even more. A lost packet results in duplicate acknowledgments followed by retransmissions and a decrease of the congestion window. The problem is worsened if the acknowledgments are also lost. The connection could stall on missing old segments without which the playback cannot proceed. In addition to the reduction of goodput this results in a delay burst and high jitter for the streaming application.
+
+
+%%
+\subsubsection{Latency Measurement Series}
+
+In the latency measurement series, the emulator delays forwarding the packets for a constant amount of time. The latency was increased in \SI{100}{\milli\second} steps, up to a total of \SI{5000}{\milli\second}. The added latency is split up evenly between the uplink and the downlink. Each individual experiment was also replicated five times and corresponding error bars are provided in each figure.
 
 \begin{figure}[htb]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
-    \caption{Stalling duration in relation to transmission latency with local polynomial least-squares fit.}
-    \label{c3:fig:eval-latency-stallingtime}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
+	\caption{Stalling duration in relation to transmission latency with local polynomial least-squares fit.}
+\label{c3:fig:eval-latency-stallingtime}
 \end{figure}
-
 
 Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the added latency and the stalling duration of the playback strategies. The stalling time increases as expected with the additional latency, but Firefox's strategy seems to have slight edge during high latency. Overall, the stalling duration quickly reaches a length comparable to the actual video duration and even surpassing that. Someone watching a stream under this condition might find this not acceptable any longer.
-% Both the predictive and the null strategy provide the best possible result in terms of pure stalling time. This was already theoretically explored during the strategy's introduction. <-- not true, why?
-
 
 \begin{figure}[htb]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
-    \caption{Number of stalls in relation to transmission latency with local polynomial least-squares fit.}
-    \label{c3:fig:eval-latency-numstalls}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
+	\caption{Number of stalls in relation to transmission latency with local polynomial least-squares fit.}
+\label{c3:fig:eval-latency-numstalls}
 \end{figure}
 
-Figure \ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling events occurring during the playback with the null strategy at the high end and the predictive strategy just showing the expected single stall before playback start. %But both YouTube and Firefox are not much worse compared to the predictive strategy, running in just a few buffering events of increasing duration with rising latency. 
-%YouTube stalling time is usually lower than with Firefox, at the cost of slightly more buffering events, which could be attributed to its optimistic threshold choice, which still seems to work at the tested latency levels.
+Figure \ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling events occurring during the playback with the null strategy at the high end and the predictive strategy just showing the expected single stall before playback start.
 
-Overall, it can be said, that in this specific latency scenario the real world playback strategies seem to honor the fact that more video interruption lead to a worse experience than fewer but longer ones.  Through mobility and handovers, mobile devices experience short bursts of latency of several seconds fairly common. According to the measurement series, the resulting stalling behavior could still very well be bearable for streaming users.
+Overall, it can be said, that in this specific latency scenario the real world playback strategies seem to honor the fact that more video interruption lead to a worse experience than fewer but longer stalling events. Through mobility and handovers, mobile devices fairly commonly experience short bursts of latency of several seconds. According to the measurement series, the resulting stalling behavior could still very well be bearable for streaming users.
 
-In the loss measurement series, uncorrelated and uniformly distributed loss was added in both the uplink and the downlink direction. The loss was incrementally increased in \SI{2}{\percent} steps up to a total additional loss of \SI{12.5}{\percent}. About \SI{4}{\percent} of the individual experiments did not finish correctly, and the video was not completely transmitted. This was caused by the \gls{TCP} stack, which at some point terminated the connection after to many packets were lost back to back, and curl giving up after several retries. This unpredictability and failure rate also leads to the high variability seen in the results of the loss measurement series. Nonetheless, a certain trend can still be derived from the results.
+
+%%
+\subsubsection{Loss Measurement Series}
+
+In the loss measurement series, uncorrelated and uniformly distributed loss was added in both the uplink and the downlink direction. The loss was incrementally increased in \SI{0.5}{\percent} steps up to a total additional loss of \SI{12.5}{\percent}. About \SI{4}{\percent} of the individual experiments did not finish correctly, and the video was not completely transmitted. This was caused by the \gls{TCP} stack, which at some point terminated the connection after to many packets were lost back to back, and curl giving up after several retries. This unpredictability and failure rate also leads to the high variability seen in the results of the loss measurement series. Nonetheless, a certain trend can still be derived from the results. Again, five experiments for each entry with corresponding error bars are conducted.
 
 
 \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallduration-loss.pdf}
-    \caption{Stalling duration in relation to packet loss with local polynomial least-squares fit.}
-    \label{c3:fig:eval-loss-stallingtime}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallduration-loss.pdf}
+	\caption{Stalling duration in relation to packet loss with local polynomial least-squares fit.}
+\label{c3:fig:eval-loss-stallingtime}
 \end{figure}
 
+Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling duration in the packet loss measurement series. Loss of up to about \SI{2.5}{\percent} seems to have no discernible impact on the streaming process. Anything beyond this point sees a large increase in the stalling duration. With a relative stalling duration of almost four times the actual video length at \SI{12.5}{\percent} packet loss any streaming attempt is practically rendered unusable. 
 
-Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling duration in the packet loss measurement series. Loss of up to\SI{4}{\percent} seems to have no discernible impact on the streaming process. Anything beyond this point sees a large increase in the stalling duration. With a relative stalling duration of almost four times the actual video length at \SI{12}{\percent} packet loss any streaming attempt is practically rendered unusable. This behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission takes time and leads to a bursty increase in latency offering a possible reason of the increased stalling time.
-
+This behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission takes time and leads to a bursty increase in latency offering a possible reason of the increased stalling time. Generally, high values of packet loss are less likely to occur than high latency in real networks. Therefore, it can be expected than playback strategies are better optimized for scenarios with high latency than loss.
 
 \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
-    \caption{Number of playback stalls in relation to packet loss with local polynomial least-squares fit.}
-    \label{c3:fig:eval-loss-numstalls}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
+	\caption{Number of playback stalls in relation to packet loss with local polynomial least-squares fit.}
+\label{c3:fig:eval-loss-numstalls}
 \end{figure}
 
 
-Figure~\ref{c3:fig:eval-loss-numstalls} shows the extremity of the null strategy in terms of the number of experienced stalls compared to other strategies reaching a number two orders of magnitude larger than any other model. 
+Figure~\ref{c3:fig:eval-loss-numstalls} shows the extremity of the null strategy in terms of the number of experienced stalls. Values two orders of magnitude larger when compared to the other strategies are reached. The number of stalling events of the three other strategies remain relatively low. Therefore, in the packet loss scenario the limiting factor typically seems to be the duration of the stalling events but not their number, with the exception of the null strategy.
 
 
-As a result, when planning a network for streaming applications, the maximum loss should be kept below the \SI{4}{\percent} mark to achieve reasonable streaming quality. 
-
-\todo{expand loss section a bit more}
+All in all, when planning a network for streaming applications, the maximum loss should be kept below the \SI{2.5}{\percent} mark to achieve reasonable streaming quality. All the existing strategies already seem to work rather well for typically experienced network \gls{QoS} scenarios. Only when extraordinarily bad conditions are reached, the strategies break down. But this is not different to many other network applications, which work best with pristine \gls{QoS}.
 
 
 %% original python plots
