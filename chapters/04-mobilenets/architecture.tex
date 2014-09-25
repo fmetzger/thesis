@@ -34,7 +34,7 @@ On layer 3, the actual radio control plane signaling protocol \gls{RRC}~\cite{3g
 
 Each base station acts as an independent radio cell. Mobile devices can be seamlessly handed over between cells without higher layers being able to notice this.\footnote{However, there are still many ways to detect a handover in the upper layers of a mobile device.} The handover process is fully controlled and conducted by the network through a node that shares the old and new path to the device. For \gls{UMTS}, in most cases this can be handled by the \gls{RNC} while the core \gls{SGSN} is responsible for handovers between larger regions.
 
-In \gls{UMTS} multiple Node B are concentrated into one \gls{RNC}. Most of the functions of a \gls{RNC}, including \gls{MM}, are defined by the \gls{RANAP} control plane protocol defined in \cite{3gpp.25.413}. \gls{RANAP} is used at the Iu interface between the \gls{RNC} and the core network, i.e., the \gls{SGSN}. Today all non-radio links of the network are \gls{IP}-based, but in the past all interfaces have also been explicitly defined for \gls{ATM} and exhibited some differences to their \gls{IP}-based counterparts. The connection of the decentralized parts of the radio network to either the core network itself or a \gls{RNC} is called \textit{backhaul}. This term usually subsumes the bulk transport of data over dedicated links to a central location. Often, optical fiber or microwave transmission links are used.
+In \gls{UMTS} multiple Node B are concentrated into one \gls{RNC}. Most of the functions of a \gls{RNC}, including \gls{MM}, are defined by the \gls{RANAP} control plane protocol defined in \cite{3gpp.25.413}. \gls{RANAP} is used at the Iu interface between the \gls{RNC} and the core network, i.e., the \gls{SGSN}. Today, all non-radio links of the network are usually \gls{IP}-based. But in the past all interfaces have also been explicitly defined for \gls{ATM} and exhibited some differences to their \gls{IP}-based counterparts. The connection of the decentralized parts of the radio network to either the core network itself or a \gls{RNC} is called \textit{backhaul}. This term usually subsumes the bulk transport of data over dedicated links to a central location. Often, optical fiber or microwave transmission links are used.
 
 
 %%
@@ -42,19 +42,19 @@ In \gls{UMTS} multiple Node B are concentrated into one \gls{RNC}. Most of the f
 
 The \gls{PS} domain of a mobile core network manages most of the aspects of the connected devices and acts as the bridge and gateway to the Internet. It consists of nodes that are directly in the path of the user plane traffic as well as additional nodes, that only exist in the control plane.
 
-\gls{GPRS} and \gls{UMTS} use the exact same \gls{PS} core network architecture, only \gls{LTE} introduced a new core network concept, the \gls{EPC}. If one core has to simultaneously provide support for both \gls{UMTS} and \gls{LTE} access, core nodes have for both architectures have to be present. The exception are some \gls{EPC} nodes that provide legacy interfaces to their \gls{UMTS} predecessors.
+\gls{GPRS} and \gls{UMTS} use the exact same \gls{PS} core network architecture. Only \gls{LTE} introduced a new core network concept, the \gls{EPC}. If one core has to simultaneously provide support for both \gls{UMTS} and \gls{LTE} access, core nodes for both architectures have to be present. The exception are some \gls{EPC} nodes that provide legacy interfaces to supplant their \gls{UMTS} predecessors.
 
-The two central elements in the user plane's path are the \gls{SGSN} and the \gls{GGSN}~\cite{3gpp.22.060,3gpp.23.060}. The \gls{SGSN} is the endpoint of the \gls{RAB}, tunneling user traffic from the \gls{UE} to the core, and an endpoint for the \gls{gtp} based core tunnel, further transporting user plane traffic to the \gls{GGSN}. \Gls{gtp} will be described in detail in Section~\ref{c4:sec:gtp}. The \gls{GGSN}'s control plane tasks include mobility and connection management via \gls{RANAP} to the \gls{RNC}. The necessary information is cached and retrieved from the \gls{HLR}  using \gls{MAP}~\cite{3gpp.29.002}. The \gls{HLR} or, respectively, the \gls{HSS} in an \gls{EPC}, acts as the central storage of all the operator's subscriber information.
+The two central elements in the user plane's path are the \gls{SGSN} and the \gls{GGSN}~\cite{3gpp.22.060,3gpp.23.060}. The \gls{SGSN} is the endpoint of the \gls{RAB}, tunneling user traffic from the \gls{UE} to the core, and an endpoint for the \gls{gtp} based core tunnel, further transporting user plane traffic to the \gls{GGSN}. \Gls{gtp} will be described in detail in Section~\ref{c4:sec:gtp}. The \gls{GGSN}'s control plane tasks include mobility and connection management via \gls{RANAP} to the \gls{RNC}. The necessary information is cached and retrieved from the \gls{HLR} using \gls{MAP}~\cite{3gpp.29.002}. The \gls{HLR} or, respectively, the \gls{HSS} in an \gls{EPC}, acts as the central storage of all the operator's subscriber information.
 
 The \gls{GGSN} represents the gateway to the public Internet and therefore typically is the only node in the network, that has a publicly routable \gls{IP} address. It filters incoming traffic into the corresponding \gls{gtp} tunnel and routes packets to the correct \gls{SGSN}. State about any active tunnel and device has to be kept locally and is initially retrieved from the \gls{SGSN}.
 
-In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and the \gls{gtp} signaling between them. Much of the control plane tasks of the \gls{SGSN} have now been offloaded to a new node, the \gls{MME}, which maintains its own logical connection to the radio network using the \gls{S1AP} signaling protocol~\cite{3gpp.36.413}. Instead of \gls{MAP} to retrieve user data from the central storage, Diameter~\cite{rfc6733} is now used to communicate with the \gls{HSS}. Of note is also a further addition to the \gls{EPS}: the \gls{PCRF} in conjunction with the \gls{PCEF} integrated into the \gls{PGW}. They act as a \gls{DPI} entity, inspecting all user plane traffic and enable arbitrary filtering of traffic and traffic-based billing~\cite{3gpp.23.203}. 
+In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific version of the implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and the \gls{gtp} signaling between them. Much of the control plane tasks of the \gls{SGSN} have now been offloaded to a new node, the \gls{MME}, which maintains its own logical connection to the radio network using the \gls{S1AP} signaling protocol~\cite{3gpp.36.413}. Instead of \gls{MAP} to retrieve user data from the central storage, Diameter~\cite{rfc6733} is now used to communicate with the \gls{HSS}. Of note is also a further addition to the \gls{EPS}: the \gls{PCRF} in conjunction with the \gls{PCEF} which is integrated into the \gls{PGW}. They act as a \gls{DPI} entity, inspecting all user plane traffic and enable arbitrary filtering of traffic and traffic-based billing. Both entities are described in \cite{3gpp.23.203}.
 
 \begin{figure}[htbp]
 	\centering
  	\includegraphics[width=0.9\textwidth]{images/umts-userpath-stack.pdf}
  	\caption{Simplified control plane and user plane \gls{IP}-based protocol stacks on the user traffic path through the mobile network.}
- 	\label{c4:fig:protocolstacks}
+\label{c4:fig:protocolstacks}
 \end{figure}
 
 Figure~\ref{c4:fig:protocolstacks} overviews the complete protocol stack on the path of the user traffic through the whole network from the \gls{UE} to an external network.
@@ -65,37 +65,37 @@ Figure~\ref{c4:fig:protocolstacks} overviews the complete protocol stack on the 
 
 Most of the discussed upcoming research deals with the core network. Therefore, this next sections will explain in detail the concepts behind the \gls{3G} core network control plane at the \gls{gtp} protocol family.
 
-As stated, there is a strict separation between control instances and instances that carry the actual user traffic. Looking at the control plane side of things, management is conducted in a completely stateful way. Nodes keep track of every \gls{UE} they are managing and need to locally store any state information they might need. Of particular interest is the state revolving around the \textit{\gls{PDP} Context}. For each open data connection a device has, both the \gls{GGSN} and \gls{SGSN} must keep such a \gls{PDP} Context, which identifies the connection as well as the device belonging to it.
+As stated, there is a strict separation between control instances and instances that carry the actual user traffic. Looking at the control plane side of things, management is conducted in a completely stateful way. Nodes keep track of every \gls{UE} they are managing and need to locally store any state information they might need for management purposes. Of particular interest is the state revolving around the \textit{\gls{PDP} Context}. For each open data connection a device has, both the \gls{GGSN} and \gls{SGSN} must keep such a \gls{PDP} Context, which identifies the connection as well as the device belonging to it.
 
-Additionally, a number of state machines are maintained. State machine transitions then trigger a signaling message to specific neighbors. Any signaling interaction belongs to one or more larger control plane procedures. Most of the procedures that happen inside the core network\gls{PS} domain or affect it are defined in \gls{TS}~24.008~\cite{3gpp.24.008} and \gls{TS}~23.060\cite{3gpp.23.060}.
+Additionally, a number of state machines are maintained. Transitions between states in them then trigger a signaling message to specific neighbors. Any one of these signaling interactions belongs to one or more larger control plane procedures. Most of the procedures that happen inside the core network \gls{PS} domain or affect it are defined in \gls{TS}~24.008~\cite{3gpp.24.008} and \gls{TS}~23.060\cite{3gpp.23.060}.
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.7\textwidth]{images/pdp-context-activation-procedure.pdf}
-	\caption{PDP Context Activation procedure signaling interaction diagram for \gls{UMTS}, including involved signaling protocols.}
-	\label{c4:fig:pdpcontextactivationinteraction}
+	\caption{\gls{PDP} Context activation procedure signaling interaction diagram for \gls{UMTS}, including involved signaling protocols.}
+\label{c4:fig:pdpcontextactivationinteraction}
 \end{figure}
 
 A very simple example is demonstrated in Figure~\ref{c4:fig:pdpcontextactivationinteraction}. Initiated by the \gls{UE}'s session management state machine a data connection to the device is requested to be set up, triggering signaling with various protocols throughout the network. Additional secondary \gls{CAMEL} procedures, defined in \cite{3gpp.23.078}, are also triggered and conducted.
 
-The general motif of control in \gls{3G} networks is rather different to that of the typical \gls{TCP}/\gls{IP} Internet stack. Whereas plain \gls{IP} stacks rely on the end-to-end principle and put most of the control inside the devices at the edge, in \gls{3G} control procedures are spread across the network. Coordinating this requires the discussed control plane and all of the explicit signaling interactions. This results in a rather high complexity but also gives us the opportunity to investigate these mechanisms and implications the structures have on the performance.
+The general motif of control in \gls{3G} networks is rather different to that of the typical \gls{TCP}/\gls{IP} Internet stack. Whereas plain \gls{IP} stacks rely on the end-to-end principle and put most of the control inside the devices at the edge, in \gls{3G} control procedures are spread across the network. Coordinating this requires the discussed control plane and all of the explicit signaling interactions. This results in a rather high complexity but also gives the opportunity to investigate these mechanisms and implications the structures have on the performance.
 
 
 %%
-\subsection{Tunneling Concept, Bearers, and \texorpdfstring{\acrshort{PDP}}{PDP} Contexts}
+\subsection{Tunneling Concept: Bearers and \texorpdfstring{\acrshort{PDP}}{PDP} Contexts}
 
-To enact the aforementioned user and control plane separation, a custom tunneling concept is used. Beginning at the \gls{UE}, the actual user \gls{IP} stack is never directly carried over the link's layer 1 and 2 protocols but always further encapsulated into so called \textit{Bearer}. The specifications distinguish between the \textit{Radio Bearer} on the air interface, the \gls{RAB} denominates the path between the \gls{UE} and the \gls{CN}, where it is called \gls{CN} bearer.
+To enact the aforementioned user and control plane separation, a custom tunneling concept is used. Beginning at the \gls{UE}, the actual user \gls{IP} stack is never directly carried over the link's layer 1 and 2 protocols but always further encapsulated into so called \textit{bearer}. The specifications distinguish between the \textit{radio bearer} on the air interface, the \gls{RAB} denominates the path between the \gls{UE} and the \gls{CN}, where it is called \gls{CN} bearer.
 
-Technically, different protocols with tunneling capability are used on each link. \gls{PDCP} is used on the radio link, between the \gls{RAN} and the \gls{CN} as well as in the core between \gls{SGSN} and \gls{GGSN} \gls{GTP-U} is employed. Closely related to the core network bearer are a number of information records stored and maintained at the two core nodes, the \gls{PDP} Context. For every active bearer a context is stored containing identification and management information about it. Amongst others this includes device identifiers, e.g. \gls{IMSI} and \gls{IMEI}, tunnel identifiers (\gls{TEID}), and information about the intended public network (the \gls{APN}) , charging, and \gls{QoS} \cite[Section~13]{3gpp.23.060}.
+Technically, different protocols with tunneling capability are used on each link. \gls{PDCP} is used on the radio link, \gls{GTP-U} is employed between the \gls{RAN} and the \gls{CN} and in the core between \gls{SGSN} and \gls{GGSN}. Closely related to the core network bearer are a number of information records stored and maintained at the two core nodes, the aforementioned \gls{PDP} Context. For every active bearer a context is stored containing identification and management information about it. Amongst others this includes device identifiers, e.g., \gls{IMSI} and \gls{IMEI}, tunnel identifiers (\gls{TEID}), and information about the intended public network (the \gls{APN}) , charging, and \gls{QoS} \cite[Section~13]{3gpp.23.060}.
 
-Commonly, any device with an active data connection has at least one bearer and associated \gls{PDP} context, the \textit{default bearer}. In terms of \gls{QoS} this represents a best effort tunnel carrying all user traffic, that is not further differentiated. Additionally, the device can request a number of secondary tunnels - \textit{dedicated bearers} - with certain \gls{QoS} guarantees. Traffic matching a specified \gls{TFT} will then be carried over this dedicated bearer. However, this concept is scarcely used in \gls{3G} networks. All in all, one \gls{UE} can be associated with up to 11 bearers, one default bearer and additional dedicated bearers.
+Commonly, any device with an active data connection has at least one bearer and an associated \gls{PDP} Context, the \textit{default bearer}. In terms of \gls{QoS} this represents a best effort tunnel carrying all user traffic, that is not further differentiated. Additionally, the device can request a number of secondary tunnels, i.e., \textit{dedicated bearers}, with certain \gls{QoS} guarantees. Traffic matching a specified \gls{TFT} will then be carried over this dedicated bearer. However, this concept is scarcely used in \gls{3G} networks. All in all, one \gls{UE} can be associated with up to eleven bearers, one default bearer and additional dedicated bearers.
 
 
 %%
 \subsection{\texorpdfstring{\acrshort{gtp}}{GTP} and \texorpdfstring{\acrshort{gtp}}{GTP}-based Core Network Signaling}
 \label{c4:sec:gtp}
 
-A large part of core network communication is conducted by \gls{gtp}. In \gls{3G} networks version 1 of the protocol is used and defined in \gls{TS}~29.060~\cite{3gpp.29.060} and \gls{TS}~29.281~\cite{3gpp.29.281}.\footnote{For a more concise description of the protocol, one should actually read the \gls{gtp} implementation in the community \gls{FOSS} project OpenGGSN at \url{https://github.com/osmobuntu/openggsn}.} For \gls{EPC} some changes were made to \gls{gtp} bringing it to version 2 specified in \gls{TS}~29.274~\cite{3gpp.29.274}. The latter will not be further discussed as all presented evaluations will have a \gls{3G} network as basis.
+A large part of core network communication is conducted by \gls{gtp}. In \gls{3G} networks version 1 of the protocol is used and defined in \gls{TS}~29.060~\cite{3gpp.29.060} and \gls{TS}~29.281~\cite{3gpp.29.281}.\footnote{For a more concise description of the protocol, one should actually read the \gls{gtp} implementation in the community \gls{FOSS} project OpenGGSN at \url{https://github.com/osmobuntu/openggsn}.} For \gls{EPC} some changes were made to \gls{gtp} bringing it to version 2, which is specified in \gls{TS}~29.274~\cite{3gpp.29.274}. The latter will not be further discussed as all presented evaluations will have a \gls{3G} network as basis.
 
 \gls{gtp} is mainly used on the Gn interface that connects the two main \gls{GPRS} nodes, the \gls{GGSN} and \gls{SGSN}. Its functionality is split up between a user plane and a control plane part, named respectively \gls{GTP-U} and \gls{GTP-C}. \gls{gtp} can best be described as an application layer signaling protocol and is intended to be transported by \gls{UDP}.
 
@@ -117,15 +117,16 @@ A large part of core network communication is conducted by \gls{gtp}. In \gls{3G
 	\cline{2-9} \textbf{12} & \multicolumn{8}{c|}{Next Extension Header Type} \\
 	\cline{2-9}
 	\end{tabu} 
-	\caption{General \SI{12}{\byte} \gls{gtp} header format.}\label{c4:fig:gtpheader}
+	\caption{General \SI{12}{\byte} \gls{gtp} header format.}
+\label{c4:fig:gtpheader}
 \end{figure}
 
-Conceptually, \gls{gtp} is structured through a base packet header, a number of extension headers and a message body consisting of a series of \gls{IE}. The base header is depicted in Figure~\ref{c4:fig:gtpheader} and has a total length of \SI{12}{\byte}. Essential to the header are the \gls{TEID} to identify the corresponding userplane tunnel and the \SI{8}{\bit} message type field. Each of the message types corresponds to a specific signaling interaction from the overarching control plane procedures. The procedures that \gls{gtp} concerns itself with on the Gn path belong either to path management, tunnel management, or mobility management. Messages also usually come in pairs of request and response which must be sent from the receiving node back to the original requester.
+Conceptually, \gls{gtp} is structured through a base packet header, a number of extension headers and a message body consisting of a series of \gls{IE}. The base header is depicted in Figure~\ref{c4:fig:gtpheader} and has a total length of \SI{12}{\byte}. Essential to the header are the \gls{TEID} to identify the corresponding user plane tunnel and the \SI{8}{\bit} message type field. Each of the message types corresponds to a specific signaling interaction from the overarching control plane procedures. The procedures that \gls{gtp} concerns itself with on the Gn path belong either to path management, tunnel management, or mobility management. Messages also usually come in request and response pairs which must be sent from the receiving node back to the original requester.
 
-Each messages is defined as a specific set of \glspl{IE}, which are either mandatory, conditional to some external factor, or optional. The \gls{IE}, depending on the type either of fixed or variable length, convey the actual state to be signaled and always relate to a specific \gls{UE} and tunnel, for example the device's \gls{IMSI} or the configured \gls{APN}.
+Each messages is defined as a specific set of \glspl{IE}, each of which is either mandatory, conditional to some external factor, or optional. These \gls{IE}, depending on the type either of fixed or variable length, convey the actual state to be signaled and always relate to a specific \gls{UE} and tunnel, for example the device's \gls{IMSI} or the configured \gls{APN}.
 
 \begin{table}[htbp]
-\caption{All \gls{IE} in a Create \gls{PDP} Context request and size thereof for \gls{IPv4} network and user traffic only, excluding the first message type Byte.}
+\caption{All \gls{IE} in a Create \gls{PDP} Context request and size thereof for \gls{IPv4} network and user traffic only. The denoted sizes exclude the first message type byte.}
 \label{c4:tab:createrequestelements}
 	\begin{tabu} to 0.49\textwidth{X[2.5]X[1.2]X[0.7]}
 		\toprule
@@ -179,109 +180,98 @@ Each messages is defined as a specific set of \glspl{IE}, which are either manda
 	%\null
 \end{table}
 
+Coming back to the described \gls{PDP} Context activation procedure, it contains both the \gls{gtp} message \textit{Create \gls{PDP} Context request} as well as the \textit{response} twice. Such a Create request consists of the 36 \gls{IE} depicted in Table~\ref{c4:tab:createrequestelements}. Neglecting the elements which have no predefined upper length bound (besides the default \SI{16}{\bit} \gls{IE} length field) and assuming a maximum length for the other variable elements this results in a message size of \SI{1059}{\byte}. The complexity of the other message types is comparable.
 
-% calculation: 36 element lengths + 36 * 1 Byte IE type fields + 11 byte header with no extensions
-% 1012 + 36 + 11 = 1059B
+One of the conducted investigations is that of the core network load, which will be defined and discussed later in detail. \gls{gtp} messages could play an interesting role here as they may directly or indirectly contribute to this load or at least be an indicator of load existing otherwise. Load could be caused by the generated network traffic as well as the assembly, processing, and storage of the involved state in form of the \gls{IE}.
 
-Coming back to the described \gls{PDP} Context Activation procedure, it contains both the \gls{gtp} message \textit{Create \gls{PDP} Context Request} as well as the \textit{Response} twice. Such a Create request consists of 36 \gls{IE} depicted in \ref{c4:tab:createrequestelements}. Neglecting the elements which have no predefined upper length bound (besides the default \SI{16}{\bit} \gls{IE} length field) and assuming a maximum length for the other variable elements this results in a message size of \SI{1059}{\byte}. The complexity of the other message types is comparable.
-
-One of the conducted investigations is that of core network load, which will be defined and discussed later in detail. \gls{gtp} messages could play an interesting role here as they may directly or indirectly contribute to this load or at least be an indicator of load existing otherwise. Load could be caused by the generated network traffic as well as the assembly, processing, and storage of the involved state in form of the \gls{IE}.
-
-The following sections detail the three \gls{gtp} Tunnel Management message pairs involved in the maintenance of \gls{PDP} Contexts. These are the \textit{Create, Update,} and \textit{Delete \gls{PDP} Context Requests} and \textit{Responses}. They represent the basis for the core network investigations.
+The following sections detail the three \gls{gtp} tunnel management message pairs involved in the maintenance of \gls{PDP} Contexts. These are the \textit{Create, Update,} and \textit{Delete \gls{PDP} Context requests} and \textit{responses}. They represent the basis for the core network investigations.
 
 
 %%
-\subsubsection{Create PDP Context Message}
+\subsubsection{Create \gls{PDP} Context Message}
 
-This message type is part of procedures that enable the \gls{PS} data connection and the \gls{gtp} tunnel for a mobile device. These are the \textbf{\gls{PDP} Context Activation Procedure} (already depicted in \ref{c4:fig:pdpcontextactivationinteraction}) and the \textbf{Secondary \gls{PDP} Context Activation} for additional \gls{gtp} tunnels to the device with specific \gls{QoS} levels set.  They are triggered by the mobile device through \gls{RRC}/\gls{RANAP} signaling during or following a \gls{GPRS} Attach procedure.
+This message type is part of procedures that enable the \gls{PS} data connection and the \gls{gtp} tunnel for a mobile device. These are the \textbf{\gls{PDP} Context activation procedure} (already depicted in Figure~\ref{c4:fig:pdpcontextactivationinteraction}) and the \textbf{Secondary \gls{PDP} Context activation} for additional \gls{gtp} tunnels to the device with specific \gls{QoS} levels set. They are triggered by the mobile device through \gls{RRC}/\gls{RANAP} signaling during or following a \gls{GPRS} attach procedure.
 
-When a \gls{GGSN} receives a create request from an \gls{SGSN}, it has to allocate the necessary resources for a \gls{PDP} context. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, a lack of resource, or unrecoverable system failures and malformed or corrupted request.
-
-
-%%
-\subsubsection{Delete PDP Context Message}
-
-Similar to to Create Context Messages, a \textbf{Delete \gls{PDP} Context Request} and \textbf{Response} always coincides with the termination of a \gls{gtp} tunnel and the removal of the associated \gls{PDP} Context. Together, these mark the beginning and the end of every user traffic tunnel, making them very interesting in determining tunnel properties and perfect candidates to indirectly identify tunnel durations in a core network investigation.
-
-Deletes are either created through explicit \gls{PDP} Context Deactivation Procedures or play a part in \gls{GPRS} Attach and Detach procedures. Contrary to creates, they can be initiated from the \gls{MS} as well as from a core network node, depending on the kind of procedure.
+When a \gls{GGSN} receives a create request from an \gls{SGSN}, it has to allocate the necessary resources for a \gls{PDP} Context. Depending on the outcome, a response is sent back, indicating the success or failure of the operation. Typical failures include failed user authentication, a lack of resource, or unrecoverable system failures and malformed or corrupted request.
 
 
 %%
-\subsubsection{Update PDP Context Messages}
+\subsubsection{Delete \gls{PDP} Context Message}
 
-Several procedures also emit \textbf{Update \gls{PDP} Context Requests} and \textbf{Responses}, usually in relation to some aspect of the tunnel or the device changing. 
-%Typically, these are mobility related (e.g. Routeing Area updates and handovers, a change in \gls{RAT}). 
-Possible causes for an \textit{Update Context Request} are:
+Similar to to Create Context messages, a \textbf{Delete \gls{PDP} Context request} and \textbf{response} always coincides with the termination of a \gls{gtp} tunnel and the removal of the associated \gls{PDP} Context. Together, these mark the beginning and the end of every user traffic tunnel, making them very interesting in determining tunnel properties and perfect candidates to indirectly identify tunnel durations in a core network investigation.
+
+Deletes are either created through explicit \gls{PDP} Context deactivation procedures or play a part in \gls{GPRS} attach and detach procedures. Contrary to creates, they can be initiated from the \gls{MS} as well as from a core network node, depending on the kind of procedure.
+
+
+%%
+\subsubsection{Update \gls{PDP} Context Messages}
+
+Several procedures also emit \textbf{Update \gls{PDP} Context requests} and \textbf{responses}, usually in relation to some aspect of the tunnel or the device changing. Possible causes for an \textit{Update Context request} are:
 
 \begin{itemize}
 	\item The mobile devices moves between \glspl{SGSN}, causing a \textbf{\gls{GPRS} inter-\gls{SGSN} Routing Area Update} procedure.
-	\item Parameters belonging to the context such as the assigned \gls{QoS} are altered using the the \textit{\gls{PDP} Context Modification}.
+	\item Parameters belonging to the context such as the assigned \gls{QoS} are altered using the t\textit{\gls{PDP} Context Modification} procedure.
 	\item As part of \textbf{Context redistribution and load balancing} procedures.
 	\item The \gls{MS} switches between \gls{UMTS} and \gls{GPRS} access technologies, causing a \textit{Inter-system intra-\gls{SGSN} Update} procedure. Note that the same tunnel can be used regardless of the radio technology.
 	\item As part of a direct \gls{RNC} to \gls{GGSN} \gls{GTP-U} tunnel activation procedure, thereby circumventing the \gls{SGSN}. Or, finally, 
-	\item To activate secondary \gls{PDP} contexts using the \textbf{Secondary PDP Context Activation} as previously described. 
+	\item to activate secondary \gls{PDP} Contexts using the \textbf{Secondary PDP Context Activation} as previously described. 
 \end{itemize}
 
-However, the appearance of update message signaling in some of these procedures is often conditional or even just optional. This often depends on the specific implementation and is not known without in-depth knowledge of it. An exception to this are mobility management procedures where updates are mandatory.
+However, the appearance of update message signaling in some of these procedures is conditional or even just optional. This often depends on the specific implementation and is not known without in-depth knowledge of it. An exception to this are mobility management procedures where updates are mandatory.
 
 By observing update messages one could capture most forms of mobility happening in the network, and get a good picture of potential correlation between mobility and tunneling characteristics. 
-By distinguishing portions of tunnels which were associated with a \gls{UMTS} \gls{RAB} from \gls{2G} radio access through the related update message, one could also study any influence thereof on the core.
-Nowadays \gls{GSM}/\gls{GPRS} is either used in older models or feature phones, or in mobile scenarios in rural areas where \gls{GSM} still is prevalent due to its lower frequency bands and thus wider ranger. Both could indicate that the data session will be rather short because of device limited device capabilities or low throughput rates of \gls{GPRS}.
+By distinguishing portions of tunnels which were associated with a \gls{UMTS} \gls{RAB} from \gls{2G} radio access through the related update message, one could also study any influence of the access technology on the core.
 
+Nowadays \gls{GSM}/\gls{GPRS} is either used in older models or feature phones or in mobile scenarios in rural areas where \gls{GSM} still is prevalent due to its usage of lower frequency bands and thus wider ranger. Both could indicate that the data session will be rather short because of device limited device capabilities or low throughput rates of \gls{GPRS}.
 
 
 %%
 \subsection{\texorpdfstring{\acrshort{gtp}}{GTP} Influencing State Machines}
-%\subsubsection{Mobility and Radio-related State Machines}
 
-To understand the occurrence of these signaling procedures one should look at the state machines that govern these. Involved in the tunnel management aspects are three distinct state models, namely the \gls{MM}, \gls{RRC} state machines and the actual \gls{PDP} state model. The \gls{MM} and \gls{RRC} describe the current state of the mobile device and its radio and data connection. They are both maintained at the \gls{MS} and mirrored at the\gls{SGSN}.
+To understand the occurrence of these signaling procedures one should look at the state machines that govern these. Involved in the tunnel management aspects are three distinct \gls{FSM}, namely the \gls{MM} and \gls{RRC} state machines and the actual \gls{PDP} state model. The \gls{MM} and \gls{RRC} describe the current state of the mobile device and its radio and data connection. They are both maintained at the \gls{MS} and mirrored at the\gls{SGSN}.
 
 \begin{figure}[htb]
-        \centering
-        \begin{subfigure}[b]{0.60\textwidth}
-            \centering
-			\includegraphics[width=\textwidth]{images/mm-2g-state-model.pdf}
-			\caption{State machine for \gls{2G} radio access.}
-			\label{c4:fig:2g-mmstatemodel}
-        \end{subfigure}%
+	\centering
+	\begin{subfigure}[b]{0.60\textwidth}
+		\includegraphics[width=\textwidth]{images/mm-2g-state-model.pdf}
+		\caption{State machine for \gls{2G} radio access.}
+		\label{c4:fig:2g-mmstatemodel}
+	\end{subfigure}%
 
-        \begin{subfigure}[b]{0.70\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{images/mm-3g-state-model.pdf}
-			\caption{State machine for \gls{3G} radio access.}
-			\label{c4:fig:3g-mmstatemodel}
-		   \end{subfigure}%
- \caption{\gls{SGSN} \gls{MM} state models and machines \cite[Section~6.1]{3gpp.23.060}.}
+	\begin{subfigure}[b]{0.70\textwidth}
+		\includegraphics[width=\textwidth]{images/mm-3g-state-model.pdf}
+		\caption{State machine for \gls{3G} radio access.}
+		\label{c4:fig:3g-mmstatemodel}
+	\end{subfigure}%
+	\caption{\gls{SGSN} \gls{MM} state models and machines as defined in \cite[Section~6.1]{3gpp.23.060}.}
 \label{c4:fig:mmstatemodel}
 \end{figure}
 
-The \gls{MM} model \cite[Section~6.1]{3gpp.23.060} describes the general state of the data connection. and switches states based either on an idle timer, or when new packets arrive for the mobile device. The specific model depends on the currently used \gls{RAT} with only slight differences between \gls{GSM} (Figure~\ref{c4:fig:2g-mmstatemodel}) and \gls{UMTS} (Figure~\ref{c4:fig:3g-mmstatemodel}) access. The \gls{LTE} related model brings larger changes but is omitted here, as it will not be relevant for the investigation. With the transition to and from the \textbf{IDLE} state in the \gls{2G} model (or \textbf{DETACHED} in \gls{3G}) \textbf{GPRS Attach/Detach} procedures are triggered, also resulting in the transmission of \gls{PDP} Create and Delete Context messages. Likewise, other state transition procedures indicate mobility and location changes, which usually include update messages.
+The \gls{MM} model, defined in \cite[Section~6.1]{3gpp.23.060}, describes the general state of the data connection. State switches occur either based on an idle timer or when new packets arrive for the mobile device. The specific model depends on the currently used \gls{RAT} with only slight differences between \gls{GSM} (Figure~\ref{c4:fig:2g-mmstatemodel}) and \gls{UMTS} (Figure~\ref{c4:fig:3g-mmstatemodel}) access. The \gls{LTE} related model brings larger changes but is omitted here, as it will not be relevant for the investigation. With the transition to and from the \textbf{IDLE} state in the \gls{2G} model (or \textbf{DETACHED} in \gls{3G}) \textbf{GPRS Attach/Detach} procedures are triggered, also resulting in the transmission of \gls{PDP} Create and Delete Context messages. Likewise, other state transition procedures indicate mobility and location changes, which usually include update messages.
 
 \begin{figure}[htb] 
 	\centering
 	\includegraphics[width=0.6\textwidth]{images/rrc-state-model.pdf}
-	\caption{\gls{RRC} State Model as per \gls{TS}~25.331 \cite[Section~7.1]{3gpp.25.331}.}
+	\caption{\gls{RRC} State Model as per \cite[Section~7.1]{3gpp.25.331}.}
 	\label{c4:fig:rrcstatemodel}
 \end{figure}
 
- The \gls{RRC} state machine \cite[Section~7.1]{3gpp.25.331} depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels and therefore power states of the \gls{MS}. State changes happen depending on user and radio activity and inactivity determined by timers. Only in the \gls{CELLDCH} state is the \gls{MS} assigned a dedicated channel for its data connection and can transmit at full bidirectionally. But this consumes the most device power and radio resources, both of which are scarce. The goal of the state machine is to minimize their usage with intermediary states - \gls{CELLFACH}, \gls{URAPCH}, and \gls{CELLPCH}, and  - that successively require less power and radio channels, before completely turning of the \gls{RRC} connection by transitioning to the idle state. Coinciding with the \gls{RRC} the \gls{CN} \gls{gtp} tunnel can als be released or needs to be reestablished. However, this is somewhat implementation specific and not precisely specified.
-
-% http://3gppinterview.blogspot.co.at/p/why-is-cellfach-and-cellpch-not.html <- this may be easier to understand
+ The \gls{RRC} state machine given in \gls{TS}~25.331~\cite[Section~7.1]{3gpp.25.331} and depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels and therefore power states of the \gls{MS}. State changes happen depending on user and radio activity and inactivity determined by timers. Only in the \gls{CELLDCH} state is the \gls{MS} assigned a dedicated channel for its data connection and can transmit at full bidirectionally. But this consumes the most device power and radio resources, both of which are scarce. The goal of the state machine is to minimize resource usage with intermediary states --- \gls{CELLFACH}, \gls{URAPCH}, and \gls{CELLPCH}, and  --- that successively require less power and radio channels, before completely turning of the \gls{RRC} connection by transitioning to the idle state. Coinciding with the \gls{RRC}, the \gls{CN} \gls{gtp} tunnel can also be released or needs to be reestablished. However, this is implementation specific and not precisely specified.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/pdp-state-model.pdf}
-	\caption{\gls{PDP} State Model \cite[Section~9]{3gpp.23.060}.}
-	\label{c4:fig:pdpstatemodel}
+	\caption{\gls{PDP} State Model defined in \cite[Section~9]{3gpp.23.060}.}
+\label{c4:fig:pdpstatemodel}
 \end{figure}
 
-The final state machine of relevancy is the \textbf{\gls{PDP} State Model} \cite[Section~9]{3gpp.23.060} in Figure~\ref{c4:fig:pdpstatemodel}. It reflects the actual state of the \gls{PDP} context and associated tunnel and is synchronized with the \gls{MM} state machine.
+The final state machine of relevancy is the \textbf{\gls{PDP} State Model} from \gls{TS}~23.060~\cite[Section~9]{3gpp.23.060} in Figure~\ref{c4:fig:pdpstatemodel}. It reflects the actual state of the \gls{PDP} context and associated tunnel and is synchronized with the \gls{MM} state machine.
 
 
 %%
-\subsection{Discussion and Critique}% of \texorpdfstring{\acrshort{gtp}}{GTP} Signaling}
+\subsection{Signaling Discussion}
 
-This rather lengthy section on the basics of current mobile network architectures serves a critical purpose: In order to measure and evaluate network traffic one has to first understand its architecture and needs to understand how certain traffic patterns can occur. Unfortunately, the \gls{3GPP} do not make this task very easy. Typical \gls{IETF} protocols and architectures  strongly adhere to the fundamental principles of protocol layering, function separation and end-to-end. One can read a single \gls{RFC} and understand its function and directly implement it independent of the knowledge of any other specification. This is not the case in a \gls{3G} network. Functions are oft spread over several protocols or nodes, necessary details essential to an implementation are spread out over several specifications without direct reference or omitted completely. This circumstance makes it very hard to attribute certain observed phenomena to a specific feature in the specification.
+This rather lengthy section on the basics of current mobile network architectures serves a critical purpose: In order to measure and evaluate network traffic one has to first understand its architecture and needs to grasp how certain traffic patterns can occur. Unfortunately, the \gls{3GPP} specifications do not make this task very easy. Typical \gls{IETF} protocols and architectures sadhere to the fundamental principles of protocol layering, function separation and end-to-end. One can read a single \gls{RFC} and understand its function and directly implement it independent of the knowledge of any other specification. This is not the case in a \gls{3G} network. Functions are oft spread over several protocols or nodes, necessary details essential to an implementation are spread out over several specifications without direct reference or are even completely omitted. This circumstance makes it very hard to attribute certain observed phenomena to a specific feature in the specification.
 
 These protocols are also very heavy in terms of state and signaling inside the network. This can be the cause of unintended and hard to predict load, which will be defined and discussed in Section~\ref{c4:sec:loaddefinition}. For now, some possibly load information in relation to the Create, Update and Delete \gls{PDP} Context Request and Reply message pairs can already be deduced. Measuring the time delta between corresponding Create and Delete events obviously results in the total duration a tunnel was established. Having shorter tunnels often also means having a greater number of tunnels and therefore a higher volume of signaling messages and an increase in processing and state-keeping efforts due to the signaling. 
 
@@ -293,6 +283,13 @@ Conversely, longer tunnel durations cause an increased overall memory footprint 
 
 %This section starts with a primer on cellular data network basics, and then moves on to describe relevant details of \gls{gtp}, the tunneling protocol under investigation.
 
+
+% calculation: 36 element lengths + 36 * 1 Byte IE type fields + 11 byte header with no extensions
+% 1012 + 36 + 11 = 1059B
+
+
+
+% http://3gppinterview.blogspot.co.at/p/why-is-cellfach-and-cellpch-not.html <- this may be easier to understand
 
 
 % \subsubsection{Information Elements Wire Format}
