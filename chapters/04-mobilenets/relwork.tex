@@ -3,16 +3,13 @@
 \section{Related Work}
 \label{c4:sec:relwork}
 
-
-This chapter is a compilation and extension of previous investigations conducted in \cite{metzger2012research}, \cite{metzger2014jcnc}, and \cite{metzger2014lossmodel}. 
-
 The amount of research conducted in the area of the mobile network control plane is scarce to say the least. No direct predecessor to this work is known. Still, some related work exists, especially if the focus is widened.
 
-In the following sections we divide the related work into four distinct fields.
+In the following sections the related work is divided into four distinct fields.
 
 Work in the first and second sections evaluate properties of the mobile network and its traffic. They are distinguished in their approach to the investigation, as the first group uses active measurements from mobile devices or conclude from other sources of traffic whereas to the other one has access to passive measurements from inside a \gls{3G} mobile network. Publications from the third category can be generally subsumed under the term ``traffic modeling'' and may not be specific to cellular networks. The final field concerns itself with investigation work conducted by the \gls{3GPP} and \gls{GSMA} itself.
 
-The investigations conducted here do not strictly fall into either one of these but instead aims to provide diverse insights into the control plane from the perspective of the core network. We present a selection of publications from these fields and detail the interesting aspects for this work.
+The investigations conducted here do not strictly fall into either one of these but instead aims to provide diverse insights into the control plane from the perspective of the core network. Nontheless, a selection of publications from the tackled fields is collected here and the interesting aspects for this work are noted.
 
 
 %%
@@ -39,7 +36,7 @@ This is further elaborated on by research from Schwartz et al.\cite{schwartz2013
 The second alternative to mobile network investigations comes in the form of recording and evaluation traffic traces inside the network. This brings a much larger experiment scale with it, albeit usually at the cost of some finer grained details in the higher protocol layers because of aggregation to flow level. 
 With core network measurements, the signaling traffic of the observed link can also be directly investigated, which is a huge benefit compared to the guesswork in active measurements.
 
-The authors of \cite{4675847} investigate the influence of individual \gls{CN} nodes on the one-way delay distribution of user traffic packets. According to the work, the latency portion added by the \gls{SGSN} is larger but also fluctuating more, while the \gls{GGSN} added a small but steady amount of latency. This provides us with initial clues on the expected load impact of the \gls{CN} for our own investigation.
+The authors of \cite{4675847} investigate the influence of individual \gls{CN} nodes on the one-way delay distribution of user traffic packets. According to the work, the latency portion added by the \gls{SGSN} is larger but also fluctuating more, while the \gls{GGSN} added a small but steady amount of latency. This provides us with initial clues on the expected load impact of the \gls{CN} for the investigations in this work.
 
 Following up on the topic of mobile network one-way delays is Laner et al. in \cite{laner2012delaycomparison}. The end-to-end latency of a very early \gls{LTE}/\gls{EPC} network implementation is compared to that of a \gls{HSPA} network at several measurement points in the networks. The results show a lower median latency for \gls{LTE}, despite some scenarios still being in favor of \gls{3G} networks.
 

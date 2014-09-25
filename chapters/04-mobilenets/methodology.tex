@@ -3,14 +3,14 @@
 \section{Evaluation Methodology}
 \label{c4:sec:methodology}
 
-With the mobile network load defined and possible influencing factors described, we now move on to apply these to an actual mobile network. For this data from passive network traces will be employed. But first, the monitoring setup and the captured has to be described in this section. This also includes a description of some methods required to examine specific device types and other device-based factors from the dataset.
+With the mobile network load defined and possible influencing factors described, the findings can now be applied to an actual mobile network. For this data from passive network traces will be employed. But first, the monitoring setup and the captured has to be described in this section. This also includes a description of some methods required to examine specific device types and other device-based factors from the dataset.
 
-While this chapter only employs passive measaurements, Chapter~\ref{chap:mobilestreaming} will additionaly deal with approaches to conduct meaningful active device-based measurements and additionally set up a simulation/emulation testbed based on the results.
+While this chapter only employs passive measurements, Chapter~\ref{chap:mobilestreaming} will additionally deal with approaches to conduct meaningful active device-based measurements and set up a simulation/emulation testbed based on the results.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Network and Monitoring Setup}
 
-For our analysis, the \gls{METAWIN} monitoring system developed in a previous third-party research project and deployed in the network of an Austrian mobile operator is used. \cite{ricciato_2011,ricciato2006traffic}
+For the analysis, the \gls{METAWIN} monitoring system developed in a previous third-party research project and deployed in the network of an Austrian mobile operator is used. Detail information on this setup can be found in \cite{ricciato_2011,ricciato2006traffic}.
 
 \begin{figure}[htb]
 	\centering
@@ -50,7 +50,6 @@ This evaluation is based uses this dataset, with some additional device identifi
 % we went through large portions of the \glspl{TAC} present in our dataset, and identified and categorized the most important entries. In this case, importance means various metrics like the traffic volume, the number of flows, and the number of \gls{gtp} signaling messages for each \gls{TAC}. 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\texorpdfstring{\acrshort{TAC}}{TAC} Evaluation Validity}
 
@@ -64,20 +63,20 @@ It is important to know whether the information available in the \gls{TAC} datas
 		\toprule
 		\textbf{Type} & \textbf{Relative number of devices with an entry in the \gls{TAC} dataset}\\ 
 		\midrule
-		Total number of flows & $99.72\%$ \\
-		Ratio of total traffic & $99.97\%$\\
-		Total number of tunnels & $87.57\%$ \\
-		Total number of \gls{gtp} signaling messages & $90.95\%$ \\
-		Number of distinct \glspl{UE} & $80.93\%$\\ 
+		Total number of flows & \SI{99.72}{\percent} \\
+		Ratio of total traffic & \SI{99.97}{\percent} \\
+		Total number of tunnels & \SI{87.57}{\percent} \\
+		Total number of \gls{gtp} signaling messages & \SI{90.95}{\percent} \\
+		Number of distinct \glspl{UE} & \SI{80.93}{\percent} \\ 
 		\bottomrule
 	\end{tabu}
 \end{table}
 
-Table~\ref{c4:tbl:tacstats} provides statistics on the devices that could be identified in the trace. About $80\%$ of all unique \gls{TAC} present in the trace could be mapped to a known device. 
+Table~\ref{c4:tbl:tacstats} provides statistics on the devices that could be identified in the trace. About \SI{80}{\percent} of all unique \gls{TAC} present in the trace could be mapped to a known device. 
 More importantly, when looking at the total number of tunnels and \gls{gtp} messages during the week
-, even $90\%$ of the responsible device can be determined. Finally, The flow data shows an even clearer picture, as we can identify almost all of the devices involved.
+, even \SI{90}{\percent} of the responsible device can be determined. Finally, The flow data shows an even clearer picture, as almost all of the devices involved can be identified.
 
-This is an interesting result in itself, as $19\%$ devices unknown, but these are the cause for only about $9\%$ of signaling and $3\text{\textperthousand}$ of the traffic, meaning there is a long tail of device types in this mobile network with very little impact on the load. With these results, one can be rather confident, that evaluations using device discrimination based on this \gls{TAC} mapping should give viable results.
+This is an interesting result in itself, as \SI{19}{\percent} devices unknown, but these are the cause for only about \SI{9}{\percent} of signaling and \SI{0.3}{\percent} of the traffic, meaning there is a long tail of device types in this mobile network with very little impact on the load. With these results, one can be rather confident, that evaluations using device discrimination based on this \gls{TAC} mapping should give viable results.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,20 +84,20 @@ This is an interesting result in itself, as $19\%$ devices unknown, but these ar
 
 With these device-to-\glspl{TAC} mappings available, additional meta-information could now be added to it, intended to distinguish some of the described load influencing factors. Knowing the model gives also a good knowledge of the device's category and of \gls{os} it is running by default.
 
-The device's category represents a general classification of the device and should give some initial hints on the fields of use. We partitioned the devices into smartphones, feature phones, \gls{3G} USB dongles or \gls{3G}+WiFi routers, and all others. The term feature phone usually points at low-end mobile phones with at least some kind of data capability, often with a physical numerical keyboard. Phones, that could subjectively fall into either the smartphone or the feature phone category were generally attributed as smartphone. Not covered here are any kind of \gls{M2M} devices, because the \gls{TAC} mappings are very inconclusive and incomplete in this area.
+The device's category represents a general classification of the device and should give some initial hints on the fields of use. The devices are partitioned into smartphones, feature phones, \gls{3G} USB dongles or \gls{3G}+WiFi routers, and all other devices. The term feature phone usually points at low-end mobile phones with at least some kind of data capability, often with a physical numerical keyboard. Phones, that could subjectively fall into either the smartphone or the feature phone category were generally attributed as smartphone. Not covered here are any kind of \gls{M2M} devices, because the \gls{TAC} mappings are very inconclusive and incomplete in this area.
 
-The next classification variable is the \gls{os}. Most popular in the trace were the two dominant smartphone \glspl{os}, Android and iOS, and Symbian\footnote{While not completely accurate we also attributed phones running Series 40 to this category because of their close relationship.}, often found on feature phones. Other systems of note are Blackberry OS and Windows Phone or Windows Mobile, but they occur in such a low volume in the trace, that it was decided to completely neglect them and count them towards the other and unknown devices. It should also be noted, that USB dongles and routers cannot be linked to any specific \gls{os} solely by the knowledge of the \gls{TAC}. Also not distinguishable are the exact release versions of the \gls{os} on a specific device. This could diminish the evaluations, as the network behavior could change noticeably between two major versions.
+The next classification variable is the \gls{os}. Most popular in the trace were the two dominant smartphone \glspl{os}, Android and iOS, and Symbian\footnote{While not completely accurate phones running Series 40 were also attributed to this category because of their close relationship.}, often found on feature phones. Other systems of note are Blackberry OS and Windows Phone or Windows Mobile, but they occur in such a low volume in the trace, that it was decided to completely neglect them and count them towards the other and unknown devices. It should also be noted, that USB dongles and routers cannot be linked to any specific \gls{os} solely by the knowledge of the \gls{TAC}. Also not distinguishable are the exact release versions of the \gls{os} on a specific device. This could diminish the evaluations, as the network behavior could change noticeably between two major versions.
 
-With this knowledge, one can even conjecture on the applications running on the device. Combining the \gls{os} with lists of the most popular applications for this platform can already give some very helpful hints on what can be expected from the traffic mix these types of devices are generating. One final possible \gls{TAC} classification could be a categorization by the phone vendor. However, this was not conducted because we believe that the impact is negligible when compared to the device type and \gls{os}.
+With this knowledge, one can even conjecture on the applications running on the device. Combining the \gls{os} with lists of the most popular applications for this platform can already give some very helpful hints on what can be expected from the traffic mix these types of devices are generating. One final possible \gls{TAC} classification could be a categorization by the phone vendor. However, this was not conducted because it can be safely assumed that the impact is negligible in comparison to the device type and \gls{os}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Preliminary Device Statistics}
 
-After applying the categorization to the network dataset device composition was evaluated to get a first grasp of the network's makeup and to help understand the later investigations. Unfortunately, due to terms set by the operator, we can not give any hard numbers on this issue.
+After applying the categorization to the network dataset device composition was evaluated to get a first grasp of the network's makeup and to help understand the later investigations.
 
 As expected, the two largest observed portions of devices are smartphones and \gls{3G} dongles, while classic feature phones do not seem to play a major role anymore. About twice as many Android as iOS devices are present, possibly attributed either to the contractual situation of the operator or the wider price range of Android devices.
 
 Regarding traffic, feature phones have negligible user traffic despite still making up one tenth of the device fraction. The difference between \gls{3G} dongles and smartphones is also noteworthy. While the former cause large amounts of user plane traffic (compared to the device numbers), they are responsible for but a few core network signaling events and tunnels. This picture is reversed for smartphones.
 
-One observation across all device types is that about $14\%$ of all mobile devices have activated their \gls{GPRS} data service and \gls{gtp} tunnel and cause signaling traffic, but do not initiate any user plane traffic at all.
+One observation across all device types is that about \SI{14}{\percent} of all mobile devices have activated their \gls{GPRS} data service and \gls{gtp} tunnel and cause signaling traffic, but do not initiate any user plane traffic at all.

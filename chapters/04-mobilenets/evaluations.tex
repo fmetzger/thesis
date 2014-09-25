@@ -3,7 +3,7 @@
 \section{Signaling Evaluation}
 \label{c4:sec:evaluations}
 
-Finally, the core network control plane load evaluations are at hand. We evaluate the previously described dataset and iterate over several approaches to measure load and related factors.
+Finally, the core network control plane load evaluations are at hand. The previously described dataset is thoroughly investigated several approaches to measure load and related factors are iterated.
 
 
 
@@ -69,15 +69,15 @@ All the individual tunnel durations in the dataset are differentiated based on t
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\textwidth]{images/R-tunnel-duration-device-type.pdf}
-    \caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at \SI{115}{\second} (total), \SI{31}{\second} (regular), \SI{82}{\second} (smartphone), and \SI{1207}{\second} (dongle)}
+    \caption{Tunnel duration distribution, separated for \gls{3G} dongles, smartphones and regular phones with medians at \SI{115}{\second} (total), \SI{31}{\second} (regular), \SI{82}{\second} (smartphone), and \SI{1207}{\second} (dongle)}
     \label{c4:fig:cdf-duration-device-class}
 \end{figure}
 
-Figure~\ref{c4:fig:cdf-duration-device-class} shows the \gls{ECDF} for the user tunnels and their \gls{PDP} Context durations in our dataset. In this first graph, the duration of different device classes is distinguished and put in perspective to the overall duration distribution. The devices classes here are smartphones, regular phones, and \gls{3G} dongles. It can be observed that tunnel durations range between seconds and more than one week.
+Figure~\ref{c4:fig:cdf-duration-device-class} shows the \gls{ECDF} for the user tunnels and their \gls{PDP} Context durations in the dataset. In this first graph, the duration of different device classes is distinguished and put in perspective to the overall duration distribution. The devices classes here are smartphones, regular phones, and \gls{3G} dongles. It can be observed that tunnel durations range between seconds and more than one week.
 
 The median is clearly different between device types, being much longer for \gls{3G} dongles than for mobile phones. This reflects expected user behavior very well and gives a first indicator on a possible influence of the user plane on the control plane.
 
-Dongles are usually used with laptops to be able to work while being mobile. Dongle sessions last therefore often for extended periods longer than a few minutes up to hours. Also, this type of device is usually put into a standby mode after the period, which completely disables any mobile connections --- and therefore any associated tunnel -- instead of switching to low power radio idle modes. This is reflected in the dongle tunnel duration here as well. When compared to the other device category, dongles are more compactly centered around their median of about \SI{20}{\minute}.
+Dongles are usually used with laptops to be able to work while being mobile. Dongle sessions last therefore often for extended periods longer than a few minutes up to hours. Also, this type of device is usually put into a standby mode after the period, which completely disables any mobile connections --- and therefore any associated tunnel --- instead of switching to low power radio idle modes. This is reflected in the dongle tunnel duration here as well. When compared to the other device category, dongles are more compactly centered around their median of about \SI{20}{\minute}.
 
 A similar behavior can be observed in the regular phone distribution with values arranged tightly around the median of \SI{31}{\second}. COmpared to today's smartphones, data connections on regular phones are mostly initiated explicitly by user interaction, for example through starting a browser and viewing a web page. This could also explain the comparatively low durations here.
 
@@ -285,11 +285,11 @@ The uncovered empirical distributions for both the tunnel duration and the tunne
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/R-IAT-ecdfs.pdf}
-	\caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
+	\caption{Sampled inter-arrival time \gls{CDF} and fitted theoretical distributions.}
 \label{c4:fig:IAT-cdfs}
 \end{figure}
 
-At first, we take a look at the tunnel \gls{IAT} in Figure~\ref{c4:fig:IAT-cdfs} displaying the overall \gls{ECDF} with fits for various basic probability distributions. Each of the fits was generated through the method of moments matching.
+In order to investigate the tunnel \gls{IAT}, Figure~\ref{c4:fig:IAT-cdfs} displays the overall \gls{ECDF} with fits for various basic probability distributions. Each of the fits was generated through the method of moments matching.
 
 The goodness of these fits was checked both visually using the \glspl{CDF} plots and numerically with goodness of fit measures, using Pearson's correlation coefficient and Pearson's $\chi^2$ test. Unfortunately, none of the probability distributions reaches the significance level for $\chi^2$. This can probably be largely attributed to the various previously described artifacts in the data. Matching them visually, the exponential fit seems to be reasonably close to the experimental data.
 

@@ -113,7 +113,7 @@ Looking at these scenarios and additionally Figure~\ref{c4:fig:res-usage-barplot
 \subsubsection{Virtual Instance Life Cycle Management Impact}
 
 
-A final aspect to be investigated in the experiments is the potential increase of the blocking probability in virtualized scenarios when compared to the monolithic basis. In theory, virtualization can incur additional overhead which would represent itself as an increase in $p_b$. In our model the overhead can stem from the hypervisor and its scheduling  and lifecycle management strategies in conjunction with the instances' boot delay. 
+A final aspect to be investigated in the experiments is the potential increase of the blocking probability in virtualized scenarios when compared to the monolithic basis. In theory, virtualization can incur additional overhead which would represent itself as an increase in $p_b$. In the given model the overhead can stem from the hypervisor and its scheduling  and lifecycle management strategies in conjunction with the instances' boot delay. 
 
 The somewhat simplistic hypervisor strategy in this simulation was already discussed above and should give an upper limit on the impact on the blocking probability. This strategy is fixed, but the instance boot duration gets changed to analyze the impact. Values between \SI{20}{\second} and \SI{5}{\minute} are considered and should reasonable represent real-life systems of a wide variety.
 
