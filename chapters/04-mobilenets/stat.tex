@@ -2,39 +2,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Statistical Methods}
 
-As a final preparation for the evaluation all the necessary statistical tools are briefly introduced in this section with material based on \cite{field2012discovering} and \cite{Knuth:1997:ACP:270146}.
-
+As a final preparation for the evaluation all the statistical tools, that will be used in the evaluation, are briefly defined in this section with material based on \cite{field2012discovering} and \cite{Knuth:1997:ACP:270146}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Distribution Functions and Fitting}
 
-With a distribution function, also called \gls{CDF}, a monotonous mapping of continous values to a probability can be well represented. It is defined as the probability that a random variable $X$ is less than or equal to a value x, or
+With a distribution function, also called \gls{CDF}, a monotonous mapping of continuous values to a probability can be well represented. It is defined as the probability that a random variable $X$ is less than or equal to a value $x$, or
 
 \begin{equation}
-\phantom{.} F(x) = P(X\leq x)\text{.}
+	\phantom{.} F(x) = P(X\leq x)\text{.}
 \end{equation}
 
-Mention some basic continous probability distributions relevant to the evaluation: exponential, Gamma, log-normal and Weibull
-
-Sample of real data are generally finite and not continous. Hence, the distribution can only be approximated by an \gls{ECDF} $F_n(x)$ for values $X_1, X_2, ... , X_n$ and 
+Sample of real data are generally finite and not continuous. Hence, the distribution can only be approximated by an \gls{ECDF} $F_n(x)$ for values $X_1, X_2, \ldots , X_n$ and
 
 \begin{equation}
-\phantom{.}F_n(x) = \frac{\text{number of }X_1, X_2, ... , X_n \leq x}{x}\text{.}
+	\phantom{.}F_n(x) = \frac{\text{number of }X_1, X_2, \ldots , X_n \leq x}{x}\text{.}
 \end{equation}
 
+One of the analysis's goal is to break down the actual measured system to a simplified probability model. This can be conducted by attempting to match the data's \gls{ECDF} to an existing basic probability distribution, e.g., exponential Gamma, log-normal, or Weibull. In order to achieve this one of several readily available matching methods, which rely either on closed formulas or numerical optimization, can be used. Two simple methods are \textbf{Matching Moments}~\cite[pp.~99-143]{vose2000risk} and \textbf{Maximum Likelihood}.
 
-One of the analysis's goal is to break down the actual measured system to a simplified probability model. This can be conducted by finding probability distributions that match or at least resemble the data's \gls{ECDF}. This can be achieved by using one of several readily available matching methods which rely either on closed formulas or numerical optimization. Two simple methods are \textbf{Matching Moments} and \textbf{Maximum Likelihood}.
+The former estimates parameters for a preselected distribution functions by optimizing the target distribution function to converge its moments to that of the sample data. The latter approach finds a fitting target probability function by calculating the log-likelihood of the data for a preselected distribution and maximizing the likelihood.
 
-The former estimates parameters for a preselected distribution functions by optimizing the target distribution function to converge its moments to that of the sample data  \cite[pp.~99-143]{vose2000risk}. The latter approach finds a fitting target probability function by calculating the log-likelihood of the data for a preselected distribution and maximizing the likelihood.
-
-In such cases where none of the basic probability distributions proved to be a good fit an attempt was made to converge rational functions to the sample \gls{ECDF} with an optimization tool specialized for this case, Eureqa \cite{eureqa_software, eureqa_paper}. While not as good as a simple model as a probability distribution, having a rational function as a description for a dataset has its benefits.
-
-%<--!!
-
-
-%http://cran.r-project.org/web/packages/fitdistrplus/fitdistrplus.pdf
-
+In such cases where none of the basic probability distributions proved to be a good fit an attempt was made to converge rational functions to the sample \gls{ECDF} with an optimization tool specialized for this case, Eureqa~\cite{eureqa_software, eureqa_paper}. While not as good as a simple model with a probability distribution, having a rational function as a description for a dataset can enable some further statistical and queuing theoretic evaluation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,24 +32,23 @@ In such cases where none of the basic probability distributions proved to be a g
 
 To check the statistical goodness of the generated fits, statistical tests can be used. Generally, tests compare the values observed in an experiment to expected values following a theoretical distribution. In this case, the tests are used to validate and estimate the quality of the discovered fits to the empirical data.
 
-First, as a simple measure, the \textbf{Pearson correlation coefficient} can be facilitated, comparing the covariance and standard deviation of the empirical and fitted variables.
-
-Another possible approach is \textbf{Pearson's $\chi^2$ test for independence} \cite{doi:10.1080/14786440009463897}, which is the oldest known test and defined as
+First, as a simple measure, the \textbf{Pearson correlation coefficient} can be facilitated, comparing the covariance and standard deviation of the empirical and fitted variables. Another possible approach is \textbf{Pearson's $\chi^2$ test for independence}~\cite{doi:10.1080/14786440009463897}, which is the oldest known test and defined as
 
 \begin{equation}
-\phantom{.}V=\sum_{i=1}^{k} \frac{(o_i - e_i)^2}{e_i}\text{.}
+	\phantom{.}V=\sum_{i=1}^{k} \frac{(o_i - e_i)^2}{e_i}\text{.}
 \end{equation}
 
-This simply calculates the sum of the squared difference between the observed $o_i$ an expected values $e_i$ and adjusts each for their weight. The result can then be compared to the $\chi^2$-distribution with the same degrees of freedom\footnote{The degree of freedom of count experiments is one less than the number of observable categories.} as the test for a given significance level. In most practical cases this comparison is conducted against precomputed tables with set significance levels. The data collected in this thesis is typically continuous in nature on which this test cannot be used directly. However, data could still be split into a finite number of intervals, as is done when generating a histogram, and then using the intervals as categories for the $\chi^2$ test, albeit with a certain loss of precision.
+This simply calculates the sum of the squared difference between the observed $o_i$ an expected values $e_i$ and adjusts each for their weight. The result can then be compared to the $\chi^2$-distribution with the same degrees of freedom
+%\footnote{The degree of freedom of count experiments is one less than the number of observable categories.}
+as the test for a given significance level. In most practical cases this comparison is conducted against precomputed tables with set significance levels. The data collected in this thesis is typically continuous in nature on which this test cannot be used directly. However, data could still be split into a finite number of intervals, as is done when generating a histogram, and then using the intervals as categories for the $\chi^2$ test, albeit with a certain loss of precision.
 
-Continuous data can be checked with the \textbf{Kolmogorov-Smirnov test}. First suggested by Kolmogorov in 1933 \cite{kolmogorov1933sulla} and expanded on by Smirnov in 1939 \cite{smirnov1939estimation} it is defined as
+Continuous data can be checked with the \textbf{Kolmogorov-Smirnov test}. First suggested by Kolmogorov in 1933~\cite{kolmogorov1933sulla} and expanded on by Smirnov in 1939~\cite{smirnov1939estimation} it is defined as
 
-\begin{equation}
-	\begin{aligned}
-	\phantom{,}K_n^+ = \sqrt{n} \sup_{-\infty < x < + \infty} \left( F_n(x) - F(x) \right)\text{,} \\
-	\phantom{,}K_n^- = \sqrt{n} \sup_{-\infty < x < + \infty} \left( F(x) - F_n(x) \right)\text{,}
-	\end{aligned}
-\end{equation}
+\begin{align}
+	K_n^+ &= \sqrt{n} \sup_{-\infty < x < + \infty} \left( F_n(x) - F(x) \right) \\
+	\shortintertext{and}
+	\phantom{,}K_n^- &= \sqrt{n} \sup_{-\infty < x < + \infty} \left( F(x) - F_n(x) \right)\text{,}
+\end{align}
 
 for the \gls{ECDF} $F_n(x)$ and \gls{CDF} $F(x)$. Once again the results are compared against a precomputed table of values from the Kolmogorov-Smirnov distribution to test the significance of the observed results' deviation from expected values. 
 
@@ -70,5 +59,11 @@ Finally, every fit should in addition always undergo a \textbf{Visual Inspection
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Random Sampling}
 
-Most of the evaluations in Section~\ref{c4:sec:evaluations} use random sampling to work on a subset of the original data.  Not only does this simplify the handling of a dataset this large sets --- working on a set with 2 billion entries can be quite problematic --- but can even improve statistical significance, as rare outliers tend to get removed by drawing samples. By selecting entries using a uniform distribution it is ensured that no unintentional sampling bias occurs. The intended evaluation is now applied onto multiple and independently drawn sample groups. If the results of every sample agree then it is also highly likely that the assumption holds for the whole data set.
+Most of the evaluations in Section~\ref{c4:sec:evaluations} use random sampling to work on a subset of the original data.  Not only does this simplify the handling of a dataset this large sets --- working on a set with two billion entries can be quite problematic --- but can even improve statistical significance, as rare outliers tend to get removed by drawing samples. By selecting entries using a uniform distribution it is ensured that no unintentional sampling bias occurs. The intended evaluation is now applied onto multiple and independently drawn sample groups. If the results of every sample agree then it is also highly likely that the assumption holds for the whole data set.
+
+
+
+
+%http://cran.r-project.org/web/packages/fitdistrplus/fitdistrplus.pdf
+
 
