@@ -59,9 +59,13 @@ This architecture is intended to pass data from the physical and link layer dire
 
 \begin{itemize}
 	\item Information on the occurrence of a horizontal handover between cells.
+
 	\item Information on neighboring cells and predictions when a handover is most probable to occur.
+
 	\item Information on the prediction of the occurrence of a vertical handover and thereby changes in the active network stack, e.g., to the WiFi layers.
+
 	\item Information on the current signal strength, bit error rate, and throughput.
+
 	\item Detailed mobility information, including current location and travel speed in relation to base station positioning and availability.
 \end{itemize}
 
@@ -82,20 +86,18 @@ Looking at the model it can be an obvious fit for adaptive reliable streaming. A
 Cross-layer information can be fed into the adaptivity model of the streaming player to better decide the exact schedule and quality level of segment transmissions. Adaptive reliable streaming can be  especially suited to receive cross-layer data for several reasons: First, all requests are client-initiated, so available information can be immediately taken into account and does not need to be transfered elsewhere. Second, adaptive streaming consists of small and independent video segments, which allows to quickly react on upcoming events.
 
 \begin{figure}[htb]
-        \centering
-        \begin{subfigure}[b]{0.80\textwidth}
-            \centering
-			\includegraphics[width=\textwidth]{images/adaptive-streaming-no-cl.pdf}
-			\caption{Stalling occurs without handover hinting.}
-			\label{c5:fig:streaming-hinting-no-cl}
-        \end{subfigure}%
+	\centering
+	\begin{subfigure}[b]{0.80\textwidth}
+		\includegraphics[width=\textwidth]{images/adaptive-streaming-no-cl.pdf}
+		\caption{Stalling occurs without handover hinting.}
+		\label{c5:fig:streaming-hinting-no-cl}
+	\end{subfigure}%
 
-        \begin{subfigure}[b]{0.80\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{images/adaptive-streaming-cl.pdf}
-			\caption{Stalling can be prevented by hinting and proactively filling the playback buffer.}
-			\label{c5:fig:streaming-hinting-cl}
-		   \end{subfigure}%
+	\begin{subfigure}[b]{0.80\textwidth}
+		\includegraphics[width=\textwidth]{images/adaptive-streaming-cl.pdf}
+		\caption{Stalling can be prevented by hinting and proactively filling the playback buffer.}
+		\label{c5:fig:streaming-hinting-cl}
+	\end{subfigure}%
 	\caption{Adaptive video streaming scenario with and without handover prediction and cross-layer hinting.}
 \label{c5:fig:streaming-hinting}
 \end{figure}
@@ -137,10 +139,6 @@ To further decouple the applications from the broker, the information will be pr
 Through this, the broker's implementation and binary package can be completely swapped with another and all applications still work, as long as the bus interface stays the same. Therefore, the user and her chosen applications is not bound to a specific cross-layer broker provider with predictions conducted by certain algorithms. Rather, she can easily supplant the existing provider with a better one. The planned broker is therefore only meant as a reference implementation. Additionally multiple brokers could even be simultaneously active as long as as long as their provided data does not intersect.
 
 The viability of cross-layer information can be evaluated in several ways. A pure network-level simulation can give initial hints on performance gains and issues. But only the evaluation of data traces and packet level captures of an actual reference implementation might give good insights into the implications of diminishing the network stack's layer encapsulation properties. A further comparative statistical analysis of several different approaches to cross-layer data predictions algorithms as well as the specific application's reactions could also prove to be of significant interest.
-
-
-
-
 
 
 

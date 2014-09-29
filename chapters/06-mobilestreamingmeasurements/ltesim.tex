@@ -57,14 +57,14 @@ To simplify things, the model behind the progressive streaming measurement frame
 
 The rest of the network model is kept as simple as possible as is visible in Figure~\ref{c6:fig:streaming-simulation}. LENA readily provides implementations for the \glspl{UE}, \gls{eNB}, and a combined \gls{SGW}/\gls{PGW} node. For the streaming simulation two things were added into this network. 
 
-A node which acts as the storage server for the video segments was connected to the Internet-facing link of the \gls{PGW}. The storage server is kept as simple as possible. Upon receipt of a request for a specific segment over \gls{TCP} a dummy segment with the correct size is immediately sent to the client, reusing the open \gls{TCP} connection. \todo{Segments typically have a size of ...?}
+A node which acts as the storage server for the video segments was connected to the Internet-facing link of the \gls{PGW}. The storage server is kept as simple as possible. Upon receipt of a request for a specific segment over \gls{TCP} a dummy segment with the correct size is immediately sent to the client, reusing the open \gls{TCP} connection. %\todo{Segments typically have a size of ...?}
 The gls{TCP} congestion avoidance mechanism implemented by ns-3 is New Reno, which also might not be ideally suited to mobile environments. Especially when compared to congestion avoidance mechanisms that are optimized for a high \gls{BDP} like Linux's CUBIC.
 
 Note, the direct usage of \gls{TCP} instead of for example the more commonly used application layer protocol \gls{HTTP}. This should make no difference on the streaming process in the long run apart from the absence of a slight protocol overhead (i.e., the \gls{HTTP} headers) at the beginning of the transmission and for each segment. Using \gls{TCP} directly, however, simplifies the simulation and makes the results easier to interpret.
 
 The client's playback buffering model is implemented as an application running on the \gls{UE}. The device also initiates the streaming and takes care of requesting each individual segment. However, the segments do not contain actual video data. Rather, the playback simulator just reads the list of frames and their size and synchronizes this information with the received amount of data to correctly calculate the buffer level.
 
-During transmission, the \gls{LTE} framework sets up the lower layer protocols, which includes the radio stack and the \gls{gtp} core network bearer, accordingly. In the simplest model, only one \gls{eNB} and one \gls{UE} are present, to avoid interference with other devices. Moreover, a stationary mobility model with close distance to the transceiver is chosen. The model can be easily extended to factor in multiple devices and a mobility model with handover, all the capabilities are already present in ns-3. However, the simple setup was chosen to measure the upper limit of achievable performance. All of the other factors will undoubtedly reduce th performance. Otherwise, the \gls{LTE} nodes are left at their default configuration, which should yield an overall cell net bandwidth of \SI{80}{\mega\bit\per\second}
+During transmission, the \gls{LTE} framework sets up the lower layer protocols, which includes the radio stack and the \gls{gtp} core network bearer, accordingly. In the simplest model, only one \gls{eNB} and one \gls{UE} are present, to avoid interference with other devices. Moreover, a stationary mobility model with close distance to the transceiver is chosen. The model can be easily extended to factor in multiple devices and a mobility model with handover, all the capabilities are already present in ns-3. However, the simple setup was chosen to measure the upper limit of achievable performance. All of the other factors will undoubtedly reduce the performance. Otherwise, the \gls{LTE} nodes are left at their default configuration, which should yield an overall cell net bandwidth of \SI{80}{\mega\bit\per\second}
 
 \begin{figure}[htb]
 \centering
@@ -77,7 +77,7 @@ Beyond its application as a pure simulation, a simulated ns-3 \gls{LTE} network 
 
 
 %%
-\subsubsection{Simulated Streaming Model}
+\subsubsection{Simulated Streaming Models}
 
 According to the classification and playback modeling from Sections~\ref{c3:sec:background} and \ref{c3:sec:model} the simulated model is a pull-based segmented video streaming system using \gls{TCP}. Two streaming models are suggested here, with the first suited for plain reliable streaming and the second modified to utilize the benefits of adaptive streaming.
 
@@ -133,24 +133,25 @@ Common to both is the configuration of the video streaming simulation module. In
 
 Only one simulation run was conducted for each parameter setting as there are no known random factors involved that would merit running with different random seeds.
 
-\begin{table}[htbp]
-    \centering
-    \caption{Test Video Parameters}
-    \label{c6:tbl:simulationvideos}
-    \begin{tabu}{X[1.5,l]X[r]X[r]X[r]}
-        \toprule
-        \textbf{Parameter} & \textbf{Low Quality} & \textbf{Standard Quality} & \textbf{High Quality} \\
-        \midrule
-        Video Duration  & \SI{318}{\second} & \SI{602}{\second} & \SI{596}{\second} \\
-        Size & \SI{19.2}{\mebi\byte} & \SI{258}{\mebi\byte} & \SI{853}{\mebi\byte}\\
-        Frame rate & \SI{29.97}{\per\second} & \SI{29.97}{\per\second} & \SI{24}{\per\second}\\
-        Average Video Bit rate & \SI{504}{\kilo\bit\per\second} & \SI{3596}{\kilo\bit\per\second} & \SI{12}{\mega\bit\per\second} \\
-        Codec & H.263 & MPEG-4 & MPEG-4 \\
-        \bottomrule
-    \end{tabu}
+\begin{table}[htb]
+	\caption{Test Video Parameters}
+	\label{c6:tbl:simulationvideos}
+	\centering
+	\begin{tabu}{X[1.5,l]X[r]X[r,1.2]X[r]}
+		\toprule
+		\textbf{Parameter} & \textbf{Low Quality} & \textbf{Standard Quality} & \textbf{High Quality} \\
+		\midrule
+		Video Duration  & \SI{318}{\second} & \SI{602}{\second} & \SI{596}{\second} \\
+		Size & \SI{19.2}{\mebi\byte} & \SI{258}{\mebi\byte} & \SI{853}{\mebi\byte}\\
+		Frame rate & \SI{29.97}{\per\second} & \SI{29.97}{\per\second} & \SI{24}{\per\second}\\
+		Average Video Bit rate & \SI{504}{\kilo\bit\per\second} & \SI{3596}{\kilo\bit\per\second} & \SI{12}{\mega\bit\per\second} \\
+		Codec & H.263 & MPEG-4 & MPEG-4 \\
+		\bottomrule
+	\end{tabu}
 \end{table}
 
 
+%%
 \paragraph{Congested Server Link}
 
 This first series of evaluations exclusively looks at the \gls{QoS} of the streaming server's link and leaves the \gls{LTE} configuration unaltered.
@@ -175,7 +176,6 @@ Similar to the evaluations with the measurement framework of Section~\ref{c3:sec
 \label{c6:fig:ltesim-bwseries-numstalls}
 \end{figure}
 
-
 The first series solely alters the bandwidth of the streaming server's link up to a maximum of \SI{1000}{\mega\bit\per\second}. The results are depicted in the Figures~\ref{c6:fig:ltesim-bwseries-stallduration} and \ref{c6:fig:ltesim-bwseries-numstalls}.
 
 As soon as the link's bandwidth exceeds the video's bit rate, the number and duration of stalls are reduced. Stall events and duration in both the low and standard quality videos drop to zero. Only the high quality video does not show the same results. As its bit rate of \SI{12}{\mega\bit\per\second} should be perfectly manageable for the radio link some other explanation is required. 
@@ -184,7 +184,7 @@ A possible hypothesis are issues with the approach to requesting subsequent segm
 
 However, this effect is somewhat contrary to the additional effect observed at link speeds of \SI{100}{\mega\bit\per\second} and above, where the stalling phases suddenly see an unexpected increase. As this happens exactly when the transmission speed exceeds the radio links capacity of about \SI{80}{\mega\bit\per\second} it might be an indication of the negative interaction of \gls{LTE}'s loss and congestion concealment with \gls{TCP}'s congestion avoidance mechanisms, related to the previously discussed bufferbloat issues. \gls{TCP} can not properly detect the bottleneck capacity in a timely manner as \gls{LTE} attempts to buffer and retransmit any packet exceeding the radio capacity below the user \gls{IP} layer. Through this issue, the effective goodput seems to get reduced to about \SI{5}{\mega\bit\per\second}, which is not enough for the high quality video to stream without interruption.
 
-\todo{check pcaps for >=100mbit experiments; could also be related to issues of the actual lte simulation network but implementation can not fully responsible for this?}
+%\todo{check pcaps for >=100mbit experiments; could also be related to issues of the actual lte simulation network but implementation can not fully responsible for this?}
 
 \begin{figure}[htb]
 	\centering
@@ -200,13 +200,11 @@ However, this effect is somewhat contrary to the additional effect observed at l
 \label{c6:fig:ltesim-latencyseries-numstalls}
 \end{figure}
 
+In a second series of simulation runs the latency of the server's link was increased incrementally up to an additional latency of \SI{1000}{\milli\second}. The values were set deterministically with no probability distribution. Figures~\ref{c6:fig:ltesim-latencyseries-stallduration} and \ref{c6:fig:ltesim-latencyseries-numstalls} again show the results in terms of the relative duration and number of stalling phases. The playback simulation seems to be excessively sensitive to latency increases. Even a small \SI{100}{\milli\second} increase makes the high and standard quality videos completely unwatchable as the stalling duration is more than ten times longer than the actual video. With latencies beyond \SI{100}{\milli\second} the high quality video could not be successfully streamed anymore. 
 
+This behavior can partially be attributed to the simplistic segment request strategy, that only requests a new segment when the previous one has fully arrived. The higher the latency the longer it takes to receive new data. With improvements to the retrieval strategy, this specific issue should be eliminated. But this just shows the many pitfalls and influences of various layers. A simple implementation detail may have large implications on the streaming quality the user experience.
 
-In a second series of simulation runs the latency of the server's link was increased incrementally up to an additional latency of \SI{1000}{\milli\second}. The values were set deterministically with no probability distribution. Figures~\ref{c6:fig:ltesim-latencyseries-stallduration} and \ref{c6:fig:ltesim-latencyseries-numstalls} again show the results in terms of the relative duration and number of stalling phases. The playback simulation seems to be excessively sensitive to latency increases. Even a small \SI{100}{\milli\second} increase makes the high and standard quality videos completely unwatchable as the stalling duration is more than ten times longer than the actual video.
-
-This behavior can possibly be attributed to the simplistic segment request strategy, that only requests a new segment when the previous one has fully arrived. The higher the latency the longer it takes to receive new data. With improvements to the retrieval strategy, this specific issue should be eliminated. \todo{Another series with a changed retrieval method in Figures x and y shows that the strong correlation to the latency is now greatly reduced}
-
-But this just shows the many pitfalls and influences of various layers. A simple implementation detail may have large implications on the streaming quality the user experience.
+%\todo{Another series with a changed retrieval method in Figures x and y shows that the strong correlation to the latency is now greatly reduced}
 
 
 %%
@@ -221,9 +219,7 @@ But this just shows the many pitfalls and influences of various layers. A simple
 
 Besides altering the server link, the effects of the simulated \gls{LTE} network can also be investigated through various means. Here, mobility will be under scrutiny. For this, a second \gls{eNB} will be added to the network. Both are connected through the X2 interface, which will be used for the \gls{eNB}-anchored mobility provided by LENA. Instead of having a constant position relative to the \gls{eNB}, the \gls{UE} will no move back and forth between two waypoints on a two-dimensional plane in parallel to the two base stations which are placed at a distance of $d$ between each other. A handover is triggered each time the device leaves the range of one station and enters the other. Figure~\ref{c6:fig:streaming-simulation-mobility} depicts this scenario.
 
-
-
-\todo{Figure Z shows the relative stalling occurring during this scenario, the handover points are highlighted...}
+%\todo{Figure Z shows the relative stalling occurring during this scenario, the handover points are highlighted..., or add the ON-OFF test results!}
 
 
 %%
@@ -239,13 +235,7 @@ The opposite approach would also be possible for mobile network operators: Map t
 
 It would also be worthwhile to see the impact of the cross-layer model described in Section~\ref{c5:sec:crosslayerhinting} as they are specifically intended to reduce the influence this kind of mobile network architecture has on user applications. An implementation of cross-layer hinting would be relatively simple here, as the layer isolation boundaries are much easier to circumvent in a network simulator.
 
-As mentioned earlier, ns-3's \gls{LTE} framework does only implemented a limited subset of the \gls{3GPP} specifications, mainly related to the user plane and the radio link stack. Almost no control plane procedures are implemented. This may have only a negligible impact as soon as a connection is established and remains stable and only a very small number of users are connected to the system. But this is not the norm for an actual mobile network in operation with its mobility features and high churn, both in terms of data flows as well as mobile users, generating a large amount of signaling traffic as was discussed before in Section~\ref{c4:sec:3gpparchitecture}. To best mimic the dataset evaluations related to \gls{PDP} context and \gls{gtp} tunnel life cycle management conducted in Section~\ref{c4:sec:evaluations}, the simulator would need to at least be able to reproduce these tunnel management and the related \gls{RRC} \gls{PDP} context procedures happening on the user traffic path. Therefore, it is worth reconducting the above experiments as soon as the framework has made any progress in this direction.
-
-%% ! <-- !
-%%
-
-
-
+As mentioned earlier, ns-3's \gls{LTE} framework does only implemented a limited subset of the \gls{3GPP} specifications, mainly related to the user plane and the radio link stack. Almost no control plane procedures are implemented. This may have only a negligible impact as soon as a connection is established and remains stable and only a very small number of users are connected to the system. But this is not the norm for an actual mobile network in operation with its mobility features and high churn, both in terms of data flows as well as mobile users, generating a large amount of signaling traffic as was discussed before in Section~\ref{c4:sec:3gpparchitecture}. To best mimic the dataset evaluations related to \gls{PDP} context and \gls{gtp} tunnel life cycle management conducted in Section~\ref{c4:sec:evaluations}, the simulator would need to at least be able to reproduce these tunnel management and the related \gls{RRC} \gls{PDP} context procedures happening on the user traffic path. Therefore, it is worth to reconduct the above experiments as soon as the framework has made any progress in this direction.
 
 
 
