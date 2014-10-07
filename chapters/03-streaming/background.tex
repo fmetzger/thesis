@@ -19,11 +19,11 @@ Any digitally stored \textbf{video} consists of a number of frames, organized in
 
 Video streaming is a broad term covering a wide spectrum of applications as well as possible implementations. The following distinction criteria can serve to break down and classify this field.
 
-\paragraph{Video Source}
+\subsubsection{Video Source}
 The first criterion is the source of the video transmission, with the two major sources being a file stored on a remote server or a live source. Stored video can be streamed and played at any point in time. Live sources, on the other hand, are transmitting only at a fixed point in time. Depending on the type of content the timeliness of playback may also be important (imagine you are watching a game that is being played right now).
 
 
-\paragraph{Adaptivity of Content}
+\subsubsection{Adaptivity of Content}
 Video streaming can also be distinguished based on its adaptivity. In the simplest case there is no adaptivity present and the video is available in only one bit rate (which may still be a variable bit rate). 
 
 But there are cases where an adaptation of the bit rate would be helpful. For example to accommodate for a clients needs in matters of the screen size. Usually, adaptation is used to tune the video stream to the currently available connection bandwidth. Adaptation can be achieved in two ways. Either by preparing and storing several encoding levels beforehand or by encoding the video on-the-fly for a specific target. While the latter approach has a much higher adaptation capability it cannot be precomputed and scales linearly with the number of  number of clients (as opposed to a constant compute time effort for stored quality levels).
@@ -31,7 +31,7 @@ But there are cases where an adaptation of the bit rate would be helpful. For ex
 Adaptation also increases the necessary amount of control and information exchange. In a non-adaptive context, streaming would only require a single interaction to start the streaming while any single adaptation adds another set of interactions to change between quality levels.
 
 
-\paragraph{Location of Control}
+\subsubsection{Location of Control}
 Another matter is the location of control for a stream, with several possible ways to choose from. Between horizontal and vertical control can be distinguished.
 
 In a horizontal direction control can be placed either at the streaming server, the streaming client, or possibly somewhere in the network path in between.
@@ -47,7 +47,7 @@ While not being able to control everything about streaming, the network may stil
 Additionally, control can be distributed vertically to different positions in the protocol stack. While streaming is usually conducted through a dedicated application layer protocol or directly through an application's behavior, portions of control functions can also be offloaded to deeper layers. A typical example would be the use of \gls{TCP} for reliable streaming.
 
 
-\paragraph{Reliability of the Underlying Transport Protocol}
+\subsubsection{Reliability of the Underlying Transport Protocol}
 A major differentiation can also be made based on the reliability of streaming. Streaming can either act similar to a simple file download and just progressively download the video file in question while already displaying the video contents. This is conducted by using \gls{TCP} as a transport protocol, guaranteeing that no packet is lost in the process. \gls{TCP} does this by retransmitting packets it thinks are lost at the cost of added latency and reduced throughput during retransmission. This reliability can however also cause the progress of the whole video stream to stall, If video data does not reach the client in time before its playback buffer is depleted, and therefore a perceptible loss of quality. This situation can be alleviated or even avoided by carefully planning the playback process and the buffering behavior.
 
 On the other side stand streaming protocols that base themselves on \gls{UDP}, which offers no reliability features like \gls{TCP} and just sends out packets as-is. When packets are lost, the video can still progress but parts of the video output may be distorted or lost. Additionally, unreliable streaming protocols must take over other control features, that would otherwise have been taken care of \gls{TCP}. The adherence to an alloted or fair share bandwidth and congestion control come to mind. Otherwise, a high usage of this protocol could again lead to a scenario of congestive collapse as described in~\cite{rfc896}.
@@ -55,14 +55,14 @@ On the other side stand streaming protocols that base themselves on \gls{UDP}, w
 Transport protocols that offer congestion control and no reliable delivery might be a desirable middle ground between these two extremes. \gls{DCCP}~\cite{kohler2006designing} is an example for such a compromise and might prove beneficial for the streaming process.
 
 
-\paragraph{Multiplexing of Delivery}
+\subsubsection{Multiplexing of Delivery}
 Finally, the number of targets of an individual video stream can also differ. A stream is unicast if the control loop is exactly between one sender and one recipient. Servers can still support multiple unicast streams at once, they are just completely independent of each other. A multicast stream is simultaneously sent to a group of recipients, stream control is established at the sender for the whole group. Therefore, multicasting is always using a push-based approach to control.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Survey of Protocols}
 
-With these classification criteria at hand, existing protocols can now be investigated for the motifs they are following. The section largely describes \gls{rtp} and compares it with \gls{HTTP}-based approaches, including \gls{DASH}, while also mentioning some other, proprietary, streaming protocols.
+With these classification criteria at hand, an investigation for the motifs that are present in existing protocols can now be undertaken. The section largely describes \gls{rtp} and compares it with \gls{HTTP}-based approaches, including \gls{DASH}, while also mentioning some other, proprietary, streaming protocols.
 
 
 %%
@@ -137,7 +137,7 @@ Quality adaptation with \gls{HTTP} streaming is generally achieved through the d
 
 Several formal \textbf{adaptive streaming} protocols have been standardized or are in the process of standardization. \gls{HLS}~\cite{pantos2011livestreaming} defines a playlist format to be stored separately on a server that links to all available stream variants and segments thereof in sequence. \gls{DASH}~\cite{Stockhammer:2011:DAS:1943552.1943572} is a \gls{ISO}/\gls{IEC}~\cite{iso-iec-23009-1} and 3GP-DASH~\cite{3gpp.26.247} standard. Herein, all video segments are gathered in an alternative \acrshort{XML}-based presentation scheme. Using stored video for \gls{HTTP} streaming is more appropriate due to the file-based nature of \gls{HTTP}. But the streaming protocols have also been successfully employed for live content, for example both \gls{HLS} as well as \gls{DASH} support this.
 
-Other than the two streaming endpoints, the network can also, to a degree, control parts of \gls{HTTP} streaming. \gls{HTTP} allows to have forward and reverse proxies placed in the transmission's path. While usually not done, these could potentially alter and adapt the stream, which is however usually not done. 
+Other than the two streaming endpoints, the network can also, to a degree, control parts of \gls{HTTP} streaming. \gls{HTTP} allows to have forward and reverse proxies placed in the transmission's path. Proxies are usually not employed for video streaming but can potentially alter and adapt the stream to the needs of certain clients. However, an adaptation inside the network usually requires much greater efforts with less effects than at the endpoints.
 
 Through \gls{DNS} video stream requests can also be redirected to a server instance chosen by the stream source. The content provider has to internally distribute the stream files to all the caches that are advertised through \gls{DNS}. Caches are usually placed in close vicinity of potential receivers. This creates a so-called \gls{CDN} avoiding both long transmission paths through the Internet and the single server bottleneck. \glspl{CDN} can also be used to achieve a multicast-like effect, which \gls{TCP}-based streaming cannot provide itself. Only traffic on very few links close to the recipient has to be replicated. However, the the access links of stream receivers are typically separate entities anyway, so even actual multicast-enabled streaming would not save any bandwidth there. For an exemplary investigation of YouTube's \gls{CDN} structure refer to \cite{rafetseder2011explyt}.
 

@@ -153,14 +153,18 @@
 
 % sections
 \titleformat{\section}{\relax}{\textsc{\thesection}}{1em}{\scshape}
+
 % subsections
 \titleformat{\subsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsection}}}{1em}{\normalsize\itshape}
+
 % subsubsections
-\titleformat{\subsubsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}        
+\titleformat{\subsubsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}
+
 % paragraphs
-\titleformat{\paragraph}[runin]{\normalfont\normalsize}{\theparagraph}{0pt}{\scshape}    
+\titleformat{\paragraph}[hang]{\normalfont\normalsize}{\theparagraph}{0pt}{\scshape}
+
 % descriptionlabels
-    \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{#1}}   % spacedlowsmallcaps textit textsc                  
+\renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{#1}}   % spacedlowsmallcaps textit textsc                  
 % spacing
 \titlespacing*{\chapter}{0pt}{1\baselineskip}{1.2\baselineskip}
 \titlespacing*{\section}{0pt}{1.25\baselineskip}{1\baselineskip} 

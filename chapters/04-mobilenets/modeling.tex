@@ -3,7 +3,7 @@
 \section{Modeling Mobile Network Load}
 \label{c4:sec:modeling}
 
-Drawing conclusions from statistical analysis alone is a strenuous task. The next logical step lies therefore in the creation of models abstracting this real system, making them easier to calculate with the loss of some precision. This and future improved models should support network operators in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
+The next logical step after the collection of empirical data and the execution of a statistical analysis lies in the creation of models abstracting this real system. While some loss of precision is incurred, models are much more flexible and can have numerous applications For example, they should support network operators in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
 
 On the basis of the tunnel distributions attained in Section~\ref{c4:sec:evaluations}, models for both a traditional \gls{GGSN} as well as a virtualized \gls{GGSN} are introduced. The performance trade-offs when using a virtual \gls{GGSN} are further studied, discussing different options to consider when using the virtual node.
 
@@ -76,7 +76,7 @@ More complex models are often not tractable by stationary analysis or other math
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{GGSN Model Rationale and General Queuing Theoretic Representation}
 
-The \gls{GGSN} was already determined to be critical to the \gls{CN}'s load. Therefore, the network will be represented by this node in the model. Additionally, most of the load influencing factors are at least to a degree related to the \gls{gtp} tunnels. So, to dimension a mobile network to its control plane load, the number of supported tunnels have to be modeled. 
+The \gls{GGSN} was already determined to be critical to the \gls{CN}'s load. Therefore, the network will be represented by this node in the model. Additionally, most of the load influencing factors are at least to a degree related to the \gls{gtp} tunnels. So, to dimension a mobile network to its control plane load, the number of supported tunnels has to be modeled. 
 
 \begin{figure}[htb]
 	\centering

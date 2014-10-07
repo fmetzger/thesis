@@ -42,20 +42,32 @@ Initial thoughts concerning \gls{IPTV} --- which represents an unreliable stream
 
 with $r_{rcv}$ and $r_{drain}$ denoting the buffer's receiving and draining rates.
 
-Reliable streaming has even less possibilities to degrade a video stream. Packets can not arrive out of order at the application and loss is fully concealed by \gls{TCP}. This means that the transmitted and the played video are always identical and no image reference models are necessary here. The only thing that can still happen, is that portions of the video data arrive too late to be played out at their intended point in time. A potential reliable streaming quality assessment metric needs to keep track of the following properties:
+Reliable streaming has even less possibilities to degrade a video stream. Packets can not arrive out of order at the application and loss is fully concealed by \gls{TCP}. This means that the transmitted and the played video are always identical and no image reference models are necessary here. The only thing that can still happen, is that portions of the video data arrive too late to be played out at their intended point in time. Reliable streaming quality assessment metrics needs to keep track of the following properties:
 
 \begin{itemize}
 	\item The initial delay, which is the time delta between the start of the transmission and the start of the video play.
 
-	\item The number and lengths of interruptions or stalls during playback.
+	\item The number and lengths of interruptions or stalls during playback. More complex metrics could also keep track of the \acrshort{IAT} of stalling events.
 
 	\item For adaptive streaming, the characteristics of the quality levels the video was played in. This includes the frequency of quality switching events and the duration of each level.
 \end{itemize}
 
-A concise metric covering all properties has not been defined yet. The \gls{CI} was defined in \cite{1498486} and used to determine quality in \gls{P2P} live streaming. It is defined as \textit{\enquote{the number of segments that arrive before or on playback deadlines over the total number of segments}} and with this partly captures the stalling property. In \cite{5634160} and \cite{DBLP:journals/corr/SeyedebrahimiBP13} a so-called \gls{PI} is defined and evaluated. The definition $I_p = uv$ is simply based on the number of stalls $u$ and the average stall duration $v$. 
+Few attempts for concise reliable streaming metrics that cover all mentioned properties have been made to date. The \gls{CI} was defined in \cite{1498486} and used to determine quality in \gls{P2P} live streaming. It is defined as \textit{\enquote{the number of segments that arrive before or on playback deadlines over the total number of segments}} and with this partly captures the stalling property. In \cite{5634160} and \cite{DBLP:journals/corr/SeyedebrahimiBP13} a so-called \gls{PI} is defined and evaluated. The definition $I_p = uv$ is simply based on the number of stalls $N$ and the average stall duration $v$. Very similarly, an \gls{ITU} recommendation~\cite{ituP1202.1} defines a rebuffering artifact value as 
 
-Generally, most research operates just directly on these three properties, which allows for the most freedom in usage scenarios. More complex \gls{QoE} representations can be derived at a later point from these basic metrics. The streaming measurement model presented in the following section also works with the assumption, that only the three properties are of importance which can be directly attained from the model. 
+\begin{equation}
+	\phantom{,}v = 1 - ({\frac{d_s}{d_v + d_s}})^{0.0737}\text{.}
+\end{equation}
 
+ with the total stalling duration $d_s$ and the video duration $d_v$. The model lacks to capture other stalling characteristics and quality levels. A final metric by Hoßfeld et al.~\cite{hossfeld2013youtubeqoe} remedies this and incorporates both the lengths $L$ as well as the number $N$ of stalls in the computation of the \gls{MOS}. It states
+
+\begin{equation}
+	\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
+\label{c3:eqn:hossfeld-stalling-model}
+\end{equation}
+
+The equation was derived from user studies on perceived YouTube video quality. Therefore, it can serve as a \gls{QoE} metric for the non-adaptive measurement model introduced in the following section. Regarding adaptive streaming, work conducted in \cite{6603210} gives an overview over some initial attempts of metrics that include temporal aspects of the image quality. But none of them includes all necessary aspects to assess reliable adaptive streaming.
+
+The streaming measurement models presented in the following section derives only the basic properties, including the stalling and quality level characteristics and could be used for any of the above metrics. For non-adaptive reliable streaming it is recommended to use the model defined in Equation~\ref{c3:eqn:hossfeld-stalling-model}. Surpassing this model or defining an entirely new adaptive metric would require extensive user studies and is beyond the scope of this work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Measurement and Playback Model}
@@ -147,7 +159,7 @@ For segment-based \gls{HTTP} streaming, a two-threshold strategy is not the only
 %%
 \subsubsection{Predictive Strategies}
 
-In predictive strategies, knowledge of the future of the streaming process is used by the controller to adjust the start/stop and segment retrieval conditions. Instead of global knowledge, heuristics can instead attempt to approximate a future state.
+In predictive strategies, knowledge of the future of the streaming process is used by the controller to adjust the start/stop and segment retrieval conditions. An exact implementation of this strategy would require precise information --- so-called global knowledge --- on future events and therefore it can only be conducted in a theoretical offline manner. Instead of global knowledge, heuristics can instead attempt to approximate an expected future state.
 
 A very simple predictive approach is to prolong the initial delay to the point, that no intermediate buffer underrun and thus no stall will occur. With global knowledge, the controller can start the stream at the earliest possible point in time, thus minimizing the total stalling time while still having only the initial delay.
 
