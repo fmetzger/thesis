@@ -217,9 +217,18 @@ This behavior can partially be attributed to the simplistic segment request stra
 \label{c6:fig:streaming-simulation-mobility}
 \end{figure}
 
-Besides altering the server link, the effects of the simulated \gls{LTE} network can also be investigated through various means. Here, mobility will be under scrutiny. For this, a second \gls{eNB} will be added to the network. Both are connected through the X2 interface, which will be used for the \gls{eNB}-anchored mobility provided by LENA. Instead of having a constant position relative to the \gls{eNB}, the \gls{UE} will no move back and forth between two waypoints on a two-dimensional plane in parallel to the two base stations which are placed at a distance of $d$ between each other. A handover is triggered each time the device leaves the range of one station and enters the other. Figure~\ref{c6:fig:streaming-simulation-mobility} depicts this scenario.
+Besides altering the server link, the effects of the simulated \gls{LTE} network can also be investigated through various means. Here, mobility will be under scrutiny. For this, a second \gls{eNB} will be added to the network. Both are connected through the X2 interface, which will be used for the \gls{eNB}-anchored mobility provided by LENA. Instead of having a constant position relative to the \gls{eNB}, the \gls{UE} will no move back and forth between two waypoints on a two-dimensional plane in parallel to the two base stations which are placed at a distance of $d$ between each other. A handover is triggered each time the device leaves the range of one station and enters the other. Furthermore, the horizontal distance on the 2D-plane between the device and the \glspl{eNB} is controlled by a second parameter $y$. Figure~\ref{c6:fig:streaming-simulation-mobility} depicts this scenario and the positioning of the waypoints.
 
-%\todo{Figure Z shows the relative stalling occurring during this scenario, the handover points are highlighted..., or add the ON-OFF test results!}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/R-ltesim-plotbuffer-mobility-facets.pdf}
+	\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and \glspl{eNB}.}
+\label{c6:fig:ltesim-mobility-plotbuffer-facets}
+\end{figure}
+
+For the purpose of this experiment, the two \glspl{eNB} were placed at a vertical distance of $d=\SI{500}{\meter}$ while the horizontal distance to the device was varied between $y=\SI{0}{\meter}$ and $y=\SI{150}{\meter}$. The device is moving at a constant velocity of \SI{20}{\meter\per\second}. During the movement the standard quality video was streamed to the device and its playback simulated. 
+
+The results in terms of the buffer fill level are displayed in Figure~\ref{c6:fig:ltesim-mobility-plotbuffer-facets}. The handover events between the two \gls{eNB} are denoted as gray vertical lines. The control transfer usually last only for about \gls{40}{\milli\second}. From the figures it is immediately evident that the video buffer, and therefore the throughput of the video segments, already suffers seconds before the actual handover event. The playback stop threshold is reached a number of times right at the handover mark.
 
 
 %%
@@ -236,6 +245,7 @@ The opposite approach would also be possible for mobile network operators: Map t
 It would also be worthwhile to see the impact of the cross-layer model described in Section~\ref{c5:sec:crosslayerhinting} as they are specifically intended to reduce the influence this kind of mobile network architecture has on user applications. An implementation of cross-layer hinting would be relatively simple here, as the layer isolation boundaries are much easier to circumvent in a network simulator.
 
 As mentioned earlier, ns-3's \gls{LTE} framework does only implemented a limited subset of the \gls{3GPP} specifications, mainly related to the user plane and the radio link stack. Almost no control plane procedures are implemented. This may have only a negligible impact as soon as a connection is established and remains stable and only a very small number of users are connected to the system. But this is not the norm for an actual mobile network in operation with its mobility features and high churn, both in terms of data flows as well as mobile users, generating a large amount of signaling traffic as was discussed before in Section~\ref{c4:sec:3gpparchitecture}. To best mimic the dataset evaluations related to \gls{PDP} context and \gls{gtp} tunnel life cycle management conducted in Section~\ref{c4:sec:evaluations}, the simulator would need to at least be able to reproduce these tunnel management and the related \gls{RRC} \gls{PDP} context procedures happening on the user traffic path. Therefore, it is worth to reconduct the above experiments as soon as the framework has made any progress in this direction.
+
 
 
 

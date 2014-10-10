@@ -4,7 +4,7 @@ library(extrafont)
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 
-path <- "/home/fm/svn/fc-sim/results/set2"
+path <- "F:/uni/svn/fc-sim/results/set2"
 dirs <- list.dirs(path) 
 
 df <- data.frame()
@@ -39,6 +39,9 @@ for (directory in dirs) {
   }
 }
 
+#df$videoname <- factor(df$videoname, levels=c("video1","video3","video2"), ordered=T)
+#levels(df$videoname) <- c("low quality","standard quality","high quality")
+
 # bandwidth plots
 dfsub <- subset(df, df$latency == 0)
 
@@ -46,10 +49,10 @@ p <- ggplot(dfsub, aes(x=bandwidth, y=num.stop, color=videoname))
 p <- p + geom_point(size=3) + geom_line()
 p <- p + scale_x_log10()
 p <- p + xlab("bandwidth (Mb/s)") + ylab("number of video stalls")
-p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video2", "video3"), labels=c("video1", "video2", "video3"))
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
-ggsave("R-ltesim-bwseries-numstalls.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-ltesim-bwseries-numstalls.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-ltesim-bwseries-numstalls.pdf")
 
 
@@ -57,10 +60,10 @@ p <- ggplot(dfsub, aes(x=bandwidth, y=duration.stop, color=videoname))
 p <- p + geom_point(size=3) + geom_line()
 p <- p + scale_x_log10()
 p <- p + xlab("bandwidth (Mb/s)") + ylab("video stall duration (s)")
-p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video2", "video3"), labels=c("video1", "video2", "video3"))
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
-ggsave("R-ltesim-bwseries-stallduration.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-ltesim-bwseries-stallduration.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-ltesim-bwseries-stallduration.pdf")
 
 
@@ -71,18 +74,18 @@ p <- ggplot(dfsub, aes(x=latency, y=num.stop, color=videoname))
 p <- p + geom_point(size=3) + geom_line()
 p <- p + scale_x_log10()
 p <- p + xlab("additional latency (ms)") + ylab("number of video stalls")
-p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video2", "video3"), labels=c("video1", "video2", "video3"))
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
-ggsave("R-ltesim-latencyseries-numstalls.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-ltesim-latencyseries-numstalls.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-ltesim-latencyseries-numstalls.pdf")
 
 p <- ggplot(dfsub, aes(x=latency, y=duration.stop, color=videoname))
 p <- p + geom_point(size=3) + geom_line()
 p <- p + scale_x_log10()
 p <- p + xlab("additional latency (ms)") + ylab("video stall duration (s)")
-p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video2", "video3"), labels=c("video1", "video2", "video3"))
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
-ggsave("R-ltesim-latencyseries-stallduration.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-ltesim-latencyseries-stallduration.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-ltesim-latencyseries-stallduration.pdf")
