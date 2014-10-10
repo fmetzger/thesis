@@ -3,10 +3,11 @@ library(reshape2)
 library(plyr)
 
 
-df <- data.frame()
-
-path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined/"
+#path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined"
+path = "F:/uni/ggsn-sim/combined"
 files <- list.files(path = path, pattern="instance_use_distribution.*csv")
+
+df <- data.frame()
 for (f in files) {
   max.tunnels <- as.numeric(strsplit(f, "_")[[1]][4])
   max.instances <- as.numeric(strsplit(f, "_")[[1]][5])
@@ -68,7 +69,12 @@ facet.label = function(variable, value) {
 }
 
 
-p <- ggplot(dfsub, aes(x=N, y=mean, ymin=left, ymax=right)) + geom_bar(stat="identity", position="dodge")
-p <- p + geom_errorbar(position="dodge", width=0.25) + facet_grid(max.instances ~ max.tunnels, scales="free_x", space="free_x", labeller = facet.label)
-p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("relative duration") + xlab("number of active instances")
-ggsave("R-virtualized-instanceuse-barplot.pdf", width=12, height=10, useDingbat=F)
+p <- ggplot(dfsub, aes(x=N, y=mean, ymin=left, ymax=right))
+p <- p + geom_bar(stat="identity", position="dodge")
+p <- p + geom_errorbar(position="dodge", width=0.25)
+p <- p + facet_grid(max.instances ~ max.tunnels, scales="free_x", space="free_x", labeller = facet.label)
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + ylab("relative duration") + xlab("number of active instances")
+p
+ggsave("R-virtualized-instanceuse-barplot.pdf", width=12, height=8, useDingbat=F)
+embed_fonts("R-virtualized-instanceuse-barplot.pdf")

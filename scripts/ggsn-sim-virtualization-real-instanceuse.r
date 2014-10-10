@@ -3,10 +3,14 @@ library(reshape2)
 library(plyr)
 library(extrafont)
 
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+
+#path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined/"
+path = "F:/uni/ggsn-sim/combined"
+files <- list.files(path = path, pattern="instance_use_distribution.*csv")
 
 df <- data.frame()
-path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined/"
-files <- list.files(path = path, pattern="instance_use_distribution.*csv")
 for (f in files) {
   max.tunnels <- as.numeric(strsplit(f, "_")[[1]][4])
   max.instances <- as.numeric(strsplit(f, "_")[[1]][5])
@@ -56,9 +60,13 @@ facet.label = function(variable, value) {
   sprintf("%s instances", as.character(value))
 }
 p <- ggplot(dfsub, aes(x=N,y=mean,ymin=left,ymax=right))
-p <- p + geom_point(size=2) + geom_line(aes(colour=as.factor(max.tunnels)))
-p <- p + geom_errorbar(width=0.5) + facet_grid(max.instances ~ .,space="free_x",labeller = facet.label)
+p <- p + geom_point(size=2) + geom_line(aes(colour=as.factor(max.tunnels)), size=1)
+p <- p + geom_errorbar(width=0.5, size=1)
+p <- p + facet_grid(max.instances ~ .,space="free_x",labeller = facet.label)
 p <- p + xlab("number of active instances") + ylab("cumulative probability")
-p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + guides(colour=guide_legend("individual instance\ntunnel capacity"))
-ggsave("R-virtualized-instanceuse.pdf", width=12, height=10, useDingbats=F)
-
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + scale_color_manual(values=cbPalette)
+p <- p + guides(colour=guide_legend("individual instance\ntunnel capacity"))
+p
+ggsave("R-virtualized-instanceuse.pdf", width=12, height=8, useDingbats=F)
+embed_fonts("R-virtualized-instanceuse.pdf")

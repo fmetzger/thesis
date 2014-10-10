@@ -8,10 +8,12 @@ library(extrafont)
 # col 2: instance 0 (should always be 0)
 # col -1 max instance duration
 
-dfwm <- data.frame()
 
-path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleMultiserver/multiserver/"
+#path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleMultiserver/multiserver/"
+path = "F:/uni/ggsn-sim/evaluateFeasibleMultiserver/multiserver"
 files <- list.files(path = path, pattern="instance_use_distribution.*csv")
+
+dfwm <- data.frame()
 for (f in files) {
   max.tunnels <- as.numeric(strsplit(f, "_")[[1]][4])
   max.instances <- as.numeric(strsplit(f, "_")[[1]][5])
@@ -50,5 +52,9 @@ dfsub <- subset(dfsub, capacity > 4000)
 p <- ggplot(dfsub, aes(x=max.tunnels, y=rel.instance.use, ymin=left, ymax=right))
 p <- p + geom_line() + geom_point(size=2) + geom_errorbar()
 p <- p + facet_wrap( ~ tunnel.levels, scale="free")# + ylim(0,1)
-p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("mean number of instances in use") + xlab("individual instance tunnel capacity") + guides(color=guide_legend("start/stop\nduration"))
-ggsave("R-virtualized-mean-instanceusage.pdf", width=12, height=10, useDingbats=F)
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + ylab("mean number of instances in use") + xlab("individual instance tunnel capacity")
+p <- p + guides(color=guide_legend("start/stop\nduration"))
+p
+ggsave("R-virtualized-mean-instanceusage.pdf", width=12, height=8, useDingbats=F)
+embed_fonts("R-virtualized-mean-instanceusage.pdf")

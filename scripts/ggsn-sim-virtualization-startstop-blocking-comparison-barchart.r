@@ -1,10 +1,13 @@
 library(ggplot2)
 library(extrafont)
 
-df <- data.frame()
 
-path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional/"
+
+#path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional/"
+path <- "F:/uni/ggsn-sim/evaluateFeasibleDimensioning/traditional/"
 files <- list.files(path=path, pattern="metrics.*csv")
+
+df <- data.frame()
 for (f in files){
   data <- read.table(sprintf("%s/%s", path, f), header=FALSE, colClasses = c("integer", "numeric", "numeric"),  col.names = c("seed", "res.util", "block.prob"), sep=";") 
   max.tunnels <- as.numeric(strsplit(f, "_")[[1]][2])
@@ -32,7 +35,8 @@ for (f in files){
   df <- rbind(df, data)
 }
 
-path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleMultiserver/multiserver/"
+#path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleMultiserver/multiserver/"
+path <- "F:/uni/ggsn-sim/evaluateFeasibleMultiserver/multiserver/"
 files <- list.files(path=path, pattern="metrics.*csv")
 for (f in files){
   data <- read.table(sprintf("%s/%s", path, f), header=FALSE, colClasses = c("integer", "numeric", "numeric"),  col.names = c("seed", "res.util", "block.prob"), sep=";") 
@@ -62,7 +66,9 @@ for (f in files){
   df <- rbind(df, data)
 }
 
-path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleStartStop/multiserver/"
+#path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleStartStop/multiserver/"
+path <- "F:/uni/ggsn-sim/evaluateFeasibleStartStop/multiserver/"
+
 files <- list.files(path=path, pattern="metrics.*csv")
 for (f in files){
   data <- read.table(sprintf("%s/%s", path, f), header=FALSE, colClasses = c("integer", "numeric", "numeric"),  col.names = c("seed", "res.util", "block.prob"), sep=";") 
@@ -112,8 +118,9 @@ cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
 p <- ggplot(dfsub, aes(x= max.tunnels, y= block.prob.mean, ymax = block.prob.right, ymin=block.prob.left, fill=startstop.levels))
 p <- p + geom_bar(stat="identity", position="dodge", width=10) + geom_errorbar(position="dodge", width=10)
 p <- p + facet_wrap(~ instances.levels, scales="free_x") + scale_y_continuous(limits=c(0,1))
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("blocking probability") + xlab("individual instance tunnel capacity") + guides(fill=guide_legend("start/stop\nduration"))
+p <- p + theme(text = element_text(family="Liberation Sans", size=20)) + ylab("blocking probability") + xlab("individual instance tunnel capacity")
+p <- p + guides(fill=guide_legend("start/stop\nduration"))
 p <- p + scale_fill_manual(values=cbPalette)
 p
-ggsave("R-virtualized-startstop-blocking-barchart.pdf", width=12, height=10, useDingbats=F)
+ggsave("R-virtualized-startstop-blocking-barchart.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-virtualized-startstop-blocking-barchart.pdf")

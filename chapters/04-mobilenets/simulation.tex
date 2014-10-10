@@ -105,6 +105,7 @@ To get into more detail, Figure~\ref{c4:fig:virtualized_instanceuse} displays th
 \label{c4:fig:res-usage-barplot}
 \end{figure}
 
+
 Looking at these scenarios and additionally Figure~\ref{c4:fig:res-usage-barplot} from a network dimensioning perspective, two distinct pathways to scale in the virtualized \gls{GGSN} model are revealed. To reach the desired tunnel capacity either the number of instances or the instance's tunnel capacity can be increased. The latter represents the classical \textit{scaling up}. But virtualization also opens up the new path of \textit{scaling out} by increasing the number of instances. Through this, scaling can be become easier and cheaper as existing machines need not be replaced any more.
 
 
@@ -130,7 +131,6 @@ Figure~\ref{c4:fig:blockprob-startstop-barchart} compares a number of instance a
 	\caption{Influence of start up and shut down time on blocking probability with regard to different numbers of instances.}
 \label{c4:fig:compare_maxinstances_block}
 \end{figure}
-
 
 Figure~\ref{c4:fig:compare_maxinstances_block} investigates this increase in more detail and shows the blocking probability of one select scenario. Here, the system supports \numprint{5000} tunnels in total with differing individual instance capacity of \numprint{50}, \numprint{150}, and \numprint{500}. In each case the start and stop down duration is changed between \SI{1}{\minute} and \SI{5}{\minute}. The increase in blocking probability in relation to both the instance capacity as well as the start duration can be easily observed.
 
