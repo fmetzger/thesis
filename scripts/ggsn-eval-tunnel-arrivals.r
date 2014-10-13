@@ -18,24 +18,18 @@ library(extrafont)
 d <- read.table("/home/fm/svn/ursa/out/create_freq_hours", header=TRUE)
 
 
-p <- ggplot(d, aes(factor(hour_of_day), create_events_per_second)) + geom_violin()
+p <- ggplot(d, aes(factor(hour_of_day), create_events_per_second)) + geom_violin(size=1)
 p <- p + xlab("time of day") + ylab("tunnel create events per second")
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
-
-ggsave("R-createspersecond-1h-violin.pdf", width=12, height=10, useDingbats=F)
+ggsave("R-createspersecond-1h-violin.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-createspersecond-1h-violin.pdf")
 
 
 ## histogramm for tunnel arrivals per second
-p <- ggplot(d, aes(create_events_per_second)) + geom_density() + geom_histogram(aes(y=..density..), binwidth=1, colour="black", fill="white")
+p <- ggplot(d, aes(create_events_per_second)) + geom_density(size=1) + geom_histogram(aes(y=..density..), binwidth=1, colour="black", fill="white", size=1)
 p <- p + ylab("relative occurence") + xlab("tunnel create events per second")
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
-
-ggsave("R-create-frequency.pdf", width=12, height=10, useDingbats=F)
+ggsave("R-create-frequency.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-create-frequency.pdf")
-
-
-
-

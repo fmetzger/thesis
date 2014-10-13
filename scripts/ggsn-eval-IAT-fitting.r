@@ -32,11 +32,10 @@ samplesize <- nrow(df)*0.001 # 0.1% sample size for plotting and keeping plot si
 df.sampled <- df[sample(nrow(df), samplesize),  ]
 df.sampled <- data.frame(origin="sample", ts=df.sampled$IAT, IAT=df.sampled$IAT)
 
-ggplot(df.sampled, aes(x=IAT)) + stat_ecdf()
-ggplot(df.sampled, aes(x=IAT)) + geom_histogram(binwidth=.001)
-
-plotdist(df.sampled$IAT)
-descdist(df.sampled$IAT, boot = 1000, method='sample') # cullen-frey skewness kurtosis plot 
+#ggplot(df.sampled, aes(x=IAT)) + stat_ecdf()
+#ggplot(df.sampled, aes(x=IAT)) + geom_histogram(binwidth=.001)
+#plotdist(df.sampled$IAT)
+#descdist(df.sampled$IAT, boot = 1000, method='sample') # cullen-frey skewness kurtosis plot 
 
 
 ############# lognormal fitting (fitdistrplus)
@@ -81,24 +80,27 @@ df.sampled <- rbind(df.sampled, tmp)
 
 
 ########### density comparison
-ggplot(df.sampled, aes(x=df.sampled$IAT, color=as.factor(df.sampled$origin))) + geom_density(size=1.3) + coord_cartesian(xlim=c(0,0.15)) + guides(col = guide_legend(nrow = 12)) + labs(colour = "")  + theme(text = element_text(size=20)) + ylab("Density") + xlab("Tunnel interarrival time")
-ggsave("R-IAT-densities.pdf")
+#ggplot(df.sampled, aes(x=df.sampled$IAT, color=as.factor(df.sampled$origin))) + geom_density(size=1.3) + coord_cartesian(xlim=c(0,0.15)) + guides(col = guide_legend(nrow = 12)) + labs(colour = "")  + theme(text = element_text(size=20)) + ylab("Density") + xlab("Tunnel interarrival time")
+#ggsave("R-IAT-densities.pdf")
 
 
 ########### cdf comparison
 
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-
-p <- ggplot(df.sampled, aes(x=df.sampled$IAT, color=as.factor(df.sampled$origin))) + stat_ecdf(size=1)
+p <- ggplot(df.sampled, aes(x=df.sampled$IAT, color=as.factor(df.sampled$origin))) + stat_ecdf(lwd=1)
 p <- p + scale_x_log10() + coord_cartesian(xlim=c(0.001,0.4)) + guides(col = guide_legend(nrow = 12)) + labs(colour = "")
 p <- p + ylab("cumulative probability") + xlab("tunnel interarrival time")
 p <- p + scale_color_manual(values=cbPalette)
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + annotation_logticks(sides="b")
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
-
-ggsave("R-IAT-ecdfs.pdf", width=12, height=10, useDingbats=F)
+ggsave("R-IAT-ecdfs.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-IAT-ecdfs.pdf")
+
+
+
+
 
 ########### pearson's chi-squared goodness-of-fit test
 # not sure of this is the appropriate metric for this kind of distribution

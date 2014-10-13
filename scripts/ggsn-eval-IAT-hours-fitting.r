@@ -71,16 +71,16 @@ z$timeslot <- as.factor(z$timeslot)
 z$origin <- as.factor(z$origin)
 sampled <- z[sample(nrow(z), nrow(z)*0.01), ]
 
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-p <- ggplot(sampled, aes(x=IAT, group=origin, color=as.factor(origin))) + stat_ecdf(size=1)
+p <- ggplot(sampled, aes(x=IAT, group=origin, color=as.factor(origin))) + stat_ecdf(lwd=1)
 p <- p + scale_x_log10() + coord_cartesian(xlim = c(0.001, 0.4)) + facet_wrap(~ timeslot)
 p <- p + ylab("cumulative probability") + xlab("tunnel interarrivals (s)") + guides(color=guide_legend("", override.aes = list(size=4)))
 p <- p + scale_color_manual(values=cbPalette)
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + annotation_logticks(sides="b")
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
-
-ggsave("R-IAT-active-fit-cdf-facets.pdf", width=12, height=10, useDingbats=F)
+ggsave("R-IAT-active-fit-cdf-facets.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-IAT-active-fit-cdf-facets.pdf")
 
 

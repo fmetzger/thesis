@@ -72,11 +72,20 @@ for (f in files){
 
 p <- ggplot(df, aes(x=max.tunnels * max.instances, y=block.prob.mean, ymin=block.prob.left, ymax=block.prob.right, color=as.factor(max.instances)))
 p <- p + geom_point(size=2) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
-p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("blocking probability") + xlab("total tunnel capacity") + guides(colour=guide_legend("supported\nvirtual\ninstances")) + scale_colour_brewer(palette="Paired")
-ggsave("R-virtualized-blocking.pdf", width=12, height=10, useDingbats=F)
-
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + ylab("blocking probability") + xlab("total tunnel capacity")
+p <- p + guides(colour=guide_legend("supported\nvirtual\ninstances"))
+p <- p + scale_colour_brewer(palette="Paired")
+p
+ggsave("R-virtualized-blocking.pdf", width=12, height=8, useDingbats=F)
+embed_fonts("R-virtualized-blocking.pdf")
 
 p <- ggplot(df, aes(x=max.tunnels * max.instances, y=res.util.mean, ymax = res.util.right, ymin=res.util.left, color=as.factor(max.instances)))
 p <- p +  geom_point(size=2) + geom_errorbar(width=100)+ coord_cartesian(xlim=c(0,5200))
-p + theme(text = element_text(family="Liberation Sans Narrow", size=20)) + ylab("concurrent tunnels served on average") + xlab("total tunnel capacity") + guides(colour=guide_legend("supported\nvirtual\ninstances")) + scale_colour_brewer(palette="Paired")
-ggsave("R-virtualized-tunnelusage.pdf", width=12, height=10, useDingbats=F)
+p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + ylab("concurrent tunnels served on average") + xlab("total tunnel capacity")
+p <- p + guides(colour=guide_legend("supported\nvirtual\ninstances"))
+p <- p + scale_colour_brewer(palette="Paired")
+p
+ggsave("R-virtualized-tunnelusage.pdf", width=12, height=8, useDingbats=F)
+embed_fonts("R-virtualized-tunnelusage.pdf")

@@ -41,30 +41,30 @@ plotbuffer <- function(csvfilestring){
   
   p <- ggplot(d, aes(x=timestamp, y=sum)) + geom_line(size = 1)
   p <- p + xlab("time (s)") + ylab("buffered data (KiB)") 
-  p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+  p <- p + theme(text = element_text(family="Liberation Sans", size=20))
   return(p)
 }
 
-p <- plotbuffer("/home/fm/git/thesis/scripts/streaming-eval-null-strategy.csv")
+p <- plotbuffer("/home/fm/git/thesis/data/streaming-eval-null-strategy.csv")
 p
-ggsave("R-bufferlevel-stall.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-bufferlevel-stall.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-bufferlevel-stall.pdf")
 
 
-p <- plotbuffer("streaming-eval-flash-strategy.csv")
+p <- plotbuffer("/home/fm/git/thesis/data/streaming-eval-flash-strategy.csv")
 p
-ggsave("R-bufferlevel-flash.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-bufferlevel-flash.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-bufferlevel-flash.pdf")
 
 
-p <- plotbuffer("streaming-eval-startdelay-strategy.csv")
+p <- plotbuffer("/home/fm/git/thesis/data/streaming-eval-startdelay-strategy.csv")
 p
-ggsave("R-bufferlevel-startdelay.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-bufferlevel-startdelay.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-bufferlevel-startdelay.pdf")
 
 
-p <- plotbuffer("streaming-eval-firefox-strategy.csv")
+p <- plotbuffer("/home/fm/git/thesis/data/streaming-eval-firefox-strategy.csv")
 p
-ggsave("R-bufferlevel-firefox.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-bufferlevel-firefox.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-bufferlevel-firefox.pdf")
 

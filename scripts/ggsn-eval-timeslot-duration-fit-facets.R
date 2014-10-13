@@ -50,16 +50,16 @@ df$timeslot[df$timeslot == "67891011"] <- "6h-11h"
 df$timeslot[df$timeslot == "121314151617"] <- "12h-17h"
 df$timeslot[df$timeslot == "181920212223"] <- "18h-23h"
 
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 # 4 facet plot with corresponding fits
 p <- ggplot(df, aes(x=x, y=y, color=as.factor(origin))) + geom_line(size=1)
 p <- p + scale_x_log10(name = "tunnel duration (s)", limits = c(1, 1.5e6))
 p <- p + facet_wrap(~timeslot) + ylab("cumulative probability")
 p <- p +  scale_colour_manual(name = "", values = cbPalette)
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p
 
-ggsave("R-duration-fit-cdf-facets.pdf", width=12, height=10, useDingbat=F)
+ggsave("R-duration-fit-cdf-facets.pdf", width=12, height=8, useDingbat=F)
 embed_fonts("R-duration-fit-cdf-facets.pdf")
 

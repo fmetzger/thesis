@@ -37,17 +37,16 @@ traffic.business <- c(8.522, 10.530, 12.822, 15.417, 18.372, 21.724)
 tmp <- data.frame(traffic = traffic.business, year = year, source="Cisco", type = "business")
 df <- rbind(df, tmp)
 
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 
-p <- ggplot(df, aes(x=year, y=traffic, fill =as.factor(type))) + geom_bar(stat="identity")
+p <- ggplot(df, aes(x=year, y=traffic, fill =as.factor(type))) + geom_bar(stat="identity", position="dodge")
 p <- p + scale_x_continuous(breaks = year) + ylab("traffic (exabytes per month)")
-p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
-
-ggsave("r-cisco-vni-2013.pdf", width=12, height=10, useDingbat=F)
-
+ggsave("r-cisco-vni-2013.pdf", width=12, height=8, useDingbat=F)
+embed_fonts("r-cisco-vni-2013.pdf")
 
 
 ###############
@@ -81,15 +80,15 @@ ratio.2014.1h <- c(0.1035, 0.0452, 0.0623, 0, 0.0675, 0.1306, 0.5909)
 tmp <- data.frame(ratio = ratio.2014.1h, year = "2014, 1h", source="Netvine", types=types)
 df <- rbind(df, tmp)
 
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-p <- ggplot(df, aes(x=year, y=ratio, fill =as.factor(types))) + geom_bar(stat="identity")
+p <- ggplot(df, aes(x=year, y=ratio, fill =as.factor(types))) + geom_bar(stat="identity", position="dodge")
 p <- p + ylab("aggregate traffic ratio")
-p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
-
-ggsave("r-netvine-phenomena-fixed.pdf", width=12, height=10, useDingbat=F)
+ggsave("r-netvine-phenomena-fixed.pdf", width=12, height=8, useDingbat=F)
+embed_fonts("r-netvine-phenomena-fixed.pdf")
 
 # netvine mobile
 
@@ -109,13 +108,12 @@ ratio.2014.1h <- c(0.0938, 0.0953, 0.0853, 0.2287, 0.1363, 0.3607)
 tmp <- data.frame(ratio = ratio.2014.1h, year = "2014, 1h", source="Netvine", types=types)
 df <- rbind(df, tmp)
 
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-p <- ggplot(df, aes(x=year, y=ratio, fill =as.factor(types))) + geom_bar(stat="identity")
+p <- ggplot(df, aes(x=year, y=ratio, fill =as.factor(types))) + geom_bar(stat="identity", position="dodge")
 p <- p + ylab("aggregate traffic ratio")
-p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
-
-ggsave("r-netvine-phenomena-mobile.pdf", width=12, height=10, useDingbat=F)
-
+ggsave("r-netvine-phenomena-mobile.pdf", width=12, height=8, useDingbat=F)
+embed_fonts("r-netvine-phenomena-mobile.pdf")
