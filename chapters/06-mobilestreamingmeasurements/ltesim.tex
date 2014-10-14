@@ -109,8 +109,6 @@ This model is governed by four thresholds. They are, in the order of the buffer 
 
 To demonstrate the strategy an example scenario can be observed in Figure~\ref{c6:fig:ltesim-plotbuffer-time}. Depending on the relation of \gls{TCP} goodput to video bitrate a player with this strategy should always bounce between the thresholds 2 and 4 and never stop playing intermittently as in the example.
 
-To avoid stop-and-wait behavior in the segment request process, new segments need to be requested ahead of time while the previous segment is still being transmitted, so that the full bandwidth is always utilized. This becomes more critical the higher the overall latency is, as the gaps would become larger if no request was made in time.
-
 The default threshold values may be far from ideal and need to be optimized in the long run. But this is often the same case in real streaming solutions with the players arbitrarily preconfigured to values that could make sense from the developer's point of view without scientific validation.
 
 
@@ -202,9 +200,10 @@ However, this effect is somewhat contrary to the additional effect observed at l
 
 In a second series of simulation runs the latency of the server's link was increased incrementally up to an additional latency of \SI{1000}{\milli\second}. The values were set deterministically with no probability distribution. Figures~\ref{c6:fig:ltesim-latencyseries-stallduration} and \ref{c6:fig:ltesim-latencyseries-numstalls} again show the results in terms of the relative duration and number of stalling phases. The playback simulation seems to be excessively sensitive to latency increases. Even a small \SI{100}{\milli\second} increase makes the high and standard quality videos completely unwatchable as the stalling duration is more than ten times longer than the actual video. With latencies beyond \SI{100}{\milli\second} the high quality video could not be successfully streamed anymore. 
 
-This behavior can partially be attributed to the simplistic segment request strategy, that only requests a new segment when the previous one has fully arrived. The higher the latency the longer it takes to receive new data. With improvements to the retrieval strategy, this specific issue should be eliminated. But this just shows the many pitfalls and influences of various layers. A simple implementation detail may have large implications on the streaming quality the user experience.
 
-%\todo{Another series with a changed retrieval method in Figures x and y shows that the strong correlation to the latency is now greatly reduced}
+This behavior can partially be attributed to the simplistic segment request strategy used in this experiment. New segment are only requested when the previous one has fully arrived. As this takes a full round trip, the latency has a significant influence on the arrival time of subsequent segments. To avoid this kind of stop-and-wait behavior in the segment request process, new segments need to be requested sufficiently in advance while the previous segment is still being transmitted, so that the full bandwidth is always utilized.
+
+With these improvements to the retrieval strategy this specific issue can be eliminated. But this just shows the many pitfalls and influences of various layers. A simple implementation detail may have large implications on the streaming quality the user experience.
 
 
 %%
@@ -212,7 +211,7 @@ This behavior can partially be attributed to the simplistic segment request stra
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.6\textwidth]{images/streaming-simulation-mobility.pdf}
+	\includegraphics[width=0.5\textwidth]{images/streaming-simulation-mobility.pdf}
 	\caption{Simulated handover mobility scenario using waypoints.}
 \label{c6:fig:streaming-simulation-mobility}
 \end{figure}
@@ -228,8 +227,15 @@ Besides altering the server link, the effects of the simulated \gls{LTE} network
 
 For the purpose of this experiment, the two \glspl{eNB} were placed at a vertical distance of $d=\SI{500}{\meter}$ while the horizontal distance to the device was varied between $y=\SI{0}{\meter}$ and $y=\SI{150}{\meter}$. The device is moving at a constant velocity of \SI{20}{\meter\per\second}. During the movement the standard quality video was streamed to the device and its playback simulated. 
 
-The results in terms of the buffer fill level are displayed in Figure~\ref{c6:fig:ltesim-mobility-plotbuffer-facets}. The handover events between the two \gls{eNB} are denoted as gray vertical lines. The control transfer usually last for only about \SI{40}{\milli\second}. But looking at the figures it is immediately evident that the video buffer, and therefore the throughput of the video segments, already suffers seconds before the actual handover event. The playback stop threshold is reached a number of times right at the handover mark.
+The results in terms of the buffer fill level are displayed in Figure~\ref{c6:fig:ltesim-mobility-plotbuffer-facets}. The color-coded horizontal lines once again demark the same thresholds from the previously described four threshold segmented streaming strategy.
 
+The handover events between the two \gls{eNB} are denoted by the gray vertical lines. The actual control transfer usually last for only about \SI{40}{\milli\second}. But looking at the figures it is immediately evident that the video buffer, and therefore the throughput of the video segments, already suffers seconds before this handover event when the edge of the radio range of the currently active \gls{eNB} is reached. The playback stop threshold is undercut several times right at the handover mark and stalling occurs.
+
+It seems, that the throughput at the radio edge drops below the video's average bitrate of \SI{3596}{\kilo\bit\per\second}. Therefore, the buffer cannot be maintained for this quality. If the buffer was at a low level beforehand, it will run empty and lead to stalling due to the mobilty. 
+
+Mobile streaming playback strategies can attempt to counteract mobility-related issues in a number of ways. A simple approach would be to adjust the threshold levels to allow for a much larger buffer while also restarting transmissions earlier. But this comes at the price of an increased memory resource usage on the device, which might not possible in every scenario. Second, the strategy can be exchanged for an adaptive one, for example the described six threshold window scaling strategy with appropriately chosen threshold values. Here, the stalls are exchanged for phases of lower quality video, which can be acceptable under circumstances. 
+
+Finally, both non-adaptive and adaptive strategies can be improved by employing the cross-layer model described in Section~\ref{c5:sec:crosslayerhinting}. By utilizing information from the radio network layers, handover events can be detected sufficiently in advance and an appropriate reaction chosen by the playback strategy. For example by temporarily increasing the maximum buffer threshold and requesting segments more rapidly or by quickly dropping to a lower quality level and filling the buffer up.
 
 %%
 \paragraph{Further Scenarios}
