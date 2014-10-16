@@ -3,7 +3,7 @@
 \section{Modeling Mobile Network Load}
 \label{c4:sec:modeling}
 
-The next logical step after the collection of empirical data and the execution of a statistical analysis lies in the creation of models abstracting this real system. While some loss of precision is incurred, models are much more flexible and can have numerous applications For example, they should support network operators in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
+The next logical step after the collection of empirical data and the execution of a statistical analysis lies in the creation of models abstracting this real system. While some loss of precision is incurred, models are much more flexible and can have numerous applications. Load models and the derived information on the network \gls{QoS} parameters can serve as a basis for the video measurement framework of Section~\ref{c3:sec:measurements}, which only used arbitrarily chosen values for its latency and loss experiments. Using the load model a more realistic mobile network could be emulated. Additionally, network operators can also be supported in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
 
 On the basis of the tunnel distributions attained in Section~\ref{c4:sec:evaluations}, models for both a traditional \gls{GGSN} as well as a virtualized \gls{GGSN} are introduced. The performance trade-offs when using a virtual \gls{GGSN} are further studied, discussing different options to consider when using the virtual node.
 
@@ -133,7 +133,9 @@ Combining the model with the exponential and rational function fits functions pr
 	\phantom{.}M(t)/G(t)/c/0\text{.}
 \end{equation}
 
-With this model, high control plane load can be indirectly described as the system's blocking probability $p_B$. The peak load can be ascertained by looking at the busy hour period where the arrival rate is the highest. No exact mathematical solution is known for this type of model. Only if the service time distribution can be confined to certain specific distributions, e.g. Phase-type distributions, some approximations can be made \cite{davis1995nonstationaryerlang}. This confinement could not yet be made for the trace data. Instead, a simulative approach will be taken in Section~\ref{c4:sec:simulation}.
+With this model, high control plane load can be indirectly described as the system's blocking probability $p_B$. The peak load can be ascertained by looking at the busy hour period where the arrival rate is the highest. No exact mathematical solution is known for this type of model. Only if the service time distribution can be confined to certain specific distributions, e.g. Phase-type distributions, some approximations can be made \cite{davis1995nonstationaryerlang}. 
+The data does not give any indication of that being the case
+This confinement could not yet be made for the trace data. Instead, a simulative approach will be taken in Section~\ref{c4:sec:simulation}.
 
 
 %%
