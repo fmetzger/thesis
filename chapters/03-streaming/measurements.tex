@@ -110,7 +110,7 @@ In the latency measurement series, the emulator delays forwarding the packets fo
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
 	\caption{Stalling duration in relation to transmission latency with local polynomial least-squares fit.}
 \label{c3:fig:eval-latency-stallingtime}
 \end{figure}
@@ -119,7 +119,7 @@ Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the a
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
 	\caption{Number of stalls in relation to transmission latency with local polynomial least-squares fit.}
 \label{c3:fig:eval-latency-numstalls}
 \end{figure}
@@ -137,27 +137,27 @@ In the loss measurement series, uncorrelated and uniformly distributed loss was 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallduration-loss.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallduration-loss.pdf}
 	\caption{Stalling duration in relation to packet loss with local polynomial least-squares fit.}
 \label{c3:fig:eval-loss-stallingtime}
 \end{figure}
 
-Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling duration in the packet loss measurement series. Loss of up to about \SI{2.5}{\percent} seems to have no discernible impact on the streaming process. Anything beyond this point sees a large increase in the stalling duration. With a relative stalling duration of almost four times the actual video length at \SI{12.5}{\percent} packet loss any streaming attempt is practically rendered unusable. 
+Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling duration in the packet loss measurement series. Loss of up to about \SI{2.5}{\percent} seems to have no discernible impact on the streaming process. Anything beyond this point sees a large increase in the stalling duration. With a relative stalling duration of almost four times the actual video length at \SI{12.5}{\percent} packet loss any streaming attempt is practically rendered unusable. Also, all four tested playback strategies handle high loss equally worse, with the exception of some Firefox results producing a lower stalling duration.
 
-This behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission takes time and leads to a bursty increase in latency offering a possible reason of the increased stalling time. Generally, high values of packet loss are less likely to occur than high latency in real networks. Therefore, it can be expected than playback strategies are better optimized for scenarios with high latency than loss.
+This general behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission of lost segments takes time and leads to a bursty increase in latency. It also represents a possible reason of the increased stalling time. 
+
+At least it can be safely assumed, that in actual production networks high values of packet loss are usually less likely to occur than high latency. The only major source of packet loss should be network congestion, which should only occur in moments of high network load. Therefore, it can be expected than playback strategies are better optimized for scenarios with high latency than loss.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
 	\caption{Number of playback stalls in relation to packet loss with local polynomial least-squares fit.}
 \label{c3:fig:eval-loss-numstalls}
 \end{figure}
 
+Figure~\ref{c3:fig:eval-loss-numstalls} clearly shows the extremity of the null strategy in terms of the number of experienced stalls compared to any other strategy. The same loss measurement series is used as basis here. The null strategy runs into two orders of magnitude more stalling phases than the three other strategies. The number of stalling events of the three other strategies remain relatively low. But the individual stalling events will therefore be rather lengthy ones when keeping the total stalling duration in mind. Therefore, in the packet loss scenario the factor that will degrade \gls{QoE} the most seems to be the duration of the stalling events but not their number, with the exception of the null strategy.
 
-Figure~\ref{c3:fig:eval-loss-numstalls} shows the extremity of the null strategy in terms of the number of experienced stalls. Values two orders of magnitude larger when compared to the other strategies are reached. The number of stalling events of the three other strategies remain relatively low. Therefore, in the packet loss scenario the limiting factor typically seems to be the duration of the stalling events but not their number, with the exception of the null strategy.
-
-
-All in all, when planning a network for streaming applications, the maximum loss should be kept below the \SI{2.5}{\percent} mark to achieve reasonable streaming quality. All the existing strategies already seem to work rather well for typically experienced network \gls{QoS} scenarios. Only when extraordinarily bad conditions are reached, the strategies break down. But this is not different to many other network applications, which work best with pristine \gls{QoS}.
+All in all, when planning a network for streaming applications, the maximum loss should be kept below the \SI{2.5}{\percent} mark to achieve reasonable streaming quality. All the existing strategies already seem to work rather well for typically experienced network \gls{QoS} scenarios. Only when extraordinary network conditions are present the strategies break down. But this is not different to many other network applications, which work best with pristine \gls{QoS}.
 
 
 %% original python plots

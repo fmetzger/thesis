@@ -1,3 +1,12 @@
+@inproceedings{cs3516,
+	booktitle = {12th Würzburg Workshop on IP: ITG Workshop "Visions of Future Generation Networks" (EuroView2012)},
+	month = {July},
+	title = {Network Federation as a Provider Concept: From Today's Measurement to Tomorrow's Architecture},
+	author = {Rafetseder, A. and \mkbibbold{F. Metzger} and Stezenbach, D. and Tutschku, K.},
+	year = {2012},
+	url = {http://eprints.cs.univie.ac.at/3516/},
+}
+
 @inproceedings{turner2005diversifying,
 	title={Diversifying the internet},
 	author={Turner, Jonathan S and Taylor, David E},
@@ -44,11 +53,6 @@
 	doi = "http://dx.doi.org/10.1016/j.comnet.2011.01.014",
 	url = "http://www.sciencedirect.com/science/article/pii/S1389128611000363",
 	author = "Sangtae Ha and Injong Rhee",
-	keywords = "Slow start",
-	keywords = "Congestion control",
-	keywords = "Linux slow start",
-	keywords = "\{SACK\} processing",
-	keywords = "High-speed \{TCP\} protocols"
 }
 
 @incollection{feldmann2010ossification,
@@ -74,15 +78,7 @@
 	organization={Citeseer}
 }
 
-@inproceedings{cs3516,
-	booktitle = {12th Würzburg Workshop on IP: ITG Workshop "Visions of Future Generation Networks" (EuroView2012)},
-	month = {July},
-	title = {Network Federation as a Provider Concept: From Today's Measurement to Tomorrow's Architecture},
-	author = {Rafetseder, A. and \mkbibbold{Metzger, F.} and Stezenbach, D. and Tutschku, K.},
-	year = {2012},
-	url = {http://eprints.cs.univie.ac.at/3516/},
-	keywords = {ownpub}
-}
+
 
 @misc{http20draft,
 	author="Belshe, M. and Peon, R. and Thomson, M.",
@@ -115,19 +111,21 @@
 	volume={22},
 	number={5},
 	pages={637-648},
-	keywords={Computer communications;Packet switching;Communication networks;Communication switching;Computer networks;Error correction;Internet;Packet switching;Protocols;Routing;Size control;Switches},
 	doi={10.1109/TCOM.1974.1092259},
 	ISSN={0090-6778}
 }
 
 @article{baran1964distributed,
-	title={{On distributed communications networks}},
 	author={Baran, P.},
 	journal={Communications Systems, IEEE Transactions on},
+	title={On Distributed Communications Networks},
+	year={1964},
+	month={March},
 	volume={12},
 	number={1},
-	pages={1--9},
-	year={1964},
+	pages={1-9},
+	doi={10.1109/TCOM.1964.1088883},
+	ISSN={0096-1965},
 	publisher={IEEE}
 }
 
@@ -199,10 +197,16 @@
 }
 
 @article{scharf2011comparison,
-	title={{Comparison of end-to-end and network-supported fast startup congestion control schemes}},
-	author={Scharf, M.},
-	journal={Computer Networks},
-	year={2011},
+	title = "Comparison of end-to-end and network-supported fast startup congestion control schemes ",
+	journal = "Computer Networks ",
+	volume = "55",
+	number = "8",
+	pages = "1921 - 1940",
+	year = "2011",
+	issn = "1389-1286",
+	doi = "http://dx.doi.org/10.1016/j.comnet.2011.02.002",
+	url = "http://www.sciencedirect.com/science/article/pii/S1389128611000491",
+	author = "Michael Scharf",
 	publisher={Elsevier}
 }
 
@@ -213,14 +217,23 @@
 }
 
 @article{gettys2011bufferbloat,
-	title={{Bufferbloat: Dark Buffers in the Internet}},
-	author={Gettys, J.},
-	journal={Internet Computing, IEEE},
-	volume={15},
-	number={3},
-	pages={96--96},
-	year={2011},
-	publisher={IEEE}
+	author = {Gettys, Jim and Nichols, Kathleen},
+	title = {Bufferbloat: Dark Buffers in the Internet},
+	journal = {Queue},
+	issue_date = {November 2011},
+	volume = {9},
+	number = {11},
+	month = nov,
+	year = {2011},
+	issn = {1542-7730},
+	pages = {40:40--40:54},
+	articleno = {40},
+	numpages = {15},
+	url = {http://doi.acm.org/10.1145/2063166.2071893},
+	doi = {10.1145/2063166.2071893},
+	acmid = {2071893},
+	publisher = {ACM},
+	address = {New York, NY, USA},
 }
 
 @article{groenewegen2011detecting,
@@ -229,16 +242,24 @@
 	year={2011}
 }
 
-@inproceedings{jacobson1988congestion,
-	title={{Congestion avoidance and control}},
-	author={Jacobson, V.},
-	booktitle={ACM SIGCOMM Computer Communication Review},
-	volume={18},
-	number={4},
-	pages={314--329},
-	year={1988},
-	organization={ACM}
-}
+@article{jacobson1988congestion,
+	author = {Jacobson, V.},
+	title = {Congestion Avoidance and Control},
+	journal = {SIGCOMM Comput. Commun. Rev.},
+	issue_date = {August 1988},
+	volume = {18},
+	number = {4},
+	month = aug,
+	year = {1988},
+	issn = {0146-4833},
+	pages = {314--329},
+	numpages = {16},
+	url = {http://doi.acm.org/10.1145/52325.52356},
+	doi = {10.1145/52325.52356},
+	acmid = {52356},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+} 
 
 @book{kurose2008computer,
 	title={Computer networking: a top-down approach},
@@ -255,35 +276,53 @@
 }
 
 @article{saltzer1984end2end,
-	title={End-to-end arguments in system design},
-	author={Saltzer, J.H. and Reed, D.P. and Clark, D.D.},
-	journal={ACM Transactions on Computer Systems (TOCS)},
-	volume={2},
-	number={4},
-	pages={277--288},
-	year={1984},
-	publisher={ACM}
+	author = {Saltzer, J. H. and Reed, D. P. and Clark, D. D.},
+	title = {End-to-end Arguments in System Design},
+	journal = {ACM Trans. Comput. Syst.},
+	issue_date = {Nov. 1984},
+	volume = {2},
+	number = {4},
+	month = nov,
+	year = {1984},
+	issn = {0734-2071},
+	pages = {277--288},
+	numpages = {12},
+	url = {http://doi.acm.org/10.1145/357401.357402},
+	doi = {10.1145/357401.357402},
+	acmid = {357402},
+	publisher = {ACM},
+	address = {New York, NY, USA},
 }
 
 @inproceedings{bhattacharjee1997active,
-	title={{Active networking and the end-to-end argument}},
 	author={Bhattacharjee, S. and Calvert, K.L. and Zegura, E.W.},
-	booktitle={icnp},
-	pages={220},
+	booktitle={Network Protocols, 1997. Proceedings., 1997 International Conference on},
+	title={Active networking and the end-to-end argument},
 	year={1997},
-	organization={Published by the IEEE Computer Society}
+	month={Oct},
+	pages={220-228},
+	doi={10.1109/ICNP.1997.643717},
+	ISSN={1092-1648},
 }
 
 @article{blumenthal2001rethinking,
-	title={{Rethinking the design of the Internet: the end-to-end arguments vs. the brave new world}},
-	author={Blumenthal, M.S. and Clark, D.D.},
-	journal={ACM Transactions on Internet Technology (TOIT)},
-	volume={1},
-	number={1},
-	pages={70--109},
-	year={2001},
-	publisher={ACM}
-	}
+	author = {Blumenthal, Marjory S. and Clark, David D.},
+	title = {Rethinking the Design of the Internet: The End-to-end Arguments vs. The Brave New World},
+	journal = {ACM Trans. Internet Technol.},
+	issue_date = {Aug. 2001},
+	volume = {1},
+	number = {1},
+	month = aug,
+	year = {2001},
+	issn = {1533-5399},
+	pages = {70--109},
+	numpages = {40},
+	url = {http://doi.acm.org/10.1145/383034.383037},
+	doi = {10.1145/383034.383037},
+	acmid = {383037},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+}
 
 @article{isenberg1997rise,
 	title={Rise of the stupid network},
@@ -323,14 +362,22 @@
 }
 
 @article{kohler2006designing,
-	title={{Designing DCCP: Congestion control without reliability}},
-	author={Kohler, E. and Handley, M. and Floyd, S.},
-	journal={ACM SIGCOMM Computer Communication Review},
-	volume={36},
-	number={4},
-	pages={27--38},
-	year={2006},
-	publisher={ACM}
+	author = {Kohler, Eddie and Handley, Mark and Floyd, Sally},
+	title = {Designing DCCP: Congestion Control Without Reliability},
+	journal = {SIGCOMM Comput. Commun. Rev.},
+	issue_date = {October 2006},
+	volume = {36},
+	number = {4},
+	month = aug,
+	year = {2006},
+	issn = {0146-4833},
+	pages = {27--38},
+	numpages = {12},
+	url = {http://doi.acm.org/10.1145/1151659.1159918},
+	doi = {10.1145/1151659.1159918},
+	acmid = {1159918},
+	publisher = {ACM},
+	address = {New York, NY, USA},
 }
 
 @Misc{ietf2011websocket,
@@ -354,19 +401,25 @@
 	acmid = {1508905},
 	publisher = {ACM},
 	address = {New York, NY, USA},
-	keywords = {cloud computing, cluster computing, distributed computing, peer-to-peer computing}
 } 
 
 @Article{ha2008cubic,
-	title = "{CUBIC: a new TCP-friendly high-speed TCP variant}",
-	author = "S. Ha and I. Rhee and L. Xu",
-	journal = "ACM SIGOPS Operating Systems Review",
-	volume = "42",
-	number = "5",
-	pages = "64--74",
-	issn = "0163-5980",
-	year = "2008",
-	publisher = "ACM"
+	author = {Ha, Sangtae and Rhee, Injong and Xu, Lisong},
+	title = {CUBIC: A New TCP-friendly High-speed TCP Variant},
+	journal = {SIGOPS Oper. Syst. Rev.},
+	issue_date = {July 2008},
+	volume = {42},
+	number = {5},
+	month = jul,
+	year = {2008},
+	issn = {0163-5980},
+	pages = {64--74},
+	numpages = {11},
+	url = {http://doi.acm.org/10.1145/1400097.1400105},
+	doi = {10.1145/1400097.1400105},
+	acmid = {1400105},
+	publisher = {ACM},
+	address = {New York, NY, USA},
 }
 
 @article{song2006compound,
@@ -422,7 +475,6 @@
 	acmid = {1851194},
 	publisher = {ACM},
 	address = {New York, NY, USA},
-	keywords = {architecture, inter-domain traffic, internet, peering policies},
 } 
 
 @article{Paxson:1994:EDA:189520.189525,

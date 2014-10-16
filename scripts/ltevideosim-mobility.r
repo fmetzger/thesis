@@ -1,9 +1,9 @@
 library(ggplot2)
 library(extrafont)
 
-Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.15/bin/gswin64c.exe")
+#Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.15/bin/gswin64c.exe")
 
-path <- "F:/uni/svn/fc-sim/results/set4/video3"
+path <- "/home/fm/svn/fc-sim/results/set4/video3"
 dirs <- list.dirs(path) 
 
 df <- data.frame()

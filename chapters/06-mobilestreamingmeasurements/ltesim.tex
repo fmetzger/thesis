@@ -68,7 +68,7 @@ During transmission, the \gls{LTE} framework sets up the lower layer protocols, 
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\textwidth]{images/streaming-hybrid.pdf}
+\includegraphics[width=1.0\textwidth]{images/streaming-hybrid.pdf}
 \caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
 \label{c6:fig:streaming-hybrid}
 \end{figure}
@@ -102,7 +102,7 @@ This model is governed by four thresholds. They are, in the order of the buffer 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-ltesim-plotbuffer-time.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-ltesim-plotbuffer-time.pdf}
 	\caption{Sample simulation run demonstrating the four threshold strategy.}
 \label{c6:fig:ltesim-plotbuffer-time}
 \end{figure}
@@ -162,14 +162,14 @@ Similar to the evaluations with the measurement framework of Section~\ref{c3:sec
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-ltesim-bwseries-stallduration.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-ltesim-bwseries-stallduration.pdf}
 	\caption{Relative stalling duration of the simulated reliable streaming player under limited Internet bandwidth.}
 \label{c6:fig:ltesim-bwseries-stallduration}
 \end{figure}
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-ltesim-bwseries-numstalls.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-ltesim-bwseries-numstalls.pdf}
 	\caption{Number of stalling events of the simulated reliable streaming player under limited Internet bandwidth.}
 \label{c6:fig:ltesim-bwseries-numstalls}
 \end{figure}
@@ -186,14 +186,14 @@ However, this effect is somewhat contrary to the additional effect observed at l
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-stallduration.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-ltesim-latencyseries-stallduration.pdf}
 	\caption{Relative stalling duration of the simulated reliable streaming player under increased Internet latency.}
 \label{c6:fig:ltesim-latencyseries-stallduration}
 \end{figure}
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-ltesim-latencyseries-numstalls.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-ltesim-latencyseries-numstalls.pdf}
 	\caption{Number of stalling events of the simulated reliable streaming player under increased Internet latency.}
 \label{c6:fig:ltesim-latencyseries-numstalls}
 \end{figure}
@@ -220,7 +220,7 @@ Besides altering the server link, the effects of the simulated \gls{LTE} network
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-ltesim-plotbuffer-mobility-facets.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-ltesim-plotbuffer-mobility-facets.pdf}
 	\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and \glspl{eNB}.}
 \label{c6:fig:ltesim-mobility-plotbuffer-facets}
 \end{figure}
@@ -231,7 +231,7 @@ The results in terms of the buffer fill level are displayed in Figure~\ref{c6:fi
 
 The handover events between the two \gls{eNB} are denoted by the gray vertical lines. The actual control transfer usually last for only about \SI{40}{\milli\second}. But looking at the figures it is immediately evident that the video buffer, and therefore the throughput of the video segments, already suffers seconds before this handover event when the edge of the radio range of the currently active \gls{eNB} is reached. The playback stop threshold is undercut several times right at the handover mark and stalling occurs.
 
-It seems, that the throughput at the radio edge drops below the video's average bitrate of \SI{3596}{\kilo\bit\per\second}. Therefore, the buffer cannot be maintained for this quality. If the buffer was at a low level beforehand, it will run empty and lead to stalling due to the mobilty. 
+It seems, that the throughput at the radio edge drops below the video's average bitrate of \SI{3596}{\kilo\bit\per\second}. Therefore, the buffer cannot be maintained for this quality. If the buffer was at a low level beforehand, it will run empty and lead to stalling due to the mobility. Additionally, there seems to be a dependence of the stalling probability on the distance between device and base station. A farther distance decreases the achievable throughput leading to an increased chance of the buffer running empty.
 
 Mobile streaming playback strategies can attempt to counteract mobility-related issues in a number of ways. A simple approach would be to adjust the threshold levels to allow for a much larger buffer while also restarting transmissions earlier. But this comes at the price of an increased memory resource usage on the device, which might not possible in every scenario. Second, the strategy can be exchanged for an adaptive one, for example the described six threshold window scaling strategy with appropriately chosen threshold values. Here, the stalls are exchanged for phases of lower quality video, which can be acceptable under circumstances. 
 

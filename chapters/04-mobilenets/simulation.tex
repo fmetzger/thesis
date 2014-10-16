@@ -15,7 +15,7 @@ The queuing simulation is implemented on the basis of a \gls{DES}. Instead of re
 
 A queuing model can be easily represented in a \gls{DES}.  Each tunnel request arrival is modeled as a discrete event. When such an event occurs, three processes are executed. The first process draws a random number from a \gls{PRNG} mapped to \gls{IAT} exponential distribution to schedule the next arrival event. Secondly, the serving units are checked for any free units. If one is found, it will now be occupied. Else, this arrival will be marked as rejected and the third action skipped. This third process now determines the length of the tunnel using another \gls{PRNG} adjusted to the serving time distribution to schedule the event in which the tunnel exits the system.
 
-This model was implemented on the basis of version 3.0 of the \textit{SimPy}~\cite{simpy} package, which is a Python \gls{DES} framework that provides the basic event and scheduling infrastructure. On top of this a base \gls{GGSN} class was constructed, managing the arrival of tunnel events and the scheduling of the service ending events. Specific classes for the traditional (i.e. monolithic) and virtualized (called ``multiserver'' in the code) nodes respectively exist.\footnote{The implementation is also publicly available at \url{https://github.com/fmetzger/ggsn-simulation/} as a reference.}
+This model was implemented on the basis of version 3.0 of the \textit{SimPy}\footnote{\url{https://simpy.readthedocs.org/}} package, which is a Python \gls{DES} framework that provides the basic event and scheduling infrastructure. On top of this a base \gls{GGSN} class was constructed, managing the arrival of tunnel events and the scheduling of the service ending events. Specific classes for the traditional (i.e. monolithic) and virtualized (called ``multiserver'' in the code) nodes respectively exist.\footnote{The implementation is also publicly available at \url{https://github.com/fmetzger/ggsn-simulation/} as a reference.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,7 +40,7 @@ This experiment evaluates arbitrary values for the \gls{GGSN} tunnel capacity an
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-monolithic-blocking.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-monolithic-blocking.pdf}
 	\caption{Impact of the number of supported parallel tunnels on the blocking probability for the traditional \gls{GGSN} model. For each scenario the mean and \SI{95}{\percent} confidence intervals of all simulation replications are shown.}
 \label{c4:fig:traditional_blocking}
 \end{figure}
@@ -49,7 +49,7 @@ Figure~\ref{c4:fig:traditional_blocking} studies this impact of the maximum supp
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-monolithic-tunnelusage.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-monolithic-tunnelusage.pdf}
 	\caption{Mean number of tunnels concurrently served by the \gls{GGSN} for incrementally increasing capacity. For each scenario the mean and \SI{95}{\percent} confidence intervals of all simulation replications are shown.}
 \label{c4:fig:traditional_tunnelusage}
 \end{figure}
@@ -64,14 +64,14 @@ A similar experiment can be set up for the virtual \gls{GGSN} model. Learning fr
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-virtualized-blocking.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-virtualized-blocking.pdf}
 	\caption{Comparison of the mean blocking probability of various server configurations with \SI{95}{\percent} confidence intervals. The x axis depicts the summary capacity of all virtual instances in the experiment.}
 \label{c4:fig:virtualized_blocking}
 \end{figure}
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-virtualized-tunnelusage.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-virtualized-tunnelusage.pdf}
 	\caption{Comparison of the mean tunnel occupation of various virtualization configurations with \SI{95}{\percent} confidence intervals.}
 \label{c4:fig:virtualized_tunnelusage}
 \end{figure}
@@ -80,7 +80,7 @@ Figures~\ref{c4:fig:virtualized_blocking} and \ref{c4:fig:virtualized_tunnelusag
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-virtualized-mean-instanceusage.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-virtualized-mean-instanceusage.pdf}
 	\caption{Mean instance usage of various virtualization configurations. A higher number of total instances results in a finer granularity of scaling and energy efficiency as more instances can be kept shut down.}
  \label{c4:fig:res-instance-usage-mean}
 \end{figure}
@@ -91,7 +91,7 @@ Therefore, Figure~\ref{c4:fig:res-instance-usage-mean} takes a look at scenarios
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-virtualized-instanceuse.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-virtualized-instanceuse.pdf}
 	\caption{Impact of the maximum number of tunnels and number of instances on the number of active instances in the virtual \gls{GGSN} model.}
 \label{c4:fig:virtualized_instanceuse}
 \end{figure}
@@ -100,7 +100,7 @@ To get into more detail, Figure~\ref{c4:fig:virtualized_instanceuse} displays th
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-virtualized-instanceuse-barplot.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-virtualized-instanceuse-barplot.pdf}
 	\caption{Resource usage from a select maximum instances and tunnel capacity combination, displaying the capability to scale up and out.}
 \label{c4:fig:res-usage-barplot}
 \end{figure}
@@ -118,7 +118,7 @@ The somewhat simplistic hypervisor strategy in this simulation was already discu
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-virtualized-startstop-blocking-barchart.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-virtualized-startstop-blocking-barchart.pdf}
 	\caption{Influence of the boot and shutdown time on the blocking probability.}
 \label{c4:fig:blockprob-startstop-barchart}
 \end{figure}
@@ -127,7 +127,7 @@ Figure~\ref{c4:fig:blockprob-startstop-barchart} compares a number of instance a
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/compare-maxinstances-block.pdf}
+	\includegraphics[width=0.9\textwidth]{images/compare-maxinstances-block.pdf}
 	\caption{Influence of start up and shut down time on blocking probability with regard to different numbers of instances.}
 \label{c4:fig:compare_maxinstances_block}
 \end{figure}
@@ -139,7 +139,7 @@ A potential conclusion is that choosing larger instance capacities decreases the
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/R-virtualized-startstop-tunnelusage-blocking-comparison.pdf}
+	\includegraphics[width=0.9\textwidth]{images/R-virtualized-startstop-tunnelusage-blocking-comparison.pdf}
 	\caption{Trade-off between blocking probability and mean resource utilization with regard to maximum number of instances, instance tunnel capacity, and start and stop time.}
 \label{c4:fig:compare_util_block}
 \end{figure}
