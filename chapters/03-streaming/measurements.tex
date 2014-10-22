@@ -126,7 +126,16 @@ Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the a
 
 Figure \ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling events occurring during the playback with the null strategy at the high end and the predictive strategy just showing the expected single stall before playback start.
 
-Overall, it can be said, that in this specific latency scenario the real world playback strategies seem to honor the fact that more video interruption lead to a worse experience than fewer but longer stalling events. Through mobility and handovers, mobile devices fairly commonly experience short bursts of latency of several seconds. According to the measurement series, the resulting stalling behavior could still very well be bearable for streaming users.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-qoe-latency.pdf}
+	\caption{Calculated \gls{MOS} for the latency measurement series.}
+\label{c3:fig:eval-latency-qoe}
+\end{figure}
+
+Using the model from Equation~\ref{c3:eqn:hossfeld-stalling-model} the \gls{QoE} is calculated for this series and depicted in Figure~\ref{c3:fig:eval-latency-qoe}. The \gls{MOS} quickly drops below a value of $3$, which is generally accepted as still being of fair quality, and stays around $2$ for the most portion of the latency series. Starting at around \SI{3000}{\milli\second} of latency all four strategies achieve virtually the same poor quality, according to this model. But, especially between \SI{1000}{\milli\second} and \SI{2000}{\milli\second} the difference in quality of these strategies is visible, with both the theoretical predictive and the YouTube strategy reaching a much higher \gls{MOS} than the other two.
+
+Overall, it can be said, that in this specific latency scenario the real world playback strategies seem to honor the fact that more video interruption lead to a worse experience than fewer but longer stalling events. Through mobility and handovers, mobile devices fairly commonly experience short bursts of latency of several seconds. According to the measurement series, the resulting stalling behavior could still very well be bearable for streaming users if the latency does not reach too high values on average. For example, at \SI{1000}{\milli\second} latency a \gls{MOS} of $3$ could still be easily achievable.
 
 
 %%
@@ -148,7 +157,7 @@ This general behavior could hint to the transport protocol's reliable transport 
 
 At least it can be safely assumed, that in actual production networks high values of packet loss are usually less likely to occur than high latency. The only major source of packet loss should be network congestion, which should only occur in moments of high network load. Therefore, it can be expected than playback strategies are better optimized for scenarios with high latency than loss.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
 	\caption{Number of playback stalls in relation to packet loss with local polynomial least-squares fit.}
@@ -157,7 +166,19 @@ At least it can be safely assumed, that in actual production networks high value
 
 Figure~\ref{c3:fig:eval-loss-numstalls} clearly shows the extremity of the null strategy in terms of the number of experienced stalls compared to any other strategy. The same loss measurement series is used as basis here. The null strategy runs into two orders of magnitude more stalling phases than the three other strategies. The number of stalling events of the three other strategies remain relatively low. But the individual stalling events will therefore be rather lengthy ones when keeping the total stalling duration in mind. Therefore, in the packet loss scenario the factor that will degrade \gls{QoE} the most seems to be the duration of the stalling events but not their number, with the exception of the null strategy.
 
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-qoe-loss.pdf}
+	\caption{Calculated \gls{MOS} for the loss measurement series.}
+\label{c3:fig:eval-loss-qoe}
+\end{figure}
+
+Looking at the \gls{QoE} of the loss series, displayed in Figure~\ref{c3:fig:eval-loss-qoe}, the difference in \gls{MOS} between the playback strategies is much smaller than the one observed in the latency series. Additionally, the \gls{MOS} degradation happens much more slowly and evenly dispersed across the loss values. A \gls{MOS} of $3$ is only undercut at around \SI{5}{\percent} packet loss. But the fluctuations between the individual experiments is rather large in this series, often giving results $2$ \gls{MOS} apart for the same packet loss percentage, making loss a very unpredictable factor.
+
 All in all, when planning a network for streaming applications, the maximum loss should be kept below the \SI{2.5}{\percent} mark to achieve reasonable streaming quality. All the existing strategies already seem to work rather well for typically experienced network \gls{QoS} scenarios. Only when extraordinary network conditions are present the strategies break down. But this is not different to many other network applications, which work best with pristine \gls{QoS}.
+
+
+
 
 
 %% original python plots

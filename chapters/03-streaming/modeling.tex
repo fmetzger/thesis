@@ -58,7 +58,7 @@ Few attempts for concise reliable streaming metrics that cover all mentioned pro
 	\phantom{,}v = 1 - ({\frac{d_s}{d_v + d_s}})^{0.0737}\text{.}
 \end{equation}
 
- with the total stalling duration $d_s$ and the video duration $d_v$. The model lacks to capture other stalling characteristics and quality levels. A final metric by Hoßfeld et al.~\cite{hossfeld2013youtubeqoe} remedies this and incorporates both the lengths $L$ as well as the number $N$ of stalls in the computation of the \gls{MOS}. It states
+ with the total stalling duration $d_s$ and the video duration $d_v$. The model lacks to capture other stalling characteristics and quality levels. A final metric by Hoßfeld et al.~\cite{hossfeld2013youtubeqoe} remedies this and incorporates both the length $L$ as well as the number $N$ of stalls in the computation of the \gls{MOS}. It states
 
 \begin{equation}
 	\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
@@ -67,7 +67,7 @@ Few attempts for concise reliable streaming metrics that cover all mentioned pro
 
 The equation was derived from user studies on perceived YouTube video quality. Therefore, it can serve as a \gls{QoE} metric for the non-adaptive measurement model introduced in the following section. Regarding adaptive streaming, work conducted in \cite{6603210} gives an overview over some initial attempts of metrics that include temporal aspects of the image quality. But none of them includes all necessary aspects to assess reliable adaptive streaming.
 
-The streaming measurement models presented in the following section derives only the basic properties, including the stalling and quality level characteristics and could be used for any of the above metrics. For non-adaptive reliable streaming it is recommended to use the model defined in Equation~\ref{c3:eqn:hossfeld-stalling-model}. Surpassing this model or defining an entirely new adaptive metric would require extensive user studies and is beyond the scope of this work.
+The streaming measurement models presented in the following section derives only the basic properties, including the stalling and quality level characteristics and could be used for any of the above metrics. For non-adaptive reliable streaming it is recommended to use the model defined in Equation~\ref{c3:eqn:hossfeld-stalling-model} and the results of the measurement series in Section~\ref{c3:sec:measurements} will also be presented using this equation. Surpassing this model or defining an entirely new adaptive metric would require extensive user studies and is beyond the scope of this work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Measurement and Playback Model}
