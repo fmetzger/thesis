@@ -1,17 +1,12 @@
 %!TEX root = ../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\newpage % or \cleardoublepage
 \chapter*{Abstract}
-%\phantomsection
 \addcontentsline{toc}{chapter}{Abstract}%
-% \begingroup
-% 	\let\clearpage\relax
-% 	\let\cleardoublepage\relax
 
-Short summary of the contents in English\dots
+The usage of both video streaming as well as mobile networks has become prevalent today. Both make up a large portion of the Internet's current traffic mix. Additionally, video streaming has changed radically changed in recent years, shifting from traditional approaches running atop the unreliable \acrshort{UDP} to using the reliable \acrshort{TCP} as transport protocol. The behavior of these reliable streaming approaches can be much harder to predict because of the larger number of influence factors and cross-correlations between protocol layers. This is especially important in light of the complexity mobile networks are adding to the stack, even more so when the mobile control plane is factored in.
 
-%	\vfill
-%	\chapter*{Zusammenfassung}
-%	Kurze Zusammenfassung des Inhaltes in deutscher Sprache\dots
-% \endgroup			
-%\vfill
+The purpose of this thesis is to evaluate this exact scenario: reliable streaming in mobile networks. The work takes a two-fold approach by first investigating both reliable streaming as well as the mobile core network control plane independently. For reliable streaming, a complete emulation-based measurement framework is introduced and measurement series that highlight the efficiency of certain playback strategies are conducted. Concerning mobile networks, a network trace from a live network is evaluated and explored for characteristics of the core network control plane. Through this, a network control plane load model based on \acrshort{gtp} tunnel statistics is formulated and further evaluated through simulations.
+
+Afterwards, the independent efforts are merged back together again with a study on the influences of network layers on streaming protocols. Many possible sources of influence on the quality of video streaming are discovered and a cross-layer information exchange framework discussed, that can alleviate some of these negative factors, e.g., handover events in mobile network. But, as the topic needs to be understood even better, in the final part two further approaches to mobile streaming measurement are presented: a mobile device active measurement environment, that facilitates additional sensor and mobility data from the device, and lastly a reliable streaming simulation framework running atop a simulated \acrshort{LTE} network to better evaluate mobility influences on streaming.
+
+All in all, this work should give insights into the relationships between reliable streaming and mobile networks and how properly investigate them and deal with influencing factors surrounding the issue.

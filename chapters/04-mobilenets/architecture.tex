@@ -10,7 +10,7 @@ Specifications are not released individually but are instead grouped together in
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/3gpp-physical-arch.pdf}
-	\caption{Overview of a combined \gls{CS}/\gls{PS} \gls{GSM}/\gls{UMTS}/\gls{LTE} architecture.}
+	\caption{Overview of a combined \acrshort{CS}/\acrshort{PS} \acrshort{GSM}/\acrshort{UMTS}/\acrshort{LTE} architecture.}
 \label{c4:fig:psdomain}
 \end{figure}
 
@@ -53,7 +53,7 @@ In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW},
 \begin{figure}[htbp]
 	\centering
  	\includegraphics[width=0.9\textwidth]{images/umts-userpath-stack.pdf}
- 	\caption{Simplified control plane and user plane \gls{IP}-based protocol stacks on the user traffic path through the mobile network.}
+ 	\caption{Simplified control plane and user plane \acrshort{IP}-based protocol stacks on the user traffic path through the mobile network.}
 \label{c4:fig:protocolstacks}
 \end{figure}
 
@@ -72,7 +72,7 @@ Additionally, a number of state machines are maintained. Transitions between sta
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.7\textwidth]{images/pdp-context-activation-procedure.pdf}
-	\caption{\gls{PDP} Context activation procedure signaling interaction diagram for \gls{UMTS}, including involved signaling protocols.}
+	\caption{\acrshort{PDP} Context activation procedure signaling interaction diagram for \acrshort{UMTS}, including involved signaling protocols.}
 \label{c4:fig:pdpcontextactivationinteraction}
 \end{figure}
 
@@ -117,7 +117,7 @@ A large part of core network communication is conducted by \gls{gtp}. In \gls{3G
 	\cline{2-9} \textbf{12} & \multicolumn{8}{c|}{Next Extension Header Type} \\
 	\cline{2-9}
 	\end{tabu} 
-	\caption{General \SI{12}{\byte} \gls{gtp} header format.}
+	\caption{General \SI{12}{\byte} \acrshort{gtp} header format.}
 \label{c4:fig:gtpheader}
 \end{figure}
 
@@ -126,7 +126,7 @@ Conceptually, \gls{gtp} is structured through a base packet header, a number of 
 Each messages is defined as a specific set of \glspl{IE}, each of which is either mandatory, conditional to some external factor, or optional. These \gls{IE}, depending on the type either of fixed or variable length, convey the actual state to be signaled and always relate to a specific \gls{UE} and tunnel, for example the device's \gls{IMSI} or the configured \gls{APN}.
 
 \begin{table}[htbp]
-\caption{All \gls{IE} in a Create \gls{PDP} Context request and size thereof for \gls{IPv4} network and user traffic only. The denoted sizes exclude the first message type byte.}
+\caption{All \acrshort{IE} in a Create \acrshort{PDP} Context request and size thereof for \acrshort{IPv4} network and user traffic only. The denoted sizes exclude the first message type byte.}
 \label{c4:tab:createrequestelements}
 	\begin{tabu} to 0.49\textwidth{X[2.5]X[1.2]X[0.7]}
 		\toprule
@@ -234,16 +234,16 @@ To understand the occurrence of these signaling procedures one should look at th
 	\centering
 	\begin{subfigure}[b]{0.60\textwidth}
 		\includegraphics[width=\textwidth]{images/mm-2g-state-model.pdf}
-		\caption{State machine for \gls{2G} radio access.}
+		\caption{State machine for \acrshort{2G} radio access.}
 		\label{c4:fig:2g-mmstatemodel}
 	\end{subfigure}%
 
 	\begin{subfigure}[b]{0.70\textwidth}
 		\includegraphics[width=\textwidth]{images/mm-3g-state-model.pdf}
-		\caption{State machine for \gls{3G} radio access.}
+		\caption{State machine for \acrshort{3G} radio access.}
 		\label{c4:fig:3g-mmstatemodel}
 	\end{subfigure}%
-	\caption{\gls{SGSN} \gls{MM} state models and machines as defined in \cite[Section~6.1]{3gpp.23.060}.}
+	\caption{\acrshort{SGSN} \acrshort{MM} state models and machines as defined in \cite[Section~6.1]{3gpp.23.060}.}
 \label{c4:fig:mmstatemodel}
 \end{figure}
 
@@ -252,7 +252,7 @@ The \gls{MM} model, defined in \cite[Section~6.1]{3gpp.23.060}, describes the ge
 \begin{figure}[htb] 
 	\centering
 	\includegraphics[width=0.6\textwidth]{images/rrc-state-model.pdf}
-	\caption{\gls{RRC} State Model as per \cite[Section~7.1]{3gpp.25.331}.}
+	\caption{\acrshort{RRC} State Model as per \cite[Section~7.1]{3gpp.25.331}.}
 	\label{c4:fig:rrcstatemodel}
 \end{figure}
 
@@ -261,7 +261,7 @@ The \gls{MM} model, defined in \cite[Section~6.1]{3gpp.23.060}, describes the ge
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/pdp-state-model.pdf}
-	\caption{\gls{PDP} State Model defined in \cite[Section~9]{3gpp.23.060}.}
+	\caption{\acrshort{PDP} State Model defined in \cite[Section~9]{3gpp.23.060}.}
 \label{c4:fig:pdpstatemodel}
 \end{figure}
 
