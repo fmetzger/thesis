@@ -1,13 +1,13 @@
 %!TEX root = ../../dissertation.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Evaluating Mobile Networks, Stacks, and Streaming}
+\chapter{Evaluating Reliable Streaming in Mobile Networks}
 \label{chap:mobilestreaming-measurements}
 
 Testing and evaluation plays a crucial role not just in correctly utilizing cross-layer data but also for mobile networks in general. All of the discussed layer influences, interactions and other unintentional side-effects need to be thoroughly understood for the intended goal of optimizing video streaming in mobile networks.
 
 The core network trace evaluations undertaken in Chapter~\ref{chap:mobilenets} were already able to highlight the load influencing dynamics of the core network control plane. But many more aspects remain uninvestigated, some of which may not even be covered by this kind of passive network-wide measurement type.
 
-To further the understanding of the behavior of reliable streaming in mobile networks and investigate influence sources, usually either active measurements or simulations are conducted. Both methods are discussed here, with their drawbacks and benefits, and a working implementation --- tailored to the needs of measuring reliable mobile streaming --- is presented for each.
+To further the understanding of the behavior of reliable streaming in mobile networks and investigate influence sources, usually either active measurements or simulations are conducted. Both methods and their drawbacks and benefits are discussed in this chapter. Moreover, an approach to enhance active measurements for mobile devices, that facilitates meta-data of the device and improve measurement accuracy, is presented in the first section. Afterwards, a full \gls{LTE}-based reliable streaming simulation is also introduced and some initial results are given.
 
 
 

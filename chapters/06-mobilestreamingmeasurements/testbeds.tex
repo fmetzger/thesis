@@ -64,7 +64,7 @@ Other approaches include increasing the permission granularity~\cite{Jeon:2012:D
 %%
 \subsubsection{Preserving Testbed User Privacy with Sensorium}
 
-Even with these approaches at hand, the privacy issue should be mitigated further beyond the binary allow/deny access approach. Also, it usually is a complicated task for experimenters to access all the various sensors,each answering to a different \gls{API}. \textit{Sensorium}~\cite{raf2013sensorium} was created to remedy both of these issues. Sensorium is a generic unified sensor reading framework that interfaces with other applications as well as network nodes and provides the sensor readout to them. More importantly, a fine-grained multi-level privacy control model is implemented.
+Even with these approaches at hand, the privacy issue should be mitigated further beyond the binary allow/deny access approach. Also, it usually is a complicated task for experimenters to access all the various sensors,each answering to a different \gls{API}. \textit{Sensorium}~\cite{raf2013sensorium} was created during the course of this to remedy both of these issues. Sensorium is a generic unified sensor reading framework that interfaces with other applications as well as network nodes and provides the sensor readout to them. More importantly, a fine-grained multi-level privacy control model is implemented.
 
 
 %%
@@ -77,7 +77,7 @@ Even with these approaches at hand, the privacy issue should be mitigated furthe
 \label{c5:fig:architecture}
 \end{figure}
 
-Figure~\ref{c5:fig:architecture} overviews the components of Sensorium's architecture The individual \textit{sensor drivers} are placed on top of the operating system and take care of reading sensor values from platform-specific interfaces and pushing them upwards into a common registry to be read by the \textit{sensor reading \gls{API}}. All sensor data is relayed both to a local display as well as to all \textit{outbound interfaces}. Due to the layered architecture, contributors can simply extend or substitute the existing layers. For example, new drivers or outbound interfaces can be easily implemented. 
+Figure~\ref{c5:fig:architecture} overviews the components of Sensorium's architecture. The individual \textit{sensor drivers} are placed on top of the operating system and take care of reading sensor values from platform-specific interfaces and pushing them upwards into a common registry to be read by the \textit{sensor reading \gls{API}}. All sensor data is relayed both to a local display as well as to all \textit{outbound interfaces}. Due to the layered architecture, contributors can simply extend or substitute the existing layers. For example, new drivers or outbound interfaces can be easily implemented. 
 
 The outbound interfaces include an \gls{HTTPS} client, that pushes \acrshort{JSON} data to any active network experiment server where the data can be further processed. To connect to programs running locally on the same device, the \acrshort{XML}-\acrshort{RPC} interface can be polled. Pull-based access from sources other than the local host is not allowed for security reasons. However, any data leaving Sensorium must first pass through the \textit{privacy layer}, which filters the data based on the user's preferences.
 
