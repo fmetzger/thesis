@@ -203,7 +203,7 @@ The nocturnal plateau of arrivals between midnight and \formattime{5}{0}{0} and 
 		\label{c4:fig:IAT-ecdf-2h-successful}
 	\end{subfigure}%
 	~
-	\begin{subfigure}[b]{0.5\textwidth}
+		\begin{subfigure}[b]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{images/R-IAT-fromflows-ecdfs-2h.pdf}
 		\caption{Only tunnels with data flows.}
 		\label{c4:fig:IAT-ecdf-2h-active}
@@ -245,7 +245,7 @@ Finally, the \gls{GGSN}'s processing time of \gls{gtp} tunnel management message
 From the network trace the processing time can be calculated by two timestamps in each record.
 As the trace is recorded at the Gn interface these timestamps represent the points in time the \gls{gtp} signaling request and subsequent response pass on the link to and from the the \gls{GGSN}. Therefore, they can also be interpreted as the start and finish of the involved processing at the \gls{GGSN}.
 
-Generally, the processing time of all three message types --- i.e. creates, deletes and updates --- could be calculated. It would be of special interest to know if the setup time of tunnels is influenced by anything, as this is one of the \gls{GGSN}'s most time-sensitive jobs and can impact the time a user has to wait before being able to actually transfer data. Unfortunately, due to unrecoverable issues with the recording of the dataset, the timestamps for both the create and delete messages records were completely unreliable and did not allow for an investigation of the processing time. 
+Generally, the processing time of all three message types --- i.e., creates, deletes and updates --- could be calculated. It would be of special interest to know if the setup time of tunnels is influenced by anything, as this is one of the \gls{GGSN}'s most time-sensitive jobs and can impact the time a user has to wait before being able to actually transfer data. Unfortunately, due to unrecoverable issues with the recording of the dataset, the timestamps for both the create and delete messages records were completely unreliable and did not allow for an investigation of the processing time. 
 
 Only \gls{gtp} update messages were unaffected and gave the opportunity for further investigation. The trace contains roughly two orders of magnitude more update messages than either creates or deletes, spread out almost evenly over the whole observation period. Therefore, a node load investigation should still be possible with just the updates messages.
 

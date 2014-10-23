@@ -111,20 +111,20 @@ In the latency measurement series, the emulator delays forwarding the packets fo
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
-	\caption{Stalling duration in relation to transmission latency with local polynomial least-squares fit.}
+	\caption{Stalling duration in relation to transmission latency with a local polynomial least-squares fit.}
 \label{c3:fig:eval-latency-stallingtime}
 \end{figure}
 
-Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the added latency and the stalling duration of the playback strategies. The stalling time increases as expected with the additional latency, but Firefox's strategy seems to have slight edge during high latency. Overall, the stalling duration quickly reaches a length comparable to the actual video duration and even surpassing that. Someone watching a stream under this condition might find this not acceptable any longer.
+Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the added latency and the stalling duration of the playback strategies. The stalling time increases as expected with the additional latency, but Firefox's strategy seems to have a slight edge during high latency. Overall, the stalling duration quickly reaches a length comparable to the actual video duration and even surpassing that. Someone watching a stream under this condition might find this not acceptable any longer.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
-	\caption{Number of stalls in relation to transmission latency with local polynomial least-squares fit.}
+	\caption{Number of stalls in relation to transmission latency with a local polynomial least-squares fit.}
 \label{c3:fig:eval-latency-numstalls}
 \end{figure}
 
-Figure \ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling events occurring during the playback with the null strategy at the high end and the predictive strategy just showing the expected single stall before playback start.
+Figure~\ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling events occurring during the playback with the null strategy at the high end and the predictive strategy just showing the expected single stall before playback start.
 
 \begin{figure}[htb]
 	\centering
@@ -147,7 +147,7 @@ In the loss measurement series, uncorrelated and uniformly distributed loss was 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallduration-loss.pdf}
-	\caption{Stalling duration in relation to packet loss with local polynomial least-squares fit.}
+	\caption{Stalling duration in relation to the packet loss with a local polynomial least-squares fit.}
 \label{c3:fig:eval-loss-stallingtime}
 \end{figure}
 

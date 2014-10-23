@@ -15,7 +15,7 @@ The queuing simulation is implemented on the basis of a \gls{DES}. Instead of re
 
 A queuing model can be easily represented in a \gls{DES}.  Each tunnel request arrival is modeled as a discrete event. When such an event occurs, three processes are executed. The first process draws a random number from a \gls{PRNG} mapped to \gls{IAT} exponential distribution to schedule the next arrival event. Secondly, the serving units are checked for any free units. If one is found, it will now be occupied. Else, this arrival will be marked as rejected and the third action skipped. This third process now determines the length of the tunnel using another \gls{PRNG} adjusted to the serving time distribution to schedule the event in which the tunnel exits the system.
 
-This model was implemented on the basis of version 3.0 of the \textit{SimPy}\footnote{\url{https://simpy.readthedocs.org/}} package, which is a Python \gls{DES} framework that provides the basic event and scheduling infrastructure. On top of this a base \gls{GGSN} class was constructed, managing the arrival of tunnel events and the scheduling of the service ending events. Specific classes for the traditional (i.e. monolithic) and virtualized (called ``multiserver'' in the code) nodes respectively exist.\footnote{The implementation is also publicly available at \url{https://github.com/fmetzger/ggsn-simulation/} as a reference.}
+This model was implemented on the basis of version 3.0 of the \textit{SimPy}\footnote{\url{https://simpy.readthedocs.org/}} package, which is a Python \gls{DES} framework that provides the basic event and scheduling infrastructure. On top of this a base \gls{GGSN} class was constructed, managing the arrival of tunnel events and the scheduling of the service ending events. Specific classes for the traditional (i.e., monolithic) and virtualized (called ``multiserver'' in the code) nodes respectively exist.\footnote{The implementation is also publicly available at \url{https://github.com/fmetzger/ggsn-simulation/} as a reference.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -65,14 +65,14 @@ A similar experiment can be set up for the virtual \gls{GGSN} model. Learning fr
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-virtualized-blocking.pdf}
-	\caption{Comparison of the mean blocking probability of various server configurations. The $x$ axis depicts the summary capacity of all virtual instances in the experiment.}
+	\caption{Comparison of the mean blocking probability of various virtual instance configurations. The horizontal axis depicts the summary capacity of all instances in the experiment.}
 \label{c4:fig:virtualized_blocking}
 \end{figure}
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-virtualized-tunnelusage.pdf}
-	\caption{Comparison of the mean tunnel occupation of various virtualization configurations.}
+	\caption{Comparison of the mean tunnel capacity usage of the individual virtual instance configurations.}
 \label{c4:fig:virtualized_tunnelusage}
 \end{figure}
 
@@ -82,7 +82,7 @@ Figures~\ref{c4:fig:virtualized_blocking} and \ref{c4:fig:virtualized_tunnelusag
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-virtualized-mean-instanceusage.pdf}
 	\caption{Mean instance usage of various virtualization configurations. A higher number of total instances results in a finer granularity of scaling and energy efficiency as more instances can be kept shut down.}
- \label{c4:fig:res-instance-usage-mean}
+\label{c4:fig:res-instance-usage-mean}
 \end{figure}
 
 But the possible effects of an increased number of instances need to be investigated further. One goal in virtualization is the increase of energy efficiency. This can be achieved by having turned on just as many instances as needed and not more, thus scaling the system to its current load. 

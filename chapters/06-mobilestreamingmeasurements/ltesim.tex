@@ -24,7 +24,7 @@ The following list overviews current publicly available simulation frameworks wi
 
 	\item A framework dubbed SimuLTE\footnote{\url{https://github.com/inet-framework/simulte}} is available for \textbf{OMNeT++}\footnote{\url{http://www.omnetpp.org/}}. Included are the user plane aspects of the radio link and some basic \gls{SGW} and \gls{PGW} functionality.
 
-	\item The \textbf{ns-3}\footnote{\url{http://www.nsnam.org}} simulator already contains an \gls{LTE}/\gls{EPC} module called LENA\footnote{\url{http://networks.cttc.es/mobile-networks/software-tools/lena/}}~\cite{Baldo:2013:OSM:2507924.2507940} with features similar to SimuLTE. Again, only user plane \gls{SGW}/\gls{PGW} functionality is present with an initial \gls{GTP-U} implementation.
+	\item The \textbf{ns-3}\footnote{\url{http://www.nsnam.org}} simulator already contains an \gls{LTE}/\gls{EPC} module called LENA\footnote{\url{http://networks.cttc.es/mobile-networks/software-tools/lena/}}~\cite{Baldo:2013:OSM:2507924.2507940} with features similar to SimuLTE.\@ Again, only user plane \gls{SGW}/\gls{PGW} functionality is present with an initial \gls{GTP-U} implementation.
 \end{itemize}
 
 The goal here is to simulate reliable streaming in a realistic mobile environment. That includes both a complete horizontal network path --- both the radio link as well as the core network --- as well as a vertical network stack --- comprising both user plane and control plane.
@@ -132,8 +132,8 @@ Common to both is the configuration of the video streaming simulation module. In
 Only one simulation run was conducted for each parameter setting as there are no known random factors involved that would merit running with different random seeds.
 
 \begin{table}[htb]
-	\caption{Parameters of the video used in the streaming simulation scenarios.}
-	\label{c6:tbl:simulationvideos}
+\caption{Parameters of the video used in the streaming simulation scenarios.}
+\label{c6:tbl:simulationvideos}
 	\centering
 	\begin{tabu}{X[1.5,l]X[r]X[r,1.2]X[r]}
 		\toprule
@@ -216,7 +216,7 @@ With these improvements to the retrieval strategy this specific issue can be eli
 \label{c6:fig:streaming-simulation-mobility}
 \end{figure}
 
-Besides altering the server link, the effects of the simulated \gls{LTE} network can also be investigated through various means. Here, mobility will be under scrutiny. For this, a second \gls{eNB} will be added to the network. Both are connected through the X2 interface, which will be used for the \gls{eNB}-anchored mobility provided by LENA. Instead of having a constant position relative to the \gls{eNB}, the \gls{UE} will no move back and forth between two waypoints on a two-dimensional plane in parallel to the two base stations which are placed at a distance of $d$ between each other. A handover is triggered each time the device leaves the range of one station and enters the other. Furthermore, the horizontal distance on the 2D-plane between the device and the \glspl{eNB} is controlled by a second parameter $y$. Figure~\ref{c6:fig:streaming-simulation-mobility} depicts this scenario and the positioning of the waypoints.
+Besides altering the server link, the effects of the simulated \gls{LTE} network can also be investigated through various means. Here, mobility will be under scrutiny. For this, a second \gls{eNB} will be added to the network. Both are connected through the X2 interface, which will be used for the \gls{eNB}-anchored mobility provided by LENA.\@ Instead of having a constant position relative to the \gls{eNB}, the \gls{UE} will no move back and forth between two waypoints on a two-dimensional plane in parallel to the two base stations which are placed at a distance of $d$ between each other. A handover is triggered each time the device leaves the range of one station and enters the other. Furthermore, the horizontal distance on the 2D-plane between the device and the \glspl{eNB} is controlled by a second parameter $y$. Figure~\ref{c6:fig:streaming-simulation-mobility} depicts this scenario and the positioning of the waypoints.
 
 \begin{figure}[htb]
 	\centering
