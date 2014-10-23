@@ -35,7 +35,7 @@ To check the statistical goodness of the generated fits, statistical tests can b
 First, as a simple measure, the \textbf{Pearson correlation coefficient} can be facilitated, comparing the covariance and standard deviation of the empirical and fitted variables. Another possible approach is \textbf{Pearson's $\chi^2$ test for independence}~\cite{doi:10.1080/14786440009463897}, which is the oldest known test and defined as
 
 \begin{equation}
-	\phantom{.}V=\sum_{i=1}^{k} \frac{(o_i - e_i)^2}{e_i}\text{.}
+	\phantom{.}V=\sum_{i=1}^{k} \frac{{(o_i - e_i)}^2}{e_i}\text{.}
 \end{equation}
 
 This simply calculates the sum of the squared difference between the observed $o_i$ an expected values $e_i$ and adjusts each for their weight. The result can then be compared to the $\chi^2$-distribution with the same degrees of freedom

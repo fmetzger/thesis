@@ -51,7 +51,7 @@ To simplify things, the model behind the progressive streaming measurement frame
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.6\textwidth]{images/streaming-simulation.pdf}
-	\caption{\gls{LTE} reliable streaming simulation testbed.}
+	\caption{\acrshort{LTE} reliable streaming simulation testbed.}
 \label{c6:fig:streaming-simulation}
 \end{figure}
 
@@ -67,9 +67,9 @@ The client's playback buffering model is implemented as an application running o
 During transmission, the \gls{LTE} framework sets up the lower layer protocols, which includes the radio stack and the \gls{gtp} core network bearer, accordingly. In the simplest model, only one \gls{eNB} and one \gls{UE} are present, to avoid interference with other devices. Moreover, a stationary mobility model with close distance to the transceiver is chosen. The model can be easily extended to factor in multiple devices and a mobility model with handover, all the capabilities are already present in ns-3. However, the simple setup was chosen to measure the upper limit of achievable performance. All of the other factors will undoubtedly reduce the performance. Otherwise, the \gls{LTE} nodes are left at their default configuration, which should yield an overall cell net bandwidth of \SI{80}{\mega\bit\per\second}
 
 \begin{figure}[htb]
-\centering
-\includegraphics[width=1.0\textwidth]{images/streaming-hybrid.pdf}
-\caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/streaming-hybrid.pdf}
+	\caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
 \label{c6:fig:streaming-hybrid}
 \end{figure}
 
@@ -132,7 +132,7 @@ Common to both is the configuration of the video streaming simulation module. In
 Only one simulation run was conducted for each parameter setting as there are no known random factors involved that would merit running with different random seeds.
 
 \begin{table}[htb]
-	\caption{Test Video Parameters}
+	\caption{Parameters of the video used in the streaming simulation scenarios.}
 	\label{c6:tbl:simulationvideos}
 	\centering
 	\begin{tabu}{X[1.5,l]X[r]X[r,1.2]X[r]}
@@ -221,7 +221,7 @@ Besides altering the server link, the effects of the simulated \gls{LTE} network
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-ltesim-plotbuffer-mobility-facets.pdf}
-	\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and \glspl{eNB}.}
+	\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and \acrshortpl{eNB}.}
 \label{c6:fig:ltesim-mobility-plotbuffer-facets}
 \end{figure}
 

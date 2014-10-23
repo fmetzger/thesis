@@ -55,7 +55,7 @@ Reliable streaming has even less possibilities to degrade a video stream. Packet
 Few attempts for concise reliable streaming metrics that cover all mentioned properties have been made to date. The \gls{CI} was defined in \cite{1498486} and used to determine quality in \gls{P2P} live streaming. It is defined as \textit{\enquote{the number of segments that arrive before or on playback deadlines over the total number of segments}} and with this partly captures the stalling property. In \cite{5634160} and \cite{DBLP:journals/corr/SeyedebrahimiBP13} a so-called \gls{PI} is defined and evaluated. The definition $I_p = uv$ is simply based on the number of stalls $N$ and the average stall duration $v$. Very similarly, an \gls{ITU} recommendation~\cite{ituP1202.1} defines a rebuffering artifact value as 
 
 \begin{equation}
-	\phantom{,}v = 1 - ({\frac{d_s}{d_v + d_s}})^{0.0737}\text{.}
+	\phantom{,}v = 1 - {\left(\frac{d_s}{d_v + d_s}\right)}^{0.0737}\text{,}
 \end{equation}
 
  with the total stalling duration $d_s$ and the video duration $d_v$. The model lacks to capture other stalling characteristics and quality levels. A final metric by Hoßfeld et al.~\cite{hossfeld2013youtubeqoe} remedies this and incorporates both the length $L$ as well as the number $N$ of stalls in the computation of the \gls{MOS}. It states
@@ -193,7 +193,7 @@ Google's video streaming site YouTube is constantly changing its appearance and 
 This player used a single threshold strategy with different threshold values for the initial delay and any subsequent stalls. The values were already described in Figure~\ref{c3:fig:bufferlevel-flash}. This model assumes sufficient network conditions in the beginning, requiring only a short initial playback delay to pre-fill the playback buffer. If, however, stalling occurs, then it will buffer longer to keep the stalling frequency down.
 
 \begin{table}[htb]
-\caption{Transmission Related Parameters from YouTube's Video URL Setup}
+\caption{Transmission related parameters from YouTube's video URL setup.}
 \label{c3:tbl:yturl}
 	\centering
 	\begin{tabu}{X[l]X}
@@ -227,7 +227,6 @@ Furthermore, YouTube employs a proprietary server-side pacing mechanism outside 
 \caption{Comparison of downloaded and consumed data volume revealing the pacing mechanism used by YouTube.}
 \label{c3:fig:blocktransfer}
 \end{figure}
-
 
 The throttling method, which was also observed in \cite{alcock2011afcyt}, limits the transmission to a rate slightly above the average media bitrate. Measurements and the \gls{URL} scheme indicates this to be $1.25$ times the video bitrate. The rate limit is not constant, instead an ON-OFF block-sending scheme is facilitated. The scheme transmits short packet bursts, typically \SI{64}{\kibi\byte} in size, followed by long pauses as seen in Figure~\ref{c3:fig:blocktransfer}. The pause length between two bursts is set dynamically to reach the targeted bitrate on a larger time scale. The initial phase of the stream transmission is conducted unthrottled at line speed, presumably to allow for some pre-buffering to occur at the client's media player. A possible reason for this server-side pacing is to avoid load spikes, with the added side effect of keeping the clients' buffer sizes in check.
 

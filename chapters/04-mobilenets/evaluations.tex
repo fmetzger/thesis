@@ -67,7 +67,7 @@ All the individual tunnel durations in the dataset are differentiated based on t
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-tunnel-duration-device-type.pdf}
-	\caption{Tunnel duration distribution, separated for \gls{3G} dongles, smartphones and regular phones with medians at \SI{115}{\second} (total), \SI{31}{\second} (regular), \SI{82}{\second} (smartphone), and \SI{1207}{\second} (dongle)}
+	\caption{Tunnel duration distribution, separated for \acrshort{3G} dongles, smartphones and regular phones with medians at \SI{115}{\second} (total), \SI{31}{\second} (regular), \SI{82}{\second} (smartphone), and \SI{1207}{\second} (dongle).}
 \label{c4:fig:cdf-duration-device-class}
 \end{figure}
 
@@ -92,7 +92,7 @@ Another distinct step at \SI{30}{\minute} in the total and smartphone distributi
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-tunnel-duration-operating-system.pdf}
-	\caption{Tunnel duration cumulative distribution function, separated for select \glspl{os}; Medians at \SI{115}{\second} (total), \SI{15.5}{\second} (symbian), \SI{104}{\second} (iOS), and \SI{765}{\second} (android)}
+	\caption{Tunnel duration \acrshort{CDF}, separated for select \acrshortpl{os}; Medians at \SI{115}{\second} (total), \SI{15.5}{\second} (symbian), \SI{104}{\second} (iOS), and \SI{765}{\second} (android).}
 \label{c4:fig:cdf-duration-os}
 \end{figure}
 
@@ -220,7 +220,7 @@ The nocturnal plateau of arrivals between midnight and \formattime{5}{0}{0} and 
 		\caption{Tunnels with data flows initiated in \gls{UMTS}.}
 		\label{c4:fig:IAT-ecdf-2h-active-umts}
 	\end{subfigure}
-	\caption{\glspl{ECDF} of the tunnel \gls{IAT} in seconds by time of day.}
+	\caption{\acrshortpl{ECDF} of the tunnel \acrshort{IAT} in seconds by time of day.}
 \label{c4:fig:IAT-ecdf-2h}
 \end{figure}
 
@@ -252,7 +252,7 @@ Only \gls{gtp} update messages were unaffected and gave the opportunity for furt
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-update-time-cdfs.pdf}
-	\caption{\glspl{ECDF} of the time in seconds it takes a \gls{GGSN} to process a \gls{gtp} update event, separately plotted for four time slots each day.}
+	\caption{\acrshortpl{ECDF} of the time in seconds it takes a \acrshort{GGSN} to process a \acrshort{gtp} update event, separately plotted for four time slots each day.}
 	\label{c4:fig:update-time}
 \end{figure}
 
@@ -275,7 +275,7 @@ The uncovered empirical distributions for both the tunnel duration and the tunne
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-IAT-ecdfs.pdf}
-	\caption{Sampled inter-arrival time \gls{CDF} and fitted theoretical distributions.}
+	\caption{Sampled inter-arrival time \acrshort{CDF} and fitted theoretical distributions.}
 \label{c4:fig:IAT-cdfs}
 \end{figure}
 
@@ -286,7 +286,7 @@ The goodness of these fits was checked both visually using the \glspl{CDF} plots
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-IAT-active-fit-cdf-facets.pdf}
-	\caption{Empirical and exponentially fitted \glspl{CDF} of the tunnel interarrival duration by time of day. \glspl{CDF} are overlapping as the coefficient of determination is close to $1$.}
+	\caption{Empirical and exponentially fitted \acrshortpl{CDF} of the tunnel \acrshort{IAT} by time of day. \acrshortpl{CDF} are overlapping as the coefficient of determination is close to $1$.}
 \label{c4:fig:pdparrivalsecdf}
 \end{figure}
 
@@ -319,14 +319,14 @@ The second fitting effort surrounds the empirical data concerning the tunnel dur
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-duration-fit-cdf-facets.pdf}
-	\caption{Empirical and fitted \glspl{CDF} of the tunnel duration by time of day with fitted rational functions.}
+	\caption{Empirical and fitted \acrshortpl{CDF} of the tunnel duration by time of day with fitted rational functions.}
 \label{c4:fig:fittedsdurationlots}
 \end{figure}
 
 Instead, rational functions are fitted to the \glspl{ECDF} using the proprietary third-party tool \textit{Eureqa}~\cite{eureqa_paper, eureqa_software}. This allows for a much closer fit as seen in Figure~\ref{c4:fig:fittedsdurationlots}, but limits its application in the statistical evaluation.
 
 \begin{table}[htb]
-\caption{Inverse rational functions fitted to the \gls{ECDF} of the tunnel duration by time of day and correlation coefficients of the fit.}
+\caption{Inverse rational functions fitted to the \acrshortpl{ECDF} of the tunnel duration by time of day and correlation coefficients of the fit.}
 \label{c4:tab:fits-duration}
 	\centering
 	\begin{tabu}{X[1.1,l]X[4.5,r]X[r]} 

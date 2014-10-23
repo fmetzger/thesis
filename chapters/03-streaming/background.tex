@@ -55,6 +55,7 @@ On the other side stand streaming protocols that base themselves on \gls{UDP}, w
 Transport protocols that offer congestion control and no reliable delivery might be a desirable middle ground between these two extremes. \gls{DCCP}~\cite{kohler2006designing} is an example for such a compromise and might prove beneficial for the streaming process.
 
 
+%%
 \subsubsection{Multiplexing of Delivery}
 Finally, the number of targets of an individual video stream can also differ. A stream is unicast if the control loop is exactly between one sender and one recipient. Servers can still support multiple unicast streams at once, they are just completely independent of each other. A multicast stream is simultaneously sent to a group of recipients, stream control is established at the sender for the whole group. Therefore, multicasting is always using a push-based approach to control.
 
@@ -92,7 +93,6 @@ The \gls{rtp} specification itself defines only the most basic packet header, wi
 
 In case of multicasting, stream management can also be conducted directly by joining predetermined multicast groups through the use of \gls{IGMP}~\cite{rfc4604} without the need for \gls{RTSP}. Although, all intermediary routers have to support this mode. Therefore, it is usually only seen in closed networks  where the whole network infrastructure is owned by a single organization. For example, this scheme is often employed by \gls{IPTV} providers in their access network.
 
-
 \gls{rtp} is also used extensively in conjunction with other protocol suites, including \gls{SDP}~\cite{rfc2327} and \gls{SAP}~\cite{rfc2974} for stream discovery or in realtime communication protocols such as \gls{SIP}~\cite{rfc3261} and \gls{XMPP}~\cite{rfc6120,rfc6121} with the Jingle multimedia session control extension\footnote{The draft standard is available at \url{http://xmpp.org/extensions/xep-0166.html}}.
 
 The prevalent presence of middleboxes in the Internet also poses issues with \Gls{rtp}'s requirement of several simultaneous \gls{UDP} streams. \gls{NAT} nodes are especially problematic because of the difficulty to forward incoming \gls{UDP} packets to the destined host. This can be partially circumvented by using \gls{NAT} traversal techniques like \gls{STUN}~\cite{rfc5389} or \gls{ICE}~\cite{rfc5245}, sometimes though unreliably.
@@ -120,9 +120,9 @@ In addition, \gls{TCP} also employs congestion control and avoidance mechanisms.
 The third transmission rate influencing mechanism is flow control. The receiver (and especially also the receiving application) can notify the sender, how much data it can receive in the next time window and thus can throttle the transmission rate itself. This is an important method of control for the player. Usually, \gls{TCP}'s transmission fair share rate is expected to be much higher than the stream's video bitrate. While this makes sense for a simple file download to finish it as soon as possible, this behavior is unwanted for streaming. Rather, one wants to match the stream bitrate, with a bit of additional headroom to compensate for rate variations, to keep the playback buffer size in certain bounds that neither overwhelm the receiving device nor should the buffer be in danger of running empty. 
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=1.0\textwidth]{images/streaming-transfer-modes.pdf}
-\caption{Comparison of several possible streaming transfer modes \cite{ma2011mobile}.}
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/streaming-transfer-modes.pdf}
+	\caption{Comparison of several possible streaming transmission modes (source: \cite{ma2011mobile}).}
 \label{c3:fig:streamingtransfermodes}
 \end{figure}
 
@@ -151,7 +151,7 @@ There are also other proprietary and standardized streaming systems usually tail
 Also leading a niche existence are \gls{P2P} based streaming approaches. In \gls{P2P} there is no explicit server. Instead, connections are made and stream data is exchanged between equal hosts, avoiding a centralized server's bottleneck. \gls{P2P} streaming is used for example, in Tribler\footnote{\url{https://www.tribler.org/trac}} and Zattoo\footnote{\url{http://zattoo.com/int/}}. Table~\ref{c3:tab:streamingclassification} attempts to summarize all the protocols of interest to this research and apply the proposed classification criteria to them.
 
 \begin{table}[htb]
-\caption{Protocol Classification Matrix.}
+\caption{Streaming protocol classification matrix.}
 \label{c3:tab:streamingclassification}
 	\centering
 	\begin{tabu}{X[0.8]XX[1.2]XXXX[0.85]} 
