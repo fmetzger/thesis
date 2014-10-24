@@ -28,18 +28,18 @@ In Internet core routers those other factors are mostly well known and researche
 The situation is a bit different in a mobile network. Here, the control and user plane are tightly coupled as discussed in Section~\ref{c4:sec:3gpparchitecture}.  Therefore, load of individual resources cannot be looked at separately anymore and a node will be limited by any one of these resources. The load of any particular mobile core network node $\rho_{n}$ could then be defined as
 
 \begin{equation}
-	\phantom{,}\rho_{n} = \max(\rho_{l}, \rho_{m}, \rho_{p})\text{,}
+	\phantom{,}\rho_{n} = \max(\rho_{n,l}, \rho_{n,m}, \rho_{n,p})\text{,}
 \end{equation}
-
+%
 with the memory load $\rho_{m}$ and processing load $\rho_{p}$. And the total load of the \gls{CN} $\rho_{CN}$ as
 
 \begin{equation}
-	\phantom{.}\rho_{CN} = \max_{i}(\rho_{n,i})\text{.}
+	\phantom{.}\rho_{CN} = \max_{n}(\rho_{n})\text{.}
 \end{equation}
 
 In this definition the performance of the \gls{CN} can limited by any one of the involved core nodes. Looking back at the the discussion of the \gls{3G} architecture this should be an appropriate definition. With this model definition at hand, one can now attempt to apply it to an actual mobile network and determine the individual load values. 
 
-But, one additional limitation that reflects the situation in real mobile networks has to be introduced first. Core network nodes should be considered as black boxes. They are custom pieces of hardware sold by vendors as-is, providing no opportunity to directly monitor the inner workings of the node, including memory and processor usage. Only the network traffic leaving these nodes can be directly tapped and investigated as will be described in Section~\ref{c4:sec:methodology}. But the amount of signaling traffic exchanged on these observable links could give ample opportunities to indirectly infer some of the nodes' inner state and load.
+One additional limitation that reflects the situation in real mobile networks has to be introduced first. Core network nodes should be considered as black boxes. They are custom pieces of hardware sold by vendors as-is, providing no opportunity to directly monitor the inner workings of the node, including memory and processor usage. Only the network traffic leaving these nodes can be directly tapped and investigated as will be described in Section~\ref{c4:sec:methodology}. But the amount of signaling traffic exchanged on these observable links could give ample opportunities to indirectly infer some of the nodes' inner state and load.
 
 With the basics of the architecture in mind, the \gls{GGSN} can be considered a top candidate for being a load bottleneck. All traffic leaving or entering the packet switched domain must pass through this element, and it is involved in all \gls{CN} \gls{gtp} signaling procedures as well. Being an endpoint for the \gls{gtp} tunnel makes it responsible to sort and encapsulate incoming traffic into the corresponding user tunnel. To accomplish this a lot of state has to be kept and processed when signaling occurs. Therefore, the \gls{GGSN} will be the node under scrutiny in the trace evaluation and performance model creation.
 

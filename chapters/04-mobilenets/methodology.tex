@@ -15,7 +15,7 @@ For the analysis, the \gls{METAWIN} monitoring system developed in a previous th
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/umts-network.pdf}
+	\includegraphics[width=0.7\textwidth]{images/umts-network.pdf}
 	\caption{Location of the \acrshort{METAWIN} monitoring probe in the \acrshort{3G} core network.}
 \label{c4:fig:umtsnetwork}
 \end{figure}
@@ -41,7 +41,7 @@ All trace information was exported from \gls{METAWIN} as pure line-based text da
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Device Identification}
 
-Individual device types in a mobile network can be identified in the data through the \gls{TAC} field on every entry.The \gls{TAC}, defined in \cite{3gpp.23.003}, represents the first eight decimal digits of the \gls{IMEI} and uniquely identifies each device type. The following six digits of the \gls{IMEI} constitute the serial number of a specific device, which is of course omitted in the data. Due to the short length of this serial number, popular devices will often be assigned more than one \gls{TAC}, somewhat complicating the identification of certain device models.
+Individual device types in a mobile network can be identified in the data through the \gls{TAC} field on every entry. The \gls{TAC}, defined in \cite{3gpp.23.003}, represents the first eight decimal digits of the \gls{IMEI} and uniquely identifies each device type. The following six digits of the \gls{IMEI} constitute the serial number of a specific device, which is of course omitted in the data. Due to the short length of this serial number, popular devices will often be assigned more than one \gls{TAC}, somewhat complicating the identification of certain device models.
 
 \glspl{TAC} are assigned to individual device models by the regional members, or \gls{RBI}, of the \gls{GSMA}, distinguished by the first two digits of the \gls{TAC}. The full allocation information is not freely available, but only to members of the \gls{GSMA}, which is not a viable option for research institutions and other interested parties. Some independent efforts have been made to collect \glspl{TAC} from devices. Most of them allow just low-volume queries for specific \glspl{TAC} for non-commercial purposes. However, one \gls{TAC} dataset is publicly available and can be used freely.\footnote{Available at: \url{http://www.mulliner.org/tacdb/}.}
 
@@ -72,7 +72,7 @@ It is important to know whether the information available in the \gls{TAC} datas
 
 Table~\ref{c4:tbl:tacstats} provides statistics on the devices that could be identified in the trace. About \SI{81}{\percent} of all unique \gls{TAC} present in the trace could be mapped to a known device. More importantly, when looking at the total number of tunnels and \gls{gtp} messages during the week, even \SI{91}{\percent} of the responsible device can be determined. Finally, the flow data shows an even clearer picture, as almost all of the devices involved can be identified.
 
-This is an interesting result in itself, as \SI{19}{\percent} devices unknown, but these are the cause for only about \SI{9}{\percent} of signaling and \SI{0.3}{\percent} of the traffic, meaning there is a long tail of device types in this mobile network with very little impact on the load. With these results, one can be rather confident, that evaluations using device discrimination based on this \gls{TAC} mapping should give viable results.
+This is an interesting result in itself, as the \SI{19}{\percent} of devices present in the dataset that could not be identified through the \gls{TAC} are the cause for only about \SI{9}{\percent} of signaling and \SI{0.3}{\percent} of total traffic. This means there is a long tail of device types in this mobile network with very little impact on the load. With these results, one can be rather confident that evaluations using device discrimination based on this \gls{TAC} mapping should give viable results.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

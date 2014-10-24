@@ -17,7 +17,7 @@ With a distribution function, also called \gls{CDF}, a monotonous mapping of con
 Sample of real data are generally finite and not continuous. Hence, the distribution can only be approximated by an \gls{ECDF} $F_n(x)$ for values $X_1, X_2, \ldots , X_n$ and
 
 \begin{equation}
-	\phantom{.}F_n(x) = \frac{\text{number of }X_1, X_2, \ldots , X_n \leq x}{x}\text{.}
+	\phantom{.}F_n(x) = \frac{\text{number of }X_1, X_2, \ldots , X_i \leq x}{x}\text{.}
 \end{equation}
 
 One of the analysis's goal is to break down the actual measured system to a simplified probability model. This can be conducted by attempting to match the data's \gls{ECDF} to an existing basic probability distribution, e.g., exponential Gamma, log-normal, or Weibull. In order to achieve this one of several readily available matching methods, which rely either on closed formulas or numerical optimization, can be used. Two simple methods are \textbf{Matching Moments}~\cite[pp.~99-143]{vose2000risk} and \textbf{Maximum Likelihood}.
@@ -49,7 +49,7 @@ Continuous data can be checked with the \textbf{Kolmogorov-Smirnov test}. First 
 	\shortintertext{and}
 	\phantom{,}K_n^- &= \sqrt{n} \sup_{-\infty < x < + \infty} \left( F(x) - F_n(x) \right)\text{,}
 \end{align}
-
+%
 for the \gls{ECDF} $F_n(x)$ and \gls{CDF} $F(x)$. Once again the results are compared against a precomputed table of values from the Kolmogorov-Smirnov distribution to test the significance of the observed results' deviation from expected values. 
 
 Finally, every fit should in addition always undergo a \textbf{Visual Inspection}. Diagrams, of the empirical and fitted distribution --- especially histograms, density, and \gls{CDF} --- should be compared and checked for specific artifacts or outliers. 
