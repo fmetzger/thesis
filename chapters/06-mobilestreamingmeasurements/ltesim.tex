@@ -3,35 +3,27 @@
 \section{Mobile Reliable Streaming Simulations}
 \label{c6:sec:mobilestreamingtestbed}
 
-However, some experiments can not be easily conducted in active measurement testbeds, for example due to the necessary scale to achieve meaningful results. Especially, new protocols or adaptations to existing ones are preferentially first tested in a network simulation. Simulation frameworks are especially important for mobile networks, as acquiring packet-level traces and information about every node in an actual commercially operating cellular network is nigh impossible due to the users' privacy and the provider's business concerns.
+Some experiments can not be easily conducted in active measurement testbeds, for example due to the necessary scale to achieve meaningful results. Often new protocols or adaptations to existing ones are preferentially first tested using a network simulation. Simulation frameworks are especially important for mobile networks, as acquiring packet-level traces and information about every node in an actual commercially operating cellular network is nigh impossible due to the users' privacy and the provider's business concerns.
 
-While there are some active measurement studies specifically targeted at reliable streaming in mobile networks, e.g., \cite{Muller:2012:EDA:2151677.2151686}, most are conducted either in fixed networks or using simulation frameworks. Therefore, to better evaluate reliable streaming, it would be very desirable to find an existing framework, that covers all important aspect in 3G or 4G mobile networks.
+While there are some active measurement studies specifically targeted at reliable streaming in mobile networks, e.g., \cite{Muller:2012:EDA:2151677.2151686}, most are conducted either in fixed networks or using simulation frameworks. Therefore, to better evaluate reliable streaming, it would be very desirable to find an existing framework, that covers all important aspect in \gls{3G} or 4G mobile networks, including the influences of the core network and control plane signaling.
 
-There are a number of network simulators readily available for use, both commercial as well as \gls{FOSS}. But only a small subset of them has the capability (or can be extended) to simulate \gls{3G} or LTE networks. Even further, most radio network capable simulators only concern themselves with the physical radio link and completely neglect all other network paths, especially the core and all control plane signaling interactions. 
-
-The following list overviews current publicly available simulation frameworks with \gls{3G}/\gls{LTE} support:
+There are a number of network simulators readily available for use, both commercial as well as \gls{FOSS}. But only a small subset of them has the capability (or can be extended) to simulate \gls{3G} or \gls{LTE} networks. Even further limiting is the circumstance that most radio network capable simulators only concern themselves with the physical radio link and completely neglect all other network paths, especially the core and all control plane signaling interactions. The following list overviews current publicly available simulation frameworks with \gls{3G}/\gls{LTE} support:
 
 \begin{itemize}
-	\item An external \gls{UMTS} module\footnote{\url{http://net.infocom.uniroma1.it/reti_files/reti_downloads.htm}} is available for the no longer maintained \textbf{ns-2} simulation framework. A further separate collection of patches\footnote{\url{http://seacorn.cs.ucy.ac.cy/eumtssim/}} also extends ns-2 with \gls{UMTS} radio link capabilities~\cite{vranjevs2011use} but it is not publicly available.
-
-	Both are as of August 2014 no longer being developed and not up-to-date to the newest specifications. They also focus solely on the user plane radio physical and link layer of \gls{UMTS}.
+	\item An external \gls{UMTS} module\footnote{\url{http://net.infocom.uniroma1.it/reti_files/reti_downloads.htm}} is available for the no longer maintained \textbf{ns-2} network simulator. A further, separate collection of patches\footnote{\url{http://seacorn.cs.ucy.ac.cy/eumtssim/}} also extends ns-2 with \gls{UMTS} radio link capabilities~\cite{vranjevs2011use} but it is not publicly available. Both extensions are, as of August 2014, no longer being developed and not up-to-date to the newest \gls{3GPP} specifications. They also focus solely on the user plane radio physical and link layer of \gls{UMTS}.
 
 	\item Another third-party radio link layer simulation model is available for \textbf{MATLAB}\footnote{\url{http://www.nt.tuwien.ac.at/research/mobile-communications/lte-simulators/}}~\cite{mehlfuhrer2011vienna}.
 
-	\item A standalone \gls{LTE} simulation\footnote{\url{http://telematics.poliba.it/index.php/en/lte-sim}}~\cite{5634134} includes models for some \gls{LTE} nodes, including the \gls{eNB} and \gls{MME} and implements a selection of protocols (\gls{PDCP}, \gls{RLC}, and \gls{RRC}).
-
-	However, the implementation of these nodes and protocols is rudimentary at best and is not even close to the actual specification. Additionally, the simulator lacks a \gls{TCP}/\gls{IP} stack as \gls{IP} is reduced to its basic functionality and \gls{TCP} is completely absent.
+	\item A standalone \gls{LTE} simulation\footnote{\url{http://telematics.poliba.it/index.php/en/lte-sim}}~\cite{5634134} includes models for some \gls{LTE} nodes, including the \gls{eNB} and \gls{MME} and implements a selection of protocols (\gls{PDCP}, \gls{RLC}, and \gls{RRC}). However, the implementation of these nodes and protocols is rudimentary at best and is not even close to the actual specification. Additionally, the simulator lacks a coherent \gls{TCP}/\gls{IP} stack as \gls{IP} is reduced to its basic functionality and \gls{TCP} is completely absent.
 
 	\item A framework dubbed SimuLTE\footnote{\url{https://github.com/inet-framework/simulte}} is available for \textbf{OMNeT++}\footnote{\url{http://www.omnetpp.org/}}. Included are the user plane aspects of the radio link and some basic \gls{SGW} and \gls{PGW} functionality.
 
 	\item The \textbf{ns-3}\footnote{\url{http://www.nsnam.org}} simulator already contains an \gls{LTE}/\gls{EPC} module called LENA\footnote{\url{http://networks.cttc.es/mobile-networks/software-tools/lena/}}~\cite{Baldo:2013:OSM:2507924.2507940} with features similar to SimuLTE.\@ Again, only user plane \gls{SGW}/\gls{PGW} functionality is present with an initial \gls{GTP-U} implementation.
 \end{itemize}
 
-The goal here is to simulate reliable streaming in a realistic mobile environment. That includes both a complete horizontal network path --- both the radio link as well as the core network --- as well as a vertical network stack --- comprising both user plane and control plane.
+The goal here is to simulate reliable streaming in a realistic mobile environment. That would ideally include both a complete horizontal network path --- both the radio link as well as the core network --- as well as vertical network stack --- comprising both user plane and control plane. Unfortunately, none of the above feature a complete representation, which can be at least partially attributed to the complexity of the \gls{3GPP} specifications. Nonetheless, the simulators could still provide a viable basis for a mobile streaming framework while keeping the limitations in mind.Between these a decision needs to be made as to the basis of the mobile streaming simulation framework. 
 
-Unfortunately, none of the above feature a complete representation, which can be at least partially attributed to the complexity of the \gls{3GPP} specifications. Nonetheless, the simulators could still provide a viable basis for a mobile streaming framework while keeping the limitations in mind.Between these a decision needs to be made as to the basis of the mobile streaming simulation framework. 
-
-Ultimately, the choice fell on ns-3 with the LENA module. Alongside with SimuLTE it has the most complete \gls{LTE} representation. And targeting \gls{LTE} networks seems to be the more future-proof path in the the long term. With the exception of OMNeT++, which has comparable capabilities, ns-3's \gls{TCP}/\gls{IP} is much more complete and realistic than that of the other frameworks. Additionally, it can also incorporate the actual \gls{TCP}/\gls{IP} of older Linux kernels with NSC\footnote{\url{http://research.wand.net.nz/software/nsc.php}}. As an additional feature, ns-3 can also act as a network emulator for real network traffic. This will be exploited in the upcoming model.
+Ultimately, the choice as a basis for reliable streaming simulations fell on ns-3 with the LENA module. Alongside with SimuLTE it has the most complete \gls{LTE} representation. And targeting \gls{LTE} networks seems to be the more future-proof path in the the long term. With the exception of OMNeT++, which has comparable capabilities, ns-3's \gls{TCP}/\gls{IP} is much more complete and realistic than that of the other frameworks. Additionally, it can also incorporate the actual \gls{TCP}/\gls{IP} of older Linux kernels with NSC\footnote{\url{http://research.wand.net.nz/software/nsc.php}}. As an additional feature, ns-3 can also act as a network emulator for real network traffic. This can be exploited through the upcoming model.
 
 In the long run, to better represent actual mobile networks the base radio framework in ns-3 would need to be extended with more control plane aspects and adapted to the latest \gls{3GPP} specifications
 
@@ -43,10 +35,11 @@ With ns-3 chosen and the core network model set, the task is now to define and s
 
 Through this simulation testbed, arbitrary reliable streaming playback models can now be tested and optimized for the various conditions and pitfalls of mobile networks. Of special interest could be the relation to mobility phenomenons and issues occurring during handover.
 
+
 %%
 \subsubsection{Simulation and Emulation Setups}
 
-To simplify things, the model behind the progressive streaming measurement framework based on the playback buffer employed in Section~\ref{c3:sec:measurements} can be reused in the simulator. But instead of being an off-line analysis algorithm for network traces it is used as an actual emulated streaming client here.
+To begin, the model behind the progressive streaming measurement framework based on the playback buffer employed in Section~\ref{c3:sec:measurements} can be reused in the simulator. But instead of being an off-line analysis algorithm for network traces it is used as an actual emulated streaming client here.
 
 \begin{figure}[htb]
 	\centering
@@ -55,10 +48,10 @@ To simplify things, the model behind the progressive streaming measurement frame
 \label{c6:fig:streaming-simulation}
 \end{figure}
 
-The rest of the network model is kept as simple as possible as is visible in Figure~\ref{c6:fig:streaming-simulation}. LENA readily provides implementations for the \glspl{UE}, \gls{eNB}, and a combined \gls{SGW}/\gls{PGW} node. For the streaming simulation two things were added into this network. 
+The rest of the network model is kept as simple as possible as is visible in Figure~\ref{c6:fig:streaming-simulation}. LENA readily provides implementations for the \glspl{UE}, \gls{eNB}, and a combined \gls{SGW}/\gls{PGW} node. For the streaming simulation two things were added into this network: a streaming server and a streaming player.
 
-A node which acts as the storage server for the video segments was connected to the Internet-facing link of the \gls{PGW}. The storage server is kept as simple as possible. Upon receipt of a request for a specific segment over \gls{TCP} a dummy segment with the correct size is immediately sent to the client, reusing the open \gls{TCP} connection. %\todo{Segments typically have a size of ...?}
-The gls{TCP} congestion avoidance mechanism implemented by ns-3 is New Reno, which also might not be ideally suited to mobile environments. Especially when compared to congestion avoidance mechanisms that are optimized for a high \gls{BDP} like Linux's CUBIC.
+For the streaming server a node from which the video segments are pulled was connected to the Internet-facing link of the \gls{PGW}. The storage server is kept as simple as possible. Upon receipt of a request for a specific segment over \gls{TCP} a dummy segment with the correct size is immediately sent to the client, reusing the open \gls{TCP} connection. %\todo{Segments typically have a size of ...?}
+The \gls{TCP} congestion avoidance mechanism implemented by ns-3 is New Reno, which also might not be ideally suited to mobile environments. Especially when compared to congestion avoidance mechanisms that are optimized for a high \gls{BDP} like Linux's CUBIC.
 
 Note, the direct usage of \gls{TCP} instead of for example the more commonly used application layer protocol \gls{HTTP}. This should make no difference on the streaming process in the long run apart from the absence of a slight protocol overhead (i.e., the \gls{HTTP} headers) at the beginning of the transmission and for each segment. Using \gls{TCP} directly, however, simplifies the simulation and makes the results easier to interpret.
 
@@ -208,6 +201,7 @@ With these improvements to the retrieval strategy this specific issue can be eli
 
 %%
 \paragraph{Device Mobility}
+\label{c6:sec:mobilitystreamingsim}
 
 \begin{figure}[htb]
 	\centering
