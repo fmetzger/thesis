@@ -59,7 +59,7 @@ embed_fonts("R-ltesim-bwseries-qoe.pdf")
 p <- ggplot(dlatency, aes(x=latency, y=qoe, color=videoname))
 p <- p + geom_point(size=3) + geom_line()
 p <- p + scale_x_log10() + annotation_logticks(sides="b")
-p <- p + ylim(1.5,5) + xlab("bandwidth (Mb/s)") + ylab("MOS")
+p <- p + ylim(1.5,5) + xlab("additional latency (ms))") + ylab("MOS")
 p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
 p <- p + theme(text = element_text(family="Liberation Sans", size=20))
 p

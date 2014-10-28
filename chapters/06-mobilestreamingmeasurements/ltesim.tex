@@ -172,7 +172,7 @@ However, this effect is somewhat contrary to the additional effect observed at l
 \label{c6:fig:ltesim-bwseries-qoe}
 \end{figure}
 
-Once again utilizing Equation~\ref{\label{c3:eqn:hossfeld-stalling-model} as a validated \gls{QoE} metric and applying it to the results of the bandwidth series, it is evident that the perceived quality really suffers in this scenario. The \gls{MOS} of the high quality video never exceeds the equations base value of $1.5$ and is effectively unwatchable according to the metric. The other two video profiles manage to achieve a good quality when sufficient bandwidth is present, with the issues above \SI{80}{\mega\bit\per\second} in mind.
+Once again utilizing Equation~\ref{c3:eqn:hossfeld-stalling-model} as a validated \gls{QoE} metric and applying it to the results of the bandwidth series, it is evident that the perceived quality really suffers in this scenario. The \gls{MOS} of the high quality video never exceeds the equations base value of $1.5$ and is effectively unwatchable according to the metric. The other two video profiles manage to achieve a good quality when sufficient bandwidth is present, with the issues above \SI{80}{\mega\bit\per\second} in mind.
 
 
 %\todo{check pcaps for >=100mbit experiments; could also be related to issues of the actual lte simulation network but implementation can not fully responsible for this?}
@@ -229,15 +229,13 @@ Finally, both non-adaptive and adaptive strategies can be improved by employing 
 %%
 \paragraph{Further Scenarios}
 
-Apart from the experiments conducted here, some others are also worth investigating but out of scope for this work.
+Apart from the experiments conducted here, some others scenarios listed here are also worth investigating but out of scope for this work.
 
-If one plans to implement a reliable streaming solution, the simulation can be utilized to test any kind of playback strategy and transmission mechanics and attune it to mobile networks. 
-
-Besides developing entirely new playback strategies, the default thresholds of the four and six threshold strategies should also be optimized through iterative simulation of value combinations.
+If one plans to implement a reliable streaming solution, the simulation can be utilized to test any kind of playback strategy and transmission mechanics and attune it to mobile networks. Besides developing entirely new playback strategies, the default thresholds of the four and six threshold strategies should also be optimized through the iterative simulation of value combinations.
 
 The opposite approach would also be possible for mobile network operators: Map the operator's mobile network infrastructure onto the simulation and test the performance of existing streaming strategies with it. If any issues or performance bottlenecks are discovered, the operator can make adjustments to the infrastructure and implement these changes afterwards outside of the simulation.
 
-It would also be worthwhile to see the impact of the cross-layer model described in Section~\ref{c5:sec:crosslayerhinting} as they are specifically intended to reduce the influence this kind of mobile network architecture has on user applications. An implementation of cross-layer hinting would be relatively simple here, as the layer isolation boundaries are much easier to circumvent in a network simulator.
+It would also be worthwhile to see the impact of the cross-layer model described in Section~\ref{c5:sec:crosslayerhinting} as they are specifically intended to reduce the influence this kind of mobile network architecture has on user applications. An implementation of cross-layer hinting would be relatively simple here, as the layer isolation boundaries are much easier to circumvent in a network simulator and information on, e.g., handover events is readily available.
 
 As mentioned earlier, ns-3's \gls{LTE} framework does only implemented a limited subset of the \gls{3GPP} specifications, mainly related to the user plane and the radio link stack. Almost no control plane procedures are implemented. This may have only a negligible impact as soon as a connection is established and remains stable and only a very small number of users are connected to the system. But this is not the norm for an actual mobile network in operation with its mobility features and high churn, both in terms of data flows as well as mobile users, generating a large amount of signaling traffic as was discussed before in Section~\ref{c4:sec:3gpparchitecture}. To best mimic the dataset evaluations related to \gls{PDP} context and \gls{gtp} tunnel life cycle management conducted in Section~\ref{c4:sec:evaluations}, the simulator would need to at least be able to reproduce these tunnel management and the related \gls{RRC} \gls{PDP} context procedures happening on the user traffic path. Therefore, it is worth to reconduct the above experiments as soon as the framework has made any progress in this direction.
 

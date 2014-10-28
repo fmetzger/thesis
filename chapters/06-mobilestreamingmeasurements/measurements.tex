@@ -19,6 +19,11 @@ To further the understanding of the behavior of reliable streaming in mobile net
 
 \section{Summary}
 
+It is safe to assume that reliable video streaming in mobile networks can be evaluated in a large number of ways. Besides the previously taken road of passively recorded network-scale traces, two other approaches are most valuable in investigating reliable streaming, active measurements and simulations. Both bring along their own set of benefits and drawbacks. 
+
+Active measurements are better suited to test the wide range of influence factors present in actual networks and device protocol stacks. These can usually not be properly represented in a simulation. In order to increase the viability for mobile measurements, Sensorium was introduced, making it easier to record the precise state the mobile device currently is experiencing by giving access to all kinds of sensors.
+
+If the goal is rather to investigate the theoretical overarching concepts of certain playback strategies or to scale up the test environment, one can utilize the simulative approach in the form of the \gls{LTE} mobile streaming simulation framework. Initial measurements using this framework already suggest a high influence of the network \gls{QoS} on the experienced streaming quality. A higher stalling probability caused by handovers during mobility was also uncovered.
 
 
 %\section{Mobile Streaming and Measurement Summary}
