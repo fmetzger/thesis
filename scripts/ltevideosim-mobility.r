@@ -3,6 +3,7 @@ library(extrafont)
 
 #Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.15/bin/gswin64c.exe")
 
+#path <- "/home/fm/svn/fc-sim/results/set5/video2"
 path <- "/home/fm/svn/fc-sim/results/set4/video3"
 dirs <- list.dirs(path) 
 
@@ -50,7 +51,7 @@ p <- p + geom_hline(yintercept = threshold.startTransmission, color="#F0E442", s
 p <- p + geom_vline(xintercept=handover.start[,1], color="#999999")
 #p <- p + geom_vline(xintercept=handover.stop[,1], color="#999999")    
 p <- p + xlab("time (s)") + ylab("buffered video duration (s)") 
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 ggsave("R-ltesim-plotbuffer-mobility-facets.pdf", width=12, height=10, useDingbat=F)
 embed_fonts("R-ltesim-plotbuffer-mobility-facets.pdf")

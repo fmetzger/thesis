@@ -124,8 +124,8 @@ dfsub$relative.blocking.probability.left <- dfsub$block.prob.left / subset(dfsub
 p <- ggplot(dfsub, aes(x=max.tunnels,y=relative.blocking.probability,ymin=relative.blocking.probability.left,ymax=relative.blocking.probability.right))
 p <- p + geom_point(stat = "identity", size=3) + geom_errorbar(width=1, size=1)
 p <- p + scale_x_discrete() + scale_y_continuous(limits = c(0, 2))
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + xlab("individual instance tunnel capacity") + ylab("relative increase of\nblocking probability")
 p
 ggsave("blocking-comparison.pdf", width=12, height=10, useDingbat=F)
-
+embed_fonts("blocking-comparison.pdf")

@@ -78,7 +78,7 @@ p <- p + scale_x_log10() + coord_cartesian(xlim = c(0.001, 0.4)) + facet_wrap(~ 
 p <- p + ylab("cumulative probability") + xlab("tunnel interarrivals (s)") + guides(color=guide_legend("", override.aes = list(size=4)))
 p <- p + scale_color_manual(values=cbPalette)
 p <- p + annotation_logticks(sides="b")
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 ggsave("R-IAT-active-fit-cdf-facets.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-IAT-active-fit-cdf-facets.pdf")

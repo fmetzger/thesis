@@ -1,14 +1,3 @@
-################################################################################
-################################################################################
-## 
-## different ways to fit univariate random distributions to the tunnel
-## inter-arrival time, including plots and goodness-of-fit tests
-##
-## date: ~january 2013
-## author: florian
-##
-################################################################################
-################################################################################
 
 library(parallel)
 library(fitdistrplus) 
@@ -93,7 +82,7 @@ p <- p + scale_x_log10() + coord_cartesian(xlim=c(0.001,0.4)) + guides(col = gui
 p <- p + ylab("cumulative probability") + xlab("tunnel interarrival time")
 p <- p + scale_color_manual(values=cbPalette)
 p <- p + annotation_logticks(sides="b")
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 ggsave("R-IAT-ecdfs.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-IAT-ecdfs.pdf")

@@ -38,7 +38,7 @@ for (f in files){
 
 p <- ggplot(df, aes(x=max.tunnels,y=block.prob.mean,ymin=block.prob.left,ymax=block.prob.right))
 p <- p + geom_line() + geom_point(size=2) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200), ylim = c(-0.1, 1.1))
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + xlab("total tunnel capacity") + ylab("blocking probability")
 p
 ggsave("R-monolithic-blocking.pdf", width=12, height=8, useDingbats=F)
@@ -46,7 +46,7 @@ embed_fonts("R-monolithic-blocking.pdf")
 
 p <- ggplot(df, aes(x=max.tunnels,y=res.util.mean,ymin=res.util.left,ymax=res.util.right))
 p <- p +  geom_line() + geom_point(size=2) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
-p <- p + theme(text = element_text(family="Liberation Sans",size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum",size=20))
 p <- p + xlab("total tunnel capacity") + ylab("concurrent tunnels served on average")
 p
 ggsave("R-monolithic-tunnelusage.pdf", width=12, height=8, useDingbats=F)

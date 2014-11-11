@@ -9,8 +9,8 @@ library(extrafont)
 # col -1 max instance duration
 
 
-#path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleMultiserver/multiserver/"
-path = "F:/uni/ggsn-sim/evaluateFeasibleMultiserver/multiserver"
+path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleMultiserver/multiserver/"
+#path = "F:/uni/ggsn-sim/evaluateFeasibleMultiserver/multiserver"
 files <- list.files(path = path, pattern="instance_use_distribution.*csv")
 
 dfwm <- data.frame()
@@ -52,7 +52,7 @@ dfsub <- subset(dfsub, capacity > 4000)
 p <- ggplot(dfsub, aes(x=max.tunnels, y=rel.instance.use, ymin=left, ymax=right))
 p <- p + geom_line() + geom_point(size=2) + geom_errorbar()
 p <- p + facet_wrap( ~ tunnel.levels, scale="free")# + ylim(0,1)
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + ylab("mean number of instances in use") + xlab("individual instance tunnel capacity")
 p <- p + guides(color=guide_legend("start/stop\nduration"))
 p

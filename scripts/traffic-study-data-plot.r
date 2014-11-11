@@ -42,7 +42,7 @@ cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
 
 p <- ggplot(df, aes(x=year, y=traffic, fill =as.factor(type))) + geom_bar(stat="identity", position="dodge")
 p <- p + scale_x_continuous(breaks = year) + ylab("traffic (exabytes per month)")
-p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
 ggsave("r-cisco-vni-2013.pdf", width=12, height=8, useDingbat=F)
@@ -84,7 +84,7 @@ cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
 
 p <- ggplot(df, aes(x=year, y=ratio, fill =as.factor(types))) + geom_bar(stat="identity", position="dodge")
 p <- p + ylab("aggregate traffic ratio")
-p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
 ggsave("r-netvine-phenomena-fixed.pdf", width=12, height=8, useDingbat=F)
@@ -112,7 +112,7 @@ cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
 
 p <- ggplot(df, aes(x=year, y=ratio, fill =as.factor(types))) + geom_bar(stat="identity", position="dodge")
 p <- p + ylab("aggregate traffic ratio")
-p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
 ggsave("r-netvine-phenomena-mobile.pdf", width=12, height=8, useDingbat=F)

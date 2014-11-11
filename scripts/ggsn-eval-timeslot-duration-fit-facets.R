@@ -57,7 +57,7 @@ p <- ggplot(df, aes(x=x, y=y, color=as.factor(origin))) + geom_line(size=1)
 p <- p + scale_x_log10(name = "tunnel duration (s)", limits = c(1, 1.5e6))
 p <- p + facet_wrap(~timeslot) + ylab("cumulative probability")
 p <- p +  scale_colour_manual(name = "", values = cbPalette)
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 
 ggsave("R-duration-fit-cdf-facets.pdf", width=12, height=8, useDingbat=F)

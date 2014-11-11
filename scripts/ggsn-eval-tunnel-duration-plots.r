@@ -36,11 +36,10 @@ p <- ggplot(df, aes(x=st, color=as.factor(type))) + stat_ecdf(size=1) +  scale_x
 p <- p + coord_cartesian(xlim = c(0.5, 1000000)) + geom_hline(yintercept=0.5, color="#999999") + annotation_logticks(sides="b")
 p <- p + ylab("cumulative probability") + xlab("tunnel duration (s)") + guides(color=guide_legend("", override.aes = list(size=4)))
 p <- p + scale_color_manual(values=cbPalette)
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 ggsave("R-tunnel-duration-device-type.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-tunnel-duration-device-type.pdf")
-
 
 
 
@@ -59,12 +58,10 @@ p <- ggplot(df, aes(x=st, color=as.factor(type))) + stat_ecdf(size=1) +  scale_x
 p <- p + coord_cartesian(xlim = c(0.5, 1000000)) + geom_hline(yintercept=0.5, color="#999999") + annotation_logticks(sides="b")
 p <- p + ylab("cumulative probability") + xlab("tunnel duration (s)") + guides(color=guide_legend("", override.aes = list(size=4)))
 p <- p + scale_color_manual(values=cbPalette)
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 ggsave("R-tunnel-duration-operating-system.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-tunnel-duration-operating-system.pdf")
-
-
 
 
 
@@ -75,7 +72,6 @@ st_smartphone_sampled <- sample(st_smartphone, length(st_smartphone)*0.1)
 st_symbian_sampled <- sample(st_symbian, length(st_symbian)*0.1)
 st_ios_sampled <- sample(st_ios, length(st_ios)*0.1)
 st_android_sampled <- sample(st_android, length(st_android)*0.1)
-
 
 df <- data.frame()
 x <- data.frame(st=servingtimes_sampled, type="total")
@@ -99,8 +95,7 @@ p <- ggplot(df, aes(x=st, color=as.factor(type), fill=as.factor(type))) + geom_d
 p <- p + scale_x_log10(limits=c(0.2, 1000000)) + xlab("tunnel duration (s)")
 p <- p + annotation_logticks(sides="b")
 p <- p + scale_color_manual(values=cbPalette, name="") + scale_fill_manual(values=cbPalette, name="")
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 ggsave("R-duration-classification-density.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-duration-classification-density.pdf")
-

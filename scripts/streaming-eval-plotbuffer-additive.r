@@ -41,7 +41,7 @@ plotbuffer <- function(csvfilestring){
   
   p <- ggplot(d, aes(x=timestamp, y=sum)) + geom_line(size = 1)
   p <- p + xlab("time (s)") + ylab("buffered data (KiB)") 
-  p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+  p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
   return(p)
 }
 

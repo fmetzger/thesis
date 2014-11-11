@@ -38,7 +38,7 @@ p <- ggplot(d) + geom_abline(intercept=0, slope=1, size=1, color="#999999") + ge
 p <- p + scale_x_log10(limits=c(0.1,1000000)) + scale_y_log10(limits=c(0.1,1000000))
 p <- p + ylab("duration distribution of subcategory") + xlab("total duration distribution")
 p <- p + scale_color_manual(values=cbPalette, name="")
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 
 ggsave("R-duration-qq-category-comparison.pdf", width=12, height=8, useDingbats=F)

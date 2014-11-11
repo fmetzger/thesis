@@ -28,7 +28,7 @@ p <- p + scale_x_log10("tunnel duration (s)") + coord_cartesian(xlim = c(0.5, 10
 p <- p + annotation_logticks(sides="b") + ylab("cumulative probability")
 #+ guides(color=guide_legend("time of day", ncol=2, override.aes = list(size=4)))
 p <- p + scale_color_manual(values=cbPalette, name="time of day")
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 ggsave("R-duration-timeofday-ecdf.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-duration-timeofday-ecdf.pdf")

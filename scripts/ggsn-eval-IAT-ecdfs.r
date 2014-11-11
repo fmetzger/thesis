@@ -47,7 +47,7 @@ ecdf2h <- function(d){
   p <- p + annotation_logticks(sides="b")
   p <- p + ylab("cumulative probability") + xlab("tunnel interarrival time (s)")
   p <- p + scale_color_manual(values=cbPalette, name="time of day")
-  p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+  p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
   p
 }
 

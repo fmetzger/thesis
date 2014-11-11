@@ -1,17 +1,3 @@
-################################################################################
-################################################################################
-## 
-## attempts to plot the empirical cdf of tunnel activation, update, 
-## and deactivation time deltas
-##
-## results for anything other than update times might not be reliable at all
-##
-## date: ~march 2013
-## author: florian
-##
-################################################################################
-################################################################################
-
 library(ggplot2)
 library(extrafont)
 
@@ -41,7 +27,7 @@ p <- ggplot(sampled, aes(x=timestamp_delta, color=as.factor(timeslot))) + stat_e
 p <- p + coord_cartesian(xlim = c(0, 0.03))# + guides(col = guide_legend(nrow = 12))
 p <- p + ylab("cumulative probability") + xlab("tunnel update processing time")
 p <- p + scale_color_manual(values=cbPalette, name="time of day")
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p 
 ggsave("R-update-time-cdfs.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("R-update-time-cdfs.pdf")

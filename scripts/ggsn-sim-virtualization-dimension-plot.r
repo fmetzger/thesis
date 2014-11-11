@@ -1,9 +1,5 @@
 library(ggplot2)
-library(extrafontdb)
 library(extrafont)
-#font_import()
-#font()
-loadfonts()
 
 df <- data.frame()
 
@@ -72,7 +68,7 @@ for (f in files){
 
 p <- ggplot(df, aes(x=max.tunnels * max.instances, y=block.prob.mean, ymin=block.prob.left, ymax=block.prob.right, color=as.factor(max.instances)))
 p <- p + geom_point(size=2) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + ylab("blocking probability") + xlab("total tunnel capacity")
 p <- p + guides(colour=guide_legend("supported\nvirtual\ninstances"))
 p <- p + scale_colour_brewer(palette="Paired")
@@ -82,7 +78,7 @@ embed_fonts("R-virtualized-blocking.pdf")
 
 p <- ggplot(df, aes(x=max.tunnels * max.instances, y=res.util.mean, ymax = res.util.right, ymin=res.util.left, color=as.factor(max.instances)))
 p <- p +  geom_point(size=2) + geom_errorbar(width=100)+ coord_cartesian(xlim=c(0,5200))
-p <- p + theme(text = element_text(family="Liberation Sans Narrow", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + ylab("concurrent tunnels served on average") + xlab("total tunnel capacity")
 p <- p + guides(colour=guide_legend("supported\nvirtual\ninstances"))
 p <- p + scale_colour_brewer(palette="Paired")

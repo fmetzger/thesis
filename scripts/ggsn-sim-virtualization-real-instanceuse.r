@@ -6,8 +6,8 @@ library(extrafont)
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 
-#path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined/"
-path = "F:/uni/ggsn-sim/combined"
+path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined/"
+#path = "F:/uni/ggsn-sim/combined"
 files <- list.files(path = path, pattern="instance_use_distribution.*csv")
 
 df <- data.frame()
@@ -64,7 +64,7 @@ p <- p + geom_point(size=2) + geom_line(aes(colour=as.factor(max.tunnels)), size
 p <- p + geom_errorbar(width=0.5, size=1)
 p <- p + facet_grid(max.instances ~ .,space="free_x",labeller = facet.label)
 p <- p + xlab("number of active instances") + ylab("cumulative probability")
-p <- p + theme(text = element_text(family="Liberation Sans", size=20))
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_color_manual(values=cbPalette)
 p <- p + guides(colour=guide_legend("individual instance\ntunnel capacity"))
 p

@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.5 r10040"
    sodipodi:docname="mm-3g-state-model.svg">
   <defs
      id="defs4">
@@ -147,16 +147,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.01"
-     inkscape:cx="272.79437"
-     inkscape:cy="906.2689"
+     inkscape:zoom="1.4283557"
+     inkscape:cx="239.20917"
+     inkscape:cy="855.42392"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1174"
      inkscape:window-height="935"
-     inkscape:window-x="702"
-     inkscape:window-y="48"
+     inkscape:window-x="680"
+     inkscape:window-y="51"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -174,201 +174,192 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       id="rect2987"
+       width="138.89624"
+       height="47.807133"
+       x="65.779564"
+       y="134.48813"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="76.662842"
+       y="164.87169"
+       id="text3757"
+       sodipodi:linespacing="125%"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
+         sodipodi:role="line"
+         id="tspan3759"
+         x="76.662842"
+         y="164.87169">CONNECTED</tspan></text>
+    <rect
+       id="rect2987-1"
+       width="138.89624"
+       height="47.807133"
+       x="240.22533"
+       y="134.48813"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="288.69861"
+       y="164.84169"
+       id="text3757-7"
+       sodipodi:linespacing="125%"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
+         sodipodi:role="line"
+         id="tspan3759-4"
+         x="288.69861"
+         y="164.84169">IDLE</tspan></text>
     <g
-       id="g3072"
-       transform="translate(0,1.0790281)">
+       id="g3044">
       <rect
          style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="131.42891"
-         x="246.96768"
-         height="47.807133"
-         width="138.89624"
-         id="rect2987" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3757"
-         y="162.21724"
-         x="253.01248"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="162.21724"
-           x="253.01248"
-           id="tspan3759"
-           sodipodi:role="line"
-           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">CONNECTED</tspan></text>
-    </g>
-    <g
-       id="g3080"
-       transform="translate(0,1.0790281)">
-      <rect
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="131.42891"
-         x="421.41345"
-         height="47.807133"
-         width="138.89624"
-         id="rect2987-1" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3757-7"
-         y="162.21236"
-         x="468.13208"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="162.21236"
-           x="468.13208"
-           id="tspan3759-4"
-           sodipodi:role="line"
-           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">IDLE</tspan></text>
-    </g>
-    <g
-       id="g3088"
-       transform="translate(0,1.0790281)">
-      <rect
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="131.42891"
-         x="583.60138"
+         y="134.48813"
+         x="402.41327"
          height="47.807133"
          width="138.89624"
          id="rect2987-0" />
       <text
          sodipodi:linespacing="125%"
          id="text3757-9"
-         y="162.21724"
-         x="597.65399"
+         y="164.87169"
+         x="421.58749"
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="162.21724"
-           x="597.65399"
+           y="164.87169"
+           x="421.58749"
            id="tspan3759-48"
            sodipodi:role="line"
-           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">DETACHED</tspan></text>
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">DETACHED</tspan></text>
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 312.90127,129.58991 0,-25.74258 170.29702,0 0,25.74258"
+       d="m 131.71315,131.57011 0,-25.74258 170.29702,0 0,25.74258"
        id="path5937"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 507.75781,129.58991 0,-25.74258 170.29702,0 0,25.74258"
+       d="m 326.56969,131.57011 0,-25.74258 170.29702,0 0,25.74258"
        id="path5937-1"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 487.03877,183.85982 0,25.74258 -170.29702,0 0,-25.74258"
+       d="m 305.85065,185.84002 0,25.74258 -170.29702,0 0,-25.74258"
        id="path5937-4-1"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 691.69722,182.88479 0,68.1081 -401.47152,0 0,-68.1081"
+       d="m 510.5091,184.86499 0,68.1081 -401.47152,0 0,-68.1081"
        id="path5937-4-1-6"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="423.71323"
-       y="271.21368"
+       x="242.5251"
+       y="273.19388"
        id="text6236"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6238"
-         x="423.71323"
-         y="271.21368"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">GPRS Attach</tspan></text>
+         x="242.5251"
+         y="273.19388"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">GPRS Attach</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="423.71323"
-       y="13.391878"
+       x="242.5251"
+       y="11.372076"
        id="text6240"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="423.71323"
-         y="13.391878"
+         x="242.5251"
+         y="11.372076"
          id="tspan6246"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Detach,</tspan><tspan
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Detach,</tspan><tspan
          sodipodi:role="line"
-         x="423.71323"
-         y="33.39188"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="242.5251"
+         y="33.872078"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan3122">GPRS Attach Reject,</tspan><tspan
          sodipodi:role="line"
-         x="423.71323"
-         y="53.391876"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="242.5251"
+         y="56.372078"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan3124">RAU Reject</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="323.87039"
-       y="226.30548"
+       x="142.68227"
+       y="226.28568"
        id="text6248"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6250"
-         x="323.87039"
-         y="226.30548"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">GPRS Signaling </tspan><tspan
+         x="142.68227"
+         y="226.28568"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">GPRS Signaling </tspan><tspan
          sodipodi:role="line"
-         x="323.87039"
-         y="246.30548"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="142.68227"
+         y="248.78568"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan3132">Connection Establish</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="535.78937"
-       y="99.76812"
+       x="354.60126"
+       y="101.74832"
        id="text6252"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="535.78937"
-         y="99.76812"
+         x="354.60126"
+         y="101.74832"
          id="tspan6256"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">GPRS Detach</tspan></text>
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">GPRS Detach</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="323.87039"
-       y="79.76812"
+       x="142.68227"
+       y="79.248322"
        id="text6258"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="323.87039"
-         y="79.76812"
+         x="142.68227"
+         y="79.248322"
          id="tspan6262"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">GPRS Signaling</tspan><tspan
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">GPRS Signaling</tspan><tspan
          sodipodi:role="line"
-         x="323.87039"
-         y="99.76812"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="142.68227"
+         y="101.74832"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan3130">Connection Release</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 286.38522,128.85919 0,-68.108104 401.47152,0 0,68.108104"
+       d="m 105.1971,130.83939 0,-68.108106 401.47152,0 0,68.108106"
        id="path5937-4-1-6-0"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Mend-1);stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 259.40594,127.60971 0,-22.77228 -33.66337,0 0,101.9802 33.66337,0 0,-23.76238"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend-1)"
+       d="m 78.217821,129.58991 0,-22.77228 -33.66337,0 0,101.9802 33.66337,0 0,-23.76238"
        id="path3031"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="185.20062"
-       y="226.30548"
+       x="4.0125036"
+       y="226.28568"
        id="text6236-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6238-7"
-         x="185.20062"
-         y="226.30548"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Serving RNC</tspan><tspan
+         x="4.0125036"
+         y="226.28568"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Serving RNC</tspan><tspan
          sodipodi:role="line"
-         x="185.20062"
-         y="246.30548"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="4.0125036"
+         y="248.78568"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan4074">relocation</tspan></text>
   </g>
 </svg>

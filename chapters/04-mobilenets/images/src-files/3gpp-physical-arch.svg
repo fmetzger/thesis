@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.5 r10040"
    sodipodi:docname="3gpp-physical-arch.svg">
   <defs
      id="defs4">
@@ -42,16 +42,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.87681241"
-     inkscape:cx="226.88459"
-     inkscape:cy="907.01589"
+     inkscape:zoom="1.24"
+     inkscape:cx="589.19684"
+     inkscape:cy="510.41314"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1713"
      inkscape:window-height="945"
-     inkscape:window-x="205"
-     inkscape:window-y="23"
+     inkscape:window-x="167"
+     inkscape:window-y="24"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -61,7 +61,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -78,7 +78,7 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,-14.090663,74.381483)" />
+       transform="matrix(0.556541,0,0,0.556541,67.217412,359.50518)" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -88,7 +88,7 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,29.687113,17.103706)" />
+       transform="matrix(0.556541,0,0,0.556541,110.99519,302.22741)" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -98,180 +98,163 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,29.687113,133.62223)" />
+       transform="matrix(0.556541,0,0,0.556541,110.99519,418.74593)" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 8;stroke-dashoffset:0"
        id="rect2987-5"
        width="224.67865"
        height="247.36588"
-       x="58.628418"
-       y="50.438503" />
+       x="139.93649"
+       y="335.56219" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-9"
        width="57.050797"
        height="38.071365"
-       x="66.844971"
-       y="173.14133" />
+       x="148.15305"
+       y="458.26501" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-9-1"
        width="57.050797"
        height="38.071365"
-       x="66.844971"
-       y="228.69687" />
+       x="148.15305"
+       y="513.82056" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-9-2"
        width="57.050797"
        height="38.071365"
-       x="66.844971"
-       y="110.32651" />
+       x="148.15305"
+       y="395.4502" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-9-4"
        width="57.050797"
        height="38.071365"
-       x="66.844971"
-       y="61.25243" />
+       x="148.15305"
+       y="346.37613" />
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="149.21729"
-       y="44.838882"
+       x="220.05489"
+       y="329.96259"
        id="text3784-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8"
-         x="149.21729"
-         y="44.838882"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">UTRAN</tspan></text>
-    <g
-       id="g4690"
-       transform="translate(0,-22)">
-      <rect
-         y="221.17233"
-         x="172.10132"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9"
-         y="293.15475"
-         x="180.5304"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="293.15475"
-           x="180.5304"
-           id="tspan3786-8-5"
-           sodipodi:role="line">RNC</tspan></text>
-    </g>
+         x="220.05489"
+         y="329.96259"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">UTRAN</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987"
+       width="78.778061"
+       height="48.687519"
+       x="253.40939"
+       y="484.29602" />
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="56.771233"
-       y="293.85147"
+       x="272.55484"
+       y="552.27844"
+       id="text3784-1-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-5"
+         x="272.55484"
+         y="552.27844"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">RNC</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="145.5686"
+       y="570.97516"
        id="text3784-1-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-9"
-         x="56.771233"
-         y="293.85147"
-         style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Node B</tspan></text>
+         x="145.5686"
+         y="570.97516"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Node B</tspan></text>
     <rect
-       style="fill:none;stroke:#000000;stroke-width:1.33649838;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2.67299667, 5.34599334;stroke-dashoffset:0"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4,8;stroke-dashoffset:0"
        id="rect2987-5-4"
        width="334.59369"
-       height="773.40997"
-       x="311.15292"
-       y="-244.43837" />
+       height="720.35712"
+       x="392.461"
+       y="40.685333" />
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="325.26892"
-       y="555.78168"
+       x="539.86395"
+       y="33.154083"
        id="text3784-1-90"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-57"
-         x="325.26892"
-         y="555.78168"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Core</tspan></text>
+         x="539.86395"
+         y="33.154083"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Core</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="577.77783"
-       y="216.25107"
+       x="699.78967"
+       y="491.37476"
        id="text4075"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077"
-         x="577.77783"
-         y="216.25107"
-         style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">G<tspan
-   style="font-size:65.00091553000000033%;baseline-shift:sub;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
-   id="tspan4079">i</tspan></tspan></text>
-    <g
-       id="g4695"
-       transform="translate(2,-44)">
-      <rect
-         y="197.10753"
-         x="337.4281"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-0"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-45"
-         y="269.08997"
-         x="337.62668"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="269.08997"
-           x="337.62668"
-           id="tspan3786-8-57-5"
-           sodipodi:role="line">SGSN</tspan></text>
-    </g>
+         x="699.78967"
+         y="491.37476"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3303">i</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="406.02005"
+       y="504.21365"
+       id="text3784-1-90-45"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-5"
+         x="406.02005"
+         y="504.21365"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">SGSN</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="463.88889"
-       y="235.69553"
+       x="545.19696"
+       y="520.81921"
        id="text4102"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan4104" /></text>
-    <g
-       id="g4700"
-       transform="translate(0,-44)">
-      <rect
-         y="197.10753"
-         x="453.20355"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-1"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-9"
-         y="269.08997"
-         x="451.80255"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="269.08997"
-           x="451.80255"
-           id="tspan3786-8-57-1"
-           sodipodi:role="line">GGSN</tspan></text>
-    </g>
+         id="tspan4104"
+         x="545.19696"
+         y="520.81921" /></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1"
+       width="78.778061"
+       height="48.687519"
+       x="534.51166"
+       y="438.23123" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="547.66614"
+       y="506.21365"
+       id="text3784-1-90-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-1"
+         x="547.66614"
+         y="506.21365"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">GGSN</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 451.85185,174.5844 -33.33333,0"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 533.15993,459.7081 -33.33333,0"
        id="path4115"
        inkscape:connector-curvature="0" />
     <path
@@ -282,366 +265,355 @@
        sodipodi:cy="175.51033"
        sodipodi:rx="1.5"
        sodipodi:ry="1.5"
-       d="m 420.01852,175.51033 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z" />
+       d="m 420.01852,175.51033 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z"
+       transform="translate(81.308075,285.1237)" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4"
        width="78.778061"
        height="48.687519"
-       x="172.10132"
-       y="92.499901" />
+       x="253.40939"
+       y="377.6236" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 65.740741,130.28811 14.814815,119.177"
+       d="M 147.04882,415.41181 96.12289,404.3007"
        id="path4125"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 13.888889,227.36218 65.740741,195.8807"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 95.196964,512.48588 147.04882,481.0044"
        id="path4127"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m -28.709385,173.6528 95.381732,20.38174"
+       d="m 52.59869,458.7765 95.38173,20.38174"
        id="path4129"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 171.2963,116.39922 124.07407,80.288109"
+       d="M 252.60438,401.52292 205.38215,365.41181"
        id="path4131"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 124.07407,131.21403 48.14815,-12.96296"
+       d="M 205.38215,416.33773 253.5303,403.37477"
        id="path4133"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 172.22222,220.8807 124.07407,190.32515"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 253.5303,506.0044 205.38215,475.44885"
        id="path4135"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 124.07407,250.51033 48.14815,-27.77778"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 205.38215,535.63403 253.5303,507.85625"
        id="path4137"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 338.88889,174.5844 -87.96296,49.07408"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 420.19697,459.7081 -87.96296,49.07408"
        id="path4139"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 251.85185,116.25107 87.03704,57.40741"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 333.15993,401.37477 87.03704,57.40741"
        id="path4141"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 587.96296,162.54737 0,26.85185"
+       d="m 707.77358,447.67107 0,26.85185"
        id="path4165"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 435.18519,160.23256 0,26.85185"
+       d="m 516.49327,445.35626 0,26.85185"
        id="path4165-0"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 296.2963,185.23255 0,26.85185"
+       d="m 377.60438,470.35625 0,26.85185"
        id="path4165-3"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 296.2963,129.677 0,26.85185"
+       d="m 377.60438,414.8007 0,26.85185"
        id="path4165-5"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 145.37037,189.86219 0,26.85185"
+       d="m 226.67845,474.98589 0,26.85185"
        id="path4165-2"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 145.37037,226.89922 0,26.85185"
+       d="m 226.67845,512.02292 0,26.85185"
        id="path4165-9"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 145.37037,113.15848 0,26.85185"
+       d="m 226.67845,398.28218 0,26.85185"
        id="path4165-31"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 145.37037,82.602924 0,26.851846"
+       d="m 226.67845,367.72663 0,26.85184"
        id="path4165-6"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 32.407407,172.41774 0,26.85185"
+       d="m 113.71548,457.54144 0,26.85185"
        id="path4165-2-1"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 32.407407,203.60292 0,26.85185"
+       d="m 113.71548,488.72662 0,26.85185"
        id="path4165-2-6"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 32.407407,108.52885 0,26.85185"
+       d="m 113.71548,393.65255 0,26.85185"
        id="path4165-2-12"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="20.067106"
-       y="254.09064"
+       x="103.93239"
+       y="533.21436"
        id="text4075-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-0"
-         x="20.067106"
-         y="254.09064"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">U<tspan
-   style="font-size:65.00091553%;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan4292">u</tspan></tspan></text>
+         x="103.93239"
+         y="533.21436"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">U<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3291">u</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="133.95599"
-       y="167.20177"
+       x="217.28062"
+       y="440.32547"
        id="text4075-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-5"
-         x="133.95599"
-         y="167.20177"
-         style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">I<tspan
-   style="font-size:65.00091553000000033%;baseline-shift:sub;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
-   id="tspan4305">ub</tspan></tspan></text>
+         x="217.28062"
+         y="440.32547"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">I<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3287">ub</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="289.51157"
-       y="240.3499"
+       x="371.38965"
+       y="513.47357"
        id="text4075-0"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8"
-         x="289.51157"
-         y="240.3499"
-         style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">I<tspan
-   style="font-size:65.00091553000000033%;baseline-shift:sub;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
-   id="tspan4318">u</tspan></tspan></text>
+         x="371.38965"
+         y="513.47357"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">I<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3293">u</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="421.73499"
-       y="204.95445"
+       x="506.83041"
+       y="490.07816"
        id="text4075-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-3"
-         x="421.73499"
-         y="204.95445"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G<tspan
-   style="font-size:65.00091553%;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan4331">n</tspan></tspan></text>
+         x="506.83041"
+         y="490.07816"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3301">n</tspan></tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 8;stroke-dashoffset:0"
        id="rect2987-5-1"
        width="224.67865"
        height="247.36588"
-       x="58.628418"
-       y="-254.84004" />
+       x="139.93649"
+       y="30.283659" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-9-0"
        width="57.050797"
        height="38.071365"
-       x="71.451828"
-       y="-132.13722" />
+       x="152.7599"
+       y="152.98648" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-9-2-5"
        width="57.050797"
        height="38.071365"
-       x="71.451828"
-       y="-196.95203" />
+       x="152.7599"
+       y="88.171677" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-9-4-3"
        width="57.050797"
        height="38.071365"
-       x="71.451828"
-       y="-246.02611" />
+       x="152.7599"
+       y="39.097595" />
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="188.64697"
-       y="-261.60629"
+       x="235.60487"
+       y="23.517408"
        id="text3784-1-0"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-92"
-         x="188.64697"
-         y="-261.60629"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">BSS</tspan></text>
-    <g
-       id="g4685"
-       transform="translate(0,-21.916567)">
-      <rect
-         y="-84.106216"
-         x="176.40239"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-7"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-6"
-         y="-12.123783"
-         x="186.3627"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="-12.123783"
-           x="186.3627"
-           id="tspan3786-8-5-0"
-           sodipodi:role="line">BSC</tspan></text>
-    </g>
-    <g
-       id="g5881"
-       transform="translate(3.6942139,-12)">
-      <rect
-         y="-63.403336"
-         x="67.757614"
-         height="38.071365"
-         width="57.050797"
-         id="rect2987-4-9-1-3"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-8-3"
-         y="-2.728981"
-         x="68.529106"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="-2.728981"
-           x="68.529106"
-           id="tspan3786-8-9-4"
-           sodipodi:role="line">BTS</tspan></text>
-    </g>
+         x="235.60487"
+         y="23.517408"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">BSS</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-7"
+       width="78.778061"
+       height="48.687519"
+       x="257.71048"
+       y="179.10091" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="278.82858"
+       y="245.08334"
+       id="text3784-1-9-6"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-5-0"
+         x="278.82858"
+         y="245.08334"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">BSC</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-4-9-1-3"
+       width="57.050797"
+       height="38.071365"
+       x="152.7599"
+       y="209.72037" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="164.28233"
+       y="266.39471"
+       id="text3784-1-8-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-9-4"
+         x="164.28233"
+         y="266.39471"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">BTS</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-6"
        width="78.778061"
        height="48.687519"
-       x="176.40239"
-       y="-214.77864" />
+       x="257.71048"
+       y="70.345062" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 175.59738,-190.87931 -47.22224,-36.11111"
+       d="M 256.90546,94.244392 209.68322,58.133282"
        id="path4131-8"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 128.37514,-176.0645 48.14816,-12.96296"
+       d="M 209.68322,109.0592 257.83138,96.096242"
        id="path4133-0"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 176.5233,-84.397835 128.37514,-114.95338"
+       d="M 257.83138,200.72587 209.68322,170.17032"
        id="path4135-1"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 128.37514,-54.768204 176.5233,-82.545985"
+       d="m 209.68322,230.3555 48.14816,-27.77778"
        id="path4137-2"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 149.67144,-115.41634 0,26.851845"
+       d="m 230.97952,169.70736 0,26.85185"
        id="path4165-2-4"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 149.67144,-78.379315 0,26.851851"
+       d="m 230.97952,206.74439 0,26.85185"
        id="path4165-9-0"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 149.67144,-194.12005 0,26.85185"
+       d="m 230.97952,91.003652 0,26.851848"
        id="path4165-31-8"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 149.67144,-224.67561 0,26.85185"
+       d="m 230.97952,60.448092 0,26.85185"
        id="path4165-6-1"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="138.25706"
-       y="-138.07678"
+       x="218.63689"
+       y="131.04692"
        id="text4075-2-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-5-5"
-         x="138.25706"
-         y="-138.07678"
-         style="-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">A<tspan
-   style="font-size:65%;baseline-shift:sub;-inkscape-font-specification:Liberation Sans;font-family:Liberation Sans;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
-   id="tspan3613">bis</tspan></tspan></text>
+         x="218.63689"
+         y="131.04692"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">A<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3267">bis</tspan></tspan></text>
     <rect
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4,8;stroke-dashoffset:0"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 8;stroke-dashoffset:0"
        id="rect2987-5-3"
        width="121.79492"
        height="221.78688"
-       x="161.61821"
-       y="343.80148" />
+       x="242.92628"
+       y="628.92517" />
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="121.16259"
-       y="338.52811"
+       x="262.89188"
+       y="623.65179"
        id="text3784-1-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="121.16259"
-         y="338.52811"
+         x="262.89188"
+         y="623.65179"
          id="tspan3609"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">E-UTRAN</tspan></text>
-    <g
-       id="g4705"
-       transform="translate(0,-48)">
-      <rect
-         y="536.86151"
-         x="174.78947"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-71"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-9-7"
-         y="608.84393"
-         x="187.07401"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="608.84393"
-           x="187.07401"
-           id="tspan3786-8-5-2"
-           sodipodi:role="line">eNB</tspan></text>
-    </g>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">E-UTRAN</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-71"
+       width="78.778061"
+       height="48.687519"
+       x="256.09756"
+       y="773.98523" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="277.88785"
+       y="841.96765"
+       id="text3784-1-9-7"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-5-2"
+         x="277.88785"
+         y="841.96765"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">eNB</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-4-5"
        width="78.778061"
        height="48.687519"
-       x="174.78947"
-       y="384.18909" />
+       x="256.09756"
+       y="669.31281" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -651,7 +623,7 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,-7.561908,-233.11387)" />
+       transform="matrix(0.556541,0,0,0.556541,73.746167,52.009832)" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -661,7 +633,7 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,36.215867,-292.39165)" />
+       transform="matrix(0.556541,0,0,0.556541,117.52394,-7.2679483)" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -671,163 +643,136 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,36.215867,-173.87312)" />
+       transform="matrix(0.556541,0,0,0.556541,117.52394,111.25058)" />
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="-83.60495"
-       y="57.240044"
+       x="15.703125"
+       y="342.36374"
        id="text3784-11"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-6"
-         x="-83.60495"
-         y="57.240044"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Mobile</tspan><tspan
+         x="15.703125"
+         y="342.36374"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Mobile</tspan><tspan
          sodipodi:role="line"
-         x="-83.60495"
-         y="92.240044"
+         x="15.703125"
+         y="367.36374"
          id="tspan3052-2"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Devices</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Devices</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 72.269497,-179.20724 21.34357,-190.31835"
+       d="M 153.57757,105.91646 102.65165,94.805352"
        id="path4125-4"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 20.417644,-80.133168 72.269497,-111.61465"
+       d="m 101.72572,204.99053 51.85185,-31.48148"
        id="path4127-2"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m -22.18063,-133.84255 95.381727,20.38174"
+       d="m 59.127445,151.28115 95.381725,20.38174"
        id="path4129-0"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 38.936157,-135.07761 0,26.85185"
+       d="m 120.24423,150.04609 0,26.85185"
        id="path4165-2-1-1"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 38.936157,-103.89243 0,26.851852"
+       d="m 120.24423,181.23127 0,26.85185"
        id="path4165-2-6-3"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 38.936157,-200.9665 0,26.85185"
+       d="m 120.24423,84.157202 0,26.851848"
        id="path4165-2-12-2"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="26.595863"
-       y="-53.40472"
+       x="108.84066"
+       y="231.71898"
        id="text4075-8-9"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-0-9"
-         x="26.595863"
-         y="-53.40472"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">U<tspan
-   style="font-size:65.00091553%;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan3675">m</tspan></tspan></text>
-    <g
-       id="g4665"
-       transform="translate(-195.96774,56.998601)">
-      <rect
-         y="-162.3587"
-         x="546.09479"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-1-2"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-9-5"
-         y="-90.376266"
-         x="553.7309"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="-90.376266"
-           x="553.7309"
-           id="tspan3786-8-57-1-6"
-           sodipodi:role="line">MSC</tspan></text>
-    </g>
-    <g
-       id="g4670"
-       transform="translate(-168.16129,19.498597)">
-      <g
-         id="g5174"
-         transform="translate(-83.870968,14.516129)">
-        <rect
-           style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect2987-1-2-2"
-           width="78.778061"
-           height="48.687519"
-           x="713.20471"
-           y="-139.37482" />
-        <text
-           xml:space="preserve"
-           style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-           x="710.40234"
-           y="-67.392403"
-           id="text3784-1-90-9-5-0"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3786-8-57-1-6-2"
-             x="710.40234"
-             y="-67.392403"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">GMSC</tspan></text>
-      </g>
-    </g>
-    <g
-       id="g4675"
-       transform="matrix(1,0,0,1.0220174,-270.15062,16.625905)">
-      <rect
-         y="15.060659"
-         x="684.8045"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-1-2-2-0"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-9-5-0-0"
-         y="87.043091"
-         x="694.88104"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans;font-size:27.69675481px"
-           y="87.043091"
-           x="694.88104"
-           id="tspan3786-8-57-1-6-2-4"
-           sodipodi:role="line">HSS</tspan></text>
-    </g>
+         x="108.84066"
+         y="231.71898"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">U<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3285">m</tspan></tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1-2"
+       width="78.778061"
+       height="48.687519"
+       x="431.43512"
+       y="179.7636" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="429.15512"
+       y="246.47337"
+       id="text3784-1-90-9-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-1-6"
+         x="429.15512"
+         y="246.47337"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">MSC</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1-2-2"
+       width="78.778061"
+       height="48.687519"
+       x="542.48053"
+       y="179.76361" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.02189755;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1-2-2-0"
+       width="78.778061"
+       height="49.759491"
+       x="495.96198"
+       y="317.14188" />
+    <text
+       xml:space="preserve"
+       style="font-size:28.30656624px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="586.22198"
+       y="344.79745"
+       id="text3784-1-90-9-5-0-0"
+       sodipodi:linespacing="125%"
+       transform="scale(0.98916978,1.0109488)"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-1-6-2-4"
+         x="586.22198"
+         y="344.79745"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">HSS</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 212.09677,489.23315 0,-56.45161"
+       d="m 293.40485,774.35685 0,-56.45161"
        id="path4728"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 223.90979,461.00734 -26.85185,0"
+       d="m 305.21787,746.13104 -26.85185,0"
        id="path4165-6-8-9"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="225.61534"
-       y="468.39993"
+       x="306.92343"
+       y="751.91803"
        id="text4075-0-5"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5"
-         x="225.61534"
-         y="468.39993"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">X2</tspan></text>
+         x="306.92343"
+         y="751.91803"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">X2</tspan></text>
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -837,7 +782,7 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,95.115289,394.56055)" />
+       transform="matrix(0.556541,0,0,0.556541,176.42337,679.68425)" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -847,7 +792,7 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,138.08661,301.79891)" />
+       transform="matrix(0.556541,0,0,0.556541,219.39469,586.92261)" />
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -857,754 +802,717 @@
        sodipodi:rx="32.407406"
        sodipodi:ry="32.407406"
        d="m -25.925926,179.21404 a 32.407406,32.407406 0 1 1 -64.814812,0 32.407406,32.407406 0 1 1 64.814812,0 z"
-       transform="matrix(0.556541,0,0,0.556541,138.89306,453.8013)" />
+       transform="matrix(0.556541,0,0,0.556541,220.20114,738.925)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 174.14024,414.98331 123.21432,403.8722"
+       d="M 255.44832,700.10701 204.5224,688.9959"
        id="path4125-8"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 123.09484,547.54126 51.85185,-31.48148"
+       d="m 204.40292,832.66496 51.85185,-31.48148"
        id="path4127-6"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 80.496569,493.83187 175.8783,514.21361"
+       d="m 161.80465,778.95557 95.38173,20.38174"
        id="path4129-2"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 141.61336,492.59681 0,26.85186"
+       d="m 222.92144,777.72051 0,26.85186"
        id="path4165-2-1-0"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 141.61336,523.782 0,26.85185"
+       d="m 222.92144,808.9057 0,26.85185"
        id="path4165-2-6-1"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 140.80691,393.22405 0,26.85185"
+       d="m 222.11499,678.34775 0,26.85185"
        id="path4165-2-12-8"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="129.27306"
-       y="574.26978"
+       x="213.13835"
+       y="851.39349"
        id="text4075-8-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-0-96"
-         x="129.27306"
-         y="574.26978"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">U<tspan
-   style="font-size:65.00091553%;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan4292-4">u</tspan></tspan></text>
+         x="213.13835"
+         y="851.39349"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">U<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3307">u</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 212.17419,197.52347 0,-56.45161"
+       d="m 293.48227,482.64717 0,-56.45161"
        id="path4728-9"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 223.98721,169.29766 -26.85185,0"
+       d="m 305.29529,454.42136 -26.85185,0"
        id="path4165-6-8-9-8"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="225.69276"
-       y="176.69026"
+       x="307.00085"
+       y="458.39487"
        id="text4075-0-5-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1"
-         x="225.69276"
-         y="176.69026"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">I<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan4861">ur</tspan></tspan></text>
+         x="307.00085"
+         y="458.39487"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">I<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3289">ur</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 301.58064,-212.19278 0,26.85185"
+       d="m 382.88872,72.930922 0,26.85185"
        id="path4165-31-8-2"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="293.13507"
-       y="-219.24524"
+       x="377.22772"
+       y="65.878464"
        id="text4075-2-8-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-5-5-9"
-         x="293.13507"
-         y="-219.24524"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">A<tspan
-   style="font-size:65.00091553%;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan3613-4" /></tspan></text>
+         x="377.22772"
+         y="65.878464"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">A</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 291.51613,-194.45084 0,26.85185"
+       d="m 410.82421,90.672862 0,26.851848"
        id="path4165-31-8-2-1"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="267.36749"
-       y="-146.98717"
+       x="394.01416"
+       y="138.13654"
        id="text4075-0-5-6-4"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-3"
-         x="267.36749"
-         y="-146.98717"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">I<tspan
+         x="394.01416"
+         y="138.13654"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">I<tspan
    style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan4967">u</tspan>CS</tspan></text>
-    <g
-       id="g3700"
-       transform="translate(-39.129032,-18)">
-      <g
-         id="g5167">
-        <rect
-           style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect2987-1-1"
-           width="78.778061"
-           height="48.687519"
-           x="389.73941"
-           y="-196.21028" />
-        <text
-           xml:space="preserve"
-           style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           x="368.54837"
-           y="-200.22784"
-           id="text3696"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3698"
-             x="368.54837"
-             y="-200.22784">CS-MGW</tspan></text>
-      </g>
-    </g>
+   id="tspan3277">u</tspan>CS</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1-1"
+       width="78.778061"
+       height="48.687519"
+       x="431.91846"
+       y="70.913422" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="430.24655"
+       y="66.895859"
+       id="text3696"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3698"
+         x="430.24655"
+         y="66.895859"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">CS-MGW</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1.97563398;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5013)"
        d="m 937.09677,-190.90245 0,26.85185"
        id="path4165-31-8-2-9"
        inkscape:connector-curvature="0"
-       transform="matrix(1.0248186,0,0,1,-348.22136,-12)" />
+       transform="matrix(1.0248186,0,0,1,-252.58062,273.1237)" />
     <path
        inkscape:connector-curvature="0"
        id="path5610"
-       d="m 540.24133,-81.508785 119.3279,0"
+       d="m 621.54941,203.61492 119.3279,0"
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.97563398;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5013-8)"
        d="m 937.09677,-190.90245 0,26.85185"
        id="path4165-31-8-2-9-9"
        inkscape:connector-curvature="0"
-       transform="matrix(1.0248186,0,0,1,-348.22136,95.96774)" />
+       transform="matrix(1.0248186,0,0,1,-252.58062,381.09144)" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="580.09375"
-       y="-98.541534"
+       x="684.80792"
+       y="186.58217"
        id="text4075-0-5-6-4-1-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-3-2-0"
-         x="580.09375"
-         y="-98.541534"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">PSTN</tspan></text>
+         x="684.80792"
+         y="186.58217"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">PSTN</tspan></text>
     <path
        inkscape:connector-curvature="0"
        id="path5642"
-       d="M 418.54839,82.200892 375.80645,153.16863"
+       d="m 499.85647,367.32459 -42.74194,70.96774"
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="580.09375"
-       y="-206.50928"
+       x="684.80792"
+       y="78.614426"
        id="text4075-0-5-6-4-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-3-2"
-         x="580.09375"
-         y="-206.50928"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">PSTN</tspan></text>
+         x="684.80792"
+         y="78.614426"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">PSTN</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 254.70968,-198.76685 96.77419,0"
+       d="m 336.01776,86.356852 96.77419,0"
        id="path5072"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 254.70968,-181.02491 96.77419,0"
+       d="m 336.01776,104.09879 96.77419,0"
        id="path5072-9"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 300.90322,-105.61213 0,26.851852"
+       d="m 382.2113,179.51157 0,26.85185"
        id="path4165-31-8-2-3"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="292.45764"
-       y="-112.66459"
-       id="text4075-2-8-6-7"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4077-5-5-9-8"
-         x="292.45764"
-         y="-112.66459"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">A<tspan
-   style="font-size:65.00091553%;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan3613-4-9" /></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 290.83871,-87.870188 0,26.85185"
+       d="m 408.14679,197.25351 0,26.85185"
        id="path4165-31-8-2-1-1"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="266.69006"
-       y="-40.406513"
-       id="text4075-0-5-6-4-8"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4077-8-5-1-3-3"
-         x="266.69006"
-         y="-40.406513"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">I<tspan
-   style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan4967-9">u</tspan>CS</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 254.03226,-92.186198 96.77419,0"
+       d="m 335.34034,192.9375 96.77419,0"
        id="path5072-1"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 254.03226,-74.444258 96.77419,0"
+       d="m 335.34034,210.67944 96.77419,0"
        id="path5072-9-2"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 387.08987,-105.74373 0,-58.78818"
+       d="m 468.39795,179.37997 0,-58.78818"
        id="path4728-9-8"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 400.5158,-136.3475 -26.85185,0"
+       d="m 481.82388,148.7762 -26.85185,0"
        id="path4165-6-8-9-8-7"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="402.22134"
-       y="-130.9549"
+       x="483.52942"
+       y="154.16881"
        id="text4075-0-5-6-3"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6"
-         x="402.22134"
-         y="-130.9549"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">M<tspan
-   style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan5172">c</tspan></tspan></text>
-    <g
-       id="g5264"
-       transform="translate(11.763514,187.40091)">
-      <rect
-         y="197.10753"
-         x="337.4281"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-0-3"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-45-8"
-         y="269.08997"
-         x="338.10522"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="269.08997"
-           x="338.10522"
-           id="tspan3786-8-57-5-2"
-           sodipodi:role="line">S-GW</tspan></text>
-    </g>
-    <g
-       id="g5254"
-       transform="translate(14.311902,188.98156)">
-      <rect
-         y="197.10753"
-         x="475.33133"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-0-3-4"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-45-8-2"
-         y="269.08997"
-         x="475.49576"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="269.08997"
-           x="475.49576"
-           id="tspan3786-8-57-5-2-4"
-           sodipodi:role="line">P-GW</tspan></text>
-    </g>
-    <g
-       id="g5259"
-       transform="translate(-12.290359,215.59446)">
-      <rect
-         y="66.462364"
-         x="426.94424"
-         height="48.687519"
-         width="78.778061"
-         id="rect2987-0-3-4-8"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3784-1-90-45-8-2-8"
-         y="138.44481"
-         x="433.09695"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-           y="138.44481"
-           x="433.09695"
-           id="tspan3786-8-57-5-2-4-2"
-           sodipodi:role="line">MME</tspan></text>
-    </g>
+         x="483.52942"
+         y="154.16881"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O;font-size:18px">M<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan3273">c</tspan></tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-0-3"
+       width="78.778061"
+       height="48.687519"
+       x="430.49969"
+       y="669.63214" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="444.49231"
+       y="737.19525"
+       id="text3784-1-90-45-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-5-2"
+         x="444.49231"
+         y="737.19525"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S-GW</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-0-3-4"
+       width="78.778061"
+       height="48.687519"
+       x="570.95129"
+       y="671.21277" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="583.97656"
+       y="737.19525"
+       id="text3784-1-90-45-8-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-5-2-4"
+         x="583.97656"
+         y="737.19525"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">P-GW</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-0-3-4-8"
+       width="78.778061"
+       height="48.687519"
+       x="495.96198"
+       y="567.18054" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="512.15662"
+       y="633.16296"
+       id="text3784-1-90-45-8-2-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-5-2-4-2"
+         x="512.15662"
+         y="633.16296"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">MME</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 659.5827,175.97329 -126.71076,0"
+       d="m 740.89078,461.09699 -126.71076,0"
        id="path4115-0"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 253.22581,408.02745 96.77419,0"
+       d="m 334.53389,693.15115 96.77419,0"
        id="path5072-9-2-6"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 294.49686,394.60153 0,26.85185"
+       d="m 401.80494,679.72523 0,26.85185"
        id="path4165-3-2"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="272.38956"
-       y="446.49307"
+       x="394.06635"
+       y="722.19525"
        id="text4075-0-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-55"
-         x="272.38956"
-         y="446.49307"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">S1-U</tspan></text>
+         x="394.06635"
+         y="722.19525"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S1-U</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="M 254.86097,407.17863 414.49387,303.99735"
+       d="M 336.16905,692.30233 495.80195,589.12105"
        id="path5362"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 334.63516,342.5089 0,26.85185"
+       d="m 415.94324,627.6326 0,26.85185"
        id="path4165-3-2-3"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="269.91495"
-       y="335.85205"
+       x="392.8063"
+       y="666.59558"
        id="text4075-0-8-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-55-8"
-         x="269.91495"
-         y="335.85205"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">S1-MME</tspan></text>
+         x="392.8063"
+         y="666.59558"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S1-MME</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 378.04449,200.56796 49.55619,82.6207"
+       d="m 459.35257,485.69166 49.55619,82.6207"
        id="path5388"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 422.08063,251.55572 -26.85185,0"
+       d="m 503.38871,536.67942 -26.85185,0"
        id="path4165-6-8-9-8-7-4"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="363.27005"
-       y="258.98059"
+       x="491.65247"
+       y="532.8172"
        id="text4075-0-5-6-3-0"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-9"
-         x="363.27005"
-         y="258.98059"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">S3</tspan></text>
+         x="491.65247"
+         y="532.8172"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S3</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 384.67742,383.8138 37.09677,-54.03226"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 465.9855,668.9375 37.09677,-54.03226"
        id="path5417"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 413.08063,362.84603 -26.85185,0"
+       d="m 494.38871,647.96973 -26.85185,0"
        id="path4165-6-8-9-8-7-47"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="342.20554"
-       y="368.6257"
+       x="459.43921"
+       y="641.20392"
        id="text4075-0-5-6-3-4"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-7"
-         x="342.20554"
-         y="368.6257"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">S11</tspan></text>
+         x="459.43921"
+         y="641.20392"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S11</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 377.41936,201.55573 0,183.06452"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 458.72744,486.67943 0,183.06452"
        id="path5432"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 390.49999,283.42668 -26.85185,0"
+       d="m 471.80807,568.55038 -26.85185,0"
        id="path4165-6-8-9-8-7-0"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="330.10876"
-       y="289.59348"
+       x="421.41684"
+       y="574.38239"
        id="text4075-0-5-6-3-5"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-71"
-         x="330.10876"
-         y="289.59348"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">S4</tspan></text>
+         x="421.41684"
+         y="574.38239"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S4</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 428.22581,411.20089 62.09677,0"
+       d="m 509.53389,696.32459 62.09677,0"
        id="path5447"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="447.73196"
-       y="450.27658"
+       x="529.10297"
+       y="727.40027"
        id="text4075-13"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="447.73196"
-         y="450.27658"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="529.10297"
+         y="727.40027"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan5491">S5</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 456.45162,397.77497 0,26.85185"
+       d="m 537.7597,682.89867 0,26.85185"
        id="path4165-64"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="610.05206"
-       y="444.70111"
+       x="697.28448"
+       y="727.82483"
        id="text4075-12"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-6"
-         x="610.05206"
-         y="444.70111"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">S<tspan
+         x="697.28448"
+         y="727.82483"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S<tspan
    style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan5525">Gi</tspan></tspan></text>
+   id="tspan3313">Gi</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 626.23716,396.99743 0,26.85185"
+       d="m 707.54524,682.12113 0,26.85185"
        id="path4165-7"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 659.5827,410.42335 -90.16984,0"
+       d="m 740.89078,695.54705 -90.16984,0"
        id="path4115-0-3"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 453.22176,31.398495 45.16939,-87.104883"
+       d="m 534.52984,316.5222 45.16939,-87.10489"
        id="path5527"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 486.39263,-4.8332281 -26.85185,0"
+       d="m 567.70071,280.29047 -26.85185,0"
        id="path4165-6-8-9-8-7-4-6"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="491.35623"
-       y="4.1722879"
+       x="572.66431"
+       y="286.12247"
        id="text4075-0-5-6-3-0-3"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-9-2"
-         x="491.35623"
-         y="4.1722879"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">C</tspan></text>
+         x="572.66431"
+         y="286.12247"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">C</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M 388.70968,-58.121689 445.96774,31.39444"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 470.01776,227.00201 57.25806,89.51613"
        id="path5553"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 435.10611,-4.8332281 -26.85185,0"
+       d="m 516.41419,280.29047 -26.85185,0"
        id="path4165-6-8-9-8-7-4-6-6"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="384.77939"
-       y="3.3658361"
+       x="466.08746"
+       y="286.09546"
        id="text4075-0-5-6-3-0-3-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-9-2-2"
-         x="384.77939"
-         y="3.3658361"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">D</tspan></text>
+         x="466.08746"
+         y="286.09546"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">D</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 428.6129,-82.315237 32.25807,0"
+       d="m 509.92098,202.80846 32.25807,0"
        id="path5579"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 445.18361,-95.749397 0,26.851852"
+       d="m 526.49169,189.3743 0,26.85186"
        id="path4165-31-8-2-3-5"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="433.51224"
-       y="-98.414757"
+       x="514.82031"
+       y="186.70894"
        id="text4075-2-8-6-7-4"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-5-5-9-8-8"
-         x="433.51224"
-         y="-98.414757"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">N<tspan
-   style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan5608">c</tspan></tspan></text>
+         x="514.82031"
+         y="186.70894"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O;font-size:18px">N<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan3279">c</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 407.7435,120.45791 -26.85185,0"
+       d="m 489.05158,405.58161 -26.85185,0"
        id="path4165-6-8-9-8-7-4-6-6-6"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="355.41678"
-       y="127.16644"
+       x="436.72485"
+       y="409.68607"
        id="text4075-0-5-6-3-0-3-7-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-9-2-2-0"
-         x="355.41678"
-         y="127.16644"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G<tspan
+         x="436.72485"
+         y="409.68607"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
    style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan5668">r</tspan></tspan></text>
+   id="tspan3297">r</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 483.19476,80.718233 10.22338,71.513707"
+       d="m 564.50284,365.84193 10.22338,71.51371"
        id="path5670"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 502.89855,120.45791 -26.85185,0"
+       d="m 584.20663,405.58161 -26.85185,0"
        id="path4165-6-8-9-8-7-4-6-6-6-9"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="506.63632"
-       y="126.11528"
+       x="587.9444"
+       y="409.64511"
        id="text4075-0-5-6-3-0-3-7-2-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-9-2-2-0-3"
-         x="506.63632"
-         y="126.11528"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G<tspan
+         x="587.9444"
+         y="409.64511"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
    style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan5699">c</tspan></tspan></text>
+   id="tspan3299">c</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 450.01509,82.200892 0,199.999998"
+       d="m 531.32317,367.32459 0,200"
        id="path5701"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 463.44102,251.23131 -26.85185,0"
+       d="m 544.7491,536.35501 -26.85185,0"
        id="path4165-6-8-9-8-7-0-1"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="465.953"
-       y="259.01099"
+       x="547.26111"
+       y="542.17804"
        id="text4075-0-5-6-3-5-9"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-71-7"
-         x="465.953"
-         y="259.01099"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">S6a</tspan></text>
-    <g
-       id="g5259-4"
-       transform="translate(91.73124,214.11827)">
-      <g
-         id="g5754"
-         transform="translate(4.0322581,-1.6129032)">
-        <rect
-           style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect2987-0-3-4-8-3"
-           width="78.778061"
-           height="48.687519"
-           x="427.70871"
-           y="66.462364" />
-        <text
-           xml:space="preserve"
-           style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-           x="428.37216"
-           y="138.44481"
-           id="text3784-1-90-45-8-2-8-5"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3786-8-57-5-2-4-2-5"
-             x="428.37216"
-             y="138.44481"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">PCRF</tspan></text>
-      </g>
-      <path
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         d="m 440.10747,-13.36899 32.25806,77.41935"
-         id="path5759"
-         inkscape:connector-curvature="0" />
-    </g>
+         x="547.26111"
+         y="542.17804"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S6a</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-0-3-4-8-3"
+       width="78.778061"
+       height="48.687519"
+       x="604.78027"
+       y="564.09143" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="620.1499"
+       y="632.07385"
+       id="text3784-1-90-45-8-2-8-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-5-2-4-2-5"
+         x="620.1499"
+         y="632.07385"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">PCRF</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path5759"
+       d="m 613.14679,485.87298 32.25806,77.41935"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 562.26854,243.16681 -26.85185,0"
+       d="m 643.57662,528.29051 -26.85185,0"
        id="path4165-6-8-9-8-7-0-1-3"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="564.78052"
-       y="250.94649"
+       x="646.08862"
+       y="532.39496"
        id="text4075-0-5-6-3-5-9-9"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-71-7-3"
-         x="564.78052"
-         y="250.94649"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan5785">x</tspan></tspan></text>
+         x="646.08862"
+         y="532.39496"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3305">x</tspan></tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 428.22581,384.62025 95.96774,-58.06452"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 509.53389,669.74395 95.96774,-58.06452"
        id="path5787"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 522.53017,328.11815 4.93967,58.16548"
+       d="m 603.83825,613.24185 4.93967,58.16548"
        id="path5789"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 601.83848,301.55573 57.69468,0"
+       d="m 683.14656,586.67943 57.69468,0"
        id="path5793"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="616.2804"
-       y="340.21725"
+       x="699.04486"
+       y="615.34094"
        id="text4075-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-1"
-         x="616.2804"
-         y="340.21725"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">S9</tspan></text>
+         x="699.04486"
+         y="615.34094"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">S9</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 626.4655,286.51356 0,26.85185"
+       d="m 707.77358,571.63726 0,26.85185"
        id="path4165-36"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 537.42877,367.49689 -26.85185,0"
+       d="m 618.73685,652.62059 -26.85185,0"
        id="path4165-6-8-9-8-7-0-1-3-4"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="539.94073"
-       y="375.27658"
+       x="621.24884"
+       y="656.72504"
        id="text4075-0-5-6-3-5-9-9-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-71-7-3-4"
-         x="539.94073"
-         y="375.27658"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G<tspan
+         x="621.24884"
+         y="656.72504"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
    style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan5785-9">x</tspan></tspan></text>
+   id="tspan3309">x</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 461.62232,370.7227 -26.85185,0"
+       d="m 542.9304,655.8464 -26.85185,0"
        id="path4165-6-8-9-8-7-0-1-3-7"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="464.13431"
-       y="378.50238"
+       x="545.44238"
+       y="659.90991"
        id="text4075-0-5-6-3-5-9-9-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8-5-1-6-71-7-3-8"
-         x="464.13431"
-         y="378.50238"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G<tspan
+         x="545.44238"
+         y="659.90991"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
    style="font-size:65.00091553%;baseline-shift:sub"
-   id="tspan5785-8">xc</tspan></tspan></text>
+   id="tspan3311">xc</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 430.55044,-189.47653 229.03226,0"
+       d="m 511.85852,95.647172 229.03226,0"
        id="path5922"
        inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="553.27631"
+       y="174.19238"
+       id="text3784-1-90-9-5-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786-8-57-1-6-2"
+         x="553.27631"
+         y="174.19238"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">GMSC</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-0"
+       width="78.778061"
+       height="48.687519"
+       x="420.73618"
+       y="438.23123" />
   </g>
 </svg>

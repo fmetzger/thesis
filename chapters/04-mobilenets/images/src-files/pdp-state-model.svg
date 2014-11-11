@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.5 r10040"
    sodipodi:docname="pdp-state-model.svg">
   <defs
      id="defs4">
@@ -148,7 +148,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.01"
-     inkscape:cx="387.51857"
+     inkscape:cx="269.69679"
      inkscape:cy="906.2689"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -174,88 +174,82 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <g
-       id="g3044">
-      <rect
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="132.50793"
-         x="246.96768"
-         height="47.807133"
-         width="138.89624"
-         id="rect2987" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3757"
-         y="163.29626"
-         x="280.68338"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="163.29626"
-           x="280.68338"
-           id="tspan3759"
-           sodipodi:role="line"
-           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">ACTIVE</tspan></text>
-    </g>
-    <g
-       id="g3052">
-      <rect
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="132.50793"
-         x="421.41345"
-         height="47.807133"
-         width="138.89624"
-         id="rect2987-1" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text3757-7"
-         y="163.29626"
-         x="444.22583"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="163.29626"
-           x="444.22583"
-           id="tspan3759-4"
-           sodipodi:role="line"
-           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">INACTIVE</tspan></text>
-    </g>
+    <rect
+       id="rect2987"
+       width="138.89624"
+       height="47.807133"
+       x="12.314217"
+       y="78.05249"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="49.165138"
+       y="108.43605"
+       id="text3757"
+       sodipodi:linespacing="125%"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
+         sodipodi:role="line"
+         id="tspan3759"
+         x="49.165138"
+         y="108.43605">ACTIVE</tspan></text>
+    <rect
+       id="rect2987-1"
+       width="138.89624"
+       height="47.807133"
+       x="186.75998"
+       y="78.05249"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="212.69418"
+       y="108.43605"
+       id="text3757-7"
+       sodipodi:linespacing="125%"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
+         sodipodi:role="line"
+         id="tspan3759-4"
+         x="212.69418"
+         y="108.43605">INACTIVE</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 312.90127,129.58991 0,-25.74258 170.29702,0 0,25.74258"
+       d="m 78.247805,75.134464 0,-25.74258 170.297015,0 0,25.74258"
        id="path5937"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="m 487.03877,183.85982 0,25.74258 -170.29702,0 0,-25.74258"
+       d="m 252.3853,129.40437 0,25.74258 -170.297015,0 0,-25.74258"
        id="path5937-4-1"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="323.87039"
-       y="226.30548"
+       x="84.487831"
+       y="171.85004"
        id="text6248"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="323.87039"
-         y="226.30548"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="84.487831"
+         y="171.85004"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan3132">Activate PDP Context</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="263.95242"
-       y="79.76812"
+       x="21.761909"
+       y="19.312674"
        id="text6258"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="263.95242"
-         y="79.76812"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="21.761909"
+         y="19.312674"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan3130">Deactivate PDP Context,</tspan><tspan
          sodipodi:role="line"
-         x="263.95242"
-         y="99.76812"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         x="21.761909"
+         y="41.812675"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          id="tspan3039">MM state change to IDLE/DETACHED</tspan></text>
   </g>
 </svg>

@@ -3,8 +3,8 @@ library(extrafont)
 library(plyr)
 
 
-#path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional"
-path = "F:/uni/ggsn-sim/evaluateFeasibleDimensioning/traditional"
+path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional"
+#path = "F:/uni/ggsn-sim/evaluateFeasibleDimensioning/traditional"
 files <- list.files(path = path, pattern="metrics.*csv")
 
 df <- data.frame()
@@ -39,8 +39,8 @@ for (f in files){
 }
 
 
-#path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleMultiserver/multiserver"
-path = "F:/uni/ggsn-sim/evaluateFeasibleMultiserver/multiserver"
+path <- "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleMultiserver/multiserver"
+#path = "F:/uni/ggsn-sim/evaluateFeasibleMultiserver/multiserver"
 
 files <- list.files(path = path, pattern="metrics.*csv")
 for (f in files){
@@ -73,8 +73,8 @@ for (f in files){
   df <- rbind(df, data)
 }
 
-#path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleStartStop/multiserver/"
-path = "F:/uni/ggsn-sim/evaluateFeasibleStartStop/multiserver"
+path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleStartStop/multiserver/"
+#path = "F:/uni/ggsn-sim/evaluateFeasibleStartStop/multiserver"
 
 files <- list.files(path = path, pattern="metrics.*csv")
 for (f in files){
@@ -107,7 +107,6 @@ for (f in files){
   df <- rbind(df, data)
 }
 
-
 df$total.tunnels <- df$max.tunnels * df$max.instances
 
 dfsub <- subset(df, total.tunnels == 5000 & max.instances %in% c(10, 50, 100))
@@ -125,7 +124,8 @@ p <- ggplot(dfsub, aes(x = as.factor(max.tunnels), y = block.prob.mean, ymin = b
 p <- p + geom_point(size=2) + geom_line(size=1) + geom_errorbar(width=0.1, size=1)
 p <- p + scale_x_discrete(name = "individual instance tunnel capacity") + scale_y_continuous(name = "blocking probability")
 p <- p + scale_color_manual(values=cbPalette)
-p <- p + theme(text = element_text(family="Liberation Sans", size=20)) + labs(colour = "start/stop\nduration") 
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20)) + labs(colour = "start/stop\nduration") 
 p
 ggsave("compare-maxinstances-block.pdf", width=12, height=8, useDingbats=F)
 embed_fonts("compare-maxinstances-block.pdf")
+s
