@@ -179,7 +179,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
      inkscape:cx="376.78802"
-     inkscape:cy="787.81274"
+     inkscape:cy="666.59443"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -465,7 +465,8 @@
          sodipodi:role="line"
          id="tspan4532"
          x="343.23157"
-         y="292.21933">GTP-C</tspan></text>
+         y="292.21933"
+         style="-inkscape-font-specification:Linux Biolinum O Italic;font-family:Linux Biolinum O;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-size:18px">GTP-C</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend)"
        d="m 303.30146,294.77154 -126.38274,0"

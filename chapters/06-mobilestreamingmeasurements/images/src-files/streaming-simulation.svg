@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.5 r10040"
    sodipodi:docname="streaming-simulation.svg">
   <defs
      id="defs4" />
@@ -25,15 +25,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="259.84011"
-     inkscape:cy="976.09855"
+     inkscape:cx="329.87987"
+     inkscape:cy="932.34824"
      inkscape:document-units="px"
      inkscape:current-layer="g5325"
      showgrid="false"
      inkscape:window-width="1583"
      inkscape:window-height="866"
-     inkscape:window-x="207"
-     inkscape:window-y="72"
+     inkscape:window-x="246"
+     inkscape:window-y="129"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -86,85 +86,81 @@
          id="path4133-7-1-1-96"
          d="m 465.51929,774.14346 166.93903,-0.0253"
          style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <g
-         id="g5070"
-         transform="translate(-284,-28)">
-        <text
-           xml:space="preserve"
-           style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-           x="349.05884"
-           y="1006.9162"
-           id="text3784-1-9-6-1"
-           sodipodi:linespacing="125%"><tspan
-             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-             sodipodi:role="line"
-             id="tspan3786-8-5-1-7"
-             x="349.05884"
-             y="1006.9162">eNodeB</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-           x="192.42262"
-           y="1006.1838"
-           id="text3784-1-9-6-3-9"
-           sodipodi:linespacing="125%"><tspan
-             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-             sodipodi:role="line"
-             id="tspan3786-8-5-1-6-1"
-             x="192.42262"
-             y="1006.1838">UEs</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-           x="638.65393"
-           y="981.9162"
-           id="text3784-1-9-6-5-74"
-           sodipodi:linespacing="125%"><tspan
-             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-             sodipodi:role="line"
-             id="tspan3786-8-5-1-5-5"
-             x="638.65393"
-             y="981.9162">SGW/</tspan><tspan
-             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-             sodipodi:role="line"
-             x="638.65393"
-             y="1031.9163"
-             id="tspan4494-5">PGW</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-           x="887.45807"
-           y="981.9162"
-           id="text3784-1-9-6-5-7-4-2"
-           sodipodi:linespacing="125%"><tspan
-             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-             sodipodi:role="line"
-             x="887.45807"
-             y="981.9162"
-             id="tspan4575-2-8">streaming</tspan><tspan
-             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-             sodipodi:role="line"
-             x="887.45807"
-             y="1031.9163"
-             id="tspan4645-2">server</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-           x="-77.113319"
-           y="981.9162"
-           id="text3784-1-9-6-3-4-6-6"
-           sodipodi:linespacing="125%"><tspan
-             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-             sodipodi:role="line"
-             x="-77.113319"
-             y="981.9162"
-             id="tspan5015">streaming</tspan><tspan
-             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-             sodipodi:role="line"
-             x="-77.113319"
-             y="1031.9163"
-             id="tspan5011">client</tspan></text>
-      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3784-1-9-6-1"
+         y="959.9162"
+         x="72.175804"
+         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+         xml:space="preserve"><tspan
+           y="959.9162"
+           x="72.175804"
+           id="tspan3786-8-5-1-7"
+           sodipodi:role="line"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">eNodeB</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3784-1-9-6-3-9"
+         y="957.9162"
+         x="-88.495186"
+         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+         xml:space="preserve"><tspan
+           y="957.9162"
+           x="-88.495186"
+           id="tspan3786-8-5-1-6-1"
+           sodipodi:role="line"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">UEs</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3784-1-9-6-5-74"
+         y="958.31622"
+         x="358.55566"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+         xml:space="preserve"><tspan
+           y="958.31622"
+           x="358.55566"
+           id="tspan3786-8-5-1-5-5"
+           sodipodi:role="line"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">SGW/</tspan><tspan
+           id="tspan4494-5"
+           y="1008.3162"
+           x="358.55566"
+           sodipodi:role="line"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">PGW</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3784-1-9-6-5-7-4-2"
+         y="957.9162"
+         x="608.02557"
+         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+         xml:space="preserve"><tspan
+           id="tspan4575-2-8"
+           y="957.9162"
+           x="608.02557"
+           sodipodi:role="line"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">streaming</tspan><tspan
+           id="tspan4645-2"
+           y="1007.9162"
+           x="608.02557"
+           sodipodi:role="line"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">server</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3784-1-9-6-3-4-6-6"
+         y="957.9162"
+         x="-356.54584"
+         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+         xml:space="preserve"><tspan
+           id="tspan5015"
+           y="957.9162"
+           x="-356.54584"
+           sodipodi:role="line"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">streaming</tspan><tspan
+           id="tspan5011"
+           y="1007.9162"
+           x="-356.54584"
+           sodipodi:role="line"
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">client</tspan></text>
       <rect
          y="635.05072"
          x="-377.10086"
@@ -176,14 +172,14 @@
          sodipodi:linespacing="125%"
          id="text3784-1-90-1-9"
          y="669.62274"
-         x="178.94141"
+         x="172.93558"
          style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
          xml:space="preserve"><tspan
            y="669.62274"
-           x="178.94141"
+           x="172.93558"
            id="tspan3786-8-57-15-0"
            sodipodi:role="line"
-           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">ns-3</tspan></text>
+           style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">ns-3</tspan></text>
       <path
          sodipodi:type="arc"
          style="fill:none;stroke:#000000;stroke-width:3.59362555;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"

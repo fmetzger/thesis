@@ -13,8 +13,8 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="rrc-state-model.pdf">
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="rrc-state-model.svg">
   <defs
      id="defs4">
     <marker
@@ -468,11 +468,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4283557"
-     inkscape:cx="498.53771"
-     inkscape:cy="774.61778"
+     inkscape:zoom="1.01"
+     inkscape:cx="280.46387"
+     inkscape:cy="794.75193"
      inkscape:document-units="px"
-     inkscape:current-layer="g4035"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1307"
      inkscape:window-height="843"
@@ -487,7 +487,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -495,55 +495,47 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <g
-       id="g4030"
-       transform="translate(34.37987,29.103489)">
-      <text
-         sodipodi:linespacing="125%"
-         id="text3757-9"
-         y="236.50545"
-         x="340.1767"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="236.50545"
-           x="340.1767"
-           id="tspan3759-48"
-           sodipodi:role="line"
-           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">CELL_DCH</tspan></text>
-      <rect
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="208.53767"
-         x="323.78354"
-         height="45.945309"
-         width="136.73163"
-         id="rect2987-0-4-7" />
-    </g>
-    <g
-       id="g4020"
-       transform="translate(-26.104536,42.077564)">
-      <text
-         sodipodi:linespacing="125%"
-         id="text3757-9-2"
-         y="223.53137"
-         x="593.41089"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="223.53137"
-           x="593.41089"
-           id="tspan3759-48-3"
-           sodipodi:role="line"
-           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">CELL_FACH</tspan></text>
-      <rect
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="195.5636"
-         x="582.03241"
-         height="45.945309"
-         width="136.73163"
-         id="rect2987-0-4-7-6" />
-    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="62.636703"
+       y="172.5845"
+       id="text3757-9"
+       sodipodi:linespacing="125%"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
+         sodipodi:role="line"
+         id="tspan3759-48"
+         x="62.636703"
+         y="172.5845">CELL_DCH</tspan></text>
+    <rect
+       id="rect2987-0-4-7"
+       width="136.73163"
+       height="45.945309"
+       x="42.321827"
+       y="144.57185"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="257.10037"
+       y="172.5845"
+       id="text3757-9-2"
+       sodipodi:linespacing="125%"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
+         sodipodi:role="line"
+         id="tspan3759-48-3"
+         x="257.10037"
+         y="172.5845">CELL_FACH</tspan></text>
+    <rect
+       id="rect2987-0-4-7-6"
+       width="136.73163"
+       height="45.945309"
+       x="240.08629"
+       y="144.57185"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <g
        id="g4091"
-       transform="translate(55.308352,-1.0985535)">
+       transform="translate(-260.53323,-94.16786)">
       <path
          inkscape:connector-curvature="0"
          id="path6447-33-9"
@@ -555,100 +547,85 @@
          d="m 374.72869,284.51158 0,50.82585"
          style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend-52)" />
     </g>
-    <g
-       id="g4010"
-       transform="translate(28.004229,33.103488)">
-      <g
-         id="g4035">
-        <text
-           xml:space="preserve"
-           style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Sans Italic"
-           x="350.19492"
-           y="132.42326"
-           id="text3044"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3046"
-             x="350.19492"
-             y="132.42326"
-             style="font-size:20px;font-style:normal;-inkscape-font-specification:Liberation Sans">URA_PCH</tspan></text>
-        <rect
-           id="rect2987-0-4-7-6-7"
-           width="136.73163"
-           height="45.945309"
-           x="330.15918"
-           y="104.45549"
-           style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      </g>
-    </g>
-    <g
-       id="g4015"
-       transform="translate(-44.307295,51.211864)">
-      <text
-         sodipodi:linespacing="125%"
-         id="text3048"
-         y="114.31489"
-         x="617.17517"
-         style="font-size:20px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Sans Italic"
-         xml:space="preserve"><tspan
-           style="font-style:normal;-inkscape-font-specification:Liberation Sans"
-           y="114.31489"
-           x="617.17517"
-           id="tspan3050"
-           sodipodi:role="line">CELL_PCH</tspan></text>
-      <rect
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="86.347115"
-         x="600.23517"
-         height="45.945309"
-         width="136.73163"
-         id="rect2987-0-4-7-6-1" />
-    </g>
-    <g
-       id="g6223"
-       transform="translate(0,-4)">
-      <text
-         sodipodi:linespacing="125%"
-         id="text3757"
-         y="370.33807"
-         x="486.40576"
-         style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="370.33807"
-           x="486.40576"
-           id="tspan3759"
-           sodipodi:role="line"
-           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Idle Mode</tspan></text>
-      <rect
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         y="340.97141"
-         x="324.41824"
-         height="44.436478"
-         width="398.18039"
-         id="rect2987-0-4-7-6-13" />
-    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Sans Italic"
+       x="67.001862"
+       y="72.502327"
+       id="text3044"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3046"
+         x="67.001862"
+         y="72.502327"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">URA_PCH</tspan></text>
+    <rect
+       id="rect2987-0-4-7-6-7"
+       width="136.73163"
+       height="45.945309"
+       x="42.321827"
+       y="44.489674"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Sans Italic"
+       x="261.92459"
+       y="72.502327"
+       id="text3048"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3050"
+         x="261.92459"
+         y="72.502327"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">CELL_PCH</tspan></text>
+    <rect
+       id="rect2987-0-4-7-6-1"
+       width="136.73163"
+       height="45.945309"
+       x="240.08629"
+       y="44.48967"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="165.57561"
+       y="273.00034"
+       id="text3757"
+       sodipodi:linespacing="125%"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
+         sodipodi:role="line"
+         id="tspan3759"
+         x="165.57561"
+         y="273.00034">Idle Mode</tspan></text>
+    <rect
+       id="rect2987-0-4-7-6-13"
+       width="398.18039"
+       height="44.436478"
+       x="8.576663"
+       y="243.9021"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <rect
        id="rect2987-0-4-7-6-13-2"
        width="398.42514"
        height="214.16579"
-       x="324.29587"
-       y="98.85144"
-       style="fill:none;stroke:#000000;stroke-width:1.75712347;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       x="8.4542847"
+       y="5.7821336"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
        style="font-size:20px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Sans Italic"
-       x="447.23889"
-       y="120.71152"
+       x="136.52295"
+       y="27.64221"
        id="text4066"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4068"
-         x="447.23889"
-         y="120.71152"
-         style="font-style:normal;-inkscape-font-specification:Liberation Sans">Connected Mode</tspan></text>
+         x="136.52295"
+         y="27.64221"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Connected Mode</tspan></text>
     <g
        id="g4091-0"
-       transform="translate(241.25239,-1.0985535)">
+       transform="translate(-74.589194,-94.16786)">
       <path
          inkscape:connector-curvature="0"
          id="path6447-33-9-5"
@@ -660,23 +637,19 @@
          d="m 374.72869,284.51158 0,50.82585"
          style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend-52)" />
     </g>
-    <g
-       id="g4091-4"
-       transform="translate(247.55334,-99.71526)">
-      <path
-         inkscape:connector-curvature="0"
-         id="path6447-33-9-7"
-         d="m 362.3507,336.98618 0,-50.82585"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend-52)" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path6447-33-1-0-9"
-         d="m 374.72869,284.51158 0,50.82585"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend-52)" />
-    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend-52)"
+       d="m 294.06246,144.20161 0,-50.82585"
+       id="path6447-33-9-7"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend-52)"
+       d="m 306.44045,91.72701 0,50.82585"
+       id="path6447-33-1-0-9"
+       inkscape:connector-curvature="0" />
     <g
        id="g4091-40"
-       transform="matrix(0,1,-1,0,839.32869,-97.79645)">
+       transform="matrix(0,1,-1,0,523.48711,-190.86576)">
       <path
          inkscape:connector-curvature="0"
          id="path6447-33-9-2"
@@ -692,33 +665,33 @@
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend-52)"
-       d="m 425.77624,236.77145 0,-50.82585"
+       d="m 109.93466,143.70214 0,-50.825847"
        id="path6447-33-9-56"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#marker4107-9)"
-       d="m 357.08831,160.57827 -21.06141,0 0,173.8107"
+       d="m 41.246726,67.508963 -21.06141,0 0,173.810697"
        id="path4214"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#marker4107-9)"
-       d="m 692.62695,159.88001 21.0582,0 0,174.50103"
+       d="m 376.78537,66.810703 21.0582,0 0,174.501027"
        id="path4214-2"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#marker4107-9-6)"
-       d="m 494.39476,144.72422 29.28432,0 0,94.51427 30.51466,0"
+       d="m 178.55318,51.654913 29.28432,0 0,94.514267 30.51466,0"
        id="path4481"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow2Mstart)"
-       d="m 497.77517,156.62601 18.20275,0 0,91.71385 39.20592,0"
+       d="m 181.93359,63.556703 18.20275,0 0,91.713847 39.20592,0"
        id="path5227"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#marker4107-9-6-7)"
-       d="m 495.38486,247.63975 9.39137,0 0,-75.61141 49.0074,0"
+       d="m 179.54328,154.57044 9.39137,0 0,-75.611407 49.0074,0"
        id="path5977"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />

@@ -111,7 +111,7 @@ Packet loss can affect \gls{TCP} goodput even more. A lost packet results in dup
 
 In the latency measurement series, the emulator delays forwarding the packets for a constant amount of time. The latency was increased in \SI{100}{\milli\second} steps, up to a total of \SI{5000}{\milli\second}. The added latency is split up evenly between the uplink and the downlink. Each individual experiment was also replicated five times and corresponding error bars are provided in each figure.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallduration-latency.pdf}
 	\caption{Stalling duration in relation to transmission latency with a local polynomial least-squares fit.}
@@ -120,7 +120,7 @@ In the latency measurement series, the emulator delays forwarding the packets fo
 
 Figure~\ref{c3:fig:eval-latency-stallingtime} depicts the relation between the added latency and the stalling duration of the playback strategies. The stalling time increases as expected with the additional latency, but Firefox's strategy seems to have a slight edge during high latency. Overall, the stalling duration quickly reaches a length comparable to the actual video duration and even surpassing that. Someone watching a stream under this condition might find this not acceptable any longer.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallnumber-latency.pdf}
 	\caption{Number of stalls in relation to transmission latency with a local polynomial least-squares fit.}
@@ -160,7 +160,7 @@ This general behavior could hint to the transport protocol's reliable transport 
 
 At least it can be safely assumed, that in actual production networks high values of packet loss are usually less likely to occur than high latency. The only major source of packet loss should be network congestion, which should only occur in moments of high network load. Therefore, it can be expected than playback strategies are better optimized for scenarios with high latency than loss.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-playbackemulation-stallnumber-loss.pdf}
 	\caption{Number of playback stalls in relation to packet loss with local polynomial least-squares fit.}

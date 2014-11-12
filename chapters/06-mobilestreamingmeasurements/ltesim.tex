@@ -63,7 +63,7 @@ The scenario can now be easily extended to factor in multiple devices and an act
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/streaming-hybrid.pdf}
+	\includegraphics[width=0.9\textwidth]{images/streaming-hybrid.pdf}
 	\caption{Future testbed iteration: hybrid of ns-3 \acrshort{LTE} simulation and actual or emulated streaming client and server bridged to it.}
 \label{c6:fig:streaming-hybrid}
 \end{figure}
@@ -145,14 +145,14 @@ This first series of evaluations exclusively looks at the \gls{QoS} of the strea
 
 The \gls{QoS} variables altered here are the link's bandwidth and delay. Loss will remain unchanged and at zero, as it will also result in just another source of delay for the reliable streaming process due to retransmission. Similar to the evaluations with the measurement framework of Section~\ref{c3:sec:measurements} the performance will be measured on the basis of the player's stalling characteristics, i.e., the total duration and the number of stalling phases. With this, more complex \gls{QoE} metrics can then be calculated.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-ltesim-bwseries-stallduration.pdf}
 	\caption{Relative stalling duration of the simulated reliable streaming player under limited Internet bandwidth.}
 \label{c6:fig:ltesim-bwseries-stallduration}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-ltesim-bwseries-numstalls.pdf}
 	\caption{Number of stalling events of the simulated reliable streaming player under limited Internet bandwidth.}
@@ -177,14 +177,14 @@ Once again utilizing Equation~\ref{c3:eqn:hossfeld-stalling-model} as a validate
 
 %\todo{check pcaps for >=100mbit experiments; could also be related to issues of the actual lte simulation network but implementation can not fully responsible for this?}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-ltesim-latencyseries-stallduration.pdf}
 	\caption{Relative stalling duration of the simulated reliable streaming player under increased Internet latency.}
 \label{c6:fig:ltesim-latencyseries-stallduration}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-ltesim-latencyseries-numstalls.pdf}
 	\caption{Number of stalling events of the simulated reliable streaming player under increased Internet latency.}

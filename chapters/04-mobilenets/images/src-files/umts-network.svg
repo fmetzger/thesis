@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.5 r10040"
    sodipodi:docname="umts-network.svg">
   <defs
      id="defs4" />
@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.87681241"
-     inkscape:cx="299.5746"
-     inkscape:cy="882.97948"
+     inkscape:cx="340.02194"
+     inkscape:cy="927.64334"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -92,19 +92,19 @@
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
        x="9.2962952"
-       y="294.96259"
+       y="293.85147"
        id="text3784"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786"
          x="9.2962952"
-         y="294.96259"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Mobile</tspan><tspan
+         y="293.85147"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Mobile</tspan><tspan
          sodipodi:role="line"
          x="9.2962952"
-         y="319.96259"
+         y="318.85147"
          id="tspan3052"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Devices</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Devices</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 8;stroke-dashoffset:0"
        id="rect2987-5"
@@ -143,41 +143,41 @@
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="204.24284"
+       x="206.44574"
        y="319.96259"
        id="text3784-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8"
-         x="204.24284"
+         x="206.44574"
          y="319.96259"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">UTRAN</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">UTRAN</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="261.3761"
+       x="263.24677"
        y="293.85147"
        id="text3784-1-9"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-5"
-         x="261.3761"
+         x="263.24677"
          y="293.85147"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">RNC</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">RNC</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="133.70825"
+       x="136.26053"
        y="293.85147"
        id="text3784-1-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-9"
-         x="133.70825"
+         x="136.26053"
          y="293.85147"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Node B</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Node B</tspan></text>
     <rect
-       style="fill:none;stroke:#000000;stroke-width:2.05444694;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.10889413, 8.21778827;stroke-dashoffset:0"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4,8;stroke-dashoffset:0"
        id="rect2987-5-4"
        width="237.16962"
        height="247.28156"
@@ -186,15 +186,15 @@
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="484.64258"
+       x="486.50647"
        y="319.96259"
        id="text3784-1-90"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-57"
-         x="484.64258"
+         x="486.50647"
          y="319.96259"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Core</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Core</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987-0"
@@ -212,29 +212,29 @@
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="605.77783"
+       x="605.87225"
        y="214.25107"
        id="text4075"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077"
-         x="605.77783"
+         x="605.87225"
          y="214.25107"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G<tspan
-   style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
+   style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
    id="tspan4079">i</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="422.71054"
+       x="426.59854"
        y="293.85147"
        id="text3784-1-90-45"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-57-5"
-         x="422.71054"
+         x="426.59854"
          y="293.85147"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">SGSN</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">SGSN</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
@@ -247,15 +247,15 @@
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="535.45685"
+       x="538.35803"
        y="293.85147"
        id="text3784-1-90-9"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-57-1"
-         x="535.45685"
+         x="538.35803"
          y="293.85147"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">GGSN</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">GGSN</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 523.85185,174.5844 -33.33333,0"
@@ -376,59 +376,59 @@
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="92.067108"
+       x="94.624313"
        y="256.09064"
        id="text4075-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-0"
-         x="92.067108"
+         x="94.624313"
          y="256.09064"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">U<tspan
-   style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan4292">u</tspan></tspan></text>
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">U<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3057">u</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="205.95599"
+       x="207.97255"
        y="167.20177"
        id="text4075-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-5"
-         x="205.95599"
+         x="207.97255"
          y="167.20177"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">I<tspan
-   style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan4305">ub</tspan></tspan></text>
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">I<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3059">ub</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="361.51157"
-       y="240.3499"
+       x="362.08157"
+       y="234.3499"
        id="text4075-0"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-8"
-         x="361.51157"
-         y="240.3499"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">I<tspan
-   style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan4318">u</tspan></tspan></text>
+         x="362.08157"
+         y="234.3499"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">I<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3061">u</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="498.99304"
-       y="225.5351"
+       x="497.52234"
+       y="213.86996"
        id="text4075-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4077-3"
-         x="498.99304"
-         y="225.5351"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">G<tspan
-   style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;baseline-shift:sub;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-   id="tspan4331">n</tspan></tspan></text>
+         x="497.52234"
+         y="213.86996"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">G<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3063">n</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0"
        d="m 514.5926,62.223818 0,112.508732"
@@ -447,20 +447,20 @@
     <text
        xml:space="preserve"
        style="font-size:28px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
-       x="438.91696"
+       x="433.16382"
        y="17.22123"
        id="text3784-1-90-9-8"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786-8-57-1-2"
-         x="438.91696"
+         x="433.16382"
          y="17.22123"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">METAWIN</tspan><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">METAWIN</tspan><tspan
          sodipodi:role="line"
-         x="438.91696"
+         x="433.16382"
          y="42.22123"
          id="tspan3881"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">Monitoring Probe</tspan></text>
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O">Monitoring Probe</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 1;stroke-dashoffset:0"
        d="m 495.92638,114.28269 0,60.10559"
