@@ -16,13 +16,29 @@
 \usepackage{polyglossia} % babel replacement for use with fontspec
 \setdefaultlanguage[variant=american]{english}
 \selectlanguage[variant=american]{english}
+\usepackage{csquotes}
+\usepackage[load-configurations={abbreviations,binary}]{siunitx}
+\sisetup{load-configurations = abbreviations,binary-units}
 
 \usetheme{EastLansing}
 \usecolortheme{seagull}
 \useinnertheme{rectangles}
 \usefonttheme{professionalfonts}
 
+
+
+\usepackage[defernumbers=true, style=alphabetic, citestyle=alphabetic, firstinits=true, backend=biber, doi=true, url=true, block=ragged, maxnames=6]{biblatex}
+\addbibresource{../../bibliography/common.bib}
+\addbibresource{../../bibliography/rfc-shorthands.bib}
+\addbibresource{../../bibliography/3gpp.bib}
+\addbibresource{../../bibliography/mobile.bib}
+\addbibresource{../../bibliography/video.bib}
+\addbibresource{../../bibliography/network.bib}
+\addbibresource{../../bibliography/crosslayer.bib}
+
+
 \title[]{Evaluating Reliable Streaming in Mobile Networks}
+\subtitle{Dissertation Presentation}
 \author{Florian Metzger}
 \institute[University of Vienna]
 {
@@ -31,7 +47,7 @@
 	Future Communication Research Group
 
 }
-\date[]{\\ 2015/01/XX}
+\date[]{2015/01/XX}
 
 %\subject{Informatik}
 
@@ -57,6 +73,16 @@
 
 \begin{frame}
 	\frametitle{Introduction}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Introduction}
+
+	\begin{figure}
+	\centering
+	\includegraphics[height=6cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}
+	\caption{Cisco's global consumer Internet traffic prediction (data source:~\cite{cisco2013VNI}).}
+	\end{figure}
 \end{frame}
 
 
@@ -121,6 +147,75 @@ Gain for a Mobile Network's GGSN''}
 	\frametitle{Introduction}
 \end{frame}
 
+
+\begin{frame}
+	\frametitle{Streaming Categorization}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Reliable Streaming}
+
+	Pure Progressive
+	Segmented
+	Adaptive
+
+	Stalling as sole quality metric
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Playback and Retrieval Strategies}
+
+	Pure Progressive
+	Segmented
+	Adaptive
+	\begin{figure}
+
+	\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
+	\caption{Reliable streaming playback model based on buffer control.}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Playback Strategies Parameter Space}
+
+	\begin{figure}
+		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}
+		\caption{Buffer fill level with null strategy; \SI{33}{\second} total stalling.}
+	\end{figure}
+
+	\begin{figure}
+		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-bufferlevel-startdelay.pdf}
+		\caption{Sample Buffer fill level for the delayed playback predictive strategy, \SI{33}{\second} total stalling.}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Streaming Measurements}
+
+	\begin{figure}
+		\includegraphics[height=4cm]{../../chapters/03-streaming/images/measurement-model.pdf}
+		\caption{Overview of the measurement framework for progressive streaming playback strategies.}
+	\end{figure}
+
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Streaming Measurements: Latency}
+
+	\begin{figure}
+		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-playbackemulation-qoe-latency.pdf}
+		\caption{Calculated MOS for the latency measurement series.}
+	\end{figure}
+
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -336,7 +431,7 @@ Gain for a Mobile Network's GGSN''}
 
 \end{frame}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{}
 %%
 \begin{frame}
@@ -346,6 +441,21 @@ Gain for a Mobile Network's GGSN''}
 		\Large Questions?
 \end{frame}
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{References}
+\begin{frame}[t,allowframebreaks]
+	\frametitle{References}
+	\printbibliography
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
 \newcounter{finalframe}
 \setcounter{finalframe}{\value{framenumber}}
