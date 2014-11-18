@@ -384,9 +384,39 @@ Gain for a Mobile Network's GGSN''}
 	\frametitle{Introduction}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Layer Influences}
 
+	Time scales of layer operation
 
+	constantly changing protocol details/implementations with often unforeseen effects on specific applications (e.g. streaming)
+	example with most number of changes: TCP in Linux kernel (show table?)
+\end{frame}
 
+\begin{frame}
+	\frametitle{Cross-Layer Information Exchange Model}
+
+	\begin{figure}
+		\centering
+		\includegraphics[height=4cm]{../../chapters/05-mobilestreaming/images/cross-layer-model.pdf}
+		\caption{Model and architecture of the proposed cross-layer information exchange.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cross-Layer Streaming Benefits}
+
+	\begin{figure}
+		\centering
+		\includegraphics[height=3cm]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}
+		\caption{Stalling occurs without handover hinting.}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[height=3cm]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}
+		\caption{Stalling can be prevented by hinting and proactively filling the playback buffer.}
+	\end{figure}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -398,7 +428,124 @@ Gain for a Mobile Network's GGSN''}
 \end{frame}
 
 
+\begin{frame}
+	\frametitle{Active Measurements}
 
+Instead of passive core traces
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sensorium 1}
+	Importance of additional metadata in active mobile measurements
+	privacy issues!
+	let the user control data granularity
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Sensorium 2}
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Mobile Streaming Simulation}
+
+	Effort to find a suitable mobile streaming simulator: hard!
+
+	No complete, up-to-date UMTS simulator
+
+	Only radio interface simulated, not enough for a network-wide view
+
+	Even then, only just user-path through the network, no control plane
+
+	Questionable viability of every mobile simulation framework
+
+	Reason: Sheer volume and complexity of control plane (tens of thousands of spec pages)
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Mobile Streaming Simulation}
+
+	Restrict to user plane and choose ns-3 with Lena (LTE Framework)
+
+	Has a usable tcp/ip stack (still completely different to actual implementations)
+
+	Can facilitate NSC (network simulation cradle), but mostly very old actual stacks
+
+	Can act as network emulator and bridge in/out actual traffic (must operate in real-time, performance is an issue)
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Mobile Streaming Simulation}
+
+	\begin{figure}
+	\centering
+	\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation.pdf}
+	\caption{LTE reliable streaming simulation testbed.}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Streaming Strategies}
+	Four Threshold Segmented Streaming Strategy
+
+	\begin{figure}
+		\centering
+		\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
+		\caption{Sample simulation run demonstrating the four threshold strategy.}
+	\end{figure}
+
+	Six Threshold Window Scaling Adaptive Streaming Strategy
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Simulation Evaluation}
+
+	Scenario 1: Internet link latency and limited bandwidth
+
+	Measure num/length of stalls, calculate Hoßfeld-QoE
+
+	\begin{figure}
+	\centering
+	\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-bwseries-qoe.pdf}
+	\caption{Computed QoE of the reliable streaming strategy with limited bandwidth.}
+	\end{figure}
+
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Simulation Evaluation}
+
+	Scenario 2: Mobility
+
+	\begin{figure}
+	\centering
+	\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation-mobility.pdf}
+	\caption{Simulated handover mobility scenario using waypoints.}
+	\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Simulation Evaluation}
+
+	Scenario 2: Mobility
+
+\begin{figure}
+	\centering
+	\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-mobility-facets.pdf}
+	\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and eNBs.}
+	\end{figure}
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
