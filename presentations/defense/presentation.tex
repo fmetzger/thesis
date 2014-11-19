@@ -19,6 +19,12 @@
 \usepackage{csquotes}
 \usepackage[load-configurations={abbreviations,binary}]{siunitx}
 \sisetup{load-configurations = abbreviations,binary-units}
+\usepackage{multirow}
+\usepackage{tabu}
+\usepackage{booktabs}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+
 
 \usetheme{EastLansing}
 \usecolortheme{seagull}
@@ -86,8 +92,34 @@
 \end{frame}
 
 
+
 \begin{frame}
-	\frametitle{Thesis Parts}
+    \frametitle{Motivation}
+
+
+
+	Mobile network planning and dimensioning today
+    \begin{itemize}
+    	\item based on expected user traffic
+		\item good algorithms and tools for placing radio towers and planning radio propagation
+		\item core network and control plane usually not given much consideration
+	\end{itemize}
+
+	Our approach
+	\begin{itemize}
+		\item presents queuing models for a GGSN in the core network
+		\item models simulated with data from a real network
+		\item can be used to dimension for control plane
+		\item offers more scaling options
+	\end{itemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+	\frametitle{Thesis Structure}
 
 	Thesis consists of two intersecting angles
 	\begin{enumerate}
@@ -114,28 +146,6 @@ Gain for a Mobile Network's GGSN''}
 \end{frame}
 
 
-
-\begin{frame}
-    \frametitle{Motivation}
-
-
-
-	Mobile network planning and dimensioning today
-    \begin{itemize}
-    	\item based on expected user traffic
-		\item good algorithms and tools for placing radio towers and planning radio propagation
-		\item core network and control plane usually not given much consideration
-	\end{itemize}
-
-	Our approach
-	\begin{itemize}
-		\item presents queuing models for a GGSN in the core network
-		\item models simulated with data from a real network
-		\item can be used to dimension for control plane
-		\item offers more scaling options
-	\end{itemize}
-
-\end{frame}
 
 
 
@@ -181,16 +191,19 @@ Gain for a Mobile Network's GGSN''}
 
 \begin{frame}
 	\frametitle{Playback Strategies Parameter Space}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}
+			\caption{Buffer fill level with null strategy; \SI{33}{\second} total stalling.}
+		\end{figure}
 
-	\begin{figure}
-		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}
-		\caption{Buffer fill level with null strategy; \SI{33}{\second} total stalling.}
-	\end{figure}
-
-	\begin{figure}
-		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-bufferlevel-startdelay.pdf}
-		\caption{Sample Buffer fill level for the delayed playback predictive strategy, \SI{33}{\second} total stalling.}
-	\end{figure}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-startdelay.pdf}
+			\caption{Sample Buffer fill level for the delayed playback predictive strategy, \SI{33}{\second} total stalling.}
+		\end{figure}
+	\end{columns}
 \end{frame}
 
 
@@ -201,6 +214,18 @@ Gain for a Mobile Network's GGSN''}
 		\includegraphics[height=4cm]{../../chapters/03-streaming/images/measurement-model.pdf}
 		\caption{Overview of the measurement framework for progressive streaming playback strategies.}
 	\end{figure}
+
+	Buffer model:
+	\begin{equation}
+		\mathit{buffer}(t) = \sum_{0}^{t} \text{data}_\mathrm{received} - \sum_{0}^{t} \text{data}_\mathrm{played}
+	\end{equation}
+
+	Measure stall duration and number of occurrences
+
+	Facilitated QoE equation
+	\begin{equation}
+		\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
+	\end{equation}
 
 \end{frame}
 
@@ -250,18 +275,61 @@ Gain for a Mobile Network's GGSN''}
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Mobile Network Load}
+	
+	Traditionally defined as direct user traffic load
 
+	Does not factor in the vast control plane and signaling
+
+	A traditional definition of link load $\rho_{l}$ is the ratio of the used versus the available bandwidth on a link
+
+	\begin{equation}
+		\phantom{.}\rho_{l} = \frac{b_{u}}{b_{a}}\text{.}
+	\end{equation}
+
+	The network load $\rho_{N}$ can then simply be defined as the average load of all involved links
+
+	\begin{equation}
+		\phantom{.}\rho_{N} = \frac{\sum_{i}^{N} \rho_{l,i}}{N}\text{.}
+	\end{equation}
+
+
+	The load of any particular mobile core network node $\rho_{n}$ could then be defined as
+
+	\begin{equation}
+		\phantom{,}\rho_{n} = \max(\rho_{n,l}, \rho_{n,m}, \rho_{n,p})\text{,}
+	\end{equation}
+
+	with the memory load $\rho_{m}$ and processing load $\rho_{p}$. And the total load of the CN $\rho_{CN}$ as
+
+	\begin{equation}
+		\phantom{.}\rho_{CN} = \max_{n}(\rho_{n})\text{.}
+	\end{equation}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Load Influencing Factors and Chokepoint}
+	Network and device factors
+
+	chokepoint: critical point is GGSN as usually only single (or handful) instances responsible for complete network
+
+	PDP Context Management signaling, PDP Context state for each device and tunnel 
+		involved in almost all network-wide signaling procedures
+
+	GTP Mobility Management signaling from GGSN
+\end{frame}
 
 \begin{frame}
 	\frametitle{Tunnel Arrivals}
 		%\framesubtitle{Interarrival Time of Successful Tunnel Requests}
-	\begin{columns}[c]
-		\begin{column}{6.5cm}
-				\includegraphics[width=6.5cm]{../../chapters/04-mobilenets/images/R-IAT-fromflows-ecdfs-2h.pdf}
-		\end{column}
-		\begin{column}{6.5cm}
-			\includegraphics[width=6.5cm]{../../chapters/04-mobilenets/images/R-create-frequency.pdf}
-		\end{column}
+	\begin{columns}
+		\column{.5\textwidth}
+			\includegraphics[width=1.0\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-fromflows-ecdfs-2h.pdf}
+
+		\column{.5\textwidth}
+			\includegraphics[width=1.0\columnwidth]{../../chapters/04-mobilenets/images/R-create-frequency.pdf}
 	\end{columns}
 
 	\begin{itemize}
@@ -611,15 +679,410 @@ Instead of passive core traces
 \end{frame}
 
 
+\begin{frame}
+\begin{figure}
+	\begin{columns}
+	\column{.5\textwidth}
+		\centering
+		\includegraphics[width=0.9\columnwidth]{../../chapters/01-intro/images/r-netvine-phenomena-fixed.pdf}
+		\caption{Traffic composition of North American peak fixed access aggregate traffic (data source:~\cite{sandvine_internetphenomena}).}
+	\column{.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.9\columnwidth]{../../chapters/01-intro/images/r-netvine-phenomena-mobile.pdf}
+			\caption{Traffic composition of North American peak mobile access aggregate traffic (data source:~\cite{sandvine_internetphenomena}).}
+		\end{figure}
+	\end{columns}
+
+\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[height=6cm]{../../chapters/03-streaming/images/streaming-transfer-modes.pdf}
+		\caption{Comparison of several possible streaming transmission modes depicting the timing of the sent packets (source:~\cite{ma2011mobile}).}
+	\end{figure}
+\end{frame}
 
 
 \begin{frame}
-	\frametitle{}
-	\begin{center}
-		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/compare-maxinstances-block.pdf}
-	\end{center}
+	\frametitle{Protocol Classification Matrix}
+{
+\scriptsize
+\begin{tabu}{X[0.8]XX[1.2]XXXX[0.85]} 
+	\toprule
+	\textbf{Protocol} & \textbf{Vertical Location of Control} & \textbf{Horizontal Location of Control} & \textbf{Reliable Transport} & \textbf{Video Type} & \textbf{Adaptivity} & \textbf{Multicast} \\ 
+	\midrule
+	RTP & out-of-band, application layer protocol & server-side and limited intermediary (translators and mixers) & unreliable (UDP) & low delay live streaming & server-side adaptation (transcoding) & using IGMP\\
+	simple HTTP & in-band, streaming application & client-side & reliable (TCP) & stored, not live & none & emulated through CDN\\
+	adaptive HTTP (e.g. DASH) & in-band, streaming application & client-side & reliable (TCP) & stored and near-live & client-side with file segmentation & emulated through CDN\\
+	\bottomrule
+\end{tabu}
+}
 \end{frame}
 
+
+\begin{frame}
+	\frametitle{Further Playback Strategies}
+
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-flash.pdf}
+			\caption{Sample buffer fill level for a \SI{5}{\second} buffered video duration threshold strategy with an additional \SI{2}{\second} initial threshold; \SI{34}{\second} total stalling.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-firefox.pdf}
+			\caption{Sample buffer fill level for the Firefox 4 strategy, \SI{44}{\second} total stalling.}
+		\end{figure}
+
+		\begin{algorithmic}
+		\IF {$s_{MA} > v_{MA}$} 
+			\STATE $c \gets ( b_b=20s \lor b_T=20s )$
+		\ELSE
+			\STATE $c \gets ( b_b=30s \lor b_T=30s )$
+		\ENDIF
+		\end{algorithmic}
+
+		To estimate the current and future rates, the moving average of the transmission rate $s_{MA}$ and the video bitrate $v_{MA}$ are calculated. The condition $c$ Firefox uses to start and resume the playback process is given in the algorithm, with the buffered video duration $b_b$, and the duration spent buffering $b_T$.
+
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Adaptive Streaming Measurement Framework}
+
+	\begin{figure}
+		\centering
+		\includegraphics[height=2.5cm]{../../chapters/03-streaming/images/feedback-measurement-model.pdf}
+		\caption{Overview of the measurement framework for adaptive streaming playback strategies.}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Latency Measurement Series}
+
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+		\centering
+		\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-playbackemulation-stallduration-latency.pdf}
+		\caption{Stalling duration in relation to transmission latency with a local polynomial least-squares fit.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+		\centering
+		\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-playbackemulation-stallnumber-latency.pdf}
+		\caption{Number of stalls in relation to transmission latency with a local polynomial least-squares fit.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Loss Measurement Series}
+
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+		\centering
+		\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-playbackemulation-stallduration-loss.pdf}
+		\caption{Stalling duration in relation to the packet loss with a local polynomial least-squares fit.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-playbackemulation-stallnumber-loss.pdf}
+			\caption{Number of playback stalls in relation to packet loss with local polynomial least-squares fit.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Loss Measurement Series QoE}
+
+	\begin{figure}
+		\centering
+		\includegraphics[height=6cm]{../../chapters/03-streaming/images/R-playbackemulation-qoe-loss.pdf}
+		\caption{Calculated MOS for the loss measurement series.}
+	\end{figure}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/3gpp-physical-arch.pdf}
+		\caption{Overview of a combined CS/PS GSM/UMTS/LTE architecture.}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/umts-userpath-stack.pdf}
+		\caption{Simplified control plane and user plane IP-based protocol stacks on the user traffic path through the mobile network.}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/pdp-context-activation-procedure.pdf}
+		\caption{PDP Context activation procedure signaling interaction diagram for UMTS, including involved signaling protocols.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\scriptsize
+		\begin{tabu}{X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|X[1]|}
+		\multicolumn{1}{c}{} & \multicolumn{8}{c}{\textbf{Bits}} \\
+		\textbf{Octets} & \textbf{8} & \textbf{7} & \textbf{6} & \textbf{5} & \textbf{4} & \textbf{3} & \textbf{2} & \textbf{1} \\ 
+		\cline{2-9} \textbf{1} & \multicolumn{3}{c|}{Version}  & 1 & 0 & E & S & PN \\ 
+		\cline{2-9} \textbf{2} & \multicolumn{8}{c|}{Message Type}  \\ 
+		\cline{2-9} \textbf{3} & \multicolumn{8}{c|}{\multirow{2}{*}{Length}}  \\ 
+					\textbf{4} & \multicolumn{8}{c|}{}  \\ 
+		\cline{2-9} \textbf{5} & \multicolumn{8}{c|}{\multirow{4}{*}{Tunnel Endpoint Identifier}} \\ 
+					\textbf{6} & \multicolumn{8}{c|}{} \\ 
+					\textbf{7} & \multicolumn{8}{c|}{} \\ 
+					\textbf{8} & \multicolumn{8}{c|}{} \\ 
+		\cline{2-9} \textbf{9} & \multicolumn{8}{c|}{\multirow{2}{*}{Sequence Number}} \\
+					\textbf{10} & \multicolumn{8}{c|}{} \\
+		\cline{2-9}	\textbf{11} & \multicolumn{8}{c|}{N-PDU} \\
+		\cline{2-9} \textbf{12} & \multicolumn{8}{c|}{Next Extension Header Type} \\
+		\cline{2-9}
+		\end{tabu} 
+		\caption{General \SI{12}{\byte} GTP header format.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{table}
+	\tiny
+	\caption{All IE in a Create PDP Context request and size thereof for IPv4 network and user traffic only. The denoted sizes exclude the first message type byte.}
+		\begin{tabu} to 0.49\textwidth{X[2.5]X[1.2]X[0.7]}
+			\toprule
+			\textbf{IE} & \textbf{Presence} & \textbf{Size}\\
+			\midrule
+			IMSI & cond. & \SI{8}{\byte} \\ 
+			RAI & opt. & \SI{6}{\byte} \\
+			Recovery & opt. & \SI{1}{\byte} \\
+			Selection mode	& cond. & \SI{1}{\byte} \\
+			TEID Data I & mand. & \SI{4}{\byte} \\
+			TEID Control Plane & cond. & \SI{4}{\byte} \\
+			NSAPI & mand. & \SI{1}{\byte} \\
+			Linked NSAPI & cond. & \SI{1}{\byte} \\
+			Charging Characteristics & cond. & \SI{2}{\byte} \\
+			Trace Reference & opt. & \SI{2}{\byte} \\
+			Trace Type & opt. & \SI{2}{\byte} \\
+			End User Address & cond. & \SI{8}{\byte} \\
+			APN & cond. & max \SI{102}{\byte} \\ 
+			PCO & opt. & max \SI{255}{\byte} \\ 
+			SGSN signaling address & mand.  & \SI{6}{\byte} \\
+			SGSN user traffic address & mand. & \SI{6}{\byte} \\ 
+			MSISDN & cond. & max \SI{17}{\byte} \\ 
+			QoS Profile & mand. & max \SI{257}{\byte} \\
+			\bottomrule
+		\end{tabu}%
+		\raisebox{0.63mm}{\begin{tabu} to 0.49\textwidth{X[2.5]X[1.2]X[0.7]}
+			\toprule
+			\textbf{IE} & \textbf{Presence} & \textbf{Size} \\
+			\midrule
+			TFT & cond. & max \SI{257}{\byte} \\ 
+			Trigger Id & opt. & var. \\ 
+			OMC Identity & opt. & var. \\ 
+			Common Flags & opt. & \SI{3}{\byte} \\
+			APN Restriction & opt. & \SI{3}{\byte} \\
+			RAT & opt. & \SI{3}{\byte} \\
+			User Location Information & opt. & \SI{10}{\byte} \\
+			MS Time Zone & opt. & \SI{4}{\byte} \\
+			IMEI (SV) & cond. & \SI{10}{\byte} \\
+			CAMEL Charging Information Container & opt. & var. \\
+			Additional Trace Info & opt. & \SI{11}{\byte} \\
+			Correlation-ID & opt. & \SI{3}{\byte} \\
+			Evolved Allocation Retention Priority I & opt. & \SI{3}{\byte} \\
+			Extended Common Flags & opt. & \SI{3}{\byte} \\ 
+			User CSG Information & opt. & \SI{10}{\byte} \\
+			APN-AMBR & opt.  & \SI{11}{\byte} \\
+			Signaling Priority Indication & opt. & \SI{3}{\byte} \\ 
+			Private Extension & opt. & var. \\
+			\bottomrule
+		\end{tabu}}
+	\end{table}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/mm-2g-state-model.pdf}
+			\caption{SGSN MM state machines for 2G radio access as defined in \cite[Section~6.1]{3gpp.23.060}.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/mm-3g-state-model.pdf}
+			\caption{SGSN MM state machines for 3G radio access as defined in \cite[Section~6.1]{3gpp.23.060}.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/rrc-state-model.pdf}
+			\caption{RRC State Model as per \cite[Section~7.1]{3gpp.25.331}.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/pdp-state-model.pdf}
+			\caption{PDP State Model defined in \cite[Section~9]{3gpp.23.060}.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{table}
+	\small
+	\caption{Relative TAC statistics.}
+		\begin{tabu}{XX[r]}
+			\toprule
+			\textbf{Type} & \textbf{Relative number of devices with an entry in the TAC dataset}\\ 
+			\midrule
+			Total number of flows & \SI{99.72}{\percent} \\
+			Ratio of total traffic & \SI{99.97}{\percent} \\
+			Total number of tunnels & \SI{87.57}{\percent} \\
+			Total number of GTP signaling messages & \SI{90.95}{\percent} \\
+			Number of distinct UEs & \SI{80.93}{\percent} \\ 
+			\bottomrule
+		\end{tabu}
+	\end{table}
+\end{frame}
+
+\begin{frame}
+	\begin{table}
+	\scriptsize
+	\caption{Relative device-discriminated traffic statistics extracted from the dataset.}
+		\begin{tabu}{X[1.4]X[r]X[r]X[r]X[1.2,r]X[r]}
+		\toprule
+		& \textbf{Flows} & \textbf{Traffic} & \textbf{Tunnels} & \textbf{GTP message pairs} & \textbf{Devices}\\ 
+		\midrule
+		\multicolumn{2}{c}{\textbf{By device type}}       &             &             &             &           \\
+		% In TAC DB      & $99.72\%$   & $99.97\%$   & $87.57\%$   & $90.95\%$   & $80.93\%$ \\
+		Smartphones      & $20.58\%$   & $12.81\%$   & $60.31\%$   & $75.99\%$   & $37.97\%$ \\
+		Regular phones   & $0.26\%$    & $0.37\%$    & $5.40\%$    & $0.94\%$    & $9.25\%$  \\
+		3G dongles & $66.55\%$   & $75.12\%$   & $12.71\%$   & $9.53\%$    & $25.10\%$ \\
+		\midrule
+		\multicolumn{2}{c}{\textbf{By OS}}       &             &             &             &           \\
+		Android          & $10.82\%$   & $6.48\%$    & $14.33\%$   & $43.33\%$   & $14.01\%$ \\
+		iOS              & $7.22\%$    & $4.47\%$    & $18.91\%$   & $20.35\%$   & $7.94\%$  \\
+		Symbian          & $1.02\%$    & $1.09\%$    & $21.17\%$   & $4.51\%$    & $12.97\%$ \\
+		Blackberry OS    & $0.07\%$    & $0.10\%$    & $2.17\%$    & $2.60\%$    & $1.48\%$  \\
+		\bottomrule
+		\end{tabu}
+	\end{table}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/R-tunnel-duration-device-type.pdf}
+			\caption{Tunnel duration distribution, separated for 3G dongles, smartphones and regular phones with medians at \SI{115}{\second} (total), \SI{31}{\second} (regular), \SI{82}{\second} (smartphone), and \SI{1207}{\second} (dongle).}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/R-tunnel-duration-operating-system.pdf}
+			\caption{Tunnel duration CDF, separated for select OSs; Medians at \SI{115}{\second} (total), \SI{15.5}{\second} (symbian), \SI{104}{\second} (iOS), and \SI{765}{\second} (android).}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/R-duration-qq-category-comparison.pdf}
+			\caption{Q-Q Plots of the tunnel duration distributions in comparison to device classification categories.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/R-duration-classification-density.pdf}
+			\caption{Logscale density plot of the tunnel duration with all classifications.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-createspersecond-1h-violin.pdf}
+		\caption{Violin plot of tunnel arrivals in one second per time of day.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ECDF of the tunnel IAT in seconds by time of day}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=0.7\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-successful-2h-ecdfs.pdf}
+			\caption{All tunnel requests.}
+		\end{figure}
+		\vspace{-10mm}
+		\begin{figure}
+			\includegraphics[width=0.7\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-fromflows-gprs-ecdfs-2h.pdf}
+			\caption{Tunnels with GPRS data flows.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=0.7\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-fromflows-ecdfs-2h.pdf}
+			\caption{Only tunnels with data flows.}
+		\end{figure}
+		\vspace{-10mm}
+		\begin{figure}
+			\includegraphics[width=0.7\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-fromflows-umts-ecdfs-2h.pdf}
+			\caption{Tunnels with UMTS data flows.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-update-time-cdfs.pdf}
+		\caption{ECDFs of the time in seconds it takes a GGSN to process a GTP update event, separately plotted for four time slots each day.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[htb]
+		\centering
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-IAT-ecdfs.pdf}
+		\caption{Sampled inter-arrival time CDF and fitted theoretical distributions.}
+	\end{figure}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Exponential Arrival Process Fits}
@@ -636,6 +1099,52 @@ Instead of passive core traces
 		\includegraphics[height=7.5cm]{../../chapters/04-mobilenets/images/R-IAT-active-fit-cdf-facets.pdf}
 	\end{center}
 \end{frame}
+
+\begin{frame}
+	\begin{table}
+	\scriptsize
+	\caption{Parameters for the exponentially distributed inter-arrival times and corresponding Pearson correlation coefficients.}
+		\centering
+		\begin{tabu}{X[0.9,l]X[r]X[r]} 
+		\toprule
+		\textbf{Time of Day} & $\mathbf{\lambda}$ & $\mathbf{R_{arrival}}$\\ 
+		\midrule
+		0h-5h   & $10.67477$ & $0.995$ \\
+		6h-11h  & $24.53298$ & $0.992$ \\
+		12h-17h & $29.2504$  & $0.993$ \\
+		18h-23h & $23.49983$ & $0.986$ \\
+		\bottomrule
+		\end{tabu}
+	\end{table}
+
+	\begin{table}
+	\scriptsize
+	\caption{Inverse rational functions fitted to the ECDFs of the tunnel duration by time of day and correlation coefficients of the fit.}
+		\centering
+		\begin{tabu}{X[1.1,l]X[4.5,r]X[r]} 
+		\toprule
+		\textbf{Time of Day} & \textbf{Inverse Serving Time CDF Representation} & $\mathbf{R_{dur}}$\\ 
+		\midrule
+		0h-5h & $0.919208 - 60.6136y - 3498.78y^3 - \frac{110.707y + 2289.94y^3}{y - 1.00469}$ &  $0.999$ \\
+		6h-11h & $1 + 117.484y - 368.643y^2 - \frac{1720.13y^4}{y - 1.0041}$ & $0.999$ \\
+		12h-17h & $0.952566 + 69.4907y + \frac{81146.1y^3 + 1.08572\times10^6y^5}{805 - 802.01y}$ & $0.999$ \\
+		18h-23h & $0.911924 + 82.0562y - \frac{2936.93y^4}{1.94468y - 1.9532}$ & $0.999$ \\
+		\bottomrule
+		\end{tabu}
+	\end{table}
+
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{}
+	\begin{center}
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/compare-maxinstances-block.pdf}
+	\end{center}
+\end{frame}
+
+
 
 \begin{frame}
 	\frametitle{Scaling Up or Out with a Virtualized GGSN}
@@ -677,46 +1186,5 @@ Instead of passive core traces
 \setcounter{framenumber}{\value{finalframe}}
 
 \end{document}
-
-
-
-% \begin{frame}
-% 	\frametitle{The Dataset}
-
-% 	\begin{itemize}
-% 		\item one week long passive measurements in the core network of a operator (METAWIN, April 2011)
-% 		\item 2.2Bn anonymized user traffic records, 410M GTP tunnel management messages
-% 	\end{itemize}
-
-% 	Evaluated properties important for the model
-% 	\begin{itemize}
-% 		\item arrival rate of new tunnels
-% 		\item duration of tunnels
-% 		\item and diurnal influences on them
-% 	\end{itemize}
-% \end{frame}
-
-% \begin{frame}
-% 	\frametitle{Fitting Distributions to the Data}
-% 	\begin{itemize}
-% 		\item Data preparation with mysql \& python
-% 		\begin{itemize}
-% 			\item Fetch CREATE and DELETE from db
-% 			\item Calculate tunnel IAT and durations
-% 		\end{itemize}
-% 		\item Statistical analysis and fitting using R/fitdistrplus/MASS
-% 		\begin{itemize}
-% 			\item $1\%$ random sampling of the data
-% 			\item Distribution parameter estimation by closed formula matching of theoretical and observed means and variances (Method of Moments Estimation)
-% 			\item Testing goodness of the fit
-% 				\begin{itemize}
-% 					\item Pearson's $\chi^2$-test
-% 					\item Kolmogorov-Smirnov $d = \max|F_n(x)-F(x)|$
-% 					\item Visually
-% 					\item ANOVA
-% 				\end{itemize}
-% 		\end{itemize}
-% 	\end{itemize}
-% \end{frame}
 
 

@@ -52,8 +52,8 @@ In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW},
 
 \begin{figure}[htbp]
 	\centering
- 	\includegraphics[width=0.9\textwidth]{images/umts-userpath-stack.pdf}
- 	\caption{Simplified control plane and user plane \acrshort{IP}-based protocol stacks on the user traffic path through the mobile network.}
+	\includegraphics[width=0.9\textwidth]{images/umts-userpath-stack.pdf}
+	\caption{Simplified control plane and user plane \acrshort{IP}-based protocol stacks on the user traffic path through the mobile network.}
 \label{c4:fig:protocolstacks}
 \end{figure}
 
@@ -157,24 +157,24 @@ Each messages is defined as a specific set of \glspl{IE}, each of which is eithe
 		\textbf{\gls{IE}} & \textbf{Presence} & \textbf{Size} \\
 		\midrule
 		\gls{TFT} & cond. & max \SI{257}{\byte} \\ % defined in 24.008 section 10.5.6.12
-		 Trigger Id & opt. & var. \\ % no definition found
-		 \acrshort{OMC} Identity & opt. & var. \\ % maybe in MAP 29.002, however not further definition found
-		 Common Flags & opt. & \SI{3}{\byte} \\
-		 \gls{APN} Restriction & opt. & \SI{3}{\byte} \\
-		 \gls{RAT} & opt. & \SI{3}{\byte} \\
-		 User Location Information & opt. & \SI{10}{\byte} \\
-		 \gls{MS} Time Zone & opt. & \SI{4}{\byte} \\
-		 \gls{IMEI} (\acrshort{SV}) & cond. & \SI{10}{\byte} \\
-		 \gls{CAMEL} Charging Information Container & opt. & var. \\
-		 Additional Trace Info & opt. & \SI{11}{\byte} \\
-		 Correlation-ID & opt. & \SI{3}{\byte} \\
-		 Evolved Allocation Retention Priority I & opt. & \SI{3}{\byte} \\
-		 Extended Common Flags & opt. & \SI{3}{\byte} \\ % might be more, but seems unused 
-		 User \acrshort{CSG} Information & opt. & \SI{10}{\byte} \\
-		 \gls{APN}-\acrshort{AMBR} & opt.  & \SI{11}{\byte} \\
-		 Signaling Priority Indication & opt. & \SI{3}{\byte} \\ % might be more, but seems unused
-		 Private Extension & opt. & var. \\
-		 \bottomrule
+		Trigger Id & opt. & var. \\ % no definition found
+		\acrshort{OMC} Identity & opt. & var. \\ % maybe in MAP 29.002, however not further definition found
+		Common Flags & opt. & \SI{3}{\byte} \\
+		\gls{APN} Restriction & opt. & \SI{3}{\byte} \\
+		\gls{RAT} & opt. & \SI{3}{\byte} \\
+		User Location Information & opt. & \SI{10}{\byte} \\
+		\gls{MS} Time Zone & opt. & \SI{4}{\byte} \\
+		\gls{IMEI} (\acrshort{SV}) & cond. & \SI{10}{\byte} \\
+		\gls{CAMEL} Charging Information Container & opt. & var. \\
+		Additional Trace Info & opt. & \SI{11}{\byte} \\
+		Correlation-ID & opt. & \SI{3}{\byte} \\
+		Evolved Allocation Retention Priority I & opt. & \SI{3}{\byte} \\
+		Extended Common Flags & opt. & \SI{3}{\byte} \\ % might be more, but seems unused 
+		User \acrshort{CSG} Information & opt. & \SI{10}{\byte} \\
+		\gls{APN}-\acrshort{AMBR} & opt.  & \SI{11}{\byte} \\
+		Signaling Priority Indication & opt. & \SI{3}{\byte} \\ % might be more, but seems unused
+		Private Extension & opt. & var. \\
+		\bottomrule
 	\end{tabu}}
 	%\vfill
 	%\null
