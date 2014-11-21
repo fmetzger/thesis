@@ -191,7 +191,7 @@ Gain for a Mobile Network's GGSN''}
 
 \begin{frame}
 	\frametitle{Playback Strategies Parameter Space}
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.5\textwidth}
 		\begin{figure}
 			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}
@@ -212,20 +212,17 @@ Gain for a Mobile Network's GGSN''}
 
 	\begin{figure}
 		\includegraphics[height=4cm]{../../chapters/03-streaming/images/measurement-model.pdf}
-		\caption{Overview of the measurement framework for progressive streaming playback strategies.}
+		\caption{Measurement framework for progressive streaming playback strategies.}
 	\end{figure}
 
 	Buffer model:
-	\begin{equation}
+	\begin{equation*}
 		\mathit{buffer}(t) = \sum_{0}^{t} \text{data}_\mathrm{received} - \sum_{0}^{t} \text{data}_\mathrm{played}
-	\end{equation}
+	\end{equation*}
 
 	Measure stall duration and number of occurrences
 
-	Facilitated QoE equation
-	\begin{equation}
-		\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
-	\end{equation}
+
 
 \end{frame}
 
@@ -238,7 +235,10 @@ Gain for a Mobile Network's GGSN''}
 		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-playbackemulation-qoe-latency.pdf}
 		\caption{Calculated MOS for the latency measurement series.}
 	\end{figure}
-
+	Facilitated QoE equation \cite{hossfeld2013youtubeqoe}
+	\begin{equation*}
+		\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
+	\end{equation*}
 
 \end{frame}
 
@@ -278,34 +278,19 @@ Gain for a Mobile Network's GGSN''}
 \begin{frame}
 	\frametitle{Mobile Network Load}
 	
-	Traditionally defined as direct user traffic load
+	\begin{itemize}
+		\item Traditionally defined as direct user traffic load
 
-	Does not factor in the vast control plane and signaling
+		\item Does not factor in the vast control plane and signaling
 
-	A traditional definition of link load $\rho_{l}$ is the ratio of the used versus the available bandwidth on a link
+		\item link load: ratio of the used versus the available bandwidth on a link $\rho_{l} = \frac{b_{u}}{b_{a}}$
 
-	\begin{equation}
-		\phantom{.}\rho_{l} = \frac{b_{u}}{b_{a}}\text{.}
-	\end{equation}
+		\item network load: average load of all involved links $\rho_{N} = \frac{\sum_{i}^{N} \rho_{l,i}}{N}$
 
-	The network load $\rho_{N}$ can then simply be defined as the average load of all involved links
+		\item mobile core network node load: $\rho_{n} = \max(\rho_{n,l}, \rho_{n,m}, \rho_{n,p})$ 	with the memory load $\rho_{m}$ and processing load $\rho_{p}$
 
-	\begin{equation}
-		\phantom{.}\rho_{N} = \frac{\sum_{i}^{N} \rho_{l,i}}{N}\text{.}
-	\end{equation}
-
-
-	The load of any particular mobile core network node $\rho_{n}$ could then be defined as
-
-	\begin{equation}
-		\phantom{,}\rho_{n} = \max(\rho_{n,l}, \rho_{n,m}, \rho_{n,p})\text{,}
-	\end{equation}
-
-	with the memory load $\rho_{m}$ and processing load $\rho_{p}$. And the total load of the CN $\rho_{CN}$ as
-
-	\begin{equation}
-		\phantom{.}\rho_{CN} = \max_{n}(\rho_{n})\text{.}
-	\end{equation}
+		\item total load of the CN: $\rho_{CN} = \max_{n}(\rho_{n})$
+	\end{itemize}
 
 \end{frame}
 
@@ -324,7 +309,7 @@ Gain for a Mobile Network's GGSN''}
 \begin{frame}
 	\frametitle{Tunnel Arrivals}
 		%\framesubtitle{Interarrival Time of Successful Tunnel Requests}
-	\begin{columns}
+	\begin{columns}[T]
 		\column{.5\textwidth}
 			\includegraphics[width=1.0\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-fromflows-ecdfs-2h.pdf}
 
@@ -365,7 +350,7 @@ Gain for a Mobile Network's GGSN''}
 			\item GGSN can serve $n$ tunnels in parallel, limited by network/processing load and signaling/state overhead
 			\item Tunnels have a duration of $\mu(t)$ with a general distribution
 			\item If GGSN is full, reject new tunnels with blocking probability $p_b$
-			\item[$\rightarrow$] Non-stationary Erlang loss model $M_t/G/n/0$ 
+			\item[$\rightarrow$] Non-stationary Erlang loss model \\ $M(t)/G(t)/c/0$ 
 		\end{itemize}
 
 \end{frame}
@@ -383,6 +368,7 @@ Gain for a Mobile Network's GGSN''}
 			%\item Instance count kept near actual system load (energy efficiency)
 			\item Additional blocking when new instances are not switched on fast enough, or instance overhead if not shut down when unused
 			\item System scales up (larger instances) and out (more instances)
+			\item[$\rightarrow$] $M(t)/G(t)/\|\overrightarrow{c}\|_1/0$
 		\end{itemize}
 \end{frame}
 
@@ -398,7 +384,7 @@ Gain for a Mobile Network's GGSN''}
 	\begin{itemize}
 		\item No exact mathematical solution available for a $M_t/G/n/0$ model
 		\item Use queuing simulation instead of stationary analysis
-		\item SimPy3 based discrete event simulation\footnote{\url{https://github.com/fmetzger/ggsn-simulation}}
+		\item SimPy3 based discrete event simulation
 		\item One week simulated period, omitted startup phase, 10 repetitions
 		\item Arrival process with exponential distributions fitted to dataset, four time of day slots ($\lambda=\{10.67,24.53,29.25,23.50\}$ before normalization)
 		\item Tunnel duration CDF fitted with a rational function
@@ -433,7 +419,7 @@ Gain for a Mobile Network's GGSN''}
 	\frametitle{Virtualized GGSN Resource Usage}
 
 	\begin{center}
-		\includegraphics[height=5cm]{../../chapters/04-mobilenets/images/R-virtualized-instanceuse.pdf}
+		\includegraphics[height=6cm]{../../chapters/04-mobilenets/images/R-virtualized-instanceuse.pdf}
 	\end{center}
 
 	\begin{itemize}
@@ -466,7 +452,7 @@ Gain for a Mobile Network's GGSN''}
 
 	\begin{figure}
 		\centering
-		\includegraphics[height=4cm]{../../chapters/05-mobilestreaming/images/cross-layer-model.pdf}
+		\includegraphics[height=3cm]{../../chapters/05-mobilestreaming/images/cross-layer-model.pdf}
 		\caption{Model and architecture of the proposed cross-layer information exchange.}
 	\end{figure}
 \end{frame}
@@ -474,16 +460,19 @@ Gain for a Mobile Network's GGSN''}
 \begin{frame}
 	\frametitle{Cross-Layer Streaming Benefits}
 
-	\begin{figure}
-		\centering
-		\includegraphics[height=3cm]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}
-		\caption{Stalling occurs without handover hinting.}
-	\end{figure}
-	\begin{figure}
-		\centering
-		\includegraphics[height=3cm]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}
-		\caption{Stalling can be prevented by hinting and proactively filling the playback buffer.}
-	\end{figure}
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}
+			\caption{Stalling occurs without handover hinting.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}
+			\caption{Stalling can be prevented by hinting and proactively filling the playback buffer.}
+		\end{figure}
+	\end{columns}
 \end{frame}
 
 
@@ -512,6 +501,11 @@ Instead of passive core traces
 
 \begin{frame}
 	\frametitle{Sensorium 2}
+
+	\begin{figure}
+		\includegraphics[height=5cm]{../../chapters/06-mobilestreamingmeasurements/images/sensorium-arch.pdf}
+		\caption{Sensorium architecture interfacing with other applications. Previously existing components are marked with a dotted line.}
+	\end{figure}
 
 \end{frame}
 
@@ -550,24 +544,22 @@ Instead of passive core traces
 	\frametitle{Mobile Streaming Simulation}
 
 	\begin{figure}
-	\centering
-	\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation.pdf}
-	\caption{LTE reliable streaming simulation testbed.}
+		\includegraphics[height=2cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation.pdf}
+		\caption{LTE reliable streaming simulation testbed.}
 	\end{figure}
 \end{frame}
 
 
 \begin{frame}
 	\frametitle{Streaming Strategies}
-	Four Threshold Segmented Streaming Strategy
+	\framesubtitle{Four Threshold Segmented Streaming Strategy}
 
 	\begin{figure}
-		\centering
-		\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
+		\includegraphics[height=5cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
 		\caption{Sample simulation run demonstrating the four threshold strategy.}
 	\end{figure}
 
-	Six Threshold Window Scaling Adaptive Streaming Strategy
+	Also: Six Threshold Window Scaling Adaptive Streaming Strategy
 
 \end{frame}
 
@@ -580,7 +572,7 @@ Instead of passive core traces
 
 	\begin{figure}
 	\centering
-	\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-bwseries-qoe.pdf}
+	\includegraphics[height=5cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-bwseries-qoe.pdf}
 	\caption{Computed QoE of the reliable streaming strategy with limited bandwidth.}
 	\end{figure}
 
@@ -590,13 +582,11 @@ Instead of passive core traces
 
 \begin{frame}
 	\frametitle{Simulation Evaluation}
-
-	Scenario 2: Mobility
+	\framesubtitle{Mobility Scenario}
 
 	\begin{figure}
-	\centering
-	\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation-mobility.pdf}
-	\caption{Simulated handover mobility scenario using waypoints.}
+		\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation-mobility.pdf}
+		\caption{Simulated handover mobility scenario using waypoints.}
 	\end{figure}
 
 \end{frame}
@@ -604,13 +594,11 @@ Instead of passive core traces
 
 \begin{frame}
 	\frametitle{Simulation Evaluation}
+	\framesubtitle{Mobility Scenario}
 
-	Scenario 2: Mobility
-
-\begin{figure}
-	\centering
-	\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-mobility-facets.pdf}
-	\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and eNBs.}
+	\begin{figure}
+		\includegraphics[height=6cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-mobility-facets.pdf}
+		\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and eNBs.}
 	\end{figure}
 
 \end{frame}
@@ -681,7 +669,7 @@ Instead of passive core traces
 
 \begin{frame}
 \begin{figure}
-	\begin{columns}
+	\begin{columns}[T]
 	\column{.5\textwidth}
 		\centering
 		\includegraphics[width=0.9\columnwidth]{../../chapters/01-intro/images/r-netvine-phenomena-fixed.pdf}
@@ -726,7 +714,7 @@ Instead of passive core traces
 \begin{frame}
 	\frametitle{Further Playback Strategies}
 
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.5\textwidth}
 		\begin{figure}
 			\centering
@@ -740,18 +728,21 @@ Instead of passive core traces
 			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-firefox.pdf}
 			\caption{Sample buffer fill level for the Firefox 4 strategy, \SI{44}{\second} total stalling.}
 		\end{figure}
+	\end{columns}
+\end{frame}
 
-		\begin{algorithmic}
+\begin{frame}
+	\frametitle{Firefox 4 Playback Strategy}
+
+	\begin{algorithmic}
 		\IF {$s_{MA} > v_{MA}$} 
 			\STATE $c \gets ( b_b=20s \lor b_T=20s )$
 		\ELSE
 			\STATE $c \gets ( b_b=30s \lor b_T=30s )$
 		\ENDIF
-		\end{algorithmic}
+	\end{algorithmic}
 
-		To estimate the current and future rates, the moving average of the transmission rate $s_{MA}$ and the video bitrate $v_{MA}$ are calculated. The condition $c$ Firefox uses to start and resume the playback process is given in the algorithm, with the buffered video duration $b_b$, and the duration spent buffering $b_T$.
-
-	\end{columns}
+	To estimate the current and future rates, the moving average of the transmission rate $s_{MA}$ and the video bitrate $v_{MA}$ are calculated. The condition $c$ Firefox uses to start and resume the playback process is given in the algorithm, with the buffered video duration $b_b$, and the duration spent buffering $b_T$.
 \end{frame}
 
 \begin{frame}
@@ -768,7 +759,7 @@ Instead of passive core traces
 \begin{frame}
 	\frametitle{Latency Measurement Series}
 
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.5\textwidth}
 		\begin{figure}
 		\centering
@@ -788,7 +779,7 @@ Instead of passive core traces
 \begin{frame}
 	\frametitle{Loss Measurement Series}
 
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.5\textwidth}
 		\begin{figure}
 		\centering
@@ -927,7 +918,7 @@ Instead of passive core traces
 \end{frame}
 
 \begin{frame}
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.5\textwidth}
 		\begin{figure}
 			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/mm-2g-state-model.pdf}
@@ -943,7 +934,7 @@ Instead of passive core traces
 \end{frame}
 
 \begin{frame}
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.5\textwidth}
 		\begin{figure}
 			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/rrc-state-model.pdf}
@@ -960,8 +951,8 @@ Instead of passive core traces
 
 \begin{frame}
 	\begin{table}
-	\small
-	\caption{Relative TAC statistics.}
+		\caption{Relative TAC statistics.}
+		\scriptsize
 		\begin{tabu}{XX[r]}
 			\toprule
 			\textbf{Type} & \textbf{Relative number of devices with an entry in the TAC dataset}\\ 
@@ -1001,7 +992,7 @@ Instead of passive core traces
 \end{frame}
 
 \begin{frame}
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.5\textwidth}
 		\begin{figure}
 			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/R-tunnel-duration-device-type.pdf}
@@ -1017,7 +1008,7 @@ Instead of passive core traces
 \end{frame}
 
 \begin{frame}
-	\begin{columns}
+	\begin{columns}[T]
 		\column{0.5\textwidth}
 		\begin{figure}
 			\centering
@@ -1047,22 +1038,26 @@ Instead of passive core traces
 		\column{0.5\textwidth}
 		\begin{figure}
 			\includegraphics[width=0.7\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-successful-2h-ecdfs.pdf}
+			\vspace{-4mm}
 			\caption{All tunnel requests.}
 		\end{figure}
 		\vspace{-10mm}
 		\begin{figure}
 			\includegraphics[width=0.7\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-fromflows-gprs-ecdfs-2h.pdf}
+			\vspace{-4mm}
 			\caption{Tunnels with GPRS data flows.}
 		\end{figure}
 
 		\column{0.5\textwidth}
 		\begin{figure}
 			\includegraphics[width=0.7\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-fromflows-ecdfs-2h.pdf}
+			\vspace{-4mm}
 			\caption{Only tunnels with data flows.}
 		\end{figure}
 		\vspace{-10mm}
 		\begin{figure}
 			\includegraphics[width=0.7\columnwidth]{../../chapters/04-mobilenets/images/R-IAT-fromflows-umts-ecdfs-2h.pdf}
+			\vspace{-4mm}
 			\caption{Tunnels with UMTS data flows.}
 		\end{figure}
 	\end{columns}
@@ -1088,7 +1083,7 @@ Instead of passive core traces
 	\frametitle{Exponential Arrival Process Fits}
 
 	\begin{center}
-		\includegraphics[height=7.5cm]{../../chapters/04-mobilenets/images/R-duration-fit-cdf-facets.pdf}
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-duration-fit-cdf-facets.pdf}
 	\end{center}
 \end{frame}
 
@@ -1096,13 +1091,14 @@ Instead of passive core traces
 	\frametitle{Serving Time Rational Functions Fit}
 
 	\begin{center}
-		\includegraphics[height=7.5cm]{../../chapters/04-mobilenets/images/R-IAT-active-fit-cdf-facets.pdf}
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-IAT-active-fit-cdf-facets.pdf}
 	\end{center}
 \end{frame}
 
+
 \begin{frame}
 	\begin{table}
-	\scriptsize
+	\tiny
 	\caption{Parameters for the exponentially distributed inter-arrival times and corresponding Pearson correlation coefficients.}
 		\centering
 		\begin{tabu}{X[0.9,l]X[r]X[r]} 
@@ -1118,7 +1114,7 @@ Instead of passive core traces
 	\end{table}
 
 	\begin{table}
-	\scriptsize
+	\tiny
 	\caption{Inverse rational functions fitted to the ECDFs of the tunnel duration by time of day and correlation coefficients of the fit.}
 		\centering
 		\begin{tabu}{X[1.1,l]X[4.5,r]X[r]} 
@@ -1132,31 +1128,11 @@ Instead of passive core traces
 		\bottomrule
 		\end{tabu}
 	\end{table}
-
-
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{}
-	\begin{center}
-		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/compare-maxinstances-block.pdf}
-	\end{center}
-\end{frame}
-
-
-
-\begin{frame}
-	\frametitle{Scaling Up or Out with a Virtualized GGSN}
-	
-	\begin{center}
-		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-virtualized-instanceuse-barplot.pdf}
-	\end{center}
-\end{frame}
 
 \begin{frame}
 	\frametitle{Queuing Models}
-
 	\begin{center}
 		\includegraphics[height=2cm]{../../chapters/04-mobilenets/images/GGn-model.pdf}
 	\end{center}
@@ -1182,6 +1158,215 @@ Instead of passive core traces
 		\end{itemize}
 	\end{itemize}
 \end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\includegraphics[height=1cm]{../../chapters/04-mobilenets/images/markovchain.pdf}
+		\caption{$M/M/c/\infty$ Markov chain model.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/R-monolithic-blocking.pdf}
+			\caption{Impact of the number of supported parallel tunnels on the blocking probability for the traditional GGSN model.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/04-mobilenets/images/R-monolithic-tunnelusage.pdf}
+			\caption{Mean number of tunnels concurrently served by the GGSN for incrementally increasing capacity.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-virtualized-tunnelusage.pdf}
+		\caption{Comparison of the mean tunnel capacity usage of the individual virtual instance configurations.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-virtualized-mean-instanceusage.pdf}
+		\caption{Mean instance usage of various virtualization configurations. A higher number of total instances results in a finer granularity of scaling and energy efficiency as more instances can be kept shut down.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{}
+	\begin{figure}
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/compare-maxinstances-block.pdf}
+		\caption{Influence of start up and shut down time on blocking probability with regard to different numbers of instances.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-virtualized-startstop-blocking-barchart.pdf}
+		\caption{Influence of the boot and shutdown time on the blocking probability.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Scaling Up or Out with a Virtualized GGSN}
+	
+	\begin{center}
+		\includegraphics[height=7cm]{../../chapters/04-mobilenets/images/R-virtualized-instanceuse-barplot.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[height=6cm]{../../chapters/04-mobilenets/images/R-virtualized-startstop-tunnelusage-blocking-comparison.pdf}
+		\caption{Trade-off between blocking probability and mean resource utilization with regard to maximum number of instances, instance tunnel capacity, and start and stop time.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{table}
+	\caption{Effect sizes of the simulation parameters based on a one-way ANOVA.}
+		\scriptsize
+		\centering
+		\begin{tabu}{X[2.5,l]X[1.0,r]X[0.6,r]X[0.6,r]X[0.6r]}
+		\toprule
+		& $\mathbf{F-ratio}$ & $\mathbf{p-value}$ & $\mathbf{\eta^2}$ & $\mathbf{{\omega}^2}$\\ 
+		\midrule
+		\multicolumn{2}{c}{\textbf{Blocking probability}} & & & \\ 
+		Individual instance tunnel capacity & $104$ & $<0.001$ & $0.468$ & $0.463$\\ %F(12, 1417)=
+		Number of instances & $9.29$ & $<0.001$ & $0.056$ & $0.050$\\ %F(9,1420)=
+		Start/stop duration & $0.21$ & $0.931$ & $<0.001$ & $0.002$\\ %F(4,1425)=
+		Total tunnel capacity & $317257$ & $<0.001$ & $0.999$ & $0.999$ \\ %F(12,1417=
+		\midrule
+		\multicolumn{2}{c}{\textbf{Mean number of tunnels}}& & & \\ 
+		Individual instance tunnel capacity & $105.7$ & $<0.001$ & $0.472$ & $0.467$\\ %F(12,1417)=
+		Number of instances & $9.39$ & $<0.001$ & $0.056$ & $0.050$\\ %F(9,1420)=
+		Start/stop duration & $0.25$ & $0.912$ & $<0.001$ & $0.002$\\ %F(4,1425)=
+		Total tunnel capacity & $365753$ & $<0.001$ & $0.999$ & $0.999$ \\ %F(12,1417)=
+		\bottomrule
+		\end{tabu}
+	\end{table}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+	\begin{figure}
+		\includegraphics[height=5cm]{../../chapters/05-mobilestreaming/images/layer-timescales.pdf}
+		\caption{Approximate discernible time scales the networking stack protocols operate on in each layer.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{TCP Changes in the Linux Kernel}
+		\tiny
+		\begin{tabu}{X[1.4]X[0.4]X[0.4]X[0.7]}
+		\toprule
+		\textbf{Change} & \textbf{Related Work} & \textbf{Kernel} & \textbf{Date} \\
+		\midrule
+		BIC as default congestion avoidance algorithm (from Reno) & & 2.6.8 & August 2004 \\
+		CUBIC as default congestion avoidance algorithm & \cite{ha2008cubic} & 2.6.19 & November 2006 \\
+		New TCP Slow Start: HyStart & \cite{Ha20112092} & 2.6.29 & March 2009 \\
+		Multipath TCP & \cite{rfc6824} & external & 2011 \\
+		TCP User Timeout & \cite{rfc5482} & 2.6.37 & January 2011 \\
+		Initial Receive Window \SI{10}{MSS} & \cite{rfc6928} & 2.6.38 & March 2011 \\
+		Initial Congestion Window \SI{10}{MSS} & \cite{rfc6928} & 2.6.39 & May 2011 \\
+		\SI{1}{\second} initial RTO (from \SI{3}{\second}) & \cite{rfc6298} & 3.1 & October 2011 \\
+		Changes to sstresh and CWND bevahior & \cite{rfc5681} & 3.1 & October 2011 \\ % details: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=9ad7c049f0f79c418e293b1b68cf10d68f54fcdb
+		TCP Proportional Rate Reduction & \cite{rfc6937} & 3.2 & January 2012 \\
+		Byte queue limits and TCP buffer limits &  & 3.3 & March 2012 \\ % https://lwn.net/Articles/454390/
+		CoDel AQM & \cite{nichols2014codel} & 3.5 & July 2012 \\
+		TCP Early Retransmit & \cite{rfc5827} & 3.5 & July 2012 \\
+		TCP small queues & & 3.6 & September 2012 \\ %http://lwn.net/Articles/507065/
+		TCP Fast Open (client side) & \cite{cheng2014tcptfo} & 3.6 & September 2012 \\
+		TCP Fast Open (server side) & & 3.7 & December 2012 \\
+		TCP tail loss probe & & 3.10 & June 2013 \\ % http://tools.ietf.org/html/draft-dukkipati-tcpm-tcp-loss-probe-01
+		TCP Forward RTO-Recovery & \cite{rfc5682} & 3.10 & June 2013 \\
+		Low latency network polling & & 3.11 & September 2013 \\ %http://lwn.net/Articles/551284/ and http://www.linuxplumbersconf.org/2012/wp-content/uploads/2012/09/2012-lpc-Low-Latency-Sockets-slides-brandeburg.pdf
+		Improved RTO calculation and handling of reordering & & 3.12 & November 2013 \\ % https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=0f7cc9a3c2bd89b15720dbf358e9b9e62af27126 and https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=ed08495c31bb991de636d2488abaa50b39f2ff4a
+		TCP Fast Open enabled by default & & 3.13 & January 2014 \\
+		TCP auto corking & & 3.14 & March 2014 \\ % https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=f54b311142a92ea2e42598e347b84e1655caf8e3
+		PIE AQM & & 3.14 & March 2014 \\ % http://tools.ietf.org/html/draft-pan-aqm-pie-01 and https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=d4b36210c2e6ecef0ce52fb6c18c51144f5c2d88
+		TCP Fast Open over IPv6 & & 3.16 & 2014 \\
+		LISP & \cite{rfc6830} & 3.16 & 2014 \\
+		\bottomrule
+		\end{tabu}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+	\frametitle{Sensorium}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=0.6\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/sensorium.png}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=0.6\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/sensorium-settings.png}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\includegraphics[height=6cm]{../../chapters/06-mobilestreamingmeasurements/images/o3gm.png}
+		\caption{The O3GM web page, displaying a 3G coverage measurements layer with data collected by Sensorium on top of the OpenStreetMap base layer.}
+	\end{figure}
+\end{frame}
+
+
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[height=2cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-hybrid.pdf}
+		\caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-bwseries-stallduration.pdf}
+			\caption{Relative stalling duration of the simulated reliable streaming player under limited Internet bandwidth.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-bwseries-numstalls.pdf}
+			\caption{Number of stalling events of the simulated reliable streaming player under limited Internet bandwidth.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-latencyseries-stallduration.pdf}
+			\caption{Relative stalling duration of the simulated reliable streaming player under increased Internet latency.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-latencyseries-numstalls.pdf}
+			\caption{Number of stalling events of the simulated reliable streaming player under increased Internet latency.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
 
 \setcounter{framenumber}{\value{finalframe}}
 
