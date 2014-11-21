@@ -13,11 +13,11 @@ When work on this dissertation thesis had started, both of these fields began to
 
 But again both also seemed to lack proper measurement and evaluation methods and models. This is what was tackled in this work: 
 
-One one side, a categorization approach and measurement model for reliable progressive video streaming, that bases itself on emulating the streaming client's video playback and strategies, was introduced. With this at hand, a number of different strategies, cloned from previously existing real streaming solutions, were tested in a network emulation testbed and found an interaction of the connection's latency and loss properties with the video streaming stalling characteristics. This measurement model can be utilized to test new playback strategies for real applications.
-
-On the other side, light was shed on the control plane interactions of a typical \gls{3G} core network. The mobile networks' overly strong focus on signaling procedures and statefulness can be the source of numerous scalability issues as was previously explored for the radio interface. Here, through the analysis of network traces of a large operational mobile core network a novel definition of load in the core network was created. This load was put in relation to \gls{gtp} tunnel management signaling between the two central core nodes \gls{SGSN} and \gls{GGSN}. 
+One one side, light was shed on the control plane interactions of a typical \gls{3G} core network. The mobile networks' overly strong focus on signaling procedures and statefulness can be the source of numerous scalability issues as was previously explored for the radio interface. Here, through the analysis of network traces of a large operational mobile core network a novel definition of load in the core network was created. This load was put in relation to \gls{gtp} tunnel management signaling between the two central core nodes \gls{SGSN} and \gls{GGSN}. 
 
 Diurnal variations and dependencies on the user's device and its user traffic characteristics could be observed in the trace. A queuing theory model that describes the load at a \gls{GGSN} the load properties was derived from these findings and takes the form of a non-stationary Erlang loss model. With the help of this model a new spin on the \gls{GGSN}'s makeup using virtualization was introduced and tested in simulations to provide better load scaling options.
+
+On the other side, a categorization approach and measurement model for reliable progressive video streaming, that bases itself on emulating the streaming client's video playback and strategies, was introduced. With this at hand, a number of different strategies, cloned from previously existing real streaming solutions, were tested in a network emulation testbed and found an interaction of the connection's latency and loss properties with the video streaming stalling characteristics. This measurement model can be utilized to test new playback strategies for real applications.
 
 Testing reliable video streaming in a mobile network and understanding its apparent behavior might be a very interesting combination of the two seemingly independent fields. But it also became clear during the evaluation of the mobile dataset, that specific user traffic patterns can have a direct influence on the core's control plane. Segmented reliable streaming can show a certain ON-OFF style traffic pattern, that may interact badly with the timers governing the control plane state and increase the core load.
 
@@ -37,22 +37,23 @@ Many of the issues with streaming in mobile networks discussed in this work have
 
 Alas, work on all these individual items discussed here is certainly not done. As usual in scientific work, progress will be made in small iterative steps. Therefore, this final section collects some planned work and ideas that follow up on the thesis's research angles in the future.
 
-Concerning the modeling and measurement of reliable streaming it is important to keep up with the current flavors of playback strategies. Now that adaptive streaming is being used more widespread adaptive strategies should also be taken more into consideration. In addition, the changes on other protocol layers have to be constantly monitored for their potential influence on streaming. New protocols should be tested if they are viable for reliable streaming. 
-
-For example, \gls{HTTP}/2's improved multiplexing features could be worthwhile for the simultaneous transport of multiple streaming segments. This is especially helpful when \gls{SVC} is employed to provide the various quality levels in adaptive streaming. Multiplexing would allow multiple layers to be transported with differing priority simultaneously using just one connection.
-
-The more strategies are known and understood the more candidates are available in the search for the best strategy fitting a given scenario or applicable to most cases. A good candidate here is probably an adaptive threshold strategy which observes its buffer fill rate in a sliding window.
-
-When the base effects of the stalling characteristics are well understood, more complex adaptive streaming metrics could also be derived from this to better represent the \gls{QoE}. A potential objective \gls{MOS} computation could relate these basic statistics to subjective quality impressions gained from user studies as was already conducted in other publications for plain progressive streaming.
-
-%% 
-Moving on to mobile core networks, most of the deductions were made on the basis of a single core network trace from one network and need to be verified with additional and more recent traces from other networks. This could simultaneously observe if there have happened any changes in the time after the original trace was recorded.
+Concerning mobile core networks, most of the deductions were made on the basis of a single core network trace from one network and need to be verified with additional and more recent traces from other networks. This could simultaneously observe if there have happened any changes in the time after the original trace was recorded.
 
 That trace did also lack some particular interesting details regarding the actual \gls{gtp} \gls{IE} data from the messages and control plane procedures on off-user-traffic-path links (e.g., to the \gls{HLR}). Any subsequent recording should therefore factor in more information and should provide measurements at several synchronized vantage points inside the network to better correlate the individual message. Additional probes at the radio or backhaul links could prove especially fruitful in this endeavor. 
 
 But as the usage \gls{UMTS} is declining in favor of \gls{LTE} or even \gls{LTE}-Advanced, the core control plane in these networks also needs to be put under close scrutiny, and not just in a simulator as in this work. A multi-vantage point measurement campaign in an actual \gls{EPC} can make an informed comparison to the existing \gls{3G} trace and find improvements or regressions. As the combination of \gls{SGSN} and \gls{GGSN} is replaced by \gls{SGW}/\gls{PGW} with a slightly different subset of functionalities a new core load queuing model should also be created in the course of the trace's statistical evaluation with these differences in mind. This can also lead to better load models once more core network elements are evaluated and factored into the queuing model --- especially including the off-user-traffic path elements, including the \gls{HSS}, \gls{MME}, or \gls{PCRF}.
 
 Through this process, suggestions for future further iterations of the mobile network control plane specifications can be derived and taken into consideration. Any upcoming measurement campaign should also consider running a concurrent reliable video streaming active measurement experiment in the observed network. A correlation between streaming traffic and occurring control plane signaling could be drawn much more easily.
+
+
+%% 
+Moving on to the modeling and measurement of reliable streaming it is important to keep up with the current flavors of playback strategies. Now that adaptive streaming is being used more widespread adaptive strategies should also be taken more into consideration. In addition, the changes on other protocol layers have to be constantly monitored for their potential influence on streaming. New protocols should be tested if they are viable for reliable streaming. 
+
+For example, \gls{HTTP}/2's improved multiplexing features could be worthwhile for the simultaneous transport of multiple streaming segments. This is especially helpful when \gls{SVC} is employed to provide the various quality levels in adaptive streaming. Multiplexing would allow multiple layers to be transported with differing priority simultaneously using just one connection.
+
+The more strategies are known and understood the more candidates are available in the search for the best strategy fitting a given scenario or applicable to most cases. A good candidate here is probably an adaptive threshold strategy which observes its buffer fill rate in a sliding window.
+
+When the base effects of the stalling characteristics are well understood, more complex adaptive streaming metrics could also be derived from this to better represent the \gls{QoE}. A potential objective \gls{MOS} computation could relate these basic statistics to subjective quality impressions gained from user studies as was already conducted in other publications for plain progressive streaming.
 
 
 %%
