@@ -34,6 +34,7 @@
 *.tmp
 *.run.xml
 dissertation.pdf
+dissertation-pdfa2b.pdf
 .Rhistory
 *.fls
 *.pyc

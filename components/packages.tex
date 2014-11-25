@@ -2,6 +2,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% packages
 
+%\usepackage{pdf14}
+% \pdfminorversion=4
+% \pdfobjcompresslevel=0
+% \pdfcompresslevel=0
+%\usepackage[a-1b]{pdfx}
+\usepackage{hyperxmp}
+
 %% detect and set proper values for lualatex
 \usepackage{ifluatex}
 \ifluatex
@@ -52,7 +59,7 @@
 \usepackage{enumitem} % inline lists, etc.
 \usepackage{array} % ?
 \usepackage{styles/tangocolors}
-\usepackage[colorlinks, unicode=true]{hyperref}
+\usepackage[colorlinks, unicode=true,pdfa]{hyperref}
 \hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=linkblue, citecolor=webgreen}
 \usepackage[acronym, nomain, style=tree, toc, section=chapter, nogroupskip=true]{glossaries}
 \usepackage{textcomp} % extra symbols; used for euro and copyright symbol

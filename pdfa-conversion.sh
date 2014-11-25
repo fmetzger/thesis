@@ -1,0 +1,1 @@
+gs -dPDFA=2 -dBATCH -dNOPAUSE -sColorConversionStrategy=/RGB -sProcessColorModel=DeviceRGB -sOutputICCProfile=/usr/share/color/icc/sRGB.icc -dPDFACompatibilityPolicy=1 -sDEVICE=pdfwrite -sOutputFile=dissertation-pdfa2b.pdf dissertation.pdf
