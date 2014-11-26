@@ -163,9 +163,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.88"
-     inkscape:cx="359.43626"
-     inkscape:cy="797.8683"
+     inkscape:zoom="1.2445079"
+     inkscape:cx="250.21851"
+     inkscape:cy="442.71666"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -217,18 +217,19 @@
          id="flowPara4902" /></flowRoot>    <path
        inkscape:connector-curvature="0"
        id="path5181-7-4"
-       d="m 28.903856,280.70022 0,41.71309"
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2, 2;stroke-dashoffset:0;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend)" />
+       d="m 24.056433,276.15477 -21.3778413,0.25996 0,319.37713 21.4158763,-0.0486"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2, 2;stroke-dashoffset:0;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend)"
+       sodipodi:nodetypes="cccc" />
     <text
        sodipodi:linespacing="125%"
        id="text5243-7"
        y="307.33646"
-       x="-1.8515621"
+       x="4.148438"
        style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
        xml:space="preserve"><tspan
          style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Biolinum O;-inkscape-font-specification:Linux Biolinum O"
          y="307.33646"
-         x="-1.8515621"
+         x="4.148438"
          id="tspan5245-9"
          sodipodi:role="line">U<tspan
    id="tspan3403"
@@ -1658,9 +1659,10 @@
          style="-inkscape-font-specification:Linux Biolinum O;font-family:Linux Biolinum O;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Internet</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2, 2;stroke-dashoffset:0;marker-start:url(#Arrow2Mstart-5);marker-end:url(#Arrow2Mend-62)"
-       d="m 672.57499,602.36749 0,47.40829 -645.234924,0 0,28.12357"
+       d="m 672.57499,600.92404 0,49.22028 -669.8963983,0 0,347.83788 21.2723523,0.0761"
        id="path13642"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect4398-7-2-4-0-9-7-3"

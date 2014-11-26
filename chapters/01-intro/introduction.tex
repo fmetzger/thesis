@@ -35,7 +35,7 @@ During the past decades these principles have often been discussed~\cite{bhattac
 \label{c1:fig:traffic-cisco}
 \end{figure}
 
-The total volume of Internet traffic has been rising exponentially for many years as many traffic studies suggest, for example in a Cisco study of ``consumer'' traffic in Figure~\ref{c1:fig:traffic-cisco}. One of the largest contributing factors to today's traffic composition is arguably video traffic. It can be most dominantly observed in the mix of North America's fixed access depicted in Figure~\ref{c1:fig:traffic-netvine-fixed}. The two main sources for this video traffic are typically streaming services like YouTube\footnote{\url{https://www.youtube.com}} and Netflix\footnote{\url{https://www.netflix.com}}, or live streaming and casting sites like Twitch\footnote{\url{http://twitch.tv}}. 
+The total volume of Internet traffic has been rising rapidly for many years as most traffic studies suggest, for example in a Cisco study of ``consumer'' traffic in Figure~\ref{c1:fig:traffic-cisco}. One of the largest contributing factors to today's traffic composition is arguably video traffic. It can be most dominantly observed in the mix of North America's fixed access depicted in Figure~\ref{c1:fig:traffic-netvine-fixed}. The two main sources for this video traffic are typically streaming services like YouTube\footnote{\url{https://www.youtube.com}} and Netflix\footnote{\url{https://www.netflix.com}}, or live streaming and casting sites like Twitch\footnote{\url{http://twitch.tv}}. 
 
 \begin{figure}[htb]
 	\centering
@@ -46,7 +46,7 @@ The total volume of Internet traffic has been rising exponentially for many year
 
 Studies predicting the development of the Internet's traffic also tell of the large influence of video traffic in the near future. As the video traffic volume has become so predominant, it is very important to understand its dynamics from a modeling and performance evaluation point of view, as specific behaviors of video traffic might significantly influence the underlying network and vice versa. 
 
-Protocols specifically created for the purpose of video streaming --- defined as ``watching the video while it is still being transmitted'' --- have existed for a long time and their behavior is well researched. The most prominent is \gls{rtp}, which has been specified as early as 1996~\cite{rfc1889}. And yet they are not responsible for the gross of the Internet's video traffic seen today.
+Protocols specifically created for the purpose of video streaming --- which can be defined as ``watching the video while it is still being transmitted'' --- have existed for a long time and their behavior is well researched. The most prominent is \gls{rtp}, which has been specified as early as 1996~\cite{rfc1889}. And yet they are not responsible for the gross of the Internet's video traffic seen today.
 
 Instead, a new class of \gls{TCP}-based and not standardized streaming approaches has arisen, which integrate themselves much better into the current Web ecosystem. And they are using completely different modes of transportation and control. Finding ways to investigate these new streaming protocols, including their categorization, measurement, and modeling, will be the first task of this thesis.
 
@@ -59,9 +59,9 @@ Streaming, and media transport in general, is also not just relevant for the pur
 Much of today's Web interactions are today carried out over mobile networks using smartphones. Despite their rapid evolution, mobile networks still carry much heritage from their circuit switching roots.\footnote{For an historical overview of mobile phone standards refer to \url{https://en.wikipedia.org/wiki/History_of_mobile_phones}.}
 Starting in the 1950s with early analog predecessors like the German ``A-Netz'' and first generation cellular structured networks in the eighties, mobile telephony entered the fully digital world with the European \gls{GSM} and competing \gls{CDMA}-based technologies around the year 1991. This was similar to the development in the \gls{POTS} with its shift away from the analog roots to digital circuit switching technologies like \gls{ISDN}.
 
-Because of the huge success of \gls{GSM} and its packet-switching extension \gls{GPRS} it was used as a blueprint for the following mobile network standard evolutions \gls{UMTS} (including \gls{HSPA} and \gls{HSPA+}), \gls{LTE} and also the upcoming \gls{LTE} Advanced. 
+Because of the huge success of \gls{GSM}, and its packet-switching extension \gls{GPRS}, its architecture was used as a blueprint for the following mobile network standard evolutions \gls{UMTS} (including \gls{HSPA} and \gls{HSPA+}) and \gls{LTE}. 
 
-Through this heritage, many mobile network elements and protocol have undergone only minor changes since their \gls{GSM} versions. Due to the hereditary roots in \gls{CS} networks \gls{CS}, a large amount of state is kept inside the network a explicitly managed through a high volume of signaling interactions. This can create a wide range of problems, creating unwanted interactions of specific traffic patterns with the control plane and overwhelming the network's control plane structures. 
+Through this heritage, many mobile network elements and protocol have undergone only minor changes since their \gls{GSM} versions. Due to the hereditary roots in \gls{CS} networks, a large amount of state is kept inside the network and explicitly managed through a high volume of signaling interactions. This can create a wide range of problems, creating unwanted interactions of specific traffic patterns with the control plane and overwhelming the network's control plane structures. 
 
 \begin{figure}[htb]
 	\centering
@@ -72,7 +72,7 @@ Through this heritage, many mobile network elements and protocol have undergone 
 
 These issues have only begun to show up in recent years due to the large influx of new user and usage scenarios. Traffic in cellular networks follows a development similar to that of the Internet as a whole. Through the advent of affordable high performance smartphones, a thriving mobile application ecosystems, and faster access technologies many are now using their phones as the primary device for interacting with the Internet. Video, too, has here become one of the largest contributors of cellular traffic as Figure~\ref{c1:fig:traffic-netvine-mobile} depicts.
 
-However, heavy traffic on a stateful network poses unique challenges to the performance, the architectural design, and dimensioning of network protocols. This becomes even more pronounced by the circumstance, that operators and vendors usually regard any details on mobile networks equipment as closely kept trade secrets Thus, little is known of the exact make-up of these networks as they are closely guarded secrets of the operator.
+However, heavy traffic on a stateful network poses unique challenges to the performance, the architectural design, and dimensioning of network protocols. This becomes even more pronounced by the circumstance, that operators and vendors usually regard any details on mobile networks equipment as closely kept trade secrets. Thus, little is known of the exact make-up of these production networks.
 
 The investigation of the signaling structures in the core of today's mobile networks represents the second task of this thesis. It is also closely interlocked with the evaluation of video streaming traffic as they are nowadays often seen together.
 
@@ -80,16 +80,14 @@ The investigation of the signaling structures in the core of today's mobile netw
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Research Methods and Approaches}
 
-As is the case with any scientific endeavor, this work is based on a specific set of tools and knowledge of many years of prior research. Measuring, evaluating and modeling is standard practice in many fields. Therefore, tools are available to tackle any kind of problem, but one still has to choose the most fitting ones for a given specific issue.
+As is the case with any scientific endeavor, this work is based on a specific set of tools and knowledge of many years of prior research. Measuring, evaluating and modeling is standard practice in many fields. Therefore, tools are available to tackle most kinds of problems, but one still has to choose and properly define the most fitting ones for a given specific issue. Figure~\ref{c1:fig:appcomp} categorizes tools available to a performance analyst, with their corresponding level of detail and abstraction. 
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.0\textwidth]{images/apparatus.pdf}
-	\caption{Methodical solution spaces and apparatus comparison.}
+	\caption{Methodical solution spaces and apparatus comparison (based on \cite[p.~2]{tran2005einfuhrung}).}
 \label{c1:fig:appcomp}
 \end{figure}
-
-Figure~\ref{c1:fig:appcomp} attempts to categorize all tools available to a performance analyst, with their corresponding level of detail and abstraction.
 
 The most precise results will always be achieved through actual measurements of the actual system under scrutiny. This will give a point of reference and can be used to validate the accuracy of other methods. But it also comes with a hefty price of huge amounts of data to process and understand. With such measurements at hand, one can now start to make sense of this data and extract the relevant features observed in this process.
 
@@ -140,7 +138,7 @@ The knowledge attained from these previous approaches can then finally be put in
 Following these research lines, several contributions are made, which will be broken down into five major chapters.
 
 
-The facets of mobile core networks are put under scrutiny in both Chapters~\ref{chap:mobilenets} and \ref{chap:mobilenetsmeasuring}. As the amount of specifications as well as architecture, procedure, and protocol details is vast, the mobile core architectural background Section~\ref{c4:sec:3gpparchitecture} attempts to put all the basics together with additional related work in Section~\ref{c4:sec:relwork}.
+The facets of mobile core networks are put under scrutiny in both Chapters~\ref{chap:mobilenets} and \ref{chap:mobilenetsmeasuring}. As the amount of specifications as well as architecture, procedure, and protocol details is vast, the mobile core architectural background in Section~\ref{c4:sec:3gpparchitecture} attempts to put all the basics together with additional related work in Section~\ref{c4:sec:relwork}.
 
 With this foundation laid out, the actual goal of the investigations will now be defined in Section~\ref{c4:sec:loaddefinition}: a novel definition of load in a mobile network, based on the control plane and not just the user plane. To investigate this load a passive measurement data set is used. Section~\ref{c4:sec:methodology} describes the acquisition of the set and how it should be interpreted. The set is then evaluated for its signaling characteristics in Section~\ref{c4:sec:evaluations} and the data is used to formulate two queuing theoretic load models in Section~\ref{c4:sec:modeling} which are then thoroughly  tested using a queuing simulation in Section~\ref{c4:sec:simulation}. With these models mobile network operators can better dimension and plan their networks according to control plane load and not just to accommodate user traffic.
 

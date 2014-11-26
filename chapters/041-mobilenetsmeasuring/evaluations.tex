@@ -333,13 +333,19 @@ Instead, rational functions are fitted to the \glspl{ECDF} using the proprietary
 	\toprule
 	\textbf{Time of Day} & \textbf{Inverse Serving Time \gls{CDF} Representation} & $\mathbf{R_{dur}}$\\ 
 	\midrule
-	0h-5h & $0.919208 - 60.6136y - 3498.78y^3 - \frac{110.707y + 2289.94y^3}{y - 1.00469}$ &  $0.999$ \\
-	6h-11h & $1 + 117.484y - 368.643y^2 - \frac{1720.13y^4}{y - 1.0041}$ & $0.999$ \\
-	12h-17h & $0.952566 + 69.4907y + \frac{81146.1y^3 + 1.08572\times10^6y^5}{805 - 802.01y}$ & $0.999$ \\
-	18h-23h & $0.911924 + 82.0562y - \frac{2936.93y^4}{1.94468y - 1.9532}$ & $0.999$ \\
+	0h-5h & $0.919 - 60.614y - 3498.78y^3 - \frac{110.707y + 2289.94y^3}{y - 1.005}$ &  $0.999$ \\
+	6h-11h & $1 + 117.484y - 368.643y^2 - \frac{1720.13y^4}{y - 1.004}$ & $0.999$ \\
+	12h-17h & $0.953 + 69.491y + \frac{81146.1y^3 + 1.086\times10^6y^5}{805 - 802.01y}$ & $0.999$ \\
+	18h-23h & $0.912 + 82.056y - \frac{2936.93y^4}{1.945y - 1.953}$ & $0.999$ \\
 	\bottomrule
 	\end{tabu}
 \end{table}
+
+	% high precision:
+	% 0h-5h & $0.919208 - 60.6136y - 3498.78y^3 - \frac{110.707y + 2289.94y^3}{y - 1.00469}$ &  $0.999$ \\
+	% 6h-11h & $1 + 117.484y - 368.643y^2 - \frac{1720.13y^4}{y - 1.0041}$ & $0.999$ \\
+	% 12h-17h & $0.952566 + 69.4907y + \frac{81146.1y^3 + 1.08572\times10^6y^5}{805 - 802.01y}$ & $0.999$ \\
+	% 18h-23h & $0.911924 + 82.0562y - \frac{2936.93y^4}{1.94468y - 1.9532}$ & $0.999$ \\
 
 Table~\ref{c4:tab:fits-duration} contains the functions which were fitted to the \textit{inverse} \gls{CDF}. The inverse was chosen here to simplify the modeling and simulation process coming afterwards. The functions can be easily inverted again for other purposes. Both the \glspl{CDF} in the plot as well as the Pearson correlation coefficient, which again approach $1$, confirm the goodness of the fitted functions.
 
