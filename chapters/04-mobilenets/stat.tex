@@ -20,11 +20,11 @@ Sample of real data are generally finite and not continuous. Hence, the distribu
 	\phantom{.}F_n(x) = \frac{\text{number of }X_1, X_2, \ldots , X_i \leq x}{n}\text{.}
 \end{equation}
 
-One of the analysis's goal is to break down the actual measured system to a simplified probability model. This can be conducted by attempting to match the data's \gls{ECDF} to an existing basic probability distribution, e.g., exponential Gamma, log-normal, or Weibull. In order to achieve this one of several readily available matching methods, which rely either on closed formulas or numerical optimization, can be used. Two simple methods are \textbf{Matching Moments}~\cite[pp.~99-143]{vose2000risk} and \textbf{Maximum Likelihood}.
+One of the analysis's goal is to break down the actual measured system to a simplified probability model. This can be conducted by attempting to match the data's \gls{ECDF} to an existing basic probability distribution, e.g., exponential Gamma, log-normal, or Weibull. In order to achieve this one of several readily available matching methods, which rely either on closed formulas or numerical optimization, can be used. Two simple methods are \textit{Matching Moments}~\cite[pp.~99-143]{vose2000risk} and \textit{Maximum Likelihood}.
 
 The former estimates parameters for a preselected distribution functions by optimizing the target distribution function to converge its moments to that of the sample data. The latter approach finds a fitting target probability function by calculating the log-likelihood of the data for a preselected distribution and maximizing the likelihood.
 
-In such cases where none of the basic probability distributions proved to be a good fit an attempt was made to converge rational functions to the sample \gls{ECDF} with an optimization tool specialized for this case, Eureqa~\cite{eureqa_software, eureqa_paper}. While not as good as a simple model with a probability distribution, having a rational function as a description for a dataset can enable some further statistical and queuing theoretic evaluation.
+In such cases where none of the basic probability distributions proved to be a good fit an attempt was made to converge rational functions to the sample \gls{ECDF} with an optimization tool specialized for this case, Eureqa~\cite{eureqa_software, eureqa_paper}. While not as good as a simple model with a probability distribution, having a rational function as a description for a dataset can still enable some further statistical and queuing theoretic evaluation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,7 +32,7 @@ In such cases where none of the basic probability distributions proved to be a g
 
 To check the statistical goodness of the generated fits, statistical tests can be used. Generally, tests compare the values observed in an experiment to expected values following a theoretical distribution. In this case, the tests are used to validate and estimate the quality of the discovered fits to the empirical data.
 
-First, as a simple measure, the \textbf{Pearson correlation coefficient} can be facilitated, comparing the covariance and standard deviation of the empirical and fitted variables. Another possible approach is \textbf{Pearson's $\chi^2$ test for independence}~\cite{doi:10.1080/14786440009463897}, which is the oldest known test and defined as
+First, as a simple measure, the \textit{Pearson correlation coefficient} can be facilitated, comparing the covariance and standard deviation of the empirical and fitted variables. Another possible approach is \textit{Pearson's $\chi^2$ test for independence}~\cite{doi:10.1080/14786440009463897}, which is the oldest known test and defined as
 
 \begin{equation}
 	\phantom{.}V=\sum_{i=1}^{k} \frac{{(o_i - e_i)}^2}{e_i}\text{.}
@@ -42,7 +42,7 @@ This simply calculates the sum of the squared difference between the observed $o
 %\footnote{The degree of freedom of count experiments is one less than the number of observable categories.}
 as the test for a given significance level. In most practical cases this comparison is conducted against precomputed tables with set significance levels. The data collected in this thesis is typically continuous in nature on which this test cannot be used directly. However, data could still be split into a finite number of intervals, as is done when generating a histogram, and then using the intervals as categories for the $\chi^2$ test, albeit with a certain loss of precision.
 
-Continuous data can be checked with the \textbf{Kolmogorov-Smirnov test}. First suggested by Kolmogorov in 1933~\cite{kolmogorov1933sulla} and expanded on by Smirnov in 1939~\cite{smirnov1939estimation} it is defined as
+Continuous data can be checked with the \textit{Kolmogorov-Smirnov test}. First suggested by Kolmogorov in 1933~\cite{kolmogorov1933sulla} and expanded on by Smirnov in 1939~\cite{smirnov1939estimation} it is defined as
 
 \begin{align}
 	K_n^+ &= \sqrt{n} \sup_{-\infty < x < + \infty} \left( F_n(x) - F(x) \right) \\
@@ -52,7 +52,7 @@ Continuous data can be checked with the \textbf{Kolmogorov-Smirnov test}. First 
 %
 for the \gls{ECDF} $F_n(x)$ and \gls{CDF} $F(x)$. Once again the results are compared against a precomputed table of values from the Kolmogorov-Smirnov distribution to test the significance of the observed results' deviation from expected values. 
 
-Finally, every fit should in addition always undergo a \textbf{Visual Inspection}. Diagrams, of the empirical and fitted distribution --- especially histograms, density, and \gls{CDF} --- should be compared and checked for specific artifacts or outliers. 
+Finally, every fit should in addition always undergo a \textit{Visual Inspection}. Diagrams, of the empirical and fitted distribution --- especially histograms, density, and \gls{CDF} --- should be compared and checked for specific artifacts or outliers. 
 
 
 

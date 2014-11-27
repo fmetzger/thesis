@@ -18,7 +18,7 @@ A traditional definition of link load $\rho_{l}$ is the ratio of the used versus
 The network load $\rho_{N}$ can then simply be defined as the average load of all involved links
 
 \begin{equation}
-	\phantom{.}\rho_{N} = \frac{\sum_{i}^{N} \rho_{l,i}}{N}\text{.}
+	\phantom{.}\rho_{N} = \frac{\sum_{i \in N} \rho_{l,i}}{N}\text{.}
 \end{equation}
 
 However, the link itself is not the only component that has a limited capacity and thus can experience load. A link's capacity is determined by the transmission speed of the interfaces of the two involved network nodes. Any involved node has also other limiting factors, mostly related to the available memory, processing power, or some other resource with fixed capacity.

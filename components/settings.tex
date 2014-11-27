@@ -144,11 +144,10 @@
 
 %% titlesec settings
 % section heading styles     
-\newfont{\chapterNumber}{eurb10 scaled 7000} % chapter number font
 %\AtBeginDocument{\addtocontents{toc}{\protect\vspace{-\cftbeforechapskip}}}
 
 \titleformat{\chapter}[display]%
-  {\relax}{\vspace*{-3\baselineskip}\makebox[\linewidth][r]{\color{halfgray}\chapterNumber\thechapter}}{0pt}%
+  {\relax}{\vspace*{-3\baselineskip}\makebox[\linewidth][r]{\color{halfgray}\fontsize{2.7cm}{1em}\selectfont\thechapter}}{0pt}%
   {\raggedright\spacedallcaps}[\normalsize\vspace*{.8\baselineskip}\titlerule]%
 
 % sections
