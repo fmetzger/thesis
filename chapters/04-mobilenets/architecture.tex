@@ -40,13 +40,13 @@ In \gls{UMTS} multiple base stations are concentrated into one \gls{RNC}. Most o
 %%
 \subsection{\texorpdfstring{\acrshort{3GPP}}{3GPP} Core Network}
 
-The \gls{PS} domain of a mobile core network manages most of the aspects of the connected devices and acts as the bridge and gateway to the Internet. It consists of nodes that are directly in the path of the user plane traffic as well as additional nodes, that only exist in the control plane.
+The \gls{PS} domain of a mobile core network manages most of the aspects of the connected devices and acts as the bridge and gateway to the Internet. It consists of nodes that are directly in the path of the user plane traffic as well as additional nodes that only exist in the control plane.
 
 \gls{GPRS} and \gls{UMTS} use the exact same \gls{PS} core network architecture. Only \gls{LTE} introduced a new core network concept, the \gls{EPC}. If one core has to simultaneously provide support for both \gls{UMTS} and \gls{LTE} access, core nodes for both architectures have to be present. The exception are some \gls{EPC} nodes that provide legacy interfaces to supplant their \gls{UMTS} predecessors.
 
 The two central elements in the user plane's path are the \gls{SGSN} and the \gls{GGSN}~\cite{3gpp.22.060,3gpp.23.060}. The \gls{SGSN} is the endpoint of the \gls{RAB}, tunneling user traffic from the \gls{UE} to the core, and an endpoint for the \gls{gtp} based core tunnel, further transporting user plane traffic to the \gls{GGSN}. \Gls{gtp} will be described in detail in Section~\ref{c4:sec:gtp}. The \gls{GGSN}'s control plane tasks include mobility and connection management via \gls{RANAP} to the \gls{RNC}. The necessary information is cached and retrieved from the \gls{HLR} using \gls{MAP}~\cite{3gpp.29.002}. The \gls{HLR} or, respectively, the \gls{HSS} in an \gls{EPC}, acts as the central storage of all the operator's subscriber information.
 
-The \gls{GGSN} represents the gateway to the public Internet and therefore typically is the only node in the network, that has a publicly routable \gls{IP} address. It filters incoming traffic into the corresponding \gls{gtp} tunnel and routes packets to the correct \gls{SGSN}. State about any active tunnel and device has to be kept locally and is initially retrieved from the \gls{SGSN}.
+The \gls{GGSN} represents the gateway to the public Internet and therefore typically is the only node in the network that has a publicly routable \gls{IP} address. It filters incoming traffic into the corresponding \gls{gtp} tunnel and routes packets to the correct \gls{SGSN}. State about any active tunnel and device has to be kept locally and is initially retrieved from the \gls{SGSN}.
 
 In \gls{EPC} user traffic in the core is handled by the \gls{SGW} and \gls{PGW}, having similar functions as their \gls{GPRS} counterparts \gls{SGSN} and \gls{GGSN}. Depending on the specific version of the implemented infrastructure these two nodes can also be combined into one, eliminating the S5 interface and the \gls{gtp} signaling between them. Much of the control plane tasks of the \gls{SGSN} have now been offloaded to a new node, the \gls{MME}, which maintains its own logical connection to the radio network using the \gls{S1AP} signaling protocol~\cite{3gpp.36.413}. Instead of \gls{MAP} to retrieve user data from the central storage, Diameter~\cite{rfc6733} is now used to communicate with the \gls{HSS}. Of note is also a further addition to the \gls{EPS}: the \gls{PCRF} in conjunction with the \gls{PCEF} which is integrated into the \gls{PGW}. They act as a \gls{DPI} entity, inspecting all user plane traffic and enable arbitrary filtering of traffic and traffic-based billing. Both entities are described in \cite{3gpp.23.203}.
 
@@ -256,7 +256,7 @@ The \gls{MM} model, defined in \cite[Section~6.1]{3gpp.23.060}, describes the ge
 	\label{c4:fig:rrcstatemodel}
 \end{figure}
 
- The \gls{RRC} state machine given in \gls{TS}~25.331~\cite[Section~7.1]{3gpp.25.331} and depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels and therefore power states of the \gls{MS}. State changes happen depending on user and radio activity and inactivity determined by timers. Only in the \gls{CELLDCH} state is the \gls{MS} assigned a dedicated channel for its data connection and can transmit at full bidirectionally. But this consumes the most device power and radio resources, both of which are scarce. The goal of the state machine is to minimize resource usage with intermediary states --- \gls{CELLFACH}, \gls{URAPCH}, and \gls{CELLPCH}, and  --- that successively require less power and radio channels, before completely turning of the \gls{RRC} connection by transitioning to the idle state. Coinciding with the \gls{RRC}, the \gls{CN} \gls{gtp} tunnel can also be released or needs to be reestablished. However, this is implementation specific and not precisely specified.
+ The \gls{RRC} state machine given in \gls{TS}~25.331~\cite[Section~7.1]{3gpp.25.331} and depicted in Figure~\ref{c4:fig:rrcstatemodel} governs the usage of radio channels and therefore power states of the \gls{MS}. State changes happen depending on user and radio activity and inactivity which is determined by timers. Only in the \gls{CELLDCH} state is the \gls{MS} assigned a dedicated channel for its data connection and can transmit at full bidirectionally. But this consumes the most device power and radio resources, both of which are scarce. The goal of the state machine is to minimize resource usage with intermediary states --- \gls{CELLFACH}, \gls{URAPCH}, and \gls{CELLPCH}, and  --- that successively require less power and radio channels, before completely turning of the \gls{RRC} connection by transitioning to the idle state. Coinciding with the \gls{RRC}, the \gls{CN} \gls{gtp} tunnel can also be released or needs to be reestablished. However, this is implementation specific and not precisely specified.
 
 \begin{figure}[htb]
 	\centering
@@ -265,7 +265,7 @@ The \gls{MM} model, defined in \cite[Section~6.1]{3gpp.23.060}, describes the ge
 \label{c4:fig:pdpstatemodel}
 \end{figure}
 
-The final state machine of relevancy is the \textbf{\gls{PDP} State Model} from \gls{TS}~23.060~\cite[Section~9]{3gpp.23.060} in Figure~\ref{c4:fig:pdpstatemodel}. It reflects the actual state of the \gls{PDP} context and associated tunnel and is synchronized with the \gls{MM} state machine.
+The final state machine of relevance is the \textbf{\gls{PDP} State Model} from \gls{TS}~23.060~\cite[Section~9]{3gpp.23.060} in Figure~\ref{c4:fig:pdpstatemodel}. It reflects the actual state of the \gls{PDP} context and associated tunnel and is synchronized with the \gls{MM} state machine.
 
 
 %%

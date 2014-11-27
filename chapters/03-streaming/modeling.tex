@@ -160,7 +160,7 @@ For segment-based \gls{HTTP} streaming, a two-threshold strategy is not the only
 
 In predictive strategies, knowledge of the future of the streaming process is used by the controller to adjust the start/stop and segment retrieval conditions. An exact implementation of this strategy would require precise information --- so-called global knowledge --- on future events and therefore it can only be conducted in a theoretical offline manner. Instead of global knowledge, heuristics can instead attempt to approximate an expected future state.
 
-A very simple predictive approach is to prolong the initial delay to the point, that no intermediate buffer underrun and thus no stall will occur. With global knowledge, the controller can start the stream at the earliest possible point in time, thus minimizing the total stalling time while still having only the initial delay.
+A very simple predictive approach is to prolong the initial delay to the point that no intermediate buffer underrun and thus no stall will occur. With global knowledge, the controller can start the stream at the earliest possible point in time, thus minimizing the total stalling time while still having only the initial delay.
 
 \begin{figure}[htb]
 	\centering

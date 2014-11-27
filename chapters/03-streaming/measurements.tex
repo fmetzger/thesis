@@ -28,7 +28,7 @@ Figure~\ref{c3:fig:framework} depicts the usage of the framework for a streaming
 
 Stream data is transmitted to the client from a server which can be any actual streaming service on the Internet or a local server under the testbed's control, eliminating undesired side effects caused by the Internet connection. The traffic is further directed through a network emulation node capable of altering the network \gls{QoS} parameters, i.e., latency, jitter, and packet loss. The parameters can be set according to stochastic models derived from actual network architectures. 
 
-Instead of network emulation, any preexisting architecture can also be placed here to achieve more accurate results for the intended target. This is especially helpful for complex infrastructures hard to model or with no good and concise models available yet. Of special note for this work are mobile networks, which encapsulate the user traffic into tunnels and exhibit complex control plane interactions, that can influence the streaming process. This will be discussed in more detail further on.
+Instead of network emulation, any preexisting architecture can also be placed here to achieve more accurate results for the intended target. This is especially helpful for complex infrastructures hard to model or with no good and concise models available yet. Of special note for this work are mobile networks, which encapsulate the user traffic into tunnels and exhibit complex control plane interactions that can influence the streaming process. This will be discussed in more detail further on.
 
 Additionally the received video file is decoded yielding a trace of all video frame sizes and playback timestamps. All data gained in the process is stored as basis for the second phase. More detailed traces can additionally be used to scrutinize other layers of the connection, e.g., the dynamics of \gls{TCP} receive window size. 
 
@@ -99,7 +99,7 @@ The video used in the experiment was streamed from the YouTube web site providin
 
 Two measurement series are performed with this video, both only differ in the network emulator settings. The first series increasingly adds packet loss to the stream, with the second series altering the packet delay. In both scenarios, the link bandwidth was limited to a typical \gls{DSL} value of \SI{16}{\mega\bit\per\second} in the downlink direction and \SI{1}{\mega\bit\per\second} up.
 
-It can be stated, that all playback strategies will generally work similarly well under good network conditions as long as the \gls{TCP} ``goodput'', i.e., the rate the payload is transported by \gls{TCP}, is higher than the video bitrate. With sufficient goodput video streams will start with almost no delay or intermediate buffering. 
+It can be stated that all playback strategies will generally work similarly well under good network conditions as long as the \gls{TCP} ``goodput'', i.e., the rate the payload is transported by \gls{TCP}, is higher than the video bitrate. With sufficient goodput video streams will start with almost no delay or intermediate buffering. 
 
 However, if the achievable throughput is close to the average video bitrate, the buffer can be quickly drained by short deviations from the average rates. High latency and loss are the typical limiting factors for \gls{TCP} as many congestion control algorithms depend on the round trip time. If the \gls{RTT} is high, the congestion window will increase much slower. High latency can also trigger  timeouts and retransmissions, which in turn decrease the congestion window again. 
 
@@ -138,7 +138,7 @@ Figure~\ref{c3:fig:eval-latency-numstalls} additionally shows number of stalling
 
 Using the model from Equation~\ref{c3:eqn:hossfeld-stalling-model} the \gls{QoE} is calculated for this series and depicted in Figure~\ref{c3:fig:eval-latency-qoe}. The \gls{MOS} quickly drops below a value of $3$, which is generally accepted as still being of fair quality, and stays around $2$ for the most portion of the latency series. Starting at around \SI{3000}{\milli\second} of latency all four strategies achieve virtually the same poor quality, according to this model. But, especially between \SI{1000}{\milli\second} and \SI{2000}{\milli\second} the difference in quality of these strategies is visible, with both the theoretical predictive and the YouTube strategy reaching a much higher \gls{MOS} than the other two.
 
-Overall, it can be said, that in this specific latency scenario the real world playback strategies seem to honor the fact that more video interruption lead to a worse experience than fewer but longer stalling events. Through mobility and handovers, mobile devices fairly commonly experience short bursts of latency of several seconds. According to the measurement series, the resulting stalling behavior could still very well be bearable for streaming users if the latency does not reach too high values on average. For example, at \SI{1000}{\milli\second} latency a \gls{MOS} of $3$ could still be easily achievable.
+Overall, it can be said that in this specific latency scenario the real world playback strategies seem to honor the fact that more video interruption lead to a worse experience than fewer but longer stalling events. Through mobility and handovers, mobile devices fairly commonly experience short bursts of latency of several seconds. According to the measurement series, the resulting stalling behavior could still very well be bearable for streaming users if the latency does not reach too high values on average. For example, at \SI{1000}{\milli\second} latency a \gls{MOS} of $3$ could still be easily achievable.
 
 
 %%
@@ -158,7 +158,7 @@ Figure~\ref{c3:fig:eval-loss-stallingtime} shows the resulting relative stalling
 
 This general behavior could hint to the transport protocol's reliable transport feature, catching any occurring loss. However, the detection and retransmission of lost segments takes time and leads to a bursty increase in latency. It also represents a possible reason of the increased stalling time. 
 
-At least it can be safely assumed, that in actual production networks high values of packet loss are usually less likely to occur than high latency. The only major source of packet loss should be network congestion, which should only occur in moments of high network load. Therefore, it can be expected than playback strategies are better optimized for scenarios with high latency than loss.
+At least it can be safely assumed that in actual production networks high values of packet loss are usually less likely to occur than high latency. The only major source of packet loss should be network congestion, which should only occur in moments of high network load. Therefore, it can be expected than playback strategies are better optimized for scenarios with high latency than loss.
 
 \begin{figure}[htbp]
 	\centering

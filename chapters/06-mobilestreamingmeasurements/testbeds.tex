@@ -48,7 +48,7 @@ In a pure lab environment this poses no problem as there will be no device owner
 
 To conclude, network measurement testbeds have to regulate, filter, adjust, or outright prevent access to sensitive data. Existing testbeds usually do not take a technical but rather a bureaucratic approach to this problem. For example, all experiments in the aforementioned PhoneLab require approval from a review board.
 
-But that does not mean, that there are no technical means available. Looking outside of the field of network testbeds, some research and even usable implementations are available. 
+But that does not mean that there are no technical means available. Looking outside of the field of network testbeds, some research and even usable implementations are available. 
 
 A very basic and static approach to protecting privacy data is implemented in the regular versions of both iOS and Android. During installation any application has to request specific rights for each sensor source to be able to use it in the future. The ``Privacy Guard'' feature\footnote{\url{https://plus.google.com/+CyanogenMod/posts/gk7X3HjNvnH}} in the custom Android firmware CyanogenMod\footnote{\url{http://cyanogenmod.org/}} provides the additional capability to monitor and revoke any sensor permissions at runtime. Other approaches include increasing the sensor permission granularity~\cite{Jeon:2012:DAM:2381934.2381938} or tagging sensor data at the source to better track and find privacy leaks in applications~\cite{enck2010taintdroid}.
 
@@ -71,7 +71,7 @@ Even with these approaches at hand, the privacy issue should be mitigated furthe
 
 Figure~\ref{c5:fig:architecture} overviews the components of Sensorium's architecture. The individual sensor drivers are placed on top of the operating system and take care of reading sensor values from platform-specific interfaces and pushing them upwards into a common registry to be read by the sensor reading \acrshort{API}. All sensor data is relayed both to a local display as well as to all outbound interfaces. Due to the layered architecture, contributors can simply extend or substitute the existing layers. New drivers or additional outbound interfaces can be easily implemented in this way. 
 
-The existing outbound interfaces include an \gls{HTTPS} client, that pushes \acrshort{JSON} data to any active network experiment server where the data can be further processed. To connect to programs running locally on the same device, the \acrshort{XML}-\acrshort{RPC} interface can be polled. Pull-based access from sources other than the local host is not allowed for security reasons. However, any data leaving Sensorium must first pass through the privacy layer, which filters the data based on the user's preferences.
+The existing outbound interfaces include an \gls{HTTPS} client that pushes \acrshort{JSON} data to any active network experiment server where the data can be further processed. To connect to programs running locally on the same device, the \acrshort{XML}-\acrshort{RPC} interface can be polled. Pull-based access from sources other than the local host is not allowed for security reasons. However, any data leaving Sensorium must first pass through the privacy layer, which filters the data based on the user's preferences.
 
 
 %%
@@ -81,7 +81,7 @@ This privacy layer allows for a fine-grained control over the amount and precisi
 
 This anonymization task can work in several levels. Apart from completely replacing it with a running number, the value could also be hashed. In many cases context-sensitive anonymization approaches are available. For example, the precision of a geo-location could simply be reduced down to a city-level or even country-level.
 
-As the user is always in firm control of the process, she should be more accepting of actual network experiments that use this kind of data. However, such studies need also cope with the fact, that they might get incomplete or partially anonymized data.
+As the user is always in firm control of the process, she should be more accepting of actual network experiments that use this kind of data. However, such studies need also cope with the fact that they might get incomplete or partially anonymized data.
 
 
 %%
@@ -106,7 +106,7 @@ As the user is always in firm control of the process, she should be more accepti
 
 Sensorium is currently targeted at and implemented on the Android platform.\footnote{More information is available at \url{https://github.com/fmetzger/android-sensorium}.} It can be installed on any Android without any modification. Screenshots of the sensor display and settings menu of the application are depicted in Figure~\ref{c5:fig:sensorium}. Drivers for most of the typically available sensors are implemented.
 
-Sensorium was demoed at the NetSys 2013 conference and has since then been available in various app stores. Data from the Google Play Store suggests at least \numprint{50} concurrently running device installations across several countries, carriers and device types. Albeit a still low number, as there was no real advertisement conducted, this could indicate its feasibility as a companion application to a network testbed. Of note are also two related applications, that intend to follow up on Sensorium's approach in the future: The Sensibility Testbed\footnote{\url{https://sensibilitytestbed.com/}}, which tightly couples itself to the aforementioned Seattle platform, and BlurSense\footnote{\url{https://blursense.poly.edu/}}~\cite{6798970}, aiming to improve the sensor value anonymization efforts. 
+Sensorium was demoed at the NetSys 2013 conference and has since then been available in various app stores. Data from the Google Play Store suggests at least \numprint{50} concurrently running device installations across several countries, carriers and device types. Albeit a still low number, as there was no real advertisement conducted, this could indicate its feasibility as a companion application to a network testbed. Of note are also two related applications that intend to follow up on Sensorium's approach in the future: The Sensibility Testbed\footnote{\url{https://sensibilitytestbed.com/}}, which tightly couples itself to the aforementioned Seattle platform, and BlurSense\footnote{\url{https://blursense.poly.edu/}}~\cite{6798970}, aiming to improve the sensor value anonymization efforts. 
 
 
 %%
