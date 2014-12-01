@@ -3,7 +3,7 @@
 \section{Streaming Modeling}
 \label{c3:sec:modeling}
 
-As stated, the goal of this chapter is to model the measuring process and reliable streaming. This section will introduce the proposed reliable streaming measurement model and with it some reference playback strategies that cover many of the potential aspects of streaming. It is intended for an easy comparison between different protocol variants and to evaluate all strategies in one framework. Because any kind of evaluation requires metrics, and reliable streaming has special requirements in this regard, appropriate metrics are researched first.
+As stated, the goal of this chapter is to model the measuring process and reliable streaming. This section will introduce the proposed reliable streaming measurement model and with it several reference playback strategies that cover many of the potential aspects of streaming. It is intended for an easy comparison between different protocol variants and to evaluate all strategies and network influences in one framework. Because any kind of evaluation requires metrics, and reliable streaming has special requirements in this regard, appropriate metrics are researched first.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,14 +29,14 @@ where $N$ denotes the number of pixels in a frame and $x$ and $y$ the individual
 
 Image quality models can by nature only test for spatial distortions of single images. This includes artifacts like general blockiness or blurriness, noise, or reduced resolution. Quality assessments specifically dedicated to video material can additionally take temporal metrics into account, for examples anomalies in the frame rate. Such models are also being researched and standardized by the \gls{ITU} and \gls{VQEG} for example in \cite{ituJ144, ituJ246, ituJ247}. Often, a network's \gls{QoS} parameters can also be directly mapped onto an objective \gls{QoE} metric as described in \cite{5430142}.
 
-metrics dedicated solely to streaming quality measurements should restrict themselves to measure only degradations that occur during the streaming process and not the initial encoding process. Only a specific subset of quality alterations apply here. For example, lost or late packets can cause missing blocks in a frame or frames to be skipped completely. 
+Metrics dedicated solely to streaming quality measurements should restrict themselves to measure only degradations that occur during the streaming process and not the initial encoding process. Only a specific subset of quality alterations apply here. For example, lost or late packets can cause missing blocks in a frame or frames to be skipped completely. 
 
 Initial thoughts concerning \gls{IPTV} --- which represents an unreliable streaming solution --- \gls{QoE} have been given in \cite{ituG1080} and the influence of packet delay variations on playback buffers is investigated in \cite{rfc3393}. The \gls{MDI}~\cite{rfc4445} is an attempt to capture this behavior and relate it to the network \gls{QoS}. Its metric relies on two properties, the \gls{DF}, as a measure of the network's latency and jitter, and the media loss rate. Of special interest to this investigation is the \gls{DF}, which is calculated based on a \gls{VB} of received stream data as
 
 
 \begin{align}
-	VB &= r_{rcv} - r_{drain} \\
-	DF_i &= \frac{\max(VB) - \min(VB)}{r_{drain}}
+	VB &= r_{\text{rcv}} - r_{\text{drain}} \\
+	DF_i &= \frac{\max(VB) - \min(VB)}{r_{\text{drain}}}
 \end{align}
 %
 with $r_{rcv}$ and $r_{drain}$ denoting the buffer's receiving and draining rates.
@@ -66,7 +66,7 @@ Few attempts for concise reliable streaming metrics that cover all mentioned pro
 
 The equation was derived from user studies on perceived YouTube video quality. Therefore, it can serve as a \gls{QoE} metric for the non-adaptive measurement model introduced in the following section. Regarding adaptive streaming, work conducted in \cite{6603210} gives an overview over some initial attempts of metrics that include temporal aspects of the image quality. But none of them includes all necessary aspects to assess reliable adaptive streaming.
 
-The streaming measurement models presented in the following section derives only the basic properties, including the stalling and quality level characteristics and could be used for any of the above metrics. For non-adaptive reliable streaming it is recommended to use the model defined in Equation~\ref{c3:eqn:hossfeld-stalling-model} and the results of the measurement series in Section~\ref{c3:sec:measurements} will also be presented using this equation. Surpassing this model or defining an entirely new adaptive metric would require extensive user studies and is beyond the scope of this work.
+The streaming measurement models presented in the following section derive only the basic properties, including the stalling and quality level characteristics, from the experiment and could be used for any of the above metrics. For non-adaptive reliable streaming it is recommended to use the model defined in Equation~\ref{c3:eqn:hossfeld-stalling-model} and the results of the measurement series in Section~\ref{c3:sec:measurements} will also be presented using this equation. Surpassing this model or defining an entirely new adaptive metric would require extensive user studies and is beyond the scope of this work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Measurement and Playback Model}
