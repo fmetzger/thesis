@@ -93,7 +93,7 @@ For the purpose of creating an initial toy model the generic $G/G/c/0$ is simpli
 
 Now, assuming both a Poisson arrival and an exponential serving process (temporarily neglecting the fact that no basic function matched the \gls{GGSN}'s serving process), a stationary analysis can be conducted. As seen in the statistical evaluation, the former condition may hold, but the serving time is definitely not exponentially distributed. However, for the toy model this assumption is still made to get an initial grasp of the model.
 
-The diurnal influences seen in the tunnel arrivals in the trace data are also temporarily ignored and only the overall empirical distribution is taken into account. Through distribution fitting with moment matching the overall arrival rate is set to be $\lambda=25.64123$ in the trace. The exponential service time distribution is calculated to have the parameter $\mu=0.0001586728$. Using Little's Law this gives an estimate for the mean number of concurrent tunnels at the \gls{GGSN} in a $M/M/\infty$ system of 
+The diurnal influences seen in the tunnel arrivals in the trace data are also temporarily ignored and only the overall empirical distribution is taken into account. Through distribution fitting with moment matching the overall arrival rate is set to be $\lambda\approx 25.641$ in the trace. The exponential service time distribution is calculated to have the parameter $\mu\approx \num{1.587e-4}$. Using Little's Law this gives an estimate for the mean number of concurrent tunnels at the \gls{GGSN} in a $M/M/\infty$ system of 
 
 \begin{equation}
 	\phantom{.}L=\frac{\lambda}{\mu}\approx 161.6\text{.} %=161598.14.
@@ -106,7 +106,7 @@ As stated, the amount of state held at the node and propagated through the netwo
 \subsection{Representative GGSN Models} 
 
 With the experience from the toy model at hand more appropriate models can now be constructed to better accommodate for the core network's properties. Two models are provided here.
-The first describes a monolithic version of a \gls{GGSN}, closely resembling the system used traditionally in the network. The second model is that of a hypothetical virtualized \gls{GGSN} using \gls{NFV}. In \gls{NFV}~\cite{nfv_whitepaper} monolithic network nodes are replaced by commodity hardware. The tasks solved by the original hardware is hereby migrated to a pure software implementation.
+The first describes a monolithic version of a \gls{GGSN}, closely resembling the system used traditionally in the network. The second model is that of a hypothetical virtualized \gls{GGSN} using \gls{NFV}. In \gls{NFV}~\cite{nfv_whitepaper} custom monolithic network nodes are replaced by commodity hardware. The tasks solved by the original hardware is hereby migrated to a pure software implementation.
 
 
 %%
@@ -125,7 +125,7 @@ The queuing theoretic equivalent is displayed in Figure~\ref{c4:fig:model-ggsn-m
 
 Furthermore, the model has a maximum tunnel capacity of $c$. When this capacity is reached, blocking will occur and further incoming tunnels are rejected. The governing factors of the capacity are mostly the node's available memory and processing capabilities. Monolithic \glspl{GGSN} need to be preemptively dimensioned in such a way that blocking rarely happens, often resulting in gross overdimensioning as the node can not be easily scaled after it has been deployed.
 
-When an incoming tunnel request is accepted one of the \gls{GGSN}'s serving units will be occupied for the tunnel's duration $x(t)$. Following the trace data, this duration is assumed to be of an arbitrary, albeit non-Markovian, service time distribution, again with a slight time-of-day dependence.
+When an incoming tunnel request is accepted one of the \gls{GGSN}'s serving units will be occupied for the tunnel's duration $x(t)$. Following the trace data, this duration is assumed to be of an arbitrary, non-Markovian service time distribution, again with a slight time-of-day dependence.
 
 Combining the model with the exponential and rational function fits functions previously depicted in Tables~\ref{c4:tab:IAT-fits} and \ref{c4:tab:fits-duration} this results in a \textbf{non-stationary Erlang loss model}, or more precisely
 
