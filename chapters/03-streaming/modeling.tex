@@ -134,7 +134,7 @@ Figure~\ref{c3:fig:bufferlevel-stall} depicts an exemplary time series diagram o
 
 Instead of instantly restarting playback a threshold can be introduced. Only after a certain buffer fill level threshold has been surpassed, playback will be started. Thresholds can be set independently for the initial playback delay and stalls, with the initial playback delay generally set to be higher.
 
-The threshold can be chosen in a number of ways. It can either be an absolute data volume or a buffered video duration. The latter is much more suited for variable bitrate videos as it automatically adapts itself to the current bitrate. A third option is to buffer for a certain amount of real time --- this can be seen as threshold --- and to start playback after that period regardless of the volume of the buffer. Additionally, the threshold could also either be set to a constant value or dynamically chosen according to the expected network \gls{QoS}.
+The threshold can be chosen in a number of ways. It can either be an absolute data volume or a buffered video duration. The latter is much more suited for variable bitrate videos as it automatically adapts itself to the current bitrate. A third option is to buffer for a certain amount of real time --- this can also be seen as threshold --- and to start playback after that period regardless of the volume of the buffer. Additionally, the threshold could either be set to a constant value or dynamically chosen according to the expected network \gls{QoS}.
 
 Besides this single-threshold strategy two-threshold or multi-threshold strategies might make more sense for segment-based streaming. In addition to the lower threshold, an upper threshold is introduced. When reached, no new segments will be requested until the buffer arrives at the lower threshold again. To achieve an hysteresis effect a third threshold, somewhere between the lower and upper bound, can also be introduced. Through this, the maximum buffer size can also be controlled. This is important in situations with hard limits on available memory. Mobile devices come to mind here.
 
@@ -160,7 +160,7 @@ For segment-based \gls{HTTP} streaming, a two-threshold strategy is not the only
 
 In predictive strategies, knowledge of the future of the streaming process is used by the controller to adjust the start/stop and segment retrieval conditions. An exact implementation of this strategy would require precise information --- so-called global knowledge --- on future events and therefore it can only be conducted in a theoretical offline manner. Instead of global knowledge, heuristics can instead attempt to approximate an expected future state.
 
-A very simple predictive approach is to prolong the initial delay to the point that no intermediate buffer underrun and thus no stall will occur. With global knowledge, the controller can start the stream at the earliest possible point in time, thus minimizing the total stalling time while still having only the initial delay.
+A very simple predictive approach is to prolong the initial delay to the point that no intermediate buffer underrun and thus no further stall will occur. With global knowledge, the controller can start the stream at the earliest possible point in time, thus minimizing the total stalling time while still having only the initial delay.
 
 \begin{figure}[htb]
 	\centering
@@ -175,14 +175,14 @@ Figure~\ref{c3:fig:bufferlevel-startdelay} depicts the time series of a sample i
 %%
 \subsubsection{Adaptive Strategies}
 
-Most strategies for adaptive streaming are an extension of both the threshold as well as the pacing strategy. However, instead of a simple transmit-or-no-transmit ruleset, they can make much more fine-grained adjustments. The quality of the stream segment to be requested will be chosen depending on the current fill level and drain rate of the buffer. This makes a trade off between maintaining a certain quality level and putting up with increased waiting times, and dropping the quality to a level sustainable at the current transmission rate.
+Most strategies for adaptive streaming are an extension of both the threshold as well as the pacing strategy. However, instead of a simple transmit-or-no-transmit ruleset, they can make much more fine-grained adjustments. The quality of the stream segment to be requested will be chosen depending on the current fill level and drain rate of the buffer. This makes a trade-off between maintaining a certain quality level and putting up with increased waiting times, and dropping the quality to a level sustainable at the current transmission rate.
 
-A practical attempt at implementing an adaptive strategy is made in Section~\ref{c6:sec:mobilestreamingtestbed} for the mobile streaming testbed.
+A practical attempt at defining an adaptive strategy is made in Section~\ref{c6:sec:mobilestreamingtestbed} for the mobile streaming testbed.
 
 
 \subsubsection{Real World Implementation Examples}
 
-Actual streaming player implementations often do not implement only one of these strategies, but rather combine ideas from several. Herein, thresholds are often set arbitrarily through best practices which are not empirically evaluated. Also, often a trade-off between user perceived quality and the resulting server load is made as a business decision that can further impact the streaming quality. In general, every streaming service practically implements its own playback strategies. This section describes three example applications.
+Actual streaming player implementations often do not implement only one of these strategies, but rather combine ideas from several. Herein, thresholds are often set arbitrarily through best practices which are not empirically evaluated. Also, often a trade-off between user perceived quality and the resulting server load is made as a business decision that can further impact the streaming quality. In general, every streaming service essentially implements its own playback strategies. This section describes three example applications.
 
 %%
 \paragraph{2011 YouTube Flash Player Buffering Strategy}
@@ -229,13 +229,13 @@ Furthermore, YouTube employs a proprietary server-side pacing mechanism outside 
 
 The throttling method, which was also observed in \cite{alcock2011afcyt}, limits the transmission to a rate slightly above the average media bitrate. Measurements and the \gls{URL} scheme indicates this to be $1.25$ times the video bitrate. The rate limit is not constant, instead an ON-OFF block-sending scheme is facilitated. The scheme transmits short packet bursts, typically \SI{64}{\kibi\byte} in size, followed by long pauses as seen in Figure~\ref{c3:fig:blocktransfer}. The pause length between two bursts is set dynamically to reach the targeted bitrate on a larger time scale. The initial phase of the stream transmission is conducted unthrottled at line speed, presumably to allow for some pre-buffering to occur at the client's media player. A possible reason for this server-side pacing is to avoid load spikes, with the added side effect of keeping the clients' buffer sizes in check.
 
-Since October 2013 YouTube is serving its \acrshort{HTML}5 videos using \gls{DASH}, albeit without the automatic quality level switches. Additionally, in mid 2014, this \acrshort{HTML} player has now become the default player for all capable browsers, effectively making the Flash player obsolete. Some initial investigations into YouTube's \gls{DASH} traffic were conducted in \cite{2014arXiv1408.5777A}.
+Since October 2013 YouTube is serving its \acrshort{HTML}5 videos using \gls{DASH}, albeit without its adaptive properties. Additionally, in mid 2014, this \acrshort{HTML} player has now become the default player for all capable browsers, effectively making the Flash player obsolete. Some initial investigations into YouTube's \gls{DASH} traffic were conducted in \cite{2014arXiv1408.5777A}.
 
 
 %%
 \paragraph{Firefox's HTML5 Player Strategy}
 
-Video streaming can also be directly conducted with the Web browser, through the use of a \acrshort{HTML}5 canvas element. The \gls{W3C} specifies the default technical process of \acrshort{HTML}5 video streaming\footnote{\url{http://www.w3.org/TR/html5/embedded-content-0.html\#media-elements}} and essentially suggests a predictive strategy. Herein, the Web browser should estimate and correlate the transmission rate to the video bitrate. A property called ``autoplay'' uses this definition to start playback of the associated video \textit{\enquote{as soon as it can do so without stopping}}. The \acrshort{HTML}5 strategy also allows to limit the buffer size through transmission pacing, negotiated with the server, and appropriately timed range requests.
+Video streaming can be directly conducted with the Web browser, through the use of a \acrshort{HTML}5 canvas element. The \gls{W3C} specifies the default technical process of \acrshort{HTML}5 video streaming\footnote{\url{http://www.w3.org/TR/html5/embedded-content-0.html\#media-elements}} and essentially suggests a predictive strategy. Herein, the Web browser should estimate and correlate the transmission rate to the video bitrate. A property called ``autoplay'' uses this definition to start playback of the associated video \textit{\enquote{as soon as it can do so without stopping}}. The \acrshort{HTML}5 strategy also allows to limit the buffer size through transmission pacing, negotiated with the server, and appropriately timed range requests.
 
 The open-source Firefox browser represents an implementation of this specification and substantiates it further. The description of this strategy is based on Firefox's version 4.0 released in March 2011. Because it is an online algorithm which does not have global knowledge of the video and transmission speeds of any point in the future it has to estimate these.
 
@@ -261,7 +261,7 @@ To estimate the current and future rates, the moving average of the transmission
 \label{c3:fig:bufferlevel-firefox}
 \end{figure}
 
-This approach is quite conservative and trades off long stalling periods for fewer stalls. The test case for the model is shown in Figure \ref{c3:fig:bufferlevel-firefox}. The playback starts only after a long waiting period and intermittent stalls cause a long buffering period. Due to the longer overall stalling time the player needs to buffer more data than other strategies. This may make it unsuitable for devices with sparse amounts of memory, e.g., mobile phones. A large buffer could, on the other hand, also increase the chance of continuous playback in such scenarios with insufficient \gls{QoS}.
+This approach is quite conservative and trades off long stalling periods for fewer stalls. The test case for the model is shown in Figure \ref{c3:fig:bufferlevel-firefox}. The playback starts only after a long waiting period and intermittent stalls cause a long buffering period. Due to the longer overall stalling time the player needs to buffer more data than other strategies. This may make it unsuitable for devices with scarce amounts of memory, e.g., mobile phones. A large buffer could, on the other hand, also increase the chance of continuous playback in such scenarios with insufficient \gls{QoS}.
 
 
 \paragraph{Adaptive Streaming Strategies}
