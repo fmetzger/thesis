@@ -1,6 +1,8 @@
 library(ggplot2)
 library(reshape)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 
 ## file format:
@@ -56,5 +58,6 @@ p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + ylab("mean number of instances in use") + xlab("individual instance tunnel capacity")
 p <- p + guides(color=guide_legend("start/stop\nduration"))
 p
-ggsave("R-virtualized-mean-instanceusage.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-virtualized-mean-instanceusage.pdf")
+#ggsave("R-virtualized-mean-instanceusage.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-virtualized-mean-instanceusage.pdf")
+ggsave("R-virtualized-mean-instanceusage.pdf", width=12, height=8, device=cairo_pdf)

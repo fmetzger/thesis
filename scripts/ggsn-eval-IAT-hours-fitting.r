@@ -3,7 +3,9 @@ library(fitdistrplus)
 library(Hmisc)
 library(MASS)
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 #d <- read.table("/home/fm/git/eval-core/data/ts_create_all_hours", header=FALSE) ## all tunnel requests
 d <- read.table("/home/fm/svn/ursa/out/PERS_ts_create_firstflow_radiotype", header=FALSE, fill=TRUE, colClasses=c("numeric", "factor")) ## only active tunnels
@@ -80,8 +82,9 @@ p <- p + scale_color_manual(values=cbPalette)
 p <- p + annotation_logticks(sides="b")
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-IAT-active-fit-cdf-facets.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-IAT-active-fit-cdf-facets.pdf")
+#ggsave("R-IAT-active-fit-cdf-facets.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-IAT-active-fit-cdf-facets.pdf")
+ggsave("R-IAT-active-fit-cdf-facets.pdf", width=12, height=8, device=cairo_pdf)
 
 
 ####### correlation tests

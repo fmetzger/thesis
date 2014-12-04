@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 
 path <- "/home/fm/svn/fc-sim/results/set3/video1/50ms_1000mbit_0pct_results_1409580670/"
@@ -30,6 +32,6 @@ p <- p + annotate("text", label = "transmission start", x = 510, y = threshold.s
 p <- p + xlab("time (s)") + ylab("buffered video duration (s)") 
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-ltesim-plotbuffer-time.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-ltesim-plotbuffer-time.pdf")
-
+#ggsave("R-ltesim-plotbuffer-time.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-ltesim-plotbuffer-time.pdf")
+ggsave("R-ltesim-plotbuffer-time.pdf", width=12, height=8, device=cairo_pdf)

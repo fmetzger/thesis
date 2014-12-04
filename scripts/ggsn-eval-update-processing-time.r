@@ -1,6 +1,7 @@
 library(ggplot2)
-library(extrafont)
-
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 # timestamps (finished + requested) of every update event
 #
@@ -29,5 +30,6 @@ p <- p + ylab("cumulative probability") + xlab("tunnel update processing time")
 p <- p + scale_color_manual(values=cbPalette, name="time of day")
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p 
-ggsave("R-update-time-cdfs.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-update-time-cdfs.pdf")
+#ggsave("R-update-time-cdfs.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-update-time-cdfs.pdf")
+ggsave("R-update-time-cdfs.pdf", width=12, height=8, device=cairo_pdf)

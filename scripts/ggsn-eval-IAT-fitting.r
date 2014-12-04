@@ -1,10 +1,11 @@
-
 library(parallel)
 library(fitdistrplus) 
 # library(Hmisc)
 library(MASS)
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 
 tsdata <- scan("/home/fm/svn/ursa/out/ts_create_all", dec=".")
@@ -84,9 +85,9 @@ p <- p + scale_color_manual(values=cbPalette)
 p <- p + annotation_logticks(sides="b")
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-IAT-ecdfs.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-IAT-ecdfs.pdf")
-
+#ggsave("R-IAT-ecdfs.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-IAT-ecdfs.pdf")
+ggsave("R-IAT-ecdfs.pdf", width=12, height=8, device=cairo_pdf)
 
 
 

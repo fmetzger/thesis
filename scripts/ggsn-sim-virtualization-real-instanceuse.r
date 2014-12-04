@@ -1,7 +1,9 @@
 library(ggplot2)
 library(reshape2)
 library(plyr)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
@@ -68,5 +70,6 @@ p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_color_manual(values=cbPalette)
 p <- p + guides(colour=guide_legend("individual instance\ntunnel capacity"))
 p
-ggsave("R-virtualized-instanceuse.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-virtualized-instanceuse.pdf")
+#ggsave("R-virtualized-instanceuse.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-virtualized-instanceuse.pdf")
+ggsave("R-virtualized-instanceuse.pdf", width=12, height=8, device=cairo_pdf)

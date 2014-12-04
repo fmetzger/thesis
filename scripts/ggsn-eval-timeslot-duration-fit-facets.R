@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 d <- read.table("/home/fm/git/eval-core/data/duration_activetunnels", header=FALSE, colClasses=c("numeric", "numeric"))
 colnames(d) <- c("ts_start", "ts_end")
@@ -60,6 +62,6 @@ p <- p +  scale_colour_manual(name = "", values = cbPalette)
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 
-ggsave("R-duration-fit-cdf-facets.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-duration-fit-cdf-facets.pdf")
-
+#ggsave("R-duration-fit-cdf-facets.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-duration-fit-cdf-facets.pdf")
+ggsave("R-duration-fit-cdf-facets.pdf", width=12, height=8, device=cairo_pdf)

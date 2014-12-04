@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 #Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.15/bin/gswin64c.exe")
 
@@ -53,5 +55,6 @@ p <- p + geom_vline(xintercept=handover.start[,1], color="#999999")
 p <- p + xlab("time (s)") + ylab("buffered video duration (s)") 
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-ltesim-plotbuffer-mobility-facets.pdf", width=12, height=10, useDingbat=F)
-embed_fonts("R-ltesim-plotbuffer-mobility-facets.pdf")
+#ggsave("R-ltesim-plotbuffer-mobility-facets.pdf", width=12, height=10, useDingbat=F)
+#embed_fonts("R-ltesim-plotbuffer-mobility-facets.pdf")
+ggsave("R-ltesim-plotbuffer-mobility-facets.pdf", width=12, height=10, device=cairo_pdf)

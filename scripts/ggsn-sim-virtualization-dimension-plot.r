@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 df <- data.frame()
 
@@ -73,8 +75,9 @@ p <- p + ylab("blocking probability") + xlab("total tunnel capacity")
 p <- p + guides(colour=guide_legend("supported\nvirtual\ninstances"))
 p <- p + scale_colour_brewer(palette="Paired")
 p
-ggsave("R-virtualized-blocking.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-virtualized-blocking.pdf")
+#ggsave("R-virtualized-blocking.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-virtualized-blocking.pdf")
+ggsave("R-virtualized-blocking.pdf", width=12, height=8, device=cairo_pdf)
 
 p <- ggplot(df, aes(x=max.tunnels * max.instances, y=res.util.mean, ymax = res.util.right, ymin=res.util.left, color=as.factor(max.instances)))
 p <- p +  geom_point(size=2) + geom_errorbar(width=100)+ coord_cartesian(xlim=c(0,5200))
@@ -83,5 +86,6 @@ p <- p + ylab("concurrent tunnels served on average") + xlab("total tunnel capac
 p <- p + guides(colour=guide_legend("supported\nvirtual\ninstances"))
 p <- p + scale_colour_brewer(palette="Paired")
 p
-ggsave("R-virtualized-tunnelusage.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-virtualized-tunnelusage.pdf")
+#ggsave("R-virtualized-tunnelusage.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-virtualized-tunnelusage.pdf")
+ggsave("R-virtualized-tunnelusage.pdf", width=12, height=8, device=cairo_pdf)

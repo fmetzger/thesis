@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 df <- data.frame()
 path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional/"
@@ -41,13 +43,15 @@ p <- p + geom_line() + geom_point(size=2) + geom_errorbar(width=100) + coord_car
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + xlab("total tunnel capacity") + ylab("blocking probability")
 p
-ggsave("R-monolithic-blocking.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-monolithic-blocking.pdf")
+#ggsave("R-monolithic-blocking.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-monolithic-blocking.pdf")
+ggsave("R-monolithic-blocking.pdf", width=12, height=8, device=cairo_pdf)
 
 p <- ggplot(df, aes(x=max.tunnels,y=res.util.mean,ymin=res.util.left,ymax=res.util.right))
 p <- p +  geom_line() + geom_point(size=2) + geom_errorbar(width=100) + coord_cartesian(xlim=c(0,5200))
 p <- p + theme(text = element_text(family="Linux Biolinum",size=20))
 p <- p + xlab("total tunnel capacity") + ylab("concurrent tunnels served on average")
 p
-ggsave("R-monolithic-tunnelusage.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-monolithic-tunnelusage.pdf")
+#ggsave("R-monolithic-tunnelusage.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-monolithic-tunnelusage.pdf")
+ggsave("R-monolithic-tunnelusage.pdf", width=12, height=8, device=cairo_pdf)

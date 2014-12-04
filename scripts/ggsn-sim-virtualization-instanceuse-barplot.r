@@ -1,7 +1,10 @@
+library(plyr)
 library(ggplot2)
 library(reshape2)
-library(extrafont)
-library(plyr)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
+
 
 
 path <- "/home/fm/Documents/projekte/ggsn-sim/results/combined"
@@ -77,5 +80,6 @@ p <- p + facet_grid(max.instances ~ max.tunnels, scales="free_x", space="free_x"
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + ylab("relative duration") + xlab("number of active instances")
 p
-ggsave("R-virtualized-instanceuse-barplot.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-virtualized-instanceuse-barplot.pdf")
+#ggsave("R-virtualized-instanceuse-barplot.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-virtualized-instanceuse-barplot.pdf")
+ggsave("R-virtualized-instanceuse-barplot.pdf", width=12, height=8, device=cairo_pdf)

@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 servingtimes <- scan("/home/fm/svn/ursa/out/duration", dec=".")
 st_dongle <- scan("/home/fm/svn/ursa/out/duration_dongles", dec=".") 
@@ -41,6 +43,6 @@ p <- p + scale_color_manual(values=cbPalette, name="")
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
 
-ggsave("R-duration-qq-category-comparison.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-duration-qq-category-comparison.pdf")
-
+#ggsave("R-duration-qq-category-comparison.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-duration-qq-category-comparison.pdf")
+ggsave("R-duration-qq-category-comparison.pdf", width=12, height=8, device=cairo_pdf)

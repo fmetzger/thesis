@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
@@ -52,8 +54,9 @@ p <- p + ylim(1,5) + xlab("bandwidth (Mb/s)") + ylab("MOS")
 p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-ltesim-bwseries-qoe.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-ltesim-bwseries-qoe.pdf")
+#ggsave("R-ltesim-bwseries-qoe.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-ltesim-bwseries-qoe.pdf")
+ggsave("R-ltesim-bwseries-qoe.pdf", width=12, height=8, device=cairo_pdf)
 
 
 p <- ggplot(dlatency, aes(x=latency, y=qoe, color=videoname))
@@ -63,8 +66,9 @@ p <- p + ylim(1.5,5) + xlab("additional latency (ms))") + ylab("MOS")
 p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-ltesim-latencyseries-qoe.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-ltesim-latencyseries-qoe.pdf")
+#ggsave("R-ltesim-latencyseries-qoe.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-ltesim-latencyseries-qoe.pdf")
+ggsave("R-ltesim-latencyseries-qoe.pdf", width=12, height=8, device=cairo_pdf)
 
 
 

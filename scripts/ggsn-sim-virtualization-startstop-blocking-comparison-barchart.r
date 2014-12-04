@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 
 
@@ -122,5 +124,6 @@ p <- p + theme(text = element_text(family="Linux Biolinum", size=20)) + ylab("bl
 p <- p + guides(fill=guide_legend("start/stop\nduration"))
 p <- p + scale_fill_manual(values=cbPalette)
 p
-ggsave("R-virtualized-startstop-blocking-barchart.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-virtualized-startstop-blocking-barchart.pdf")
+#ggsave("R-virtualized-startstop-blocking-barchart.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-virtualized-startstop-blocking-barchart.pdf")
+ggsave("R-virtualized-startstop-blocking-barchart.pdf", width=12, height=8, device=cairo_pdf)

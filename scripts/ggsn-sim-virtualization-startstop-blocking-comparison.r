@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 
 path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional/"
@@ -129,5 +131,6 @@ p <- p + scale_color_manual(values=cbPalette)
 p <- p + labs(colour = "start/stop duration")
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20)) 
 p
-ggsave("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf", width=12, height=6, useDingbats=F)
-embed_fonts("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf")
+#ggsave("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf", width=12, height=6, useDingbats=F)
+#embed_fonts("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf")
+ggsave("R-virtualized-startstop-tunnelusage-blocking-comparison.pdf", width=12, height=6, device=cairo_pdf)

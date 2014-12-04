@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 d <- read.csv("/home/fm/git/thesis/data/playbackemulation.csv", header=T,
               colClasses=c("factor", "numeric", "factor", "factor", "factor", "factor", "factor", "numeric", "numeric", "numeric", "numeric", "factor"))
@@ -25,8 +27,9 @@ p <- p + ylim(1,5) + xlab("packet loss (%)") + ylab("MOS")
 p <- p + scale_color_manual(values=cbPalette, name="playback strategies", breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox 4", "predictive", "null strategy", "YouTube Flash"))
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-playbackemulation-qoe-loss.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-playbackemulation-qoe-loss.pdf")
+#ggsave("R-playbackemulation-qoe-loss.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-playbackemulation-qoe-loss.pdf")
+ggsave("R-playbackemulation-qoe-loss.pdf", width=12, height=8, device=cairo_pdf)
 
 
 p <- ggplot(dlatency, aes(x=qosvalue, y=qoe, color=as.factor(strat)))
@@ -36,6 +39,7 @@ p <- p + ylim(1,5) + xlab("latency (ms)") + ylab("MOS")
 p <- p + scale_color_manual(values=cbPalette, name="playback strategies", breaks=c("ffh5", "nnbs", "stbs", "ytfa"), labels=c("Firefox 4", "predictive", "null strategy", "YouTube Flash"))
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-playbackemulation-qoe-latency.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-playbackemulation-qoe-latency.pdf")
+#ggsave("R-playbackemulation-qoe-latency.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-playbackemulation-qoe-latency.pdf")
+ggsave("R-playbackemulation-qoe-latency.pdf", width=12, height=8, device=cairo_pdf)
 

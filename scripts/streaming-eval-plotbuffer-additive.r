@@ -1,6 +1,8 @@
 library(ggplot2)
 library(grid) # needed for arrow
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 # used dataset: hPUGNCIozp0_delay_2500, subset 1
 # commandline: python ytresults_commandline.py hPUGNCIozp0_delay_2500 1 {nnbs,stbs,ytfa,ffh5} plotcumdata
@@ -47,24 +49,25 @@ plotbuffer <- function(csvfilestring){
 
 p <- plotbuffer("/home/fm/git/thesis/data/streaming-eval-null-strategy.csv")
 p
-ggsave("R-bufferlevel-stall.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-bufferlevel-stall.pdf")
+#ggsave("R-bufferlevel-stall.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-bufferlevel-stall.pdf")
+ggsave("R-bufferlevel-stall.pdf", width=12, height=8, device=cairo_pdf)
 
 
 p <- plotbuffer("/home/fm/git/thesis/data/streaming-eval-flash-strategy.csv")
 p
-ggsave("R-bufferlevel-flash.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-bufferlevel-flash.pdf")
-
+#ggsave("R-bufferlevel-flash.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-bufferlevel-flash.pdf")
+ggsave("R-bufferlevel-flash.pdf", width=12, height=8, device=cairo_pdf)
 
 p <- plotbuffer("/home/fm/git/thesis/data/streaming-eval-startdelay-strategy.csv")
 p
-ggsave("R-bufferlevel-startdelay.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-bufferlevel-startdelay.pdf")
-
+#ggsave("R-bufferlevel-startdelay.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-bufferlevel-startdelay.pdf")
+ggsave("R-bufferlevel-startdelay.pdf", width=12, height=8, device=cairo_pdf)
 
 p <- plotbuffer("/home/fm/git/thesis/data/streaming-eval-firefox-strategy.csv")
 p
-ggsave("R-bufferlevel-firefox.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-bufferlevel-firefox.pdf")
-
+#ggsave("R-bufferlevel-firefox.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-bufferlevel-firefox.pdf")
+ggsave("R-bufferlevel-firefox.pdf", width=12, height=8, device=cairo_pdf)

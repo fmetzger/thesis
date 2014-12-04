@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 
 xmin <- c(0.0000005, 0.000008, 0.005, 0.005, 0.05, 0.5, 0.5, 0.5, 0.6, 0.7, 10)
@@ -30,5 +32,6 @@ p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_x_log10(limits=c(0.0000001, 10000000), breaks=c(0.000001, 0.0001, 0.01, 1, 100, 10000, 1000000))
 p <- p + ylab("") + xlab("time (s)")
 p
-ggsave("layer-timescales.pdf", width=12, height=6, useDingbats=F)
-embed_fonts("layer-timescales.pdf")
+#ggsave("layer-timescales.pdf", width=12, height=6, useDingbats=F)
+#embed_fonts("layer-timescales.pdf")
+ggsave("layer-timescales.pdf", width=12, height=6, device=cairo_pdf)

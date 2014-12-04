@@ -1,6 +1,9 @@
-library(ggplot2)
-library(extrafont)
 library(plyr)
+library(ggplot2)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
+
 
 
 path = "/home/fm/Documents/projekte/ggsn-sim/results/evaluateFeasibleDimensioning/traditional"
@@ -126,6 +129,6 @@ p <- p + scale_x_discrete(name = "individual instance tunnel capacity") + scale_
 p <- p + scale_color_manual(values=cbPalette)
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20)) + labs(colour = "start/stop\nduration") 
 p
-ggsave("compare-maxinstances-block.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("compare-maxinstances-block.pdf")
-s
+#ggsave("compare-maxinstances-block.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("compare-maxinstances-block.pdf")
+ggsave("compare-maxinstances-block.pdf", width=12, height=8, device=cairo_pdf)

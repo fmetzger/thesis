@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
@@ -30,5 +32,6 @@ p <- p + annotation_logticks(sides="b") + ylab("cumulative probability")
 p <- p + scale_color_manual(values=cbPalette, name="time of day")
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-duration-timeofday-ecdf.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-duration-timeofday-ecdf.pdf")
+#ggsave("R-duration-timeofday-ecdf.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-duration-timeofday-ecdf.pdf")
+ggsave("R-duration-timeofday-ecdf.pdf", width=12, height=8, device=cairo_pdf)

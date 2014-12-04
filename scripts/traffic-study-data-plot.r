@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 # data sources:
 # cisco global visual networking index 2012-2017
@@ -45,8 +47,9 @@ p <- p + scale_x_continuous(breaks = year) + ylab("traffic (exabytes per month)"
 p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
-ggsave("r-cisco-vni-2013.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("r-cisco-vni-2013.pdf")
+#ggsave("r-cisco-vni-2013.pdf", width=12, height=8, useDingbat=F)
+ggsave("r-cisco-vni-2013.pdf", width=12, height=8, device=cairo_pdf)
+#embed_fonts("r-cisco-vni-2013.pdf")
 
 
 ###############
@@ -87,8 +90,9 @@ p <- p + ylab("aggregate traffic ratio")
 p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
-ggsave("r-netvine-phenomena-fixed.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("r-netvine-phenomena-fixed.pdf")
+#ggsave("r-netvine-phenomena-fixed.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("r-netvine-phenomena-fixed.pdf")
+ggsave("r-netvine-phenomena-fixed.pdf", width=12, height=8, device=cairo_pdf)
 
 # netvine mobile
 
@@ -115,5 +119,6 @@ p <- p + ylab("aggregate traffic ratio")
 p <- p + labs(fill = "traffic type") + theme(text = element_text(family="Linux Biolinum", size=20))
 p <- p + scale_fill_manual(values=cbPalette)
 p
-ggsave("r-netvine-phenomena-mobile.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("r-netvine-phenomena-mobile.pdf")
+#ggsave("r-netvine-phenomena-mobile.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("r-netvine-phenomena-mobile.pdf")
+ggsave("r-netvine-phenomena-mobile.pdf", width=12, height=8, device=cairo_pdf)

@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 servingtimes <- scan("/home/fm/svn/ursa/out/duration", dec=".")
 st_dongle <- scan("/home/fm/svn/ursa/out/duration_dongles", dec=".") 
@@ -38,9 +40,9 @@ p <- p + ylab("cumulative probability") + xlab("tunnel duration (s)") + guides(c
 p <- p + scale_color_manual(values=cbPalette)
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-tunnel-duration-device-type.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-tunnel-duration-device-type.pdf")
-
+#ggsave("R-tunnel-duration-device-type.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-tunnel-duration-device-type.pdf")
+ggsave("R-tunnel-duration-device-type.pdf", width=12, height=8, device=cairo_pdf)
 
 
 df <- data.frame()
@@ -60,8 +62,9 @@ p <- p + ylab("cumulative probability") + xlab("tunnel duration (s)") + guides(c
 p <- p + scale_color_manual(values=cbPalette)
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-tunnel-duration-operating-system.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-tunnel-duration-operating-system.pdf")
+#ggsave("R-tunnel-duration-operating-system.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-tunnel-duration-operating-system.pdf")
+ggsave("R-tunnel-duration-operating-system.pdf", width=12, height=8, device=cairo_pdf)
 
 
 
@@ -89,6 +92,7 @@ df <- rbind(df,x)
 x <- data.frame(st=st_ios_sampled, type="ios")
 df <- rbind(df,x)
 
+
 cbPalette <- c( "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 p <- ggplot(df, aes(x=st, color=as.factor(type), fill=as.factor(type))) + geom_density(adjust=0.5, size=1, alpha=0.3)
@@ -97,5 +101,18 @@ p <- p + annotation_logticks(sides="b")
 p <- p + scale_color_manual(values=cbPalette, name="") + scale_fill_manual(values=cbPalette, name="")
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-duration-classification-density.pdf", width=12, height=8, useDingbats=F)
-embed_fonts("R-duration-classification-density.pdf")
+#ggsave("R-duration-classification-density.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-duration-classification-density.pdf")
+ggsave("R-duration-classification-density.pdf", width=12, height=8, device=cairo_pdf)
+
+
+
+p <- ggplot(df, aes(x=st, color=as.factor(type))) + geom_density(adjust=0.5, size=1)
+p <- p + scale_x_log10(limits=c(0.2, 1000000)) + xlab("tunnel duration (s)")
+p <- p + annotation_logticks(sides="b")
+p <- p + scale_color_manual(values=cbPalette, name="") + scale_fill_manual(values=cbPalette, name="")
+p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
+p
+#ggsave("R-duration-classification-density.pdf", width=12, height=8, useDingbats=F)
+#embed_fonts("R-duration-classification-density.pdf")
+ggsave("R-duration-classification-density-noalphafill.pdf", width=12, height=8, device=cairo_pdf)

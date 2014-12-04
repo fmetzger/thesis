@@ -1,5 +1,7 @@
 library(ggplot2)
-library(extrafont)
+#library(extrafont)
+library(sysfonts)
+library(Cairo)
 
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
@@ -53,8 +55,9 @@ p <- p + xlab("bandwidth (Mb/s)") + ylab("number of video stalls")
 p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-ltesim-bwseries-numstalls.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-ltesim-bwseries-numstalls.pdf")
+#ggsave("R-ltesim-bwseries-numstalls.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-ltesim-bwseries-numstalls.pdf")
+ggsave("R-ltesim-bwseries-numstalls.pdf", width=12, height=8, device=cairo_pdf)
 
 
 p <- ggplot(dfsub, aes(x=bandwidth, y=duration.stop, color=videoname))
@@ -64,9 +67,9 @@ p <- p + xlab("bandwidth (Mb/s)") + ylab("video stall duration (s)")
 p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-ltesim-bwseries-stallduration.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-ltesim-bwseries-stallduration.pdf")
-
+#ggsave("R-ltesim-bwseries-stallduration.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-ltesim-bwseries-stallduration.pdf")
+ggsave("R-ltesim-bwseries-stallduration.pdf", width=12, height=8, device=cairo_pdf)
 
 # latency plots
 dfsub <- subset(df, df$bandwidth == 1000)
@@ -78,8 +81,9 @@ p <- p + xlab("additional latency (ms)") + ylab("number of video stalls")
 p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-ltesim-latencyseries-numstalls.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-ltesim-latencyseries-numstalls.pdf")
+#ggsave("R-ltesim-latencyseries-numstalls.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-ltesim-latencyseries-numstalls.pdf")
+ggsave("R-ltesim-latencyseries-numstalls.pdf", width=12, height=8, device=cairo_pdf)
 
 p <- ggplot(dfsub, aes(x=latency, y=duration.stop, color=videoname))
 p <- p + geom_point(size=3) + geom_line()
@@ -88,5 +92,6 @@ p <- p + xlab("additional latency (ms)") + ylab("video stall duration (s)")
 p <- p + scale_color_manual(values=cbPalette, name="", breaks=c("video1", "video3", "video2"), labels=c("low quality", "standard quality", "high quality"))
 p <- p + theme(text = element_text(family="Linux Biolinum", size=20))
 p
-ggsave("R-ltesim-latencyseries-stallduration.pdf", width=12, height=8, useDingbat=F)
-embed_fonts("R-ltesim-latencyseries-stallduration.pdf")
+#ggsave("R-ltesim-latencyseries-stallduration.pdf", width=12, height=8, useDingbat=F)
+#embed_fonts("R-ltesim-latencyseries-stallduration.pdf")
+ggsave("R-ltesim-latencyseries-stallduration.pdf", width=12, height=8, device=cairo_pdf)
