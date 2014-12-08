@@ -41,6 +41,7 @@
 	\microtypesetup{expansion=false}%
 \fi
 
+
 \usepackage[hyphens]{url}
 %\usepackage[l2tabu,orthodox]{nag} % old style latex & warnings as errors
 \usepackage{scrhack} % fix komascript floattolist issues
@@ -56,7 +57,7 @@
 \usepackage{tabu} %supersedes tabularx, provides tables spanning multiple pages
 \usepackage{tikz}
 \usetikzlibrary{arrows}
-\usepackage{marginnote} % ?
+%\usepackage{marginnote} % ?
 \usepackage{enumitem} % inline lists, etc.
 \usepackage{array} % ?
 \usepackage{styles/tangocolors}
@@ -74,12 +75,14 @@
 \npstyleenglish % numprint style, fraction and 1.000 separation
 \usepackage[24hr,iso]{datetime}
 %\usepackage{gitinfo}
+%\usepackage[multiple,stable]{footmisc} % incompatible with hyperref
 \usepackage[automark]{scrpage2}
 \usepackage{booktabs} % \toprule and other table stuff
 \usepackage[titles]{tocloft} % toc style
-\usepackage[disable]{easy-todo} % load after tocloft to avoid option clash, option [disable] to disable!
+%\usepackage[disable]{easy-todo} % load after tocloft to avoid option clash, option [disable] to disable!
 \usepackage[a4paper]{geometry} % page margins
 \usepackage{titlesec}
 \usepackage{textcase} % for \MakeTextUppercase
+
 
 \usepackage{metalogo}
