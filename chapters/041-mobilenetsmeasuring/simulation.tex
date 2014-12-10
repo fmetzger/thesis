@@ -21,22 +21,22 @@ This model was implemented on the basis of version 3.0 of the \textit{SimPy}\foo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Description and Design of the Individual Experiments}
 
-To match the measurement data the simulation time is set to be \SI{7}{\day} in all simulation scenarios. The initial \SI{60}{\minute} of each experiment are considered to be the transient phase and are afterwards deducted from the results. Ten replications of each scenario were performed. All depicted error bars show the \SI{95}{\percent} confidence intervals across the experiments.
+To match the measurement data the simulation time is set to be \SI{7}{\day} in all simulation scenarios. The initial \SI{60}{\minute} of each experiment are considered to be the transient phase and are afterwards excluded from the results. Ten replications of each scenario were performed. All depicted error bars show the \SI{95}{\percent} confidence intervals across the experiments.
 
-The first experiment was conducted to investigate the normalized baseline load a monolithic \gls{GGSN} experiences using the presented model. Using this, an upper limit to the number of concurrent tunnels and the correlation to the blocking probability and tunnel rejection rate can be established. The effects of scaling up, improving the hardware capabilities of the single node, can thus be investigated afterwards.
+The first experiment was conducted to investigate the normalized baseline load a monolithic \gls{GGSN} experiences using the presented model and the fits from Tables~\ref{c4:tab:IAT-fits} and \ref{c4:tab:fits-duration}. Using this, an upper limit to the number of concurrent tunnels and the correlation to the blocking probability and tunnel rejection rate can be established. The effects of scaling up, improving the hardware capabilities of the single node, can thus be investigated afterwards.
 
 Based on these results, the virtualization and scaling out effects in the virtualized, \gls{GGSN} model are examined. In order to study the feasibility of this approach the performance indicators of the virtual \gls{GGSN} are compared to the baseline established in the first experiment. To this end, the virtual \gls{GGSN} is simulated in several configurations, which vary the number of instances and supported concurrent tunnels per instance.
 
 In a final experiment the startup and shutdown duration of virtual instances and the life cycle management of these instances are additionally taken into account. Although the boot duration of modern \glspl{os} and \glspl{VM}, especially on current hardware with flash storage, is significantly lower than it has been in the past, there is still a delay. This could cause further blocking if the load balancer does not account for this. But the more generously the balancer starts instances in advance the smaller the virtualization efficiency gain, especially the energy consumption, will be become. For this reason, the number of active instance is a relevant performance metric in the virtual \gls{GGSN} model.
 
-The experiment varies the boot delay and implements a very simple load balancer rule as baseline. The rule keeps at least one empty instance running in reserve at all times and deactivates instances, when two running instances are completely unused. As this is very generous, virtualization blocking should only occur in cases of very small instances or very rapid arrivals. Realistic provisioning rules can improve on this quite easily. But even this simplistic approach already serves to demonstrate potential benefits.
+The experiment varies the boot delay and implements a very simple load balancer rule as baseline. The rule keeps at least one empty instance running in reserve at all times and deactivates instances, when two running instances are completely unused. As this is very generous, virtualization blocking should only occur in cases of instances limited to handling a low maximum number of tunnels or very rapid arrivals. Realistic provisioning rules can improve on this quite easily. But even this simplistic approach already serves to demonstrate potential benefits.
 
 
 %%
 \subsubsection{GGSN Load, Capacity, and Scaling}
 
 First, with the help of the \glspl{IAT} and duration of tunnels calculated in the dataset evaluation, the monolithic \gls{GGSN} model is studied. While these passive measurement traces provided information on the frequency of new tunnel arrivals and the duration they remain active, no reliable information on the number of required supported concurrent tunnels for a given arrival rate could be deduced. 
-This experiment evaluates arbitrary values for the \gls{GGSN} tunnel capacity and determines the resulting blocking probability such that a suitable value can be found. This is a typical task in a dimensioning process.
+This experiment evaluates arbitrary values for the \gls{GGSN} tunnel capacity and determines the resulting blocking probability such that a reasonable value can be found, given desired limits on the blocking probability. This is a typical task in a dimensioning process.
 
 \begin{figure}[htb]
 	\centering
@@ -45,7 +45,7 @@ This experiment evaluates arbitrary values for the \gls{GGSN} tunnel capacity an
 \label{c4:fig:traditional_blocking}
 \end{figure}
 
-Figure~\ref{c4:fig:traditional_blocking} studies this impact of the maximum supported number of concurrent tunnels $n$ on the blocking probability $p_B$. $n$ is incrementally increased in steps of \numprint{100} tunnels from \numprint{0} to \numprint{5500}. As expected, the blocking probability decreases with the number of supported tunnels. An almost linear correlation can be observed in the larger part of the graph with a small convergence phase shortly before reaching $p_B=0$. For the normalized inter-arrival rate no blocking is occurring if a capacity of \numprint{5000} concurrent tunnels is allocated to the \gls{GGSN}.
+Figure~\ref{c4:fig:traditional_blocking} studies this impact of the maximum supported number of concurrent tunnels $n$ on the blocking probability $p_B$, where $n$ is incrementally increased in steps of \numprint{100} tunnels from \numprint{0} to \numprint{5500}. As expected, the blocking probability decreases with the number of supported tunnels. An almost linear correlation can be observed in the larger part of the graph with a small convergence phase shortly before reaching $p_B=0$. For the normalized inter-arrival rate no blocking is occurring if a capacity of \numprint{5000} concurrent tunnels is allocated to the \gls{GGSN}.
 
 \begin{figure}[htb]
 	\centering
@@ -65,7 +65,7 @@ A similar experiment can be set up for the virtual \gls{GGSN} model. Learning fr
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/R-virtualized-blocking.pdf}
-	\caption{Comparison of the mean blocking probability of various virtual instance configurations. The horizontal axis depicts the summary capacity of all instances in the experiment.}
+	\caption{Comparison of the mean blocking probability of various virtual instance configurations. The horizontal axis depicts the aggregate capacity of all instances in the experiment.}
 \label{c4:fig:virtualized_blocking}
 \end{figure}
 
@@ -76,7 +76,7 @@ A similar experiment can be set up for the virtual \gls{GGSN} model. Learning fr
 \label{c4:fig:virtualized_tunnelusage}
 \end{figure}
 
-Figures~\ref{c4:fig:virtualized_blocking} and \ref{c4:fig:virtualized_tunnelusage} demonstrate the results in terms of $p_b$ and concurrent tunnels served overlaid onto the base monolithic scenario's results. No large difference in the results can be seen and the virtualized \gls{GGSN} model behaves no worse than a single large node model.
+Figures~\ref{c4:fig:virtualized_blocking} and \ref{c4:fig:virtualized_tunnelusage} demonstrate the results in terms of $p_B$ and concurrent tunnels served overlaid onto the base monolithic scenario's results. No large difference in the results can be seen and the virtualized \gls{GGSN} model behaves no worse than a single large node model.
 
 \begin{figure}[htb]
 	\centering
@@ -87,7 +87,7 @@ Figures~\ref{c4:fig:virtualized_blocking} and \ref{c4:fig:virtualized_tunnelusag
 
 But the possible effects of an increased number of instances need to be investigated further. One goal in virtualization is the increase of energy efficiency. This can be achieved by having turned on just as many instances as needed and not more, thus scaling the system to its current load. 
 
-Therefore, Figure~\ref{c4:fig:res-instance-usage-mean} takes a look at scenarios with nine different instance pools and varying tunnel capacities for each instance. Each setup is compared by the mean number of active instances during the one-week course. The bigger the instances' capacity becomes the less instances need to be active. An actual \gls{GGSN}, even a virtualized one, would need to be dimensioned in such a way to keep the total overhead low. It was already determined that, with the assumed normalized arrival rate, a capacity of \numprint{5000} tunnels is sufficient in order to achieve a blocking probability close to zero. Keeping the setup at this minimum capacity and taking a look at the results in the figure, a good portion of the instances, usually around \SI{20}{\percent}, can still be kept turned off.
+Therefore, Figure~\ref{c4:fig:res-instance-usage-mean} takes a look at scenarios with nine different instance pools and varying tunnel capacities for each instance. Each setup is compared by the mean number of active instances during the one-week course. The bigger the capacity of each instance, the smaller the number of instances required to be active. An actual \gls{GGSN}, even a virtualized one, would need to be dimensioned in such a way to keep the total overhead low. It was already determined that, with the assumed normalized arrival rate, a capacity of \numprint{5000} tunnels is sufficient in order to achieve a blocking probability close to zero. Keeping the setup at this minimum capacity and taking a look at the results in the figure, a good portion of the instances, usually around \SI{20}{\percent}, can still be kept turned off.
 
 \begin{figure}[htbp]
 	\centering
@@ -112,7 +112,7 @@ Looking at these scenarios and additionally Figure~\ref{c4:fig:res-usage-barplot
 %%
 \subsubsection{Virtual Instance Life Cycle Management Impact}
 
-A final aspect to be investigated in the experiments is the potential increase of the blocking probability in virtualized scenarios when compared to the monolithic base. In theory, virtualization can incur additional overhead which would represent itself as an increase in $p_b$. In the given model the overhead can stem from the hypervisor and its scheduling  and lifecycle management strategies in conjunction with the instances' boot delay. 
+A final aspect to be investigated in the simulation experiments is the potential increase of the blocking probability in virtualized scenarios when compared to the monolithic base. In theory, virtualization can incur additional overhead which would represent itself as an increase in $p_B$. In the given model the overhead can stem from the hypervisor and its scheduling  and lifecycle management strategies in conjunction with the instances' boot delay. 
 
 The somewhat simplistic hypervisor strategy in this simulation was already discussed above and should give an upper limit on the impact on the blocking probability. This strategy is fixed, but the instance boot duration gets changed to analyze the impact. Values between \SI{20}{\second} and \SI{5}{\minute} are considered and should reasonable represent real-life systems of a wide variety.
 
@@ -123,7 +123,7 @@ The somewhat simplistic hypervisor strategy in this simulation was already discu
 \label{c4:fig:blockprob-startstop-barchart}
 \end{figure}
 
-Figure~\ref{c4:fig:blockprob-startstop-barchart} compares a number of instance and tunnel capacity scenarios on basis of their instance boot duration. In most scenarios there is almost no increase in the tunnel blocking probability. Only in cases with very many but small instances, where a lot of instance churn will occur, an increase can be noticed for higher boot durations.
+Figure~\ref{c4:fig:blockprob-startstop-barchart} compares a number of instance and tunnel capacity scenarios on basis of their instance boot duration. In most scenarios there is almost no increase in the tunnel blocking probability. Only in cases with very many but small instances, where a lot of instance churn will occur, an increase can be noticed at higher boot durations.
 
 \begin{figure}[htbp]
 	\centering
@@ -134,7 +134,7 @@ Figure~\ref{c4:fig:blockprob-startstop-barchart} compares a number of instance a
 
 Figure~\ref{c4:fig:compare_maxinstances_block} investigates this increase in more detail and shows the blocking probability of one select scenario. Here, the system supports \numprint{5000} tunnels in total with differing individual instance capacity of \numprint{50}, \numprint{150}, and \numprint{500}. In each case the start and stop down duration is changed between \SI{1}{\minute} and \SI{5}{\minute}. The increase in blocking probability in relation to both the instance capacity as well as the start duration can be easily observed.
 
-This can be partially attributed to the hypervisor and its simplistic scheduling  and lifecycle management strategies in the simulation. If a low capacity instance with a long start time is activated, there is a high probability that the system will quickly expend its capacity again.
+This can be partially attributed to the assumed hypervisor and its simplistic scheduling  and lifecycle management strategies in the simulation. If a low capacity instance with a long start time is activated, there is a high probability that the system will quickly expend its capacity again.
 A potential conclusion is that choosing larger instance capacities decreases the blocking probability at the cost of energy efficiency (because less instances can stay turned off).
 
 \begin{figure}[htbp]

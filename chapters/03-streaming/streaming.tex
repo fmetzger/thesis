@@ -3,14 +3,14 @@
 \chapter{Measuring and Modeling Reliable Video Streaming}
 \label{chap:streaming}
 
-The Web would not have seen that big an increase in traffic if it were not for the tight integration of video streaming into every browser. Most forms of today's Web-based video delivery take advantage of \gls{HTTP} and \gls{TCP} to transport video. This is a completely different approach to what was used and was traditionally understood as video streaming in the past.
+The Web would not have seen that big an increase in traffic in recent years if it were not for the tight integration of video streaming into every browser. Most forms of today's Web-based video delivery take advantage of \gls{HTTP} and \gls{TCP} to transport video. This is a completely different approach to what was used and was traditionally understood as video streaming in the past.
 
 Streaming itself can be conducted in many ways, resulting in an ever-increasing number of protocols. Furthermore, the current boom in smartphones creates an increasing plurality of access network technologies. Each of them exhibits characteristic \gls{QoS} properties. These are typically:
 
 \begin{itemize}
 	\item The \textit{bandwidth}, or the maximum throughput a user can achieve, which is always limited by at least one link, serving as the bottleneck. In most cases this will be the access link, but can also be any other link in times of high load. Bandwidth on an access medium can also be shared between all of its participants as is the case with any radio technology or cable Internet access.
 
-	\item The \textit{delay} is the time data travels between a sender and a recipient. The term \textit{jitter} is used  for the delay variation and occurs, for example, when successive packets travel on different routes or through different radio receivers during mobility events.
+	\item The \textit{delay} is the time data travels between a sender and a recipient. The term \textit{jitter} is used  for the delay variation and occurs, for example, when successive packets travel on different routes, through different radio receivers during mobility events, or when packets pass through excessively sized buffers.
 
 	\item \textit{Loss} occurs when data packets do not reach the target. One source of loss can be an imperfect physical medium that flips some bits in a data packet. The responsible higher protocol layer will recognize this and drop the packet or repeat the request.
 \end{itemize}
@@ -42,11 +42,11 @@ The work in this chapter was originally based on two publications, \cite{metzger
 
 In the course of this chapter, a complete toolset to classify, model, emulate, measure, and finally to evaluate video streaming and interpret the results was given.
 
-The multitude of approaches to reliable \gls{HTTP} streaming in recent years, required the creation of these tools. Previous advances were generally not flexible or fast enough to deal with this influx of new system parameters. The presented measurement framework, based on a simple playback model, can be an answer to this issue. Implemented as an emulation in a testbed or a \gls{DES} it can deal with almost any reliable streaming protocol.
+The multitude of approaches to reliable \gls{HTTP} streaming in recent years, required the creation of specific tools. Previous advances were generally not flexible or fast enough to deal with the influx of new system parameters. The presented measurement framework, based on a fundamental playback model, can be an answer to this issue. Implemented as an emulation in a testbed or a \gls{DES} it can deal with almost any reliable streaming protocol.
 
 Out of these reliable protocols, a differentiation and categorization solely based on their playback strategies was made and compared to real world examples. With the help of the measurement framework and testbed, these strategies were quickly evaluated for their behavior under difficult network \gls{QoS} conditions. Although they might not behave perfectly when stressed, they probably will still be the way forward in the future, because of their reduced complexity and the shift of control logic from the server to the client as well as from the protocol to the application.
 
-This also makes them very interesting for usage on mobile device, for the growing mobile application ecosystems, and for the very distinct behavior of streaming in mobile networks in contrast to classical wireline networks. The description of the mobile streaming environment and approaches for an investigation will be conducted in the next chapters.
+This also makes them very interesting for usage on mobile devices, for the growing mobile application ecosystems, and for the very distinct behavior of streaming in mobile networks in contrast to classical wireline networks. The description of the mobile streaming environment and approaches for an investigation will be conducted in the next chapters.
 
 
 

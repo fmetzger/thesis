@@ -12,9 +12,9 @@ As stated, the goal of this chapter is to model the measuring process and reliab
 
 When measuring anything related to video or even just image quality, one has the choice between conducting a subjective or objective assessment. 
 
-During a subjective test, human assessors evaluate and rate video quality in a controlled environment with the results usually being aggregated into an overall relative quality score denominated \gls{MOS}. Through the human element, conducting a subjective assessment is very time and resource consuming but it can also serve as the best indicator of the \gls{QoE}.
+During a subjective test, human assessors evaluate and rate video quality in a controlled environment with the results usually being aggregated into an overall relative quality score denominated \gls{MOS}. Through the human element, conducting a subjective assessment is very time and resource consuming, but it can also serve as the best indicator of the \gls{QoE}.
 
-This is where, objective video quality assessments come into play. Modern objective models attempt to recreate the features of the humans' visual perception and psychological model and are usually calibrated by subjective assessments. Most objective models operate on a full reference approach, meaning that they directly compare the original reference video to the resulting video after being encoded or transmitted.
+This is where objective video quality assessments come into play. Modern objective models attempt to recreate the features of human visual perception and psychological model and are usually calibrated by subjective assessments. Most objective models operate on a full reference approach, meaning that they directly compare the original reference video to the resulting video after being encoded or transmitted.
 
 Two of the simplest full reference image quality metrics, which can also be applied on video, are the \gls{MSE} and \gls{PSNR}, defined as:
 
@@ -25,13 +25,13 @@ Two of the simplest full reference image quality metrics, which can also be appl
 	PSNR &= 10 \log_{10} \frac{L^2}{MSE},
 \end{align}
 %
-where $N$ denotes the number of pixels in a frame and $x$ and $y$ the individual pixels from the reference and output frame respectively. $L$ denotes the maximum value of a pixel. Usually $L = \SI{8}{\bit} = 255$ as the image is either grayscale or, if it has color information, each color channel is calculated separately. \cite{objective-vqa} offers more information on these metrics.
+where $N$ denotes the number of pixels in a frame, and $x$ and $y$ the individual pixels from the reference and output frame respectively. The quantity $L$ denotes the maximum value of a pixel. Usually $L$ is from the range $[0,255]$, corresponding to a bit depth of \SI{8}{\bit}. The image is either grayscale, or, if it has color information, each color channel is calculated separately. \cite{objective-vqa} offers more information on these metrics.
 
 Image quality models can by nature only test for spatial distortions of single images. This includes artifacts like general blockiness or blurriness, noise, or reduced resolution. Quality assessments specifically dedicated to video material can additionally take temporal metrics into account, for examples anomalies in the frame rate. Such models are also being researched and standardized by the \gls{ITU} and \gls{VQEG} for example in \cite{ituJ144, ituJ246, ituJ247}. Often, a network's \gls{QoS} parameters can also be directly mapped onto an objective \gls{QoE} metric as described in \cite{5430142}.
 
 Metrics dedicated solely to streaming quality measurements should restrict themselves to measure only degradations that occur during the streaming process and not the initial encoding process. Only a specific subset of quality alterations apply here. For example, lost or late packets can cause missing blocks in a frame or frames to be skipped completely. 
 
-Initial thoughts concerning \gls{IPTV} --- which represents an unreliable streaming solution --- \gls{QoE} have been given in \cite{ituG1080} and the influence of packet delay variations on playback buffers is investigated in \cite{rfc3393}. The \gls{MDI}~\cite{rfc4445} is an attempt to capture this behavior and relate it to the network \gls{QoS}. Its metric relies on two properties, the \gls{DF}, as a measure of the network's latency and jitter, and the media loss rate. Of special interest to this investigation is the \gls{DF}, which is calculated based on a \gls{VB} of received stream data as
+Initial thoughts concerning \acrshort{QoE} in \gls{IPTV} systems --- which represents an unreliable streaming solution --- \gls{QoE} have been given in \cite{ituG1080} and the influence of packet delay variations on playback buffers is investigated in \cite{rfc3393}. The \gls{MDI}~\cite{rfc4445} is an attempt to capture this behavior and relate it to the network \gls{QoS}. Its metric relies on two properties, the \gls{DF}, as a measure of the network's latency and jitter, and the media loss rate. Of special interest to this investigation is the \gls{DF}, which is calculated based on a \gls{VB} of received stream data as
 
 
 \begin{align}
@@ -41,7 +41,7 @@ Initial thoughts concerning \gls{IPTV} --- which represents an unreliable stream
 %
 with $r_{rcv}$ and $r_{drain}$ denoting the buffer's receiving and draining rates.
 
-Reliable streaming has even less possibilities to degrade a video stream. Packets can not arrive out of order at the application and loss is fully concealed by \gls{TCP}. This means that the transmitted and the played video are always identical and no image reference models are necessary here. The only thing that can still happen, is that portions of the video data arrive too late to be played out at their intended point in time. Reliable streaming quality assessment metrics needs to keep track of the following properties:
+Reliable streaming is even less likely to degrade the image quality of a video stream. Packets can not arrive out of order at the application and loss is fully concealed by \gls{TCP}. This means that the transmitted and the played video are always identical and no image reference models are necessary here. The only thing that can still happen, is that portions of the video data arrive too late to be played out at their intended point in time. Reliable streaming quality assessment metrics needs to keep track of the following properties:
 
 \begin{itemize}
 	\item The initial delay, which is the time delta between the start of the transmission and the start of the video play.
@@ -60,13 +60,13 @@ Few attempts for concise reliable streaming metrics that cover all mentioned pro
  with the total stalling duration $d_s$ and the video duration $d_v$. The model lacks to capture other stalling characteristics and quality levels. A final metric by Hoßfeld et al.~\cite{hossfeld2013youtubeqoe} remedies this and incorporates both the length $L$ as well as the number $N$ of stalls in the computation of the \gls{MOS}. It states
 
 \begin{equation}
-	\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
+	\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}\text{.}
 \label{c3:eqn:hossfeld-stalling-model}
 \end{equation}
 
 The equation was derived from user studies on perceived YouTube video quality. Therefore, it can serve as a \gls{QoE} metric for the non-adaptive measurement model introduced in the following section. Regarding adaptive streaming, work conducted in \cite{6603210} gives an overview over some initial attempts of metrics that include temporal aspects of the image quality. But none of them includes all necessary aspects to assess reliable adaptive streaming.
 
-The streaming measurement models presented in the following section derive only the basic properties, including the stalling and quality level characteristics, from the experiment and could be used for any of the above metrics. For non-adaptive reliable streaming it is recommended to use the model defined in Equation~\ref{c3:eqn:hossfeld-stalling-model} and the results of the measurement series in Section~\ref{c3:sec:measurements} will also be presented using this equation. Surpassing this model or defining an entirely new adaptive metric would require extensive user studies and is beyond the scope of this work.
+The streaming measurement models presented in the following section derive only the basic properties, including the stalling and quality level characteristics, from the experiment and could be used for any of the above metrics. For non-adaptive reliable streaming it is recommended to use the model defined in Equation~\ref{c3:eqn:hossfeld-stalling-model}. The results of the measurement series in Section~\ref{c3:sec:measurements} will also be presented using this equation. Surpassing this model or defining an entirely new adaptive metric would require extensive user studies and is beyond the scope of this work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Measurement and Playback Model}
@@ -74,7 +74,7 @@ The streaming measurement models presented in the following section derive only 
 
 Parts of the model presentation were previously published in \cite{cs3518}, \cite{metzger2011delivery}, and \cite{6229739}. It is based on the desire to compare all in-the-wild variants of reliable streaming protocols in a simple and concise way. This is achieved by basing the model on the component that is common to all of the approaches: the playback buffer.
 
-To display a video stream, an application needs to maintain a playback buffer of sufficient size to at least gather enough data to reconstruct the next portion of the video to be displayed. From the perspective of a player application, a video consists of a sequence of atomic units, namely video frames and audio samples, which need to be displayed at certain points in time, predetermined through the video's frame rate. 
+To display a video stream, an application needs to maintain a playback buffer of sufficient size to at least gather enough data to reconstruct the next portion of the video to be displayed. From the perspective of a player application, a video consists of a sequence of atomic units, namely video frames and audio samples, which need to be played back at certain points in time, predetermined through the video's frame rate. 
 
 The application progressively decodes the video from a source and stores the units temporarily in a memory buffer before playing them. In reliable streaming, the buffer is filled by the payload from received \gls{TCP} segments and subject to the network \gls{QoS}. The process can be subsumed as:
 
@@ -91,10 +91,10 @@ Both the incoming and outgoing data stream are variable over time. The fill leve
 \label{c3:fig:playback-model}
 \end{figure}
 
-Figure~\ref{c3:fig:playback-model} overviews the reliable streaming model. The controller, part of the video player, selects a video from a remote location and the transmission is started, filling the playback buffer. The model has four degrees of freedom, which are all governed by the controller and together are coined \textbf{playback strategies}. These are:
+Figure~\ref{c3:fig:playback-model} overviews the reliable streaming model. The controller, part of the video player, selects a video from a remote location and the transmission is started, filling the playback buffer. The model has four degrees of freedom, which are all governed by the controller and together are coined \textbf{playback strategies}. These degrees of freedom are are:
 
 \begin{itemize}
-	\item The initial playback delay, which is the time between the initiation of the video stream transmission and the actual stream playback. The larger this is chosen, the bigger the safety margin on the buffer gets. If the video and transmission bitrate are known to be constant and and appropriately dimensioned, the initial delay can be chosen to be very small.
+	\item Initial playback delay, which is the time between the initiation of the video stream transmission and the actual stream playback. The larger this is chosen, the bigger the safety margin on the buffer gets. If the video and transmission bitrate are known to be constant and and appropriately dimensioned, the initial delay can be chosen to be very small.
 
 	\item Playback pause and resume decisions based on the current buffer fill level. This is a generalization of the initial playback delay, which is in fact only one, albeit always occurring stalling period.
 
@@ -117,7 +117,7 @@ The rest of this sections present fundamental playback strategies and strategy b
 
 The simplest strategy is having no strategy at all. Playback is started immediately when at least a single frame fully resides within the buffer and stops again at an empty buffer. The behavior can be summarized as \textit{``Whenever anything can be played from the buffer, do so.''}.
 
-This results in frequent stops and a large loss in playback continuity and will therefore not be used in practice. However, this strategy has some interesting theoretical properties, which is why it is mentioned here. Both the total stalling time and the required buffer space are minimized. Moreover, the strategy results in an upper limit for the number of stalls occurring\footnote{As a video frame is atomic, no other model could possibly stop the playback more often.}. Therefore, it can act as a baseline reference to assess the performance of other strategies.
+This results in frequent stops and a large loss in playback continuity and will therefore not be used in practice. However, this strategy has some interesting theoretical properties, which is why it is mentioned here. Both the total stalling time and the required buffer space are minimized. Moreover, the strategy results in an upper limit for the number of stalls occurring\footnote{As a video frame is atomic, no other model could possibly need to stop the playback due to buffer drains more often.}. Therefore, it can act as a baseline reference to assess the performance of other strategies.
 
 \begin{figure}[htb]
 	\centering
@@ -134,9 +134,9 @@ Figure~\ref{c3:fig:bufferlevel-stall} depicts an exemplary time series diagram o
 
 Instead of instantly restarting playback a threshold can be introduced. Only after a certain buffer fill level threshold has been surpassed, playback will be started. Thresholds can be set independently for the initial playback delay and stalls, with the initial playback delay generally set to be higher.
 
-The threshold can be chosen in a number of ways. It can either be an absolute data volume or a buffered video duration. The latter is much more suited for variable bitrate videos as it automatically adapts itself to the current bitrate. A third option is to buffer for a certain amount of real time --- this can also be seen as threshold --- and to start playback after that period regardless of the volume of the buffer. Additionally, the threshold could either be set to a constant value or dynamically chosen according to the expected network \gls{QoS}.
+The threshold can be chosen in a number of ways. It can either be an absolute data volume or a buffered video duration. The latter is much more suited for variable bitrate videos as it automatically adapts itself to the current bitrate. A third option is to buffer for a certain amount of wallclock time --- this can also be seen as threshold --- and to start playback after that period regardless of the volume of the buffer. Additionally, the threshold could either be set to a constant value or dynamically chosen according to the expected network \gls{QoS}.
 
-Besides this single-threshold strategy two-threshold or multi-threshold strategies might make more sense for segment-based streaming. In addition to the lower threshold, an upper threshold is introduced. When reached, no new segments will be requested until the buffer arrives at the lower threshold again. To achieve an hysteresis effect a third threshold, somewhere between the lower and upper bound, can also be introduced. Through this, the maximum buffer size can also be controlled. This is important in situations with hard limits on available memory. Mobile devices come to mind here.
+Besides this single-threshold strategy, multi-threshold strategies might make more sense for segment-based streaming. In addition to the lower threshold, an upper threshold is introduced. When reached, no new segments will be requested until the buffer arrives at the lower threshold again. To achieve an hysteresis effect a third threshold, somewhere between the lower and upper bound, can also be introduced. Through this, the maximum buffer size can also be controlled. This is important in situations with hard limits on available memory. Mobile devices come to mind here.
 
 
 \begin{figure}[htb]
@@ -152,7 +152,7 @@ An example buffer diagram is displayed in Figure~\ref{c3:fig:bufferlevel-flash}.
 %%
 \subsubsection{Pacing Strategies}
 
-For segment-based \gls{HTTP} streaming, a two-threshold strategy is not the only supplemental option on top of simple streaming. Here, the controller can pace the request of future segments to match the overall, or the current video bitrate. A safety margin can also be factored in to even out short time fluctuations of either the transmission or the video bitrate. For example, the controller would request segments with an overall transmission rate of 1.25 times the video bitrate. The pacing rate can either be statically chosen in advance or can be calculated dynamically based on current or future conditions. The latter leads to predictive strategies.
+For segment-based \gls{HTTP} streaming, a two-threshold strategy is not the only supplemental option on top of simple streaming. Here, the controller can pace the request of future segments to match the overall or the current video bitrate. A safety margin can also be factored in to even out short temporal fluctuations of either the transmission or the video bitrate. For example, the controller would request segments with an overall transmission rate of $1.25$ times the video bitrate. The pacing rate can either be statically chosen in advance or can be calculated dynamically based on current or future conditions. The latter leads to predictive strategies.
 
 
 %%
@@ -175,14 +175,14 @@ Figure~\ref{c3:fig:bufferlevel-startdelay} depicts the time series of a sample i
 %%
 \subsubsection{Adaptive Strategies}
 
-Most strategies for adaptive streaming are an extension of both the threshold as well as the pacing strategy. However, instead of a simple transmit-or-no-transmit ruleset, they can make much more fine-grained adjustments. The quality of the stream segment to be requested will be chosen depending on the current fill level and drain rate of the buffer. This makes a trade-off between maintaining a certain quality level and putting up with increased waiting times, and dropping the quality to a level sustainable at the current transmission rate.
+Most strategies for adaptive streaming are an extension of both the threshold as well as the pacing strategy. However, instead of a simple transmit-or-no-transmit ruleset, they can make much finer-grained adjustments. The quality of the stream segment to be requested will be chosen depending on the current fill level and drain rate of the buffer. This makes a trade-off between maintaining a certain quality level and putting up with increased waiting times, and dropping the quality to a level sustainable at the current transmission rate.
 
 A practical attempt at defining an adaptive strategy is made in Section~\ref{c6:sec:mobilestreamingtestbed} for the mobile streaming testbed.
 
 
 \subsubsection{Real World Implementation Examples}
 
-Actual streaming player implementations often do not implement only one of these strategies, but rather combine ideas from several. Herein, thresholds are often set arbitrarily through best practices which are not empirically evaluated. Also, often a trade-off between user perceived quality and the resulting server load is made as a business decision that can further impact the streaming quality. In general, every streaming service essentially implements its own playback strategies. This section describes three example applications.
+Actual streaming player implementations often do not implement just one of these strategies, but rather combine ideas from several. Herein, thresholds are often set arbitrarily through best practices which are not empirically evaluated. Also, often a trade-off between user perceived quality and the resulting server load is made as a business decision that can further impact the streaming quality. In general, every streaming service essentially implements its own playback strategies. This section describes three example applications.
 
 %%
 \paragraph{2011 YouTube Flash Player Buffering Strategy}
@@ -206,7 +206,7 @@ This player used a single threshold strategy with different threshold values for
 	\end{tabu}
 \end{table}
 
-Furthermore, YouTube employs a proprietary server-side pacing mechanism outside of the control of the streaming player. This is hinted at in the encoding of the \glspl{URL} of the video files and enforced by the video file cache server. Some of those (not user-changeable) parameters are described in Table~\ref{c3:tbl:yturl}. The pacing was in effect for all videos below high definition resolution, but has since then been extended to include all video files. 
+Furthermore, YouTube employs a proprietary server-side pacing mechanism outside of the control of the streaming player. This is hinted at in the encoding of the \glspl{URL} of the video files and enforced by the video file cache server. Some of those (not user-changeable) parameters are described in Table~\ref{c3:tbl:yturl}. The pacing was in effect for all videos below high definition resolution, but has since been extended to include all video files. 
 
 \begin{figure}[htbp]
 	\centering

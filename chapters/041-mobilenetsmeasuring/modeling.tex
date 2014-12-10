@@ -3,7 +3,7 @@
 \section{Modeling Mobile Network Load}
 \label{c4:sec:modeling}
 
-The next logical step after the collection of empirical data and the execution of a statistical analysis lies in the creation of models abstracting this real system. While some loss of precision is incurred, models are much more flexible and can have numerous applications. Load models and the derived information on the network \gls{QoS} parameters can serve as a basis for the video measurement framework of Section~\ref{c3:sec:measurements}, which only used arbitrarily chosen values for its latency and loss experiments. Using the load model a more realistic mobile network could be emulated. Additionally, network operators can also be supported in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
+The next logical step after the collection of empirical data and the execution of a statistical analysis lies in the creation of models abstracting this real system. While some loss of precision is incurred, models are much more flexible and can have numerous applications. Load models and the derived information on the network \gls{QoS} parameters can serve as a basis for the video measurement framework of Section~\ref{c3:sec:measurements}, which uses arbitrarily chosen values for its latency and loss experiments. By utilizing the load model a more realistic mobile network could be emulated. Additionally, network operators can also be supported in predicting the signaling load in their core network with the benefit of improved network engineering and correctly scaling core components.
 
 On the basis of the tunnel distributions attained in Section~\ref{c4:sec:evaluations}, models for both a traditional \gls{GGSN} as well as a virtualized \gls{GGSN} are introduced. The performance trade-offs when using a virtual \gls{GGSN} are further studied, discussing different options to consider when using the virtual node.
 
@@ -26,7 +26,7 @@ A basic queuing system can be expressed as a stream of customers arriving at an 
 	\phantom{,}L = \lambda W\text{,}
 \end{equation}
 
-which holds universally independent of any specific arrival or service time process.
+which holds universally, independent of any specific arrival or service time process.
 
 
 %%
@@ -70,7 +70,7 @@ Depending on the complexity of the specific queuing system model, much informati
 
 One such basic queuing system is $M/M/1/\infty$~\cite[pp.~94-99]{Kleinrock:1975:TVQ:1096491}, on which stationary analysis can be applied upon. Both the one processor queue and $M/M/c/\infty$ can also be easily expressed as a Markov chain due to their memoryless property. Figure~\ref{c4:fig:markovchain} depicts the state transitions of a system with $c$ processors and a queue length of $i-c$.
 
-More complex models are often not tractable by stationary analysis or other mathematical tools any more and no general solution is known. This is especially true for the class of $G/G/c$ systems, which can only be directly solved under certain conditions. A better approach can be the use of a queuing simulation. Hereby, both the arrival and the serving process are implemented in a \gls{DES} using random numbers of the desired distributions in order to ascertain the system load and blocking probability.
+More complex models are often not tractable by stationary analysis or other mathematical tools any more and no general solution is known. This is especially true for the class of $G/G/c$ systems, which can only be directly solved under certain conditions.  System parameters may still be investigated using numerical queuing simulations. Hereby, both the arrival and the serving process are implemented in a \gls{DES} using random numbers drawn from the desired distributions in order to ascertain the system load and blocking probability.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,11 +85,11 @@ The \gls{GGSN} was already determined to be critical to the \gls{CN}'s load. The
 \label{c4:fig:ggn-model}
 \end{figure}
 
-Figure~\ref{c4:fig:ggn-model} shows this model for the proposed tunnel load metric and is in its generic form a $G/G/c/0$ system. Tunnels enter the system governed by a general random distribution and are served at the \gls{GGSN} for the duration of their existence. This duration also follows a general distribution. Afterwards, tunnels leave the system again through the reception of a \gls{gtp} tunnel delete message. If all $c$ serving units are filled, blocking occurs and arriving tunnel requests are rejected.
+Figure~\ref{c4:fig:ggn-model} shows this model for the proposed tunnel load metric. It is in its generic form a $G/G/c/0$ system. Tunnels enter the system governed by a general random distribution and are served at the \gls{GGSN} for the duration of their existence. This duration also follows a general distribution. Afterwards, tunnels leave the system again through the reception of a \gls{gtp} tunnel delete message. If all $c$ serving units are filled, blocking occurs and arriving tunnel requests are rejected.
 
 The number of serving units corresponds to available resources at the \gls{GGSN}. The maximum supported number of concurrent tunnels is hard to estimate as it depends on a number of factors, most of which are unknown for this modeling process. This could include soft-limits like the specific configuration, and hard-limits, e.g., the \gls{GGSN}'s processing and memory constraints.
 
-For the purpose of creating an initial toy model the generic $G/G/c/0$ is simplified to a $M/M/\infty$ system. As stated, no actual limit to the number of virtual servers is known and the data also does not show any obvious limits. Thus, an unlimited system with neither blocking or queuing is assumed for this simple model.
+For the purpose of creating an initial toy model the generic $G/G/c/0$ is simplified to a $M/M/\infty$ system. As stated, no actual limit to the number of virtual servers is known and the data also does not indicate any obvious limits. Thus, an unlimited system with neither blocking nor queuing is assumed for this simple model.
 
 Now, assuming both a Poisson arrival and an exponential serving process (temporarily neglecting the fact that no basic function matched the \gls{GGSN}'s serving process), a stationary analysis can be conducted. As seen in the statistical evaluation, the former condition may hold, but the serving time is definitely not exponentially distributed. However, for the toy model this assumption is still made to get an initial grasp of the model.
 
@@ -106,13 +106,13 @@ As stated, the amount of state held at the node and propagated through the netwo
 \subsection{Representative GGSN Models} 
 
 With the experience from the toy model at hand more appropriate models can now be constructed to better accommodate for the core network's properties. Two models are provided here.
-The first describes a monolithic version of a \gls{GGSN}, closely resembling the system used traditionally in the network. The second model is that of a hypothetical virtualized \gls{GGSN} using \gls{NFV}. In \gls{NFV}~\cite{nfv_whitepaper} custom monolithic network nodes are replaced by commodity hardware. The tasks solved by the original hardware is hereby migrated to a pure software implementation.
+The first describes a monolithic version of a \gls{GGSN}, closely resembling the system used traditionally in the network. The second model is that of a hypothetical virtualized \gls{GGSN} using \gls{NFV}. In \gls{NFV}~\cite{nfv_whitepaper} custom monolithic network nodes are replaced by commodity hardware. The tasks solved by the original hardware are migrated to a pure software implementation.
 
 
 %%
 \subsubsection{Monolithic \texorpdfstring{\acrshort{GGSN}}{GGSN}}
 
-Traditionally, the \gls{GGSN} is considered to be one fixed monolithic entity, even if in reality it often consists of multiple servers. The entire \gls{GGSN} is purchased from a vendor as a single entity, they do not integrate well with other existing network infrastructure. Nor can idle instances be deactivated or reused for other purposes.
+The \gls{GGSN} is considered to be one fixed monolithic entity, even if in reality it often consists of multiple servers. The entire \gls{GGSN} is purchased from a vendor as a single entity with very little control over its inner workings for the operator. For example, idle instances can typically not be deactivated or reused for other purposes.
 
 \begin{figure}[htb]
 	\centering
@@ -165,5 +165,5 @@ To place incoming tunnel state on one of the available servers and manage the se
 
 Through this virtualized model, which suggests to use technologies from cloud computing in the network and replace specialized nodes with commodity hardware, network operators can scale the \gls{GGSN} out instead of only up. Today, these network components are typically sold in a static and monolithic form and can not be easily extended with of-the-shelf hardware in order to accommodate to a changing environment. The system in this model can however be easily scaled out to additional low cost machines instead of completely replacing the existing \gls{GGSN} with a more powerful version. 
 
-It is also entirely possible that the described single-arrival-process approaches might not the best way to describe control plane load. Several load influencing factors discussed earlier have direct influence on the tunnel arrivals and duration, e.g., the device type or the radio access technology. Therefore, amongst others, multidimensional queuing networks or fluid flow models could be more appropriate in subsequent research. But, the non-stationary Erlang loss model described here should be sufficient for basic core network control plane load estimations.
+It is also entirely possible that the described single-arrival-process approaches might not the best way to describe control plane load. Several load influencing factors discussed earlier have direct influence on the tunnel arrivals and duration, e.g., the device type or the radio access technology. Therefore, amongst others, multidimensional queuing networks or fluid flow models could be more appropriate in subsequent research. Still, the non-stationary Erlang loss model described here should be sufficient for basic core network control plane load estimations.
 
