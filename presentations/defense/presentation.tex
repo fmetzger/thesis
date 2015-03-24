@@ -1,6 +1,7 @@
 %!TEX program = lualatex
 
 \documentclass{beamer}
+%\documentclass[aspectratio=169]{beamer}
 
 \usepackage{fontspec}
 \usepackage{libertine}
@@ -46,16 +47,19 @@
 \title[]{Evaluating Reliable Streaming in Mobile Networks}
 \subtitle{Dissertation Presentation}
 \author{Florian Metzger}
-\institute[University of Vienna]
+\institute[]
 {
-	University of Vienna\\
-	Faculty of Computer Science\\
-	Future Communication Research Group
+	University of Vienna // University of Duisburg-Essen
+	%\\
+	% Faculty of Computer Science\\
+	% Future Communication Research Group
 
 }
-\date[]{2015/01/XX}
+\date[]{2015/04/28}
 
 %\subject{Informatik}
+
+\def\Put(#1,#2)#3{\leavevmode\makebox(0,0){\put(#1,#2){#3}}}
 
 \begin{document}
 
@@ -75,30 +79,8 @@
 
 \begin{frame}
 	\frametitle{Introduction}
-\end{frame}
 
-\begin{frame}
-	\frametitle{Introduction}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Introduction}
-
-	\begin{figure}
-	\centering
-	\includegraphics[height=6cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}
-	\caption{Cisco's global consumer Internet traffic prediction (data source:~\cite{cisco2013VNI}).}
-	\end{figure}
-\end{frame}
-
-
-
-\begin{frame}
-    \frametitle{Motivation}
-
-
-
-	Mobile network planning and dimensioning today
+		Mobile network planning and dimensioning today
     \begin{itemize}
     	\item based on expected user traffic
 		\item good algorithms and tools for placing radio towers and planning radio propagation
@@ -115,30 +97,87 @@
 
 \end{frame}
 
+\begin{frame}
+	\frametitle{Introduction}
+	\framesubtitle{Impact of (Reliable) Video Streaming Traffic}
 
+	\begin{figure}
+	\centering
+	\includegraphics[height=6cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}
+	\caption{Cisco's global consumer Internet traffic prediction (data source:~\cite{cisco2013VNI}).}
+	\end{figure}
+\end{frame}
 
 
 \begin{frame}
-	\frametitle{Thesis Structure}
+    \frametitle{Introduction}
+    \framesubtitle{And Reliable Streaming in Mobile Networks?}
+
+    \begin{columns}[T]
+    	\begin{column}[T]{5cm}
+			\begin{figure}
+				\centering
+				\includegraphics[height=6cm]{../../chapters/04-mobilenets/images/3gpp-physical-arch.pdf}
+				%\caption{Overview of a combined CS/PS GSM/UMTS/LTE architecture.}
+			\end{figure}
+		\end{column}
+
+		\begin{column}[T]{5cm}
+			\begin{figure}
+				\centering
+				\includegraphics[height=6cm]{../../chapters/04-mobilenets/images/umts-userpath-stack.pdf}
+				%\caption{Simplified control plane and user plane IP-based protocol stacks on the user traffic path through the mobile network.}
+			\end{figure}
+		\end{column}
+	\end{columns}
+	\pause
+
+	\Put(85,200){\color{blue}\includegraphics[height=4cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}}
+
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Introduction}
+	\framesubtitle{Current State of Affairs}
+
+	\begin{itemize}
+		\item Reliable streaming services have largely supplanted RTP-based ones in the Internet
+		\item Mobile network traffic share increasing rapidly
+		\item But what about the influence of the mobile core network and control plane?
+		\item Interaction of reliable streaming and mobile control plane?
+		\item Measurement and modeling approaches?
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Introduction}
+	\framesubtitle{Thesis Structure}
 
 	Thesis consists of two intersecting angles
 	\begin{enumerate}
+		\item Evaluation of a 3G core network
+			\begin{itemize}
+				\item Investigation and evaluation of the control plane
+				\item Modeling and simulating load
+			\end{itemize}
+
 		\item Investigation of TCP-based video streaming techniques
 			\begin{itemize}
 				\item Protocol survey and classification
 				\item Deriving a model
 				\item Measurements with the model
 			\end{itemize}
-		\item Evaluation of a 3G core network
-			\begin{itemize}
-				\item Investigation and evaluation of the control plane
-				\item \textbf{Modeling and simulating load}
-			\end{itemize}
+
 		\item Measuring video streaming in a 3G network 
+			\begin{itemize}
+				\item Investigation of influence factors and countermeasures
+				\item Comparison of investigation approaches (active measurements and simulation)
+			\end{itemize}
 	\end{enumerate}
 
-	Presentation based on MMB'14 submission \textit{``A PDP Context Load Model and Virtualization
-Gain for a Mobile Network's GGSN''}
 
 	% \begin{block}{}
 	% 	This presentation
@@ -148,99 +187,6 @@ Gain for a Mobile Network's GGSN''}
 
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Reliable Streaming Models}
-%%%
-
-\begin{frame}
-	\frametitle{Introduction}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Streaming Categorization}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Reliable Streaming}
-
-	Pure Progressive
-	Segmented
-	Adaptive
-
-	Stalling as sole quality metric
-\end{frame}
-
-
-
-\begin{frame}
-	\frametitle{Playback and Retrieval Strategies}
-
-	Pure Progressive
-	Segmented
-	Adaptive
-	\begin{figure}
-
-	\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
-	\caption{Reliable streaming playback model based on buffer control.}
-	\end{figure}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Playback Strategies Parameter Space}
-	\begin{columns}[T]
-		\column{0.5\textwidth}
-		\begin{figure}
-			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}
-			\caption{Buffer fill level with null strategy; \SI{33}{\second} total stalling.}
-		\end{figure}
-
-		\column{0.5\textwidth}
-		\begin{figure}
-			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-startdelay.pdf}
-			\caption{Sample Buffer fill level for the delayed playback predictive strategy, \SI{33}{\second} total stalling.}
-		\end{figure}
-	\end{columns}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Streaming Measurements}
-
-	\begin{figure}
-		\includegraphics[height=4cm]{../../chapters/03-streaming/images/measurement-model.pdf}
-		\caption{Measurement framework for progressive streaming playback strategies.}
-	\end{figure}
-
-	Buffer model:
-	\begin{equation*}
-		\mathit{buffer}(t) = \sum_{0}^{t} \text{data}_\mathrm{received} - \sum_{0}^{t} \text{data}_\mathrm{played}
-	\end{equation*}
-
-	Measure stall duration and number of occurrences
-
-
-
-\end{frame}
-
-
-
-\begin{frame}
-	\frametitle{Streaming Measurements: Latency}
-
-	\begin{figure}
-		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-playbackemulation-qoe-latency.pdf}
-		\caption{Calculated MOS for the latency measurement series.}
-	\end{figure}
-	Facilitated QoE equation \cite{hossfeld2013youtubeqoe}
-	\begin{equation*}
-		\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
-	\end{equation*}
-
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -355,10 +301,11 @@ Gain for a Mobile Network's GGSN''}
 
 \end{frame}
 
+
 \begin{frame}
 	\frametitle{Virtualized GGSN Queuing Model}
 		\begin{center}
-			\includegraphics[height=3.5cm]{../../chapters/041-mobilenetsmeasuring/images/ggsn-virtualized.pdf}
+			\includegraphics[height=3.5cm]{extras/ggsn-virtualized.pdf}
 		\end{center}
 
 		\begin{itemize}
@@ -430,8 +377,105 @@ Gain for a Mobile Network's GGSN''}
 
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Influences}
+\section{Modeling Reliable Streaming}
+%%%
+
+\begin{frame}
+	\frametitle{Introduction}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Streaming Categorization}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Reliable Streaming}
+
+	Pure Progressive
+	Segmented
+	Adaptive
+
+	Stalling as sole quality metric
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Playback and Retrieval Strategies}
+
+	Pure Progressive
+	Segmented
+	Adaptive
+	\begin{figure}
+
+	\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
+	\caption{Reliable streaming playback model based on buffer control.}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Playback Strategies Parameter Space}
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}
+			\caption{Buffer fill level with null strategy; \SI{33}{\second} total stalling.}
+		\end{figure}
+
+		\column{0.5\textwidth}
+		\begin{figure}
+			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-startdelay.pdf}
+			\caption{Sample Buffer fill level for the delayed playback predictive strategy, \SI{33}{\second} total stalling.}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Streaming Measurements}
+
+	\begin{figure}
+		\includegraphics[height=4cm]{../../chapters/03-streaming/images/measurement-model.pdf}
+		\caption{Measurement framework for progressive streaming playback strategies.}
+	\end{figure}
+
+	Buffer model:
+	\begin{equation*}
+		\mathit{buffer}(t) = \sum_{0}^{t} \text{data}_\mathrm{received} - \sum_{0}^{t} \text{data}_\mathrm{played}
+	\end{equation*}
+
+	Measure stall duration and number of occurrences
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Streaming Measurements: Latency}
+
+	\begin{figure}
+		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-playbackemulation-qoe-latency.pdf}
+		\caption{Calculated MOS for the latency measurement series.}
+	\end{figure}
+	Facilitated QoE equation \cite{hossfeld2013youtubeqoe}
+	\begin{equation*}
+		\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
+	\end{equation*}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Reliable Streaming in Mobile Networks}
+\subsection{Influences on Streaming Approaches}
 %%%
 
 \begin{frame}
@@ -446,6 +490,13 @@ Gain for a Mobile Network's GGSN''}
 	constantly changing protocol details/implementations with often unforeseen effects on specific applications (e.g. streaming)
 	example with most number of changes: TCP in Linux kernel (show table?)
 \end{frame}
+
+
+
+%%%%
+\subsection{Cross-Layer Improvement Model}
+%%%%
+
 
 \begin{frame}
 	\frametitle{Cross-Layer Information Exchange Model}
@@ -476,8 +527,9 @@ Gain for a Mobile Network's GGSN''}
 \end{frame}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Measuring Mobile Reliable Streaming}
+\subsection{Measuring Mobile Reliable Streaming}
 %%%
 
 \begin{frame}

@@ -42,3 +42,5 @@ dissertation-pdfa2b.pdf
 *.glsdefs
 *.lod
 presentations/defense/presentation.pdf
+
+*.sublime-workspace
