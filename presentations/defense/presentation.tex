@@ -32,7 +32,8 @@
 \useinnertheme{rectangles}
 \usefonttheme{professionalfonts}
 
-
+\beamertemplatenavigationsymbolsempty
+\AtBeginSection{\sectionpage}
 
 \usepackage[defernumbers=true, style=alphabetic, citestyle=alphabetic, firstinits=true, backend=biber, doi=true, url=true, block=ragged, maxnames=6]{biblatex}
 \addbibresource{../../bibliography/common.bib}
@@ -79,32 +80,12 @@
 
 \begin{frame}
 	\frametitle{Introduction}
-
-		Mobile network planning and dimensioning today
-    \begin{itemize}
-    	\item based on expected user traffic
-		\item good algorithms and tools for placing radio towers and planning radio propagation
-		\item core network and control plane usually not given much consideration
-	\end{itemize}
-
-	Our approach
-	\begin{itemize}
-		\item presents queuing models for a GGSN in the core network
-		\item models simulated with data from a real network
-		\item can be used to dimension for control plane
-		\item offers more scaling options
-	\end{itemize}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Introduction}
 	\framesubtitle{Impact of (Reliable) Video Streaming Traffic}
 
 	\begin{figure}
-	\centering
-	\includegraphics[height=6cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}
-	\caption{Cisco's global consumer Internet traffic prediction (data source:~\cite{cisco2013VNI}).}
+		\centering
+		\includegraphics[height=6cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}
+		\caption{Cisco's global consumer Internet traffic prediction (data source:~\cite{cisco2013VNI}).}
 	\end{figure}
 \end{frame}
 
@@ -133,8 +114,6 @@
 	\pause
 
 	\Put(85,200){\color{blue}\includegraphics[height=4cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}}
-
-
 \end{frame}
 
 
@@ -143,11 +122,19 @@
 	\framesubtitle{Current State of Affairs}
 
 	\begin{itemize}
-		\item Reliable streaming services have largely supplanted RTP-based ones in the Internet
+		\item Reliable streaming largely supplants RTP/UDP streaming in the Internet
 		\item Mobile network traffic share increasing rapidly
-		\item But what about the influence of the mobile core network and control plane?
-		\item Interaction of reliable streaming and mobile control plane?
-		\item Measurement and modeling approaches?
+		\item What about the influence of the mobile core network and control plane?
+		\item What makes reliable streaming that different from previous approaches?
+		\item Interaction between reliable streaming and mobile control plane?
+		\item How to properly measure and model these circumstances?
+	\end{itemize}
+
+	\begin{itemize}[<2->]
+		\item From passive measurements derive a CN control plane load model
+		\item Categorize and present a model for reliable streaming measurements
+		\item Discuss influence factors on reliable streaming
+		\item Present mobile streaming measurement approaches
 	\end{itemize}
 \end{frame}
 
@@ -190,103 +177,249 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Mobile Network Structures and Load Models}
+\section{Mobile Core Network Architecture}
 %%%
 
 \begin{frame}
-	\frametitle{Introduction}
+	\frametitle{Core Network and Control Plane Overview}
+
+
+    \begin{columns}[T]
+    	\begin{column}[T]{5cm}
+			\begin{itemize}
+				\item Looking at UMTS/3G in particuar, but GSM/GPRS almost the same
+				\item LTE with certain updates to architecture
+					\begin{itemize}
+						\item SGW/PGW instead of SGSN/GGSN
+						\item but mostly similar protocols/procedures
+						\item not further mentioned
+					\end{itemize}
+
+				\item Everything is connected (cross-node, cross-layer)
+					\begin{itemize}
+						\item Action at mobile device will trigger procedures deep inside the network
+					\end{itemize}
+
+				%\item tunnel management signaling: creation, deletion, and update request/response messages
+			\end{itemize}
+		\end{column}
+
+    	\begin{column}[T]{5cm}
+			\begin{figure}
+				\centering
+				\includegraphics[height=6cm]{../../chapters/04-mobilenets/images/pdp-context-activation-procedure.pdf}
+			\end{figure}
+			\vspace{-0.5cm}
+			{\small PDP Context activation procedure}
+		\end{column}
+	\end{columns}
 \end{frame}
+
+
 \begin{frame}
-    \frametitle{GTP Tunnels and Dataset}
+    \frametitle{GTP Tunneling Concept}
 
-      \begin{center}
-		\includegraphics[height=3cm]{../../chapters/04-mobilenets/images/umts-network.pdf}
-	\end{center}
-
-	% \begin{center}
-	% 	\includegraphics[height=2.5cm]{figures/mm-state-model.pdf}
- % 	\end{center}
-
-	%Tunneling concept
     \begin{itemize}
 		\item Any user traffic in a 3G net is encapsulated into tunnels
-		\item GPRS Tunneling Protocol (GTP) used between SGSN and GGSN
-		\item Tunnel state (PDP Context) held at and signaled between core nodes through create/delete/update messages
-		%\item tunnel management signaling: creation, deletion, and update request/response messages
+		\begin{itemize}
+			\item Radio bearer to the device
+			\item GPRS Tunneling Protocol (GTP) at L4 used between SGSN and GGSN
+		\end{itemize}
+		\item Tunnel state (PDP Context) held at and signaled/synchronized between core nodes through create/delete/update request/response pairs
+		\item Imposes certain overhead and load onto the network
+		\begin{itemize}
+			\item Network: through signaling messages and additional headers
+			\item Memory: keeping track of state for every tunnel (``PDP Context'')
+			\item CPU: tracking state changes and processing tunnel requests
+		\end{itemize}
 	\end{itemize}
-	Recorded dataset
-	\begin{itemize}
-		\item One week long passive measurements in an operator's core network (METAWIN, April 2011)
-		\item 2.2Bn anonymized user traffic records, 410M GTP tunnel management messages
-	\end{itemize}
+
+	\begin{columns}
+		\column{0.5\textwidth}
+			\vspace{-0.6cm}
+			\begin{figure}	
+				\includegraphics[height=2.5cm]{../../chapters/04-mobilenets/images/umts-network.pdf}
+			\end{figure}
+
+		\column{0.5\textwidth}
+			\vspace{-0.6cm}
+			\begin{figure}
+				\includegraphics[height=2.5cm]{../../chapters/04-mobilenets/images/mm-3g-state-model.pdf}
+			\end{figure}
+			%\vspace{-0.5cm}
+			%{\centering\small SGSN MM state machines}
+	\end{columns}
 \end{frame}
+
+
 
 \begin{frame}
 	\frametitle{Mobile Network Load}
 	
+	Definitions
 	\begin{itemize}
-		\item Traditionally defined as direct user traffic load
+		\item Most commonly defined as direct user traffic load
+			\begin{itemize}
+				\item control plane signaling often not factored in
+			\end{itemize}
 
-		\item Does not factor in the vast control plane and signaling
+		\item Factor in control plane and core network
+			\begin{itemize}
+				\item For one node $n$: $\rho_{n} = \max(\rho_{l,n}, \rho_{m,n}, \rho_{p,n})$ (link load $\rho_{l}$, memory load $\rho_{m}$, processing load $\rho_{p}$)
+				\item total load of the core: $\rho_{CN} = \max_{n \in CN}(\rho_{n})$
+				\item one factor at one node will be the bottleneck
+			\end{itemize}
+	\end{itemize}
 
-		\item link load: ratio of the used versus the available bandwidth on a link $\rho_{l} = \frac{b_{u}}{b_{a}}$
 
-		\item network load: average load of all involved links $\rho_{N} = \frac{\sum_{i}^{N} \rho_{l,i}}{N}$
+	Reasoning for GGSN as load bottleneck
+	\begin{itemize}
+		\item single instance responsible for whole (or complete region) network
+		\item handles PDP Context Management signaling, PDP Context state for each device and tunnel
+		\item involved in almost all network-wide signaling procedures
+		\item GTP Mobility Management signaling from SGSN
+	\end{itemize}
 
-		\item mobile core network node load: $\rho_{n} = \max(\rho_{n,l}, \rho_{n,m}, \rho_{n,p})$ 	with the memory load $\rho_{m}$ and processing load $\rho_{p}$
+%\item link load: ratio of the used versus the available bandwidth on a link $\rho_{l} = \frac{b_{u}}{b_{a}}$
+		%\item network load: average load of all involved links $\rho_{N} = \frac{\sum_{i \in N} \rho_{l,i}}{|N|}$
+		%\item mobile core network node load: $\rho_{n} = \max(\rho_{l,n}, \rho_{m,n}, \rho_{p,n})$ 	with the memory load $\rho_{m}$ and processing load $\rho_{p}$
 
-		\item total load of the CN: $\rho_{CN} = \max_{n}(\rho_{n})$
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Load Influencing Factors}
+	Many sources of influence, both internal as well as external
+
+	Network-centric factors
+	\begin{itemize}
+		\item Specific interaction of state machines and protocols
+		\item Inactivity timers (e.g. moving device from connected to idle/detached)
+	\end{itemize}
+
+	\vspace{0.3cm}
+	
+	User-centric factors
+	\begin{itemize}
+		\item Type and OS of device
+		\item Installed and active applications
+		\item Specific usage, time-of-day, and traffic patterns
+		\item Restrict to features identifiable from a network perspective
+	\end{itemize}
+
+	\vspace{0.3cm}
+
+	\only<2->{Load evaluation approach}
+	\begin{itemize}[<2->]
+		\item Investigate load at \textbf{GGSN}
+		\item Do this on the basis of \textbf{GTP tunnel characteristics}
 	\end{itemize}
 
 \end{frame}
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Evaluating Mobile Signaling Traffic and Load}
+%%%
+
+
 \begin{frame}
-	\frametitle{Load Influencing Factors and Chokepoint}
-	Network and device factors
+	\frametitle{Trace Evaluation}
+	Recorded dataset
+	\begin{itemize}
+		\item One week long passive measurements in an operator's core network (METAWIN, April 2011)
+		\item 2.2Bn user traffic records, 410M GTP tunnel management messages
+		\item Trace data not raw, but anonymized and reduced to select fields per signaling interactions
+		\item Limits evaluation possibilities 
+	\end{itemize}
 
-	chokepoint: critical point is GGSN as usually only single (or handful) instances responsible for complete network
-
-	PDP Context Management signaling, PDP Context state for each device and tunnel 
-		involved in almost all network-wide signaling procedures
-
-	GTP Mobility Management signaling from GGSN
+	\only<2->{Device identification}
+	\begin{itemize}[<2->]
+		\item Individual devices trackable through pseudonymized IMSI/IMEI
+		\item Device type distinguishable through type allocation code (TAC)
+		\item No free TAC-to-device mappings available, mappings collected manually
+		\item Manual mapping covers \SI{80.93}{\percent} of distinct devices and \SI{87.57}{\percent} of tunnels in the dataset
+		\item TAC also allows (partial) differentiation of the OS (e.g. Android and iOS)
+	\end{itemize}
 \end{frame}
+
+
+\begin{frame}
+	\frametitle{Trace evaluation}
+
+	Initial findings
+	\begin{itemize}
+		\item Link load of control traffic insignificant
+			\begin{itemize}
+				\item GTP messages contribute estimated upper limit of \SI{0.7}{\percent} to total traffic
+			\end{itemize}
+		\item Significant portion of devices (\SI{18}{\percent}) that causes signaling traffic without transmitting any user traffic
+		\item Causing high amounts of user traffic does not lead to a high amount of signaling messages
+			\begin{itemize}
+				\item E.g. 3G dongles responsible for \SI{75}{\percent} of traffic, but only \SI{10}{\percent} of GTP signaling messages
+			\end{itemize}
+	\end{itemize}
+
+	\only<2->{Next steps}
+	\begin{itemize}[<2->]
+		\item Build a queuing theory model for GTP tunnels at the GGSN
+		\item Closely investigate tunnel arrival and service process
+		\item Derive distributions for these processes
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Tunnel Arrivals}
+	\framesubtitle{By Time of Day}
 		%\framesubtitle{Interarrival Time of Successful Tunnel Requests}
 	\begin{columns}[T]
 		\column{.5\textwidth}
 			\includegraphics[width=1.0\columnwidth]{../../chapters/041-mobilenetsmeasuring/images/R-IAT-fromflows-ecdfs-2h.pdf}
 
 		\column{.5\textwidth}
-			\includegraphics[width=1.0\columnwidth]{../../chapters/041-mobilenetsmeasuring/images/R-create-frequency.pdf}
+			\includegraphics[width=1.0\columnwidth]{../../chapters/041-mobilenetsmeasuring/images/R-createspersecond-1h-violin.pdf}
 	\end{columns}
 
 	\begin{itemize}
 		\item Strong time of day dependence with busy hour in the early afternoon
+		\item Bimodal character of arrival rate over the total time of day
 	\end{itemize}
 \end{frame}
+
+
 
 \begin{frame}
 	\frametitle{Tunnel Durations}
-	\begin{center}
-		\includegraphics[height=5.5cm]{../../chapters/041-mobilenetsmeasuring/images/R-duration-timeofday-ecdf.pdf}
-	\end{center}
+
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+			\includegraphics[width=\columnwidth]{../../chapters/041-mobilenetsmeasuring/images/R-tunnel-duration-operating-system.pdf}
+
+		\column{0.5\textwidth}
+			\includegraphics[width=\columnwidth]{../../chapters/041-mobilenetsmeasuring/images/R-duration-timeofday-ecdf.pdf}
+	\end{columns}
 
 	\begin{itemize}
 		\item Only slight dependence on time of day
-		\item Much stronger influence of user device type, OS, or network timers (not shown here)
+		\item Much stronger influence of user device type, OS, or network timers
+		\item Phenomenon sometimes discussed as ``signalling storm'' visible here (in the core network, not just radio!)
 	\end{itemize}
 \end{frame}
 
+
+
 %%%
-\subsection{Models}
+%\subsection{Models}
 %%%
 
 
 \begin{frame}
-	\frametitle{Monolithic GGSN Queuing Model}
+	\frametitle{Deriving a Model}
+	\framesubtitle{Monolithic GGSN Queuing Model}
 		\begin{center}
 			\includegraphics[height=3.5cm]{../../chapters/041-mobilenetsmeasuring/images/ggsn-monolithic.pdf}
 		\end{center}
@@ -1079,8 +1212,8 @@ Instead of passive core traces
 \begin{frame}
 	\begin{figure}
 		\centering
-		\includegraphics[height=7cm]{../../chapters/041-mobilenetsmeasuring/images/R-createspersecond-1h-violin.pdf}
-		\caption{Violin plot of tunnel arrivals in one second per time of day.}
+			\includegraphics[width=1.0\columnwidth]{../../chapters/041-mobilenetsmeasuring/images/R-create-frequency.pdf}
+		\caption{Density plot of tunnel arrival rate.}
 	\end{figure}
 \end{frame}
 
