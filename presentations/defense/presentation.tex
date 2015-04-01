@@ -302,7 +302,7 @@
 	
 	User-centric factors
 	\begin{itemize}
-		\item Type and OS of device
+		\item Type and OS of device, access technology
 		\item Installed and active applications
 		\item Specific usage, time-of-day, and traffic patterns
 		\item Restrict to features identifiable from a network perspective
@@ -421,34 +421,39 @@
 	\frametitle{Deriving a Model}
 	\framesubtitle{Monolithic GGSN Queuing Model}
 		\begin{center}
-			\includegraphics[height=3.5cm]{../../chapters/041-mobilenetsmeasuring/images/ggsn-monolithic.pdf}
+			\includegraphics[height=3cm]{../../chapters/041-mobilenetsmeasuring/images/ggsn-monolithic.pdf}
 		\end{center}
 
 		\begin{itemize}
-			\item Poisson tunnel arrival process with rate $\lambda(t)$, adjusted for the time of day
+			%\item Fit the time-of-day-differentiated arrival and serving processes
+			\item Poisson tunnel arrival process with rate $\lambda(t)$ fitted with trace data
 			\item GGSN can serve $n$ tunnels in parallel, limited by network/processing load and signaling/state overhead
-			\item Tunnels have a duration of $\mu(t)$ with a general distribution
-			\item If GGSN is full, reject new tunnels with blocking probability $p_b$
-			\item[$\rightarrow$] Non-stationary Erlang loss model \\ $M(t)/G(t)/c/0$ 
+			\item Tunnel duration $x(t)$ as general distribution, fitted with rational function
+			\item If GGSN is full, reject new tunnels, leads to blocking probability $p_b$
+			\item[$\rightarrow$] Non-stationary Erlang loss model $M(t)/G(t)/c/0$ 
 		\end{itemize}
 
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Virtualized GGSN Queuing Model}
+	\frametitle{Expanding the Model}
+	\framesubtitle{Virtualized GGSN Queuing Model}
 		\begin{center}
 			\includegraphics[height=3.5cm]{extras/ggsn-virtualized.pdf}
 		\end{center}
 
 		\begin{itemize}
+			\item Suggestion for improvement over the current monolithic status quo
 			\item Same arrival and serving time process, no queue
-			\item Hypervisor distributes tunnels and starts on demand up to $s_{max}$ virtualized GGSN instances, each with capacity $m$
+			\item Load balancing strategies for VM management and tunnel placement
+			%Hypervisor distributes tunnels and starts on demand up to $s_{max}$ virtualized GGSN instances, each with capacity $m$
 			%\item Up to $s_{max}$ instances with capacity of $m$ each
 			%\item Instance count kept near actual system load (energy efficiency)
-			\item Additional blocking when new instances are not switched on fast enough, or instance overhead if not shut down when unused
-			\item System scales up (larger instances) and out (more instances)
-			\item[$\rightarrow$] $M(t)/G(t)/\|\overrightarrow{c}\|_1/0$
+			\item Can incur additional blocking (virtualization overhead)
+			% when new instances are not switched on fast enough, or instance overhead if not shut down when unused
+			\item Additional dimension for scaling compared to monolithic model
+			\item[$\rightarrow$] $M(t)/G(t)/\|\overrightarrow{c}\|_1/0$ % 1-norm des Kapazitätsvektors
 		\end{itemize}
 \end{frame}
 
@@ -459,38 +464,45 @@
 
 
 \begin{frame}
-	\frametitle{Simulating the Model}
+	\frametitle{Model Evaluation/Simulation}
 
 	\begin{itemize}
-		\item No exact mathematical solution available for a $M_t/G/n/0$ model
-		\item Use queuing simulation instead of stationary analysis
-		\item SimPy3 based discrete event simulation
-		\item One week simulated period, omitted startup phase, 10 repetitions
-		\item Arrival process with exponential distributions fitted to dataset, four time of day slots ($\lambda=\{10.67,24.53,29.25,23.50\}$ before normalization)
-		\item Tunnel duration CDF fitted with a rational function
+		\item No tractable analytic solution for $M(t)/G(t)/c/0$ models
+		\item Use queuing simulation with the fitted distributions
+		\item SimPy3-based DES, one week period, 10 repetitions, naive VMM
+		\item Variables: Total tunnel capacity, number and capacity of VMs
+		\item Evaluate blocking probability and VM usage
+		%\item Arrival process with exponential distributions fitted to dataset, four time of day slots
+		%($\lambda=\{10.67,24.53,29.25,23.50\}$ before normalization)
+		%\item Tunnel duration CDF fitted with a rational function
 		%\item Simple hypervisor instance start logic: always keep at least one active free instance in reserve
-		\item Scenario variable parameters: $n$, $m$, and $s_{max}$
-		\item Evaluate and compare both models based on
-		\begin{itemize}
-			\item Blocking probability
-			\item resource and instance usage
-		\end{itemize}
+		%\item Scenario variable parameters: $n$, $m$, and $s_{max}$
+		%\item Evaluate and compare both models based on
+		%\begin{itemize}
+		%	\item Blocking probability
+		%	\item resource and instance usage
+		%\end{itemize}
 	\end{itemize}
 
-\end{frame}
-
-\begin{frame}
-	\frametitle{Blocking Probability}
-
+	\onslide<2->{
 	\begin{center}
-		\includegraphics[height=5.5cm]{../../chapters/041-mobilenetsmeasuring/images/R-virtualized-blocking.pdf}
-	\end{center}
+		\includegraphics[height=4.5cm]{../../chapters/041-mobilenetsmeasuring/images/R-virtualized-blocking.pdf}
+	\end{center}}
 
-	\begin{itemize}
-		\item Monolithic and virtualized GGSN scale equally with supported tunnels
-		\item Negligible to no impact on $p_B$ if virtualized model is scaled by tuning $s_{max}$ instead of $m$
-	\end{itemize}
 \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Blocking Probability}
+
+% 	\begin{center}
+% 		\includegraphics[height=5.5cm]{../../chapters/041-mobilenetsmeasuring/images/R-virtualized-blocking.pdf}
+% 	\end{center}
+
+% 	\begin{itemize}
+% 		\item Monolithic and virtualized GGSN scale equally with supported tunnels
+% 		\item Negligible to no impact on $p_B$ if virtualized model is scaled by tuning $s_{max}$ instead of $m$
+% 	\end{itemize}
+% \end{frame}
 
 
 
@@ -499,10 +511,12 @@
 	\frametitle{Virtualized GGSN Resource Usage}
 
 	\begin{center}
-		\includegraphics[height=6cm]{../../chapters/041-mobilenetsmeasuring/images/R-virtualized-instanceuse.pdf}
+		\includegraphics[height=5cm]{../../chapters/041-mobilenetsmeasuring/images/R-virtualized-instanceuse.pdf}
 	\end{center}
 
 	\begin{itemize}
+		\item Monolithic and virtualized GGSN scale equally with supported tunnels
+		\item Scaling VM model by VM count instead of size has minimal impact on $p_B$
 		%\item System scales both up (tunnels/instance) and out (instances)
 		\item Unused instances can be shut down for increased energy efficiency compared to monolithic model
 	\end{itemize}
