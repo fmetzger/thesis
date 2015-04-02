@@ -508,7 +508,7 @@
 
 
 \begin{frame}
-	\frametitle{Virtualized GGSN Resource Usage}
+	\frametitle{Virtualized GGSN Impact}
 
 	\begin{center}
 		\includegraphics[height=5cm]{../../chapters/041-mobilenetsmeasuring/images/R-virtualized-instanceuse.pdf}
@@ -531,77 +531,150 @@
 %%%
 
 \begin{frame}
-	\frametitle{Introduction}
+	\frametitle{``Reliable'' Video Streaming?}
+
+	\begin{itemize}
+		\item Uses transport protocols that offer reliable transport (i.e. no loss)
+			\begin{itemize}
+				\item Most commonly TCP (using retransmissions) with HTTP on top
+			\end{itemize}
+		\item Different properties to previous unreliable (UDP) streaming: RTP
+		\item More suited for the current Internet environment (e.g. Firewall-friendliness)
+	\end{itemize}
+
+	Other streaming categorization criteria
+	\begin{itemize}
+		\item Video source (Live, VOD)
+		\item Adaptivity, e.g.
+			\begin{itemize}
+				\item Implicit through unreliable transmission (RTP)
+				\item Explicit through providing multiple quality levels (adaptive streaming, e.g. DASH)
+			\end{itemize}
+		\item Location of streaming control
+			\begin{itemize}
+				\item Server-side: push-based (RTP)
+				\item Client-side: pull-based (HTTP)
+			\end{itemize}
+		% \item Transport properties
+		% 	\begin{itemize}
+		% 		\item Reliability
+		% 		\item Multiplexing/multicasting abilities
+		% 	\end{itemize}
+	\end{itemize}
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{Streaming Categorization}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Video Streaming Categorization Criteria}
+
+% 	\begin{itemize}
+% 		\item Video source (Live, VOD)
+% 		\item Adaptivity, e.g.
+% 			\begin{itemize}
+% 				\item Implicit through unreliable transmission (RTP)
+% 				\item Explicit through providing multiple quality levels 
+% 			\end{itemize}
+% 		\item Location of streaming control
+% 			\begin{itemize}
+% 				\item Server-side: push-based (RTP)
+% 				\item Client-side: pull-based (HTTP)
+% 			\end{itemize}
+% 		\item Transport properties
+% 			\begin{itemize}
+% 				\item Reliability
+% 				\item Multiplexing/multicasting abilities
+% 			\end{itemize}
+% 	\end{itemize}
+	% Pure Progressive
+	% Segmented
+	% Adaptive
+
+% \end{frame}
 
 
 \begin{frame}
 	\frametitle{Reliable Streaming}
+	\framesubtitle{Variants and Measuring}
 
-	Pure Progressive
-	Segmented
-	Adaptive
+	\begin{itemize}
+		\item Numerous in-the-wild streaming clients and approaches (progressive, segmented, server-side pacing, adaptive, ...)
+		\item No standardized approach as RTP had, including
+		\item Hard to compare specific implementations (often binary blobs) and find best streaming strategy
+	\end{itemize}
 
-	Stalling as sole quality metric
+	\begin{center}
+		\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
+	\end{center}
+
+	Measurement Approach
+	\begin{itemize}
+		\item Transmission process has no influence on the image quality (reliability)
+		\item Evaluate streaming solely on the basis of buffering behavior
+		\item Number and duration of stalls as metric for non-adaptive streaming
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Progressive Streaming Measurement Model}
+
+	\begin{center}
+		\includegraphics[height=4.5cm]{../../chapters/03-streaming/images/measurement-model.pdf}
+	\end{center}
+
+	\begin{itemize}
+		\item Derive and emulate specific playback strategies
+		\item Record transmission under different emulated network conditions
+		\item Calculate stalling metrics from trace using playback buffer emulation
+		\item Emulate different strategies on same trace, enabling faster measurements
+	\end{itemize}
+
+
+	% \end{itemize}
+	% Buffer model:
+	% \begin{equation*}
+	% 	\mathit{buffer}(t) = \sum_{0}^{t} \text{data}_\mathrm{received} - \sum_{0}^{t} \text{data}_\mathrm{played}
+	% \end{equation*}
+
 \end{frame}
 
 
 
+% \begin{frame}
+% 	\frametitle{Playback and Retrieval Strategies}
+
+% 	Pure Progressive
+% 	Segmented
+% 	Adaptive
+% 	\begin{figure}
+
+% 	\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
+% 	\caption{Reliable streaming playback model based on buffer control.}
+% 	\end{figure}
+
+% \end{frame}
+
 \begin{frame}
-	\frametitle{Playback and Retrieval Strategies}
-
-	Pure Progressive
-	Segmented
-	Adaptive
-	\begin{figure}
-
-	\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
-	\caption{Reliable streaming playback model based on buffer control.}
-	\end{figure}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Playback Strategies Parameter Space}
+	\frametitle{Playback Strategies}
 	\begin{columns}[T]
 		\column{0.5\textwidth}
-		\begin{figure}
-			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}
-			\caption{Buffer fill level with null strategy; \SI{33}{\second} total stalling.}
-		\end{figure}
+			\centering
+			\includegraphics[width=0.75\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}\\
+			null strategy
+
+			\includegraphics[width=0.75\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-flash.pdf}\\
+			YouTube Flash
 
 		\column{0.5\textwidth}
-		\begin{figure}
-			\includegraphics[width=1.0\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-startdelay.pdf}
-			\caption{Sample Buffer fill level for the delayed playback predictive strategy, \SI{33}{\second} total stalling.}
-		\end{figure}
+			\centering
+			\includegraphics[width=0.75\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-startdelay.pdf}\\
+			delayed playback
+
+			\includegraphics[width=0.75\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-firefox.pdf}\\
+			Firefox 4 HTML5
 	\end{columns}
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{Streaming Measurements}
-
-	\begin{figure}
-		\includegraphics[height=4cm]{../../chapters/03-streaming/images/measurement-model.pdf}
-		\caption{Measurement framework for progressive streaming playback strategies.}
-	\end{figure}
-
-	Buffer model:
-	\begin{equation*}
-		\mathit{buffer}(t) = \sum_{0}^{t} \text{data}_\mathrm{received} - \sum_{0}^{t} \text{data}_\mathrm{played}
-	\end{equation*}
-
-	Measure stall duration and number of occurrences
-
-
-
-\end{frame}
 
 
 
