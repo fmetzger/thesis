@@ -172,6 +172,17 @@
 \end{frame}
 
 
+\begin{frame}
+	\frametitle{Thesis Impact}
+
+	\begin{itemize}
+		\item Better understanding of the mobile network control plane
+		\item Leading to better traffic management
+		\item Investigate interworkings and influences of reliable streaming and mobile networks
+		\item Suggest and provide angles to wholly evaluate streaming and in particular mobile reliable streaming
+	\end{itemize}
+\end{frame}
+
 
 
 
@@ -655,12 +666,12 @@
 % \end{frame}
 
 \begin{frame}
-	\frametitle{Playback Strategies}
+	\frametitle{Non-adaptive Playback Strategies}
 	\begin{columns}[T]
 		\column{0.5\textwidth}
 			\centering
 			\includegraphics[width=0.75\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-stall.pdf}\\
-			null strategy
+			Null Strategy
 
 			\includegraphics[width=0.75\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-flash.pdf}\\
 			YouTube Flash
@@ -668,7 +679,7 @@
 		\column{0.5\textwidth}
 			\centering
 			\includegraphics[width=0.75\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-startdelay.pdf}\\
-			delayed playback
+			Delayed Playback
 
 			\includegraphics[width=0.75\columnwidth]{../../chapters/03-streaming/images/R-bufferlevel-firefox.pdf}\\
 			Firefox 4 HTML5
@@ -679,70 +690,92 @@
 
 
 \begin{frame}
-	\frametitle{Streaming Measurements: Latency}
+	\frametitle{Testing the Model}
+	\framesubtitle{YouTube Measurement Campaign}
 
-	\begin{figure}
-		\includegraphics[height=4cm]{../../chapters/03-streaming/images/R-playbackemulation-qoe-latency.pdf}
-		\caption{Calculated MOS for the latency measurement series.}
-	\end{figure}
-	Facilitated QoE equation \cite{hossfeld2013youtubeqoe}
-	\begin{equation*}
-		\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
-	\end{equation*}
+	\begin{itemize}
+		\item Subjecting the playback strategies to YouTube transmission traces under different network QoS (latency, loss)
+		\item Calculate MOS according to \cite{hossfeld2013youtubeqoe}
+	\end{itemize}
+
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+			\centering
+			\includegraphics[width=\columnwidth]{../../chapters/03-streaming/images/R-playbackemulation-qoe-latency.pdf}
+		
+		\column{0.5\textwidth}
+			\centering
+			\includegraphics[width=\columnwidth]{../../chapters/03-streaming/images/R-playbackemulation-qoe-loss.pdf}
+	\end{columns}
+
+	% \begin{equation*}
+	% 	\phantom{.} f(L,N) = 3.50e^{-(0.15L +0.19)N} + 1.50 \text{ for } L \in \mathbb{R}^{+}, N \in \mathbb{N}.
+	% \end{equation*}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Reliable Streaming in Mobile Networks}
-\subsection{Influences on Streaming Approaches}
+
 %%%
 
 \begin{frame}
-	\frametitle{Introduction}
+	\frametitle{Reliable Streaming Interactions}
+
+	\begin{itemize}
+		\item Reliable streaming typically investigated in ``simple'' wired conditions
+		\item High-level measurements by altering latency, loss, BW, \ldots
+		\item Influences of the network stack on reliable streaming in particular?
+		\item Possible sources on every layer, need to be understood before measuring
+	\end{itemize}
+
+	\begin{itemize}[<2->]
+		\item Layer/protocols in constant flux, need to keep track of changes, e.g. TCP
+		\begin{itemize}
+			\item Complex interactions and state machines, different on every OS
+			\item Specs leave much room for interpretation and optimization, often changes transmission behavior
+			\item Examples: IW10, TCP congestion avoidance (New Reno, CUBIC, Compound), TFO, AQM (from FIFO to fq\_codel)
+		\end{itemize}
+		\item Feedback loops of many layers operate on the same time scale as (adaptive) streaming decision processes
+		\begin{itemize}
+			\item They will interact with and influence streaming process
+			\item E.g. GTP tunnel duration and signaling
+		\end{itemize}
+	\end{itemize}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Layer Influences}
-
-	Time scales of layer operation
-
-	constantly changing protocol details/implementations with often unforeseen effects on specific applications (e.g. streaming)
-	example with most number of changes: TCP in Linux kernel (show table?)
-\end{frame}
-
 
 
 %%%%
-\subsection{Cross-Layer Improvement Model}
+\subsection{Influences on Streaming Approaches}
+%%%%
+
+
+%%%%
+\subsection{Crosslayer Improvement Model}
 %%%%
 
 
 \begin{frame}
-	\frametitle{Cross-Layer Information Exchange Model}
+	\frametitle{Leveraging Crosslayer Information}
 
-	\begin{figure}
-		\centering
-		\includegraphics[height=3cm]{../../chapters/05-mobilestreaming/images/cross-layer-model.pdf}
-		\caption{Model and architecture of the proposed cross-layer information exchange.}
-	\end{figure}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Cross-Layer Streaming Benefits}
+	\begin{itemize}
+		\item Make lower-layer meta-data available to upmost layers through broker
+		\item Proposed crosslayer information exchange model to pass baseband info to applications and include info in their decision making
+		\item Predict future events through other context information sources, e.g. handover events through GPS data and neighboring cells
+		\item E.g. leverage handover early warnings for adaptive streaming strategy 
+	\end{itemize}
 
 	\begin{columns}[T]
 		\column{0.5\textwidth}
-		\begin{figure}
-			\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}
-			\caption{Stalling occurs without handover hinting.}
-		\end{figure}
+			\centering
+			\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}\\
+			Stalling occurs without handover hinting
 
 		\column{0.5\textwidth}
-		\begin{figure}
-			\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}
-			\caption{Stalling can be prevented by hinting and proactively filling the playback buffer.}
-		\end{figure}
+			\centering
+			\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}\\
+			Stalling can be prevented by proactively filling the playback buffer
 	\end{columns}
 \end{frame}
 
@@ -753,102 +786,139 @@
 %%%
 
 \begin{frame}
-	\frametitle{Introduction}
+	\frametitle{Evaluating Reliable Streaming in Mobile Networks}
+
+	\begin{itemize}
+		\item Intent to understand these influences and interactions
+		\item Passive core network traces are a rare opportunity
+		\begin{itemize}
+			\item Numerous privacy, business interest, NDA issues
+			\item May not be the best approach for some evaluations (focus on specific users, not network-wide effects) anyway
+		\end{itemize}
+		\item Provide two more angles to conduct measurements
+		\begin{itemize}
+			\item Enhancing active measurements with mobile-specific metadata
+			\item Simulating streaming in mobile networks using the introduced streaming measurement model
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Active Measurements}
+	\frametitle{Active Measurement Testbed with Metadata}
+	\framesubtitle{Using Sensorium}
 
-Instead of passive core traces
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+			\begin{itemize}
+				\item Difficulty to conduct realistic mobile measurement campaigns
+				\item Importance of additional metadata in mobile measurements (location, connectivity, baseband state)
+				\item Privacy issues, let the user control data access and granularity
+				\item Provide sensor-reading and collection framework for smartphones to conduct ones own campaign on ``foreign'' devices
+				%\item Demo campaign: Collect 3G coverage data and aggregate to map overlay
+			\end{itemize}
+
+		\column{0.5\textwidth}		
+			\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/sensorium-arch.pdf}\\
+			\begin{itemize}
+				%\item Provide sensor-reading and collection framework for smartphones to conduct ones own campaign
+				\item Demo campaign \textbf{Open 3G Map}: Collected 3G coverage data and aggregate to map overlay
+			\end{itemize}
+	\end{columns}
+
 \end{frame}
 
-\begin{frame}
-	\frametitle{Sensorium 1}
-	Importance of additional metadata in active mobile measurements
-	privacy issues!
-	let the user control data granularity
-\end{frame}
 
 
 \begin{frame}
-	\frametitle{Sensorium 2}
+	\frametitle{Mobile Streaming Simulation}
+	\framesubtitle{Simulator Survey}
 
-	\begin{figure}
-		\includegraphics[height=5cm]{../../chapters/06-mobilestreamingmeasurements/images/sensorium-arch.pdf}
-		\caption{Sensorium architecture interfacing with other applications. Previously existing components are marked with a dotted line.}
-	\end{figure}
+	\begin{itemize}
+		\item Much easier to conduct than active measurements, but often with limited fidelity
+		\item Conducted survey for the suitability of existing mobile streaming simulators
+		\begin{itemize}
+			\item Most only concerned with radio interface simulation, not core or signaling
+			\item Needs to have a fully functioning up-to-date network stack
+			\item None freely available and up-to-date for 3G
+			\item Candidates for LTE: Omnet++ and ns-3
+			\item Both provide rudimentary core and tunneling but no control plane
+			\item Attributable to specification complexity, control plane in particular
+		\end{itemize}
 
+		\item ns-3 chosen as basis for simulation framework, with limitations in mind
+		\item Can be additionally used as a network emulator
+	\end{itemize}
 \end{frame}
 
 
 \begin{frame}
 	\frametitle{Mobile Streaming Simulation}
+	\framesubtitle{with ns-3}
 
-	Effort to find a suitable mobile streaming simulator: hard!
+	\begin{itemize}
+		\item Port the reliable streaming model to ns-3
+		\item ns-3 does not provide HTTP
+			\begin{itemize}
+				\item Directly use TCP and segmented transmissions to stream
+			\end{itemize}
+		\item Implement example playback strategies
+		\item Create a reliable streaming in an LTE network scenario
+		\item Use it as a blueprint for future setups
+	\end{itemize}
 
-	No complete, up-to-date UMTS simulator
-
-	Only radio interface simulated, not enough for a network-wide view
-
-	Even then, only just user-path through the network, no control plane
-
-	Questionable viability of every mobile simulation framework
-
-	Reason: Sheer volume and complexity of control plane (tens of thousands of spec pages)
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Mobile Streaming Simulation}
-
-	Restrict to user plane and choose ns-3 with Lena (LTE Framework)
-
-	Has a usable tcp/ip stack (still completely different to actual implementations)
-
-	Can facilitate NSC (network simulation cradle), but mostly very old actual stacks
-
-	Can act as network emulator and bridge in/out actual traffic (must operate in real-time, performance is an issue)
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Mobile Streaming Simulation}
-
-	\begin{figure}
+	\begin{center}
 		\includegraphics[height=2cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation.pdf}
-		\caption{LTE reliable streaming simulation testbed.}
-	\end{figure}
+	\end{center}
+
 \end{frame}
+
 
 
 \begin{frame}
-	\frametitle{Streaming Strategies}
-	\framesubtitle{Four Threshold Segmented Streaming Strategy}
+	\frametitle{Mobile Streaming Strategies}
+	\framesubtitle{Streaming Strategies}
 
-	\begin{figure}
-		\includegraphics[height=5cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
-		\caption{Sample simulation run demonstrating the four threshold strategy.}
-	\end{figure}
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+			Four Threshold Strategy
 
-	Also: Six Threshold Window Scaling Adaptive Streaming Strategy
+			\begin{itemize}
+				\item Limits for playback start and stop, as well as transmission start and stop
+			\end{itemize}
+
+
+		\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
+
+	\column{0.5\textwidth}
+		Six Threshold Window Scaling Adaptive Strategy
+
+		\begin{itemize}
+			\item Derived from four threshold, adds quality increase and decrease thresholds
+			\item Additionally control quality increase by ratio of playback to transmission rate in recent window 
+		\end{itemize}
+
+	\end{columns}
 
 \end{frame}
 
-\begin{frame}
-	\frametitle{Simulation Evaluation}
+% \begin{frame}
+% 	\frametitle{Simulation Evaluation}
+% 	\framesubtitle{Server Link Latency and Bandwidth}
 
-	Scenario 1: Internet link latency and limited bandwidth
+% 	\begin{itemize}
+% 		\item Measure num/length of stalls, calculate MOS
+% 		\item Suspected bufferbloat issues at high bandwidths
+% 	\end{itemize}
+	
 
-	Measure num/length of stalls, calculate Hoßfeld-QoE
+% 	\begin{figure}
+% 	\centering
+% 	\includegraphics[height=5cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-bwseries-qoe.pdf}
+% 	\caption{Computed QoE of the reliable streaming strategy with limited bandwidth.}
+% 	\end{figure}
 
-	\begin{figure}
-	\centering
-	\includegraphics[height=5cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-bwseries-qoe.pdf}
-	\caption{Computed QoE of the reliable streaming strategy with limited bandwidth.}
-	\end{figure}
-
-\end{frame}
+% \end{frame}
 
 
 
@@ -1572,7 +1642,15 @@ Instead of passive core traces
 \end{frame}
 
 
+\begin{frame}
+	\frametitle{Leveraging Cross-Layer Information}
 
+	\begin{figure}
+		\centering
+		\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/cross-layer-model.pdf}
+		\caption{Model and architecture of the proposed cross-layer information exchange.}
+	\end{figure}
+\end{frame}
 
 
 \begin{frame}
