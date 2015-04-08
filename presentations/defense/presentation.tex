@@ -1,6 +1,7 @@
 %!TEX program = lualatex
 
 \documentclass{beamer}
+%\documentclass[handout]{beamer}
 %\documentclass[aspectratio=169]{beamer}
 
 \usepackage{fontspec}
@@ -926,58 +927,145 @@
 	\frametitle{Simulation Evaluation}
 	\framesubtitle{Mobility Scenario}
 
-	\begin{figure}
-		\includegraphics[height=4cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation-mobility.pdf}
-		\caption{Simulated handover mobility scenario using waypoints.}
-	\end{figure}
+	\begin{columns}[T]
+	\column{0.5\textwidth}
+
+		\begin{itemize}
+			\item Simple dual eNodeB scenario
+			\item Moving back and forth between them
+		\end{itemize}
+
+		\begin{center}
+			\includegraphics[width=0.7\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation-mobility.pdf}
+		\end{center}
+
+	\column{0.5\textwidth}
+
+		\begin{itemize}[<2->]
+			\item Stall events at coverage edges and due to handovers
+		\end{itemize}
+
+		\only<2->{\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-mobility-facets.pdf}}
+	\end{columns}
+
 
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{Simulation Evaluation}
-	\framesubtitle{Mobility Scenario}
+% \begin{frame}
+% 	\frametitle{Simulation Evaluation}
+% 	\framesubtitle{Mobility Scenario}
 
-	\begin{figure}
-		\includegraphics[height=6cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-mobility-facets.pdf}
-		\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and eNBs.}
-	\end{figure}
+% 	\begin{figure}
+% 		\includegraphics[height=6cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-mobility-facets.pdf}
+% 		\caption{Playback buffer time series of the simulated mobility experiments with increasing distance between device and eNBs.}
+% 	\end{figure}
 
-\end{frame}
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
 %%%
 
+% \begin{frame}
+% 	\frametitle{Conclusion}
+
+% 	\begin{itemize}
+% 		\item Investigated tunnel properties in core network dataset
+% 		\begin{itemize}
+% 			\item Non-stationary Poisson arrivals
+% 			\item Tunnel duration with general distribution
+% 		\end{itemize}
+% 		\item Erlang loss models for tunnel load at a mobile core network's GGSN
+% 		\begin{itemize}
+% 			\item Monolithic GGSN representing today's makeup
+% 			\item Virtualized GGSN proposal with improved scalability and efficiency
+% 		\end{itemize}
+% 		\item Simulative evaluation of the model
+% 		\item Enable mobile network dimensioning based on tunnel blocking rate instead of only user traffic volume
+% 	\end{itemize}
+% \end{frame}
+
 \begin{frame}
-	\frametitle{Conclusion}
+	\frametitle{Summary, Impact, and Future Work}
+	\framesubtitle{Mobile Core Network}
 
 	\begin{itemize}
-		\item Investigated tunnel properties in core network dataset
-
-		\begin{itemize}
-			\item Non-stationary Poisson arrivals
-			\item Tunnel duration with general distribution
-		\end{itemize}
-
-		\item Erlang loss models for tunnel load at a mobile core network's GGSN
-		\begin{itemize}
-			\item Monolithic GGSN representing today's makeup
-			\item Virtualized GGSN proposal with improved scalability and efficiency
-		\end{itemize}
-
-		\item Simulative evaluation of the model
-
-		\item Enable mobile network dimensioning based on tunnel blocking rate instead of only user traffic volume
-
-
+		\item Laid foundation work for a control plane and core network centric view of mobile networks
+			\begin{itemize}
+				\item Taken initial steps for a comprehensive control plane load modeling
+				\item Load model based on GTP tunnel management at the GGSN
+				\item Can already enable mobile network dimensioning based on tunnel blocking rate instead of only user traffic volume
+				\item Suggested virtualized GGSN for better energy efficiency and scaling options
+				\item Potential followups:
+				\begin{itemize}
+					\item Compare to load in LTE/EPC networks
+					\item Look at other potential load bottlenecks, e.g. MME/HLR or PCEF/PCRF
+					\item Closer investigate specific load influence sources, especially more user traffic aspects
+					\item Influence on future 3GPP specs for reduced control plane complexity and thus better scaling
+				\end{itemize}
+			\end{itemize}
 	\end{itemize}
 
 \end{frame}
 
+
+\begin{frame}
+	\frametitle{Summary, Impact, and Future Work}
+	\framesubtitle{Video Streaming}
+
+	\begin{itemize}
+		\item Concise workup and categorization of video streaming approaches
+		\item Investigation of influence source and timing interactions on video streaming
+		\item Reliable streaming measurement model
+		\begin{itemize}
+			\item Solely based on playback buffering characteristics: number and duration of playback stalls
+			\item Usable offline to compare different strategies on the same trace
+		\end{itemize}
+		\item Potential Followups:
+		\begin{itemize}
+			\item Investigate influences of different transport and application layer protocols, e.g. QUIC, TLS, HTTP/2, TCP variants
+			\item QoE optimization of playback strategy
+
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Summary, Impact, and Future Work}
+	\framesubtitle{Streaming in Mobile Networks}
+
+	\begin{itemize}
+		\item Discussed interactions of mobile network intrinsics on streaming, e.g.:
+		\begin{itemize}
+			\item GTP tunnel lifecycle shares timing similarities with adaptive streaming segment retrieval decisions
+			\item Influence of cellular structures and handover on streaming QoE
+		\end{itemize}
+		\item Limitations of passive network measurements, alternatives:
+		\begin{itemize}
+			\item Active measurement campaign model with added metadata (Sensorium)
+			\begin{itemize}
+				\item E.g. to identify maximum achievable streaming quality at certain locations (O3GM)
+			\end{itemize}
+			\item Framework for simulating video streaming in LTE mobile networks
+			\begin{itemize}
+				\item Observed stalling events during handover phases
+			\end{itemize}
+		\end{itemize}
+		\item Potential Followups:
+		\begin{itemize}
+			\item Conduct streaming centric mobile measurements with a focus on interaction with mobility
+			\item Recreate similar mobility experiments within the simulator, focussing on the adaptability of playback strategies
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{}
+%\section*{}
 %%
 \begin{frame}
 	\frametitle{Thanks!}
@@ -990,10 +1078,13 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{References}
+%\section{References}
 \begin{frame}[t,allowframebreaks]
 	\frametitle{References}
+	A complete list of references can be found in the written thesis.
+
 	\printbibliography
+
 \end{frame}
 
 
@@ -1369,7 +1460,7 @@
 \begin{frame}
 	\begin{figure}
 		\centering
-			\includegraphics[width=1.0\columnwidth]{../../chapters/041-mobilenetsmeasuring/images/R-create-frequency.pdf}
+			\includegraphics[height=6cm]{../../chapters/041-mobilenetsmeasuring/images/R-create-frequency.pdf}
 		\caption{Density plot of tunnel arrival rate.}
 	\end{figure}
 \end{frame}
@@ -1647,7 +1738,7 @@
 
 	\begin{figure}
 		\centering
-		\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/cross-layer-model.pdf}
+		\includegraphics[height=3cm]{../../chapters/05-mobilestreaming/images/cross-layer-model.pdf}
 		\caption{Model and architecture of the proposed cross-layer information exchange.}
 	\end{figure}
 \end{frame}
