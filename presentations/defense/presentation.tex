@@ -68,10 +68,10 @@
 
 \frame{\titlepage}
 
-\begin{frame}
-	\frametitle{Outline}
-	\tableofcontents
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Outline}
+% 	\tableofcontents
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -85,8 +85,8 @@
 
 	\begin{figure}
 		\centering
-		\includegraphics[height=6cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}
-		\caption{Cisco's global consumer Internet traffic prediction (data source:~\cite{cisco2013VNI}).}
+		\includegraphics[height=6cm]{extras/r-cisco-vni-2014.pdf}
+		\caption{Cisco's global mobile data traffic forecast (data source:~\cite{cisco2014VNI}).}
 	\end{figure}
 \end{frame}
 
@@ -95,6 +95,7 @@
     \frametitle{Introduction}
     \framesubtitle{And Reliable Streaming in Mobile Networks?}
 
+    Complexity of current mobile network architectures:
     \begin{columns}[T]
     	\begin{column}[T]{5cm}
 			\begin{figure}
@@ -114,7 +115,7 @@
 	\end{columns}
 	\pause
 
-	\Put(85,200){\color{blue}\includegraphics[height=4cm]{../../chapters/01-intro/images/r-cisco-vni-2013.pdf}}
+	\Put(85,200){\color{blue}\includegraphics[height=4cm]{extras/r-cisco-vni-2014.pdf}}
 \end{frame}
 
 
@@ -152,15 +153,15 @@
 				\item Modeling and simulating load
 			\end{itemize}
 
-		\item Investigation of TCP-based video streaming techniques
-			\begin{itemize}
+		\item<2-> Investigation of TCP-based video streaming techniques
+			\begin{itemize}[<2->]
 				\item Protocol survey and classification
 				\item Deriving a model
 				\item Measurements with the model
 			\end{itemize}
 
-		\item Measuring video streaming in a 3G network 
-			\begin{itemize}
+		\item<3-> Measuring video streaming in a 3G network 
+			\begin{itemize}[<3->]
 				\item Investigation of influence factors and countermeasures
 				\item Comparison of investigation approaches (active measurements and simulation)
 			\end{itemize}
@@ -360,9 +361,9 @@
 
 
 \begin{frame}
-	\frametitle{Trace evaluation}
+	\frametitle{Trace Evaluation}
+	\framesubtitle{Initial Findings}
 
-	Initial findings
 	\begin{itemize}
 		\item Link load of control traffic insignificant
 			\begin{itemize}
@@ -375,9 +376,9 @@
 			\end{itemize}
 	\end{itemize}
 
-	\only<2->{Next steps}
+	\only<2->{Problems need further investigation}
 	\begin{itemize}[<2->]
-		\item Build a queuing theory model for GTP tunnels at the GGSN
+		\item Build a queuing theory system model for GTP tunnels at the GGSN
 		\item Closely investigate tunnel arrival and service process
 		\item Derive distributions for these processes
 	\end{itemize}
@@ -433,14 +434,16 @@
 	\frametitle{Deriving a Model}
 	\framesubtitle{Monolithic GGSN Queuing Model}
 		\begin{center}
-			\includegraphics[height=3cm]{../../chapters/041-mobilenetsmeasuring/images/ggsn-monolithic.pdf}
+			\includegraphics[height=2.5cm]{../../chapters/041-mobilenetsmeasuring/images/ggsn-monolithic.pdf}
 		\end{center}
 
 		\begin{itemize}
+			\item Model for GGSN load investigation based on tunnel arrivals
 			%\item Fit the time-of-day-differentiated arrival and serving processes
 			\item Poisson tunnel arrival process with rate $\lambda(t)$ fitted with trace data
-			\item GGSN can serve $n$ tunnels in parallel, limited by network/processing load and signaling/state overhead
+			\item GGSN can serve $c$ tunnels in parallel, limited by network/processing load and signaling/state overhead
 			\item Tunnel duration $x(t)$ as general distribution, fitted with rational function
+			\item Correlation coefficient $R \geq 0.99$ for each fit
 			\item If GGSN is full, reject new tunnels, leads to blocking probability $p_b$
 			\item[$\rightarrow$] Non-stationary Erlang loss model $M(t)/G(t)/c/0$ 
 		\end{itemize}
@@ -456,7 +459,7 @@
 		\end{center}
 
 		\begin{itemize}
-			\item Suggestion for improvement over the current monolithic status quo
+			\item Suggestion for an improved virtual GGSN architecture for 3G networks
 			\item Same arrival and serving time process, no queue
 			\item Load balancing strategies for VM management and tunnel placement
 			%Hypervisor distributes tunnels and starts on demand up to $s_{max}$ virtualized GGSN instances, each with capacity $m$
@@ -465,7 +468,7 @@
 			\item Can incur additional blocking (virtualization overhead)
 			% when new instances are not switched on fast enough, or instance overhead if not shut down when unused
 			\item Additional dimension for scaling compared to monolithic model
-			\item[$\rightarrow$] $M(t)/G(t)/\|\overrightarrow{c}\|_1/0$ % 1-norm des Kapazitätsvektors
+			\item[$\rightarrow$] $M(t)/G(t)/\|\overrightarrow{c}\|_1/0$ ($|\overrightarrow{c}\|_1$: total tunnel capacity of all $s$ VMs) % 1-norm des Kapazitätsvektors
 		\end{itemize}
 \end{frame}
 
@@ -523,7 +526,7 @@
 	\frametitle{Virtualized GGSN Impact}
 
 	\begin{center}
-		\includegraphics[height=5cm]{../../chapters/041-mobilenetsmeasuring/images/R-virtualized-instanceuse.pdf}
+		\includegraphics[height=5cm]{extras/R-virtualized-instanceuse.pdf}
 	\end{center}
 
 	\begin{itemize}
@@ -608,22 +611,24 @@
 	\frametitle{Reliable Streaming}
 	\framesubtitle{Variants and Measuring}
 
-	\begin{itemize}
-		\item Numerous in-the-wild streaming clients and approaches (progressive, segmented, server-side pacing, adaptive, ...)
-		\item No standardized approach as RTP had, including
-		\item Hard to compare specific implementations (often binary blobs) and find best streaming strategy
-	\end{itemize}
-
-	\begin{center}
-		\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
-	\end{center}
-
-	Measurement Approach
-	\begin{itemize}
-		\item Transmission process has no influence on the image quality (reliability)
-		\item Evaluate streaming solely on the basis of buffering behavior
-		\item Number and duration of stalls as metric for non-adaptive streaming
-	\end{itemize}
+	\begin{overlayarea}{\textwidth}{\textheight}
+		\begin{itemize}
+			\item Numerous in-the-wild streaming clients and approaches (progressive, segmented, server-side pacing, adaptive, ...)
+			\item No standardized approach as RTP had, including
+			\item Hard to compare specific implementations (often binary blobs) and find best streaming strategy
+		\end{itemize}
+		\vspace{-0.5cm}
+		\begin{center}
+			\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
+		\end{center}
+		\vspace{-0.4cm}
+		\only<2->{Measurement Approach
+		\begin{itemize}
+			\item Transmission process has no influence on the image quality (reliability)
+			\item Evaluate streaming solely on the basis of buffering behavior
+			\item Number and duration of stalls as metric for non-adaptive streaming
+		\end{itemize}}
+	\end{overlayarea}
 \end{frame}
 
 
@@ -760,24 +765,28 @@
 \begin{frame}
 	\frametitle{Leveraging Crosslayer Information}
 
-	\begin{itemize}
-		\item Make lower-layer meta-data available to upmost layers through broker
-		\item Proposed crosslayer information exchange model to pass baseband info to applications and include info in their decision making
-		\item Predict future events through other context information sources, e.g. handover events through GPS data and neighboring cells
-		\item E.g. leverage handover early warnings for adaptive streaming strategy 
-	\end{itemize}
+	\begin{overlayarea}{\textwidth}{\textheight}
+		\begin{itemize}
+			\item Make lower-layer meta-data available to upmost layers through broker
+			\item Proposed crosslayer information exchange model to pass baseband info to applications and include info in their decision making
+			\item Predict future events through other context information sources, e.g. handover events through GPS data and neighboring cells
+			\item E.g. leverage handover early warnings for adaptive streaming strategy 
+		\end{itemize}
+		\vspace{-0.25cm}
+		\only<2->{
+		\begin{columns}[T]
+			\column{0.5\textwidth}
+				\centering
+				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}\\
+				Stalling occurs without handover hinting
 
-	\begin{columns}[T]
-		\column{0.5\textwidth}
-			\centering
-			\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}\\
-			Stalling occurs without handover hinting
-
-		\column{0.5\textwidth}
-			\centering
-			\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}\\
-			Stalling can be prevented by proactively filling the playback buffer
-	\end{columns}
+			\column{0.5\textwidth}
+				\centering
+				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}\\
+				\vspace{0.9em}
+				Stalling can be prevented by proactively filling the playback buffer
+		\end{columns}}
+	\end{overlayarea}
 \end{frame}
 
 
@@ -869,7 +878,8 @@
 	\end{itemize}
 
 	\begin{center}
-		\includegraphics[height=2cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation.pdf}
+		%\includegraphics[height=2cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation.pdf}
+		\includegraphics[height=4cm]{extras/streaming-simulation.pdf}
 	\end{center}
 
 \end{frame}
@@ -892,9 +902,9 @@
 		\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
 
 	\column{0.5\textwidth}
-		Six Threshold Window Scaling Adaptive Strategy
+		\only<2->{Six Threshold Window Scaling Adaptive Strategy}
 
-		\begin{itemize}
+		\begin{itemize}[<2->]
 			\item Derived from four threshold, adds quality increase and decrease thresholds
 			\item Additionally control quality increase by ratio of playback to transmission rate in recent window 
 		\end{itemize}
@@ -927,6 +937,7 @@
 	\frametitle{Simulation Evaluation}
 	\framesubtitle{Mobility Scenario}
 
+	\begin{overlayarea}{\textwidth}{\textheight}
 	\begin{columns}[T]
 	\column{0.5\textwidth}
 
@@ -947,7 +958,7 @@
 
 		\only<2->{\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-mobility-facets.pdf}}
 	\end{columns}
-
+	\end{overlayarea}
 
 \end{frame}
 
@@ -1167,13 +1178,13 @@
 \begin{frame}
 	\frametitle{Firefox 4 Playback Strategy}
 
-	\begin{algorithmic}
-		\IF {$s_{MA} > v_{MA}$} 
-			\STATE $c \gets ( b_b=20s \lor b_T=20s )$
-		\ELSE
-			\STATE $c \gets ( b_b=30s \lor b_T=30s )$
-		\ENDIF
-	\end{algorithmic}
+		\begin{algorithmic}
+			\IF {$s_{MA} > v_{MA}$} 
+				\STATE $c \gets ( b_b=20s \lor b_T=20s )$
+			\ELSE
+				\STATE $c \gets ( b_b=30s \lor b_T=30s )$
+			\ENDIF
+		\end{algorithmic}
 
 	To estimate the current and future rates, the moving average of the transmission rate $s_{MA}$ and the video bitrate $v_{MA}$ are calculated. The condition $c$ Firefox uses to start and resume the playback process is given in the algorithm, with the buffered video duration $b_b$, and the duration spent buffering $b_T$.
 \end{frame}
