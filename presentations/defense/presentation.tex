@@ -179,21 +179,14 @@
 	% \end{block}
 \end{frame}
 
-
 \begin{frame}
-	\frametitle{Thesis Contributions}
+	\frametitle{Placing the Thesis}
 
-	\begin{itemize}
-		\item Investigate interworkings and influences of reliable streaming and mobile networks
-		\item Provide angles to wholly evaluate streaming and in particular mobile reliable streaming
-		\item Streaming design guidelines for service providers can be derived
-		\vspace{3em}
-		\item Tools for better network dimensioning, planning, and traffic management for operators
-		\item Better understanding of the mobile network control plane for future network evolutions
-		\item Models published in several papers, open sourced tools and frameworks
-	\end{itemize}
+	\begin{center}
+		\includegraphics[height=6cm]{extras/placement.pdf}
+	\end{center}
+
 \end{frame}
-
 
 
 
@@ -374,7 +367,7 @@
 		\item Individual devices trackable through pseudonymized IMSI/IMEI
 		\item Device type distinguishable through type allocation code (TAC)
 		\item No free TAC-to-device mappings available, mappings collected manually
-		\item Manual mapping covers \SI{80.93}{\percent} of distinct devices and \SI{87.57}{\percent} of tunnels in the dataset
+		%\item Manual mapping covers \SI{80.93}{\percent} of distinct devices and \SI{87.57}{\percent} of tunnels in the dataset
 		\item TAC also allows (partial) differentiation of the OS (e.g. Android and iOS)
 	\end{itemize}
 \end{frame}
@@ -739,7 +732,7 @@
 
 	\begin{itemize}
 		\item If network QoS is too bad, no strategy can safe quality
-		\item TCP generally interacts unpredictably with loss, strategies have little influence
+		\item TCP interacts unpredictably with loss, strategies have little influence
 		\item QoE optimization potential for increased latency
 	\end{itemize}
 
@@ -765,6 +758,9 @@
 		\item Mobile networks and control plane are complex and can influence the streaming protocol layers in unforeseen ways
 		\item Influences of the network stack on reliable streaming in particular?
 		\item Possible sources on every layer, need to be understood before measuring
+		\begin{itemize}
+			\item But can also be exploited through cross-layer information exchange
+		\end{itemize}
 	\end{itemize}
 
 	\begin{itemize}[<2->]
@@ -776,8 +772,8 @@
 		\item Layer/protocols constantly changing and evolving, e.g. TCP
 		\begin{itemize}
 			\item Complex interactions and state machines, different on every OS
-			\item Specs leave much room for interpretation and optimization, often changes transmission behavior
-			\item Examples: IW10, TCP congestion avoidance (New Reno, CUBIC, Compound), TFO, AQM (from FIFO to fq\_codel)
+			%\item Specs leave much room for interpretation and optimization, often changes transmission behavior
+			%\item Examples: IW10, TCP congestion avoidance (New Reno, CUBIC, Compound), TFO, AQM (from FIFO to fq\_codel)
 		\end{itemize}
 
 	\end{itemize}
@@ -790,38 +786,11 @@
 
 
 %%%%
-\subsection{Crosslayer Improvement Model}
+%\subsection{Crosslayer Improvement Model}
 %%%%
 
 
-\begin{frame}
-	\frametitle{Mobile Streaming Interactions}
-	\framesubtitle{Use Case: Leveraging Crosslayer Information}
 
-	\begin{overlayarea}{\textwidth}{\textheight}
-		\begin{itemize}
-			\item Make streaming apps aware of mobile net state to deal with influences
-			%\item Make lower-layer meta-data available to upmost layers through broker
-			\item Crosslayer information exchange model to pass baseband info to applications and include info in their decision making
-			\item Predict future events through other context information sources, e.g. handover events through GPS data and neighboring cells
-			%\item E.g. leverage handover early warnings for adaptive streaming strategy 
-		\end{itemize}
-		\vspace{-0.25cm}
-		\only<2->{
-		\begin{columns}[T]
-			\column{0.5\textwidth}
-				\centering
-				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}\\
-				Stalling occurs without handover hinting
-
-			\column{0.5\textwidth}
-				\centering
-				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}\\
-				\vspace{0.9em}
-				Stalling can be prevented by proactively filling the playback buffer
-		\end{columns}}
-	\end{overlayarea}
-\end{frame}
 
 
 
@@ -994,86 +963,109 @@
 % 	\end{itemize}
 % \end{frame}
 
-\begin{frame}
-	\frametitle{The Bigger Picture}
 
-\end{frame}
+
 
 \begin{frame}
-	\frametitle{Summary, Impact, and Future Work}
-	\framesubtitle{Mobile Core Network}
+	\frametitle{Summary and Contributions}
 
 	\begin{itemize}
-		\item Laid foundation work for a control plane and core network centric view of mobile networks
-			\begin{itemize}
-				\item Taken initial steps for a comprehensive control plane load modeling
-				\item Load model based on GTP tunnel management at the GGSN
-				\item Can already enable mobile network dimensioning based on tunnel blocking rate instead of only user traffic volume
-				\item Suggested virtualized GGSN for better energy efficiency and scaling options
-				\item Potential followups:
-				\begin{itemize}
-					\item Compare to load in LTE/EPC networks
-					\item Look at other potential load bottlenecks, e.g. MME/HLR or PCEF/PCRF
-					\item Closer investigate specific load influence sources, especially more user traffic aspects
-					\item Influence on future 3GPP specs for reduced control plane complexity and thus better scaling
-				\end{itemize}
-			\end{itemize}
-	\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Summary, Impact, and Future Work}
-	\framesubtitle{Video Streaming}
-
-	\begin{itemize}
-		\item Concise workup and categorization of video streaming approaches
-		\item Investigation of influence source and timing interactions on video streaming
-		\item Reliable streaming measurement model
+		\item Investigate interworkings and influences of reliable streaming and mobile networks
+		\item Provide angles to wholly evaluate streaming and in particular mobile reliable streaming
 		\begin{itemize}
-			\item Solely based on playback buffering characteristics: number and duration of playback stalls
-			\item Usable offline to compare different strategies on the same trace
+			\item Two phase streaming measurement model
+			\item Mobile active measurement and simulation approaches
+			\item Impact of mobility on streaming
 		\end{itemize}
-		\item Potential Followups:
+		\item Streaming design guidelines for service providers can be derived
+		\vspace{1em}
+		\item Better understanding of the mobile network control plane for future network evolutions
+			\begin{itemize}
+				\item Operation and impact of GTP tunnels and signaling
+			\end{itemize}
+		\item Tools for better network dimensioning, planning, and traffic management for operators
+			\begin{itemize}
+				\item Load Model, Queuing Simulation, and Virtual GGSN
+			\end{itemize}
+		\item Models published in several papers, open sourced tools and frameworks
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Future Work}
+
+	\begin{itemize}
+		\item Mobile Control Plane
+			\begin{itemize}
+				\item Compare to load in LTE/EPC networks
+				\item Look at other potential load bottlenecks, e.g. MME/HLR or PCEF/PCRF
+				\item Closer investigate specific load influence sources, especially more user traffic aspects
+				\item Influence on future 3GPP specs for reduced control plane complexity and thus better scaling
+			\end{itemize}
+		\item Reliable Streaming
 		\begin{itemize}
 			\item Investigate influences of different transport and application layer protocols, e.g. QUIC, TLS, HTTP/2, TCP variants
-			\item QoE optimization of playback strategy
-
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Summary, Impact, and Future Work}
-	\framesubtitle{Streaming in Mobile Networks}
-
-	\begin{itemize}
-		\item Discussed interactions of mobile network intrinsics on streaming, e.g.:
-		\begin{itemize}
-			\item GTP tunnel lifecycle shares timing similarities with adaptive streaming segment retrieval decisions
-			\item Influence of cellular structures and handover on streaming QoE
-		\end{itemize}
-		\item Limitations of passive network measurements, alternatives:
-		\begin{itemize}
-			\item Active measurement campaign model with added metadata (Sensorium)
-			\begin{itemize}
-				\item E.g. to identify maximum achievable streaming quality at certain locations (O3GM)
-			\end{itemize}
-			\item Framework for simulating video streaming in LTE mobile networks
-			\begin{itemize}
-				\item Observed stalling events during handover phases
-			\end{itemize}
-		\end{itemize}
-		\item Potential Followups:
-		\begin{itemize}
+			\item QoE optimization of playback strategies in relation to current context factors
 			\item Conduct streaming centric mobile measurements with a focus on interaction with mobility
-			\item Recreate similar mobility experiments within the simulator, focussing on the adaptability of playback strategies
+			\item Recreate similar mobility experiments within the simulator, focusing on the adaptability of playback 
 		\end{itemize}
 	\end{itemize}
 
 \end{frame}
+
+
+% \begin{frame}
+% 	\frametitle{Summary, Impact, and Future Work}
+% 	\framesubtitle{Video Streaming}
+
+% 	\begin{itemize}
+% 		\item Concise workup and categorization of video streaming approaches
+% 		\item Investigation of influence source and timing interactions on video streaming
+% 		\item Reliable streaming measurement model
+% 		\begin{itemize}
+% 			\item Solely based on playback buffering characteristics: number and duration of playback stalls
+% 			\item Usable offline to compare different strategies on the same trace
+% 		\end{itemize}
+% 		\item Potential Followups:
+% 		\begin{itemize}
+% 			\item Investigate influences of different transport and application layer protocols, e.g. QUIC, TLS, HTTP/2, TCP variants
+% 			\item QoE optimization of playback strategy
+
+% 		\end{itemize}
+% 	\end{itemize}
+% \end{frame}
+
+
+% \begin{frame}
+% 	\frametitle{Summary, Impact, and Future Work}
+% 	\framesubtitle{Streaming in Mobile Networks}
+
+% 	\begin{itemize}
+% 		\item Discussed interactions of mobile network intrinsics on streaming, e.g.:
+% 		\begin{itemize}
+% 			\item GTP tunnel lifecycle shares timing similarities with adaptive streaming segment retrieval decisions
+% 			\item Influence of cellular structures and handover on streaming QoE
+% 		\end{itemize}
+% 		\item Limitations of passive network measurements, alternatives:
+% 		\begin{itemize}
+% 			\item Active measurement campaign model with added metadata (Sensorium)
+% 			\begin{itemize}
+% 				\item E.g. to identify maximum achievable streaming quality at certain locations (O3GM)
+% 			\end{itemize}
+% 			\item Framework for simulating video streaming in LTE mobile networks
+% 			\begin{itemize}
+% 				\item Observed stalling events during handover phases
+% 			\end{itemize}
+% 		\end{itemize}
+% 		\item Potential Followups:
+% 		\begin{itemize}
+% 			\item Conduct streaming centric mobile measurements with a focus on interaction with mobility
+% 			\item Recreate similar mobility experiments within the simulator, focussing on the adaptability of playback strategies
+% 		\end{itemize}
+% 	\end{itemize}
+
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1083,11 +1075,13 @@
 	\frametitle{Thanks!}
 
 	\centering
-		\Large Questions?
+		\Large Questions!
 \end{frame}
 
 
-
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section{References}
@@ -1104,12 +1098,40 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\appendix
-\newcounter{finalframe}
-\setcounter{finalframe}{\value{framenumber}}
+
 
 \begin{frame}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Mobile Streaming Interactions}
+	\framesubtitle{Use Case: Leveraging Crosslayer Information}
+
+	\begin{overlayarea}{\textwidth}{\textheight}
+		\begin{itemize}
+			\item Make streaming apps aware of mobile net state to deal with influences
+			%\item Make lower-layer meta-data available to upmost layers through broker
+			\item Crosslayer information exchange model to pass baseband info to applications and include info in their decision making
+			\item Predict future events through other context information sources, e.g. handover events through GPS data and neighboring cells
+			%\item E.g. leverage handover early warnings for adaptive streaming strategy 
+		\end{itemize}
+		\vspace{-0.25cm}
+		\only<2->{
+		\begin{columns}[T]
+			\column{0.5\textwidth}
+				\centering
+				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}\\
+				Stalling occurs without handover hinting
+
+			\column{0.5\textwidth}
+				\centering
+				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}\\
+				\vspace{0.9em}
+				Stalling can be prevented by proactively filling the playback buffer
+		\end{columns}}
+	\end{overlayarea}
+\end{frame}
+
 
 
 \begin{frame}
