@@ -36,7 +36,7 @@
 \beamertemplatenavigationsymbolsempty
 \AtBeginSection{\sectionpage}
 
-\usepackage[defernumbers=true, style=alphabetic, citestyle=alphabetic, firstinits=true, backend=biber, doi=true, url=true, block=ragged, maxnames=6]{biblatex}
+\usepackage[defernumbers=true, style=alphabetic, citestyle=alphabetic, firstinits=true, backend=biber, doi=false, url=false, block=ragged, maxnames=6]{biblatex}
 \addbibresource{../../bibliography/common.bib}
 \addbibresource{../../bibliography/rfc-shorthands.bib}
 \addbibresource{../../bibliography/3gpp.bib}
@@ -44,6 +44,8 @@
 \addbibresource{../../bibliography/video.bib}
 \addbibresource{../../bibliography/network.bib}
 \addbibresource{../../bibliography/crosslayer.bib}
+
+\DeclareBibliographyCategory{ownpub}
 
 
 \title[]{Evaluating Reliable Streaming in Mobile Networks}
@@ -129,11 +131,14 @@
 	\framesubtitle{Current State of Affairs}
 
 	\begin{itemize}
-		\item Reliable streaming has different traffic patterns than RTP/UDP
-		\item What makes reliable streaming that different from previous approaches?
 		\item Both mobile network and streaming traffic shares increasing rapidly
+		\item Large differences between RTP/UDP and reliable streaming
+		\begin{itemize}
+			\item Traffic patterns
+			\item Control and quality adaptivity
+		\end{itemize}
 		\item Impact of mobile core network and control plane not well understood
-		\item Interaction between reliable streaming and mobile control plane?
+		\item Interactions between reliable streaming and mobile networks?
 		%\item How to properly measure and model these circumstances?
 	\end{itemize}
 
@@ -242,17 +247,17 @@
     \frametitle{GTP Tunneling Concept}
 
     \begin{itemize}
-		\item Any user traffic in a 3G net is encapsulated into tunnels
+		\item 3G user traffic is encapsulated into tunnels
 		\begin{itemize}
 			\item Radio bearer to the device
-			\item GPRS Tunneling Protocol (GTP) at L4 used between SGSN and GGSN
+			\item GPRS Tunneling Protocol (GTP) at L4 SGSN $\leftrightarrow$ GGSN
 		\end{itemize}
-		\item Tunnel state (PDP Context) held at and signaled/synchronized between core nodes through create/delete/update request/response pairs
-		\item Imposes certain overhead and load onto the network
+		\item State held at and signaled between core nodes
+		\item Additional overhead and load
 		\begin{itemize}
-			\item Network: through signaling messages and additional headers
-			\item Memory: keeping track of state for every tunnel (``PDP Context'')
-			\item CPU: tracking state changes and processing tunnel requests
+			\item Network: signaling messages, headers
+			\item Memory: state keeping
+			\item CPU: state changes
 		\end{itemize}
 	\end{itemize}
 
@@ -260,13 +265,13 @@
 		\column{0.5\textwidth}
 			\vspace{-0.6cm}
 			\begin{figure}	
-				\includegraphics[height=2.5cm]{../../chapters/04-mobilenets/images/umts-network.pdf}
+				\includegraphics[height=2.8cm]{../../chapters/04-mobilenets/images/umts-network.pdf}
 			\end{figure}
 
 		\column{0.5\textwidth}
 			\vspace{-0.6cm}
 			\begin{figure}
-				\includegraphics[height=2.5cm]{../../chapters/04-mobilenets/images/mm-3g-state-model.pdf}
+				\includegraphics[height=2.8cm]{../../chapters/04-mobilenets/images/mm-3g-state-model.pdf}
 			\end{figure}
 			%\vspace{-0.5cm}
 			%{\centering\small SGSN MM state machines}
@@ -352,24 +357,29 @@
 
 \begin{frame}
 	\frametitle{Trace Evaluation}
-	Recorded dataset
+	\begin{block}{Recorded dataset}
 	\begin{itemize}
 		\item One week long passive measurements in an operator's core network (METAWIN, April 2011)
 		\item 2.2Bn user traffic records, 410M GTP tunnel management messages
-		\item Trace data not raw, but anonymized and reduced to select fields per signaling interactions
-		\item Limits evaluation possibilities 
+		\item Trace data anonymized, reduced to select fields per signaling interactions
+		\item Device and OS identification through TAC
 	\end{itemize}
-
-	\Put(200,20){\includegraphics[height=2.1cm]{../../chapters/04-mobilenets/images/umts-network.pdf}}
-
-	\only<2->{Device identification}
-	\begin{itemize}[<2->]
-		\item Individual devices trackable through pseudonymized IMSI/IMEI
-		\item Device type distinguishable through type allocation code (TAC)
-		\item No free TAC-to-device mappings available, mappings collected manually
-		%\item Manual mapping covers \SI{80.93}{\percent} of distinct devices and \SI{87.57}{\percent} of tunnels in the dataset
-		\item TAC also allows (partial) differentiation of the OS (e.g. Android and iOS)
-	\end{itemize}
+	\end{block}
+	\begin{center}
+		\includegraphics[height=3.5cm]{../../chapters/04-mobilenets/images/umts-network.pdf}
+	\end{center}
+	\vspace{3em}
+	% \Put(200,45){\includegraphics[height=2.1cm]{../../chapters/04-mobilenets/images/umts-network.pdf}}
+	% \pause
+	% \begin{block}{Device identification}
+	% \begin{itemize}
+	% 	\item Individual devices trackable through pseudonymized IMSI/IMEI
+	% 	\item Device type distinguishable through type allocation code (TAC)
+	% 	\item No free TAC-to-device mappings available, mappings collected manually
+	% 	%\item Manual mapping covers \SI{80.93}{\percent} of distinct devices and \SI{87.57}{\percent} of tunnels in the dataset
+	% 	\item TAC allows (partial) differentiation of the OS (e.g. Android and iOS)
+	% \end{itemize}
+	% \end{block}
 \end{frame}
 
 
@@ -652,15 +662,15 @@
 	\frametitle{Progressive Streaming Measurement Model}
 
 	\begin{center}
-		\includegraphics[height=4.5cm]{../../chapters/03-streaming/images/measurement-model.pdf}
+		\includegraphics[height=6cm]{../../chapters/03-streaming/images/measurement-model.pdf}
 	\end{center}
 
-	\begin{itemize}
-		\item Derive and emulate specific playback strategies
-		\item Record transmission under different emulated network conditions
-		\item Calculate stalling metrics from trace using playback buffer emulation
-		\item Emulate different strategies on same trace, enabling faster measurements
-	\end{itemize}
+	% \begin{itemize}
+	% 	\item Derive and emulate specific playback strategies
+	% 	\item Record transmission under different emulated network conditions
+	% 	\item Calculate stalling metrics from trace using playback buffer emulation
+	% 	\item Emulate different strategies on same trace, enabling faster measurements
+	% \end{itemize}
 
 
 	% \end{itemize}
@@ -731,7 +741,7 @@
 	\end{columns}
 
 	\begin{itemize}
-		\item If network QoS is too bad, no strategy can safe quality
+		\item If network QoS is too bad, no strategy can ensure QoE
 		\item TCP interacts unpredictably with loss, strategies have little influence
 		\item QoE optimization potential for increased latency
 	\end{itemize}
@@ -753,13 +763,13 @@
 	\framesubtitle{Interactions and Influences}
 
 	\begin{itemize}
-		\item Reliable streaming often designed for wired conditions
-		\item Simply tested for certain BW, delay, loss ranges
-		\item Mobile networks and control plane are complex and can influence the streaming protocol layers in unforeseen ways
+		\item Reliable streaming mostly designed for wired conditions
+		%\item Simply tested for certain BW, delay, loss ranges
+		\item Complex mobile signaling interacts with higher protocol layers %in unforeseen ways
 		\item Influences of the network stack on reliable streaming in particular?
 		\item Possible sources on every layer, need to be understood before measuring
 		\begin{itemize}
-			\item But can also be exploited through cross-layer information exchange
+			\item But exploitable through cross-layer information exchange
 		\end{itemize}
 	\end{itemize}
 
@@ -851,32 +861,7 @@
 
 
 
-\begin{frame}
-	\frametitle{Mobile Streaming Strategies}
-	\framesubtitle{Streaming Strategies}
 
-	\begin{columns}[T]
-		\column{0.5\textwidth}
-			Four Threshold Strategy
-
-			\begin{itemize}
-				\item Limits for playback start and stop, as well as transmission start and stop
-			\end{itemize}
-
-
-		\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
-
-	\column{0.5\textwidth}
-		\only<2->{Six Threshold Window Scaling Adaptive Strategy}
-
-		\begin{itemize}[<2->]
-			\item Derived from four threshold, adds quality increase and decrease thresholds
-			\item Additionally control quality increase by ratio of playback to transmission rate in recent window 
-		\end{itemize}
-
-	\end{columns}
-
-\end{frame}
 
 % \begin{frame}
 % 	\frametitle{Simulation Evaluation}
@@ -1083,14 +1068,28 @@
 \newcounter{finalframe}
 \setcounter{finalframe}{\value{framenumber}}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t,allowframebreaks]
+	\frametitle{Publications}
+
+	\addtocategory{ownpub}{metzger2012research, metzger2014lossmodel,raf2013sensorium, cs3516, metzger2014jcnc, rafetseder2011explyt, 6229739, metzger2011delivery, cs3518, metzger2015ltesim}
+	\nocite{metzger2012research, metzger2014lossmodel,raf2013sensorium, cs3516, metzger2014jcnc, rafetseder2011explyt, 6229739, metzger2011delivery, cs3518, metzger2015ltesim}
+
+
+	\printbibliography[category=ownpub, heading=none, title=none]
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section{References}
 \begin{frame}[t,allowframebreaks]
 	\frametitle{References}
 	A complete list of references can be found in the written thesis.
 
-	\printbibliography
-
+	%\printbibliography
+	\printbibliography[notcategory=ownpub, heading=none, title=none]
 \end{frame}
 
 
@@ -1098,6 +1097,38 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+	\frametitle{Mobile Streaming Strategies}
+	\framesubtitle{Example Four Threshold Strategy}
+
+	% \begin{columns}[T]
+	% 	\column{0.5\textwidth}
+
+			% \begin{itemize}
+			% 	\item Limits for playback start and stop, as well as transmission start and stop
+			% \end{itemize}
+
+		\begin{center}
+			\includegraphics[height=6cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
+
+			Limits for playback start/stop, transmission start/stop
+		\end{center}
+		
+
+	% \column{0.5\textwidth}
+	% 	\only<2->{Six Threshold Window Scaling Adaptive Strategy}
+
+	% 	\begin{itemize}[<2->]
+	% 		\item Derived from four threshold, adds quality increase and decrease thresholds
+	% 		\item Additionally control quality increase by ratio of playback to transmission rate in recent window 
+	% 	\end{itemize}
+
+	% \end{columns}
+
+\end{frame}
+
 
 
 \begin{frame}
