@@ -142,13 +142,15 @@
 		%\item How to properly measure and model these circumstances?
 	\end{itemize}
 
-	Approach to tackle these
-	\begin{itemize}[<2->]
+	\pause
+	\begin{block}{Investigation approach}
+	\begin{itemize}
 		\item Categorize and present a model for reliable streaming measurements
 		\item Discuss influence factors on reliable streaming
 		\item From passive measurements derive a CN control plane load model
 		\item Creation of easy mobile streaming measurement approaches
 	\end{itemize}
+	\end{block}
 \end{frame}
 
 
@@ -287,27 +289,29 @@
 	\begin{itemize}
 		\item Most commonly defined as direct user traffic load
 			\begin{itemize}
-				\item control plane signaling often not factored in
+				\item Control plane signaling often not factored in
 			\end{itemize}
 
 		\item Factor in control plane and core network
 			\begin{itemize}
 				%\item For one node $n$: $\rho_{n} = \max(\rho_{l,n}, \rho_{m,n}, \rho_{p,n})$ (link load $\rho_{l}$, memory load $\rho_{m}$, processing load $\rho_{p}$)
 				%\item total load of the core: $\rho_{CN} = \max_{n \in CN}(\rho_{n})$
-				\item control plane tasks at each node contribute to total load
-				\item one factor (CPU, mem, net constraints) at one node will be the bottleneck
+				\item Control plane tasks at each node contribute to total load
+				\item One factor (CPU, mem, net constraints) at one node will be the bottleneck
 				\item GGSN as a chief candidate
 			\end{itemize}
 	\end{itemize}
 
+	\pause
 	\vspace{1em}
-	\only<2->{Reasoning for GGSN as load bottleneck}
-	\begin{itemize}[<2->]
-		\item single instance responsible for whole (or complete region) network
-		\item handles PDP Context Management signaling, PDP Context state for each device and tunnel
-		\item involved in almost all network-wide signaling procedures
+	\begin{block}{Reasoning for GGSN as load bottleneck}
+	\begin{itemize}
+		\item Single instance responsible for whole (or complete region) network
+		\item Handles PDP Context signaling and state for each device/tunnel
+		\item Involved in almost all network-wide signaling procedures
 		\item GTP Mobility Management signaling from SGSN
 	\end{itemize}
+	\end{block}
 
 %\item link load: ratio of the used versus the available bandwidth on a link $\rho_{l} = \frac{b_{u}}{b_{a}}$
 		%\item network load: average load of all involved links $\rho_{N} = \frac{\sum_{i \in N} \rho_{l,i}}{|N|}$
@@ -339,11 +343,10 @@
 
 	\vspace{0.3cm}
 
-	\only<2->{Load evaluation approach}
-	\begin{itemize}[<2->]
-		\item Investigate load at \textbf{GGSN}
-		\item Do this on the basis of \textbf{GTP tunnel characteristics}
-	\end{itemize}
+	\pause
+	\begin{block}{Load evaluation approach}
+		Investigate load at \textbf{GGSN} on the basis of \textbf{GTP tunnel characteristics}
+	\end{block}
 
 \end{frame}
 
@@ -390,21 +393,22 @@
 	\begin{itemize}
 		\item Link load of control traffic insignificant
 			\begin{itemize}
-				\item GTP messages contribute estimated upper limit of \SI{0.7}{\percent} to total traffic
+				\item GTP messages contribute max. \SI{0.7}{\percent} to total traffic
 			\end{itemize}
-		\item Significant portion of devices (\SI{18}{\percent}) that causes signaling traffic without transmitting any user traffic (M2M devices or old feature phones?)
-		\item Causing high amounts of user traffic does not lead to a high amount of signaling messages
+		\item \SI{18}{\percent} of devices cause signaling without transmitting any user traffic
+		\item High user traffic volume $\neq$  high amount of signaling messages
 			\begin{itemize}
 				\item E.g. 3G dongles responsible for \SI{75}{\percent} of traffic, but only \SI{10}{\percent} of GTP signaling messages
 			\end{itemize}
 	\end{itemize}
-
-	\only<2->{Further investigations for load characterization}
-	\begin{itemize}[<2->]
+	\pause
+	\begin{block}{Further investigations for load characterization}
+	\begin{itemize}
 		\item Build a queuing theory system model for GTP tunnels at the GGSN
 		\item Closely investigate tunnel arrival and service process
 		\item Derive distributions for these processes
 	\end{itemize}
+	\end{block}
 \end{frame}
 
 
@@ -442,8 +446,8 @@
 
 	\begin{itemize}
 		\item Strong influence of user device type and OS on duration
-		\item ``Signalling storm'' reaches core signaling: many short tunnels for specific device types
-		\item Still, also slightly dependent on time of day
+		\item ``Signalling storm'' visible in CN: many short tunnels for specific devices
+		\item Also dependent on time of day
 		\item Tunnel duration $x(t)$ fitted with rational function, $R \geq 0.99$
 	\end{itemize}
 \end{frame}
@@ -494,7 +498,7 @@
 			\item Could incur additional blocking (virtualization overhead)
 			% when new instances are not switched on fast enough, or instance overhead if not shut down when unused
 			\item Additional dimension for scaling compared to monolithic model
-			\item[$\rightarrow$] $M(t)/G(t)/\|\overrightarrow{c}\|_1/0$ ($|\overrightarrow{c}\|_1$: total tunnel capacity of all $s$ VMs) % 1-norm des Kapazitätsvektors
+			\item[$\rightarrow$] $\color{red}M(t)/G(t)/\|\overrightarrow{c}\|_1/0$ ($|\overrightarrow{c}\|_1$: total tunnel capacity of all $s$ VMs) % 1-norm des Kapazitätsvektors
 		\end{itemize}
 \end{frame}
 
@@ -533,7 +537,7 @@
 	\begin{itemize}
 		\item Monolithic and virtualized GGSN scale equally with supported tunnels
 		\item Negligible virtualization overhead, but potential energy efficiency gains
-		\item Use as a load prediction tool for operators
+		\item Usage as load prediction tool for operators
 		%\item System scales both up (tunnels/instance) and out (instances)
 		%\item Unused instances can be shut down for increased energy efficiency compared to monolithic model
 	\end{itemize}}
@@ -579,9 +583,9 @@
 	\end{center}
 
 	\begin{itemize}
-		\item Numerous in-the-wild streaming clients and approaches (progressive, segmented, server-side pacing, adaptive, \ldots)
+		\item Numerous in-the-wild streaming clients and approaches %(progressive, segmented, server-side pacing, adaptive, \ldots)
 		\item No one, true standardized approach as RTP had
-		\item Hard to compare specific implementations (often binary blobs) and find best streaming strategy
+		\item Hard to compare specific implementations and find optimal strategies
 	\end{itemize}
 
 \end{frame}
@@ -633,7 +637,7 @@
 					\item Server-side: push-based (RTP)
 					\item Client-side: pull-based (HTTP)
 				\end{itemize}
-			\item Selection of transport and application protocols and their transmission patterns
+			\item Transport/application protocol and transmission pattern
 			% \item Transport properties
 			% 	\begin{itemize}
 			% 		\item Reliability
@@ -648,12 +652,14 @@
 		% 	\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
 		% \end{center}
 		% \vspace{-0.4cm}
-		\only<2->{Measurement Approach
+		\pause
+		\begin{block}{Measurement Approach}
 		\begin{itemize}
 			\item Transmission process has no influence on the image quality (reliability)
 			\item Evaluate streaming solely on the basis of buffering behavior
 			\item Number and duration of stalls as metric for non-adaptive streaming
-		\end{itemize}}
+		\end{itemize}
+		\end{block}
 	\end{overlayarea}
 \end{frame}
 
