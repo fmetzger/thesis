@@ -145,9 +145,9 @@
 	\pause
 	\begin{block}{Investigation approach}
 	\begin{itemize}
-		\item Categorize and present a model for reliable streaming measurements
-		\item Discuss influence factors on reliable streaming
-		\item From passive measurements derive a CN control plane load model
+		\item Model for reliable streaming measurements and categorization
+		\item Discussion of influence factors on reliable streaming
+		\item CN control plane load model derived from passive measurements
 		\item Creation of easy mobile streaming measurement approaches
 	\end{itemize}
 	\end{block}
@@ -175,8 +175,9 @@
 
 		\item<3-> Measuring video streaming in a 3G network 
 			\begin{itemize}[<3->]
-				\item Investigation of influence factors and potential issues
+				\item Investigation of influence factors, potential issues, and solutions
 				\item Comparison of evaluation approaches (active measurements and simulation)
+				\item Mobile streaming simulation framework
 			\end{itemize}
 	\end{enumerate}
 
@@ -287,7 +288,7 @@
 	
 	Definitions
 	\begin{itemize}
-		\item Most commonly defined as direct user traffic load
+		\item Traditionally user traffic volume
 			\begin{itemize}
 				\item Control plane signaling often not factored in
 			\end{itemize}
@@ -570,23 +571,36 @@
 	\frametitle{``Reliable'' Video Streaming?}
 
 	\begin{itemize}
-		\item Uses transport protocols that offer reliable transport (i.e. no loss)
-			\begin{itemize}
-				\item Most commonly TCP (using retransmissions) with HTTP on top
-			\end{itemize}
-		\item Different properties to previous unreliable (UDP) streaming: RTP
-		\item Better suited for the current Internet environment (e.g. firewalls)
+		\item Uses TCP+HTTP instead of ``classic'' UDP+RTP
+			% \begin{itemize}
+			% 	\item Most commonly TCP (using retransmissions) with HTTP on top
+			% \end{itemize}
+		\item Offers different properties to RTP
+		\begin{itemize}
+			\item Reliability, pull-based control, explicit quality adaptation
+		\end{itemize}
+		\item No standardized approach, difficult to compare
+		%\item Better suited for the current Internet environment (e.g. firewalls)
 	\end{itemize}
 
 	\begin{center}
 		\includegraphics[height=2.5cm]{../../chapters/03-streaming/images/playback-model.pdf}
 	\end{center}
 
+	% \begin{itemize}
+	% 	\item Numerous in-the-wild streaming clients and approaches %(progressive, segmented, server-side pacing, adaptive, \ldots)
+	% 	\item No one, true standardized approach as RTP had
+	% 	\item Hard to compare specific implementations and find optimal strategies
+	% \end{itemize}
+
+	\pause
+	\begin{block}{Measurement Approach}
 	\begin{itemize}
-		\item Numerous in-the-wild streaming clients and approaches %(progressive, segmented, server-side pacing, adaptive, \ldots)
-		\item No one, true standardized approach as RTP had
-		\item Hard to compare specific implementations and find optimal strategies
+		\item Transmission process has no influence on the image quality (reliability)
+		\item Evaluate streaming solely on the basis of buffering behavior
+		\item Number and duration of stalls as metric for non-adaptive streaming
 	\end{itemize}
+	\end{block}
 
 \end{frame}
 
@@ -617,51 +631,6 @@
 	% Adaptive
 
 % \end{frame}
-
-
-\begin{frame}
-	\frametitle{Reliable Streaming}
-	\framesubtitle{Categorization and Measuring}
-
-	\begin{overlayarea}{\textwidth}{\textheight}
-		Streaming categorization criteria
-		\begin{itemize}
-			\item Video source (Live, VOD)
-			\item Adaptivity, e.g.
-				\begin{itemize}
-					\item Implicit through unreliable transmission (RTP)
-					\item Explicit through multiple quality levels (adaptive streaming, e.g. DASH)
-				\end{itemize}
-			\item Location of streaming control
-				\begin{itemize}
-					\item Server-side: push-based (RTP)
-					\item Client-side: pull-based (HTTP)
-				\end{itemize}
-			\item Transport/application protocol and transmission pattern
-			% \item Transport properties
-			% 	\begin{itemize}
-			% 		\item Reliability
-			% 		\item Multiplexing/multicasting abilities
-			% 	\end{itemize}
-		\end{itemize}
-
-
-
-		% \vspace{-0.5cm}
-		% \begin{center}
-		% 	\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
-		% \end{center}
-		% \vspace{-0.4cm}
-		\pause
-		\begin{block}{Measurement Approach}
-		\begin{itemize}
-			\item Transmission process has no influence on the image quality (reliability)
-			\item Evaluate streaming solely on the basis of buffering behavior
-			\item Number and duration of stalls as metric for non-adaptive streaming
-		\end{itemize}
-		\end{block}
-	\end{overlayarea}
-\end{frame}
 
 
 \begin{frame}
@@ -822,8 +791,9 @@
 		\item Passive core network traces are a rare opportunity
 		\begin{itemize}
 			\item Numerous privacy, business interest, NDA issues
-			\item May not be the best approach for some evaluations (focus on specific users, not network-wide effects) anyway
+			\item Focus limited to network-wide effects, not specific users
 		\end{itemize}
+		\pause
 		\item Provide two more angles to conduct measurements
 		\begin{itemize}
 			\item Enhancing active measurements with mobile-specific metadata
@@ -970,9 +940,10 @@
 		\end{itemize}
 		\item Streaming design guidelines for service providers can be derived
 		\vspace{1em}
-		\item Better understanding of the mobile network control plane for future network evolutions
+		\item Better understanding of mobile control plane for future architectures
 			\begin{itemize}
 				\item Operation and impact of GTP tunnels and signaling
+				\item Control plane load depends on traffic patterns not volume!
 			\end{itemize}
 		\item Tools for better network dimensioning, planning, and traffic management for operators
 			\begin{itemize}
@@ -991,15 +962,16 @@
 			\begin{itemize}
 				\item Compare to load in LTE/EPC networks
 				\item Look at other potential load bottlenecks, e.g. MME/HLR or PCEF/PCRF
-				\item Closer investigate specific load influence sources, especially more user traffic aspects
-				\item Influence on future 3GPP specs for reduced control plane complexity and thus better scaling
+				\item Investigate specific load influence sources, esp. more user traffic aspects
+				\item Improve future 3GPP specs for reduced control plane complexity and better scaling
 			\end{itemize}
+		\vspace{1em}
 		\item Reliable Streaming
 		\begin{itemize}
 			\item Investigate influences of different transport and application layer protocols, e.g. QUIC, TLS, HTTP/2, TCP variants
-			\item QoE optimization of playback strategies in relation to current context factors
-			\item Conduct streaming centric mobile measurements with a focus on interaction with mobility
-			\item Recreate similar mobility experiments within the simulator, focusing on the adaptability of playback 
+			\item QoE optimization of playback strategies for current context factors
+			\item Streaming centric mobile measurements and simulations with focus on the interaction of adaptivity with mobility and other context factors
+			%\item Recreate similar mobility experiments within the simulator, focusing on the adaptability of playback 
 		\end{itemize}
 	\end{itemize}
 
@@ -1900,6 +1872,49 @@
 		\includegraphics[height=6cm]{../../chapters/06-mobilestreamingmeasurements/images/o3gm.png}
 		\caption{The O3GM web page, displaying a 3G coverage measurements layer with data collected by Sensorium on top of the OpenStreetMap base layer.}
 	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Reliable Streaming}
+	\framesubtitle{Categorization and Measuring}
+
+	\begin{overlayarea}{\textwidth}{\textheight}
+		Streaming categorization criteria
+		\begin{itemize}
+			\item Video source (Live, VOD)
+			\item Adaptivity, e.g.
+				\begin{itemize}
+					\item Implicit through unreliable transmission (RTP)
+					\item Explicit through multiple quality levels (adaptive streaming, e.g. DASH)
+				\end{itemize}
+			\item Location of streaming control
+				\begin{itemize}
+					\item Server-side: push-based (RTP)
+					\item Client-side: pull-based (HTTP)
+				\end{itemize}
+			\item Transport/application protocol and transmission pattern
+			% \item Transport properties
+			% 	\begin{itemize}
+			% 		\item Reliability
+			% 		\item Multiplexing/multicasting abilities
+			% 	\end{itemize}
+		\end{itemize}
+
+		% \vspace{-0.5cm}
+		% \begin{center}
+		% 	\includegraphics[height=2cm]{../../chapters/03-streaming/images/playback-model.pdf}
+		% \end{center}
+		% \vspace{-0.4cm}
+		\pause
+		\begin{block}{Measurement Approach}
+		\begin{itemize}
+			\item Transmission process has no influence on the image quality (reliability)
+			\item Evaluate streaming solely on the basis of buffering behavior
+			\item Number and duration of stalls as metric for non-adaptive streaming
+		\end{itemize}
+		\end{block}
+	\end{overlayarea}
 \end{frame}
 
 
