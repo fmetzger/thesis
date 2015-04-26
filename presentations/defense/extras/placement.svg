@@ -99,15 +99,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.6051324"
-     inkscape:cx="483.45166"
+     inkscape:cx="381.9024"
      inkscape:cy="715.53459"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="958"
-     inkscape:window-x="2560"
-     inkscape:window-y="23"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -132,13 +132,6 @@
        height="37.340008"
        x="347.9664"
        y="191.7056" />
-    <rect
-       style="opacity:1;fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect7128"
-       width="78.498199"
-       height="102.17226"
-       x="271.62869"
-       y="326.56537" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5571);stroke-miterlimit:4;stroke-dasharray:none"
        d="m 262.45879,437.87796 327.92776,0"
@@ -200,25 +193,25 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="266.41464"
+       x="320.41464"
        y="453.64819"
        id="text5633"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5635"
-         x="266.41464"
+         x="320.41464"
          y="453.64819"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O'">measurement</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="375.52588"
+       x="269.52588"
        y="453.64819"
        id="text5637"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5639"
-         x="375.52588"
+         x="269.52588"
          y="453.64819"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O'">model</tspan></text>
     <text
@@ -281,6 +274,20 @@
          x="231.78854"
          y="215.0481"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O'">app</tspan></text>
+    <rect
+       style="opacity:1;fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect7128-1"
+       width="286.82977"
+       height="21.431126"
+       x="277.73413"
+       y="409.92307" />
+    <rect
+       style="opacity:1;fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect7128"
+       width="78.498199"
+       height="102.17226"
+       x="271.62869"
+       y="326.56537" />
     <rect
        style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect5663"
@@ -363,8 +370,8 @@
        id="rect7124-1"
        width="205.13339"
        height="36.922951"
-       x="172.65056"
-       y="-490.0737"
+       x="164.65056"
+       y="-458.0737"
        transform="matrix(0,1,-1,0,0,0)" />
     <text
        xml:space="preserve"
@@ -386,56 +393,56 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-375.55634"
-       y="467.12915"
+       x="-369.55634"
+       y="435.12915"
        id="text7191"
        sodipodi:linespacing="125%"
        transform="matrix(0,-1,1,0,0,0)"><tspan
          sodipodi:role="line"
          id="tspan7193"
-         x="-375.55634"
-         y="467.12915"
+         x="-369.55634"
+         y="435.12915"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O'">mobile streaming</tspan><tspan
          sodipodi:role="line"
-         x="-375.55634"
-         y="485.87915"
+         x="-369.55634"
+         y="453.87915"
          id="tspan7195"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O'">investigation &amp; sim</tspan></text>
     <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.12519288;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect7124"
-       width="194.75214"
-       height="32.771717"
-       x="309.06854"
-       y="174.15268" />
+       width="221.40514"
+       height="32.635666"
+       x="293.56152"
+       y="170.22072" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="313.93195"
-       y="185.24304"
+       x="309.93195"
+       y="181.24304"
        id="text7185"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan7187"
-         x="313.93195"
-         y="185.24304"
+         x="309.93195"
+         y="181.24304"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O'">streaming measurement</tspan><tspan
          sodipodi:role="line"
-         x="313.93195"
-         y="203.99304"
+         x="309.93195"
+         y="199.99304"
          id="tspan7189"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O'">models</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="366.32492"
-       y="201.98305"
+       y="197.98305"
        id="text4200"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4202"
          x="366.32492"
-         y="201.98305"
+         y="197.98305"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O';fill:#666666">FM+11, FRT12, BFT12</tspan></text>
     <text
        xml:space="preserve"
@@ -452,8 +459,8 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-251.3282"
-       y="468.48666"
+       x="-247.3282"
+       y="436.48666"
        id="text4208"
        sodipodi:linespacing="125%"
        transform="matrix(0,-1,1,0,0,0)"
@@ -461,12 +468,12 @@
        inkscape:transform-center-y="102.79526"><tspan
          sodipodi:role="line"
          id="tspan4210"
-         x="-251.3282"
-         y="468.48666"
+         x="-247.3282"
+         y="436.48666"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O';fill:#4d4d4d">RFP13,</tspan><tspan
          sodipodi:role="line"
-         x="-251.3282"
-         y="487.23666"
+         x="-247.3282"
+         y="455.23666"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Linux Biolinum O';-inkscape-font-specification:'Linux Biolinum O';fill:#4d4d4d"
          id="tspan4212">FM+15</tspan></text>
   </g>

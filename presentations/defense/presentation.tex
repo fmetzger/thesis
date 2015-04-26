@@ -121,8 +121,8 @@
 	\end{columns}
 	\pause
 
-	\Put(85,200){\includegraphics[height=4cm]{extras/r-cisco-vni-2014.pdf}}
-	\Put(50,-10){Handling of load and streaming traffic patterns?}
+	\Put(105,200){\includegraphics[height=3cm]{extras/r-cisco-vni-2014.pdf}}
+	\Put(50,40){\fcolorbox{black}{white}{Handling of load and streaming traffic patterns?}}
 \end{frame}
 
 
@@ -339,7 +339,7 @@
 		\item Type and OS of device, access technology
 		\item Installed and active applications
 		\item Specific usage, time-of-day, and traffic patterns
-		\item Restrict to features identifiable from a network perspective
+		%\item Restrict to features identifiable from a network perspective
 	\end{itemize}
 
 	\vspace{0.3cm}
@@ -716,7 +716,7 @@
 	\end{columns}
 
 	\begin{itemize}
-		\item If network QoS is too bad, no strategy can ensure QoE
+		\item If network QoS is insufficient, no strategy can ensure QoE
 		\item TCP interacts unpredictably with loss, strategies have little influence
 		\item QoE optimization potential for increased latency
 	\end{itemize}
@@ -751,12 +751,12 @@
 	\begin{itemize}[<2->]
 		\item Feedback loops of many layers operate on the same time scale as (adaptive) streaming decision processes
 		\begin{itemize}
-			\item They will interact with and influence streaming process
+			\item Interact with and influence streaming process
 			\item E.g. GTP tunnel duration and signaling
 		\end{itemize}
-		\item Layer/protocols constantly changing and evolving, e.g. TCP
+		\item Layer/protocols constantly changing and evolving
 		\begin{itemize}
-			\item Complex interactions and state machines, different on every OS
+			\item E.g. TCP: complex interactions and state machines, different on every OS and version
 			%\item Specs leave much room for interpretation and optimization, often changes transmission behavior
 			%\item Examples: IW10, TCP congestion avoidance (New Reno, CUBIC, Compound), TFO, AQM (from FIFO to fq\_codel)
 		\end{itemize}
@@ -1098,69 +1098,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}
-	\frametitle{Mobile Streaming Strategies}
-	\framesubtitle{Example Four Threshold Strategy}
 
-	% \begin{columns}[T]
-	% 	\column{0.5\textwidth}
-
-			% \begin{itemize}
-			% 	\item Limits for playback start and stop, as well as transmission start and stop
-			% \end{itemize}
-
-		\begin{center}
-			\includegraphics[height=6cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
-
-			Limits for playback start/stop, transmission start/stop
-		\end{center}
-		
-
-	% \column{0.5\textwidth}
-	% 	\only<2->{Six Threshold Window Scaling Adaptive Strategy}
-
-	% 	\begin{itemize}[<2->]
-	% 		\item Derived from four threshold, adds quality increase and decrease thresholds
-	% 		\item Additionally control quality increase by ratio of playback to transmission rate in recent window 
-	% 	\end{itemize}
-
-	% \end{columns}
-
-\end{frame}
 
 
 
 \begin{frame}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Mobile Streaming Interactions}
-	\framesubtitle{Use Case: Leveraging Crosslayer Information}
-
-	\begin{overlayarea}{\textwidth}{\textheight}
-		\begin{itemize}
-			\item Make streaming apps aware of mobile net state to deal with influences
-			%\item Make lower-layer meta-data available to upmost layers through broker
-			\item Crosslayer information exchange model to pass baseband info to applications and include info in their decision making
-			\item Predict future events through other context information sources, e.g. handover events through GPS data and neighboring cells
-			%\item E.g. leverage handover early warnings for adaptive streaming strategy 
-		\end{itemize}
-		\vspace{-0.25cm}
-		\only<2->{
-		\begin{columns}[T]
-			\column{0.5\textwidth}
-				\centering
-				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}\\
-				Stalling occurs without handover hinting
-
-			\column{0.5\textwidth}
-				\centering
-				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}\\
-				\vspace{0.9em}
-				Stalling can be prevented by proactively filling the playback buffer
-		\end{columns}}
-	\end{overlayarea}
-\end{frame}
 
 
 
@@ -1242,15 +1186,15 @@
 	To estimate the current and future rates, the moving average of the transmission rate $s_{MA}$ and the video bitrate $v_{MA}$ are calculated. The condition $c$ Firefox uses to start and resume the playback process is given in the algorithm, with the buffered video duration $b_b$, and the duration spent buffering $b_T$.
 \end{frame}
 
-\begin{frame}
-	\frametitle{Adaptive Streaming Measurement Framework}
+% \begin{frame}
+% 	\frametitle{Adaptive Streaming Measurement Framework}
 
-	\begin{figure}
-		\centering
-		\includegraphics[height=2.5cm]{../../chapters/03-streaming/images/feedback-measurement-model.pdf}
-		\caption{Overview of the measurement framework for adaptive streaming playback strategies.}
-	\end{figure}
-\end{frame}
+% 	\begin{figure}
+% 		\centering
+% 		\includegraphics[height=2.5cm]{../../chapters/03-streaming/images/feedback-measurement-model.pdf}
+% 		\caption{Overview of the measurement framework for adaptive streaming playback strategies.}
+% 	\end{figure}
+% \end{frame}
 
 
 \begin{frame}
@@ -1302,8 +1246,6 @@
 		\caption{Calculated MOS for the loss measurement series.}
 	\end{figure}
 \end{frame}
-
-
 
 
 
@@ -1779,6 +1721,38 @@
 	\end{figure}
 \end{frame}
 
+
+\begin{frame}
+	\frametitle{Mobile Streaming Interactions}
+	\framesubtitle{Use Case: Leveraging Crosslayer Information}
+
+	\begin{overlayarea}{\textwidth}{\textheight}
+		\begin{itemize}
+			\item Make streaming apps aware of mobile net state to deal with influences
+			%\item Make lower-layer meta-data available to upmost layers through broker
+			\item Crosslayer information exchange model to pass baseband info to applications and include info in their decision making
+			\item Predict future events through other context information sources, e.g. handover events through GPS data and neighboring cells
+			%\item E.g. leverage handover early warnings for adaptive streaming strategy 
+		\end{itemize}
+		\vspace{-0.25cm}
+		\only<2->{
+		\begin{columns}[T]
+			\column{0.5\textwidth}
+				\centering
+				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-no-cl.pdf}\\
+				Stalling occurs without handover hinting
+
+			\column{0.5\textwidth}
+				\centering
+				\includegraphics[width=\columnwidth]{../../chapters/05-mobilestreaming/images/adaptive-streaming-cl.pdf}\\
+				\vspace{0.9em}
+				Stalling can be prevented by proactively filling the playback buffer
+		\end{columns}}
+	\end{overlayarea}
+\end{frame}
+
+
+
 \begin{frame}
 	\frametitle{TCP Changes in the Linux Kernel}
 		\tiny
@@ -1949,6 +1923,39 @@
 		\caption{Future testbed iteration: hybrid of ns-3 LTE simulation and actual or emulated streaming client and server bridged to it.}
 	\end{figure}
 \end{frame}
+
+
+\begin{frame}
+	\frametitle{Mobile Streaming Strategies}
+	\framesubtitle{Example Four Threshold Strategy}
+
+	% \begin{columns}[T]
+	% 	\column{0.5\textwidth}
+
+			% \begin{itemize}
+			% 	\item Limits for playback start and stop, as well as transmission start and stop
+			% \end{itemize}
+
+		\begin{center}
+			\includegraphics[height=6cm]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-time.pdf}
+
+			Limits for playback start/stop, transmission start/stop
+		\end{center}
+		
+
+	% \column{0.5\textwidth}
+	% 	\only<2->{Six Threshold Window Scaling Adaptive Strategy}
+
+	% 	\begin{itemize}[<2->]
+	% 		\item Derived from four threshold, adds quality increase and decrease thresholds
+	% 		\item Additionally control quality increase by ratio of playback to transmission rate in recent window 
+	% 	\end{itemize}
+
+	% \end{columns}
+
+\end{frame}
+
+
 
 \begin{frame}
 	\begin{columns}
