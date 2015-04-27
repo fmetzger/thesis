@@ -138,8 +138,8 @@
 		% 	\item Control and quality adaptivity
 		% \end{itemize}
 		% \item Impact of mobile core network and control plane not well understood
-		\item Separation of user and control plane, complex signaling
-		\item Interactions between reliable streaming and mobile networks?
+		\item Complex signaling, separation of user and control plane
+		\item Interactions between reliable streaming and mobile networks
 		\item Requires proper evaluation models and input parameters
 		%\item How to properly measure and model these circumstances?
 	\end{itemize}
@@ -149,8 +149,8 @@
 	\begin{itemize}
 		\item Model for reliable streaming measurements and categorization
 		\item (Discussion of influence factors on reliable streaming)
-		\item CN control plane load model derived from passive measurements
-		\item Creation of easy-to-use mobile streaming measurement approaches
+		\item CN control plane signaling model derived from passive measurements
+		\item Creation of easy-to-use mobile streaming evaluation approaches
 	\end{itemize}
 	\end{block}
 \end{frame}
@@ -165,7 +165,7 @@
 		\item Evaluation of a 3G core network
 			\begin{itemize}
 				\item Investigation and evaluation of the control plane
-				\item Modeling and simulating load
+				\item Modeling and simulating signaling
 			\end{itemize}
 
 		\item<2-> Investigation of TCP-based video streaming techniques
@@ -190,6 +190,16 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Thesis Components}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{extras/thesiscomponents.png}
+	\end{center}
+
+\end{frame}
+
+
+\begin{frame}
 	\frametitle{Placing the Thesis}
 
 	\begin{center}
@@ -198,14 +208,6 @@
 
 \end{frame}
 
-\begin{frame}
-	\frametitle{Thesis Components}
-
-	\begin{center}
-		\includegraphics[width=\textwidth]{extras/thesiscomponents.png}
-	\end{center}
-
-\end{frame}
 
 
 
@@ -302,7 +304,7 @@
 		\column{0.5\textwidth}
 
 	\begin{itemize}
-		\item Widely known signaling storm scenario (e.g. `Angry Apps''\cite{schwartz2013angrybirds})
+		\item Widely known signaling storm scenario\\ (e.g. `Angry Apps''\cite{schwartz2013angrybirds})
 		\item Search for control plane bottlenecks
 
 	% 	\item Traditionally user traffic volume
@@ -322,13 +324,15 @@
 
 	\column{0.5\textwidth}
 		\begin{center}
-			\includegraphics[height=4cm]{../../chapters/04-mobilenets/images/pdp-context-activation-procedure.pdf}
+			\includegraphics[height=4cm]{../../chapters/04-mobilenets/images/pdp-context-activation-procedure.pdf}\\
+			\vspace{-0.2cm}
+ 			{\small PDP Context activation procedure}
 		\end{center}
 
 	\end{columns}
 
 	\pause
-	%\vspace{1em}
+	\vspace{-0.1cm}
 	\begin{block}{Reasoning for GGSN as bottleneck}
 	\begin{itemize}
 		\item Single instance responsible for whole (or complete region) network
@@ -429,9 +433,9 @@
 	\pause
 	\begin{block}{Further investigations for signaling characterization}
 	\begin{itemize}
-		\item Build a queuing theory system model for GTP tunnels at the GGSN
 		\item Closely investigate tunnel arrival and service process
 		\item Derive distributions for these processes
+		\item Build a queuing theory system model for GTP tunnels at the GGSN
 	\end{itemize}
 	\end{block}
 \end{frame}
@@ -501,7 +505,7 @@
 			%\item Factors in time of day, but not device type
 			%\item Fit the time-of-day-differentiated arrival and serving processes
 			%\item Poisson tunnel arrival process with rate $\lambda(t)$ fitted with trace data
-			\item GGSN can serve $c$ tunnels in parallel, limited by network/processing load and signaling/state overhead
+			\item GGSN can serve $c$ tunnels in parallel, limited by resources (net/cpu/mem) and signaling/state overhead
 			%\item Tunnel duration $x(t)$ as general distribution, fitted with rational function
 			%\item Correlation coefficient $R \geq 0.99$ for each fit
 			\item If GGSN is full, reject new tunnels, leads to blocking probability $p_b$
@@ -515,7 +519,7 @@
 
 
 %%%
-\subsection{Queuing Simulation}
+%\subsection{Queuing Simulation}
 %%%
 
 
@@ -850,13 +854,13 @@
 
 
 	\begin{itemize}
-		\item Port the reliable streaming model to ns-3
+		\item Port the reliable streaming model to ns-3's LTE model
 		%\item ns-3 does not provide HTTP
 		%	\begin{itemize}
 		%		\item Directly use TCP and segmented transmissions to stream
 		%	\end{itemize}
 		%\item Implement example playback strategies
-		\item Create a reliable streaming LTE network scenario
+		\item Create an extensible reliable streaming mobile network scenario
 		%\item Use it as a blueprint for future setups
 	\end{itemize}
 
@@ -946,9 +950,9 @@
 	\begin{itemize}
 		\item Mobile Control Plane
 			\begin{itemize}
-				\item Compare to load in LTE/EPC networks
-				\item Look at other potential load bottlenecks, e.g. MME/HLR or PCEF/PCRF
-				\item Investigate specific load influence sources, esp. more user traffic aspects
+				\item Compare to signaling in LTE/EPC networks
+				\item Look at other potential signaling bottlenecks, e.g. MME/HLR or PCEF/PCRF
+				\item Investigate specific signaling influence sources, esp. user traffic aspects
 				\item Improve future 3GPP specs for reduced control plane complexity and better scaling
 			\end{itemize}
 		\vspace{1em}
@@ -1018,11 +1022,11 @@
 		\item Better understanding of mobile control plane for future architectures
 			\begin{itemize}
 				\item Operation and impact of GTP tunnels and signaling
-				\item Control plane load depends on traffic patterns not volume!
+				\item Control plane signaling depends on traffic patterns not volume
 			\end{itemize}
 		\item Tools for better network dimensioning, planning, and traffic management for operators
 			\begin{itemize}
-				\item Load Model, Queuing Simulation, and Virtual GGSN
+				\item GGSN Model, Queuing Simulation (, and virtualized GGSN)
 			\end{itemize}
 		\item Models published in several papers, open sourced tools and frameworks
 	\end{itemize}
