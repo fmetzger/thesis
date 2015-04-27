@@ -131,14 +131,16 @@
 	\framesubtitle{Current State of Affairs}
 
 	\begin{itemize}
-		\item Both mobile network and streaming traffic shares increasing rapidly
-		\item Large differences between RTP/UDP and reliable streaming
-		\begin{itemize}
-			\item Traffic patterns
-			\item Control and quality adaptivity
-		\end{itemize}
-		\item Impact of mobile core network and control plane not well understood
+		% \item Both mobile network and streaming traffic shares increasing rapidly
+		% \item Large differences between RTP/UDP and reliable streaming
+		% \begin{itemize}
+		% 	\item Traffic patterns
+		% 	\item Control and quality adaptivity
+		% \end{itemize}
+		% \item Impact of mobile core network and control plane not well understood
+		\item Separation of user and control plane, complex signaling
 		\item Interactions between reliable streaming and mobile networks?
+		\item Requires proper evaluation models and input parameters
 		%\item How to properly measure and model these circumstances?
 	\end{itemize}
 
@@ -146,9 +148,9 @@
 	\begin{block}{Investigation approach}
 	\begin{itemize}
 		\item Model for reliable streaming measurements and categorization
-		\item Discussion of influence factors on reliable streaming
+		\item (Discussion of influence factors on reliable streaming)
 		\item CN control plane load model derived from passive measurements
-		\item Creation of easy mobile streaming measurement approaches
+		\item Creation of easy-to-use mobile streaming measurement approaches
 	\end{itemize}
 	\end{block}
 \end{frame}
@@ -173,7 +175,7 @@
 				\item Measurements with the model
 			\end{itemize}
 
-		\item<3-> Measuring video streaming in a 3G network 
+		\item<3-> Measuring approaches for video streaming in a 3G network 
 			\begin{itemize}[<3->]
 				\item Investigation of influence factors, potential issues, and solutions
 				\item Comparison of evaluation approaches (active measurements and simulation)
@@ -196,6 +198,15 @@
 
 \end{frame}
 
+\begin{frame}
+	\frametitle{Thesis Components}
+
+	\begin{center}
+		\includegraphics[width=\textwidth]{extras/thesiscomponents.png}
+	\end{center}
+
+\end{frame}
+
 
 
 
@@ -203,51 +214,52 @@
 \section{Mobile Core Network Architecture}
 %%%
 
+% \begin{frame}
+% 	\frametitle{3G Core Network and Control Plane Overview}
+
+
+%     \begin{columns}[T]
+%     	\begin{column}[T]{5cm}
+% 			\begin{itemize}
+% 				%\item Looking at UMTS/3G in particular%, but GSM/GPRS almost the same
+% 				%\item LTE with certain updates to architecture
+% 				%	\begin{itemize}
+% 				%		\item SGW/PGW instead of SGSN/GGSN
+% 				%		\item but mostly similar protocols/procedures
+% 				%		\item not further mentioned
+% 				%	\end{itemize}
+
+% 				\item Everything is connected (cross-node, cross-layer)
+% 					\begin{itemize}
+% 						\item Action at mobile device will trigger procedures deep inside the network
+% 					\end{itemize}
+% 				\item Typical action: checking for new mail
+% 					\begin{itemize}
+% 						\item Activate radio only very briefly to save energy
+% 						\item Very little actual traffic
+% 						\item Triggers at least PDP context activation and deactivation proc's
+% 						\item ``signaling storm'' phenomenon
+% 					\end{itemize}
+
+% 				%\item tunnel management signaling: creation, deletion, and update request/response messages
+% 			\end{itemize}
+% 		\end{column}
+
+%     	\begin{column}[T]{5cm}
+% 			\begin{figure}
+% 				\centering
+% 				\includegraphics[height=6cm]{../../chapters/04-mobilenets/images/pdp-context-activation-procedure.pdf}
+% 			\end{figure}
+% 			\vspace{-0.5cm}
+% 			{\small PDP Context activation procedure}
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
+
+
 \begin{frame}
 	\frametitle{3G Core Network and Control Plane Overview}
-
-
-    \begin{columns}[T]
-    	\begin{column}[T]{5cm}
-			\begin{itemize}
-				%\item Looking at UMTS/3G in particular%, but GSM/GPRS almost the same
-				%\item LTE with certain updates to architecture
-				%	\begin{itemize}
-				%		\item SGW/PGW instead of SGSN/GGSN
-				%		\item but mostly similar protocols/procedures
-				%		\item not further mentioned
-				%	\end{itemize}
-
-				\item Everything is connected (cross-node, cross-layer)
-					\begin{itemize}
-						\item Action at mobile device will trigger procedures deep inside the network
-					\end{itemize}
-				\item Typical action: checking for new mail
-					\begin{itemize}
-						\item Activate radio only very briefly to save energy
-						\item Very little actual traffic
-						\item Triggers at least PDP context activation and deactivation proc's
-						\item ``signaling storm'' phenomenon
-					\end{itemize}
-
-				%\item tunnel management signaling: creation, deletion, and update request/response messages
-			\end{itemize}
-		\end{column}
-
-    	\begin{column}[T]{5cm}
-			\begin{figure}
-				\centering
-				\includegraphics[height=6cm]{../../chapters/04-mobilenets/images/pdp-context-activation-procedure.pdf}
-			\end{figure}
-			\vspace{-0.5cm}
-			{\small PDP Context activation procedure}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{GTP Tunneling Concept}
+    \framesubtitle{GTP Tunneling and Signaling Concept}
 
     \begin{itemize}
 		\item 3G user traffic is encapsulated into tunnels
@@ -284,28 +296,40 @@
 
 
 \begin{frame}
-	\frametitle{Mobile Network Load}
+	\frametitle{Mobile Network Signaling Evaluation}
 	
-	Definitions
-	\begin{itemize}
-		\item Traditionally user traffic volume
-			\begin{itemize}
-				\item Control plane signaling often not factored in
-			\end{itemize}
+	\begin{columns}
+		\column{0.5\textwidth}
 
-		\item Factor in control plane and core network
-			\begin{itemize}
-				%\item For one node $n$: $\rho_{n} = \max(\rho_{l,n}, \rho_{m,n}, \rho_{p,n})$ (link load $\rho_{l}$, memory load $\rho_{m}$, processing load $\rho_{p}$)
-				%\item total load of the core: $\rho_{CN} = \max_{n \in CN}(\rho_{n})$
-				\item Control plane tasks at each node contribute to total load
-				\item One factor (CPU, mem, net constraints) at one node will be the bottleneck
-				\item GGSN as a chief candidate
-			\end{itemize}
+	\begin{itemize}
+		\item Widely known signaling storm scenario (e.g. `Angry Apps''\cite{schwartz2013angrybirds})
+		\item Search for control plane bottlenecks
+
+	% 	\item Traditionally user traffic volume
+	% 		\begin{itemize}
+	% 			\item Control plane signaling often not factored in
+	% 		\end{itemize}
+
+	% 	\item Factor in control plane and core network
+	% 		\begin{itemize}
+	% 			%\item For one node $n$: $\rho_{n} = \max(\rho_{l,n}, \rho_{m,n}, \rho_{p,n})$ (link load $\rho_{l}$, memory load $\rho_{m}$, processing load $\rho_{p}$)
+	% 			%\item total load of the core: $\rho_{CN} = \max_{n \in CN}(\rho_{n})$
+	% 			\item Control plane tasks at each node contribute to total load
+	% 			\item One factor (CPU, mem, net constraints) at one node will be the bottleneck
+	% 			\item GGSN as a chief candidate
+	% 		\end{itemize}
 	\end{itemize}
 
+	\column{0.5\textwidth}
+		\begin{center}
+			\includegraphics[height=4cm]{../../chapters/04-mobilenets/images/pdp-context-activation-procedure.pdf}
+		\end{center}
+
+	\end{columns}
+
 	\pause
-	\vspace{1em}
-	\begin{block}{Reasoning for GGSN as load bottleneck}
+	%\vspace{1em}
+	\begin{block}{Reasoning for GGSN as bottleneck}
 	\begin{itemize}
 		\item Single instance responsible for whole (or complete region) network
 		\item Handles PDP Context signaling and state for each device/tunnel
@@ -323,7 +347,7 @@
 
 
 \begin{frame}
-	\frametitle{Load Influencing Factors}
+	\frametitle{Signaling Influencing Factors}
 	Many sources of influence, both internal as well as external
 
 	Network-centric factors
@@ -345,8 +369,8 @@
 	\vspace{0.3cm}
 
 	\pause
-	\begin{block}{Load evaluation approach}
-		Investigate load at \textbf{GGSN} on the basis of \textbf{GTP tunnel characteristics}
+	\begin{block}{Signaling evaluation approach}
+		Investigate signaling at \textbf{GGSN} on the basis of \textbf{GTP tunnel characteristics}
 	\end{block}
 
 \end{frame}
@@ -403,7 +427,7 @@
 			\end{itemize}
 	\end{itemize}
 	\pause
-	\begin{block}{Further investigations for load characterization}
+	\begin{block}{Further investigations for signaling characterization}
 	\begin{itemize}
 		\item Build a queuing theory system model for GTP tunnels at the GGSN
 		\item Closely investigate tunnel arrival and service process
@@ -466,15 +490,15 @@
 
 \begin{frame}
 	\frametitle{Deriving a Model}
-	\framesubtitle{Monolithic GGSN Queuing Model}
+	\framesubtitle{GGSN Queuing Model}
 		\begin{center}
 			% \includegraphics[height=3cm]{../../chapters/041-mobilenetsmeasuring/images/ggsn-monolithic.pdf}
 			\includegraphics[height=3cm]{extras/ggsn-monolithic.png}
 		\end{center}
 
 		\begin{itemize}
-			\item Model for GGSN load investigation based on tunnel arrivals
-			\item Factors in time of day, but not device type
+			\item Model for GGSN dimensioning based on tunnel arrivals
+			%\item Factors in time of day, but not device type
 			%\item Fit the time-of-day-differentiated arrival and serving processes
 			%\item Poisson tunnel arrival process with rate $\lambda(t)$ fitted with trace data
 			\item GGSN can serve $c$ tunnels in parallel, limited by network/processing load and signaling/state overhead
@@ -487,27 +511,7 @@
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{Expanding the Model}
-	\framesubtitle{Virtualized GGSN Queuing Model}
-		\begin{center}
-			% \includegraphics[height=3.5cm]{extras/ggsn-virtualized.pdf}
-			\includegraphics[height=3.5cm]{extras/ggsn-virtualized.png}
-		\end{center}
 
-		\begin{itemize}
-			\item Suggestion for a virtual GGSN architecture for 3G networks
-			\item Same arrival and serving time process, no queue
-			\item Load balancing strategies for VM management and tunnel placement
-			%Hypervisor distributes tunnels and starts on demand up to $s_{max}$ virtualized GGSN instances, each with capacity $m$
-			%\item Up to $s_{max}$ instances with capacity of $m$ each
-			%\item Instance count kept near actual system load (energy efficiency)
-			\item Could incur additional blocking (virtualization overhead)
-			% when new instances are not switched on fast enough, or instance overhead if not shut down when unused
-			\item Additional dimension for scaling compared to monolithic model
-			\item[$\rightarrow$] $\color{red}M(t)/G(t)/\|\overrightarrow{c}\|_1/0$ ($|\overrightarrow{c}\|_1$: total tunnel capacity of all $s$ VMs) % 1-norm des Kapazitätsvektors
-		\end{itemize}
-\end{frame}
 
 
 %%%
@@ -523,7 +527,7 @@
 		\item Use queuing simulation with the fitted distributions
 		%\item SimPy3-based DES, one week period, 10 repetitions, naive VMM
 		%\item Variables: Total tunnel capacity, number and capacity of VMs
-		\item Evaluate blocking probability and VM usage based on tunnel capacity
+		\item Evaluate blocking probability based on tunnel capacity
 		%\item Arrival process with exponential distributions fitted to dataset, four time of day slots
 		%($\lambda=\{10.67,24.53,29.25,23.50\}$ before normalization)
 		%\item Tunnel duration CDF fitted with a rational function
@@ -542,9 +546,10 @@
 	\end{center}
 	\vspace{-0.25cm}
 	\begin{itemize}
-		\item Monolithic and virtualized GGSN scale equally with supported tunnels
-		\item Negligible virtualization overhead, but potential energy efficiency gains
-		\item Usage as load prediction tool for operators
+		%\item Monolithic and virtualized GGSN scale equally with supported tunnels
+		%\item Negligible virtualization overhead, but potential energy efficiency gains
+		\item Usage as GGSN dimensioning tool for operators
+		\item Virtualized GGSN with better scaling options possible
 		%\item System scales both up (tunnels/instance) and out (instances)
 		%\item Unused instances can be shut down for increased energy efficiency compared to monolithic model
 	\end{itemize}}
@@ -748,28 +753,43 @@
 	\begin{itemize}
 		\item Reliable streaming mostly designed for wired conditions
 		%\item Simply tested for certain BW, delay, loss ranges
-		\item Complex mobile signaling interacts with higher protocol layers %in unforeseen ways
-		\item Influences of the network stack on reliable streaming in particular?
-		\item Possible sources on every layer, need to be understood before measuring
+		\item Complex mobile signaling interacts with streaming %in unforeseen ways
+		%\item Influences of the network stack on reliable streaming in particular?
+		\item Possible sources on every layer, need to be understood
 		\begin{itemize}
 			\item But exploitable through cross-layer information exchange
+			\item e.g. GTP tunnels and signaling with streaming transmission patterns
 		\end{itemize}
 	\end{itemize}
 
-	\begin{itemize}[<2->]
-		\item Feedback loops of many layers operate on the same time scale as (adaptive) streaming decision processes
-		\begin{itemize}
-			\item Interact with and influence streaming process
-			\item E.g. GTP tunnel duration and signaling
-		\end{itemize}
-		\item Layer/protocols constantly changing and evolving
-		\begin{itemize}
-			\item E.g. TCP: complex interactions and state machines, different on every OS and version
-			%\item Specs leave much room for interpretation and optimization, often changes transmission behavior
-			%\item Examples: IW10, TCP congestion avoidance (New Reno, CUBIC, Compound), TFO, AQM (from FIFO to fq\_codel)
-		\end{itemize}
+	% \begin{itemize}[<2->]
+	% 	\item Feedback loops of many layers operate on the same time scale as (adaptive) streaming decision processes
+	% 	\begin{itemize}
+	% 		\item Interact with and influence streaming process
+	% 		\item E.g. GTP tunnel duration and signaling
+	% 	\end{itemize}
+	% 	\item Layer/protocols constantly changing and evolving
+	% 	\begin{itemize}
+	% 		\item E.g. TCP: complex interactions and state machines, different on every OS and version
+	% 		%\item Specs leave much room for interpretation and optimization, often changes transmission behavior
+	% 		%\item Examples: IW10, TCP congestion avoidance (New Reno, CUBIC, Compound), TFO, AQM (from FIFO to fq\_codel)
+	% 	\end{itemize}
 
-	\end{itemize}
+	% \end{itemize}
+
+	\pause
+	Provide two more angles to conduct measurements
+		\begin{itemize}
+			\item Enhancing active measurements with mobile-specific metadata
+			\begin{itemize}
+				\item Privacy-aware sensor crowdsourcing app for large scale mobile measurement campaigns (Sensorium, not shown here)
+			\end{itemize}
+			\item Simulating streaming in mobile networks using the introduced streaming measurement model
+			\begin{itemize}
+				\item Selected the ns-3 LTE model as a basis after a survey of various mobile network simulators
+				\item Limitations due to the absence and accuracy of most control plane procedures
+			\end{itemize}
+		\end{itemize}
 \end{frame}
 
 
@@ -788,34 +808,34 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Measuring Mobile Reliable Streaming}
-%%%
+% \subsection{Measuring Mobile Reliable Streaming}
+% %%%
 
-\begin{frame}
-	\frametitle{Evaluating Reliable Streaming in Mobile Networks}
+% \begin{frame}
+% 	\frametitle{Evaluating Reliable Streaming in Mobile Networks}
 
-	\begin{itemize}
-		\item Intent to understand these influences and interactions
-		\item Passive core network traces are a rare opportunity
-		\begin{itemize}
-			\item Numerous privacy, business interest, NDA issues
-			\item Focus limited to network-wide effects, not specific users
-		\end{itemize}
-		\pause
-		\item Provide two more angles to conduct measurements
-		\begin{itemize}
-			\item Enhancing active measurements with mobile-specific metadata
-			\begin{itemize}
-				\item Privacy-aware sensor collection app for large scale mobile measurement campaigns (Sensorium, not shown here)
-			\end{itemize}
-			\item Simulating streaming in mobile networks using the introduced streaming measurement model
-			\begin{itemize}
-				\item Selected the ns-3 LTE model as a basis after a survey of various mobile network simulators
-				\item Limitations due to the absence and accuracy of most control plane procedures
-			\end{itemize}
-		\end{itemize}
-	\end{itemize}
-\end{frame}
+% 	\begin{itemize}
+% 		\item Intent to understand these influences and interactions
+% 		\item Passive core network traces are a rare opportunity
+% 		\begin{itemize}
+% 			\item Numerous privacy, business interest, NDA issues
+% 			\item Focus limited to network-wide effects, not specific users
+% 		\end{itemize}
+% 		\pause
+% 		\item Provide two more angles to conduct measurements
+% 		\begin{itemize}
+% 			\item Enhancing active measurements with mobile-specific metadata
+% 			\begin{itemize}
+% 				\item Privacy-aware sensor crowdsourcing app for large scale mobile measurement campaigns (Sensorium, not shown here)
+% 			\end{itemize}
+% 			\item Simulating streaming in mobile networks using the introduced streaming measurement model
+% 			\begin{itemize}
+% 				\item Selected the ns-3 LTE model as a basis after a survey of various mobile network simulators
+% 				\item Limitations due to the absence and accuracy of most control plane procedures
+% 			\end{itemize}
+% 		\end{itemize}
+% 	\end{itemize}
+% \end{frame}
 
 
 
@@ -825,21 +845,38 @@
 	\frametitle{Mobile Streaming Simulation}
 	\framesubtitle{with ns-3}
 
+	\begin{columns}[T]
+		\column{0.5\textwidth}
+
+
 	\begin{itemize}
 		\item Port the reliable streaming model to ns-3
-		\item ns-3 does not provide HTTP
-			\begin{itemize}
-				\item Directly use TCP and segmented transmissions to stream
-			\end{itemize}
-		\item Implement example playback strategies
-		\item Create a reliable streaming in an LTE network scenario
-		\item Use it as a blueprint for future setups
+		%\item ns-3 does not provide HTTP
+		%	\begin{itemize}
+		%		\item Directly use TCP and segmented transmissions to stream
+		%	\end{itemize}
+		%\item Implement example playback strategies
+		\item Create a reliable streaming LTE network scenario
+		%\item Use it as a blueprint for future setups
 	\end{itemize}
 
-	\begin{center}
-		%\includegraphics[height=2cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation.pdf}
-		\includegraphics[height=4cm]{extras/streaming-simulation.pdf}
-	\end{center}
+		\begin{center}
+			%\includegraphics[height=2cm]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation.pdf}
+			\includegraphics[width=0.8\columnwidth]{extras/streaming-simulation.pdf}
+		\end{center}
+
+
+		\pause
+		\column{0.5\textwidth}
+		\begin{itemize}
+			\item Simple dual eNodeB scenario
+			\item Moving back and forth between them
+		\end{itemize}
+
+		\begin{center}
+			\includegraphics[width=0.7\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation-mobility.pdf}
+		\end{center}
+	\end{columns}
 
 \end{frame}
 
@@ -871,29 +908,58 @@
 	\frametitle{Simulation Evaluation}
 	\framesubtitle{Mobility Scenario}
 
-	\begin{overlayarea}{\textwidth}{\textheight}
-	\begin{columns}[T]
-	\column{0.5\textwidth}
+	\begin{center}
+	\includegraphics[width=0.7\textwidth]{extras/R-ltesim-plotbuffer-mobility-facets.png}
+	\end{center}
 
-		\begin{itemize}
-			\item Simple dual eNodeB scenario
-			\item Moving back and forth between them
-		\end{itemize}
+	% \begin{overlayarea}{\textwidth}{\textheight}
+	% \begin{columns}[T]
+	% \column{0.5\textwidth}
 
-		\begin{center}
-			\includegraphics[width=0.7\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation-mobility.pdf}
-		\end{center}
+	% 	\begin{itemize}
+	% 		\item Simple dual eNodeB scenario
+	% 		\item Moving back and forth between them
+	% 	\end{itemize}
 
-	\column{0.5\textwidth}
+	% 	\begin{center}
+	% 		\includegraphics[width=0.7\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/streaming-simulation-mobility.pdf}
+	% 	\end{center}
 
-		\begin{itemize}[<2->]
-			\item Stall events at coverage edges and due to handovers
-		\end{itemize}
+	% \column{0.5\textwidth}
+
+	% 	\begin{itemize}[<2->]
+	% 		\item Stall events at coverage edges and due to handovers
+	% 	\end{itemize}
 
 		% \only<2->{\includegraphics[width=\columnwidth]{../../chapters/06-mobilestreamingmeasurements/images/R-ltesim-plotbuffer-mobility-facets.pdf}}
-		\only<2->{\includegraphics[width=\columnwidth]{extras/R-ltesim-plotbuffer-mobility-facets.png}}
-	\end{columns}
-	\end{overlayarea}
+	% 	\only<2->{\includegraphics[width=\columnwidth]{extras/R-ltesim-plotbuffer-mobility-facets.png}}
+	% \end{columns}
+	% \end{overlayarea}
+
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Future Work}
+
+	\begin{itemize}
+		\item Mobile Control Plane
+			\begin{itemize}
+				\item Compare to load in LTE/EPC networks
+				\item Look at other potential load bottlenecks, e.g. MME/HLR or PCEF/PCRF
+				\item Investigate specific load influence sources, esp. more user traffic aspects
+				\item Improve future 3GPP specs for reduced control plane complexity and better scaling
+			\end{itemize}
+		\vspace{1em}
+		\item Reliable Streaming
+		\begin{itemize}
+			\item Investigate influences of different transport and application layer protocols, e.g. QUIC, TLS, HTTP/2, TCP variants
+			\item QoE optimization of playback strategies for current context factors
+			\item Streaming centric mobile measurements and simulations with focus on the interaction of adaptivity with mobility and other context factors
+			%\item Recreate similar mobility experiments within the simulator, focusing on the adaptability of playback 
+		\end{itemize}
+	\end{itemize}
 
 \end{frame}
 
@@ -963,28 +1029,6 @@
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{Future Work}
-
-	\begin{itemize}
-		\item Mobile Control Plane
-			\begin{itemize}
-				\item Compare to load in LTE/EPC networks
-				\item Look at other potential load bottlenecks, e.g. MME/HLR or PCEF/PCRF
-				\item Investigate specific load influence sources, esp. more user traffic aspects
-				\item Improve future 3GPP specs for reduced control plane complexity and better scaling
-			\end{itemize}
-		\vspace{1em}
-		\item Reliable Streaming
-		\begin{itemize}
-			\item Investigate influences of different transport and application layer protocols, e.g. QUIC, TLS, HTTP/2, TCP variants
-			\item QoE optimization of playback strategies for current context factors
-			\item Streaming centric mobile measurements and simulations with focus on the interaction of adaptivity with mobility and other context factors
-			%\item Recreate similar mobility experiments within the simulator, focusing on the adaptability of playback 
-		\end{itemize}
-	\end{itemize}
-
-\end{frame}
 
 
 % \begin{frame}
@@ -1046,8 +1090,11 @@
 \begin{frame}
 	\frametitle{Thanks!}
 
-	\centering
-		\Large Questions!
+	\begin{center}
+		\includegraphics[width=\textwidth]{extras/thesiscomponents.png}
+	\end{center}
+
+	\Put(110,25){\fcolorbox{black}{white}{\Huge Questions!}}
 \end{frame}
 
 
@@ -1625,6 +1672,28 @@
 		\includegraphics[height=1cm]{extras/markovchain.png}
 		\caption{$M/M/c/\infty$ Markov chain model.}
 	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Expanding the Model}
+	\framesubtitle{Virtualized GGSN Queuing Model}
+		\begin{center}
+			% \includegraphics[height=3.5cm]{extras/ggsn-virtualized.pdf}
+			\includegraphics[height=3.5cm]{extras/ggsn-virtualized.png}
+		\end{center}
+
+		\begin{itemize}
+			\item Suggestion for a virtual GGSN architecture for 3G networks
+			\item Same arrival and serving time process, no queue
+			\item Load balancing strategies for VM management and tunnel placement
+			%Hypervisor distributes tunnels and starts on demand up to $s_{max}$ virtualized GGSN instances, each with capacity $m$
+			%\item Up to $s_{max}$ instances with capacity of $m$ each
+			%\item Instance count kept near actual system load (energy efficiency)
+			\item Could incur additional blocking (virtualization overhead)
+			% when new instances are not switched on fast enough, or instance overhead if not shut down when unused
+			\item Additional dimension for scaling compared to monolithic model
+			\item[$\rightarrow$] $\color{red}M(t)/G(t)/\|\overrightarrow{c}\|_1/0$ ($|\overrightarrow{c}\|_1$: total tunnel capacity of all $s$ VMs) % 1-norm des Kapazitätsvektors
+		\end{itemize}
 \end{frame}
 
 \begin{frame}
