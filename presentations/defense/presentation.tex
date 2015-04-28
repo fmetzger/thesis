@@ -269,7 +269,7 @@
 			\item Radio bearer to the device
 			\item GPRS Tunneling Protocol (GTP) at L4 SGSN $\leftrightarrow$ GGSN
 		\end{itemize}
-		\item State held at and signaled between core nodes
+		\item State (PDP Context) held at and signaled between core nodes
 		\item Additional overhead and load
 		\begin{itemize}
 			\item Network: signaling messages, headers
@@ -480,7 +480,7 @@
 	\begin{itemize}
 		\item Strong influence of user device type and OS on duration
 		\item ``Signalling storm'' visible in CN: many short tunnels for specific devices
-		\item Also dependent on time of day
+		\item Time of day dependence
 		\item Tunnel duration $x(t)$ fitted with rational function, $R \geq 0.99$
 	\end{itemize}
 \end{frame}
@@ -755,13 +755,13 @@
 	\framesubtitle{Interactions and Influences}
 
 	\begin{itemize}
-		\item Reliable streaming mostly designed for wired conditions
+		\item Reliable streaming often designed for wired conditions
 		%\item Simply tested for certain BW, delay, loss ranges
 		\item Complex mobile signaling interacts with streaming %in unforeseen ways
 		%\item Influences of the network stack on reliable streaming in particular?
 		\item Possible sources on every layer, need to be understood
 		\begin{itemize}
-			\item But exploitable through cross-layer information exchange
+			\item But exploitable through cross-layer information exchange (not shown)
 			\item e.g. GTP tunnels and signaling with streaming transmission patterns
 		\end{itemize}
 	\end{itemize}
@@ -951,9 +951,9 @@
 		\item Mobile Control Plane
 			\begin{itemize}
 				\item Compare to signaling in LTE/EPC networks
-				\item Look at other potential signaling bottlenecks, e.g. MME/HLR or PCEF/PCRF
+				\item Look at other potential signaling hotspots, e.g. MME/HLR or PCEF/PCRF
 				\item Investigate specific signaling influence sources, esp. user traffic aspects
-				\item Improve future 3GPP specs for reduced control plane complexity and better scaling
+				\item Reduce statefulness in  future 3GPP networks for improved scaling and efficiency
 			\end{itemize}
 		\vspace{1em}
 		\item Reliable Streaming
@@ -1010,8 +1010,8 @@
 	\frametitle{Summary and Contributions}
 
 	\begin{itemize}
-		\item Investigate interworkings and influences of reliable streaming and mobile networks
-		\item Provide angles to wholly evaluate streaming and in particular mobile reliable streaming
+		\item Investigated interworkings and influences of reliable streaming and mobile networks
+		\item Provided angles to wholly evaluate streaming and in particular mobile reliable streaming
 		\begin{itemize}
 			\item Two phase streaming measurement model
 			\item Mobile active measurement and simulation approaches
