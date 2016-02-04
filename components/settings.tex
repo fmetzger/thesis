@@ -50,8 +50,7 @@
 %%% toc
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
-%\setlength{\cftbeforechapskip}{0.3em}
-%\setlength{\cftbeforesecskip}{0.1em}
+
 
 
 %% load and typeset glossaries
@@ -66,15 +65,15 @@
 	\begingroup
 		\let\clearpage\relax
 		\let\cleardoublepage\relax
-	    \chapter*{Figures}%
-	    %\phantomsection
-	    \addcontentsline{toc}{chapter}{Figures}%
-	    \@starttoc{lof}%
-	    \bigskip
-	    \chapter*{Tables}%
-	    %\phantomsection
-	    \addcontentsline{toc}{chapter}{Tables}%
-	    \@starttoc{lot}
+    \chapter*{Figures}%
+    %\phantomsection
+    \addcontentsline{toc}{chapter}{Figures}%
+    \@starttoc{lof}%
+    \bigskip
+    \chapter*{Tables}%
+    %\phantomsection
+    \addcontentsline{toc}{chapter}{Tables}%
+    \@starttoc{lot}
     \endgroup}
 \makeatother
 
@@ -130,7 +129,7 @@
               
 % headlines
     \clearscrheadings
-    \setheadsepline{0pt}
+    %\setheadsepline{0pt}
     \renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\textsc{#1}}} 
     \lehead{\mbox{\llap{\small\thepage\kern2em}\headmark\hfil}}
     \rohead{\mbox{\hfil{\headmark}\rlap{\small\kern2em\thepage}}}
@@ -142,33 +141,18 @@
       \@mkboth{\textsc{\contentsname}}{\textsc{\contentsname}}}
 
 
-%% titlesec settings
-% section heading styles     
-%\AtBeginDocument{\addtocontents{toc}{\protect\vspace{-\cftbeforechapskip}}}
+%% titleformat redefinitions
 
-\titleformat{\chapter}[display]%
-  {\relax}{\vspace*{-3\baselineskip}\makebox[\linewidth][r]{\color{halfgray}\fontsize{2.7cm}{1em}\selectfont\thechapter}}{0pt}%
-  {\raggedright\spacedallcaps}[\normalsize\vspace*{.8\baselineskip}\titlerule]%
+\renewcommand*{\chapterformat}{%
+  {\fontsize{2.7cm}{1em}\selectfont\thechapter}\enskip
+  \textcolor{gray!50}{\rule[-\dp\strutbox]{2pt}{\baselineskip}}\enskip
+}
+\setkomafont{disposition}{\normalcolor\scshape}
 
-% sections
-\titleformat{\section}{\relax}{\textsc{\thesection}}{1em}{\scshape}
+% % paragraphs
+% TODO: would prefer "hanging" paragraph headings
 
-% subsections
-\titleformat{\subsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsection}}}{1em}{\normalsize\itshape}
-
-% subsubsections
-\titleformat{\subsubsection}{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}
-
-% paragraphs
-\titleformat{\paragraph}[hang]{\normalfont\normalsize}{\theparagraph}{0pt}{\scshape}
-
-% descriptionlabels
-\renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{#1}}   % spacedlowsmallcaps textit textsc                  
-% spacing
-\titlespacing*{\chapter}{0pt}{1\baselineskip}{1.2\baselineskip}
-\titlespacing*{\section}{0pt}{1.25\baselineskip}{1\baselineskip} 
-\titlespacing*{\subsection}{0pt}{1.25\baselineskip}{1\baselineskip}
-\titlespacing*{\paragraph}{0pt}{1\baselineskip}{1\baselineskip}
+\renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\textsc{#1}}   % spacedlowsmallcaps textit textsc
 
 
 %% toc style with tocloft package
@@ -178,11 +162,6 @@
 \let\oldchap=\chapter
 \renewcommand*{\chapter}{\secdef{\Chap}{\ChapS}}
 \newcommand\ChapS[1]{\oldchap*{#1}}%
-% \newcommand\Chap[2][]{%
-%        \ifpdf\oldchap[\texorpdfstring{\spacedlowsmallcaps{#1}}{#1}]{#2}%
-%        \else\oldchap[\spacedlowsmallcaps{#1}]{#2}%
-%        \fi%
-% }%
 \newcommand\Chap[2][]{\oldchap[\textsc{#1}]{#2}}%
 %\textsc{foo} {\scshape bar}
 

@@ -43,25 +43,22 @@
 
 
 \usepackage[hyphens]{url}
-%\usepackage[l2tabu,orthodox]{nag} % old style latex & warnings as errors
 \usepackage{scrhack} % fix komascript floattolist issues
 \usepackage[defernumbers=true, style=alphabetic, citestyle=alphabetic, firstinits=true, backend=biber, doi=true, url=true, block=ragged, maxnames=6]{biblatex} % 
 \usepackage{csquotes} % context sensitive quotations; especially for use with biblatex and biber
 \usepackage{listings} % ?
 \usepackage[scale=3]{ccicons} % creative commons icons
 \usepackage{import} % for subimport and relative directory \includegraphics
-\usepackage{caption} % figure caption control
+% \usepackage{caption} % figure caption control
 \usepackage{subcaption} % sub figure replacement
 \usepackage{multirow} % tables spanning multiple rows
 \usepackage{longtable} %required for tabu with longtabu
 \usepackage{tabu} %supersedes tabularx, provides tables spanning multiple pages
 \usepackage{tikz}
 \usetikzlibrary{arrows}
-%\usepackage{marginnote} % ?
 \usepackage{enumitem} % inline lists, etc.
 \usepackage{array} % ?
 \usepackage{styles/tangocolors}
-%\usepackage[colorlinks, unicode=true,pdfa]{hyperref}
 \usepackage[colorlinks, unicode=true]{hyperref}
 \hypersetup{pdfencoding=auto, colorlinks=true, linktocpage=true, breaklinks=true, bookmarksnumbered, bookmarksopen=true,bookmarksopenlevel=1, pdfhighlight=/O, urlcolor=webbrown, linkcolor=linkblue, citecolor=webgreen}
 \usepackage[acronym, nomain, style=tree, toc, section=chapter, nogroupskip=true]{glossaries}
@@ -75,13 +72,11 @@
 \npstyleenglish % numprint style, fraction and 1.000 separation
 \usepackage[24hr,iso]{datetime}
 %\usepackage{gitinfo}
-%\usepackage[multiple,stable]{footmisc} % incompatible with hyperref
-\usepackage[automark]{scrpage2}
+\usepackage[automark]{scrlayer-scrpage}
 \usepackage{booktabs} % \toprule and other table stuff
 \usepackage[titles]{tocloft} % toc style
 %\usepackage[disable]{easy-todo} % load after tocloft to avoid option clash, option [disable] to disable!
 \usepackage[a4paper]{geometry} % page margins
-\usepackage{titlesec}
 \usepackage{textcase} % for \MakeTextUppercase
 
 
